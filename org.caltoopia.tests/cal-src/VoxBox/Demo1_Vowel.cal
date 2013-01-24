@@ -1,0 +1,71 @@
+/* 
+ * Copyright (c) Ericsson AB, 2013
+ * All rights reserved.
+ *
+ * License terms:
+ *
+ * Redistribution and use in source and binary forms, 
+ * with or without modification, are permitted provided 
+ * that the following conditions are met:
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the 
+ *       following disclaimer.
+ *     * Redistributions in binary form must reproduce the 
+ *       above copyright notice, this list of conditions and 
+ *       the following disclaimer in the documentation and/or 
+ *       other materials provided with the distribution.
+ *     * Neither the name of the copyright holder nor the names 
+ *       of its contributors may be used to endorse or promote 
+ *       products derived from this software without specific 
+ *       prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+ * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+ 
+namespace VoxBox:
+
+import ART.art_Sink_real;
+
+/**
+ * This demo exercises the impulse generator and the synthesis filter. 
+ * Fixed vowel sounds are generated using fixed-frequency impulses.
+ * The expected output is monotone, "robotic" vowel sounds.
+ */
+
+network Demo1_Vowel() ==> :
+  entities
+    period=ConstantSource(Value=145);
+    
+    pulse=ImpulseGenerator(BlockSize=160,MinPeriod=20);
+    
+    vowel=VowelSource(Vowel=0, Duration=100*2);
+    
+    synthFilter=AllPole(BlockSize=160, NumPoles=6);
+ 
+	//sink=Speaker(BLOCK_SIZE=160,NUM_CHANNELS=1,SAMPLE_RATE=16000,BITS_PER_SAMPLE=16);
+	sink=WavSink(fileName="./output/Demo1_Vowel/");
+	
+  structure
+    period.Out --> pulse.Period;
+    
+    vowel.G --> synthFilter.G;
+    vowel.Coeff --> synthFilter.Coeff;
+    
+    pulse.Out --> synthFilter.In;
+    
+    synthFilter.Out --> sink.In;
+   end
+
+end

@@ -1,0 +1,30 @@
+namespace System:
+
+  namespace io:
+  
+  	external procedure println();
+  	
+  	external procedure printInt(int i);
+  	
+  	external procedure printStr(string s);
+	
+	external procedure dprint(string s);
+    
+    external procedure dprint1(string s, int i);
+    
+    external procedure dprint2(string s, int i1, int i2);
+
+    external procedure dprint3(string s, int i1, int i2, int i3);
+    
+    external procedure dprintc(int i1, int i2, string s);
+    
+    external procedure dprint_trace(string s1, string s2);
+    
+    external procedure dprint_trace1(string s1, string s2, int i);
+    
+    external procedure dprint_trace2(string s1, string s2, int i1, int i2);
+    
+    external procedure dprint_trace3(string s1, string s2, int i1, int i2, int i3);
+  end
+
+end

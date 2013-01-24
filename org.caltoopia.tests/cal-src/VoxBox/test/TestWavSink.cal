@@ -1,0 +1,17 @@
+/*
+ * Tests the WavSink network:
+ * A 10s sequence of test tones is generated
+ */ 
+namespace VoxBox:
+
+network TestWavSink() ==> :
+  entities
+    source = TestTone(SAMPLE_RATE=16000);
+    
+	sink = WavSink(fileName="./output.wav");
+
+  structure
+	source.Out --> sink.In;
+end
+
+end

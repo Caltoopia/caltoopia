@@ -1,0 +1,26 @@
+/*
+ * Tests the AutoCorr actor:
+ *
+ * input1/TestAutoCorr/in.txt as source should produce output1/TestAutoCorr/out.txt
+ * alternatively:
+ * test2/segmentation.out.txt        --->              test2/autocorr.out.txt
+ */ 
+namespace VoxBox:
+
+import ART.art_Source_real;
+import ART.art_Sink_real;
+
+network TestAutoCorr() ==> :
+  entities
+	source = art_Source_real(fileName="./in.txt");
+    
+    autoCorr = AutoCorr(WindowSize=480, MaxLag=12);
+    
+	sink = art_Sink_real(fileName="./out.txt");
+	
+  structure
+	source.Out --> autoCorr.In;
+	autoCorr.Out --> sink.In;
+end
+
+end

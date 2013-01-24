@@ -1,0 +1,30 @@
+/*
+ * Tests the Levinson actor:
+ *
+ * input1/TestLevinson/in.txt as source should produce output1/TestLevinson/coeff.txt and gain.txt 
+ * alternatively:
+ * test2/autocorr.out.txt        --->              test2/levinson.coeff.txt and levinson.gain.txt
+ */ 
+
+namespace VoxBox:
+
+import ART.art_Source_real;
+import ART.art_Sink_real;
+
+network TestLevinson() ==> : 
+
+  entities
+    source=art_Source_real(fileName="./in.txt");
+    levinson=Levinson(LpcDegree=12);
+    sinkGain=art_Sink_real(fileName="./gain.txt");
+    sinkCoeff=art_Sink_real(fileName="./coeff.txt");
+    
+  structure
+    source.Out --> levinson.In;
+    
+    levinson.Coeff --> sinkCoeff.In;
+    levinson.G --> sinkGain.In;
+end
+
+end
+

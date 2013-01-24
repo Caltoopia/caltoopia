@@ -1,0 +1,103 @@
+/* 
+ * Copyright (c) Ericsson AB, 2013
+ * All rights reserved.
+ *
+ * License terms:
+ *
+ * Redistribution and use in source and binary forms, 
+ * with or without modification, are permitted provided 
+ * that the following conditions are met:
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the 
+ *       following disclaimer.
+ *     * Redistributions in binary form must reproduce the 
+ *       above copyright notice, this list of conditions and 
+ *       the following disclaimer in the documentation and/or 
+ *       other materials provided with the distribution.
+ *     * Neither the name of the copyright holder nor the names 
+ *       of its contributors may be used to endorse or promote 
+ *       products derived from this software without specific 
+ *       prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+ * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+ 
+namespace VoxBox:
+
+/*
+ * Converts a stream of float samples [-1.0,1.0) into
+ * a byte stream in RIFF/.WAV format
+ */
+ 
+actor WavProducer() float In ==> int Out:
+
+  /* TODO could be useful to provide these as parameters and/or inputs */
+  int DATA_SIZE=320000;                  /* we don't know this beforehand! */
+  int RIFF_SIZE=DATA_SIZE+44-8;
+  int SAMPLE_RATE=16000;
+  int NUM_CHANNELS=1;
+  int BYTES_PER_SAMPLE=2;
+  int BLOCK_ALIGN=BYTES_PER_SAMPLE*NUM_CHANNELS;
+  int BYTES_PER_SECOND=SAMPLE_RATE*BLOCK_ALIGN;
+  
+  function getByte(int word, int index) --> int : (word >> (8*index)) & 255 end
+  
+  function clip(float x, int min, int max) --> int : if x<min then min
+                                                     else if x>max then max
+                                                          else x
+                                                          end
+                                                     end
+                                               end
+                                                                                                  
+  fileHeader: action ==> Out:[0x52, 0x49, 0x46, 0x46,      // RIFF
+                              getByte(RIFF_SIZE,0),        // Sample rate
+                              getByte(RIFF_SIZE,1),
+                              getByte(RIFF_SIZE,2),
+                              getByte(RIFF_SIZE,3),
+                              0x57, 0x41, 0x56, 0x45,      // WAVE
+                              0x66, 0x6d, 0x74, 0x20,      // "fmt "
+                              16,   0,    0,    0,         // Chunk size (fmt chunk)
+                              1,    0,                     // Compression (PCM/uncompressed)    
+                              NUM_CHANNELS,     0,         // Number of channels  
+                              getByte(SAMPLE_RATE,0),      // Sample rate
+                              getByte(SAMPLE_RATE,1),
+                              getByte(SAMPLE_RATE,2),
+                              getByte(SAMPLE_RATE,3),
+                              getByte(BYTES_PER_SECOND,0), // Bytes per second
+                              getByte(BYTES_PER_SECOND,1),
+                              getByte(BYTES_PER_SECOND,2),
+                              getByte(BYTES_PER_SECOND,3),
+                              BLOCK_ALIGN, 0,              // Block align (bytes per set of samples)
+                              8*BYTES_PER_SAMPLE, 0,       // Significant bits per sample
+                              0x64, 0x61, 0x74, 0x61,      // "data"
+                              getByte(DATA_SIZE,0),        // Size of "data" chunk
+                              getByte(DATA_SIZE,1),
+                              getByte(DATA_SIZE,2),
+                              getByte(DATA_SIZE,3)]
+  end
+  
+  sample16bit: action In:[x]  ==> Out:[lsb,msb]
+  var
+    int w=clip(32768.0*x,-32768,32767),
+    int lsb=getByte(w,0),
+    int msb=getByte(w,1)
+  end
+
+  schedule fsm start:
+  start       (fileHeader) --> sample16bit;
+  sample16bit (sample16bit)   --> sample16bit;
+  end
+end
+end

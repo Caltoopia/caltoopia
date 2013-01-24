@@ -1,0 +1,101 @@
+/* 
+ * Copyright (c) Ericsson AB, 2013
+ * All rights reserved.
+ *
+ * License terms:
+ *
+ * Redistribution and use in source and binary forms, 
+ * with or without modification, are permitted provided 
+ * that the following conditions are met:
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the 
+ *       following disclaimer.
+ *     * Redistributions in binary form must reproduce the 
+ *       above copyright notice, this list of conditions and 
+ *       the following disclaimer in the documentation and/or 
+ *       other materials provided with the distribution.
+ *     * Neither the name of the copyright holder nor the names 
+ *       of its contributors may be used to endorse or promote 
+ *       products derived from this software without specific 
+ *       prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+ * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+namespace RVC:
+import RVC.GEN_mgnt_DCSplit;
+import RVC.DC_Reconstruction_16x16;
+import RVC.MPEG4_algo_IAP_16x16;
+import RVC.MPEG4_algo_IS;
+import RVC.MPEG4_algo_Inversequant;
+import RVC.idct2d_23002;
+
+network texture_16x16(int MAXW_IN_MB,
+                      int MB_COORD_SZ,
+                      int BTYPE_SZ,
+                      int SAMPLE_SZ,
+                      int NEWVOP,
+                      int INTRA,
+                      int INTER,
+                      int QUANT_MASK,
+                      int ACPRED,
+                      int ACCODED,
+                      int QUANT_SZ)
+     int BTYPE, int QFS, int QP ==> int f:
+     
+  entities    
+    DCsplit = GEN_mgnt_DCSplit(SAMPLE_SZ = SAMPLE_SZ);
+    DCRecontruction = DC_Reconstruction_16x16(ACCODED = ACCODED,
+                                              ACPRED = ACPRED,
+                                              BTYPE_SZ = BTYPE_SZ,
+                                              DCVAL = 128 * 8,  
+                                              INTER = INTER,
+                                              INTRA = INTRA,
+                                              MAXW_IN_MB = MAXW_IN_MB,
+                                              MB_COORD_SZ = MB_COORD_SZ,
+                                              NEWVOP = NEWVOP,
+                                              QUANT_MASK = QUANT_MASK,
+                                              QUANT_SZ = QUANT_SZ,
+                                              SAMPLE_SZ = SAMPLE_SZ);
+    IS = MPEG4_algo_IS(SAMPLE_SZ = SAMPLE_SZ);
+    IAP = MPEG4_algo_IAP_16x16(MAXW_IN_MB = MAXW_IN_MB,
+                               MB_COORD_SZ = MB_COORD_SZ,
+                               SAMPLE_SZ = SAMPLE_SZ);
+                               
+    IQ = MPEG4_algo_Inversequant(QUANT_SZ = QUANT_SZ, 
+                                 SAMPLE_SZ = SAMPLE_SZ);
+    idct2d = idct2d_23002(OUT_SZ = 32, 
+                          PIX_SZ = 9,
+                          SIN_SZ = 13);   
+  structure   
+    BTYPE --> DCRecontruction.BTYPE;
+    QFS --> DCsplit.IN;
+    DCsplit.DC --> DCRecontruction.QFS_DC; 
+    DCsplit.AC --> IS.QFS_AC;
+    IS.PQF_AC --> IAP.PQF_AC; 
+    IAP.QF_AC --> IQ.AC;
+    DCRecontruction.QUANT --> IQ.QP;
+    DCRecontruction.QF_DC --> IQ.DC;
+    DCRecontruction.PTR --> IAP.PTR;
+    DCRecontruction.AC_PRED_DIR --> IAP.AC_PRED_DIR; 
+    DCRecontruction.AC_PRED_DIR --> IS.AC_PRED_DIR; 
+    IQ.OUT --> idct2d.IN; 
+    DCRecontruction.SIGNED --> idct2d.SIGNED; 
+    idct2d.OUT --> f; 
+    QP --> DCRecontruction.QP;
+    DCRecontruction.QUANT --> IAP.QP;
+    DCRecontruction.PREV_QUANT --> IAP.PREV_QP;
+ end
+end

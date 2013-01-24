@@ -1,0 +1,67 @@
+/* 
+ * Copyright (c) Ericsson AB, 2013
+ * All rights reserved.
+ *
+ * License terms:
+ *
+ * Redistribution and use in source and binary forms, 
+ * with or without modification, are permitted provided 
+ * that the following conditions are met:
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the 
+ *       following disclaimer.
+ *     * Redistributions in binary form must reproduce the 
+ *       above copyright notice, this list of conditions and 
+ *       the following disclaimer in the documentation and/or 
+ *       other materials provided with the distribution.
+ *     * Neither the name of the copyright holder nor the names 
+ *       of its contributors may be used to endorse or promote 
+ *       products derived from this software without specific 
+ *       prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+ * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+ 
+namespace VoxBox:
+
+import ART.art_Sink_real;
+
+/**
+ * Constant source of filter coefficients. Terminates after a given number of firings (Duration)
+ */
+actor VowelSource(int Vowel, int Duration) ==> float G, float Coeff:
+
+  int count:=0;
+  
+  float[2]    gain=[0.00125,
+  	                0.00075];
+  
+  float[7] coeff_eeh=[1.0, -4.483457,  9.377435, -11.640532,  9.005706, -4.141035, 0.892363];
+  float[7] coeff_ooh=[1.0, -4.937506, 10.901548, -13.806930, 10.593905, -4.662204, 0.917232];
+
+  // Something wrong with these coefficients...
+  // float[7] coeff_aah=[1.0, -4.639676,  9.820020, -12.169075,  9.348473, -4.212704, 0.861665];
+  // float[7] coeff_uuh=[1.0, -4.907438, 10.770907, -13.589419, 10.412981, -4.586125, 0.912937];
+  
+  
+  action ==> G:[gain[0]], Coeff:[coeff_ooh] repeat 7
+  guard count<Duration
+  do
+    count := count+1;
+  end
+  
+end
+
+end

@@ -1,0 +1,12 @@
+namespace System:
+
+  namespace util:
+  	
+  		function Integers(int start, int stop) --> List(type:int) :
+  			 start .. stop
+  		end
+  
+  end
+
+end
+

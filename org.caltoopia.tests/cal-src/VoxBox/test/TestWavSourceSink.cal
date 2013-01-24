@@ -1,0 +1,18 @@
+/*
+ * Tests the WavSource network:
+ * input.wav is parsed, converted to floating point [-1.0,1.0)
+ * and printed to the output file TestWavSource.Out.txt
+ */ 
+namespace VoxBox:
+
+network TestWavSourceSink() ==> :
+  entities
+    source = WavSource(fileName="./input.wav");
+    
+	sink = WavSink(fileName="./output.wav");
+
+  structure
+	source.Out --> sink.In;
+end
+
+end

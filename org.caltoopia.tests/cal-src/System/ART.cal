@@ -1,0 +1,26 @@
+namespace ART :
+  
+  import System.io.printInt;
+
+  external actor art_Sink_bin(string fileName) int In ==> ;
+  external actor art_Sink_txt(string fileName) int In ==> ;
+  external actor art_Sink_real(string fileName) float In ==> ;
+  external actor art_Display_yuv (string title, int width, int height) int In ==> ;
+
+
+  external actor art_Source_bin(string fileName) ==> int Out;  
+  external actor art_Source_real(string fileName) ==> float Out;
+  external actor art_Source_txt(string fileName) ==> int Out;
+
+  actor print_token(int ID) int data_in ==> :
+
+    print: action data_in:[data] ==> do
+     // printInt(ID);
+     // printStr("::print: ");
+     // printInt(data);
+	 // println();
+    end
+ 
+  end
+
+end

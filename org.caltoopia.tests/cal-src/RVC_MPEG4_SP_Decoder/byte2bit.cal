@@ -1,0 +1,50 @@
+// byte2bit.cal
+//
+// Author: David B. Parlour (dave.parlour@xilinx.com)
+//
+// Copyright (c) 2004-2005 Xilinx Inc.
+// All Rights Reserved
+//
+// Disclaimer:  THIS PROGRAM IS PROVIDED "AS IS" WITH NO WARRANTY 
+//              WHATSOEVER AND XILINX SPECIFICALLY DISCLAIMS ANY 
+//              IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR
+//              A PARTICULAR PURPOSE, OR AGAINST INFRINGEMENT.
+
+namespace RVC:
+
+import System.bitops.bitand;
+import System.bitops.lshift;
+import System.io.dprint1;
+import System.io.dprint2;
+
+ actor byte2bit () int(size=8) in8 ==> bool out :
+
+  int(size=4) count := 0;
+  int(size=9) buf;
+
+  // Read in an new byte when needed
+  reload: action in8:[i] ==>
+  guard count = 0
+  do
+    buf := i;
+    count := 8;
+    dprint1("Read byte 0x%x \\n",buf);
+  end
+
+  // Write out bits in msb first order
+  shift: action ==> out:[ bit ]
+  guard
+    count != 0
+  var
+    bool bit = bitand( buf, 128) != 0
+  do
+  	dprint2("Sent %i bit %i\\n",count,if bit then 1 else 0 end);
+    count := count - 1;
+    buf := lshift( buf, 1 );
+  end
+
+  priority
+    reload > shift;
+  end
+ end
+end

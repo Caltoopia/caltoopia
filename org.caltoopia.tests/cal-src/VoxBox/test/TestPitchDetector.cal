@@ -1,0 +1,29 @@
+/*
+ * Tests the PitchDetector actor:
+ *
+ * input1/TestPitchDetector/in.txt, coeff.txt as source should produce output1/TestPitchDetector/period.txt, pow.txt
+ * alternatively:
+ * test2/prediction.out.txt                       --->         test2/pitchdetector.period.txt, pitchdetector.pow.txt
+ */ 
+namespace VoxBox:
+
+import ART.art_Source_real;
+import ART.art_Sink_real;
+
+network TestPitchDetector() ==> :
+  entities
+	sourceIn = art_Source_real(fileName="./in.txt");
+    
+    pitch = PitchDetector(BlockSize=480,MinPeriod=20,MaxPeriod=200);
+    
+	sinkPeriod = art_Sink_real(fileName="./period.txt");
+	sinkPow = art_Sink_real(fileName="./pow.txt");
+	
+  structure
+	sourceIn.Out --> pitch.In;
+	
+	pitch.Period --> sinkPeriod.In;
+	pitch.VoicePower --> sinkPow.In;
+end
+
+end

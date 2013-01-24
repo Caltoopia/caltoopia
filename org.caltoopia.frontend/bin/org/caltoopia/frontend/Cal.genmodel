@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.caltoopia.frontend/src-gen"
+    editDirectory="/org.caltoopia.frontend.edit/src" editorDirectory="/org.caltoopia.frontend.editor/src"
+    modelPluginID="org.caltoopia.frontend" forceOverwrite="true" modelName="Cal" updateClasspath="false"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" complianceLevel="5.0"
+    copyrightFields="false" editPluginID="org.caltoopia.frontend.edit" editorPluginID="org.caltoopia.frontend.editor">
+  <genPackages prefix="Cal" basePackage="org.caltoopia.frontend" disposableProviderFactory="true"
+      ecorePackage="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#/">
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstTop"/>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstPackage"/>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstUnit"/>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstNamespace">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstNamespace/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstNamespace/entities"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstNamespace/imports"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstNamespace/units"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstNamespace/functions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstNamespace/variables"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstNamespace/externals"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstNamespace/annotations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstNamespace/typedefs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstNamespace/namespaces"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstEntity">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstEntity/annotations"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstEntity/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstEntity/actor"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstEntity/network"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstEntity/external"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//Import">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//Import/importedNamespace"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstNetwork">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstNetwork/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstNetwork/inputs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstNetwork/outputs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstNetwork/variables"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstNetwork/instances"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstNetwork/structure"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstActorVariable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstActorVariable/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstActorVariable/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstActorVariable/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstAssignParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstAssignParameter/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstAssignParameter/value"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStructure">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStructure/connections"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstConnection">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstConnection/from"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstConnection/outPort"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstConnection/to"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstConnection/inPort"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstConnection/attribute"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstActorVariableReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstActorVariableReference/variable"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstConnectionAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstConnectionAttribute/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstConnectionAttribute/value"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstVariable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstVariable/constant"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstVariable/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstVariable/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstVariable/annotations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstVariable/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstVariable/dimensions"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstTypeName">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstTypeName/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstTypeName/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstTypeName/constructor"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstTypeName/type"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstTypeDefinitionParameter">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstTypeDefinitionParameter/value"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstTypeDefinitionParameter/type"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstFunction">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstFunction/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstFunction/members"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstFunction/annotations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstFunction/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstFunction/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstFunction/variables"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstFunction/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstActor">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstActor/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstActor/inputs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstActor/outputs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstActor/functions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstActor/procedures"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstActor/actions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstActor/initializes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstActor/stateVariables"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstActor/schedules"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstActor/priorities"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstPort">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstPort/annotations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstPort/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstPort/name"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExternalFunction"/>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstProcedure">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstProcedure/annotations"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstProcedure/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstProcedure/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstProcedure/variables"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstProcedure/statements"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExternalProcedure"/>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstTag">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstTag/identifiers"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExternalActor">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExternalActor/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExternalActor/inputs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExternalActor/outputs"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstInequality">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstInequality/tags"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstPriority">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstPriority/inequalities"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstSchedule">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstSchedule/initialState"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstSchedule/transitions"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstTransition">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstTransition/source"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstTransition/tags"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstTransition/target"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstState">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstState/name"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstAction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstAction/annotations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstAction/tag"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstAction/inputs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstAction/outputs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstAction/guards"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstAction/variables"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstAction/statements"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstInputPattern">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstInputPattern/port"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstInputPattern/tokens"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstInputPattern/repeat"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstOutputPattern">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstOutputPattern/port"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstOutputPattern/values"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstOutputPattern/repeat"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStatementAssign">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStatementAssign/target"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStatementAssign/indexes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStatementAssign/member"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStatementAssign/value"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStatementCall">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStatementCall/procedure"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStatementCall/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStatementForeach">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStatementForeach/generators"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStatementForeach/variables"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStatementForeach/statements"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstForeachGenerator">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstForeachGenerator/variable"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstForeachGenerator/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStatementBlock">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStatementBlock/variables"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStatementBlock/statements"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStatementIf">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStatementIf/condition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStatementIf/then"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStatementIf/else"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStatementWhile">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStatementWhile/condition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStatementWhile/statements"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstStatement"/>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpression"/>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionCall">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionCall/function"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionCall/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionIf">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionIf/condition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionIf/then"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionIf/else"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionList">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionList/expressions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionList/generators"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstGenerator">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstGenerator/variable"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstGenerator/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionVariable">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionVariable/value"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionVariable/indexes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionVariable/member"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionLiteral"/>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionBoolean">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionBoolean/value"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionFloat">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionFloat/value"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionInteger">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionInteger/value"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionString">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionString/value"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstType/builtin"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstType/typeParams"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstType/dimensions"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstType/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstType/domain"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstType/codomain"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstType/members"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstTypeParameterList">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstTypeParameterList/params"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstTypeParam">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstTypeParam/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstTypeParam/value"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstTypeParam/type"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstVariableReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstVariableReference/variable"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstMemberAccess">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstMemberAccess/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstMemberAccess/memberIndex"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstAnnotation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstAnnotation/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstAnnotation/arguments"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstAnnotationArgument">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstAnnotationArgument/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstAnnotationArgument/value"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstInitialize"/>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionBinary">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionBinary/left"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionBinary/operator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionBinary/right"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionUnary">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionUnary/unaryOperator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.caltoopia.frontend/src-gen/org/caltoopia/frontend/Cal.ecore#//AstExpressionUnary/expression"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

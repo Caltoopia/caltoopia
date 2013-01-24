@@ -1,0 +1,138 @@
+/* 
+ * Copyright (c) Ericsson AB, 2013
+ * All rights reserved.
+ *
+ * License terms:
+ *
+ * Redistribution and use in source and binary forms, 
+ * with or without modification, are permitted provided 
+ * that the following conditions are met:
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the 
+ *       following disclaimer.
+ *     * Redistributions in binary form must reproduce the 
+ *       above copyright notice, this list of conditions and 
+ *       the following disclaimer in the documentation and/or 
+ *       other materials provided with the distribution.
+ *     * Neither the name of the copyright holder nor the names 
+ *       of its contributors may be used to endorse or promote 
+ *       products derived from this software without specific 
+ *       prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+ * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+ 
+namespace VoxBox:
+
+import System.math.cos;
+import System.math.PI;  /* should be in math */
+
+/**
+ * The Segmentation actor chops up the input stream into (time-domain) segments and
+ * applies a given window function. Segments may overlap: setting StepSize<WindowSize has
+ * this effect.
+ * @para StepSize    Number of samples between two segments, controls overlap.
+ *                   Example: StepSize=WindowSize/4 for 75% Overlap (step is 25% of window size)
+ * @para WindowSize  Length of window (number of samples)
+ * @para WindowFunc  Window function (assumed to be symmetric around mid-point). Provided here,
+ *                   for convenience, are: rectangular, hamming and blackman windows.
+ */
+
+function rect(float n, int N) --> float : if n>=0 and n<N then 1.0 else 0.0 end end
+
+function hamming(float n, int N) --> float : rect(n,N)*(0.54 - 0.46*cos(2*PI*n/(N-1))) end
+  
+function blackman(float n, int N) --> float : rect(n,N)*(7938 - 9240*cos(2*PI*n/(N-1)) + 1430*cos(4*PI*n/(N-1)))/18608 end
+
+actor Segmentation(int StepSize, int WindowSize) 
+      float In ==> 
+      float Out:
+
+  // Make BufferSize a multiple of StepSize so that wrap-around only happens between steps.
+  int NumSteps=(WindowSize + StepSize - 1)/StepSize;
+  int BufSize=NumSteps*StepSize;
+  int ExtraBufSize=BufSize-WindowSize;
+  List(size=BufSize,type:float) buffer:=[0 : for int n in 1..BufSize];
+    
+  // Tabulate at least half of the window function, aligned to a multiple of StepSize
+  int NumStepsWTab=((WindowSize+1)/2 + StepSize - 1)/StepSize;
+  int WTabSize=NumStepsWTab*StepSize;  
+  List(size=WTabSize,type:float) window:=[hamming(n,WindowSize) : for int n in 0..WTabSize-1];
+  
+  int writePtr:=0;
+  
+  action In:[x] repeat StepSize ==> Out:[y] repeat WindowSize
+  var
+    List(size=WindowSize,type:float) y,
+    int i,
+    int endI,
+    int j,
+    int k,
+    int kStep
+  do
+    // TODO: pre-empasis before putting into buffer (separate actor?)
+
+    // Store new samples in buffer
+    i:=writePtr;
+    j:=0;
+    while j<StepSize do
+      buffer[i]:=x[j];
+      i:=i+1;
+      j:=j+1;
+    end
+    
+    // Update write pointer
+    writePtr := writePtr + StepSize;
+    if writePtr=BufSize then
+      writePtr:=0;
+    end
+
+    // Start reading at ExtraBufSize offset from write pointer
+    j:=writePtr+ExtraBufSize;
+    // First, this many samples to align with StepSize 
+	i:=0;
+	k:=0;
+	kStep:=1;
+	endI:=StepSize-ExtraBufSize;
+	
+    while i<WindowSize do
+      
+      // Produce a block of output samples
+      while i<endI do
+        y[i]:=buffer[j]*window[k]; 
+        i:=i+1;
+        j:=j+1;
+        k:=k+kStep;
+      end
+      
+      // Check for buffer wrap-around
+      if j=BufSize then
+      	j:=0;
+      end
+      
+      // advance end-pointer
+      endI := endI + StepSize;
+      
+      // Check for end of tabulated window function
+      if k=WTabSize then
+      	// Make the "k" index go in the reverse direction
+        k:=WindowSize-WTabSize-1;
+      	kStep:=-1;
+      end
+    end    
+  end
+
+end
+end

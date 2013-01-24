@@ -1,0 +1,124 @@
+/* 
+ * Copyright (c) Ericsson AB, 2013
+ * All rights reserved.
+ *
+ * License terms:
+ *
+ * Redistribution and use in source and binary forms, 
+ * with or without modification, are permitted provided 
+ * that the following conditions are met:
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the 
+ *       following disclaimer.
+ *     * Redistributions in binary form must reproduce the 
+ *       above copyright notice, this list of conditions and 
+ *       the following disclaimer in the documentation and/or 
+ *       other materials provided with the distribution.
+ *     * Neither the name of the copyright holder nor the names 
+ *       of its contributors may be used to endorse or promote 
+ *       products derived from this software without specific 
+ *       prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+ * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+ 
+namespace VoxBox:
+
+/**
+ * This demo synthesizes a voice from the following set of parameters:
+ * a) LPC filter coefficients (1/A(z) has 16 poles)
+ * b) Period of voiced segments
+ * c) Voice-to-total-power ratio
+ * 
+ * One set of parameters is computed for each 128 samples of input (the StepSize). The intended effect is to reproduce the
+ * input speech sample. As you will find the demo does not succeed in doing so: there are audible artifacts.
+ * 
+ * Again, a really complex way of attempting to compute out(n) = in(n - delay), thus
+ */
+
+import ART.art_Sink_real;
+
+network Demo3c_SyntheticVoice() ==> :
+  var
+    int theStepSize = 128;
+    int theWindowSize = 512;
+    int theLpcDegree = 16;
+    float PreEmphasis = 0.95;
+    
+  entities
+    source = WavSource(fileName="./in.wav");
+    
+    pre=PreEmphasisFilter(Coeff=PreEmphasis);
+    
+    seg=Segmentation(StepSize=theStepSize, 
+                     WindowSize=theWindowSize);
+
+    autoCorr=AutoCorr(WindowSize=theWindowSize, 
+                      MaxLag=theLpcDegree);
+
+    levinson=Levinson(LpcDegree=theLpcDegree);
+	
+	res=PredictionFilter(BlockSize=theWindowSize,NumZeros=theLpcDegree);
+
+    pitch=PitchDetector(BlockSize=theWindowSize,MinPeriod=20,MaxPeriod=200);
+    
+    pulse=ImpulseGenerator(BlockSize=theStepSize,MinPeriod=20);
+    
+    noise=NoiseGenerator();
+    
+    mixer=Mixer(BlockSize=theStepSize);
+    
+    synth=AllPole(BlockSize=theStepSize,NumPoles=theLpcDegree);
+    
+    deEmp=DeEmphasisFilter(Coeff=PreEmphasis);
+    
+	//sink = WavSink(fileName="./out.wav");
+	//sink=art_Sink_real(fileName="./out.txt");
+	sink=Speaker(BLOCK_SIZE=theStepSize,NUM_CHANNELS=1,SAMPLE_RATE=16000,BITS_PER_SAMPLE=16);
+		
+	//probe=art_Sink_real(fileName="./residual.txt");
+	
+  structure
+    source.Out --> pre.In;
+    
+    pre.Out --> seg.In;
+    
+    seg.Out --> autoCorr.In;
+    seg.Out --> res.In;
+    seg.Out --> res.In;
+     
+    autoCorr.Out --> levinson.In;
+    
+    levinson.Coeff --> res.Coeff;
+    levinson.Coeff --> synth.Coeff;
+    levinson.G --> synth.G;
+        
+    res.Out --> pitch.In;
+  
+    pitch.Period --> pulse.Period;
+    pitch.VoicePower --> mixer.NormPower1;
+	
+    pulse.Out-->mixer.In1;
+    
+    noise.Out-->mixer.In2;
+    
+    mixer.Out-->synth.In;
+    
+    synth.Out --> deEmp.In;
+     
+    deEmp.Out --> sink.In;
+end
+
+end

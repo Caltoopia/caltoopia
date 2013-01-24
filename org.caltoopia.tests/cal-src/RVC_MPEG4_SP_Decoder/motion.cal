@@ -1,0 +1,102 @@
+/* 
+ * Copyright (c) Ericsson AB, 2013
+ * All rights reserved.
+ *
+ * License terms:
+ *
+ * Redistribution and use in source and binary forms, 
+ * with or without modification, are permitted provided 
+ * that the following conditions are met:
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the 
+ *       following disclaimer.
+ *     * Redistributions in binary form must reproduce the 
+ *       above copyright notice, this list of conditions and 
+ *       the following disclaimer in the documentation and/or 
+ *       other materials provided with the distribution.
+ *     * Neither the name of the copyright holder nor the names 
+ *       of its contributors may be used to endorse or promote 
+ *       products derived from this software without specific 
+ *       prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+ * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+namespace RVC:
+
+ import RVC.Framebuf_w_Address;
+ import RVC.MPEG4_algo_Interpolation_halfpel;
+ import RVC.MPEG4_algo_Add;
+
+ network motion(int SEARCHWIN_IN_MB,
+			   int MAXW_IN_MB,
+			   int MAXH_IN_MB,
+			   int ADDR_SZ, 
+			   int MV_SZ, 
+			   int PIX_SZ,
+			   int MB_COORD_SZ,
+			   int BTYPE_SZ,
+			   int NEWVOP,
+			   int INTRA,
+			   int INTER,
+			   int ACCODED,
+			   int ROUND_TYPE,
+			   int MOTION,
+			   int LAYOUT)
+     
+     int MV, int BTYPE, int TEX ==> int VID:
+     
+  var 
+	int BUF_SZ = MAXW_IN_MB * 384 * MAXH_IN_MB + SEARCHWIN_IN_MB * 192 + 384;
+    int FLAG_SZ = 4;
+    
+   entities
+   framebuf = Framebuf_w_Address(ADDR_SZ = ADDR_SZ, 
+                                 BTYPE_SZ = BTYPE_SZ,
+                                 FLAG_SZ = FLAG_SZ,
+                                 INTRA = INTRA,
+                                 LAYOUT = LAYOUT,
+                                 MAXH_IN_MB = MAXH_IN_MB,
+                                 MAXW_IN_MB = MAXW_IN_MB,
+                                 MB_COORD_SZ = MB_COORD_SZ,
+                                 MOTION = MOTION,
+                                 MV_SZ = MV_SZ,
+                                 NEWVOP = NEWVOP,
+                                 ROUND_TYPE = ROUND_TYPE,
+                                 SEARCHWIN_IN_MB = SEARCHWIN_IN_MB,
+                                 PIX_SZ = PIX_SZ);
+    interpolation = MPEG4_algo_Interpolation_halfpel(FLAG_SZ = FLAG_SZ,
+                                                     PIX_SZ = PIX_SZ);
+                                                     
+    add = MPEG4_algo_Add(ACCODED = ACCODED,
+                         BTYPE_SZ = BTYPE_SZ,
+                         INTRA = INTRA,
+                         MB_COORD_SZ = MB_COORD_SZ,
+                         NEWVOP = NEWVOP,
+                         PIX_SZ = PIX_SZ);
+                         
+    structure
+
+        MV --> framebuf.MV;
+        BTYPE --> framebuf.BTYPE;
+        BTYPE --> add.BTYPE;
+        TEX --> add.TEX; 
+        framebuf.halfpel --> interpolation.halfpel;
+        framebuf.RD --> interpolation.RD;
+        interpolation.MOT --> add.MOT; 
+        add.VID --> framebuf.WD;
+        add.VID -->VID;
+ end
+end

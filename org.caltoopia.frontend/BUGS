@@ -1,0 +1,28 @@
+Known bugs in the code is listed here to allow keeping track of them
+
+C-printer
+=========
+*Multi-dim arrays is not well tested. Multi-dim arrays inside structures does not do proper
+ pinWrite (we never go deep into the arrays) hence if it works is by luck that the refed data
+ has not been overwritten. The alloc, free, copy (of structs with multi-dim arrays) is printed
+ but not really tested.
+*Literal or mutable arrays directly used as a param in function or procedure
+ call needs to be converted to a temp variable assignment and replace the array
+ with the temp as the param.
+*func, type or proc call param expressions that are none printable as expressions in c
+ needs to be handled, e.g. nested type constructor calls which has in place arrays.
+*Literal const structures are declared in c as the structure and not as a pointer to
+ a structure, this is OK, but all the users of it needs to add a "&" since all other
+ places assume all structures are pointers. Procedures are fixed but not function calls.
+
+
+Front-end
+==========
+*Array lengths are not always checked, see L2-array c-warning in SortTest1
+
+
+
+Notes
+=====
+*Guard assign same variable from peek multiple times since it is one peek per use in the guard expression,
+ this is not per-se a bug but looks ugly. 

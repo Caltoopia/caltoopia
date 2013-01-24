@@ -1,0 +1,25 @@
+namespace System:
+
+	namespace math:
+	
+	    external function round(float f) --> int;
+	    
+	    external function fabs(float f) --> float;
+		
+		external function floor(float f) --> int;
+		
+		external function sin(float f) --> float;
+		
+		external function cos(float f) --> float;
+
+        external function sqrt(float f) --> float;
+        		
+		external function exp(float f) --> float;
+		
+		external function log(float f) --> float;
+		
+		float PI=3.14159265358979323846; 
+	end
+	
+	
+end

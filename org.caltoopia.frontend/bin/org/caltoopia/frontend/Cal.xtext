@@ -1,0 +1,496 @@
+/* 
+ * Copyright (c) Ericsson AB, 2013
+ * All rights reserved.
+ *
+ * License terms:
+ *
+ * Redistribution and use in source and binary forms, 
+ * with or without modification, are permitted provided 
+ * that the following conditions are met:
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the 
+ *       following disclaimer.
+ *     * Redistributions in binary form must reproduce the 
+ *       above copyright notice, this list of conditions and 
+ *       the following disclaimer in the documentation and/or 
+ *       other materials provided with the distribution.
+ *     * Neither the name of the copyright holder nor the names 
+ *       of its contributors may be used to endorse or promote 
+ *       products derived from this software without specific 
+ *       prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+ * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+grammar org.caltoopia.frontend.Cal hidden(WS, ML_COMMENT, SL_COMMENT)
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+generate cal "http://www.caltoopia.org/frontend/Cal"
+
+///////////////////////////////////////////////////////////////////////////////
+// RVC compatibility layer
+///////////////////////////////////////////////////////////////////////////////
+
+AstTop: (AstPackage | AstNamespace);
+
+AstPackage: {AstNamespace}
+    'package' name=QualifiedName ';'
+     ( entities  += AstEntity
+       | imports += Import
+       | units   += AstUnit)* ;
+
+AstUnit: {AstNamespace}
+    'unit' name=QualifiedName ':'
+    ( functions   += AstFunction
+      | variables += AstConstantVariable
+      | externals += (AstExternalVariable | AstExternalFunction | AstExternalProcedure)
+    )* 
+    'end';
+
+///////////////////////////////////////////////////////////////////////////////
+// namespace
+///////////////////////////////////////////////////////////////////////////////
+
+AstNamespace:
+    (annotations += AstAnnotation)*
+    'namespace' name=QualifiedName ':'
+	 ( functions   += AstFunction
+	  | variables  += AstConstantVariable
+	  | externals  += (AstExternalVariable | AstExternalFunction | AstExternalProcedure)
+	  | typedefs   += AstTypeDefinition
+	  | imports    += Import
+      | entities   += AstEntity
+      | namespaces += AstNamespace)*	
+	'end';
+
+AstEntity: 
+    (annotations += AstAnnotation)*
+	(('actor' name=ID actor=AstActor) | ('network' name=ID network=AstNetwork) | ('external' 'actor' name=ID external=AstExternalActor));
+
+Import: 'import' importedNamespace=QualifiedNameWithWildCard ';';
+
+QualifiedName:
+	ID ('.' ID)*;
+
+QualifiedNameWithWildCard:
+	QualifiedName '.*'?;
+		
+///////////////////////////////////////////////////////////////////////////////
+// network
+///////////////////////////////////////////////////////////////////////////////
+
+AstNetwork: {AstNetwork} 
+	'(' (parameters += AstParameter (',' parameters += AstParameter)*)? ')'
+		(inputs += AstPort (',' inputs += AstPort)*)? '==>'
+		(outputs += AstPort (',' outputs += AstPort)*)? ':'
+	
+	('var'
+		variables += AstValuedVariableDeclaration ';'
+		(variables += AstValuedVariableDeclaration ';')*)?
+	
+	'entities'
+	(instances +=AstActorDeclaration)+
+	structure=AstStructure
+
+	'end';
+
+AstActorDeclaration returns AstActorVariable: 
+    name=ID '=' type=[AstEntity|QualifiedName] '(' (parameters += AstAssignParameter (',' parameters += AstAssignParameter)*)? ')' ';'; 
+
+AstAssignParameter: name = ID "=" value = AstExpression;
+
+AstStructure:	'structure'
+	(connections +=AstConnection)+;
+
+AstConnection:
+	(from=AstActorVariableReference '.')? outPort=ID '-->' 
+	(to=AstActorVariableReference '.')? inPort=ID 
+	('{' (attribute += AstConnectionAttribute)* '}' )? ';';
+		
+AstActorVariableReference : variable = [AstActorVariable];
+
+AstConnectionAttribute:
+	name = ID '=' value = AstExpression ";";	
+	
+AstConstantVariable returns AstVariable:
+	AstVariableDeclaration (constant ?= '=') value=(AstExpression) ';';
+
+AstExternalVariable returns AstVariable:
+    'external' AstVariableDeclaration ';';
+
+///////////////////////////////////////////////////////////////////////////////
+// type defintions
+///////////////////////////////////////////////////////////////////////////////
+
+AstTypeDefinition returns AstTypeName: 
+	'type' name=ID ( '(' (parameters += AstTypeDefinitionParameter (',' parameters += AstTypeDefinitionParameter)*)? ')')? '=' 
+	 ( constructor += AstConstructor  ('|' constructor += AstConstructor )? 
+	 | (type = AstType) 
+	 ) ';'; 
+	 
+AstTypeDefinitionParameter:
+    (value = AstVariableDeclaration | type = AstTypeDefinitionTypeParameter );	 
+
+AstTypeDefinitionTypeParameter returns AstTypeName:
+        name = ID;
+	
+AstConstructor returns AstFunction:	
+	name=ID '(' (members += AstValuedVariableDeclaration (',' members += AstValuedVariableDeclaration)*)? ')'; 
+	
+///////////////////////////////////////////////////////////////////////////////
+// actor
+///////////////////////////////////////////////////////////////////////////////
+
+AstActor: {AstActor}
+		'(' (parameters += AstParameter (',' parameters += AstParameter)*)? ')'
+		(inputs += AstPort (',' inputs += AstPort)*)? '==>'
+		(outputs += AstPort (',' outputs += AstPort)*)? ':'
+
+	(functions += AstFunction
+	| procedures += AstProcedure
+	| actions += AstAction
+	| initializes += AstInitialize
+	| stateVariables += AstStateVariable
+    | schedules += AstSchedule    // Only one is allowed, but that is checked later.
+    | priorities += AstPriority)*
+	'end';
+
+AstPort: (annotations += AstAnnotation)* type=AstType name=ID;
+
+AstFunction:
+    (annotations += AstAnnotation)*
+	'function' name=ID
+	'('
+		(parameters += AstVariableDeclaration (',' parameters += AstVariableDeclaration)*)?
+	')' '-->' type=AstType
+	('var'
+		variables += AstValuedVariableDeclaration
+		(',' variables += AstValuedVariableDeclaration)*)? ':'
+	expression=AstExpression
+	'end';
+
+AstExternalFunction: {AstFunction}
+    (annotations += AstAnnotation)*
+    'external' 'function' name=ID
+    '('
+        (parameters += AstVariableDeclaration (',' parameters += AstVariableDeclaration)*)?
+    ')' '-->' type=AstType ';';
+    
+AstProcedure:
+    (annotations += AstAnnotation)*
+	'procedure' name=ID
+	'('
+		(parameters += AstVariableDeclaration (',' parameters += AstVariableDeclaration)*)?
+	')'
+	('var'
+		variables += AstValuedVariableDeclaration
+		(',' variables += AstValuedVariableDeclaration)*)?
+	'begin'
+		(statements += AstStatement)*
+	'end';
+	
+AstExternalProcedure: {AstProcedure}
+    (annotations += AstAnnotation)*
+    'external' 'procedure' name=ID
+    '('
+        (parameters += AstVariableDeclaration (',' parameters += AstVariableDeclaration)*)?
+    ')' ';';
+	
+AstParameter returns AstVariable: AstVariableDeclaration ('=' value=AstExpression)?;
+
+AstStateVariable returns AstVariable: AstValuedVariableDeclaration ';';
+
+AstTag: (identifiers += ID) ('.' identifiers += ID)*;
+
+///////////////////////////////////////////////////////////////////////////////
+// external entities
+///////////////////////////////////////////////////////////////////////////////
+
+AstExternalActor: {AstExternalActor}
+'(' (parameters += AstParameter (',' parameters += AstParameter)*)? ')'
+        (inputs += AstPort (',' inputs += AstPort)*)? '==>'
+        (outputs += AstPort (',' outputs += AstPort)*)? ';';
+
+///////////////////////////////////////////////////////////////////////////////
+// priorities
+///////////////////////////////////////////////////////////////////////////////
+
+AstInequality:
+	tags += AstTag ('>' tags += AstTag)+ ';';
+	
+AstPriority:
+	{AstPriority}
+
+	'priority'
+		(inequalities += AstInequality)*
+	'end';
+
+///////////////////////////////////////////////////////////////////////////////
+// schedule
+///////////////////////////////////////////////////////////////////////////////
+
+AstSchedule:
+	'schedule' 'fsm'initialState=[AstState] ':'
+		(transitions += AstTransition)*
+	'end';
+
+AstTransition:
+	source=[AstState] '(' tags += AstTag (',' tags += AstTag)* ')' '-->' target=[AstState] ';';
+
+AstState: name=ID;
+
+///////////////////////////////////////////////////////////////////////////////
+// actions
+///////////////////////////////////////////////////////////////////////////////
+
+AstAction:
+	{AstAction}
+
+    (annotations += AstAnnotation)*
+	(tag=AstTag ':')?
+	'action'
+	(inputs += AstInputPattern (',' inputs += AstInputPattern)*)?
+	'==>'
+	(outputs += AstOutputPattern (',' outputs += AstOutputPattern)*)?
+
+	('guard' guards += AstExpression (',' guards += AstExpression)*)?
+	('var'
+		variables += AstValuedVariableDeclaration
+		(',' variables += AstValuedVariableDeclaration)*)?
+	('do' (statements+=AstStatement)*)?
+	'end';
+
+AstInitialize returns AstAction:
+	{AstInitialize}
+
+    (annotations += AstAnnotation)*
+	(tag=AstTag ':')?
+	'initialize'
+	'==>'
+	(outputs += AstOutputPattern (',' outputs += AstOutputPattern)*)?
+	('guard' guards += AstExpression (',' guards += AstExpression)*)?
+	('var'
+		variables += AstValuedVariableDeclaration
+		(',' variables += AstValuedVariableDeclaration)*)?
+	('do' (statements+=AstStatement)*)?
+	'end';
+
+AstInputPattern: (port=[AstPort] ':')? '[' tokens+=AstToken (',' tokens+=AstToken)* ']'
+	('repeat' repeat=AstExpression)?;
+
+AstToken returns AstVariable: name=ID;
+
+AstOutputPattern: (port=[AstPort] ':')? '[' values+=AstExpression (',' values+=AstExpression)* ']'
+	('repeat' repeat=AstExpression)?;
+
+///////////////////////////////////////////////////////////////////////////////
+// statements
+///////////////////////////////////////////////////////////////////////////////
+
+AstStatementAssign:
+	target=AstVariableReference
+		('[' indexes += AstExpression ']')* (member += AstMemberAccess)* ':=' value=AstExpression ';';
+
+AstStatementCall:
+	procedure=[AstProcedure]
+	'(' (parameters += AstExpression (',' parameters += AstExpression)*)? ')' ';';
+
+AstStatementForeach:
+	'foreach' generators += AstForeachGenerator ("," generators += AstForeachGenerator)*
+	('var'
+        variables += AstValuedVariableDeclaration
+        (',' variables += AstValuedVariableDeclaration)*
+     )?	
+	'do'
+		(statements += AstStatement)*
+	'end';
+	
+AstForeachGenerator:
+	variable=AstVariableDeclaration 'in' expression = AstExpression;	
+	
+AstStatementBlock: {AstStatementBlock}
+    'begin'
+    ('var'
+        variables += AstValuedVariableDeclaration
+        (',' variables += AstValuedVariableDeclaration)*
+     'do')?
+    
+        (statements += AstStatement)*
+    'end';
+
+AstStatementIf:
+	'if' condition=AstExpression 'then'
+		(then += AstStatement)*
+	('else'
+		(else += AstStatement)*)?
+	'end';
+
+AstStatementWhile:
+	'while' condition=AstExpression 'do'
+		(statements += AstStatement)*
+	'end';
+
+AstStatement:
+	AstStatementAssign
+	| AstStatementCall
+	| AstStatementForeach
+	| AstStatementIf
+	| AstStatementWhile
+	| AstStatementBlock;
+
+///////////////////////////////////////////////////////////////////////////////
+// expressions
+///////////////////////////////////////////////////////////////////////////////
+
+AstExpression:
+	AstExpressionAnd ({AstExpressionBinary.left=current} operator=('||' | 'or' | '..') right=AstExpressionAnd)*;
+AstExpressionAnd returns AstExpression:
+	AstExpressionBitor ({AstExpressionBinary.left=current} operator=('&&' | 'and') right=AstExpressionBitor)*;
+AstExpressionBitor returns AstExpression:
+	AstExpressionBitxor ({AstExpressionBinary.left=current} operator='|' right=AstExpressionBitxor)*;
+AstExpressionBitxor returns AstExpression:
+	AstExpressionBitand ({AstExpressionBinary.left=current} operator='^' right=AstExpressionBitand)*;
+AstExpressionBitand returns AstExpression:
+	AstExpressionEq ({AstExpressionBinary.left=current} operator='&' right=AstExpressionEq)*;
+AstExpressionEq returns AstExpression:
+	AstExpressionRelational ({AstExpressionBinary.left=current} operator=('=' | '!=') right=AstExpressionRelational)*;
+AstExpressionRelational returns AstExpression:
+	AstExpressionShift ({AstExpressionBinary.left=current} operator=('<' | '<=' | '>' | '>=') right=AstExpressionShift)*;
+AstExpressionShift returns AstExpression:
+	AstExpressionAdditive ({AstExpressionBinary.left=current} operator=('<<' | '>>' | '>>>') right=AstExpressionAdditive)*;
+AstExpressionAdditive returns AstExpression:
+	AstExpressionMultiplicative ({AstExpressionBinary.left=current} operator=('+' | '-') right=AstExpressionMultiplicative)*;
+AstExpressionMultiplicative returns AstExpression:
+	AstExpressionExp ({AstExpressionBinary.left=current} operator=('*' | '/' | 'div' | 'mod' ) right=AstExpressionExp)*;
+AstExpressionExp returns AstExpression:
+	AstExpressionUnary ({AstExpressionBinary.left=current} operator='**' right=AstExpressionUnary)*;	
+
+AstExpressionUnary returns AstExpression:
+	{AstExpressionUnary} unaryOperator=('~' | '-' | 'not' | '#' | 'old') expression=AstExpressionPostfix
+	| AstExpressionPostfix;
+
+AstExpressionPostfix returns AstExpression:
+	AstExpressionList
+	| AstExpressionCall
+	| AstExpressionIf
+    | AstExpressionLiteral
+    | AstExpressionVariable
+    | '(' AstExpression ')';
+
+AstExpressionCall:
+	function=[AstFunction] '(' (parameters += AstExpression (',' parameters += AstExpression)*)? ')';
+
+AstExpressionIf:
+	'if' condition=AstExpression
+	'then' then=AstExpression
+	'else' else=AstExpression
+	'end';
+
+AstExpressionList:
+	'[' expressions+=AstExpression (',' expressions+=AstExpression)*
+	(':' generators+=AstGenerator (',' generators+=AstGenerator)*)? ']';
+
+AstGenerator:
+	'for' variable=AstVariableDeclaration 'in' expression = AstExpression;
+
+AstExpressionVariable: value=AstVariableReference ('[' indexes += AstExpression ']')* (member += AstMemberAccess)*;
+
+///////////////////////////////////////////////////////////////////////////////
+// literal expressions
+///////////////////////////////////////////////////////////////////////////////
+
+AstExpressionLiteral:
+	AstExpressionBoolean
+	| AstExpressionFloat
+	| AstExpressionInteger
+	| AstExpressionString;
+
+AstExpressionBoolean: value=BOOL;
+
+terminal BOOL returns ecore::EBoolean: 'true' | 'false';
+
+AstExpressionFloat: value=REAL;
+
+REAL returns ecore::EFloat hidden(): ( INT '.' (EXP_INT | INT) | '.' (EXP_INT | INT) ) ;
+
+AstExpressionInteger: value =  (INT | EXP_INT | HEX) ;
+
+terminal EXP_INT returns ecore::ELong : INT  ('e'|'E')('-'|'+')? INT;
+
+terminal HEX returns ecore::ELong : '0' ('x'|'X') ('0'..'9' | 'a'..'f' | 'A'..'F')+ ;
+
+terminal INT returns ecore::ELong: ('0'..'9')+;
+
+AstExpressionString: value=STRING;
+
+terminal STRING : 
+            '"' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'"') )* '"' |
+            "'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'"; 
+
+terminal ID returns ecore::EString : ('a'..'z'|'A'..'Z'|'_'|'$')('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'$')*;
+
+///////////////////////////////////////////////////////////////////////////////
+// type and variable declarations
+///////////////////////////////////////////////////////////////////////////////
+
+AstTypeName : ID | AstBuiltInType;
+
+AstBuiltInType: 'int' | 'uint' | 'float' | 'bool' | 'List' | 'string' | 'byte' | 'short';
+
+AstType: {AstType} 
+           (builtin = AstBuiltInType ( typeParams = AstTypeParameterList )?  ('[' dimensions += AstExpression ']')*
+         | name = [AstTypeName] ( typeParams = AstTypeParameterList )?  ('[' dimensions += AstExpression ']')*
+         | '[' (domain += AstType (',' domain += AstType)*)? '-->' (codomain += AstType  (',' domain += AstType)*)? ']')
+         | AstTypeTuple;         
+
+AstTypeTuple returns AstType: {AstType}
+    "(" (members += AstValuedVariableDeclaration (',' members += AstValuedVariableDeclaration)*)? ")";
+
+AstTypeParameterList: '(' params += AstTypeParam (',' params += AstTypeParam)* ')';
+
+AstTypeParam: (name=ID '=' value = AstExpression) | (name=(ID | 'type') ':' type = AstType);
+
+AstVariableDeclaration returns AstVariable:
+    (annotations += AstAnnotation)* 
+    type=AstType name=ID 
+    ('[' dimensions += AstExpression ']')*; 
+
+AstValuedVariableDeclaration returns AstVariable:
+	AstVariableDeclaration ((constant ?= '=' | ':=') value=AstExpression)?;
+
+AstVariableReference:  variable = [AstVariable]; 
+	
+AstMemberAccess: 
+	'.' name = ID ('[' memberIndex += AstExpression']')*;
+	
+///////////////////////////////////////////////////////////////////////////////
+// annotations
+///////////////////////////////////////////////////////////////////////////////
+
+AstAnnotation: '@' name=ID ('(' arguments += AstAnnotationArgument (',' arguments += AstAnnotationArgument)* ')')?;
+
+AstAnnotationArgument: name=ID '=' value=STRING;                                           
+        
+///////////////////////////////////////////////////////////////////////////////
+// hidden symbols
+///////////////////////////////////////////////////////////////////////////////        
+        
+terminal ML_COMMENT : '/*' -> '*/';
+terminal SL_COMMENT     : '//' !('\n'|'\r')* ('\r'? '\n')?;
+
+terminal WS         : (' '|'\t'|'\r'|'\n')+;
+
+terminal ANY_OTHER: .;	

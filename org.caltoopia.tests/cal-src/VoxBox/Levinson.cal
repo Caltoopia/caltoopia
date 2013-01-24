@@ -1,0 +1,110 @@
+/* 
+ * Copyright (c) Ericsson AB, 2013
+ * All rights reserved.
+ *
+ * License terms:
+ *
+ * Redistribution and use in source and binary forms, 
+ * with or without modification, are permitted provided 
+ * that the following conditions are met:
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the 
+ *       following disclaimer.
+ *     * Redistributions in binary form must reproduce the 
+ *       above copyright notice, this list of conditions and 
+ *       the following disclaimer in the documentation and/or 
+ *       other materials provided with the distribution.
+ *     * Neither the name of the copyright holder nor the names 
+ *       of its contributors may be used to endorse or promote 
+ *       products derived from this software without specific 
+ *       prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+ * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+ 
+namespace VoxBox:
+
+import System.math.sqrt;
+
+/**
+ * An implementation of the Levinson-Durbin algorithm, a fast algorithm to solve Tx=c where T is a Toeplitz matrix.
+ * The solution gives the filter coefficient of the LPC prediction-error filter A(z), which minimizes the power of the error signal.
+ * 
+ * @para LpcDegree  The order of the prediction-error filter
+ * 
+ * Ports:
+ * In               Auto-correlation coefficients r(0),r(1),...,r(N)    
+ * Coeff            Coefficients a0,a1,...,aN (where a0=1)
+ * G                Error-signal gain, square-root or estimated residual power
+ */
+
+actor Levinson(int LpcDegree) 
+      float In ==> 
+      float Coeff,
+      float G:
+
+  action In:[autocorr] repeat (LpcDegree+1) ==> Coeff:[a] repeat LpcDegree+1, G:[sqrt(Perr)] 
+  var
+    float Perr,
+    List(size=LpcDegree+1,type:float) a,
+    float gamma,
+    float temp,
+    bool baleOut:=false
+  do
+    a[0]:=1;            // Identity: y(n) = x(n)
+    Perr:=autocorr[0];  // initially, error signal = input signal
+    
+    // Unfold first Levinson-Durbin iteration (k=1)
+    gamma:=if Perr!=0 then -autocorr[1]/Perr else 0 end;
+    a[1]:=gamma;
+    Perr:=Perr*(1-gamma*gamma);
+     
+    foreach int k in 2..LpcDegree do      
+      if Perr>0 and not baleOut then
+        // compute the reflection coefficient, gamma
+        gamma:=-autocorr[k];
+        foreach int m in 1..(k-1) do
+          gamma := gamma - a[m]*autocorr[k-m];
+        end
+        gamma:=gamma/Perr;
+               
+        if gamma>-1 and gamma<1 then
+          // Update the LPC coefficients in a pairwise fashion
+          foreach int m in 1..k/2 do
+            temp   := a[m]   + gamma*a[k-m];
+            a[k-m] := a[k-m] + gamma*a[m];
+            a[m]   := temp;
+          end
+	      a[k] := gamma;
+          
+          // Update power of error signal
+          Perr := Perr*(1-gamma*gamma);
+        else
+          // When |gamma| >= 1, the power of the error signal would increase
+          // with the order of the filter (so bale out, don't increase the order!)
+          baleOut:=true;
+          gamma:=0;
+        end
+      else
+        gamma:=0;
+      end
+      
+      // Compute the k:th coefficient
+      a[k] := gamma;
+    end
+  end
+
+end
+end

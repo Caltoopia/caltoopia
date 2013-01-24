@@ -1,0 +1,116 @@
+/* 
+ * Copyright (c) Ericsson AB, 2013
+ * All rights reserved.
+ *
+ * License terms:
+ *
+ * Redistribution and use in source and binary forms, 
+ * with or without modification, are permitted provided 
+ * that the following conditions are met:
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the 
+ *       following disclaimer.
+ *     * Redistributions in binary form must reproduce the 
+ *       above copyright notice, this list of conditions and 
+ *       the following disclaimer in the documentation and/or 
+ *       other materials provided with the distribution.
+ *     * Neither the name of the copyright holder nor the names 
+ *       of its contributors may be used to endorse or promote 
+ *       products derived from this software without specific 
+ *       prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+ * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+namespace RVC: 
+import ART.*;
+
+network parserTest() ==> :
+
+
+ entities
+
+    source=art_Source_bin(fileName = "./input/parserTest/bits.bin");
+
+    serialize = byte2bit();
+
+    parser = orcc_parser(ACCODED=2,
+                         ACPRED=1,
+                         BTYPE_SZ=12,
+                         FCODE_MASK=448,
+                         FCODE_SHIFT=6,
+                         FOURMV=4,
+                         INTER=512,
+                         INTRA=1024,
+                         MAXW_IN_MB=121,
+                         MB_COORD_SZ=8,
+                         MOTION=8,
+                         MV_SZ=9,
+                         NEWVOP=2048,
+                         QUANT_MASK=31,
+                         ROUND_TYPE=32,
+                         SAMPLE_COUNT_SZ=8,
+                         SAMPLE_SZ=13);
+
+    sinkBTYPE_Y = art_Sink_txt(fileName = "./output/parserTest/BTYPE_Y.txt");
+
+    sinkMV_Y = art_Sink_txt(fileName = "./output/parserTest/MV_Y.txt");
+
+    sinkB_Y = art_Sink_txt(fileName = "./output/parserTest/B_Y.txt");
+
+    sinkQUANT_Y = art_Sink_txt(fileName = "./output/parserTest/QUANT_Y.txt");
+
+    sinkBTYPE_U = art_Sink_txt(fileName = "./output/parserTest/BTYPE_U.txt");
+
+    sinkMV_U = art_Sink_txt(fileName = "./output/parserTest/MV_U.txt");
+
+    sinkB_U = art_Sink_txt(fileName = "./output/parserTest/B_U.txt");
+
+    sinkQUANT_U = art_Sink_txt(fileName = "./output/parserTest/QUANT_U.txt");
+
+    sinkBTYPE_V = art_Sink_txt(fileName = "./output/parserTest/BTYPE_V.txt");
+
+    sinkMV_V = art_Sink_txt(fileName = "./output/parserTest/MV_V.txt");
+
+    sinkB_V = art_Sink_txt(fileName = "./output/parserTest/B_V.txt");
+
+    sinkQUANT_V = art_Sink_txt(fileName = "./output/parserTest/QUANT_V.txt");
+
+    sinkWIDTH = art_Sink_txt(fileName = "./output/parserTest/WIDTH.txt");
+
+    sinkHEIGHT = art_Sink_txt(fileName = "./output/parserTest/HEIGHT.txt");
+
+ structure
+
+    source.Out --> serialize.in8;
+
+    serialize.out --> parser.BITS;
+
+    parser.BTYPE_Y --> sinkBTYPE_Y.In;
+    parser.MV_Y --> sinkMV_Y.In;
+    parser.B_Y --> sinkB_Y.In;
+    parser.QUANT_Y --> sinkQUANT_Y.In;
+    parser.BTYPE_U --> sinkBTYPE_U.In;
+    parser.MV_U --> sinkMV_U.In;
+    parser.B_U --> sinkB_U.In;
+    parser.QUANT_U --> sinkQUANT_U.In;
+    parser.BTYPE_V --> sinkBTYPE_V.In;
+    parser.MV_V --> sinkMV_V.In;
+    parser.B_V --> sinkB_V.In;
+    parser.QUANT_V --> sinkQUANT_V.In;
+    parser.WIDTH --> sinkWIDTH.In;
+    parser.HEIGHT --> sinkHEIGHT.In;
+ end
+end

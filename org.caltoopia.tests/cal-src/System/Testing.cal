@@ -1,0 +1,8 @@
+namespace RVC:
+	int XXX1 = 12;
+	
+	namespace RVU:
+	   int YYY = XXX1;
+	end
+	
+end

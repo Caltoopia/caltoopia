@@ -1,0 +1,72 @@
+/* 
+ * Copyright (c) Ericsson AB, 2013
+ * All rights reserved.
+ *
+ * License terms:
+ *
+ * Redistribution and use in source and binary forms, 
+ * with or without modification, are permitted provided 
+ * that the following conditions are met:
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the 
+ *       following disclaimer.
+ *     * Redistributions in binary form must reproduce the 
+ *       above copyright notice, this list of conditions and 
+ *       the following disclaimer in the documentation and/or 
+ *       other materials provided with the distribution.
+ *     * Neither the name of the copyright holder nor the names 
+ *       of its contributors may be used to endorse or promote 
+ *       products derived from this software without specific 
+ *       prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+ * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+ 
+namespace VoxBox:
+
+network VoxBox() float In ==> float Out:
+  entities
+    lpc=LPC(StepSize=120, 
+            WindowSize=480, 
+            LpcDegree=10, 
+            PreEmphasis=0.98);
+    
+    pitch=PitchDetector(BlockSize=120,
+    	                MinPeriod=20,
+                        MaxPeriod=200);
+                
+    xform=ParameterXForm(LpcDegree=10);
+    
+    synth=Synth(BlockSize=120,MinPeriod=20,LpcDegree=10,PreEmphasis=0.98);
+
+  structure
+    In --> lpc.In;
+    
+    lpc.Coeff --> xform.CoeffIn;
+    lpc.G --> xform.GIn;
+    lpc.Residual --> pitch.In;
+    
+    pitch.Period --> xform.VoicePeriodIn;
+    pitch.VoicePower --> xform.VoiceToNoiseIn;
+    
+    xform.CoeffOut --> synth.Coeff;
+    xform.GOut --> synth.G;
+    xform.VoicePeriodOut --> synth.Period;
+    xform.VoiceToNoiseOut --> synth.VoiceToNoise;
+    
+    synth.Out-->Out;
+end
+
+end

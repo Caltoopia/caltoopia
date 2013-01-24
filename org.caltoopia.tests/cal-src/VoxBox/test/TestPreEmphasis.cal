@@ -1,0 +1,26 @@
+/*
+ * Tests the PreEmpasisFilter actor:
+ *
+ * input1/TestPreEmphasis/in.txt as source should produce output1/TestPreEmphasis/out.txt
+ * alternatively:
+ * test2/in.txt                              --->         test2/preemphasis.out.txt
+ */ 
+namespace VoxBox:
+
+import ART.art_Source_real;
+import ART.art_Sink_real;
+
+network TestPreEmphasis() ==> :
+  entities
+	source = art_Source_real(fileName="./in.txt");
+    
+    pre = PreEmphasisFilter(Coeff=0.98);
+    
+	sink = art_Sink_real(fileName="./out.txt");
+	
+  structure
+	source.Out --> pre.In;
+	pre.Out --> sink.In;
+end
+
+end

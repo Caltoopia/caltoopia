@@ -1,0 +1,129 @@
+/* 
+ * Copyright (c) Ericsson AB, 2013
+ * All rights reserved.
+ *
+ * License terms:
+ *
+ * Redistribution and use in source and binary forms, 
+ * with or without modification, are permitted provided 
+ * that the following conditions are met:
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the 
+ *       following disclaimer.
+ *     * Redistributions in binary form must reproduce the 
+ *       above copyright notice, this list of conditions and 
+ *       the following disclaimer in the documentation and/or 
+ *       other materials provided with the distribution.
+ *     * Neither the name of the copyright holder nor the names 
+ *       of its contributors may be used to endorse or promote 
+ *       products derived from this software without specific 
+ *       prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+ * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+ 
+namespace VoxBox:
+
+import System.math.fabs;
+
+/**
+ * Estimates pitch and the relative power of a voiced component.
+ * @para BlockSize  The number of input samples per "Period" and "VoicePower" pair.
+ * @para MaxPeriod  Maxiumum period (corresponding to minimum frequency) to serve as a threshold
+ * 
+ * Ports:
+ * In               Input samples
+ * Period           Estimated period, in samples, pitch = 1/T = 1/(fs*Period)  (0 if no period was detected) 
+ * VoicePower       Ratio of voiced-component power to overall power, 0 <= voice-power <= 1
+ *                  where 0 means unvoiced and 1 means a signal that is 100% correlated at the estimated period.
+ */
+
+actor PitchDetector(int BlockSize,
+	                int MinPeriod,
+                    int MaxPeriod) 
+      float In ==> float Period, float VoicePower:
+
+
+  float SignificanceTest=3/BlockSize;
+  
+  action In:[x] repeat BlockSize ==> Period:[period], VoicePower:[maxR]
+  var
+    float period:=0,
+    float maxR:=0,
+    bool  zeroXing:=false,
+    float temp,
+    float a0,
+    float a1,
+    float a2,
+    float delta,
+    List(type:float, size=MaxPeriod+1) r
+  do
+    // Compute auto-covariance
+    foreach int lag in 0..MaxPeriod do
+      temp:=0;
+      foreach int n in 0..BlockSize-1-lag do
+        temp := temp + x[n]*x[n+lag];
+      end
+      r[lag]:=temp;
+    end
+    
+    // Find maximum
+    foreach int lag in 1..MaxPeriod-1 do
+      if not zeroXing then
+        // Find first zero-crossing (we know that r[0] is max, but it doesn't count!) 
+        zeroXing:=(r[lag]<0);
+      else
+        // Has found first zero-crossing, but is it a new max?
+        
+        if r[lag]>0 and r[lag]>r[lag-1] and r[lag]>r[lag+1] then
+          // Candidate peak, do parabolic interpolation
+          a0:=r[lag];
+          a1:=(r[lag+1]-r[lag-1])/2;
+          a2:=r[lag+1]-a0-a1;
+          if fabs(a1)<2*fabs(a2) then
+            // interpolated peak between lag-1 and lag+1
+            delta:=-0.5*a1/a2;
+            temp:=a0+delta*(a1+a2*delta);
+            if temp > maxR then
+              period:=lag + delta;
+              maxR:=temp;
+            end
+          end
+        end
+      end
+    end
+
+    // Normalize voice power
+    // a) the shorter the period, the fewer terms were added: BlockSize/(BlockSize-period)    
+    // b) normalize relative r[0]
+    // c) require that the period be larger than MinPeriod (otherwise assume we're dealing with high-frequency noise)
+    maxR:=if r[0]!=0 and period>=MinPeriod then maxR/r[0] * BlockSize/(BlockSize-period) else 0 end;
+    
+    //maxR:=2*maxR;
+    // c) reasonable? now:    maxR <= 1, otherwise interpolation went wrong...
+    if maxR > 1 then
+      maxR := 1;
+    else
+   	  // d) significant? unless maxR > K*sigma, it likely just be a peak in the noise signal
+   	  //    auto-correlation approximately N(0,sigma), sigma^2 = 1/n
+      if maxR < SignificanceTest then
+   	  	maxR := 0;
+   	  	period := 0;
+   	  end
+    end 
+  end
+
+end
+end

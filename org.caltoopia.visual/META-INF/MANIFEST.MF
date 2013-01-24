@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Visual
+Bundle-SymbolicName: org.caltoopia.visual
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.caltoopia.visual.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.caltoopia.frontend,
+ org.caltoopia.analysis,
+ org.caltoopia.jars
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.caltoopia.visual.test

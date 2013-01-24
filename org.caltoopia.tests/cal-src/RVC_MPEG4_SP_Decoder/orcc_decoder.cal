@@ -1,0 +1,211 @@
+/* 
+ * Copyright (c) Ericsson AB, 2013
+ * All rights reserved.
+ *
+ * License terms:
+ *
+ * Redistribution and use in source and binary forms, 
+ * with or without modification, are permitted provided 
+ * that the following conditions are met:
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the 
+ *       following disclaimer.
+ *     * Redistributions in binary form must reproduce the 
+ *       above copyright notice, this list of conditions and 
+ *       the following disclaimer in the documentation and/or 
+ *       other materials provided with the distribution.
+ *     * Neither the name of the copyright holder nor the names 
+ *       of its contributors may be used to endorse or promote 
+ *       products derived from this software without specific 
+ *       prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+ * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+namespace RVC:
+
+import RVC.orcc_parser;
+import RVC.byte2bit;
+import RVC.texture_16x16;
+import RVC.texture_8x8;
+import RVC.motion;
+import RVC.GEN_mgnt_Merger420;
+
+network orcc_decoder(
+		int ACCODED,
+		int ACPRED,
+		int ADDR_SZ,
+		int BTYPE_SZ,
+		int FCODE_MASK,
+		int FCODE_SHIFT, 
+		int FOURMV, 
+		int INTER, 
+		int INTRA,
+		int MAXH_IN_MB,
+		int MAXW_IN_MB,
+		int MB_COORD_SZ,
+		int MOTION,
+		int MV_SZ,
+		int NEWVOP,
+		int QUANT_MASK, 
+		int ROUND_TYPE, 
+		int SAMPLE_COUNT_SZ,
+		int SAMPLE_SZ)
+	
+		int bits ==> int VID, int WIDTH, int HEIGHT:
+	
+	var
+		int PIX_SZ := 9;
+		int QUANT_SZ := 6;
+		
+	entities
+		serialize = byte2bit();
+		
+		parser = orcc_parser(ACCODED = ACCODED, 
+							ACPRED = ACPRED,
+							BTYPE_SZ = BTYPE_SZ,
+							FCODE_MASK = FCODE_MASK,
+							FCODE_SHIFT = FCODE_SHIFT,
+							FOURMV = FOURMV, 
+							INTER = INTER,
+							INTRA = INTRA,
+							MAXW_IN_MB = MAXW_IN_MB,
+						 	MB_COORD_SZ = MB_COORD_SZ,
+							MOTION = MOTION, 
+							MV_SZ = MV_SZ,
+							NEWVOP = NEWVOP,
+							QUANT_MASK = QUANT_MASK,
+							ROUND_TYPE = ROUND_TYPE,
+							SAMPLE_COUNT_SZ = SAMPLE_COUNT_SZ,
+							SAMPLE_SZ = SAMPLE_SZ);
+							
+		texture_Y = texture_16x16(ACCODED = ACCODED,
+								 ACPRED = ACPRED,
+								 BTYPE_SZ = BTYPE_SZ,
+								 INTER = INTER,
+								 INTRA = INTRA,
+								 MAXW_IN_MB = MAXW_IN_MB,
+								 MB_COORD_SZ = MB_COORD_SZ,
+								 NEWVOP = NEWVOP,
+								 QUANT_MASK = QUANT_MASK,
+								 QUANT_SZ = QUANT_SZ,
+								 SAMPLE_SZ = SAMPLE_SZ);
+								
+		texture_U = texture_8x8(ACCODED = ACCODED,
+		 						ACPRED = ACPRED,
+								BTYPE_SZ = BTYPE_SZ,	
+								INTER = INTER,
+								INTRA = INTRA,
+								MAXW_IN_MB = MAXW_IN_MB,
+								MB_COORD_SZ = MB_COORD_SZ,
+								NEWVOP = NEWVOP,
+								QUANT_MASK = QUANT_MASK,
+								QUANT_SZ = QUANT_SZ,
+								SAMPLE_SZ = SAMPLE_SZ);
+								
+		texture_V = texture_8x8(ACCODED = ACCODED,
+								ACPRED = ACPRED,
+								BTYPE_SZ = BTYPE_SZ,
+								INTER = INTER,
+								INTRA = INTRA,
+								MAXW_IN_MB = MAXW_IN_MB,
+								MB_COORD_SZ = MB_COORD_SZ,
+								NEWVOP = NEWVOP,
+								QUANT_MASK = QUANT_MASK,
+								QUANT_SZ = QUANT_SZ,
+								SAMPLE_SZ = SAMPLE_SZ);
+								
+		motion_Y = motion(ACCODED = ACCODED,
+						ADDR_SZ = ADDR_SZ,
+						BTYPE_SZ = BTYPE_SZ,
+						INTER = INTER,
+						INTRA = INTRA,
+						LAYOUT = 1,
+						MAXH_IN_MB = MAXH_IN_MB,
+						MAXW_IN_MB = MAXW_IN_MB,
+						MB_COORD_SZ = MB_COORD_SZ,
+						MOTION = MOTION,
+						MV_SZ = MV_SZ,
+						NEWVOP = NEWVOP,
+						PIX_SZ = PIX_SZ,
+						ROUND_TYPE = ROUND_TYPE,
+						SEARCHWIN_IN_MB = 3);
+						
+    					
+						
+		motion_U = motion(ACCODED = ACCODED,
+						ADDR_SZ = ADDR_SZ,
+						BTYPE_SZ = BTYPE_SZ,
+						INTER = INTER,
+						INTRA = INTRA,
+						LAYOUT = 0,
+						MAXH_IN_MB = MAXH_IN_MB,
+						MAXW_IN_MB = MAXW_IN_MB,
+						MB_COORD_SZ = MB_COORD_SZ,
+						MOTION = MOTION,
+						MV_SZ = MV_SZ,
+						NEWVOP = NEWVOP,
+						PIX_SZ = PIX_SZ,
+						ROUND_TYPE = ROUND_TYPE,
+						SEARCHWIN_IN_MB = 3);
+						
+		motion_V = motion(ACCODED = ACCODED,
+						ADDR_SZ = ADDR_SZ,
+						BTYPE_SZ = BTYPE_SZ,
+						INTER = INTER,
+						INTRA = INTRA,
+						LAYOUT = 0,
+						MAXH_IN_MB = MAXH_IN_MB,
+						MAXW_IN_MB = MAXW_IN_MB,
+						MB_COORD_SZ = MB_COORD_SZ,
+						MOTION = MOTION,
+						MV_SZ = MV_SZ,
+						NEWVOP = NEWVOP,
+						PIX_SZ = PIX_SZ,
+						ROUND_TYPE = ROUND_TYPE,
+						SEARCHWIN_IN_MB = 3);
+	
+		GEN_mgnt_Merger420 = GEN_mgnt_Merger420(PIX_SZ = PIX_SZ);
+		
+	structure
+		bits --> serialize.in8;
+		serialize.out --> parser.BITS;
+		parser.MV_Y --> motion_Y.MV;
+		parser.BTYPE_Y --> motion_Y.BTYPE;
+		parser.BTYPE_Y --> texture_Y.BTYPE;
+		parser.B_Y --> texture_Y.QFS;
+		texture_Y.f --> motion_Y.TEX;
+		parser.MV_U --> motion_U.MV;
+		parser.BTYPE_U --> motion_U.BTYPE;
+		parser.BTYPE_U --> texture_U.BTYPE;
+		parser.B_U --> texture_U.QFS;
+		texture_U.f --> motion_U.TEX;
+		parser.MV_V --> motion_V.MV;
+		parser.BTYPE_V --> motion_V.BTYPE;
+		parser.BTYPE_V --> texture_V.BTYPE;
+		parser.B_V --> texture_V.QFS;
+		texture_V.f --> motion_V.TEX;
+		motion_Y.VID --> GEN_mgnt_Merger420.Y {bufferSize = 256;};
+		motion_U.VID --> GEN_mgnt_Merger420.U {bufferSize = 64;};
+		motion_V.VID --> GEN_mgnt_Merger420.V {bufferSize = 64;};
+		
+		GEN_mgnt_Merger420.YUV -->VID {bufferSize = 384;};
+		parser.WIDTH --> WIDTH;
+		parser.HEIGHT --> HEIGHT; 
+    	parser.QUANT_Y --> texture_Y.QP;
+    	parser.QUANT_V --> texture_V.QP;
+    	parser.QUANT_U --> texture_U.QP;
+ end
+end

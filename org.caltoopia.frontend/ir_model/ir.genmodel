@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.caltoopia.frontend/src-gen"
+    modelPluginID="org.caltoopia.frontend" modelName="Ir" rootImplementsInterface=""
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0" copyrightFields="false">
+  <foreignModel>ir.ecore</foreignModel>
+  <genPackages prefix="Ir" basePackage="org.caltoopia" disposableProviderFactory="true"
+      ecorePackage="ir.ecore#/">
+    <genClasses ecoreClass="ir.ecore#//Scope">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Scope/declarations"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Scope/outer"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//Node">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Node/annotations"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//Node/id"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//VariableImport">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//VariableImport/namespace"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//VariableExternal">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//VariableExternal/type"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//TypeDeclarationImport">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//TypeDeclarationImport/namespace"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//Namespace">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//Namespace/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Namespace/actors"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//AbstractActor">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//AbstractActor/type"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//AbstractActor/inputPorts"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//AbstractActor/outputPorts"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//AbstractActor/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//ExternalActor"/>
+    <genClasses ecoreClass="ir.ecore#//Actor">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Actor/actions"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Actor/initializers"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Actor/schedule"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//Network">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Network/connections"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Network/actors"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//Action">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Action/guards"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Action/outputs"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Action/inputs"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//Action/tag"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Action/statements"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//Port">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Port/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//Port/name"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//ActorInstance">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ActorInstance/inputs"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ActorInstance/outputs"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ActorInstance/actualParameters"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//PortInstance">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//PortInstance/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//PortInstance/connections"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//PortInstance/actor"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//Expression">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Expression/type"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Expression/context"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//TaggedExpression">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//TaggedExpression/tag"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TaggedExpression/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//LiteralExpression"/>
+    <genClasses ecoreClass="ir.ecore#//IntegerLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//IntegerLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//FloatLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//FloatLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//BooleanLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//BooleanLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//StringLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//StringLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//VariableExpression">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//VariableExpression/variable"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//VariableExpression/index"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//VariableExpression/member"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//ListExpression">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ListExpression/generators"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ListExpression/expressions"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//Generator">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Generator/source"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//Member">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Member/index"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//Member/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Member/type"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//BinaryExpression">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//BinaryExpression/operand1"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//BinaryExpression/operator"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//BinaryExpression/operand2"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//UnaryExpression">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//UnaryExpression/operand"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//UnaryExpression/operator"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//ExpressionCall"/>
+    <genClasses ecoreClass="ir.ecore#//FunctionCall">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//FunctionCall/parameters"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//FunctionCall/function"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//TypeConstructorCall">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeConstructorCall/parameters"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeConstructorCall/typedef"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//TypeConstructorCall/name"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//Connection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Connection/attributes"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//Point2PointConnection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Point2PointConnection/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Point2PointConnection/target"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//FromSource">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//FromSource/target"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//FromSource/source"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//ToSink">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ToSink/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ToSink/sink"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//Statement"/>
+    <genClasses ecoreClass="ir.ecore#//VariableReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//VariableReference/declaration"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//VariableReference/index"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//VariableReference/member"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//VariableReference/type"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//Assign">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Assign/target"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Assign/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//ReturnValue">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ReturnValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//ProcCall">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ProcCall/inParameters"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ProcCall/outParameters"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ProcCall/procedure"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//WhileLoop">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//WhileLoop/body"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//WhileLoop/condition"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//ForEach">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ForEach/body"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ForEach/generators"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//IfStatement">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//IfStatement/thenBlock"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//IfStatement/elseBlock"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//IfStatement/condition"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//Block">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Block/statements"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//PortAccess">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//PortAccess/port"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//PortAccess/repeat"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//PortWrite">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//PortWrite/expressions"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//PortRead">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//PortRead/variables"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//PortPeek">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//PortPeek/variable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//PortPeek/position"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//Declaration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//Declaration/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Declaration/scope"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Declaration/attributes"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//ForwardDeclaration">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ForwardDeclaration/declaration"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ForwardDeclaration/type"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//Variable">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Variable/initValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//Variable/constant"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Variable/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//Variable/parameter"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//LambdaExpression">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//LambdaExpression/parameters"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//LambdaExpression/body"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//ProcExpression">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ProcExpression/parameters"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ProcExpression/outputs"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ProcExpression/body"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//IfExpression">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//IfExpression/thenExpression"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//IfExpression/elseExpression"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//IfExpression/condition"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//Guard">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Guard/peeks"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//Type"/>
+    <genClasses ecoreClass="ir.ecore#//TypeBool"/>
+    <genClasses ecoreClass="ir.ecore#//TypeExternal">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//TypeExternal/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//TypeExternal/scopeName"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeExternal/attributes"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//TypeInt">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeInt/size"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//TypeList">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeList/size"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeList/type"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//TypeFloat"/>
+    <genClasses ecoreClass="ir.ecore#//TypeUint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeUint/size"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//TypeString"/>
+    <genClasses ecoreClass="ir.ecore#//TypeRecord">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeRecord/members"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//TypeUndef"/>
+    <genClasses ecoreClass="ir.ecore#//TypeActor">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//TypeActor/namespace"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//TypeActor/name"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//TypeUser">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeUser/declaration"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//TypeLambda">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeLambda/inputTypes"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeLambda/outputType"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//TypeProc">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeProc/inputTypes"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeProc/outputTypes"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//TypeConstructor">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeConstructor/typedef"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeConstructor/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//TypeDeclaration">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeDeclaration/type"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeDeclaration/constructor"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//Schedule">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Schedule/states"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Schedule/freeRunners"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//Schedule/PriorityGraph"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Schedule/initialState"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//State">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//State/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//State/PriorityGraph"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//State/Action2TargetMap"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//Annotation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//Annotation/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Annotation/arguments"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//AnnotationArgument">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//AnnotationArgument/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//AnnotationArgument/value"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,88 @@
+/* 
+ * Copyright (c) Ericsson AB, 2013
+ * All rights reserved.
+ *
+ * License terms:
+ *
+ * Redistribution and use in source and binary forms, 
+ * with or without modification, are permitted provided 
+ * that the following conditions are met:
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the 
+ *       following disclaimer.
+ *     * Redistributions in binary form must reproduce the 
+ *       above copyright notice, this list of conditions and 
+ *       the following disclaimer in the documentation and/or 
+ *       other materials provided with the distribution.
+ *     * Neither the name of the copyright holder nor the names 
+ *       of its contributors may be used to endorse or promote 
+ *       products derived from this software without specific 
+ *       prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+ * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+ 
+namespace VoxBox:
+
+/**
+ * The PredictionFilter actor implements the time-varying prediction-error (FIR) filter. 
+ * @para BlockSize   Length of block (number of samples from In for each set of filter coefficients)
+ * @para NumZeros    Order of the filter
+ *
+ * This version of the filter maintains state between blocks.
+ * 
+ * Ports:
+ * In                Input samples
+ * Coeff             Filter coefficients a0,...,aN  (where a0=1, N=NumZeros)
+ * Out               Output, error signal (residual)
+ */
+actor PredictionFilter2(int BlockSize, int NumZeros) 
+      float In,
+      float Coeff ==> 
+      float Out:
+
+  float[NumZeros] oldX := [ 0 : for int k in 1..NumZeros ];
+  
+  action In:[x] repeat BlockSize, Coeff:[h] repeat NumZeros+1 ==> Out:[y] repeat BlockSize
+  var
+    List(size=BlockSize,type:float) y,
+    float sum,
+    int Kmax 
+  do
+    foreach int n in 0..(BlockSize-1) do
+      sum:=0;
+
+      // Determine limit Kmax of the convolution 
+      if n<NumZeros then 
+        Kmax:=n;
+        foreach int k in n+1..NumZeros do
+          sum:=sum + oldX[NumZeros+n-k]*h[k];
+        end 
+      else 
+        Kmax:=NumZeros; 
+      end
+      
+      foreach int k in 0..Kmax do
+        sum:=sum + x[n-k]*h[k];
+      end
+      y[n] := sum;
+    end
+    
+    // Update state (the last NumZeros inputs)
+    oldX := [ x[n] : for int n in BlockSize-NumZeros..BlockSize-1];
+  end
+
+end
+end

@@ -1,0 +1,128 @@
+namespace VoxBox:
+
+import System.math.sin;
+import System.math.exp;
+// import System.math.ln; /* should be in math! */
+
+actor TestTone(int SAMPLE_RATE) ==> float Out :
+
+    float PI=3.14; /* should be in math! */
+	float DELTA=1.0/SAMPLE_RATE;
+	float SAW_MAX=2147483648.0;
+	float SAW_DELTA=2*SAW_MAX*DELTA;
+	int count;
+	int seed;
+	int lastSaw;
+	float d11;
+	float d12;
+	float d21;
+	float d22;
+	float d31;
+	float d32;
+		
+	function fadeIn(float f, float rc, float t) --> float : (1-exp(-t/rc))*sin(2*PI*f*t) end
+
+	function fadeOut(float f, float rc, float t) --> float : (exp(-t/rc))*sin(2*PI*f*t) end
+	
+	function sweap(float f0, float alpha, float t) --> float : sin(2*PI*f0*(1/alpha)*(exp(alpha*t)-1)) end
+	
+	function sinc(float x) --> float : if x=0 then 1 else sin(PI*x)/x/PI end end
+	
+	function twoPole(List(type:float,size=2) a, List(type:float,size=2) state, float x) --> float :
+      	x-a[0]*state[0]-a[1]*state[1]
+	end
+	
+	fadeIn440Hz: action ==> Out:[fadeIn(440,0.2,DELTA*count)]
+	guard count<1*SAMPLE_RATE
+	do
+		count:=count+1;
+	end
+	
+	fadeOut440Hz: action ==> Out:[fadeOut(440,0.2,DELTA*count-1.0)]
+	guard count<2*SAMPLE_RATE
+	do
+		count:=count+1;
+	end
+	
+	sweap: action ==> Out:[sweap(55,ln4,DELTA*count-2.0)]
+	guard count<5*SAMPLE_RATE
+	var
+	  float ln4=1.38629436111989
+	do
+		count:=count+1;
+	end
+	
+	noise: action ==> Out:[seed/2147483648.0]
+	guard count<6*SAMPLE_RATE
+	do
+		seed:=seed*1664525+1013904223;
+		count:=count+1;
+	end
+	
+	saw: action ==> Out:[y]
+	guard count<7*SAMPLE_RATE
+	var
+	    float y
+	do
+	    lastSaw:=lastSaw + 440.0*SAW_DELTA;
+	    y:=lastSaw/SAW_MAX;
+	    
+		count:=count+1;
+	end
+	
+	impulse: action ==> Out:[y]
+	guard count<8*SAMPLE_RATE
+	var
+	    float DC_OFFSET = 440.0/SAMPLE_RATE,
+	    float y
+	do
+	    lastSaw:=lastSaw + 440.0*SAW_DELTA;
+	    y:=sinc(10.0*lastSaw/SAW_MAX) - DC_OFFSET;
+	    
+		count:=count+1;
+	end
+	 
+	eeh: action ==> Out:[y]
+	guard count<9*SAMPLE_RATE
+	var
+	    float DC_OFFSET = 440.0/SAMPLE_RATE,
+	    float x,
+	    float y
+	do
+	    lastSaw:=lastSaw + 440.0*SAW_DELTA;
+	    x:=sinc(10.0*lastSaw/SAW_MAX) - DC_OFFSET;
+
+	    y:=0.024478205*x + 1.956078351*d11 - 0.980556556*d12;
+	    d12:=d11; d11:=y;
+	    x:=0.47024905*y  + 1.49124211*d21  - 0.96149116*d22;
+	    d22:=d21; d21:=x;
+	    y:=0.91036946*x  + 1.036136629*d31 - 0.946506093*d32;
+	    d32:=d31; d31:=y;
+
+		count:=count+1;
+	end	
+	
+	whisper: action ==> Out:[y]
+	guard count<10*SAMPLE_RATE
+	var
+	    float x,
+	    float y
+	do
+		seed:=seed*1664525+1013904223;
+		x := seed/2147483648.0;
+
+	    y:=0.024478205*x + 1.956078351*d11 - 0.980556556*d12;
+	    d12:=d11; d11:=y;
+	    x:=0.47024905*y  + 1.49124211*d21  - 0.96149116*d22;
+	    d22:=d21; d21:=x;
+	    y:=0.91036946*x  + 1.036136629*d31 - 0.946506093*d32;
+	    d32:=d31; d31:=y;
+
+		count:=count+1;
+	end	
+	
+	priority
+	  fadeIn440Hz > fadeOut440Hz > sweap > noise > saw > impulse > eeh > whisper;
+	end
+end
+end

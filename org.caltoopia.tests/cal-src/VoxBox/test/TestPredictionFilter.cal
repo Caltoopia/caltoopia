@@ -1,0 +1,28 @@
+/*
+ * Tests the PredictionFilter actor:
+ *
+ * input1/TestPredictionFilter/in.txt, coeff.txt as source should produce output1/TestPredictionFilter/out.txt
+ * alternatively:
+ * test2/levinson.coeff.txt, segmentation.out.txt                       --->         test2/prediction.out.txt
+ */ 
+namespace VoxBox:
+
+import ART.art_Source_real;
+import ART.art_Sink_real;
+
+network TestPredictionFilter() ==> :
+  entities
+	sourceIn = art_Source_real(fileName="./in.txt");
+    sourceCoeff = art_Source_real(fileName="./coeff.txt");
+    
+    pred = PredictionFilter(BlockSize=480,NumZeros=12);
+    
+	sink = art_Sink_real(fileName="./out.txt");
+	
+  structure
+	sourceIn.Out --> pred.In;
+	sourceCoeff.Out --> pred.Coeff;
+	pred.Out --> sink.In;
+end
+
+end

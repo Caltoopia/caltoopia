@@ -1,0 +1,26 @@
+/*
+ * Tests the Segmentation actor:
+ *
+ * input1/TestSegmentation/in.txt as source should produce output1/TestSegmentation/out.txt
+ * alternatively:
+ * test2/preemphasis.out.txt      as *soucre*   --->       test2/segmentation.out.txt
+ */ 
+namespace VoxBox:
+
+import ART.art_Source_real;
+import ART.art_Sink_real;
+
+network TestSegmentation() ==> :
+  entities
+	source = art_Source_real(fileName="./in.txt");
+    
+    seg = Segmentation(StepSize=160, WindowSize=480);
+    
+	sink = art_Sink_real(fileName="./out.txt");
+	
+  structure
+	source.Out --> seg.In;	
+	seg.Out --> sink.In;
+end
+
+end

@@ -1,0 +1,24 @@
+// GEN_mgnt_Merger420.cal
+//
+// Author: Christophe Lucarz (christophe.lucarz@epfl.ch)
+
+namespace RVC:
+
+ actor GEN_mgnt_Merger420 (int PIX_SZ) int(size=9) Y, int(size=9) U, int(size=9) V ==> int(size=9) YUV :
+
+ // Select the Y blocks 
+ Ya:action Y:[y] repeat 4*64 ==> YUV:[ y ] repeat 256 end
+
+ // Select the U blocks 
+ Ua:action U:[u] repeat 64 ==> YUV:[ u ] repeat 64 end
+
+ // Select the V blocks 
+ Va:action V:[v] repeat 64 ==> YUV:[ v ] repeat 64 end
+
+  schedule fsm Y :
+   Y     ( Ya ) --> U ;
+   U     ( Ua ) --> V ;
+   V     ( Va ) --> Y ;
+  end
+ end
+end

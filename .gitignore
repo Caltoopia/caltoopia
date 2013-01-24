@@ -1,0 +1,16 @@
+*.class
+org.caltoopia.frontend/bin/resources
+org.caltoopia.frontend/bin/org/caltoopia/cli/Makefile
+org.caltoopia.analysis/bin
+.DS_Store
+org.caltoopia.frontend.ui/.DS_Store
+org.caltoopia.frontend.ui/bin/.DS_Store
+org.caltoopia.frontend.ui/bin/org/.DS_Store
+org.caltoopia.frontend.ui/bin/org/caltoopia/.DS_Store
+org.caltoopia.frontend.ui/bin/org/caltoopia/frontend/.DS_Store
+org.caltoopia.frontend.ui/icons/.DS_Store
+org.caltoopia.frontend.ui/src/.DS_Store
+org.caltoopia.frontend.ui/src/org/.DS_Store
+org.caltoopia.frontend.ui/src/org/caltoopia/.DS_Store
+org.caltoopia.frontend.ui/src/org/caltoopia/frontend/.DS_Store
+org.caltoopia.jars/.DS_Store

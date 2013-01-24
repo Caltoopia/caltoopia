@@ -1,0 +1,160 @@
+/* 
+ * Copyright (c) Ericsson AB, 2013
+ * All rights reserved.
+ *
+ * License terms:
+ *
+ * Redistribution and use in source and binary forms, 
+ * with or without modification, are permitted provided 
+ * that the following conditions are met:
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the 
+ *       following disclaimer.
+ *     * Redistributions in binary form must reproduce the 
+ *       above copyright notice, this list of conditions and 
+ *       the following disclaimer in the documentation and/or 
+ *       other materials provided with the distribution.
+ *     * Neither the name of the copyright holder nor the names 
+ *       of its contributors may be used to endorse or promote 
+ *       products derived from this software without specific 
+ *       prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+ * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+ 
+ namespace VoxBox:
+
+/**
+ * Parses a WAV stream-header to determine format, then converts the payload to floating-point samples in the range [-1.0,+1.0)
+ */
+actor WavParser() int In ==> float Out:
+
+  int bitsPerSample;
+  int count;
+
+  function getWord(int msb, int lsb) --> int : (msb & 255)*256 + (lsb & 255) end
+  
+  function getLWord(int x3, int x2, int x1, int x0) --> int : getWord(x3,x2)*65536 + getWord(x1,x0) end
+  
+  
+  fileHeader: action In:[x] repeat 12 ==>
+  // getLWord(x,0)=0x46464952 /*RIFF*/ and 
+  // getLWord(x,8)=0x45564157 /*WAVE*/
+  end
+  
+  formatID: action In:[f,m,t,space] ==>
+  guard getLWord(space,t,m,f)=0x20746d66 /* fmt */
+  end
+  
+  dataID: action In:[d,a1,t,a2] ==>
+  guard getLWord(a2,t,a1,d)=0x61746164 /* data */
+  end
+  
+  formatChunk: action In:[x] repeat 20 ==>
+  var
+     /* TODO: Could be useful to provide format as output */
+     int chunkSize=getLWord(x[3],x[2],x[1],x[0]),
+     int compressionCode=getWord(x[5],x[4]),
+     int numChannels=getWord(x[7],x[6]),
+     int samplingRate=getLWord(x[11],x[10],x[9],x[8]),
+     int averageBytesPerSecond=getLWord(x[15],x[14],x[13],x[12]),
+     int blockAlign=getWord(x[17],x[16])
+  do
+    count:=chunkSize-16;          /* skip this many extra format bytes */
+    bitsPerSample:=getWord(x[19],x[18]);
+  end
+
+  dataChunk: action In:[x] repeat 4 ==>
+  do
+    count:=getLWord(x[3],x[2],x[1],x[0]);   /* this many data bytes */
+  end
+
+  otherChunk: action In:[x] repeat 8 ==>
+  var
+     int chunkID=getLWord(x[3],x[2],x[1],x[0]),
+     int chunkSize=getLWord(x[7],x[6],x[5],x[4])
+  do
+    count:=chunkSize;          /* skip this many data bytes */
+  end
+  
+  done: action ==>
+  guard count=0
+  end
+  
+  skip: action In:[x] ==>
+  do
+    count := count - 1;
+  end
+  
+  data.int8: action In:[x] ==> Out:[y]
+  guard bitsPerSample<=8
+  var
+     float y=(x-128)/128.0  /* interpret x as uint8 */
+  do
+    count := count - 1;
+  end
+  
+  data.int16: action In:[lsb,msb] ==> Out:[y]
+  guard bitsPerSample<=16
+  var
+     int x=(getWord(msb,lsb) ^ 32768)-32768, /* interpret x as int16 */
+     float y=x/32768.0               
+  do
+    count := count - 2;
+  end
+
+  data.int24: action In:[x0,x1,x2] ==> Out:[y]
+  guard bitsPerSample<=24
+  var
+     int b23=1<<23,
+     int x=(getLWord(0,x2,x1,x0) ^ b23)-b23, /* interpret x as int24 */
+     float y=x/8388608.0               
+  do
+    count := count - 3;
+  end
+  
+  data.int32: action In:[x0,x1,x2,x3] ==> Out:[y]
+  var
+     int b31=1<<31,
+     int x=(getLWord(x3,x2,x1,x0) ^ b31)-b31, /* interpret x as int32 */
+     float y=x/2147483648.0               
+  do
+    count := count - 4;
+  end
+  
+  schedule fsm start:
+    start (fileHeader) --> chunk;
+    
+    chunk (formatID) --> formatChunk;
+    chunk (dataID) --> dataChunk;
+    chunk (otherChunk) --> skip;
+    
+    formatChunk (formatChunk) --> skip;
+    dataChunk (dataChunk) --> data;
+    
+    skip (done) --> chunk;
+    skip (skip) --> skip;
+    
+    data (done) --> chunk;
+    data (data) --> data;
+  end
+  
+  priority
+    done > skip;
+    formatID > dataID > otherChunk;
+    done > data.int8 > data.int16 > data.int24 > data.int32; 
+  end
+end
+end

@@ -1,0 +1,86 @@
+/* 
+ * Copyright (c) Ericsson AB, 2013
+ * All rights reserved.
+ *
+ * License terms:
+ *
+ * Redistribution and use in source and binary forms, 
+ * with or without modification, are permitted provided 
+ * that the following conditions are met:
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the 
+ *       following disclaimer.
+ *     * Redistributions in binary form must reproduce the 
+ *       above copyright notice, this list of conditions and 
+ *       the following disclaimer in the documentation and/or 
+ *       other materials provided with the distribution.
+ *     * Neither the name of the copyright holder nor the names 
+ *       of its contributors may be used to endorse or promote 
+ *       products derived from this software without specific 
+ *       prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+ * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+namespace VoxBox:
+
+/**
+ * The AllPole actor implements the all-pole synthesis filter, 1/A(z). 
+ * @para BlockSize   Length of block (number of samples from In for each set of filter coefficients)
+ * @para NumPoles    Order of the filter
+ *
+ * Ports:
+ * In                Input, excitation of the filter
+ * Coeff             Filter coefficients a0,...,aN  (where a0=1, N=NumPoles)
+ * G                 Gain by which the input is scaled (a linear factor)
+ * Out               Output, synthesized signal
+ */
+actor AllPole(int BlockSize,int NumPoles) 
+    float In,
+    float Coeff,
+    float G
+  ==> 
+    float Out:
+
+  List(size=NumPoles,type:float) filterState:=[0: for int n in 1..NumPoles];
+  
+  action Coeff:[a] repeat NumPoles+1, G:[gain], In:[x] repeat BlockSize 
+     ==> Out:[[y[n] : for int n in NumPoles..(NumPoles+BlockSize-1)]] repeat BlockSize
+  var
+    List(size=BlockSize+NumPoles,type:float) y,
+    float sum
+  do
+    // Restore state --> y[0],...,y[NumPoles-1]
+    foreach int n in 0..(NumPoles-1) do
+      y[n]:=filterState[n];
+    end
+    
+    // Compute the block of outputs: y[NumPoles],...,y[NumPoles+BlockSize-1]
+    foreach int n in NumPoles..(NumPoles+BlockSize-1) do
+      sum:=gain*x[n-NumPoles];
+      foreach int k in 1..NumPoles do
+        sum:=sum-a[k]*y[n-k];
+      end
+      y[n]:=sum;
+    end
+    
+    // Save state <-- y[BlockSize],...,y[BlockSize+NumPoles-1]
+    foreach int n in 0..(NumPoles-1) do
+      filterState[n]:=y[BlockSize+n];
+    end
+  end
+
+end
+end

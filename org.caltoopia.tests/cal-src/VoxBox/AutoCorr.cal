@@ -1,0 +1,69 @@
+/* 
+ * Copyright (c) Ericsson AB, 2013
+ * All rights reserved.
+ *
+ * License terms:
+ *
+ * Redistribution and use in source and binary forms, 
+ * with or without modification, are permitted provided 
+ * that the following conditions are met:
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the 
+ *       following disclaimer.
+ *     * Redistributions in binary form must reproduce the 
+ *       above copyright notice, this list of conditions and 
+ *       the following disclaimer in the documentation and/or 
+ *       other materials provided with the distribution.
+ *     * Neither the name of the copyright holder nor the names 
+ *       of its contributors may be used to endorse or promote 
+ *       products derived from this software without specific 
+ *       prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+ * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+namespace VoxBox:
+
+/**
+ * The AutoCorr actor estimates the (biased) auto-correlation sequence of a input sequence, x. 
+ * @para WindowSize  Length of input sequence (number of samples in x)
+ * @para MaxLag      Maximum lag of auto-correlation sequence: r(0),r(1),...,r(MaxLag) are computed
+ *                   (there are thus MaxLag+1 samples in output sequence)
+ *
+ * The "bias" is due to the factor of 1/WindowSize in r(k), rather than 1/(WindowSize-k). 
+ * If MaxLag is much less than WindowSize, the bias is insignificant. 
+ * Biased estimation is preferred in the LPC application, since it guarantees certain properties 
+ * (the sequence is positive semi-definite) and is said to result in smaller mean-square errors in the end.  
+ */
+actor AutoCorr(int WindowSize, int MaxLag) 
+      float In ==> 
+      float Out:
+
+  action In:[x] repeat WindowSize ==> Out:[r] repeat MaxLag+1
+  var
+    float[MaxLag+1] r,
+    float sum
+  do
+    foreach int k in 0..MaxLag do
+      sum:=0;
+      foreach int n in k..WindowSize do
+        sum:=sum + x[n]*x[n-k];
+       end
+      r[k] := sum/WindowSize;
+    end
+  end
+
+end
+end

@@ -1,0 +1,26 @@
+/*
+ * Tests the ImpulseGenerator actor:
+ *
+ * input1/TestImpulseGenerator/in.txt as source should produce output1/TestTestImpulseGenerator/out.txt
+ * alternatively:
+ * test2/pitchdetector.period.txt        --->                  test2/impulsegenerator.out.txt
+ */ 
+namespace VoxBox:
+
+import ART.art_Source_real;
+import ART.art_Sink_real;
+
+network TestImpulseGenerator() ==> :
+  entities
+	source = art_Source_real(fileName="./in.txt");
+    
+    impulse = ImpulseGenerator(BlockSize=480,MinPeriod=20);
+    
+	sink = art_Sink_real(fileName="./out.txt");
+	
+  structure
+	source.Out --> impulse.Period;
+	impulse.Out --> sink.In;
+end
+
+end

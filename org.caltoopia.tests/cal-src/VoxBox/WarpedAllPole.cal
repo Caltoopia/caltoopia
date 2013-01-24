@@ -1,0 +1,118 @@
+/* 
+ * Copyright (c) Ericsson AB, 2013
+ * All rights reserved.
+ *
+ * License terms:
+ *
+ * Redistribution and use in source and binary forms, 
+ * with or without modification, are permitted provided 
+ * that the following conditions are met:
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the 
+ *       following disclaimer.
+ *     * Redistributions in binary form must reproduce the 
+ *       above copyright notice, this list of conditions and 
+ *       the following disclaimer in the documentation and/or 
+ *       other materials provided with the distribution.
+ *     * Neither the name of the copyright holder nor the names 
+ *       of its contributors may be used to endorse or promote 
+ *       products derived from this software without specific 
+ *       prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+ * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+ 
+namespace VoxBox:
+
+/**
+ * The WarpedAllPole actor implements a warped variant of the all-pole synthesis filter, 1/A(z). 
+ * Formant warping is achieved by substituting an all-pass filter, D(z), for the unit delays, thus realizing, 1/A(D(z)).
+ * D(z) is parametric in the "warp factor", which controls the amount by which formants are shifted.
+ *  
+ * @para BlockSize   Length of block (number of samples from In for each set of filter coefficients)
+ * @para NumPoles    Order of the filter
+ *
+ * Ports:
+ * In                Input, excitation of the filter
+ * Coeff             Filter coefficients a0,...,aN  (where a0=1, N=NumPoles)
+ * G                 Gain by which the input is scaled (a linear factor)
+ * Warp              Warp factor, negative shifts poles to higher frequences (positive factor shifts downwards),
+ *                   alpha=sin((w0 - w1)/2)/sin((w0 + w1)/2), where w0 is old angular frequency and w1 is new.
+ *                   The warp is non-linear and the shift at other frequencies will differ from that at w0.
+ * Out               Output, synthesized signal
+ */
+actor WarpedAllPole(int BlockSize,int NumPoles) 
+    float In,
+    float Coeff,
+    float G,
+    float Warp
+  ==> 
+    float Out:
+
+  float[NumPoles+1] filterState:=[0: for int n in 0..NumPoles];
+  float oldSum:=0;
+  
+  action Coeff:[a] repeat NumPoles+1, G:[gain], Warp:[lambda], In:[x] repeat BlockSize ==> Out:[y] repeat BlockSize
+  var
+    float[BlockSize] y,
+    float[NumPoles+1] sigma,
+    float sum,
+    float oldS,
+    float newS,
+    float temp,
+    float g
+  do
+  	// Direct realization of the warped IIR filter is not possible (there is a lag-free recurrence).
+  	// Compute new coefficients, sigma[]
+    newS:=a[NumPoles];
+    sigma[NumPoles]:=lambda*newS;
+    foreach int n in 1..(NumPoles-1) do
+      oldS:=newS;
+      newS:=a[NumPoles-n] - lambda*oldS;
+      sigma[NumPoles-n]:=oldS + lambda*newS;
+    end
+    sigma[0]:=newS;
+    g:=1/(1-lambda*newS);
+    
+    // Compute the block of outputs: y[0],...,y[BlockSize-1]
+    sum:=oldSum;
+    foreach int n in 0..(BlockSize-1) do
+      // Compute y(n) = gain*(x(n) - sum(sigma(k)*wk(n-1))), for k=0,1,...,N
+      oldS:=filterState[0];   // y(n-1)
+      newS:=g*(gain*x[n]-sum);
+      y[n]:=newS;
+      filterState[0]:=newS;
+      
+      // Update filter state:
+      // w0(n) = y(n)
+      // w1(n) = w0(n-1) + lambda*(w1(n-1) - w0(n))
+	  // ...
+      // wN(n) = w[N-1](n-1) + lambda*(wN(n-1) - w[N-1](n))
+      // 
+      // compute -sum(sigma(k)*wk(n) while at it -will be used for y(n+1)
+      sum:=sigma[0]*newS;
+      foreach int k in 1..NumPoles do     
+        temp:=filterState[k];
+        newS:=oldS + lambda*(temp - newS);
+        oldS:=temp;
+        filterState[k]:=newS;
+        sum:=sum+sigma[k]*newS;
+      end
+    end
+    oldSum:=sum;
+  end
+
+end
+end
