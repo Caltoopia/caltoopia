@@ -36,6 +36,7 @@
 
 package org.caltoopia.analysis.network;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -46,6 +47,8 @@ import java.util.Set;
 import org.caltoopia.analysis.air.ActorInstance;
 import org.caltoopia.analysis.air.State;
 import org.caltoopia.analysis.air.Transition;
+import org.caltoopia.analysis.network.ScenarioAwareNetworkAnalysis.ControlTokensPerAction;
+import org.caltoopia.analysis.network.ScenarioAwareStateExploration.ControlTokenFSMState;
 import org.caltoopia.analysis.network.ScenarioFSM.ScenarioFSMState;
 import org.caltoopia.analysis.util.collections.CartesianProduct;
 import org.caltoopia.analysis.util.collections.Pair;
@@ -64,6 +67,8 @@ public class ExplorationState{
 	
 	//a tuple of FSM states of detector actors, exactly one fsm state per detector
 	private Map<ActorInstance, State> detectorStatesTuple = new HashMap<ActorInstance, State>();
+	
+	public Set<ControlTokenFSMState> stateTuple = new HashSet<ControlTokenFSMState>();
 	
 	//the set of all possible transition combinations from 'detectorStatesTuple'
 	private List<Set<Pair<ActorInstance, Transition>>> transitionTuples = 
@@ -84,6 +89,12 @@ public class ExplorationState{
 		name = n;
 	}
 	
+	//constructor
+	public ExplorationState(Set<ControlTokenFSMState> s, String n){
+		stateTuple = s;
+		name = n;
+	}
+		
 	public String getName(){
 		return name;
 	}
@@ -182,7 +193,7 @@ public class ExplorationState{
 	 * @return a matching scenario graph if it exists or null otherwise.
 	 */
 	public static ScenarioGraph findScenarioGraph(ScenarioGraph scenarioGraph, 
-			Set<ScenarioGraph> scenarioGraphs){
+			Set<ScenarioGraph> scenarioGraphs, boolean flag){
 		boolean exists = false;
 		for(ScenarioGraph sg: scenarioGraphs){
 			exists = true;
@@ -202,9 +213,19 @@ public class ExplorationState{
 					}
 				}
 			}
-				
-			if(exists)
-				return sg;			
+			
+			//check if the control tokens are the same
+			if(flag){
+				if(exists){
+					if(ScenarioAwareNetworkAnalysis.AreControlTokensEqual(
+							sg.getControlTokens(), scenarioGraph.getControlTokens())){
+						return sg;
+					}
+				}		
+			}
+			else
+				if(exists)
+					return sg;
 		}
 		return null;
 	}
@@ -281,23 +302,62 @@ public class ExplorationState{
 		return null;
 	}
 	
+	//TODO: use a hash implementation of a faster search
+	/**
+	 * finds the ExplorationState by its detectorStatesTuple from a given set of states.
+	 * a detectorStatesTuple leads to exactly one ExplorationSstate by construction.
+	 * hence, the first matching ExplorationState is returned.
+	 * @param explorationStates
+	 * @param detectorStatesTuple
+	 * @return the ExplorationState of a given detectorStatesTuple if it exists or null otherwise.
+	 */
+	public static ExplorationState findVistedState(List<ExplorationState> explorationStates, 
+			Set<ControlTokenFSMState> detectorStatesTuple){
+		for(ExplorationState explorationState: explorationStates){
+			if(explorationState.stateTuple.size()==detectorStatesTuple.size()){
+				boolean found = true;
+				for(ControlTokenFSMState c: explorationState.stateTuple){
+					if(!detectorStatesTuple.contains(c)){
+						found = false;
+						break;
+					}
+				}
+				if(found)
+					return explorationState;
+			}
+		}		
+		return null;
+	}
+
+	/**
+	 * prints the combination of detector actor FSM states
+	 * that define this ExplorationState
+	 */
+	public void printActorStateTuple(PrintStream out){
+		out.println("ExplorationState: "+name);
+		for(Map.Entry<ActorInstance, State> e: detectorStatesTuple.entrySet()){
+			out.println(e.getKey()+"-->"+e.getValue().getOriginalStateTag());
+		}
+		out.println();
+	}
+	
 	/**
 	 * prints the exploration state to a given stream
 	 * @param s
 	 */
-	public void print(Stream s){
-		s.println("ExplorationState: "+name);
+	public void print(PrintStream out){
+		out.println("ExplorationState: "+name);
 		
-		s.print("\tPreceeding states: ");
+		out.print("\tPreceeding states: ");
 		for(ExplorationState statePair: incidentStates){
-			s.print(statePair.name+" ");
+			out.print(statePair.name+" ");
 		}
-		s.println();
-		s.print("\t ScenarioGraphs: ");
+		out.println();
+		out.print("\t ScenarioGraphs: ");
 		for(ScenarioGraph sg: scenarioGraphs){
-			s.print(sg.getName()+" ");
-			sg.print(s);
+			out.print(sg.getName()+" ");
+			sg.print(out);
 		}
-		s.println();			
+		out.println();			
 	}
 }

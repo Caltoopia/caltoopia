@@ -33,7 +33,6 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package org.caltoopia.analysis.network;
 
 import java.io.File;
@@ -147,7 +146,7 @@ public class NetworkClassifierOutput {
 			for(String attribute: attributes.keySet()){
 				s.print(" "+attribute+"=\""+attributes.get(attribute)+"\"");
 			}		
-			if(childNodes.isEmpty())
+			if(childNodes.isEmpty() && value == null)
 				s.print("/>");			
 			else
 				s.print(">");			
@@ -156,7 +155,7 @@ public class NetworkClassifierOutput {
 		}
 		
 		public void printValue(Stream s){
-			if(value!=null)
+			if(value != null)
 				s.print(value);
 		}
 		
@@ -167,7 +166,7 @@ public class NetworkClassifierOutput {
 		}
 		
 		public void closeTag(Stream s){
-			if(!childNodes.isEmpty()){	
+			if(!childNodes.isEmpty() || value != null){	
 				s.println("</" + nodeName +">");
 			}				
 		}
@@ -539,7 +538,7 @@ public class NetworkClassifierOutput {
 		applicationNode.addXMLNode(fsmsadfPropertiesNode);	
 		
 		XMLNode fsmNode = new XMLNode("fsm");
-		fsmNode.addAttribute("initialstate", "InitialState");
+		fsmNode.addAttribute("initialstate", "State_0");
 		applicationNode.addXMLNode(fsmNode);	
 		
 		for(ScenarioGraph scenarioGraph: analysis.getScenarioFSM().getScenarioGraphs()){
@@ -579,11 +578,13 @@ public class NetworkClassifierOutput {
 							for(Connection c: network.getIncidentConnections(p)){
 								XMLNode portNode = new XMLNode("port");
 								if(p.getDirection()==Direction.IN){
-									portNode.addAttribute("name", p.getName()+"_from_"+c.getProducerPort().getActor().getInstanceName());
+									portNode.addAttribute("name", p.getName()+"_from_"+
+								c.getProducerPort().getActor().getInstanceName());
 									portNode.addAttribute("type", "in");
 								}
 								else{
-									portNode.addAttribute("name", p.getName()+"_to_"+c.getConsumerPort().getActor().getInstanceName());
+									portNode.addAttribute("name", p.getName()+"_to_"+
+								c.getConsumerPort().getActor().getInstanceName());
 									portNode.addAttribute("type", "out");
 								}
 								portNode.addAttribute("rate", scenario.getPortRate(p).toString());
@@ -598,28 +599,46 @@ public class NetworkClassifierOutput {
 			//add each connection
 			for(Connection c: network.getConnections()){
 				XMLNode connectionNode = new XMLNode("channel");
+				ActorInstance srcA = c.getProducerPort().getActor();
+				ActorInstance dstA = c.getConsumerPort().getActor();
 				//if source and destination actors are in the scenario graph
-				if(scenarioGraph.getActors().containsKey(c.getProducerPort().getActor()) && 
-						scenarioGraph.getActors().containsKey(c.getConsumerPort().getActor())){
+				if(scenarioGraph.getActors().containsKey(srcA) && 
+						scenarioGraph.getActors().containsKey(dstA)){
 					
 					//if the corresponding actions of the source and destination actors have 
 					//non-zero rates in the connecting ports of this connection
-					ScenarioAwareActorAnalysis.Scenario spSrc = 
-							scenarioGraph.getActors().get(c.getProducerPort().getActor());
-					ScenarioAwareActorAnalysis.Scenario spDst = 
-							scenarioGraph.getActors().get(c.getConsumerPort().getActor());
+					ScenarioAwareActorAnalysis.Scenario spSrc = scenarioGraph.getActors().get(srcA);
+					ScenarioAwareActorAnalysis.Scenario spDst = scenarioGraph.getActors().get(dstA);
 					
 					if(spSrc.getPortRates().containsKey(c.getProducerPort()) && 
 							spDst.getPortRates().containsKey(c.getConsumerPort())){
 						if(spSrc.getPortRate(c.getProducerPort()).intValue() > 0 && 
 								spDst.getPortRate(c.getConsumerPort()).intValue() > 0){							
-							connectionNode.addAttribute("name", c.getProducerPort().getActor().getInstanceName()+
-									"2"+c.getConsumerPort().getActor().getInstanceName());
-							connectionNode.addAttribute("srcActor", c.getProducerPort().getActor().getInstanceName());
-							connectionNode.addAttribute("srcPort", c.getProducerPort().getName()+"_to_"+c.getConsumerPort().getActor().getInstanceName());
-							connectionNode.addAttribute("dstActor", c.getConsumerPort().getActor().getInstanceName());
-							connectionNode.addAttribute("dstPort", c.getConsumerPort().getName()+"_from_"+c.getProducerPort().getActor().getInstanceName());
-							connectionNode.addAttribute("initialTokens", "0");
+							connectionNode.addAttribute("name", srcA.getInstanceName()+
+									"2"+ dstA.getInstanceName());
+							connectionNode.addAttribute("srcActor", srcA.getInstanceName());
+							connectionNode.addAttribute("srcPort", c.getProducerPort().getName()+"_to_"+dstA.getInstanceName());
+							connectionNode.addAttribute("dstActor", dstA.getInstanceName());
+							connectionNode.addAttribute("dstPort", c.getConsumerPort().getName()+"_from_"+ srcA.getInstanceName());
+							
+							if(srcA.hasImplementation()){
+								if(analysis.getScenarioAwareActorAnalysis(srcA).getScenarioAwareActorInstanceType()==
+										ScenarioAwareActorAnalysis.ScenarioAwareActorInstanceType.SA_STATIC){	
+									if(analysis.getConnectionAnalysis(c).getInitialTokenSize()==null)
+										try {
+											throw new Exception("has no connection analysis.");
+										} catch (Exception e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+									connectionNode.addAttribute("initialTokens", 
+											analysis.getConnectionAnalysis(c).getInitialTokenSize().toString());
+								}
+								else
+									connectionNode.addAttribute("initialTokens","0");
+							}
+							else
+								connectionNode.addAttribute("initialTokens","0");
 							scenarioGraphNode.addXMLNode(connectionNode);
 						}
 					}
@@ -714,3 +733,5 @@ public class NetworkClassifierOutput {
 		sdf3Root.printXMLNode(s);
 	}
 }
+
+

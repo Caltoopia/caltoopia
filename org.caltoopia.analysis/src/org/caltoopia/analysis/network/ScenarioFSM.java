@@ -33,7 +33,6 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package org.caltoopia.analysis.network;
 
 import java.util.HashSet;
@@ -152,7 +151,7 @@ public class ScenarioFSM {
 		fsmTransitions.add(transition);
 	}
 	
-	public void addScenarioGraphs(ScenarioGraph graph){
+	public void addScenarioGraph(ScenarioGraph graph){
 		scenarioGraphs.add(graph);
 	}
 	
