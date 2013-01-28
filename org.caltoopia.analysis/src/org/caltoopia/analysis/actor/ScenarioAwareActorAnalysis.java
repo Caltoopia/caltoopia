@@ -33,13 +33,15 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package org.caltoopia.analysis.actor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.caltoopia.analysis.actor.GenericActorAnalysis.AnnotatedActionProperty;
+import org.caltoopia.analysis.actor.McdfActorAnalysis.McdfActorInstanceType;
 import org.caltoopia.analysis.actor.PortAnalysis.PortType;
 import org.caltoopia.analysis.air.Action;
 import org.caltoopia.analysis.air.ActorInstance;
@@ -50,6 +52,7 @@ import org.caltoopia.analysis.air.PortInstance;
 import org.caltoopia.analysis.air.PortSignature;
 import org.caltoopia.analysis.air.State;
 import org.caltoopia.analysis.air.Transition;
+import org.caltoopia.analysis.air.PortInstance.Direction;
 import org.caltoopia.analysis.util.collections.UnionOfDisjointIntervals;
 import org.caltoopia.ast2ir.Stream;
 
@@ -513,7 +516,9 @@ public class ScenarioAwareActorAnalysis extends GenericActorAnalysis {
 							
 							//Add to the list of scenario properties
 							scenarios.add(scenario);
-							
+							guardedTransitions.add(transition);		
+						}
+					}
 							//Update for the next state
 							State dstState = transition.getTargetState();
 							if(!visitedStates.contains(dstState)){
@@ -522,9 +527,7 @@ public class ScenarioAwareActorAnalysis extends GenericActorAnalysis {
 									transitionsQueue.add(t);
 								}
 							}
-							guardedTransitions.add(transition);
-						}
-					}
+									
 				}
 			}
 		
