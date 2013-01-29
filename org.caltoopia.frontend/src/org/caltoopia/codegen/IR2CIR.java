@@ -1701,6 +1701,9 @@ public class IR2CIR extends IR2IRBase {
 				}
 			}
 		}
+		//TODO: check with Harald if this fixes the problem.
+		List<Declaration> decl = new ArrayList<Declaration>();
+		decl.clear();
 		for (PortPeek p : guard.getPeeks()) {
 			doSwitch(p);
 			VariableReference var = p.getVariable();
@@ -1709,6 +1712,7 @@ public class IR2CIR extends IR2IRBase {
 					if(UtilIR.isList(var.getDeclaration().getType())) {
 						//Need to allocate the top list since the tokens are stored as individual tokens
 						UtilIR.tag(d, "shallowHeapMgmt", true);
+						decl.add(d);
 					} else {
 						UtilIR.tag(d, "inhibitHeapMgmt", true);
 					}
@@ -1755,6 +1759,8 @@ public class IR2CIR extends IR2IRBase {
 				}
 			}
 		}
+		//TODO: check with Harald if this is okay for the CPrint malloc bug.
+		insertHeapManagment(body,true,decl,body.getStatements());
 		insertHeapManagment(body,true,guard.getDeclarations(),body.getStatements());
 		leave();
 		return guard;
