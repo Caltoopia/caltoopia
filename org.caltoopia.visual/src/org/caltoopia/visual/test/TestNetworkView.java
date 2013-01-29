@@ -49,7 +49,7 @@ public class TestNetworkView {
 
 	private TestFrontEnd mFrontEnd;
 	private Network mNetwork;
-	
+	public String pathToDetectorFSMs;
 	public TestNetworkView() {
 		mFrontEnd=TestFrontEnd.createStandAlone();
 	}
@@ -58,7 +58,7 @@ public class TestNetworkView {
 		if (mFrontEnd.parseCommandLine(args)) {
 			ActorDirectory.initCompilation(mFrontEnd.getCompilationSession());
 			mNetwork=mFrontEnd.elaborate();
-			
+			pathToDetectorFSMs = args[4];
 			if (mNetwork!=null) {
 				// Create user interface on the event-dispatching thread.
 				try {

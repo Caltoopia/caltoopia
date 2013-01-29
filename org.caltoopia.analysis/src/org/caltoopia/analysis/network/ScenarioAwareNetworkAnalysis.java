@@ -401,19 +401,19 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 	}			
 	
 	/**
-	 * It is assumed that there is one source actor in the network. 
-	 * @return the source actor of the network. It returns null if 
+	 * @return the source actors of the network. It returns null if 
 	 * there is no source actor.
 	 */
-	public ActorInstance getSourceActor(){
+	public List<ActorInstance> getSourceActors(){
+		List<ActorInstance> srcs = new ArrayList<ActorInstance>();
 		for(ActorInstance actor: network.getActors()){
 			if(actor.hasImplementation()){
 				if(getScenarioAwareActorAnalysis(actor).isSource()){
-					return actor;
+					srcs.add(actor);
 				}
 			}
 		}
-		return null;
+		return srcs;
 	}	
 	
 	/**
@@ -554,7 +554,7 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 	 * @param sTokens
 	 * @return
 	 */
-	public ScenarioGraph constructScenarioGraph(ActorInstance source, 
+	public ScenarioGraph constructScenarioGraph(List<ActorInstance> sources, 
 			Set<Pair<ActorInstance, Transition>> transitionTuple,
 			Set<ControlTokensPerAction> sTokens){
 		if(sTokens.isEmpty()){
@@ -573,9 +573,9 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 			
 		List<ActorInstance> visitedActors = new ArrayList<ActorInstance>();		
 		List<ActorInstance> actorsQueue = new ArrayList<ActorInstance>();	
-		actorsQueue.add(source);	
+		actorsQueue.addAll(sources);	
 		while(!actorsQueue.isEmpty()){
-			ActorInstance actor = actorsQueue.remove(0);			
+			ActorInstance actor = actorsQueue.remove(0);	
 			if(!visitedActors.contains(actor)){
 				visitedActors.add(actor);
 				ScenarioAwareActorAnalysis.Scenario sp = null;
@@ -635,7 +635,7 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 	 * @param sTokens
 	 * @return
 	 */
-	public ScenarioGraph constructScenarioGraph(ActorInstance source, Set<ControlTokensPerAction> sTokens){
+	public ScenarioGraph constructScenarioGraph(List<ActorInstance> sources, Set<ControlTokensPerAction> sTokens){
 		if(sTokens.isEmpty()){
 			return null;
 		}
@@ -652,7 +652,7 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 			
 		List<ActorInstance> visitedActors = new ArrayList<ActorInstance>();		
 		List<ActorInstance> actorsQueue = new ArrayList<ActorInstance>();	
-		actorsQueue.add(source);	
+		actorsQueue.addAll(sources);	
 		while(!actorsQueue.isEmpty()){
 			ActorInstance actor = actorsQueue.remove(0);			
 			if(!visitedActors.contains(actor)){

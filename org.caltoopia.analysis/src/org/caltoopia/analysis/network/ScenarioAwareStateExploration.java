@@ -48,6 +48,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.caltoopia.analysis.actor.ScenarioAwareActorAnalysis;
+import org.caltoopia.analysis.actor.GenericActorAnalysis.ActorInstanceType;
 import org.caltoopia.analysis.actor.ScenarioAwareActorAnalysis.ScenarioAwareActorInstanceType;
 import org.caltoopia.analysis.air.Action;
 import org.caltoopia.analysis.air.ActorInstance;
@@ -386,13 +387,13 @@ public class ScenarioAwareStateExploration {
 	 * @param ctActions: a set of combinations of control tokens
 	 * @return a set of ScenarioGraph, possibly empty.
 	 */
-	public Set<ScenarioGraph> constructScenarioGraphs(ActorInstance source, 
+	public Set<ScenarioGraph> constructScenarioGraphs(List<ActorInstance> sources, 
 				Set<Pair<ActorInstance, Transition>> tr,
 				Set<Set<ControlTokensPerAction>> ctActions){
 		
 		Set<ScenarioGraph> scenarioGraphs = new HashSet<ScenarioGraph>();
 		for(Set<ControlTokensPerAction> st: ctActions){
-			ScenarioGraph g = analysis.constructScenarioGraph(source, tr, st);
+			ScenarioGraph g = analysis.constructScenarioGraph(sources, tr, st);
 			if(g!=null){
 				//check if it is not duplicate
 				boolean exists = false;
@@ -447,6 +448,13 @@ public class ScenarioAwareStateExploration {
 			return aa.getScenarios().get(0);
 		}
 		
+		if(type == ScenarioAwareActorInstanceType.SA_DETECTOR){	
+			//check if the detector actor is static
+			 if(aa.getActorInstanceType()==ActorInstanceType.SINGLE_RATE_STATIC ||
+						aa.getActorInstanceType()==ActorInstanceType.MULTI_RATE_STATIC){
+				 return aa.getScenarios().get(0);
+			 }
+		}
 		//If an actor is scenario_aware_dynamic, test each of its scenarios
 		for(ScenarioAwareActorAnalysis.Scenario s: aa.getScenarios()){	
 			boolean match = false;				
@@ -514,9 +522,9 @@ public class ScenarioAwareStateExploration {
 		ttQueue = new ArrayList<Set<Pair<ActorInstance, Transition>>>();
 		
 		try{
-			ActorInstance source = analysis.getSourceActor();
+			List<ActorInstance> sources = analysis.getSourceActors();
 			
-			if(source==null){
+			if(sources.size()==0){
 				String msg = "constructScenarioFSM: no source actor found.";
 				msg += "Use annotation: @ActorProperty(Source=\"true\")";
 				throw new NullPointerException(msg);
@@ -562,7 +570,7 @@ public class ScenarioAwareStateExploration {
 					newState.put(transition.getFirst(), transition.getSecond().getTargetState());	
 				}			
 				Set<Set<ControlTokensPerAction>> ctaSet = CartesianProduct.cartesianProduct(sTokens);
-				Set<ScenarioGraph> sgs = constructScenarioGraphs(source, tt, ctaSet);				
+				Set<ScenarioGraph> sgs = constructScenarioGraphs(sources, tt, ctaSet);				
 				if(!sgs.isEmpty()){
 					for(ScenarioGraph sg: sgs){
 						if(ExplorationState.findScenarioGraph(sg, statett.getScenarioGraphs(), false)==null)
@@ -911,9 +919,9 @@ public class ScenarioAwareStateExploration {
 		Set<ActorInstance> dActors = analysis.getScenarioAwareDetectorActors();
 			
 		try{
-			ActorInstance source = analysis.getSourceActor();
+			List<ActorInstance> sources = analysis.getSourceActors();
 			
-			if(source==null){
+			if(sources.size()==0){
 				String msg = "constructScenarioFSM: no source actor found.";
 				msg += "Use annotation: @ActorProperty(Source=\"true\")";
 				throw new NullPointerException(msg);
@@ -963,7 +971,7 @@ public class ScenarioAwareStateExploration {
 					
 					nextStates = CartesianProduct.cartesianProduct(targetStatesList);
 							
-					ScenarioGraph sgs = analysis.constructScenarioGraph(source, sTokens);	
+					ScenarioGraph sgs = analysis.constructScenarioGraph(sources, sTokens);	
 					if(sgs!=null){
 						tt.getScenarioGraphs().add(sgs);
 					}

@@ -373,7 +373,7 @@ public class PluginAnalysisNetworkView {
 			NetworkView view=getNetworkView();
 			SneakyNetworkAnalyzer mNetworkAnalyzer=new SneakyNetworkAnalyzer();
 			ScenarioAwareNetworkAnalysis scenarioAwareAnalysis=
-					new ScenarioAwareNetworkAnalysis(network, mNetworkAnalyzer.analyze(network));
+					new ScenarioAwareNetworkAnalysis(network, mNetworkAnalyzer.analyze(network), session.getWorkingDirectory());
 			
 			for (ActorInstance actor: network.getActors()) {
 				ScenarioAwareActorAnalysis actorAnalysis=scenarioAwareAnalysis.getScenarioAwareActorAnalysis(actor);
