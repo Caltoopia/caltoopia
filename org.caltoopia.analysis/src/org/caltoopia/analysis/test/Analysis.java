@@ -150,7 +150,7 @@ public class Analysis {
 		case 3:
 		case 6:
 			ScenarioAwareNetworkAnalysis saAnalysis=
-				new ScenarioAwareNetworkAnalysis(network, mNetworkAnalyzer.analyze(network));
+				new ScenarioAwareNetworkAnalysis(network, mNetworkAnalyzer.analyze(network), session.getWorkingDirectory());
 			mNetworkOutput.setOutputFolder(session.getOutputFolder());
 			if(saAnalysis.isScenarioAwareDataflowGraph()){
 				mNetworkOutput.printSaXML(network,saAnalysis);

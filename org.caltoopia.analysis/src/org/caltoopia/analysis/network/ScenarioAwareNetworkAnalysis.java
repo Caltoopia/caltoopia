@@ -215,7 +215,7 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 	private String resourcePath;
 	
 	//constructor
-	public ScenarioAwareNetworkAnalysis(Network n, NetworkAnalysis na) {
+	public ScenarioAwareNetworkAnalysis(Network n, NetworkAnalysis na, String actionSchedulePAth) {
 		//Generic network analyis constructor
 		super(n,na);
 		
@@ -273,7 +273,7 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 		}				
 	
 
-		setResourcePath("/home/firew/CAL_applications/RVC_MPEG4_SP_Decoder");
+		setResourcePath(actionSchedulePAth);
 		
 		// state-space exploration object to construct the FSM
 		stateSpaceExploration = new ScenarioAwareStateExploration(this);
