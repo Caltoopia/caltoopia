@@ -120,6 +120,8 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 	Stream s;
 	String folder;
 	
+	boolean calsim = false;
+	
 	Map<String, String> inputPortMap = new HashMap<String, String>();
 	
 	Map<String, String> outputPortMap = new HashMap<String, String>();
@@ -128,6 +130,11 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 	
 	public IrXmlPrinter(String folder) {
 		this.folder = folder;
+	}
+	
+	public IrXmlPrinter(String folder, boolean c) {
+		this.folder = folder;
+		this.calsim = c;
 	}
 
 	public void run(Namespace ns) {		
@@ -205,9 +212,9 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 				PortInstance source = ((Point2PointConnection) c).getSource();
 				PortInstance target = ((Point2PointConnection) c).getTarget();
 				s.print("<Connection kind=\"point2point\""
-						 + " dst=\"" + target.getActor().getId() + "\""
+						 + " dst=\"" + (calsim?target.getActor().getName():target.getActor().getId()) + "\""
 						 + " dst-port=\"" + target.getName() + "\""
-				         + " src=\"" + source.getActor().getId() + "\""
+				         + " src=\"" + (calsim?source.getActor().getName():source.getActor().getId()) + "\""
 				         + " src-port=\"" + source.getName() + "\"" 
 				         + " id=\"" + c.getId() + "\"");
 				if (c.getAttributes().isEmpty() && c.getAnnotations().isEmpty()) {
@@ -226,7 +233,7 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 				Port source = ((FromSource) c).getSource();
 				PortInstance target = ((FromSource) c).getTarget();
 				s.print("<Connection kind=\"fromSource\""
-						 + " dst=\"" + target.getActor().getId() + "\""
+						 + " dst=\"" + (calsim?target.getActor().getName():target.getActor().getId()) + "\""
 						 + " dst-port=\"" + target.getName() + "\""
 				         + " src-port=\"" + source.getName() + "\""
 				         + " id=\"" + c.getId() + "\"");
@@ -247,7 +254,7 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 				Port target = ((ToSink) c).getSink();
 				s.print("<Connection kind=\"toSink\""
 						 + " dst-port=\"" + target.getName() + "\""
-				         + " src=\"" + source.getActor().getId() + "\""
+				         + " src=\"" + (calsim?source.getActor().getName():source.getActor().getId()) + "\""
 				         + " src-port=\"" + source.getName() + "\""
 				         + " id=\"" + c.getId() + "\"");
 				if (c.getAttributes().isEmpty() && c.getAnnotations().isEmpty()) {

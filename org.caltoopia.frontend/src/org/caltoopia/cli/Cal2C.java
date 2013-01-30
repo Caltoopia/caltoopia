@@ -284,7 +284,7 @@ public class Cal2C {
 			//Print the elaborated network
 			boolean errPrint=session.getOutputFolder().contains("ecshdgn"); //So Harald get the err prints and none else
 			new IrVariableAnnotation(errPrint).caseNetwork(session.getElaboratedNetwork());
-			new IrXmlPrinter(session.getOutputFolder()).caseNetwork(session.getElaboratedNetwork());
+			new IrXmlPrinter(session.getOutputFolder(), systemc).caseNetwork(session.getElaboratedNetwork());
 			//Transform the elaborated top network
 			cir.doSwitch(session.getElaboratedNetwork());
 		
@@ -317,7 +317,7 @@ public class Cal2C {
 						out.println("Writing '" + file + "'");
 						AbstractActor actorInstantiated = Instantiator.instantiate(instance, session.getElaboratedNetwork());
 						new IrVariableAnnotation(errPrint).doSwitch(actorInstantiated);
-						new IrXmlPrinter(session.getOutputFolder()).doSwitch(actorInstantiated);
+						new IrXmlPrinter(session.getOutputFolder(), systemc).doSwitch(actorInstantiated);
 						new CPrinter(file, null, session.getElaboratedNetwork(), cir, systemc, env, debugPrint).doSwitch(instance);
 						sourceFiles.add(nsName + "__" + instance.getName() + ".c");
 						//String dotFile = session.getOutputFolder() + File.separator + nsName + "__" + instance.getName() + ".dot";
@@ -408,6 +408,14 @@ public class Cal2C {
 			config.println("RUNTIME_ROOT = " + session.getRuntimePath());
 			if(systemc){
 				config.println("CALSIM_ROOT = " + simulationSession.calsimPath);
+				if(!env.includePaths.isEmpty()) {
+					config.print("SOURCES_DIR = ");
+					String str = env.includePaths.split(" *, *")[0];
+					if(!str.trim().isEmpty()) {
+						config.print(str.trim());
+					}					
+					config.println();
+				}
 				config.println("CALLIB_HOME = " + session.getOutputFolder());
 				config.println("CALLIB = " + nsName.toLowerCase());
 			}
