@@ -1701,6 +1701,7 @@ public class IR2CIR extends IR2IRBase {
 				}
 			}
 		}
+		Set<Declaration> decl = new HashSet<Declaration>();
 		for (PortPeek p : guard.getPeeks()) {
 			doSwitch(p);
 			VariableReference var = p.getVariable();
@@ -1709,6 +1710,7 @@ public class IR2CIR extends IR2IRBase {
 					if(UtilIR.isList(var.getDeclaration().getType())) {
 						//Need to allocate the top list since the tokens are stored as individual tokens
 						UtilIR.tag(d, "shallowHeapMgmt", true);
+						decl.add(d);
 					} else {
 						UtilIR.tag(d, "inhibitHeapMgmt", true);
 					}
@@ -1755,7 +1757,15 @@ public class IR2CIR extends IR2IRBase {
 				}
 			}
 		}
-		insertHeapManagment(body,true,guard.getDeclarations(),body.getStatements());
+		List<Declaration> asList= new ArrayList<Declaration>();
+		asList.addAll(decl);
+		int size=asList.size();
+		insertHeapManagment(body,true,asList,body.getStatements());
+		if(asList.size()>size) {
+			//For example a looping index was added in the heap management code
+			//Add that to the guard body declarations
+			body.getDeclarations().addAll(asList.subList(size, asList.size()));
+		}
 		leave();
 		return guard;
 	}
