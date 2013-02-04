@@ -43,6 +43,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.caltoopia.cli.CompilationSession;
 
@@ -66,7 +67,12 @@ public class Util {
 	}	
 	
 	public static String getRuntimeDir() {
-		return getRootDir() + "snow_actors_rts";
+		Map<String, String> env = System.getenv();
+		if(env.containsKey("CALTOOPIA_RUNTIME_HOME")) {
+			return env.get("CALTOOPIA_RUNTIME_HOME");
+		} else {
+			return getRootDir() + "snow_actors_rts";
+		}
 	}
 
 	public static void build(CompilationSession session) {

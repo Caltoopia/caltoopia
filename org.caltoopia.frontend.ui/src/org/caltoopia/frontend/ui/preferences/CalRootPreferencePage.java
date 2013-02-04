@@ -45,7 +45,7 @@ import org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage;
 
 public class CalRootPreferencePage extends LanguageRootPreferencePage {
 
-	public static final String RUNTIME_ENVIRONMENT_VARIABLE = "ACTORS_RUNTIME_HOME";
+	public static final String RUNTIME_ENVIRONMENT_VARIABLE = "CALTOOPIA_RUNTIME_HOME";
 	
 	public static final String CALSIM_ENVIRONMENT_VARIABLE = "CALSIM_HOME";
 	
