@@ -14,3 +14,5 @@ org.caltoopia.frontend.ui/src/org/.DS_Store
 org.caltoopia.frontend.ui/src/org/caltoopia/.DS_Store
 org.caltoopia.frontend.ui/src/org/caltoopia/frontend/.DS_Store
 org.caltoopia.jars/.DS_Store
+target
+output
