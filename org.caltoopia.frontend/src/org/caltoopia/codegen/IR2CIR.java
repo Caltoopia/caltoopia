@@ -1225,6 +1225,16 @@ public class IR2CIR extends IR2IRBase {
 					}
 				}
 			}
+			//Variable declarations might have a initValue that contains assignments to params, hence all initValues are converted to statements
+			//to allow the malloc to happen first
+			int pos=0;
+			for (Declaration d : block.getDeclarations()) {
+				if(UtilIR.isListOrRecord(((Variable)d).getType()) && UtilIR.isNormalInit(d)) {
+					UtilIR.createAssign(pos,block,(Variable)d, ((Variable)d).getInitValue());
+					((Variable)d).setInitValue(null);
+					pos++;
+				}
+			}
 			insertHeapManagment(block,true,block.getDeclarations(),block.getStatements());
 			return super.caseBlock(block);
 		} else {
