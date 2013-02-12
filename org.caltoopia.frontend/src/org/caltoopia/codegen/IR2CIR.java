@@ -1810,9 +1810,10 @@ public class IR2CIR extends IR2IRBase {
 				Variable var = UtilIR.createVarDef(b, "tempList_"+e.getId(), type);
 				var.setInitValue(e);
 				//((Block)b).getStatements().add((Statement)caseAssign(UtilIR.createAssignN(b, var, e)));
-				//call.getParameters().set(i, UtilIR.createExpression(b, var));
+				call.getParameters().set(i, UtilIR.createExpression(b, var));
 			} else if(e instanceof TypeConstructorCall) {
 				//FIXME we need to handle the params of this one as well...
+				throw new RuntimeException("We have not implemented nested type constructor calls.");
 			} else {
 				EObject obj = doSwitch(e);
 				if(obj!=e) {
