@@ -1688,18 +1688,8 @@ public class IR2CIR extends IR2IRBase {
 		Actor actor = getThisActor();
 		//Need to know how many variables on each port
 		Map<String,Integer> nbrVarsOnPort = new HashMap<String,Integer>();
-		for(Declaration d : guard.getOuter().getDeclarations()) {
-			for (PortPeek p : guard.getPeeks()) {
-				if(d.getName().equals(p.getVariable().getDeclaration().getName())) {
-					doSwitch(d);
-					if(nbrVarsOnPort.containsKey((p.getPort().getName()))) {
-						nbrVarsOnPort.put(p.getPort().getName(),nbrVarsOnPort.get(p.getPort().getName())+1);
-					} else {
-						nbrVarsOnPort.put(p.getPort().getName(),1);						
-					}
-					break;
-				}
-			}
+		for(PortRead p : ((Action)guard.getOuter()).getInputs()) {
+			nbrVarsOnPort.put(p.getPort().getName(),p.getVariables().size());
 		}
 		Set<Declaration> decl = new HashSet<Declaration>();
 		for (PortPeek p : guard.getPeeks()) {
@@ -1720,10 +1710,10 @@ public class IR2CIR extends IR2IRBase {
 			if (UtilIR.isList(var.getDeclaration().getType())) {
 				TypeList t = (TypeList) var.getDeclaration().getType();
 				if (UtilIR.isRecord(t.getType())) {
-					Expression offset = UtilIR.lit(p.getPosition());
+					Expression offset = var.getIndex().get(0);
 					offset = UtilIR.createExpression(offset,"*",UtilIR.lit(nbrVarsOnPort.get(p.getPort().getName())));
 					if(!var.getIndex().isEmpty()) {
-						offset = UtilIR.createExpression(offset,"+",var.getIndex().get(0));
+						offset = UtilIR.createExpression(offset,"+",UtilIR.lit(p.getPosition()));
 					}
 
 					ProcCall pinpeek = UtilIR.createProcCall(0,body, stdLib.get("pinPeek_bytes"), 
@@ -1732,10 +1722,10 @@ public class IR2CIR extends IR2IRBase {
 									createDeepSizeof(body, t.getType()),
 									offset),null);	
 				} else {
-					Expression offset = UtilIR.lit(p.getPosition());
+					Expression offset = var.getIndex().get(0);
 					offset = UtilIR.createExpression(offset,"*",UtilIR.lit(nbrVarsOnPort.get(p.getPort().getName())));
 					if(!var.getIndex().isEmpty()) {
-						offset = UtilIR.createExpression(offset,"+",var.getIndex().get(0));
+						offset = UtilIR.createExpression(offset,"+",UtilIR.lit(p.getPosition()));
 					}
 					FunctionCall pinpeek = UtilIR.createFunctionCall(body, stdLib.get("pinPeek_"+portTypeString(t)), 
 							Arrays.asList(UtilIR.createExpression(body,portMapIn.get(p.getPort().getName())),offset));
