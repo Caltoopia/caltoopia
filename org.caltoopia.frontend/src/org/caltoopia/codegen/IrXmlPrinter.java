@@ -174,6 +174,8 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 		s = new Stream(folder + File.separator + UtilIR.namespace2Path(network.getType().getNamespace()) + File.separator + network.getType().getName() + ".xml");		
 		s.printlnInc("<Network id=\"" + network.getId() + "\" >"); ;
 
+		doAnnotations(network);
+
 		doSwitch(network.getType());		     
 				    
     	for (Port port : network.getInputPorts()) { 
