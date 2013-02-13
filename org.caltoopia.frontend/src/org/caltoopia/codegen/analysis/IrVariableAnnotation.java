@@ -34,7 +34,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.caltoopia.codegen;
+package org.caltoopia.codegen.analysis;
 
 import java.io.PrintStream;
 import java.io.OutputStream;
@@ -77,8 +77,7 @@ import org.caltoopia.ir.VariableImport;
 import org.caltoopia.ir.VariableReference;
 import org.caltoopia.ir.util.IrReplaceSwitch;
 import org.eclipse.emf.ecore.EObject;
-
-
+import org.caltoopia.codegen.UtilIR;
 
 public class IrVariableAnnotation extends IrReplaceSwitch {
 

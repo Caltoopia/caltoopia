@@ -59,7 +59,8 @@ import org.caltoopia.ast2ir.Util;
 import org.caltoopia.codegen.CEnvironment;
 import org.caltoopia.codegen.CPrinter;
 import org.caltoopia.codegen.IR2CIR;
-import org.caltoopia.codegen.IrVariableAnnotation;
+import org.caltoopia.codegen.analysis.IrAnnotations;
+import org.caltoopia.codegen.analysis.IrVariableAnnotation;
 import org.caltoopia.codegen.IrDottyPrinter;
 import org.caltoopia.codegen.IrXmlPrinter;
 import org.caltoopia.codegen.UtilIR;
@@ -95,6 +96,8 @@ import org.eclipse.core.resources.ResourcesPlugin;
 
 public class Cal2C {
 	
+	private static final int ArrayList = 0;
+
 	@Inject
 	private XtextResourceSet resourceSet;
 		
@@ -282,8 +285,18 @@ public class Cal2C {
 			IR2CIR cir = (IR2CIR) new IR2CIR();
 
 			//Print the elaborated network
-			boolean errPrint=session.getOutputFolder().contains("ecshdgn"); //So Harald get the err prints and none else
-			new IrVariableAnnotation(errPrint).caseNetwork(session.getElaboratedNetwork());
+			boolean altCodegen=false;
+			if(System.getenv().containsKey("CALTOOPIA_CODEGEN_EXPERIMENT") && System.getenv().get("CALTOOPIA_CODEGEN_EXPERIMENT").equals("Y")) {
+				out.println("#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*##*#*#*#");
+				out.println("#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*##*#*#*#");
+				out.println("#*#*#   Using experimental code generation   #*#*#");
+				out.println("#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*##*#*#*#");
+				out.println("#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*##*#*#*#");
+				altCodegen=true;
+			}
+			if(altCodegen) {
+				new IrAnnotations(session.getElaboratedNetwork(),Arrays.asList(IrAnnotations.IrAnnotationTypes.Variable));
+			}
 			new IrXmlPrinter(session.getOutputFolder()).caseNetwork(session.getElaboratedNetwork());
 			//Transform the elaborated top network
 			cir.doSwitch(session.getElaboratedNetwork());
@@ -316,7 +329,9 @@ public class Cal2C {
 					if (actor instanceof Actor) {
 						out.println("Writing '" + file + "'");
 						AbstractActor actorInstantiated = Instantiator.instantiate(instance, session.getElaboratedNetwork());
-						new IrVariableAnnotation(errPrint).doSwitch(actorInstantiated);
+						if(altCodegen) {
+							new IrAnnotations(actorInstantiated,Arrays.asList(IrAnnotations.IrAnnotationTypes.Variable));
+						}
 						new IrXmlPrinter(session.getOutputFolder()).doSwitch(actorInstantiated);
 						new CPrinter(file, null, session.getElaboratedNetwork(), cir, systemc, env, debugPrint).doSwitch(instance);
 						sourceFiles.add(nsName + "__" + instance.getName() + ".c");
