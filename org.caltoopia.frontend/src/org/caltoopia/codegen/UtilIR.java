@@ -37,6 +37,7 @@
 package org.caltoopia.codegen;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -44,6 +45,8 @@ import org.caltoopia.ast2ir.Util;
 import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.cli.DirectoryException;
 import org.caltoopia.ir.Action;
+import org.caltoopia.ir.Annotation;
+import org.caltoopia.ir.AnnotationArgument;
 import org.caltoopia.ir.Assign;
 import org.caltoopia.ir.BinaryExpression;
 import org.caltoopia.ir.Block;
@@ -62,6 +65,7 @@ import org.caltoopia.ir.LambdaExpression;
 import org.caltoopia.ir.ListExpression;
 import org.caltoopia.ir.LiteralExpression;
 import org.caltoopia.ir.Member;
+import org.caltoopia.ir.Node;
 import org.caltoopia.ir.Port;
 import org.caltoopia.ir.ProcCall;
 import org.caltoopia.ir.ProcExpression;
@@ -93,8 +97,34 @@ import org.caltoopia.ir.VariableImport;
 import org.caltoopia.ir.VariableReference;
 import org.caltoopia.ir.WhileLoop;
 import org.caltoopia.types.TypeSystem;
+import org.eclipse.emf.common.util.EList;
 
 public class UtilIR {
+	
+	static public List<String> getAnnotatedNamespace(Node node) {
+		List<String> ns = new ArrayList<String>();
+		for(Annotation a : node.getAnnotations()) {
+			if(a.getName().equals("NAMESPACE")) {
+				for(AnnotationArgument aa: a.getArguments()) {
+					ns.add(aa.getValue());
+				}
+				break;
+			}
+		}
+		return ns;
+	}
+
+	static public boolean fromNamespace(Node node) {
+		List<String> ns = new ArrayList<String>();
+		for(Annotation a : node.getAnnotations()) {
+			if(a.getName().equals("NAMESPACE")) {
+				if(!a.getArguments().isEmpty()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	
 	static public Expression containsTag(List<TaggedExpression> list, String tag) {
 		if(list==null)

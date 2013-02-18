@@ -974,7 +974,7 @@ public class CPrinter extends IrSwitch<Stream> {
 			s.print(Util.marshallQualifiedName(((VariableImport)var.getVariable()).getNamespace())+"_");
 			constant=true;
 		} else if(isConstDecl(var.getVariable())){
-			s.print(Util.marshallQualifiedName(((Namespace)((Variable)var.getVariable()).getScope()).getName())+"_");
+			s.print(Util.marshallQualifiedName(UtilIR.getAnnotatedNamespace(var.getVariable()))+"_");
 			constant=true;
 		} else if(isActorConstDecl(var.getVariable())) {
 			constant=true;
@@ -1682,8 +1682,12 @@ public class CPrinter extends IrSwitch<Stream> {
 	
 	private void printVarDecl(Variable variable) {
 		String namespace = "";
-		if(variable.getScope() instanceof Namespace && !(parent() instanceof TypeDeclaration)) {
-			namespace = Util.marshallQualifiedName(((Namespace)variable.getScope()).getName())+"_";
+		if(variable.getScope() instanceof Network && !(parent() instanceof TypeDeclaration)) {
+			List<String> ns = UtilIR.getAnnotatedNamespace(variable);
+			namespace = variable.getScope().toString() + " */";
+			if(ns.size()>0) {
+				namespace = Util.marshallQualifiedName(ns)+"_";
+			}
 		}
 		if(topHeader && !(parent() instanceof TypeDeclaration)) s.print("extern ");
 		doSwitch(variable.getType());

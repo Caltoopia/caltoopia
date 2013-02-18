@@ -44,16 +44,33 @@ import java.util.Map;
 import java.util.Set;
 import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.cli.DirectoryException;
+import org.caltoopia.ir.Annotation;
+import org.caltoopia.ir.AnnotationArgument;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
+import org.caltoopia.ir.ForwardDeclaration;
+import org.caltoopia.ir.Generator;
+import org.caltoopia.ir.IrFactory;
+import org.caltoopia.ir.LambdaExpression;
+import org.caltoopia.ir.ListExpression;
 import org.caltoopia.ir.Namespace;
 import org.caltoopia.ir.Network;
+import org.caltoopia.ir.Node;
+import org.caltoopia.ir.Scope;
+import org.caltoopia.ir.Type;
+import org.caltoopia.ir.TypeConstructor;
 import org.caltoopia.ir.TypeConstructorCall;
+import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeDeclarationImport;
+import org.caltoopia.ir.TypeLambda;
+import org.caltoopia.ir.TypeRecord;
 import org.caltoopia.ir.TypeUser;
+import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExpression;
+import org.caltoopia.ir.VariableExternal;
 import org.caltoopia.ir.VariableImport;
 import org.caltoopia.ir.util.IrReplaceSwitch;
+import org.caltoopia.ir.util.IrSwitch;
 import org.eclipse.emf.ecore.EObject;
 
 public class ExpandIrSymbols {
@@ -63,19 +80,146 @@ public class ExpandIrSymbols {
 	    Set<IrDeclVertex> added = new HashSet<IrDeclVertex>();
 
 	    final Map<Declaration, Declaration> imported = new HashMap<Declaration, Declaration>();
+	    
+	    /*
+	     * When elaborating the network declarations are moved from their
+	     * namespace scope into a globally sorted list in the top network.
+	     * Hence, we also change all scope references to the top network.
+	     */
+	    final Network theNetwork = network;
+	    class scopeReplace extends IrReplaceSwitch {
+	    	
+	    	private void setNamespace(Node node, Scope scope) {
+	    		if(scope instanceof Namespace) {
+	    			Annotation a = IrFactory.eINSTANCE.createAnnotation();
+	    			a.setName("NAMESPACE");
+	    			for(String s:((Namespace) scope).getName()) {
+		    			AnnotationArgument aa = IrFactory.eINSTANCE.createAnnotationArgument();
+		    			aa.setId(s);
+		    			aa.setValue(s);
+		    			a.getArguments().add(aa);
+	    			}
+	    			node.getAnnotations().add(a);
+	    		}
+	    	}
+	    	
+	    	@Override
+			public Declaration caseTypeDeclaration(TypeDeclaration type) {
+	    		TypeDeclaration decl = (TypeDeclaration) super.caseTypeDeclaration(type);
+	    		setNamespace(decl,decl.getScope());
+	    		decl.setScope(theNetwork);
+	    		return decl;
+	    	}
+
+	    	@Override
+			public TypeConstructor caseTypeConstructor(TypeConstructor type) {
+	    		type = super.caseTypeConstructor(type);
+	    		setNamespace(type,type.getScope());
+	    		type.setScope(theNetwork);
+	    		return type;
+	    	}
+
+	    	@Override
+			public Type caseTypeRecord(TypeRecord type) {
+	    		TypeRecord typeRet = (TypeRecord) super.caseTypeRecord(type);
+	    		for (Variable member : ((TypeRecord)typeRet).getMembers()) {	
+		    		setNamespace(member,member.getScope());
+	    			member.setScope(theNetwork);			
+	    		}
+	    		return typeRet;
+	    	}
+
+	    	@Override
+			public Declaration caseVariable(Variable var) {
+	    		Variable decl = (Variable) super.caseVariable(var);
+	    		setNamespace(decl,decl.getScope());
+	    		decl.setScope(theNetwork);
+	    		return decl;
+	    	}
+
+	    	@Override
+			public Declaration caseVariableExternal(VariableExternal var) {
+	    		Declaration decl = (Declaration) super.caseVariableExternal(var);
+	    		setNamespace(decl,decl.getScope());
+	    		decl.setScope(theNetwork);
+	    		return decl;
+	    	}
+
+	    	@Override
+			public Declaration caseVariableImport(VariableImport decl) {
+	    		setNamespace(decl,decl.getScope());
+	    		decl.setScope(theNetwork);
+	    		return decl;
+	    	}
+
+	    	@Override
+			public Declaration caseForwardDeclaration(ForwardDeclaration var) {
+	    		Declaration decl = (Declaration) super.caseForwardDeclaration(var);
+	    		setNamespace(decl,decl.getScope());
+	    		decl.setScope(theNetwork);
+	    		return decl;
+	    	}
+
+	    	@Override
+	    	public EObject caseLambdaExpression(LambdaExpression lambda) {
+	    		setNamespace(lambda,lambda.getOuter());
+	    		lambda.setContext(theNetwork);
+	    		lambda.setOuter(theNetwork);
+
+	    		//Visit the types
+	    		doSwitch(lambda.getType());
+	    		for (int i = 0; i < lambda.getParameters().size(); i++) {
+	    			doSwitch(lambda.getParameters().get(i).getType());
+	    		}
+
+	    		//No super since don't want to dive into body
+	    		return lambda;
+	    	}
+
+	    	@Override
+	    	public EObject caseListExpression(ListExpression expr) {
+	    		setNamespace(expr,expr.getContext());
+	    		expr.setContext(theNetwork);
+	    		for(Expression e: expr.getExpressions()) {
+	    			doSwitch(e);
+	    		}
+	    		//TODO should we dive in and find types?
+	    		return expr;
+	    	}
+
+	    	@Override
+	    	public Expression caseTypeConstructorCall(TypeConstructorCall call) {
+	    		setNamespace(call,call.getContext());
+	    		call.setContext(theNetwork);
+
+	    		//Visit the parameter types
+	    		/*
+	    		for (int i = 0; i < call.getParameters().size(); i++) {
+	    			doSwitch(call.getParameters().get(i));
+	    		}
+	    		*/
+	    		return call;
+	    	}
+
+	    }
 		
 		for (Declaration decl : network.getDeclarations()) {
 			
 			try {
 				if (decl instanceof TypeDeclarationImport) {  
 					Declaration newDecl = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) decl);
+					//Change scope to network due to this is the new home of the declaration
+					new scopeReplace().doSwitch(newDecl);
 					imported.put(decl, newDecl);
 					decl = newDecl;			
 				} else if (decl instanceof VariableImport) {	
 					Declaration newDecl = ActorDirectory.findVariable((VariableImport) decl);
+					//Change scope to network due to this is the new home of the declaration
+					new scopeReplace().doSwitch(newDecl);
 					imported.put(decl, newDecl);
 					decl = newDecl;
-				} 
+				}
+				new scopeReplace().doSwitch(decl);
 				added.add(new IrDeclVertex(decl));
 			} catch (DirectoryException x) {
 				System.err.println("[ExpandIrSymbols] Internal error #1");
@@ -89,14 +233,20 @@ public class ExpandIrSymbols {
 				try {
 					if (decl instanceof TypeDeclarationImport) {  
 						Declaration newDecl = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) decl);
+						//Change scope to network due to this is the new home of the declaration
+						new scopeReplace().doSwitch(newDecl);
 						imported.put(decl, newDecl);
 						decl = newDecl;	
 					} else if  (decl instanceof VariableImport) {	
 						Declaration newDecl = ActorDirectory.findVariable((VariableImport) decl);
+						//Change scope to network due to this is the new home of the declaration
+						new scopeReplace().doSwitch(newDecl);
 						imported.put(decl, newDecl);
 						decl = newDecl;
 					} 
 					if (!added.contains(decl)) {
+						//Change scope to network due to this is the new home of the declaration
+						new scopeReplace().doSwitch(decl);
 						network.getDeclarations().add(decl);
 						added.add(new IrDeclVertex(decl));
 					}

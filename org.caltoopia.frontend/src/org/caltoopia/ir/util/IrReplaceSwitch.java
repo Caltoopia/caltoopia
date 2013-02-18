@@ -51,6 +51,7 @@ import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.FloatLiteral;
 import org.caltoopia.ir.ForEach;
+import org.caltoopia.ir.ForwardDeclaration;
 import org.caltoopia.ir.FromSource;
 import org.caltoopia.ir.FunctionCall;
 import org.caltoopia.ir.Generator;
@@ -98,6 +99,7 @@ import org.caltoopia.ir.TypeUser;
 import org.caltoopia.ir.UnaryExpression;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExpression;
+import org.caltoopia.ir.VariableExternal;
 import org.caltoopia.ir.VariableReference;
 import org.caltoopia.ir.WhileLoop;
 import org.caltoopia.ir.util.IrSwitch;
@@ -697,6 +699,18 @@ public class IrReplaceSwitch extends IrSwitch<EObject> {
 	}
 
 	@Override
+	public Declaration caseForwardDeclaration(ForwardDeclaration decl) {
+		//TODO anyone every need to go deep in this?
+		return decl;
+	}
+
+	@Override
+	public Declaration caseVariableExternal(VariableExternal decl) {
+		//TODO anyone every need to go deep in this?
+		return decl;
+	}
+
+	@Override
 	public Declaration caseVariable(Variable variable) {
 		if (variable.getType() != null) {
 			Type t = (Type) doSwitch(variable.getType());
@@ -843,9 +857,19 @@ public class IrReplaceSwitch extends IrSwitch<EObject> {
 	}
 
 	@Override
-	public Type caseTypeConstructor(TypeConstructor object) {
-		//FIXME
-		return null;
+	public TypeConstructor caseTypeConstructor(TypeConstructor object) {
+		List<TaggedExpression> attributes = object.getAttributes();
+		for (int i = 0; i < attributes.size(); i++) {
+			TaggedExpression te = caseTaggedExpression(attributes.get(i));
+			attributes.set(i, te);
+		}
+		//Visit the parameters
+		List<Variable> params = object.getParameters();
+		for (int i = 0; i < params.size(); i++) {
+			Variable def = (Variable) doSwitch(params.get(i));
+			params.set(i, def);
+		}
+		return object;
 	}
 
 	@Override
