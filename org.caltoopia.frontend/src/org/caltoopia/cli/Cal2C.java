@@ -295,7 +295,8 @@ public class Cal2C {
 				altCodegen=true;
 			}
 			if(altCodegen) {
-				new IrAnnotations(session.getElaboratedNetwork(),Arrays.asList(IrAnnotations.IrAnnotationTypes.Variable));
+				IrAnnotations.IrTransformNetworkInit(session.getElaboratedNetwork());
+				new IrAnnotations(session.getElaboratedNetwork().getType(), session, Arrays.asList(IrAnnotations.IrAnnotationTypes.Variable,IrAnnotations.IrAnnotationTypes.Type));
 			}
 			new IrXmlPrinter(session.getOutputFolder()).caseNetwork(session.getElaboratedNetwork());
 			//Transform the elaborated top network
@@ -329,9 +330,9 @@ public class Cal2C {
 					if (actor instanceof Actor) {
 						out.println("Writing '" + file + "'");
 						AbstractActor actorInstantiated = Instantiator.instantiate(instance, session.getElaboratedNetwork());
-						if(altCodegen) {
-							new IrAnnotations(actorInstantiated,Arrays.asList(IrAnnotations.IrAnnotationTypes.Variable));
-						}
+						//if(altCodegen) {
+						//	new IrAnnotations(actorInstantiated, session, Arrays.asList(IrAnnotations.IrAnnotationTypes.Variable));
+						//}
 						new IrXmlPrinter(session.getOutputFolder()).doSwitch(actorInstantiated);
 						new CPrinter(file, null, session.getElaboratedNetwork(), cir, systemc, env, debugPrint).doSwitch(instance);
 						sourceFiles.add(nsName + "__" + instance.getName() + ".c");

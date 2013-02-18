@@ -36,6 +36,7 @@
 
 package org.caltoopia.codegen.analysis;
 
+import java.io.File;
 import java.io.PrintStream;
 import java.io.OutputStream;
 import java.util.HashMap;
@@ -45,11 +46,13 @@ import java.util.Map;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Action;
 import org.caltoopia.ir.Actor;
+import org.caltoopia.ir.ActorInstance;
 import org.caltoopia.ir.Annotation;
 import org.caltoopia.ir.AnnotationArgument;
 import org.caltoopia.ir.Block;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
+import org.caltoopia.ir.ExternalActor;
 import org.caltoopia.ir.Generator;
 import org.caltoopia.ir.Guard;
 import org.caltoopia.ir.IrFactory;
@@ -63,6 +66,7 @@ import org.caltoopia.ir.PortWrite;
 import org.caltoopia.ir.ProcExpression;
 import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.Type;
+import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeBool;
 import org.caltoopia.ir.TypeFloat;
 import org.caltoopia.ir.TypeInt;
@@ -77,7 +81,12 @@ import org.caltoopia.ir.VariableImport;
 import org.caltoopia.ir.VariableReference;
 import org.caltoopia.ir.util.IrReplaceSwitch;
 import org.eclipse.emf.ecore.EObject;
+import org.caltoopia.cli.ActorDirectory;
+import org.caltoopia.cli.CompilationSession;
+import org.caltoopia.cli.DirectoryException;
+import org.caltoopia.codegen.IrXmlPrinter;
 import org.caltoopia.codegen.UtilIR;
+import org.caltoopia.codegen.analysis.IrAnnotations.IrAnnotationTypes;
 
 public class IrVariableAnnotation extends IrReplaceSwitch {
 
@@ -128,8 +137,9 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 	private Map<String,String> idOutVarAccessMap = new HashMap<String,String>();
 	
 	private PrintStream serr = null; 
+	private CompilationSession session;
 
-	public IrVariableAnnotation(boolean errPrint) {
+	public IrVariableAnnotation(Node node, CompilationSession session, boolean errPrint) {
 		if(!errPrint) {
 			serr = new PrintStream(new OutputStream(){
 			    public void write(int b) {
@@ -139,55 +149,8 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		} else {
 			serr = System.err;
 		}
-	}
-	
-	static private final String VARIABLE_ANNOTATION = "Variable";
-	static private Annotation getAnalysAnnotations(EObject obj) {
-		List<Annotation> annotations = null;
-		//Most obj is a node
-		if(obj instanceof Node) {
-			annotations = ((Node)obj).getAnnotations();
-		} else {
-			return null;
-		}
-		for(Annotation a : annotations) {
-			if(a.getName().equals(VARIABLE_ANNOTATION)) {
-				return a;
-			}
-		}
-		//No analyze annotation yet but we should have one
-		Annotation a = IrFactory.eINSTANCE.createAnnotation();
-		a.setName(VARIABLE_ANNOTATION);
-		annotations.add(a);
-		return a;
-	}
-
-	private void setAnnotation(Annotation a, String key, String value) {
-		for(AnnotationArgument aa : a.getArguments()) {
-			if(aa.getId().equals(key)) {
-				aa.setValue(value);
-				return;
-			}
-		}
-		AnnotationArgument aa = IrFactory.eINSTANCE.createAnnotationArgument();
-		aa.setId(key);
-		aa.setValue(value);
-		a.getArguments().add(aa);
-	}
-
-	static public String getAnnotationArg(EObject obj, String key) {
-		Annotation a = getAnalysAnnotations(obj);
-		for(AnnotationArgument aa : a.getArguments()) {
-			if(aa.getId().equals(key)) {
-				return aa.getValue();
-			}
-		}
-		if(key.equals("VarAccess"))
-			return VarAccess.unknown.name();
-		else if(key.equals("VarType"))
-			return VarType.unknown.name();
-		else
-			return "unknown";
+		this.session = session;
+		this.doSwitch(node);
 	}
 	
 	public enum VarType {
@@ -483,9 +446,9 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 	
 	@Override
 	public Expression caseVariableExpression(VariableExpression var) {
-		Annotation a = getAnalysAnnotations(var);
+		Annotation a = IrAnnotations.getAnalysAnnotations(var,IrAnnotations.VARIABLE_ANNOTATION);
 		VarType t = findVariableType(var.getVariable());
-		setAnnotation(a,"VarType",t.name());
+		IrAnnotations.setAnnotation(a,"VarType",t.name());
 		VarAccess va = VarAccess.unknown;
 		//Put the access annotation in the map, will be replicated in caseAction to all variables, var ref and exp refering to the same id
 		if(currentWrite!=null) {
@@ -502,9 +465,9 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 	
 	@Override
 	public VariableReference caseVariableReference(VariableReference var) {
-		Annotation a = getAnalysAnnotations(var);
+		Annotation a = IrAnnotations.getAnalysAnnotations(var,IrAnnotations.VARIABLE_ANNOTATION);
 		VarType t = findVariableType(var.getDeclaration());
-		setAnnotation(a,"VarType",t.name());
+		IrAnnotations.setAnnotation(a,"VarType",t.name());
 		VarAccess va = VarAccess.unknown;
 		//Put the access annotation in the map, will be replicated in caseAction to all variables, var ref and exp refering to the same id
 		if(currentRead!=null) {
@@ -516,9 +479,9 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 
 	@Override
 	public Declaration caseVariable(Variable var) {
-		Annotation a = getAnalysAnnotations(var);
+		Annotation a = IrAnnotations.getAnalysAnnotations(var,IrAnnotations.VARIABLE_ANNOTATION);
 		VarType t = findVariableType(var);
-		setAnnotation(a,"VarType",t.name());
+		IrAnnotations.setAnnotation(a,"VarType",t.name());
 		return super.caseVariable(var);
 	}
 	
@@ -539,27 +502,33 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 			@Override
 			public VariableReference caseVariableReference(VariableReference var) {
 				if(idInVarAccessMap.containsKey(var.getDeclaration().getId()))
-					setAnnotation(getAnalysAnnotations(var), "VarAccessIn",idInVarAccessMap.get(var.getDeclaration().getId()));
+					IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(var,IrAnnotations.VARIABLE_ANNOTATION), 
+							"VarAccessIn",idInVarAccessMap.get(var.getDeclaration().getId()));
 				if(idOutVarAccessMap.containsKey(var.getDeclaration().getId()))
-					setAnnotation(getAnalysAnnotations(var), "VarAccessOut",idOutVarAccessMap.get(var.getDeclaration().getId()));
+					IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(var,IrAnnotations.VARIABLE_ANNOTATION), 
+							"VarAccessOut",idOutVarAccessMap.get(var.getDeclaration().getId()));
 				return var;
 			}
 			
 			@Override
 			public VariableExpression caseVariableExpression(VariableExpression var) {
 				if(idInVarAccessMap.containsKey(var.getVariable().getId()))
-					setAnnotation(getAnalysAnnotations(var), "VarAccessIn",idInVarAccessMap.get(var.getVariable().getId()));
+					IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(var,IrAnnotations.VARIABLE_ANNOTATION), 
+							"VarAccessIn",idInVarAccessMap.get(var.getVariable().getId()));
 				if(idOutVarAccessMap.containsKey(var.getVariable().getId()))
-					setAnnotation(getAnalysAnnotations(var), "VarAccessOut",idOutVarAccessMap.get(var.getVariable().getId()));
+					IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(var,IrAnnotations.VARIABLE_ANNOTATION), 
+							"VarAccessOut",idOutVarAccessMap.get(var.getVariable().getId()));
 				return var;
 			}
 			
 			@Override
 			public Variable caseVariable(Variable var) {
 				if(idInVarAccessMap.containsKey(var.getId()))
-					setAnnotation(getAnalysAnnotations(var), "VarAccessIn",idInVarAccessMap.get(var.getId()));
+					IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(var,IrAnnotations.VARIABLE_ANNOTATION), 
+							"VarAccessIn",idInVarAccessMap.get(var.getId()));
 				if(idOutVarAccessMap.containsKey(var.getId()))
-					setAnnotation(getAnalysAnnotations(var), "VarAccessOut",idOutVarAccessMap.get(var.getId()));
+					IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(var,IrAnnotations.VARIABLE_ANNOTATION), 
+							"VarAccessOut",idOutVarAccessMap.get(var.getId()));
 				return var;
 			}
 
@@ -587,7 +556,56 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 	@Override
 	public AbstractActor caseNetwork(Network obj) {
 		currentNetwork = obj;
+		for(ActorInstance a : obj.getActors()) {
+			AbstractActor actor=null;
+			try {
+				actor = (AbstractActor) ActorDirectory.findActor((TypeActor) a.getType());
+			} catch (DirectoryException x) {
+				serr.println("[IrAnnotateVariable] Internal error could not get actor of type " + a.getType().toString());
+			}
+			if(actor!=null && !(actor instanceof ExternalActor)) {
+				actor = (AbstractActor) doSwitch(actor);
+				String path = null;
+				for(Annotation ann : actor.getAnnotations()) {
+					if(ann.getName().equals("Project")) {
+						for(AnnotationArgument aa : ann.getArguments()) {
+							if(aa.getId().equals("name")) {
+								path = aa.getValue();
+								break;
+							}
+						}
+						if(path!=null)
+							break;
+					}
+				}
+				if(path==null) {
+					path="";
+				}
+
+				IrAnnotations.AnnotatePass(actor, IrAnnotationTypes.Variable, "0");
+				ActorDirectory.addTransformedActor(actor, path);
+			}
+		}
 		AbstractActor ret = super.caseNetwork(obj);
+		String path = null;
+		for(Annotation ann : ret.getAnnotations()) {
+			if(ann.getName().equals("Project")) {
+				for(AnnotationArgument aa : ann.getArguments()) {
+					if(aa.getId().equals("name")) {
+						path = aa.getValue();
+						break;
+					}
+				}
+				if(path!=null)
+					break;
+			}
+		}
+		if(path==null) {
+			path="";
+		}
+
+		IrAnnotations.AnnotatePass(ret, IrAnnotationTypes.Variable, "0");
+		ActorDirectory.addTransformedActor(ret, path);
 		currentNetwork = null;
 		return ret;
 	}

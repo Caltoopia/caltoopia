@@ -175,7 +175,7 @@ public class ActorDirectory {
 		indexStream.println(qid);
 		new IrXmlPrinter(getActorDirectoryLocation() + File.separator + path2Project(sourceRootPath)).run(actor);
 	}
-	
+
 	public static List<String> getTopNetworks(String sourceRootPath)  {	
 		List<String> topLevelNetworks = new ArrayList<String>();
 		File folder = new File(getActorDirectoryLocation() + File.separatorChar + path2Project(sourceRootPath));
@@ -363,7 +363,32 @@ public class ActorDirectory {
 		
 		return (Namespace) result;
 	}
+	
+	//Store transformed/annotated actors between compilation steps 
+	public static void addTransformedActor(AbstractActor actor, String sourceRootPath) {
+		new IrXmlPrinter(getActorDirectoryLocation() + File.separator + path2Project(sourceRootPath) + File.separator + "$Transformed").run(actor);
+	}
+
+	//Retrieve transformed/annotated actors between compilation steps 
+	public static AbstractActor findTransformedActor(TypeActor type) throws DirectoryException {		
 		
+		for (String root : getSession().getPaths()) {
+			String path = getActorDirectoryLocation() + File.separator + path2Project(root) + File.separator + "$Transformed";			
+			for (String s : type.getNamespace()) {
+				path = path + File.separator + s ;
+			}
+			path += File.separator + type.getName() + FILEEXTENSION;
+		
+			if (new File(path).exists()) {
+				AbstractActor actor = new IrXmlReader().readActor(path);
+
+				return actor;
+			}
+		}
+		
+		throw new DirectoryException("[ActorDirectory] Annotated Actor '" + Util.packQualifiedName(type.getNamespace()) + "." + type.getName() + "' not found.");
+	}
+
 	public static void clean() {
 		namespaceCache = new HashMap<String, Namespace>(); 
 		
