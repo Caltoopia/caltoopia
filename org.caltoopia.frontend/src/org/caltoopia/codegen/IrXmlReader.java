@@ -696,6 +696,10 @@ public class IrXmlReader {
 			VariableExpression expr = IrFactory.eINSTANCE.createVariableExpression();
 			expr.setId(element.getAttribute("id"));
 			doAnnotations(expr, element);
+			Element child = getChild(element,"Type");
+			if(child!=null) {
+				expr.setType(createType(child));
+			}
 			expr.setContext((Scope) findIrObject(element.getAttribute("context-scope"))); 
 			
 			expr.setVariable((Declaration) findIrObject(element.getAttribute("decl-id")));
@@ -843,6 +847,10 @@ public class IrXmlReader {
 		VariableReference varRef = IrFactory.eINSTANCE.createVariableReference();
 		varRef.setId(element.getAttribute("id"));
 		doAnnotations(varRef, element);
+		Element child = getChild(element,"Type");
+		if(child!=null) {
+			varRef.setType(createType(child));
+		}
 		varRef.setDeclaration((Variable) findIrObject(element.getAttribute("decl-id")));
 		
 		Element indices = getChild(element, "Indices");
@@ -866,6 +874,10 @@ public class IrXmlReader {
 		Member member = IrFactory.eINSTANCE.createMember();
 		member.setId(element.getAttribute("id"));
 		doAnnotations(member, element);
+		Element child = getChild(element,"Type");
+		if(child!=null) {
+			member.setType(createType(child));
+		}
 		member.setName(element.getAttribute("name"));
 		Element indicesElement = getChild(element, "Indices");
 		
@@ -1290,7 +1302,7 @@ public class IrXmlReader {
 				System.err.println(k + " : " +  objectMap.get(k));
 			}
 			System.err.println("Failed for key=" + key + " ==> " + obj);
-			
+			new Throwable().printStackTrace();
 			assert(obj != null);
 		}
 

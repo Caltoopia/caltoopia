@@ -116,6 +116,8 @@ import org.caltoopia.ir.WhileLoop;
 import org.caltoopia.ir.util.IrSwitch;
 
 public class IrXmlPrinter extends IrSwitch<Stream> {
+	
+	final boolean debugPrint = false;
 
 	Stream s;
 	String folder;
@@ -171,6 +173,15 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
  	
 	@Override
 	public Stream caseNetwork(Network network) {
+		if(debugPrint) {
+			System.out.println("[IrXmlPrinter] ---- Network: List all type decl (import) ------");
+			for(Declaration d: network.getDeclarations()) {
+				if(d instanceof TypeDeclarationImport || d instanceof TypeDeclaration) {
+					System.out.println("[IrXmlPrinter] " + (d instanceof TypeDeclarationImport?"TypeDeclImport ":"TypeDecl ") + d.getId() + " " + d.getName());
+					typedeclimports.add(d.getId());
+				}
+			}
+		}
 		s = new Stream(folder + File.separator + UtilIR.namespace2Path(network.getType().getNamespace()) + File.separator + network.getType().getName() + ".xml");		
 		s.printlnInc("<Network id=\"" + network.getId() + "\" >"); ;
 
@@ -273,8 +284,19 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 		return s;		
 	}
 
+	private Set<String> typedeclimports = new HashSet<String>();
+	
 	@Override
 	public Stream caseActor(Actor actor) {
+		if(debugPrint) {
+			System.out.println("[IrXmlPrinter] ---- Actor: List all type decl (import) ------");
+			for(Declaration d: actor.getDeclarations()) {
+				if(d instanceof TypeDeclarationImport) {
+					typedeclimports.add(d.getId());
+					System.out.println("[IrXmlPrinter] TypeDeclImport " + d.getId() + " " + d.getName());
+				}
+			}
+		}
 		s = new Stream(folder + File.separator + UtilIR.namespace2Path(actor.getType().getNamespace()) + File.separator + actor.getType().getName() + ".xml");				
 		s.printlnInc("<Actor id=\"" + actor.getId() + "\" >"); 
 		doAnnotations(actor);
@@ -658,7 +680,7 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 	
 	@Override
 	public Stream caseVariableExpression(VariableExpression var) {
-		if (var.getIndex().isEmpty() && var.getMember().isEmpty() && var.getAnnotations().isEmpty()) {
+		if (var.getIndex().isEmpty() && var.getMember().isEmpty() && var.getAnnotations().isEmpty() && var.getType()==null) {
 			s.println("<Expr kind=\"Var\"" 
 		             + " id=\"" + var.getId() + "\""
 		             + " context-scope=\"" + var.getContext().getId() + "\""
@@ -669,6 +691,9 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 		             + " context-scope=\"" + var.getContext().getId() + "\""
 					 + " decl-id=\"" + var.getVariable().getId() + "\">");		
 			doAnnotations(var);
+			if(var.getType()!=null) {
+				doSwitch(var.getType());
+			}
 			if (!var.getIndex().isEmpty()) {
 				s.printlnInc("<Indices>");
 				for (Expression e : var.getIndex()) {
@@ -799,13 +824,16 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 	
 	@Override
 	public Stream caseVariableReference(VariableReference var) {
-		if (var.getIndex().isEmpty() && var.getMember().isEmpty() && var.getAnnotations().isEmpty()) {
+		if (var.getIndex().isEmpty() && var.getMember().isEmpty() && var.getAnnotations().isEmpty() && var.getType()==null) {
 			s.println("<Var name=\"" + var.getDeclaration().getName() + "\""				   
 			     	+ " decl-id=\"" + var.getDeclaration().getId() + "\"/>");
 		} else {
 			s.printlnInc("<Var name=\"" + var.getDeclaration().getName() + "\""				   
 				     	+ " decl-id=\"" + var.getDeclaration().getId() + "\">");
 			doAnnotations(var);
+			if(var.getType()!=null) {
+				doSwitch(var.getType());
+			}
 			if (!var.getIndex().isEmpty()) {
 				s.printlnInc("<Indices>");
 				for (Expression e : var.getIndex()) {
@@ -829,11 +857,14 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 
 	@Override
 	public Stream caseMember(Member member) {
-		if (member.getIndex().isEmpty() &&  member.getAnnotations().isEmpty()) {
+		if (member.getIndex().isEmpty() &&  member.getAnnotations().isEmpty() && member.getType()==null) {
 			s.println("<Member name=\"" + member.getName() + "\"/>");
 		} else {
 			s.printlnInc("<Member name=\"" + member.getName() + "\">");
 			doAnnotations(member);
+			if(member.getType()!=null) {
+				doSwitch(member.getType());
+			}
 			if (!member.getIndex().isEmpty()) {
 				if (!member.getIndex().isEmpty()) {
 					s.printlnInc("<Indices>");
@@ -1072,6 +1103,13 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 
 	@Override
 	public Stream caseTypeUser(TypeUser user) {
+		if(debugPrint) {
+			if(!typedeclimports.contains(user.getDeclaration().getId())) {
+				System.err.println("[IrXmlPrinter] Prints user type with non-existing decl " + (user.getDeclaration()instanceof TypeDeclarationImport?"(imported)":"(real)") + " ID " +
+									user.getDeclaration().getId() + " " + user.getDeclaration().getName());
+				//new Throwable().printStackTrace();
+			}
+		}
 		s.println("<Type kind=\"user\" type-declaration-id=\"" + user.getDeclaration().getId() + "\"/>");	
 		return s;
 	}
