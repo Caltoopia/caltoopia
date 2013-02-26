@@ -62,15 +62,18 @@ import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeDeclarationImport;
 import org.caltoopia.ir.TypeList;
+import org.caltoopia.ir.TypeUser;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExpression;
 import org.caltoopia.ir.VariableReference;
 import org.caltoopia.ir.util.IrReplaceSwitch;
+import org.eclipse.emf.ecore.EObject;
 
 public class IrTypeAnnotation extends IrReplaceSwitch {
 
 	private PrintStream serr = null; 
-
+	AbstractActor currentActor=null;
+	
 	public IrTypeAnnotation(Node node, CompilationSession session, boolean errPrint) {
 		if(!errPrint) {
 			serr = new PrintStream(new OutputStream(){
@@ -86,11 +89,13 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 	
 	private Set<Declaration> userTypes = new HashSet<Declaration>();
 	private Map<Declaration,Set<String>> typeUsage = new HashMap<Declaration,Set<String>>();
+	private String currentVariableTypeAnnotation = null;
 	
 	@Override
 	public Expression caseVariableExpression(VariableExpression var) {
 		Declaration decl = UtilIR.getDeclaration(var.getVariable());
 		if(decl instanceof Variable) {
+			String a = IrAnnotations.getAnnotationArg(decl,IrAnnotations.VARIABLE_ANNOTATION,"VarType");
 			Type type = ((Variable) decl).getType();
 			while(UtilIR.isList(type)) {
 				type = ((TypeList)type).getType();
@@ -98,7 +103,6 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 			if(UtilIR.isRecord(type)) {
 				for(Declaration d:userTypes) {
 					if(d.getId().equals(UtilIR.getTypeDeclaration(type).getId())) {
-						String a = IrAnnotations.getAnnotationArg(decl,IrAnnotations.VARIABLE_ANNOTATION,"VarType");
 						if(typeUsage.containsKey(d)) {
 							typeUsage.get(d).add(a);
 						} else {
@@ -110,8 +114,26 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 					}
 				}
 			}
+			for(Member m:var.getMember()) {
+				type = m.getType();
+				if(UtilIR.isRecord(type)) {
+					for(Declaration d:userTypes) {
+						if(d.getId().equals(UtilIR.getTypeDeclaration(type).getId())) {
+							if(typeUsage.containsKey(d)) {
+								typeUsage.get(d).add(a);
+							} else {
+								Set<String> aSet = new HashSet<String>();
+								aSet.add(a);
+								typeUsage.put(d, aSet);
+							}
+							break;
+						}
+					}
+				}
+			}
 		}
-		return super.caseVariableExpression(var);
+		Expression expr = super.caseVariableExpression(var);
+		return expr;
 	}
 	
 	@Override
@@ -142,6 +164,7 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 	public VariableReference caseVariableReference(VariableReference var) {
 		Variable decl = var.getDeclaration();
 		if(decl instanceof Variable) {
+			String a = IrAnnotations.getAnnotationArg(decl,IrAnnotations.VARIABLE_ANNOTATION,"VarType");
 			Type type = ((Variable) decl).getType();
 			while(UtilIR.isList(type)) {
 				type = ((TypeList)type).getType();
@@ -149,7 +172,6 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 			if(UtilIR.isRecord(type)) {
 				for(Declaration d:userTypes) {
 					if(d.getId().equals(UtilIR.getTypeDeclaration(type).getId())) {
-						String a = IrAnnotations.getAnnotationArg(decl,IrAnnotations.VARIABLE_ANNOTATION,"VarType");
 						if(typeUsage.containsKey(d)) {
 							typeUsage.get(d).add(a);
 						} else {
@@ -158,6 +180,23 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 							typeUsage.put(d, aSet);
 						}
 						break;
+					}
+				}
+			}
+			for(Member m:var.getMember()) {
+				type = m.getType();
+				if(UtilIR.isRecord(type)) {
+					for(Declaration d:userTypes) {
+						if(d.getId().equals(UtilIR.getTypeDeclaration(type).getId())) {
+							if(typeUsage.containsKey(d)) {
+								typeUsage.get(d).add(a);
+							} else {
+								Set<String> aSet = new HashSet<String>();
+								aSet.add(a);
+								typeUsage.put(d, aSet);
+							}
+							break;
+						}
 					}
 				}
 			}
@@ -171,14 +210,6 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 		return decl;
 	}
 
-	/*
-	@Override
-	public Declaration caseTypeDeclarationImport(TypeDeclarationImport decl) {
-		userTypes.add(UtilIR.getTypeDeclaration(decl));
-		return decl;
-	}
-	*/
-	
 	@Override
 	public ActorInstance caseActorInstance(ActorInstance actorInstance) {
 		AbstractActor actor=null;
@@ -188,13 +219,35 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 			//This is OK, since it is likely an external actor
 		}
 		if(actor!=null) {
+			currentActor = actor;
 			doSwitch(actor);
+			currentActor = null;
 		}
 		return actorInstance;
 	}
 	
 	@Override
 	public AbstractActor caseNetwork(Network network) {
+	    //DEBUG
+		new IrReplaceSwitch() {
+			private Map<String,String> found = new HashMap<String,String>();
+			@Override	
+			public TypeUser caseTypeUser(TypeUser type) {
+				found.put(((TypeUser) type).getDeclaration().getId(),(((TypeUser) type).getDeclaration() instanceof TypeDeclarationImport?"I_":"R_") +((TypeUser) type).getDeclaration().getName());
+				return type;
+			}
+
+			@Override
+			public AbstractActor caseNetwork(Network network) {
+				super.caseNetwork(network);
+				System.out.println("[IrTypeAnnotation] ----- Found type declarations usage direcly after reading network -----");
+				for(String f:found.keySet()) {
+					System.out.println("[IrTypeAnnotation] Found type declaration " + f + " " + found.get(f));
+				}
+				return network;
+			}
+		}.doSwitch(network);
+		//End DEBUG
 		/* Find user types, and potential usage
 		 * Declarations in an elaborated network are
 		 * ordered, hence any type declarations comes
@@ -209,13 +262,36 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 			doSwitch(a);
 		}
 		
+	    //DEBUG
+		new IrReplaceSwitch() {
+			private Map<String,String> found = new HashMap<String,String>();
+			@Override	
+			public TypeUser caseTypeUser(TypeUser type) {
+				found.put(((TypeUser) type).getDeclaration().getId(),(((TypeUser) type).getDeclaration() instanceof TypeDeclarationImport?"I_":"R_") +((TypeUser) type).getDeclaration().getName());
+				return type;
+			}
+
+			@Override
+			public AbstractActor caseNetwork(Network network) {
+				super.caseNetwork(network);
+				System.out.println("[IrTypeAnnotation] ----- Found type declarations usage direcly after treating actors -----");
+				for(String f:found.keySet()) {
+					System.out.println("[IrTypeAnnotation] Found type declaration " + f + " " + found.get(f));
+				}
+				return network;
+			}
+		}.doSwitch(network);
+		//End DEBUG
+
 		//Put annotations on user types
 		for(Declaration d: userTypes) {
-			//A bit uncertain relies on that toString() prints the String Set as [elem1, elem2]
-			String use = typeUsage.get(d).toString();
-			use = use.substring(1, use.length()-1);
-			IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(d,IrAnnotations.TYPE_ANNOTATION), 
-					"TypeUsage",use);
+			if(typeUsage.get(d)!=null) {
+				//A bit uncertain relies on that toString() prints the String Set as [elem1, elem2]
+				String use = typeUsage.get(d).toString();
+				use = use.substring(1, use.length()-1);
+				IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(d,IrAnnotations.TYPE_ANNOTATION), 
+						"TypeUsage",use);
+			}
 		}
 		
 		String path = null;
@@ -238,6 +314,26 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 		//Annotate that the Type pass has executed
 		IrAnnotations.AnnotatePass(network, IrAnnotationTypes.Type, "0");
 		//Store in ActorDirectory $Transformed section
+	    //DEBUG
+		new IrReplaceSwitch() {
+			private Map<String,String> found = new HashMap<String,String>();
+			@Override	
+			public TypeUser caseTypeUser(TypeUser type) {
+				found.put(((TypeUser) type).getDeclaration().getId(),(((TypeUser) type).getDeclaration() instanceof TypeDeclarationImport?"I_":"R_") +((TypeUser) type).getDeclaration().getName());
+				return type;
+			}
+
+			@Override
+			public AbstractActor caseNetwork(Network network) {
+				super.caseNetwork(network);
+				System.out.println("[IrTypeAnnotation] ----- Found type declarations usage direcly after treating network -----");
+				for(String f:found.keySet()) {
+					System.out.println("[IrTypeAnnotation] Found type declaration " + f + " " + found.get(f));
+				}
+				return network;
+			}
+		}.doSwitch(network);
+		//End DEBUG
 		ActorDirectory.addTransformedActor(network, path);
 
 		return network;

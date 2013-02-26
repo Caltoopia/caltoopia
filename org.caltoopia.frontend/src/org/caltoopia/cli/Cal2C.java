@@ -70,6 +70,7 @@ import org.caltoopia.ir.Actor;
 import org.caltoopia.ir.ActorInstance;
 import org.caltoopia.ir.ExternalActor;
 import org.caltoopia.ir.TypeActor;
+import org.caltoopia.types.TypeMatchDeclaration;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -297,6 +298,8 @@ public class Cal2C {
 			if(altCodegen) {
 				IrAnnotations.IrTransformNetworkInit(session.getElaboratedNetwork());
 				new IrAnnotations(session.getElaboratedNetwork().getType(), session, Arrays.asList(IrAnnotations.IrAnnotationTypes.Variable,IrAnnotations.IrAnnotationTypes.Type));
+				//For now run this to make sure the top network type declarations don't have type decl imports
+				new TypeMatchDeclaration().doSwitch(session.getElaboratedNetwork());
 			}
 			new IrXmlPrinter(session.getOutputFolder()).caseNetwork(session.getElaboratedNetwork());
 			//Transform the elaborated top network
@@ -330,9 +333,6 @@ public class Cal2C {
 					if (actor instanceof Actor) {
 						out.println("Writing '" + file + "'");
 						AbstractActor actorInstantiated = Instantiator.instantiate(instance, session.getElaboratedNetwork());
-						//if(altCodegen) {
-						//	new IrAnnotations(actorInstantiated, session, Arrays.asList(IrAnnotations.IrAnnotationTypes.Variable));
-						//}
 						new IrXmlPrinter(session.getOutputFolder()).doSwitch(actorInstantiated);
 						new CPrinter(file, null, session.getElaboratedNetwork(), cir, systemc, env, debugPrint).doSwitch(instance);
 						sourceFiles.add(nsName + "__" + instance.getName() + ".c");

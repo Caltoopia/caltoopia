@@ -559,9 +559,10 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		for(ActorInstance a : obj.getActors()) {
 			AbstractActor actor=null;
 			try {
-				actor = (AbstractActor) ActorDirectory.findActor((TypeActor) a.getType());
+				System.out.println("[IrAnnotateVariable] Read in actor class " + ((TypeActor) a.getType()).getName());
+				actor = (AbstractActor) ActorDirectory.findTransformedActor((TypeActor) a.getType());
 			} catch (DirectoryException x) {
-				serr.println("[IrAnnotateVariable] Internal error could not get actor of type " + a.getType().toString());
+				//serr.println("[IrAnnotateVariable] Internal error could not get actor of type " + a.getType().toString());
 			}
 			if(actor!=null && !(actor instanceof ExternalActor)) {
 				actor = (AbstractActor) doSwitch(actor);
