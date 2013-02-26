@@ -1684,7 +1684,6 @@ public class CPrinter extends IrSwitch<Stream> {
 		String namespace = "";
 		if(variable.getScope() instanceof Network && !(parent() instanceof TypeDeclaration)) {
 			List<String> ns = UtilIR.getAnnotatedNamespace(variable);
-			namespace = variable.getScope().toString() + " */";
 			if(ns.size()>0) {
 				namespace = Util.marshallQualifiedName(ns)+"_";
 			}
