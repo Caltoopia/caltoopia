@@ -202,8 +202,32 @@ public class ExpandIrSymbols {
 	    	}
 
 	    }
-		
-		for (Declaration decl : network.getDeclarations()) {
+	    
+	    /*
+	     * Any TypeDeclaration import we pull in from ActorDirectory might
+	     * have members that also points to type declaration imports.
+	     * This class fix that by replacing with the real type declarations.
+	     * FIXME This happens only the second time we build, and is likely due to 
+	     * an aliasing of the object we have in cache from actor directory
+	     * have been mangled with something that inserts the import.
+	     * We should fix that!!!
+	     */
+	    class innerTypeDeclarationImportReplace extends IrReplaceSwitch {
+	    	@Override	
+			public TypeUser caseTypeUser(TypeUser t) {
+				if(t.getDeclaration() instanceof TypeDeclarationImport) {
+			    	try {
+						Declaration innerDecl = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) t.getDeclaration());
+						t.setDeclaration(innerDecl);
+			    	} catch (DirectoryException e) {
+						//Ignore it
+					}
+				}
+				return t;
+			}
+		}
+
+	    for (Declaration decl : network.getDeclarations()) {
 			
 			try {
 				if (decl instanceof TypeDeclarationImport) {  
@@ -220,6 +244,7 @@ public class ExpandIrSymbols {
 					decl = newDecl;
 				}
 				new scopeReplace().doSwitch(decl);
+				new innerTypeDeclarationImportReplace().doSwitch(decl);
 				added.add(new IrDeclVertex(decl));
 			} catch (DirectoryException x) {
 				System.err.println("[ExpandIrSymbols] Internal error #1");
@@ -229,7 +254,6 @@ public class ExpandIrSymbols {
 		
 		for (Namespace ns : namespaces) {		
 			for (Declaration decl : ns.getDeclarations()) {
-				
 				try {
 					if (decl instanceof TypeDeclarationImport) {  
 						Declaration newDecl = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) decl);
@@ -247,6 +271,7 @@ public class ExpandIrSymbols {
 					if (!added.contains(decl)) {
 						//Change scope to network due to this is the new home of the declaration
 						new scopeReplace().doSwitch(decl);
+						new innerTypeDeclarationImportReplace().doSwitch(decl);
 						network.getDeclarations().add(decl);
 						added.add(new IrDeclVertex(decl));
 					}
@@ -269,16 +294,16 @@ public class ExpandIrSymbols {
 						
 					return e;					
 				}
-				
+
 				@Override	
 				public TypeUser caseTypeUser(TypeUser t) {
 					if (imported.containsKey(t.getDeclaration())) {
 						t.setDeclaration(imported.get(t.getDeclaration()));
 					}
-						
+
 					return t;					
 				}
-				
+
 				@Override
 				public Expression caseTypeConstructorCall(TypeConstructorCall expr) {
 					if (imported.containsKey(expr.getTypedef() )) {
@@ -320,7 +345,6 @@ public class ExpandIrSymbols {
 				return e;					
 			}
 				
-		}.doSwitch(network);			
-		
+		}.doSwitch(network);
 	}
 }

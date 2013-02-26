@@ -429,7 +429,7 @@ public class TypeConverter extends CalSwitch<Type> {
 		return null;
 	}
 	
-	public AstType getTypeParameter(AstType t) {
+	static public AstType getTypeParameter(AstType t) {
 		AstTypeParameterList params = t.getTypeParams();
 		if (params != null) {
 			for (AstTypeParam p : params.getParams()) {

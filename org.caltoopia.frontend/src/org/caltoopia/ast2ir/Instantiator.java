@@ -48,6 +48,7 @@ import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.util.IrReplaceSwitch;
 import org.caltoopia.types.TypeAnnotater;
+import org.caltoopia.types.TypeMatchDeclaration;
 
 public class Instantiator {
 
@@ -87,6 +88,7 @@ public class Instantiator {
 		ConstantExpressionEvaluator.evaluate(actor, environment);
 
 		new TypeAnnotater().doSwitch(actor);
+		new TypeMatchDeclaration().doSwitch(actor);
 		
 		return actor;
 	}		

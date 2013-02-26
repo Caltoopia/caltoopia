@@ -218,6 +218,7 @@ class FindImportedAstSymbols extends VoidSwitch {
 			exportingNamespace = checkDefinitionContainer(astType.getName().eContainer(), topAstContainer); 
 				
 			if (exportingNamespace != null) {
+				super.caseAstType(astType);
 				List<String> exportingNamespaceName = createExportingNamespace(exportingNamespace);
 				AstTypeName astTypedef = astType.getName();
 				TypeDeclarationImport typeImport = Util.createImportedTypeDeclaration(exportingNamespaceName, astTypedef);				
@@ -226,8 +227,8 @@ class FindImportedAstSymbols extends VoidSwitch {
 
 				return null;
 			}
-		} 
-		
+		}
+
 		return super.caseAstType(astType);
 	}
 	
