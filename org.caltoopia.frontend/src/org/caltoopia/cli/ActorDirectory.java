@@ -55,6 +55,7 @@ import org.caltoopia.ast2ir.Util;
 import org.caltoopia.codegen.IrXmlReader;
 import org.caltoopia.codegen.IrXmlPrinter;
 import org.caltoopia.ir.AbstractActor;
+import org.caltoopia.ir.ActorInstance;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Namespace;
 import org.caltoopia.ir.Network;
@@ -365,15 +366,35 @@ public class ActorDirectory {
 	}
 	
 	//Store transformed/annotated actors between compilation steps 
-	public static void addTransformedActor(AbstractActor actor, String sourceRootPath) {
-		new IrXmlPrinter(getActorDirectoryLocation() + File.separator + path2Project(sourceRootPath) + File.separator + "$Transformed").run(actor);
+	public static void addTransformedActor(AbstractActor actor, ActorInstance actorInstance, String sourceRootPath) {
+		new IrXmlPrinter(getActorDirectoryLocation() + File.separator + path2Project(sourceRootPath) + File.separator + "$Transformed",
+				actorInstance!=null?actorInstance.getName():null).run(actor);
+	}
+
+	//Retrieve transformed/annotated actors between compilation steps 
+	public static AbstractActor findTransformedActor(ActorInstance actorInstance) throws DirectoryException {		
+		TypeActor type = (TypeActor) actorInstance.getType();
+		for (String root : getSession().getPaths()) {
+			String path = getActorDirectoryLocation() + File.separator + path2Project(root) + File.separator + "$Transformed";
+			for (String s : type.getNamespace()) {
+				path = path + File.separator + s ;
+			}
+			path += File.separator + type.getName() + "_$" + actorInstance.getName() + FILEEXTENSION;
+		
+			if (new File(path).exists()) {
+				AbstractActor actor = new IrXmlReader().readActor(path);
+
+				return actor;
+			}
+		}
+		
+		throw new DirectoryException("[ActorDirectory] Annotated Actor '" + Util.packQualifiedName(type.getNamespace()) + "." + type.getName() + "' of instance '" + actorInstance.getName() + "' not found.");
 	}
 
 	//Retrieve transformed/annotated actors between compilation steps 
 	public static AbstractActor findTransformedActor(TypeActor type) throws DirectoryException {		
-		
 		for (String root : getSession().getPaths()) {
-			String path = getActorDirectoryLocation() + File.separator + path2Project(root) + File.separator + "$Transformed";			
+			String path = getActorDirectoryLocation() + File.separator + path2Project(root) + File.separator + "$Transformed";
 			for (String s : type.getNamespace()) {
 				path = path + File.separator + s ;
 			}

@@ -121,6 +121,7 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 
 	Stream s;
 	String folder;
+	String instance;
 	
 	Map<String, String> inputPortMap = new HashMap<String, String>();
 	
@@ -130,6 +131,12 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 	
 	public IrXmlPrinter(String folder) {
 		this.folder = folder;
+		this.instance = null;
+	}
+
+	public IrXmlPrinter(String folder, String instance) {
+		this.folder = folder;
+		this.instance = instance;
 	}
 
 	public void run(Namespace ns) {		
@@ -297,7 +304,10 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 				}
 			}
 		}
-		s = new Stream(folder + File.separator + UtilIR.namespace2Path(actor.getType().getNamespace()) + File.separator + actor.getType().getName() + ".xml");				
+		s = new Stream(folder + File.separator + UtilIR.namespace2Path(actor.getType().getNamespace()) +
+				File.separator + actor.getType().getName() + 
+				((instance!=null)?"_$"+instance:"") + 
+				".xml");				
 		s.printlnInc("<Actor id=\"" + actor.getId() + "\" >"); 
 		doAnnotations(actor);
 		

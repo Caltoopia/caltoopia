@@ -560,7 +560,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 			AbstractActor actor=null;
 			try {
 				System.out.println("[IrAnnotateVariable] Read in actor class " + ((TypeActor) a.getType()).getName());
-				actor = (AbstractActor) ActorDirectory.findTransformedActor((TypeActor) a.getType());
+				actor = (AbstractActor) ActorDirectory.findTransformedActor(a);
 			} catch (DirectoryException x) {
 				//serr.println("[IrAnnotateVariable] Internal error could not get actor of type " + a.getType().toString());
 			}
@@ -584,7 +584,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 				}
 
 				IrAnnotations.AnnotatePass(actor, IrAnnotationTypes.Variable, "0");
-				ActorDirectory.addTransformedActor(actor, path);
+				ActorDirectory.addTransformedActor(actor, a, path);
 			}
 		}
 		AbstractActor ret = super.caseNetwork(obj);
@@ -606,7 +606,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		}
 
 		IrAnnotations.AnnotatePass(ret, IrAnnotationTypes.Variable, "0");
-		ActorDirectory.addTransformedActor(ret, path);
+		ActorDirectory.addTransformedActor(ret, null, path);
 		currentNetwork = null;
 		return ret;
 	}

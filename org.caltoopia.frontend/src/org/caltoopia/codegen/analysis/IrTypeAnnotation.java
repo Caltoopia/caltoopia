@@ -214,7 +214,7 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 	public ActorInstance caseActorInstance(ActorInstance actorInstance) {
 		AbstractActor actor=null;
 		try {
-			actor=ActorDirectory.findTransformedActor((TypeActor)actorInstance.getType());
+			actor=ActorDirectory.findTransformedActor(actorInstance);
 		} catch (DirectoryException e) {
 			//This is OK, since it is likely an external actor
 		}
@@ -334,7 +334,7 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 			}
 		}.doSwitch(network);
 		//End DEBUG
-		ActorDirectory.addTransformedActor(network, path);
+		ActorDirectory.addTransformedActor(network, null, path);
 
 		return network;
 	}

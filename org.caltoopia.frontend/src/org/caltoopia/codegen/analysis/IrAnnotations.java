@@ -216,7 +216,7 @@ public class IrAnnotations {
 		 */
 		IrAnnotations.AnnotatePass(network, IrAnnotationTypes.Init, "0");
 		System.out.println("[IrTransformNetworkInit] Write network  " + network.getType().getName());
-		ActorDirectory.addTransformedActor(network, path);
+		ActorDirectory.addTransformedActor(network, null, path);
 
 	    //DEBUG
 		new IrReplaceSwitch() {
@@ -288,7 +288,7 @@ public class IrAnnotations {
 									nsName + "__" + a.getName() + 
 									" of class " + ((TypeActor) a.getType()).getName());
 				//FIXME need to print into file named by the instance
-				ActorDirectory.addTransformedActor(actorInstantiated, path);
+				ActorDirectory.addTransformedActor(actorInstantiated, a, path);
 			}
 		}
 	}
