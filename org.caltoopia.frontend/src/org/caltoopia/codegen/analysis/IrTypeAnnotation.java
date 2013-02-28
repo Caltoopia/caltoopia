@@ -219,6 +219,8 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 			//This is OK, since it is likely an external actor
 		}
 		if(actor!=null) {
+			System.out.println("[IrAnnotationType] Type scanning '" + actorInstance.getName() +
+							   "' instance of class '" + ((TypeActor) actorInstance.getType()).getName() +"'.");
 			currentActor = actor;
 			doSwitch(actor);
 			currentActor = null;
