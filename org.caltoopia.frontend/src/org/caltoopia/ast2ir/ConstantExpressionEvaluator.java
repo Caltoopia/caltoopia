@@ -629,9 +629,20 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 		for (Declaration decl : lambda.getDeclarations()) {
 			doSwitch(decl);
 		}
-		
+
+		/*
+		 * Need to set the calling scope when lifting out the expression in lambda.
+		 * But lambda is a shared object for the declaration so make sure to
+		 * restore it in the declaration. Can't just set the scope after due to
+		 * it need to propagate to inner expressions, e.g. nested function calls
+		 * that are eliminated.
+		 * FIXME this is a race condition when used concurrently
+		 */
+		Scope storeScope = lambda.getBody().getContext();
+		lambda.getBody().setContext(call.getContext());
 		Expression returnExpression = (Expression) doSwitch(lambda.getBody());
-		
+		lambda.getBody().setContext(storeScope);
+
 		result = returnExpression;
 		
 	    context = context.outer;
