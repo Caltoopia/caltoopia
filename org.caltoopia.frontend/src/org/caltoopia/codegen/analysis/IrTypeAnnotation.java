@@ -62,6 +62,7 @@ import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeDeclarationImport;
 import org.caltoopia.ir.TypeList;
+import org.caltoopia.ir.TypeRecord;
 import org.caltoopia.ir.TypeUser;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExpression;
@@ -93,6 +94,9 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 	
 	@Override
 	public Expression caseVariableExpression(VariableExpression var) {
+		/*
+		 * Added the variable expression usage to the type's set of usages.
+		 */
 		Declaration decl = UtilIR.getDeclaration(var.getVariable());
 		if(decl instanceof Variable) {
 			String a = IrAnnotations.getAnnotationArg(decl,IrAnnotations.VARIABLE_ANNOTATION,"VarType");
@@ -114,16 +118,33 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 					}
 				}
 			}
-			for(Member m:var.getMember()) {
+			/*
+			 * Annotate members of records. Any members that is not the final
+			 * type of the expression is prepended with "Inter". All members prepend
+			 * the type usage with "MemberOf". Then e.g. any member types that only have
+			 * InterMemberOf... is actually never used besides as syntactic structuring.
+			 * Likewise any member type with only MemberOf... is never used as its own
+			 * variable. Also if the type miss (Inter)MemberOf... it is never used as a
+			 * member.
+			 */
+			String pre="Inter";
+			for(int i=0;i<var.getMember().size();i++) {
+				Member m = var.getMember().get(i);
+				if(i==(var.getMember().size()-1)) {
+					pre="";
+				}
 				type = m.getType();
+				while(UtilIR.isList(type)) {
+					type = ((TypeList)type).getType();
+				}
 				if(UtilIR.isRecord(type)) {
 					for(Declaration d:userTypes) {
 						if(d.getId().equals(UtilIR.getTypeDeclaration(type).getId())) {
 							if(typeUsage.containsKey(d)) {
-								typeUsage.get(d).add(a);
+								typeUsage.get(d).add(pre+"MemberOf"+a);
 							} else {
 								Set<String> aSet = new HashSet<String>();
-								aSet.add(a);
+								aSet.add("MemberOf"+a);
 								typeUsage.put(d, aSet);
 							}
 							break;
@@ -138,6 +159,9 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 	
 	@Override
 	public Declaration caseVariable(Variable decl) {
+		/*
+		 * Added the variable usage to the type's set of usages.
+		 */
 		Type type = ((Variable) decl).getType();
 		while(UtilIR.isList(type)) {
 			type = ((TypeList)type).getType();
@@ -162,6 +186,9 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 
 	@Override
 	public VariableReference caseVariableReference(VariableReference var) {
+		/*
+		 * Added the variable reference usage to the type's set of usages.
+		 */
 		Variable decl = var.getDeclaration();
 		if(decl instanceof Variable) {
 			String a = IrAnnotations.getAnnotationArg(decl,IrAnnotations.VARIABLE_ANNOTATION,"VarType");
@@ -183,16 +210,33 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 					}
 				}
 			}
-			for(Member m:var.getMember()) {
+			/*
+			 * Annotate members of records. Any members that is not the final
+			 * type of the reference is prepended with "Inter". All members prepend
+			 * the type usage with "MemberOf". Then e.g. any member types that only have
+			 * InterMemberOf... is actually never used besides as syntactic structuring.
+			 * Likewise any member type with only MemberOf... is never used as its own
+			 * variable. Also if the type miss (Inter)MemberOf... it is never used as a
+			 * member.
+			 */
+			String pre="Inter";
+			for(int i=0;i<var.getMember().size();i++) {
+				Member m = var.getMember().get(i);
+				if(i==(var.getMember().size()-1)) {
+					pre="";
+				}
 				type = m.getType();
+				while(UtilIR.isList(type)) {
+					type = ((TypeList)type).getType();
+				}
 				if(UtilIR.isRecord(type)) {
 					for(Declaration d:userTypes) {
 						if(d.getId().equals(UtilIR.getTypeDeclaration(type).getId())) {
 							if(typeUsage.containsKey(d)) {
-								typeUsage.get(d).add(a);
+								typeUsage.get(d).add(pre+"MemberOf"+a);
 							} else {
 								Set<String> aSet = new HashSet<String>();
-								aSet.add(a);
+								aSet.add("MemberOf"+a);
 								typeUsage.put(d, aSet);
 							}
 							break;
@@ -206,6 +250,10 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 
 	@Override
 	public Declaration caseTypeDeclaration(TypeDeclaration decl) {
+		/*
+		 * Collect all type declarations. To have easy access to them
+		 * when adding type usage annotations.
+		 */
 		userTypes.add(decl);
 		return decl;
 	}
@@ -263,29 +311,8 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 		for(ActorInstance a: network.getActors()) {
 			doSwitch(a);
 		}
-		
-	    //DEBUG
-		new IrReplaceSwitch() {
-			private Map<String,String> found = new HashMap<String,String>();
-			@Override	
-			public TypeUser caseTypeUser(TypeUser type) {
-				found.put(((TypeUser) type).getDeclaration().getId(),(((TypeUser) type).getDeclaration() instanceof TypeDeclarationImport?"I_":"R_") +((TypeUser) type).getDeclaration().getName());
-				return type;
-			}
 
-			@Override
-			public AbstractActor caseNetwork(Network network) {
-				super.caseNetwork(network);
-				System.out.println("[IrTypeAnnotation] ----- Found type declarations usage direcly after treating actors -----");
-				for(String f:found.keySet()) {
-					System.out.println("[IrTypeAnnotation] Found type declaration " + f + " " + found.get(f));
-				}
-				return network;
-			}
-		}.doSwitch(network);
-		//End DEBUG
-
-		//Put annotations on user types
+		//Put annotations on user types ...
 		for(Declaration d: userTypes) {
 			if(typeUsage.get(d)!=null) {
 				//A bit uncertain relies on that toString() prints the String Set as [elem1, elem2]
@@ -293,6 +320,23 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 				use = use.substring(1, use.length()-1);
 				IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(d,IrAnnotations.TYPE_ANNOTATION), 
 						"TypeUsage",use);
+				//... and on its user typed record members (same info as on the corresponding type declaration)
+				for(Variable m: ((TypeRecord)UtilIR.getType(d)).getMembers()) {
+					Type type = m.getType();
+					while(type instanceof TypeList) {
+						type = ((TypeList)type).getType();
+					}
+					if(UtilIR.isRecord(type)) {
+						TypeDeclaration td = UtilIR.getTypeDeclaration(type);
+						if(typeUsage.get(td)!=null) {
+							//A bit uncertain relies on that toString() prints the String Set as [elem1, elem2]
+							String mUse = typeUsage.get(td).toString();
+							mUse = mUse.substring(1, mUse.length()-1);
+							IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(m,IrAnnotations.TYPE_ANNOTATION), 
+									"TypeUsage",mUse);
+						}
+					}
+				}
 			}
 		}
 		
