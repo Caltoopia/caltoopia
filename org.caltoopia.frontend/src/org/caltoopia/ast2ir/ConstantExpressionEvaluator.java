@@ -93,15 +93,15 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 	
 	private Expression returnExpression;
 	
-	class Context {
+	class Stack {
 		
-		private Context outer;
+		private Stack outer;
 				
 		private List<Declaration> variables = new ArrayList<Declaration>();
 
 		List<TypeDeclaration> types = new ArrayList<TypeDeclaration>();
 		
-		public Context(Context outer) {
+		public Stack(Stack outer) {
 			this.outer = outer;			
 		}
 		
@@ -129,7 +129,7 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 		public void print() {			
 			if (outer == null) {
 				indent = "";
-				System.out.println("== Context Stack Top ==");
+				System.out.println("== Stack Top ==");
 				for (Declaration v : variables) {
 					System.out.println(v.getName() + " [id=" + v.getId() + "]");
 				}
@@ -148,7 +148,7 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 		
 	}
 	
-	private Context context = null;
+	private Stack stack = null;
 	
 	private static Scope environment;
 					
@@ -183,37 +183,37 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 	}
 	
 	private ConstantExpressionEvaluator(Scope scope) {
-		context = new Context(null);
+		stack = new Stack(null);
 	}
 		
 	@Override
 	public Namespace caseNamespace(Namespace namespace) {
-		context = new Context(context);
+		stack = new Stack(stack);
 		Namespace result = super.caseNamespace(namespace);
-		context = context.outer;
+		stack = stack.outer;
 		return result;
 	}		
 
 	@Override
 	public Network caseNetwork(Network network) {
-		context = new Context(context);
+		stack = new Stack(stack);
 		Network result = (Network) super.caseNetwork(network);
-		context = context.outer;
+		stack = stack.outer;
 		return result;
 	}
 	
 	@Override
 	public Action caseAction(Action action) {
-		context = new Context(context);
+		stack = new Stack(stack);
 		caseScope(action);
 		Action result = super.caseAction(action);		
-		context = context.outer;
+		stack = stack.outer;
 		return result;
 	}	
 	
 	@Override
 	public Block caseBlock(Block block) {
-		context = new Context(context);
+		stack = new Stack(stack);
 		caseScope(block);
 		
 		//Visit all the statements
@@ -223,18 +223,18 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 			// stmts.set(i, stmt);
 		}
 		
-		context = context.outer;
+		stack = stack.outer;
 		return block;
 	}	
 	
 	@Override 
 	public ForEach caseForEach(ForEach forEach) {
-		Context top = context;
+		Stack top = stack;
 		
 		List<Generator> generators = forEach.getGenerators();
 		for (int i = 0; i < generators.size(); i++) {
 			Generator generator = generators.get(i);
-			context = new Context(context);
+			stack = new Stack(stack);
 			caseScope(generator);
 			
 			Generator g = IrFactory.eINSTANCE.createGenerator();
@@ -250,13 +250,13 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 		
 		doSwitch(forEach.getBody());
 
-		context = top;
+		stack = top;
 		return forEach;
 	}
 
 	@Override
 	public PortWrite casePortWrite(PortWrite portWrite) {
-		context = new Context(context);
+		stack = new Stack(stack);
 		caseScope(portWrite);
 		casePortAccess(portWrite);
 		
@@ -274,7 +274,7 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 		   expressions.set(i, e);
 		}
 				
-		context = context.outer;
+		stack = stack.outer;
 		return portWrite;
 	}
 	
@@ -298,21 +298,21 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 			Expression value = (Expression) doSwitch(var.getInitValue());
 			result.setInitValue(value);
 		}
-		context.variables.add(result);
+		stack.variables.add(result);
 		
 		return result;		
 	}
 	
 	@Override
 	public Declaration caseVariableImport(VariableImport var) {
-		context.variables.add(var);
+		stack.variables.add(var);
 		
 		return var;		
 	}
 	
 	@Override
 	public Declaration caseVariableExternal(VariableExternal var) {
-		context.variables.add(var);
+		stack.variables.add(var);
 		
 		return var;		
 	}
@@ -531,7 +531,7 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 		Type t = (Type) doSwitch(lambda.getType());
 		lambda.setType(t);
 		
-		context = new Context(context);
+		stack = new Stack(stack);
 		
 		for (int i = 0; i < lambda.getParameters().size(); i++) {
 			Variable param = (Variable) caseVariable(lambda.getParameters().get(i));
@@ -545,14 +545,14 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 		Expression body = (Expression) doSwitch(lambda.getBody());
 		lambda.setBody(body);
 		
-		context = context.outer;
+		stack = stack.outer;
 		
 		return lambda;
 	}
 	
 	@Override
 	public EObject caseProcExpression(ProcExpression proc) {
-		context = new Context(context);
+		stack = new Stack(stack);
 		
 		for (int i = 0; i < proc.getParameters().size(); i++) {
 			Variable param = (Variable) caseVariable(proc.getParameters().get(i));
@@ -566,7 +566,7 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 		Block body = (Block) doSwitch(proc.getBody());
 		proc.setBody(body);
 		
-		context = context.outer;
+		stack = stack.outer;
 		
 		return proc;
 	}
@@ -614,7 +614,7 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 			}
 		}
 		
-		context = new Context(context);
+		stack = new Stack(stack);
 		
 		for (int i = 0; i < lambda.getParameters().size(); i++) {
 			Variable param = IrFactory.eINSTANCE.createVariable();	
@@ -623,13 +623,13 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 			param.setConstant(true);
 	
 			param.setInitValue(parameters.get(i));	
-			context.variables.add(param);
+			stack.variables.add(param);
 		}
 		
 		for (Declaration decl : lambda.getDeclarations()) {
 			doSwitch(decl);
 		}
-
+		
 		/*
 		 * Need to set the calling scope when lifting out the expression in lambda.
 		 * But lambda is a shared object for the declaration so make sure to
@@ -642,10 +642,10 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 		lambda.getBody().setContext(call.getContext());
 		Expression returnExpression = (Expression) doSwitch(lambda.getBody());
 		lambda.getBody().setContext(storeScope);
-
+		
 		result = returnExpression;
 		
-	    context = context.outer;
+	    stack = stack.outer;
 	    
 	    return result;	    
 	}
@@ -721,10 +721,10 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 				result.getExpressions().add((Expression) doSwitch(element));
 			}
 		} else {
-			Context top = context;
+			Stack top = stack;
 			for (Generator generator : expression.getGenerators()) {
 
-				context = new Context(context);
+				stack = new Stack(stack);
 				caseScope(generator);
 				
 				Generator g = IrFactory.eINSTANCE.createGenerator();
@@ -742,7 +742,7 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 				result.getExpressions().add((Expression) doSwitch(e));
 			}
 			
-			context = top;
+			stack = top;
 		}
 	
 		//a unique ID since might be different
@@ -809,7 +809,7 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 	
 	@Override
 	public Expression caseVariableExpression(VariableExpression expression) {
-		Declaration decl = context.find(expression.getVariable().getId());
+		Declaration decl = stack.find(expression.getVariable().getId());
 		Variable variable;
 		
 		if (decl instanceof VariableExternal) {
