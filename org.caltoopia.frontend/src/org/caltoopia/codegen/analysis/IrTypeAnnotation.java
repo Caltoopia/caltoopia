@@ -358,7 +358,7 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 		}
 
 		//Annotate that the Type pass has executed
-		IrAnnotations.AnnotatePass(network, IrAnnotationTypes.Type, "0");
+		IrAnnotations.AnnotatePass(network, IrAnnotationTypes.TypeUsage, "0");
 		//Store in ActorDirectory $Transformed section
 	    //DEBUG
 		new IrReplaceSwitch() {

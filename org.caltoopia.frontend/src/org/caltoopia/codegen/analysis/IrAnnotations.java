@@ -71,7 +71,8 @@ public class IrAnnotations {
 	public enum IrAnnotationTypes {
 		Init,
 		Variable,
-		Type
+		TypeUsage,
+		TypeStructure
 	}
 	
 	/*
@@ -96,14 +97,23 @@ public class IrAnnotations {
 				node=getNode(nodeType,p);
 				new IrVariableAnnotation(node, session, true);
 				break;
-			case Type:
+			case TypeUsage:
 				System.out.println("[IrAnnotations] ********************************************************************");
 				System.out.println("[IrAnnotations] ********************************************************************");
-				System.out.println("[IrAnnotations] ************                       Type                    *********");
+				System.out.println("[IrAnnotations] ************                    Type Usage                 *********");
 				System.out.println("[IrAnnotations] ********************************************************************");
 				System.out.println("[IrAnnotations] ********************************************************************");
 				node=getNode(nodeType,p);
 				new IrTypeAnnotation(node, session, true);
+				break;
+			case TypeStructure:
+				System.out.println("[IrAnnotations] ********************************************************************");
+				System.out.println("[IrAnnotations] ********************************************************************");
+				System.out.println("[IrAnnotations] ************                   Type Structure              *********");
+				System.out.println("[IrAnnotations] ********************************************************************");
+				System.out.println("[IrAnnotations] ********************************************************************");
+				node=getNode(nodeType,p);
+				new IrTypeStructureAnnotation(node, session, true);
 				break;
 			}
 		}
