@@ -49,6 +49,7 @@ import org.caltoopia.cli.DirectoryException;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.analysis.IrAnnotations.IrAnnotationTypes;
 import org.caltoopia.ir.AbstractActor;
+import org.caltoopia.ir.Action;
 import org.caltoopia.ir.ActorInstance;
 import org.caltoopia.ir.Annotation;
 import org.caltoopia.ir.AnnotationArgument;
@@ -90,7 +91,24 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 	
 	private Set<Declaration> userTypes = new HashSet<Declaration>();
 	private Map<Declaration,Set<String>> typeUsage = new HashMap<Declaration,Set<String>>();
-	private String currentVariableTypeAnnotation = null;
+	private Map<Declaration,Set<String>> actionTypeUsage = new HashMap<Declaration,Set<String>>();
+	
+	private void putTypeUsage(Declaration d, String type) {
+		if(typeUsage.containsKey(d)) {
+			typeUsage.get(d).add(type);
+		} else {
+			Set<String> aSet = new HashSet<String>();
+			aSet.add(type);
+			typeUsage.put(d, aSet);
+		}
+		if(actionTypeUsage.containsKey(d)) {
+			actionTypeUsage.get(d).add(type);
+		} else {
+			Set<String> aSet = new HashSet<String>();
+			aSet.add(type);
+			actionTypeUsage.put(d, aSet);
+		}
+	}
 	
 	@Override
 	public Expression caseVariableExpression(VariableExpression var) {
@@ -107,13 +125,7 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 			if(UtilIR.isRecord(type)) {
 				for(Declaration d:userTypes) {
 					if(d.getId().equals(UtilIR.getTypeDeclaration(type).getId())) {
-						if(typeUsage.containsKey(d)) {
-							typeUsage.get(d).add(a);
-						} else {
-							Set<String> aSet = new HashSet<String>();
-							aSet.add(a);
-							typeUsage.put(d, aSet);
-						}
+						putTypeUsage(d,a);
 						break;
 					}
 				}
@@ -140,13 +152,7 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 				if(UtilIR.isRecord(type)) {
 					for(Declaration d:userTypes) {
 						if(d.getId().equals(UtilIR.getTypeDeclaration(type).getId())) {
-							if(typeUsage.containsKey(d)) {
-								typeUsage.get(d).add(pre+"MemberOf"+a);
-							} else {
-								Set<String> aSet = new HashSet<String>();
-								aSet.add("MemberOf"+a);
-								typeUsage.put(d, aSet);
-							}
+							putTypeUsage(d,pre+"MemberOf"+a);
 							break;
 						}
 					}
@@ -170,13 +176,7 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 			for(Declaration d:userTypes) {
 				if(d.getId().equals(UtilIR.getTypeDeclaration(type).getId())) {
 					String a = IrAnnotations.getAnnotationArg(decl,IrAnnotations.VARIABLE_ANNOTATION,"VarType");
-					if(typeUsage.containsKey(d)) {
-						typeUsage.get(d).add(a);
-					} else {
-						Set<String> aSet = new HashSet<String>();
-						aSet.add(a);
-						typeUsage.put(d, aSet);
-					}
+					putTypeUsage(d,a);
 					break;
 				}
 			}
@@ -199,13 +199,7 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 			if(UtilIR.isRecord(type)) {
 				for(Declaration d:userTypes) {
 					if(d.getId().equals(UtilIR.getTypeDeclaration(type).getId())) {
-						if(typeUsage.containsKey(d)) {
-							typeUsage.get(d).add(a);
-						} else {
-							Set<String> aSet = new HashSet<String>();
-							aSet.add(a);
-							typeUsage.put(d, aSet);
-						}
+						putTypeUsage(d,a);
 						break;
 					}
 				}
@@ -232,13 +226,7 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 				if(UtilIR.isRecord(type)) {
 					for(Declaration d:userTypes) {
 						if(d.getId().equals(UtilIR.getTypeDeclaration(type).getId())) {
-							if(typeUsage.containsKey(d)) {
-								typeUsage.get(d).add(pre+"MemberOf"+a);
-							} else {
-								Set<String> aSet = new HashSet<String>();
-								aSet.add("MemberOf"+a);
-								typeUsage.put(d, aSet);
-							}
+							putTypeUsage(d,pre+"MemberOf"+a);
 							break;
 						}
 					}
@@ -256,6 +244,24 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 		 */
 		userTypes.add(decl);
 		return decl;
+	}
+	
+	@Override
+	public Action caseAction(Action action) {
+		actionTypeUsage.clear();
+		super.caseAction(action);
+		for(Declaration d:actionTypeUsage.keySet()) {
+			Set<String> tu = actionTypeUsage.get(d);
+			if((tu.contains("outPortVar") || 
+				tu.contains("inOutPortPeekVar") || 
+				tu.contains("inOutPortVar")) &&
+				tu.toString().contains("MemberOf")) {
+				//type is used both on output port and as a member within one action
+				//Annotate that specifically
+				putTypeUsage(d, "memberOutPortVar");
+			}
+		}
+		return action;
 	}
 
 	@Override

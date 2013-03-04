@@ -38,18 +38,11 @@ package org.caltoopia.codegen.analysis;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.cli.CompilationSession;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.analysis.IrAnnotations.IrAnnotationTypes;
 import org.caltoopia.ir.AbstractActor;
-import org.caltoopia.ir.ActorInstance;
 import org.caltoopia.ir.Annotation;
 import org.caltoopia.ir.AnnotationArgument;
 import org.caltoopia.ir.Declaration;
@@ -58,10 +51,8 @@ import org.caltoopia.ir.Network;
 import org.caltoopia.ir.Node;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeDeclaration;
-import org.caltoopia.ir.TypeDeclarationImport;
 import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.TypeRecord;
-import org.caltoopia.ir.TypeUser;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.util.IrReplaceSwitch;
 
@@ -94,20 +85,49 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
 		}
 		this.doSwitch(node);
 	}
-
+	
 	/*
-	 * At the moment this function inline everything when possible
+	 * Any record member that refers to a type declaration which is inlined
+	 * in full is inlined unless it is used on an output port and as member
+	 * in same action.
+	 */
+	private boolean recordMemberInline(TypeDeclaration td, Variable m, boolean isList) {
+		boolean anyByRef=false;
+		switch(TypeMember.valueOf(IrAnnotations.getAnnotationArg(td, IrAnnotations.TYPE_ANNOTATION, "TypeStructure"))) {
+		case builtin:
+		case inlineFull:
+		case byListFull:
+			if(IrAnnotations.getAnnotationArg(td, IrAnnotations.TYPE_ANNOTATION, "TypeUsage").contains("memberOutPortVar")) {
+				IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(m,IrAnnotations.TYPE_ANNOTATION), 
+						"TypeStructure",isList?TypeMember.byListSome.name():TypeMember.inlineSome.name());
+				anyByRef=true;
+			} else {
+				IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(m,IrAnnotations.TYPE_ANNOTATION), 
+						"TypeStructure",isList?TypeMember.byListFull.name():TypeMember.inlineFull.name());
+			}
+			break;
+		case byRef:
+		case byListSome:
+		case inlineSome:
+			IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(m,IrAnnotations.TYPE_ANNOTATION), 
+					"TypeStructure",isList?TypeMember.byListSome.name():TypeMember.inlineSome.name());
+			anyByRef=true;
+			break;
+		}
+		return anyByRef;
+	}
+	
+	/*
+	 * At the moment this function inline everything but
+	 * types in same action that is used as both
+	 * member and output port variable.
 	 */
 	@Override
 	public Declaration caseTypeDeclaration(TypeDeclaration decl) {
 		System.out.println("[IrTypeStructureAnnotation] Setting type structure for type declaration '" + decl.getName() + "'");
-		List<String> typeUsage = Arrays.asList(IrAnnotations.getAnnotationArg(decl, 
-								IrAnnotations.TYPE_ANNOTATION, "TypeUsage").split(", *"));
 		boolean anyByRef=false;
 		
 		for(Variable m: ((TypeRecord)decl.getType()).getMembers()) {
-			List<String> memberUsage = Arrays.asList(IrAnnotations.getAnnotationArg(m, 
-					IrAnnotations.TYPE_ANNOTATION, "TypeUsage").split(", *"));
 			if(!UtilIR.isListOrRecord(m.getType())) {
 				IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(m,IrAnnotations.TYPE_ANNOTATION), 
 						"TypeStructure",TypeMember.builtin.name());
@@ -123,21 +143,7 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
 				if(hasSize) {
 					if(UtilIR.isRecord(type)) {
 						TypeDeclaration td = UtilIR.getTypeDeclaration(type);
-						switch(TypeMember.valueOf(IrAnnotations.getAnnotationArg(td, IrAnnotations.TYPE_ANNOTATION, "TypeStructure"))) {
-						case builtin:
-						case inlineFull:
-						case byListFull:
-							IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(m,IrAnnotations.TYPE_ANNOTATION), 
-									"TypeStructure",TypeMember.byListFull.name());
-							break;
-						case byRef:
-						case byListSome:
-						case inlineSome:
-							IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(m,IrAnnotations.TYPE_ANNOTATION), 
-									"TypeStructure",TypeMember.byListSome.name());
-							anyByRef=true;
-							break;
-						}
+						anyByRef=recordMemberInline(td,m,true);
 					} else {
 						IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(m,IrAnnotations.TYPE_ANNOTATION), 
 								"TypeStructure",TypeMember.byListFull.name());
@@ -150,26 +156,13 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
 				}
 			} else if(UtilIR.isRecord(m.getType())) {
 				TypeDeclaration td = UtilIR.getTypeDeclaration(m.getType());
-				switch(TypeMember.valueOf(IrAnnotations.getAnnotationArg(td, IrAnnotations.TYPE_ANNOTATION, "TypeStructure"))) {
-				case builtin:
-				case inlineFull:
-				case byListFull:
-					IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(m,IrAnnotations.TYPE_ANNOTATION), 
-							"TypeStructure",TypeMember.inlineFull.name());
-					break;
-				case byRef:
-				case byListSome:
-				case inlineSome:
-					IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(m,IrAnnotations.TYPE_ANNOTATION), 
-							"TypeStructure",TypeMember.inlineSome.name());
-					anyByRef=true;
-					break;
-				}
+				anyByRef=recordMemberInline(td,m,false);
 			} else {
 				anyByRef=true;
 			}
 		}
 
+		anyByRef = anyByRef || IrAnnotations.getAnnotationArg(decl, IrAnnotations.TYPE_ANNOTATION, "TypeUsage").contains("memberOutPortVar");
 		IrAnnotations.setAnnotation(
 				IrAnnotations.getAnalysAnnotations(decl,IrAnnotations.TYPE_ANNOTATION), 
 				"TypeStructure",anyByRef?TypeMember.inlineSome.name():TypeMember.inlineFull.name());
