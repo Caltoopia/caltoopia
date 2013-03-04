@@ -110,7 +110,6 @@ public class IR2CIR extends IR2IRBase {
 	private Map<String,VariableExternal> portMapIn = new HashMap<String,VariableExternal>();
 	private Map<String,VariableExternal> portMapOut = new HashMap<String,VariableExternal>();
 	public Map<Actor,Block> actorConstructor = new HashMap<Actor,Block>();
-	private TypeMapper mapper = null;
 	
 	public IR2CIR() {
 		declStack.clear();
@@ -520,9 +519,6 @@ public class IR2CIR extends IR2IRBase {
 	//When calling the network should be flattened and only one top network exist (i.e. the outer namespace should only have one abstract actor the top network)
 	@Override
 	public EObject caseNetwork(Network top) {
-//		mapper = new TypeMapper(top);
-		//mapper.print();
-		
 		topNetwork = top;
 		Network net = (Network) super.caseNetwork(top);
 		if(!declStack.isEmpty()) {
