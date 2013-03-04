@@ -346,25 +346,6 @@ public class IrAnnotations {
 	}
 
 	static public void AnnotatePass(Node node, IrAnnotationTypes t, String result) {
-		boolean done=false;
-		for(Annotation ann : node.getAnnotations()) {
-			if(ann.getName().equals("AnnotationPasses")) {
-				for(AnnotationArgument aa : ann.getArguments()) {
-					if(aa.getId().equals(t.name())) {
-						aa.setValue(result);
-						done=true;
-						break;
-					}
-				}
-				if(!done) {
-					AnnotationArgument aa=IrFactory.eINSTANCE.createAnnotationArgument();
-					aa.setId(t.name());
-					aa.setValue(result);
-					ann.getArguments().add(aa);
-					done=true;
-					break;
-				}
-			}
-		}
+		setAnnotation(getAnalysAnnotations(node,"AnnotationPasses"),t.name(),result);
 	}
 }
