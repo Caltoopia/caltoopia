@@ -49,6 +49,7 @@ import org.caltoopia.ir.Actor;
 import org.caltoopia.ir.ActorInstance;
 import org.caltoopia.ir.Annotation;
 import org.caltoopia.ir.AnnotationArgument;
+import org.caltoopia.ir.Assign;
 import org.caltoopia.ir.Block;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
@@ -203,6 +204,12 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		refMember
 	};
 
+	public enum VarAssign {
+		unknown,
+		assigned
+		//TODO add more types of assignment when needed, e.g. if member is assigned, assigned due to procedure output, etc
+	};
+	
 	private VarType annotatePortVar(Declaration variable, Action a) {
 		VarType t = VarType.unknown;
 		if(!a.getOutputs().isEmpty()) {
@@ -554,6 +561,15 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 	}
 
 	@Override
+	public Statement caseAssign(Assign assign) {
+		IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(assign.getTarget().getDeclaration(),IrAnnotations.VARIABLE_ANNOTATION), 
+				"VarAssign",VarAssign.assigned.name());
+		IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(assign.getTarget(),IrAnnotations.VARIABLE_ANNOTATION), 
+				"VarAssign",VarAssign.assigned.name());
+		return assign;
+	}
+
+	@Override
 	public AbstractActor caseNetwork(Network obj) {
 		currentNetwork = obj;
 		for(ActorInstance a : obj.getActors()) {
@@ -610,7 +626,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		currentNetwork = null;
 		return ret;
 	}
-
+	
 	@Override
 	public Namespace caseNamespace(Namespace obj) {
 		currentNamespace = obj;
