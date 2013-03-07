@@ -73,7 +73,7 @@ public class TestScenarioAwareNetworkView extends TestNetworkView {
 	protected void test(Network network) {
 		mxGraph graph=new mxGraph();
 		NetworkView view=new NetworkView(graph);
-		NetworkController ctrl=new ScenarioAwareNetworkController(view);
+		NetworkController ctrl=new ScenarioAwareNetworkController(view, this.pathToDetectorFSMs);
 		
 		view.setPreferredSize(new Dimension(800,600));
 		ctrl.setNetwork(network);
@@ -83,8 +83,10 @@ public class TestScenarioAwareNetworkView extends TestNetworkView {
 	
 	private class ScenarioAwareNetworkController extends NetworkController {
 
-		public ScenarioAwareNetworkController(NetworkView view) {
+		String detectorFSMPath;
+		public ScenarioAwareNetworkController(NetworkView view, String p) {
 			super(view);
+			detectorFSMPath = p;
 		}
 	
 		public void classify() {
@@ -92,7 +94,7 @@ public class TestScenarioAwareNetworkView extends TestNetworkView {
 			NetworkView view=getNetworkView();
 			SneakyNetworkAnalyzer mNetworkAnalyzer=new SneakyNetworkAnalyzer();
 			ScenarioAwareNetworkAnalysis scenarioAwareAnalysis=
-					new ScenarioAwareNetworkAnalysis(network, mNetworkAnalyzer.analyze(network));
+					new ScenarioAwareNetworkAnalysis(network, mNetworkAnalyzer.analyze(network), detectorFSMPath);
 			
 			for (ActorInstance actor: network.getActors()) {
 				ScenarioAwareActorAnalysis actorAnalysis=scenarioAwareAnalysis.getScenarioAwareActorAnalysis(actor);

@@ -121,7 +121,7 @@ public class TestSneakyClassifier {
 			ActorDirectory.initCompilation(mFrontEnd.getCompilationSession());
 			Network network=mFrontEnd.elaborate();	
 				ScenarioAwareNetworkAnalysis saAnalysis=
-						new ScenarioAwareNetworkAnalysis(network, mNetworkAnalyzer.analyze(network));
+						new ScenarioAwareNetworkAnalysis(network, mNetworkAnalyzer.analyze(network), args[4]);
 				mNetworkOutput.setOutputFolder(mFrontEnd.getOutputFolder());
 				//Print actor instance types
 				for (ActorInstance actor: network.getActors()) {

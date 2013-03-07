@@ -33,9 +33,10 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package org.caltoopia.analysis.network;
 
+import java.io.File;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -43,7 +44,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.caltoopia.analysis.actor.ScenarioAwareActorAnalysis;
+import org.caltoopia.analysis.actor.GenericActorAnalysis.ActorInstanceType;
 import org.caltoopia.analysis.actor.ScenarioAwareActorAnalysis.ScenarioAwareActorInstanceType;
 import org.caltoopia.analysis.air.Action;
 import org.caltoopia.analysis.air.ActorInstance;
@@ -65,8 +70,109 @@ import org.caltoopia.analysis.util.collections.Interval;
 import org.caltoopia.analysis.util.collections.Pair;
 import org.caltoopia.analysis.util.collections.UnionOfDisjointIntervals;
 import org.caltoopia.ast2ir.Stream;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class ScenarioAwareStateExploration {
+	
+	public class ControlTokenFSMState{
+		public String name;
+		public ActorInstance detectorActor = null;
+		public Action action = null;
+		public Map<String, Long> controlTokens = new HashMap<String, Long>();
+		public Set<String> transitions = new HashSet<String>();
+		public ControlTokenFSMState(String n, ActorInstance d){
+			name = n;
+			detectorActor = d;
+		}
+		
+		public void print(PrintStream stream){
+			stream.println("\t\tState: "+name);
+			for(Map.Entry<String, Long> e: controlTokens.entrySet()){
+				stream.println("\t\t\tControlToken: "+e.getKey()+", Value: "+e.getValue());
+			}
+			
+			for(String s: transitions){
+				stream.println("\t\t\tTransits to: "+s);
+			}
+		}
+	}
+	
+	/**
+	 * control token transition
+	 */
+	public class DetectorFSM{		
+		public ActorInstance detectorActor;
+		public String initialState;
+		public Set<ControlTokenFSMState> states = new HashSet<ControlTokenFSMState>();
+		
+		public DetectorFSM(ActorInstance i){
+			detectorActor = i;
+		}
+		
+		public ControlTokenFSMState getState(String n){
+			for(ControlTokenFSMState s: states){
+				if(s.name.equals(n))
+					return s;
+			}
+			return null;
+		}
+		
+		public ControlTokenFSMState getInitialState(){
+			return getState(initialState);
+		}
+		
+		public void print(PrintStream stream){
+			stream.println("Detector: "+detectorActor.getInstanceName());
+			stream.println("\tIntialState: "+initialState);
+			for(ControlTokenFSMState s: states){
+				s.print(stream);
+			}
+		}
+	}
+	
+	/**
+	 * control token transition
+	 */
+	public class ControlTokenTransition{
+		
+		private Pair<String, Long> srcControlToken;
+		
+		private Pair<String, Long> dstControlToken;
+		
+		public ControlTokenTransition(String ss, Long sl, String ds, Long dl){
+			setSrcControlToken(ss, sl);
+			setDstControlToken(ds, dl);
+		}
+		
+		private void setSrcControlToken(String s, Long l){
+			srcControlToken = new Pair<String, Long>(s,l);
+		}
+		
+		private void setDstControlToken(String s, Long l){
+			dstControlToken = new Pair<String, Long>(s,l);
+		}
+		
+		public Pair<String, Long> getSrcControlToken(){
+			return srcControlToken;
+		}
+		
+		public Pair<String, Long> getDstControlToken(){
+			return dstControlToken;
+		}
+		
+		public boolean equals(ControlTokenTransition t){
+			if(!getSrcControlToken().equals(t.getSrcControlToken()))
+				return false;
+			if(!getDstControlToken().equals(t.getDstControlToken()))
+				return false;
+			return true;
+		}
+	}
 	
 	/*
 	 * number of eliminated scenario graph due to duplication
@@ -80,6 +186,13 @@ public class ScenarioAwareStateExploration {
 	//control tokens of the network
 	private Set<ControlToken> controlTokens  = new HashSet<ControlToken>();
 	
+	//detector fsm
+	private List<DetectorFSM> detectorFSMs = new ArrayList<DetectorFSM>();
+	
+	//non-existing control token transitions
+	private List<ControlTokenTransition> nonExistingTokenTransitions =
+			new ArrayList<ControlTokenTransition>();
+	
 	//the scenario FSM to be constructed
 	private ScenarioFSM scenarioFSM = new ScenarioFSM();	
 	
@@ -87,6 +200,8 @@ public class ScenarioAwareStateExploration {
 	public ScenarioAwareStateExploration(ScenarioAwareNetworkAnalysis a){
 		analysis = a;
 		populateControlTokens();
+		populateDetectorFSMs();
+		printDetectorFSMs(System.out);
 	}
 	
 	public ScenarioAwareNetworkAnalysis getAnalysis(){
@@ -104,6 +219,13 @@ public class ScenarioAwareStateExploration {
 		}
 	}
 	
+	//print network control tokens
+	public void printDetectorFSMs(PrintStream stream){		
+		for(DetectorFSM d : detectorFSMs){
+			d.print(stream);
+		}
+	}
+		
 	/**
 	 * searches a control token by name and detector actor 
 	 * @param name - name of the control token
@@ -222,6 +344,42 @@ public class ScenarioAwareStateExploration {
 	}
 	
 	/**
+	 * checks if a combination of control tokens exist
+	 * @param tr: a combination of fsm transitions
+	 * @param ctActions: a combination of control tokens
+	 * @return true if the combination exists or false otherwise
+	 */
+	public boolean stateTupleExist(Set<ControlTokenFSMState> stateTuple){	
+		Set<ControlTokensPerAction> ctActions = new HashSet<ControlTokensPerAction>();
+		for(ControlTokenFSMState cs: stateTuple){
+			ControlTokensPerAction t = analysis.new ControlTokensPerAction(cs.detectorActor, cs.action);
+			t.setControlTokens(cs.controlTokens);
+			ctActions.add(t);			
+		}
+		
+		for(ControlTokenFSMState state: stateTuple){	
+			Action action = state.action;
+			if(action.hasGuard()){
+				Guard guard = action.getGuard();
+				Map<InputLookAhead, UnionOfDisjointIntervals> modeSet 
+							= guard.matchScenarioAwareGuard();
+				if (modeSet == null)
+					continue;			
+				//each input look-ahead must be satisfied
+				for(InputLookAhead lookAhead: modeSet.keySet()){
+					PortInstance detectorPort = lookAhead.getPort();
+					if(!isIntervalInActionScenarioTokens(detectorPort, 
+							modeSet.get(lookAhead), ctActions)){
+						eliminatedScenarioGraphs++;
+						return false;
+					}
+				}				
+			}
+		}		
+		return true;
+	}
+	
+	/**
 	 * constructs a set of scenario graphs from a given set of combinations of 
 	 * control tokens. Each combination defines a unique scenario graph.
 	 * @param source: the source actor to start exploring the network
@@ -229,13 +387,13 @@ public class ScenarioAwareStateExploration {
 	 * @param ctActions: a set of combinations of control tokens
 	 * @return a set of ScenarioGraph, possibly empty.
 	 */
-	public Set<ScenarioGraph> constructScenarioGraphs(ActorInstance source, 
+	public Set<ScenarioGraph> constructScenarioGraphs(List<ActorInstance> sources, 
 				Set<Pair<ActorInstance, Transition>> tr,
 				Set<Set<ControlTokensPerAction>> ctActions){
 		
 		Set<ScenarioGraph> scenarioGraphs = new HashSet<ScenarioGraph>();
 		for(Set<ControlTokensPerAction> st: ctActions){
-			ScenarioGraph g = analysis.constructScenarioGraph(source, tr, st);
+			ScenarioGraph g = analysis.constructScenarioGraph(sources, tr, st);
 			if(g!=null){
 				//check if it is not duplicate
 				boolean exists = false;
@@ -290,6 +448,13 @@ public class ScenarioAwareStateExploration {
 			return aa.getScenarios().get(0);
 		}
 		
+		if(type == ScenarioAwareActorInstanceType.SA_DETECTOR){	
+			//check if the detector actor is static
+			 if(aa.getActorInstanceType()==ActorInstanceType.SINGLE_RATE_STATIC ||
+						aa.getActorInstanceType()==ActorInstanceType.MULTI_RATE_STATIC){
+				 return aa.getScenarios().get(0);
+			 }
+		}
 		//If an actor is scenario_aware_dynamic, test each of its scenarios
 		for(ScenarioAwareActorAnalysis.Scenario s: aa.getScenarios()){	
 			boolean match = false;				
@@ -352,38 +517,42 @@ public class ScenarioAwareStateExploration {
 		//the set of detector actors
 		Set<ActorInstance> dActors = analysis.getScenarioAwareDetectorActors();
 		
-		//a queue of combinations of transitions to be analyzed
-		List<Set<Pair<ActorInstance, Transition>>> ttQueue = null; 
+		//a queue of a combination of transitions to be analyzed
+		List<Set<Pair<ActorInstance, Transition>>> ttQueue = null; 		
 		ttQueue = new ArrayList<Set<Pair<ActorInstance, Transition>>>();
 		
 		try{
-			ActorInstance source = analysis.getSourceActor();
-			if(source==null){
-				String message = "constructScenarioFSM: no source actor found.";
-				message += "Use annotation: @ActorProperty(Source=\"true\")";
-				throw new NullPointerException(message);
+			List<ActorInstance> sources = analysis.getSourceActors();
+			
+			if(sources.size()==0){
+				String msg = "constructScenarioFSM: no source actor found.";
+				msg += "Use annotation: @ActorProperty(Source=\"true\")";
+				throw new NullPointerException(msg);
 			}
 			
-			// initialStateSpaceState = the initial states of detector actors
-			Map<ActorInstance, State> s0 = new HashMap<ActorInstance, State>();
+			//initialExplorationState = the set of the initial states of detector actors
+			Map<ActorInstance, State> ieState = new HashMap<ActorInstance, State>();
 			for(ActorInstance d: dActors){
-				s0.put(d,d.getImplementation().getSchedule().getInitialState());
+				ieState.put(d,d.getImplementation().getSchedule().getInitialState());
 			}				
-			ExplorationState state = new ExplorationState(s0, "InitialState");	
+			ExplorationState state = new ExplorationState(ieState, "InitialState");	
 			
 			//Find all possible transitions of the initialStateSpaceState
-			for(Set<Pair<ActorInstance, Transition>> s: ExplorationState.traverseTransitions(s0)){
+			for(Set<Pair<ActorInstance, Transition>> s: 
+										ExplorationState.traverseTransitions(ieState)){
 				ttQueue.add(s);
-				state.getTransitionTuples().add(s);
+				state.addTransitionTuple(s);
 			}
 			visitedStates.add(state);			
+			state.printActorStateTuple(System.out);
 			
 			while(!ttQueue.isEmpty()){
-				//take a transition from the queue
+				//take a combination of transitions from the queue
 				Set<Pair<ActorInstance, Transition>> tt = ttQueue.remove(0);	
 				
-				//find the parent exploration state of the transition
-				ExplorationState statett = ExplorationState.findExplorationStateOfTransition(visitedStates, tt);			
+				//find the exploration state of the combination of transitions
+				ExplorationState statett = null;
+				statett = ExplorationState.findExplorationStateOfTransition(visitedStates, tt);			
 				if(statett==null){
 					String msg = "constructScenarioFSM:transition has no state";
 					throw new NullPointerException(msg);
@@ -393,18 +562,18 @@ public class ScenarioAwareStateExploration {
 				
 				//Find the set of ControlTokensPerActions produced by each detector actor
 				for(Pair<ActorInstance, Transition> transition: tt){
-					Set<ControlTokensPerAction> sta = analysis.getScenarioOfDetectorAction(
+					Set<ControlTokensPerAction> cta = analysis.getControlTokensOfAction(
 							transition.getFirst(), transition.getSecond().getAction());
-					if(sta!=null){
-						sTokens.add(sta);
+					if(cta != null){
+						sTokens.add(cta);
 					}
 					newState.put(transition.getFirst(), transition.getSecond().getTargetState());	
 				}			
-				Set<Set<ControlTokensPerAction>> staSet = CartesianProduct.cartesianProduct(sTokens);
-				Set<ScenarioGraph> sgs = constructScenarioGraphs(source, tt, staSet);				
+				Set<Set<ControlTokensPerAction>> ctaSet = CartesianProduct.cartesianProduct(sTokens);
+				Set<ScenarioGraph> sgs = constructScenarioGraphs(sources, tt, ctaSet);				
 				if(!sgs.isEmpty()){
 					for(ScenarioGraph sg: sgs){
-						if(ExplorationState.findScenarioGraph(sg, statett.getScenarioGraphs())==null)
+						if(ExplorationState.findScenarioGraph(sg, statett.getScenarioGraphs(), false)==null)
 							statett.getScenarioGraphs().add(sg);
 						else
 							eliminatedScenarioGraphs++;
@@ -421,6 +590,11 @@ public class ScenarioAwareStateExploration {
 						newEState.addTransitionTuple(s);
 					}					
 					visitedStates.add(newEState);
+					System.out.println("From ..");
+					statett.printActorStateTuple(System.out);
+					System.out.println("To ..");
+					newEState.printActorStateTuple(System.out);
+					System.out.println("---------");
 				}
 				else{
 					existingState.addIncidentState(statett);
@@ -479,37 +653,37 @@ public class ScenarioAwareStateExploration {
 	 * @param visitedStates
 	 */
 	private void generateFSMStates(Set<ExplorationState> visitedStates){
+		String str;
 		//Create FSM states and scenario graphs
-		for(ExplorationState sp: visitedStates){			
-			for(ScenarioGraph sg: sp.getScenarioGraphs()){				
-				//if new scenario graph, add to the list
+		for(ExplorationState eState: visitedStates){			
+			for(ScenarioGraph sGraph: eState.getScenarioGraphs()){
 				//create new FSM state
-				String name = "State_"+scenarioFSM.getScenarioFSMStates().size();
-				ScenarioFSMState fsmState = scenarioFSM.new ScenarioFSMState(name);
-				ScenarioGraph existingSg = null;
-				existingSg = ExplorationState.findScenarioGraph(sg, scenarioFSM.getScenarioGraphs());
-				if(existingSg==null){		
-					String n = "ScenarioGraph_"+scenarioFSM.getScenarioGraphs().size();
-					sg.setName(n);
-					fsmState.setScenarioGraph(sg);
-					scenarioFSM.addScenarioGraphs(sg);					
+				str = eState.getName();
+				ScenarioFSMState fsmState = scenarioFSM.new ScenarioFSMState(str);
+				ScenarioGraph existingSGraph = null;
+				existingSGraph = ExplorationState.findScenarioGraph(sGraph, scenarioFSM.getScenarioGraphs(), false);				
+				//if new scenario graph, add to the list
+				if(existingSGraph==null){		
+					str = "ScenarioGraph_"+scenarioFSM.getScenarioGraphs().size();
+					sGraph.setName(str);
+					fsmState.setScenarioGraph(sGraph);
+					scenarioFSM.addScenarioGraph(sGraph);					
 				}
 				else{
-					sg.setName(existingSg.getName());
-					fsmState.setScenarioGraph(existingSg);
-					for(Set<ControlTokensPerAction> t: sg.getControlTokens())
-						existingSg.addControlToken(t);
+					//change the name of the g
+					sGraph.setName(existingSGraph.getName());
+					fsmState.setScenarioGraph(existingSGraph);
 				}
 
-				sp.addScenarioFSMState(fsmState);
+				eState.addScenarioFSMState(fsmState);
 				scenarioFSM.addScenarioFSMState(fsmState);
 			}
 		}
 		
-		//create initial state with just a random scenario graph
-		ScenarioFSMState spfsmState = scenarioFSM.new ScenarioFSMState("InitialState");
-		spfsmState.setScenarioGraph(scenarioFSM.getScenarioGraphs().iterator().next());
-		scenarioFSM.addScenarioFSMState(spfsmState);
+//		//create initial state with just a random scenario graph (for the time-being)
+//		ScenarioFSMState initialFsmState = scenarioFSM.new ScenarioFSMState("InitialState");
+//		initialFsmState.setScenarioGraph(scenarioFSM.getScenarioGraphs().iterator().next());
+//		scenarioFSM.addScenarioFSMState(initialFsmState);
 	}
 	
 	/**
@@ -517,40 +691,76 @@ public class ScenarioAwareStateExploration {
 	 * @param visitedStates
 	 */
 	private void generateFSMTransitions(Set<ExplorationState> visitedStates){
+		String str;
 		//Create FSM transitions
-		for(ExplorationState sp: visitedStates){
-			//Add a transition from every FSM state of every incidentState to 
-			//every FSM state of this state
-			if(sp.getName().equals("InitialState")){			
-				for(ScenarioFSMState targetFSMState: sp.getScenarioFSMStates()){
-					String n = "Transition"+scenarioFSM.getScenarioFSMTransitions().size();
-					ScenarioFSMTransition fsmTransition = scenarioFSM.new ScenarioFSMTransition(n);
-					fsmTransition.setSourceState(scenarioFSM.getState("InitialState"));
-					fsmTransition.setTargetState(targetFSMState);
-					if(fsmTransition.getSourceState()==null || fsmTransition.getTargetState()==null){
-						String msg = "constructScenarioFSM: transition has no source/target state.";
-						throw new NullPointerException(msg);
-					}
-					if(!scenarioFSM.transitionExists(fsmTransition))
-						scenarioFSM.addScenarioFSMTransition(fsmTransition);
-				}
-			}
+		for(ExplorationState eState: visitedStates){
 			
-			for(ExplorationState spInc: sp.getIncidentStates()){
-				for(ScenarioFSMState srcFSMState: spInc.getScenarioFSMStates()){
-					for(ScenarioFSMState targetFSMState: sp.getScenarioFSMStates()){
-						String n = "Transition"+scenarioFSM.getScenarioFSMTransitions().size();								
-						ScenarioFSMTransition fsmTransition = scenarioFSM.new ScenarioFSMTransition(n);
+			//connect the initial state of the scenario FSM with
+			//every FSM state of the initial exploration state
+//			if(eState.getName().equals("InitialState")){			
+//				for(ScenarioFSMState targetFSMState: eState.getScenarioFSMStates()){
+//					str = "Transition"+scenarioFSM.getScenarioFSMTransitions().size();
+//					ScenarioFSMTransition fsmTransition = scenarioFSM.new ScenarioFSMTransition(str);
+//					fsmTransition.setSourceState(scenarioFSM.getState("InitialState"));
+//					fsmTransition.setTargetState(targetFSMState);
+//					if(fsmTransition.getSourceState()==null || fsmTransition.getTargetState()==null){
+//						str = "generateFSMTransitions: transition has no source/target state.";
+//						throw new NullPointerException(str);
+//					}
+//					if(!scenarioFSM.transitionExists(fsmTransition)){
+//						scenarioFSM.addScenarioFSMTransition(fsmTransition);
+//					}
+//					else{
+//						str = "generateFSMTransitions: duplicated transitions detected.";
+//						throw new NullPointerException(str);
+//					}						
+//				}
+//			}
+
+			//add a transition from every FSM state of every incidentState to 
+			//every FSM state of the current state
+			for(ExplorationState ieState: eState.getIncidentStates()){
+				for(ScenarioFSMState srcFSMState: ieState.getScenarioFSMStates()){
+					for(ScenarioFSMState targetFSMState: eState.getScenarioFSMStates()){
+						str = "Transition"+scenarioFSM.getScenarioFSMTransitions().size();								
+						ScenarioFSMTransition fsmTransition = scenarioFSM.new ScenarioFSMTransition(str);
 						fsmTransition.setSourceState(srcFSMState);
 						fsmTransition.setTargetState(targetFSMState);
-						if(!scenarioFSM.transitionExists(fsmTransition))
+						ScenarioGraph srcG = srcFSMState.getScenarioGraph();
+						ScenarioGraph dstG = targetFSMState.getScenarioGraph();
+						//check for non-existing token transition
+						if(!scenarioFSM.transitionExists(fsmTransition)){
 							scenarioFSM.addScenarioFSMTransition(fsmTransition);
+						}
+						else{
+							str = "generateFSMTransitions: duplicated transitions detected.";
+							throw new NullPointerException(str);
+						}
+						
 					}
 				}
 			}			
 		}			
 	}
 	
+	public boolean isNonExistingTokenTransition(
+			Set<ControlTokensPerAction> f, Set<ControlTokensPerAction> s){
+		for(ControlTokensPerAction cf: f){
+			for(ControlTokensPerAction cs: s){
+				for(Map.Entry<String, Long> ef: cf.getControlTokens().entrySet()){
+					for(Map.Entry<String, Long> es: cs.getControlTokens().entrySet()){
+						ControlTokenTransition ctt = new ControlTokenTransition(
+								ef.getKey(), ef.getValue(),es.getKey(), es.getValue());
+						for(ControlTokenTransition t: nonExistingTokenTransitions){
+							if(ctt.equals(t))
+								return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
 	/**
 	 * populates the control tokens of the network. Each control token has a name, 
 	 * a parent detector actor and a list of (broadcast) control ports. Hence, all
@@ -582,11 +792,24 @@ public class ScenarioAwareStateExploration {
 											throw new NullPointerException(msg);
 										}
 										controlToken.addControlPort(pi);
-									}
-									
+									}									
 									controlTokens.add(controlToken);
 								}
 							}
+							
+							if (actor.getAnnotationArgumentValue("ActorProperty", "Filters")!=null){
+								String s = actor.getAnnotationArgumentValue("ActorProperty", "Filters");
+								for(String t: s.split(";")){
+									String st[] = t.split("-");
+									String srcSt[] = st[0].split(":");
+									String dstSt[] = st[1].split(":");
+								    ControlTokenTransition ct = new ControlTokenTransition(
+								    		srcSt[0].trim(), Long.parseLong(srcSt[1].trim()),
+								    		dstSt[0].trim(), Long.parseLong(dstSt[1].trim()));
+								    nonExistingTokenTransitions.add(ct);
+								}
+							}
+							
 						}
 						//Otherwise, assume all output ports belong to the same token type					
 						if(!hasAnnotation){
@@ -603,5 +826,198 @@ public class ScenarioAwareStateExploration {
 				}
 			}
 		}
+	}
+	
+	private void populateDetectorFSMs(){
+		for(ActorInstance dActor: analysis.getDetectorActors()){
+			String filePath = analysis.getResourcePath()+File.separator+ 
+					dActor.getInstanceName()+".fsm";
+			DetectorFSM detectorFSM = new DetectorFSM(dActor);
+			Document document; 
+			DocumentBuilderFactory factory =
+			            DocumentBuilderFactory.newInstance();
+			 factory.setIgnoringElementContentWhitespace(true);
+	        try {
+	           DocumentBuilder builder = factory.newDocumentBuilder();
+	           document = builder.parse(new File(filePath));
+	           if(document.getDocumentElement().getTagName().equalsIgnoreCase("fsm")){	        	   
+	        	   NamedNodeMap fsmAttributes = document.getDocumentElement().getAttributes();
+	        	   Node initialStateNode = fsmAttributes.getNamedItem("initialState");
+                   if(initialStateNode==null)
+                	   throw new Exception("No initial state in FSM");
+                   detectorFSM.initialState = initialStateNode.getNodeValue();                    
+                   
+	        	   NodeList nodes = document.getDocumentElement().getChildNodes();
+	        	   for (int i=0; i<nodes.getLength() ; i++)
+	               {   
+	        		   Node node = nodes.item(i);
+		               if (node.getNodeType() == Node.ELEMENT_NODE){
+		            	   if(((Element) node).getTagName().equalsIgnoreCase("State")){
+		            		   Node stateNameNode = node.getAttributes().getNamedItem("name");		                  
+		            		   ControlTokenFSMState state = new ControlTokenFSMState(
+		            				   stateNameNode.getNodeValue(), dActor);
+		            		   
+		            		   //set action
+		            		   Node actionNameNode = node.getAttributes().getNamedItem("action");	
+		            		   for(Action a: dActor.getImplementation().getActions()){
+	            				   System.out.println(a.getName());
+	            				   String aName = a.getName().split("__")[1];
+		            			   if(aName.equals(actionNameNode.getNodeValue())){
+		            				   state.action = a;
+		            				   break;
+		            			   }		            				   
+		            		   }
+		            		   
+		            		   if(state.action==null)
+		            			   throw new Exception("State has no action.");
+		            		   
+		            		   NodeList childNodes = node.getChildNodes();
+		            		   int numChildNodes = childNodes.getLength();
+		            		   for (int ix=0; ix< numChildNodes; ix++){  
+		            			   Node childNode = childNodes.item(ix);
+		            			   if (childNode.getNodeType() == Node.ELEMENT_NODE){
+		            				   if(((Element) childNode).getTagName().equalsIgnoreCase("ControlToken")){
+		            					   Node valueNode = childNode.getAttributes().getNamedItem("value");
+		            					   Node nameNode = childNode.getAttributes().getNamedItem("name");
+		            					   Long l = Long.parseLong(valueNode.getNodeValue().trim());
+		            					   state.controlTokens.put(nameNode.getNodeValue(),l);
+		            				   }
+		                		 
+		            				   if(((Element) childNode).getTagName().equalsIgnoreCase("Transition")){
+		            					   Node tNode = childNode.getAttributes().getNamedItem("state");
+		            					   state.transitions.add(tNode.getNodeValue());
+		            				   }
+		            			   }
+		            		   }
+		            		   detectorFSM.states.add(state);
+		            	   }
+		               }
+	               }
+	           }
+	        } catch (Throwable e) {
+	           e.printStackTrace();
+	        }
+	        detectorFSMs.add(detectorFSM);
+		}
+	}
+	
+	public DetectorFSM getDetectorFSM(ActorInstance a){
+		for(DetectorFSM f: detectorFSMs){
+			if(f.detectorActor == a)
+				return f;
+		}
+		return null;
+	}
+	
+	public ScenarioFSM constructScenarioFSM2(){		
+		//the set of visited states
+		List<ExplorationState> statesQueue = new ArrayList<ExplorationState>();
+		
+		List<ExplorationState> visitedStates = new ArrayList<ExplorationState>();
+		
+		//the set of detector actors
+		Set<ActorInstance> dActors = analysis.getScenarioAwareDetectorActors();
+			
+		try{
+			List<ActorInstance> sources = analysis.getSourceActors();
+			
+			if(sources.size()==0){
+				String msg = "constructScenarioFSM: no source actor found.";
+				msg += "Use annotation: @ActorProperty(Source=\"true\")";
+				throw new NullPointerException(msg);
+			}
+			
+			//initialExplorationState = the set of the initial states of detector actors
+			Set<ControlTokenFSMState> ieState = new HashSet<ControlTokenFSMState>();
+			for(ActorInstance d: dActors){
+				ieState.add(getDetectorFSM(d).getInitialState());
+			}				
+			
+			ExplorationState state = new ExplorationState(ieState, "EState");			
+			
+			statesQueue.add(state);	
+			
+			while(!statesQueue.isEmpty()){
+				//take a combination of transitions from the queue
+				ExplorationState tt = statesQueue.remove(0);	
+				
+				//find the exploration state of the combination of transitions
+				ExplorationState existingState = ExplorationState.findVistedState(visitedStates, tt.stateTuple);	
+				if(existingState != null){
+					for(ExplorationState es: tt.getIncidentStates())
+						existingState.addIncidentState(es);
+				}
+				else{
+					
+					tt.setName("State_"+visitedStates.size());
+					visitedStates.add(tt);
+					
+					Set<ControlTokensPerAction> sTokens = new HashSet<ControlTokensPerAction>();
+					Set<Set<ControlTokenFSMState>> nextStates = new HashSet<Set<ControlTokenFSMState>>();
+					
+					List<Set<ControlTokenFSMState>> targetStatesList = new ArrayList<Set<ControlTokenFSMState>>();
+					
+					for(ControlTokenFSMState cs: tt.stateTuple){
+						Set<ControlTokenFSMState> targetStates = new HashSet<ControlTokenFSMState>();
+						ControlTokensPerAction t = analysis.new ControlTokensPerAction(cs.detectorActor, cs.action);
+						t.setControlTokens(cs.controlTokens);
+						sTokens.add(t);			
+						
+						for(String trans: cs.transitions){
+							targetStates.add(this.getDetectorFSM(cs.detectorActor).getState(trans));
+						}						
+						targetStatesList.add(targetStates);
+					}
+					
+					nextStates = CartesianProduct.cartesianProduct(targetStatesList);
+							
+					ScenarioGraph sgs = analysis.constructScenarioGraph(sources, sTokens);	
+					if(sgs!=null){
+						tt.getScenarioGraphs().add(sgs);
+					}
+					else
+						throw new Exception("ExplorationState has no scenario graph");
+					
+					for(Set<ControlTokenFSMState> st: nextStates){
+						if(stateTupleExist(st)){
+							ExplorationState newEState = new ExplorationState(st,"EState");
+							newEState.addIncidentState(tt);	
+							statesQueue.add(newEState);	
+						}
+					}					
+				}
+			}	
+		
+		Set<ExplorationState> visitedStatesSet = new HashSet<ExplorationState>();
+		visitedStatesSet.addAll(visitedStates);
+			
+		//Remove all Exploration States which have no ScenarioGraphs
+		visitedStatesSet.removeAll(getZeroGraphStates(visitedStatesSet));	
+		
+		if(visitedStatesSet.size() == 0){
+			throw new Exception("constructScenarioFSM: No valid exploration states found.");
+		}
+			
+		//generate the FSM states
+		generateFSMStates(visitedStatesSet);		
+		
+		//generate the FSM transitions
+		generateFSMTransitions(visitedStatesSet);		
+		
+		for(ExplorationState s: visitedStatesSet){
+			s.print(System.out);
+		}
+
+		System.out.println(scenarioFSM.getScenarioFSMStates().size() + " FSM States, " + 
+							scenarioFSM.getScenarioFSMTransitions().size() + " FSM Transtions, " +
+							scenarioFSM.getScenarioGraphs().size() + " scenario graphs," +
+							eliminatedScenarioGraphs + " eliminated graphs");
+		}
+		catch(Exception e){
+			System.out.println(e.getMessage());
+			System.exit(1);
+		}
+		
+		return scenarioFSM;
 	}
 }

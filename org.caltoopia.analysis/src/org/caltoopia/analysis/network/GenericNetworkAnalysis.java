@@ -227,7 +227,7 @@ public class GenericNetworkAnalysis{
 	}
 	
 	public String getExecutionTimeAsString(ActorInstance actor){
-		String executionTime = "";
+		String executionTime = getGenericActorAnalysis(actor).getExecutionTime().toString();
 		List<Integer> executionTimes = null;
 		if(getGenericActorAnalysis(actor).isTypeAnnotated())
 			executionTimes = getAnnotatedExecutionTime(actor);

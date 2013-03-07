@@ -33,7 +33,6 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package org.caltoopia.analysis.actor;
 
 import org.caltoopia.analysis.air.Connection;
@@ -49,7 +48,7 @@ public class ConnectionAnalysis {
 	
 	private Connection connection;
 	private ConnectionType type = ConnectionType.UNCLASSIFIED;
-	private Integer initialTokens;
+	private Integer initialTokens = new Integer(0);
 	private Integer tokenSize;
 	
 	
@@ -58,7 +57,6 @@ public class ConnectionAnalysis {
 		connection = c;
 		
 		//Assign initial tokens
-		initialTokens = null;
 		if(srcActorAnalysis!=null){
 			if (srcActorAnalysis.hasStaticSchedule() 
 				&& srcActorAnalysis.getStaticSchedule().hasTransientPhase()) {
@@ -71,8 +69,7 @@ public class ConnectionAnalysis {
 				}
 			}
 		}
-		else
-			initialTokens = new Integer(0);
+			
 		
 		//Assign token size
 		tokenSize = new Integer(1);

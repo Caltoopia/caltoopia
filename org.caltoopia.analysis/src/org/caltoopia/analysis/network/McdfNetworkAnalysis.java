@@ -33,7 +33,6 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package org.caltoopia.analysis.network;
 
 import java.util.ArrayList;
@@ -223,3 +222,4 @@ public class McdfNetworkAnalysis extends GenericNetworkAnalysis {
 		return true;
 	}		
 }
+

@@ -578,7 +578,7 @@ public class CPrinter extends IrSwitch<Stream> {
  			s.println(actorId + " *thisActor=(" + actorId + "*) pBase;");
  			int executionTime=1;
  			 for (org.caltoopia.ir.Annotation a : actor.getAnnotations()) {
- 				if (a.getName().equals("CALSim")) {
+ 				if (a.getName().equals("ActorProperty")) {
  					for (org.caltoopia.ir.AnnotationArgument arg : a.getArguments()) {
  						if (arg.getId().equals("WCET")) {
  							executionTime=(Integer.parseInt(arg.getValue()));

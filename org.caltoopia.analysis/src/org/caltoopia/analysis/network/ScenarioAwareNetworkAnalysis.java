@@ -36,6 +36,7 @@
 
 package org.caltoopia.analysis.network;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -66,6 +67,7 @@ import org.caltoopia.analysis.util.collections.UnionOfDisjointIntervals;
 import org.caltoopia.ast2ir.Stream;
 
 public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {	
+	
 	/**
 	 * represents a control token of produced by a detector actor.
 	 */
@@ -168,10 +170,33 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 			return controlTokens;
 		}
 		
-		public void print(Stream stream){
-			stream.println("\t"+detectorActor.getInstanceName()+"\t"+detectorAction.getName());
+		/**
+		 * tests if a given control token is the same as 
+		 * this control token. 
+		 * @param c
+		 * @return
+		 */
+		public boolean equals(ControlTokensPerAction c){
+			if(this.detectorActor!=c.detectorActor)
+				return false;
+			
+			if(this.detectorAction!=c.detectorAction)
+				return false;
+			
+			if(this.controlTokens.size()!= c.controlTokens.size())
+				return false;
+			
 			for(Map.Entry<String, Long> e: controlTokens.entrySet()){
-				stream.println("\t\t"+e.getKey()+"\t"+e.getValue().longValue());
+				if(c.getControlTokens().get(e.getKey())!=e.getValue())
+					return false;
+			}
+			return true;
+		}
+		
+		public void print(PrintStream out){
+			out.println("\t"+detectorActor.getInstanceName()+"\t"+detectorAction.getName());
+			for(Map.Entry<String, Long> e: controlTokens.entrySet()){
+				out.println("\t\t"+e.getKey()+"\t"+e.getValue().longValue());
 			}
 		}
 	};	
@@ -186,9 +211,15 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 	//scenario FSM
 	private ScenarioFSM fsm = new ScenarioFSM();	
 
+	//path to additional resources and files
+	private String resourcePath;
+	
 	//constructor
-	public ScenarioAwareNetworkAnalysis(Network n, NetworkAnalysis na) {
+	public ScenarioAwareNetworkAnalysis(Network n, NetworkAnalysis na, String actionSchedulePAth) {
+		//Generic network analyis constructor
 		super(n,na);
+		
+		//Instantiate scenario-aware actor analysis objects
 		ActorAnalyzer actorAnalyzer=new SneakyActorAnalyzer();
 		for (ActorInstance actor: network.getActors()) {			
 			if (actor.hasImplementation()) {
@@ -219,15 +250,20 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 			
 		//Set connection types and detector actors
 		for(Connection connection: network.getConnections()){
+			//if the destination actor has implementation
 			if(connection.getConsumerPort().getActor().hasImplementation()){
-				PortAnalysis dstPortAnalysis = getScenarioAwarePortAnalysis(connection.getConsumerPort());	
-				if (dstPortAnalysis.getPortType()==PortType.CONTROL){					
+				PortAnalysis pAnalysis = null;
+				pAnalysis = getScenarioAwarePortAnalysis(connection.getConsumerPort());	
+				//if consumer port is a control port, we have a control channel
+				if (pAnalysis.getPortType()==PortType.CONTROL){					
 					getConnectionAnalysis(connection).setConnectionType(ConnectionType.CONTROL);
-					//If a control port is found, the producer actor is automatically a detector actor.
+					//the producer actor is automatically a detector actor
 					ActorInstance srcActor = connection.getProducerPort().getActor();
 					if(srcActor.hasImplementation()){
-						ScenarioAwareActorAnalysis actorAnalysis = getScenarioAwareActorAnalysis(srcActor);
-						actorAnalysis.setScenarioAwareActorInstanceType(ScenarioAwareActorInstanceType.SA_DETECTOR);
+						ScenarioAwareActorAnalysis aAnalysis = null;
+						aAnalysis = getScenarioAwareActorAnalysis(srcActor);
+						aAnalysis.setScenarioAwareActorInstanceType(
+								ScenarioAwareActorInstanceType.SA_DETECTOR);
 					}
 				}
 				else{
@@ -236,9 +272,27 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 			}
 		}				
 	
+
+		setResourcePath(actionSchedulePAth);
+		
+		// state-space exploration object to construct the FSM
 		stateSpaceExploration = new ScenarioAwareStateExploration(this);
 		
-		fsm = stateSpaceExploration.constructScenarioFSM();
+		fsm = stateSpaceExploration.constructScenarioFSM2();
+	}
+	
+	/**
+	 * @return path to additional files and resources
+	 */
+	public String getResourcePath(){
+		return resourcePath;
+	}
+	
+	/**
+	 * @param path : the path to additional files and resources
+	 */
+	public void setResourcePath(String path){
+		resourcePath = path;
 	}
 	
 	//get the fsm
@@ -254,6 +308,7 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 		assert(mScenarioAwareActorMap.get(actor)!=null);
 		return mScenarioAwareActorMap.get(actor);
 	}
+	
 	
 	/**
 	 * @param portInstance
@@ -298,13 +353,30 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
  	public List<ActorInstance> getDynamicActors(){
  		List<ActorInstance> dataDependentActors = new ArrayList<ActorInstance>();
  		for (ActorInstance actor: network.getActors()) {
- 			ScenarioAwareActorInstanceType actorType=
+ 			ScenarioAwareActorInstanceType actorType = 
  					getScenarioAwareActorAnalysis(actor).getScenarioAwareActorInstanceType();
 			if(actorType==ScenarioAwareActorInstanceType.SA_DYNAMIC){
 				dataDependentActors.add(actor);
 			}
 		}
  		return dataDependentActors;
+ 	}
+ 	
+ 	/**
+ 	 * @return the list of scenario-aware detector actors of the network
+ 	 */
+ 	public List<ActorInstance> getDetectorActors(){
+ 		List<ActorInstance> detectorActors = new ArrayList<ActorInstance>();
+ 		for (ActorInstance actor: network.getActors()) {
+ 			if(actor.hasImplementation()){
+	 			ScenarioAwareActorInstanceType actorType = 
+	 					getScenarioAwareActorAnalysis(actor).getScenarioAwareActorInstanceType();
+				if(actorType==ScenarioAwareActorInstanceType.SA_DETECTOR){
+					detectorActors.add(actor);
+				}
+ 			}
+		}
+ 		return detectorActors;
  	}
 
  	/**
@@ -315,7 +387,7 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 		for (ActorInstance actor: network.getActors()) {
 			if(actor.hasImplementation())
 				if(getScenarioAwareActorAnalysis(actor).getScenarioAwareActorInstanceType()
-						==ScenarioAwareActorInstanceType.UNCLASSIFIED){
+						== ScenarioAwareActorInstanceType.UNCLASSIFIED){
 					return false;
 				}
 		}
@@ -329,19 +401,19 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 	}			
 	
 	/**
-	 * It is assumed that there is one source actor in the network. 
-	 * @return the source actor of the network. It returns null if 
+	 * @return the source actors of the network. It returns null if 
 	 * there is no source actor.
 	 */
-	public ActorInstance getSourceActor(){
+	public List<ActorInstance> getSourceActors(){
+		List<ActorInstance> srcs = new ArrayList<ActorInstance>();
 		for(ActorInstance actor: network.getActors()){
 			if(actor.hasImplementation()){
 				if(getScenarioAwareActorAnalysis(actor).isSource()){
-					return actor;
+					srcs.add(actor);
 				}
 			}
 		}
-		return null;
+		return srcs;
 	}	
 	
 	/**
@@ -350,6 +422,7 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 	 */
 	public void constructScenarioThroughAnnotations(ActorInstance actor){
 		ScenarioAwareActorAnalysis actorAnalysis = getScenarioAwareActorAnalysis(actor);
+		String msg;
 		try{
 			if(actorAnalysis.isTypeAnnotated()){				
 				String scenarios = actor.getAnnotationArgumentValue("ActorProperty","Scenarios");
@@ -360,45 +433,56 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 				for(String scenarioString: scenarios.split(";")){
 					scenario = actorAnalysis.new Scenario();
 					for(String properties: scenarioString.split(",")){
-						String propertyPair[] = properties.split("=");
-						if(propertyPair[0].trim().equalsIgnoreCase("SCENARIO")){
-							String scenarioSpecifications = propertyPair[1];
-							for(String scenarioSpecification: scenarioSpecifications.split("\\+")){
-								String scenarioSpecificationPair[] = scenarioSpecification.split(":");
-								String actorAndPortName[] = scenarioSpecificationPair[0].split("\\.");
-								ActorInstance detector = this.getActorInstance(actorAndPortName[0].trim());
-								if (detector==null)
-									throw new NullPointerException("Scenario tag error. Actor '"+actorAndPortName[0].trim()+
-											"' does not exist.");
-								PortInstance port = detector.getPort(actorAndPortName[1]);
-								if (port == null)
-									throw new NullPointerException("Scenario tag error. Actor '"+actorAndPortName[0].trim()+
-											"' does have port '"+actorAndPortName[1]+"'.");
+						String prop[] = properties.split("=");
+						if(prop[0].trim().equalsIgnoreCase("SCENARIO")){
+							String scenarioSpecs = prop[1];
+							for(String scenarioSpec: scenarioSpecs.split("\\+")){
+								String scenarioSpecPair[] = scenarioSpec.split(":");
+								String actorAndPort[] = scenarioSpecPair[0].split("\\.");
+								ActorInstance det = this.getActorInstance(actorAndPort[0].trim());
+								if (det==null){
+									msg = "Scenario tag error. Actor '";
+									msg += actorAndPort[0].trim() + "' does not exist.";
+									throw new NullPointerException(msg);
+								}
+								PortInstance port = det.getPort(actorAndPort[1]);
+								if (port == null){
+									msg = "Scenario tag error. Actor '";
+									msg += actorAndPort[0].trim()+"' does have port '";
+									msg += actorAndPort[1]+"'.";
+									throw new NullPointerException(msg);
+								}
 								InputLookAhead ila = new VanillaInputLookAhead(port,0);	
-								UnionOfDisjointIntervals intervals = parseIntervals(scenarioSpecificationPair[1]);
-								if(intervals==null)
-									throw new NullPointerException("Scenario tag error. Parsing interval '"+scenarioSpecificationPair[1]+"'");
-								scenario.addInputLookAheadInterval(ila,intervals);
+								UnionOfDisjointIntervals it = parseIntervals(scenarioSpecPair[1]);
+								if(it==null){
+									msg = "Scenario tag error. Parsing interval '";
+									msg += scenarioSpecPair[1]+"'";
+									throw new NullPointerException(msg);
+								}
+									scenario.addInputLookAheadInterval(ila,it);
 							}
 						}
 					    //find WCET
-						else if (propertyPair[0].trim().equalsIgnoreCase("WCET")){							
-								scenario.setExecutionTime(Integer.parseInt(propertyPair[1].trim()));
+						else if (prop[0].trim().equalsIgnoreCase("WCET")){							
+								scenario.setExecutionTime(Integer.parseInt(prop[1].trim()));
 						}						
 						// otherwise it must be a port 
 						else{
-							if(actorAnalysis.getPortAnalysis(propertyPair[0].trim()) != null){
-								if(actorAnalysis.getPortAnalysis(propertyPair[0].trim()).getPortInstance() != null){
-									scenario.setPortRate(actorAnalysis.getPortAnalysis(propertyPair[0].trim()).getPortInstance(),
-												Integer.parseInt(propertyPair[1].trim()));
+							if(actorAnalysis.getPortAnalysis(prop[0].trim()) != null){
+								if(actorAnalysis.getPortAnalysis(prop[0].trim()).getPortInstance() != null){
+									scenario.setPortRate(
+											actorAnalysis.getPortAnalysis(prop[0].trim()).getPortInstance(),
+											Integer.parseInt(prop[1].trim()));
 								}
-								else								
-									throw new NullPointerException("Scenario tag error. Port '"+propertyPair[0].trim()+
-											"' does not exist");
+								else{				
+									msg = "Scenario tag error. Port '";
+									msg += prop[0].trim() + "' does not exist";
+									throw new NullPointerException(msg);
+								}
 							}
 							else								
 								throw new NullPointerException("Scenario tag error. Port analysis for port '"+
-										propertyPair[0].trim()+ "' does not exist.");
+										prop[0].trim()+ "' does not exist.");
 						}
 					}
 					actorAnalysis.addScenario(scenario);
@@ -418,12 +502,14 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 	 * @param transitionTuple
 	 * @return the set of all possible control token combinations 
 	 */
-	public Set<Set<ControlTokensPerAction>> getControlTokensPerActions(Set<Pair<ActorInstance, Transition>> transitionTuple){
+	public Set<Set<ControlTokensPerAction>> getControlTokensPerActions(
+			Set<Pair<ActorInstance, Transition>> transitionTuple){
 		List<Set<ControlTokensPerAction>> sTokens = new ArrayList<Set<ControlTokensPerAction>>();
 		for(Pair<ActorInstance, Transition> tPair: transitionTuple){
 			ActorInstance detector = tPair.getFirst();
 			Action detectorAction = tPair.getSecond().getAction();
-			Set<ControlTokensPerAction> sta = getScenarioOfDetectorAction(detector, detectorAction);
+			Set<ControlTokensPerAction> sta = null;
+			sta = getControlTokensOfAction(detector, detectorAction);
 			if(sta!=null)
 				sTokens.add(sta);
 		}	
@@ -461,7 +547,15 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 		return intervals;
 	}
 	
-	public ScenarioGraph constructScenarioGraph(ActorInstance source, Set<Pair<ActorInstance, Transition>> transitionTuple,
+	/**
+	 * constructs a scenario graph from a given set of control tokens.
+	 * @param source
+	 * @param transitionTuple
+	 * @param sTokens
+	 * @return
+	 */
+	public ScenarioGraph constructScenarioGraph(List<ActorInstance> sources, 
+			Set<Pair<ActorInstance, Transition>> transitionTuple,
 			Set<ControlTokensPerAction> sTokens){
 		if(sTokens.isEmpty()){
 			return null;
@@ -479,12 +573,13 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 			
 		List<ActorInstance> visitedActors = new ArrayList<ActorInstance>();		
 		List<ActorInstance> actorsQueue = new ArrayList<ActorInstance>();	
-		actorsQueue.add(source);	
+		actorsQueue.addAll(sources);	
 		while(!actorsQueue.isEmpty()){
-			ActorInstance actor = actorsQueue.remove(0);			
+			ActorInstance actor = actorsQueue.remove(0);	
 			if(!visitedActors.contains(actor)){
 				visitedActors.add(actor);
-				ScenarioAwareActorAnalysis.Scenario sp = stateSpaceExploration.getScenario(actor, sTokens);
+				ScenarioAwareActorAnalysis.Scenario sp = null;
+				sp = stateSpaceExploration.getScenario(actor, sTokens);
 				if(sp != null){
 					sg.getActors().put(actor, sp);
 					for(PortInstance p: actor.getOutputPorts()){
@@ -504,7 +599,7 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 		if(sg.getActors().size() == 0)
 			return null;
 		
-		sg.addControlToken(filterActionScenarioTokens(sTokens,sg));
+		sg.setControlTokens(filterControlTokens(sTokens,sg));
 		
 		//add each connection
 		for(Connection c: this.getNetwork().getConnections()){
@@ -533,16 +628,78 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 		return sg;
 	}
 	
-	public static Set<ControlTokensPerAction> filterActionScenarioTokens(Set<ControlTokensPerAction> actionScenarioTokens, ScenarioGraph sg){	
-		Set<ControlTokensPerAction> filteredSet = new HashSet<ControlTokensPerAction>(actionScenarioTokens);
-		for(ControlTokensPerAction ast: actionScenarioTokens){	
+	/**
+	 * constructs a scenario graph from a given set of control tokens.
+	 * @param source
+	 * @param transitionTuple
+	 * @param sTokens
+	 * @return
+	 */
+	public ScenarioGraph constructScenarioGraph(List<ActorInstance> sources, Set<ControlTokensPerAction> sTokens){
+		if(sTokens.isEmpty()){
+			return null;
+		}
+		
+//		if(!stateSpaceExploration.controlTokensExist(transitionTuple, sTokens)){
+//			return null;
+//		}
+		
+		String name = null;
+		for(ControlTokensPerAction sta: sTokens){
+			name+= sta.getControlTokens().toString();
+		}
+		ScenarioGraph sg = new ScenarioGraph(name);			
+			
+		List<ActorInstance> visitedActors = new ArrayList<ActorInstance>();		
+		List<ActorInstance> actorsQueue = new ArrayList<ActorInstance>();	
+		actorsQueue.addAll(sources);	
+		while(!actorsQueue.isEmpty()){
+			ActorInstance actor = actorsQueue.remove(0);			
+			if(!visitedActors.contains(actor)){
+				visitedActors.add(actor);
+				ScenarioAwareActorAnalysis.Scenario sp = null;
+				sp = stateSpaceExploration.getScenario(actor, sTokens);
+				if(sp != null){
+					sg.getActors().put(actor, sp);
+					for(PortInstance p: actor.getOutputPorts()){
+						if(sp.getPortRate(p) > 0){
+							for(Connection c: this.getNetwork().getIncidentConnections(p)){
+								ActorInstance a = c.getConsumerPort().getActor();
+								if(!actorsQueue.contains(a)){
+									actorsQueue.add(a);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		if(sg.getActors().size() == 0)
+			return null;
+		
+		sg.setControlTokens(filterControlTokens(sTokens,sg));
+		return sg;
+	}
+	/**
+	 * removes control tokens produced by actors that do not
+	 * exist in a given scenario graph.
+	 * @param acTokens
+	 * @param sg
+	 * @return a set of control tokens 
+	 */
+	public static Set<ControlTokensPerAction> filterControlTokens(
+			Set<ControlTokensPerAction> acTokens, ScenarioGraph sg){	
+		Set<ControlTokensPerAction> filteredSet = null;
+		filteredSet = new HashSet<ControlTokensPerAction>(acTokens);
+		for(ControlTokensPerAction ast: acTokens){	
 			ActorInstance actor = ast.getDetectorActor();
 			if(!sg.getActors().containsKey(actor))
 				filteredSet.add(ast);			
-		}
-		
+		}		
 		return filteredSet;
 	}
+	
 	/**
 	 * Each detector action produces a set of control tokens. This information
 	 * is obtained from the action annotation. 
@@ -551,12 +708,13 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 	 * @return a set of control tokens produced by the detector action. It returns
 	 * null if the detector action is not annotated.
 	 */
-	public Set<ControlTokensPerAction> getScenarioOfDetectorAction(ActorInstance detector, Action action){
+	public Set<ControlTokensPerAction> getControlTokensOfAction(ActorInstance detector, Action action){
+		String msg = "";
 		try{
 			//if it has ControlToken annotated types, parse
 			if(action.hasAnnotation("ActionProperty")){
 				if (action.getAnnotationArgumentValue("ActionProperty", "ScenarioTokens")!=null){
-					Set<ControlTokensPerAction> scenarioTokenActions = new HashSet<ControlTokensPerAction>();
+					Set<ControlTokensPerAction> acToknes = new HashSet<ControlTokensPerAction>();
 					String s = action.getAnnotationArgumentValue("ActionProperty", "ScenarioTokens");
 					List<Set<Pair<String, Long>>> tokenRanges = 
 							new ArrayList<Set<Pair<String, Long>>>();
@@ -573,9 +731,12 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 									&& Long.parseLong(str[1].trim()) >= 0){
 								intervals.add(Long.parseLong(str[0].trim()), Long.parseLong(str[1].trim()));
 							}
-							else
-								throw new NullPointerException("Scenario tag error. Syntax error for scenario interval '"
-										+interval+"'.");										
+							else{
+								msg = "Scenario tag error. ";
+								msg += "Syntax error for scenario interval '";
+								msg += interval + "'.";
+								throw new NullPointerException( msg );
+							}
 						}							
 						Set<Pair<String, Long>> tokenRange = new 
 								HashSet<Pair<String, Long>>();
@@ -589,13 +750,16 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 					for(Set<Pair<String, Long>> str: CartesianProduct.cartesianProduct(tokenRanges)){
 						ControlTokensPerAction sta = new ControlTokensPerAction(detector, action);
 						for(Pair<String, Long> e: str){
-							if(sta.getControlTokens().containsKey(e.getFirst()))
-								throw new Exception("getScenarioOfDetectorAction: duplicate entry for a scenario token detected.");
+							if(sta.getControlTokens().containsKey(e.getFirst())){
+								msg = "getScenarioOfDetectorAction: ";
+								msg += "duplicate entry for a scenario token detected.";
+								throw new Exception( msg );
+							}
 							sta.getControlTokens().put(e.getFirst(), e.getSecond());
 						}
-						scenarioTokenActions.add(sta);
+						acToknes.add(sta);
 					}					
-					return scenarioTokenActions;
+					return acToknes;
 				}
 			}
 		}catch(Exception e){
@@ -604,4 +768,31 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 		}
 		return null;
 	}
+	
+	/**
+	 * checks if two sets of control token are the same.
+	 * @param f : first set of control tokens
+	 * @param s : second set of control tokens
+	 * @return true if the two sets are the same
+	 */
+	public static boolean AreControlTokensEqual(Set<ControlTokensPerAction> f, 
+										Set<ControlTokensPerAction> s){
+		if(f.size() != s.size())
+			return false;
+
+		for(ControlTokensPerAction cf: f){
+			boolean found = false;
+			for(ControlTokensPerAction cs: s){
+				if(cf.equals(cs)){
+					found = true;
+					break;
+				}
+			}
+			if(!found)	
+				return false;
+		}
+		
+		return true;
+	}
 }
+

@@ -33,7 +33,6 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package org.caltoopia.analysis.actor;
 
 import java.io.PrintStream;
@@ -82,8 +81,9 @@ public class ActorClassifierOutput {
 
 		}
 		else {
-			if (!actor.hasImplementation())
-				mOut.print("extern/unknown implementation, ");
+			if (!actor.hasImplementation()){
+				mOut.print("extern/unknown implementation");
+			}
 			mOut.println("actor not analyzed");
 		}
 	}

@@ -33,9 +33,9 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package org.caltoopia.analysis.network;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -69,7 +69,7 @@ public class ScenarioGraph{
 	private Map<Connection, Integer> connectionsMap = new HashMap<Connection, Integer>();
 
 	//The set of control-control-token tuples that define this scenario
-	private Set<Set<ControlTokensPerAction>> controlTokens = new HashSet<Set<ControlTokensPerAction>>();
+	private Set<ControlTokensPerAction> controlTokens = new HashSet<ControlTokensPerAction>();
 	
 	//constructor
 	public ScenarioGraph(String n){
@@ -102,13 +102,8 @@ public class ScenarioGraph{
 	}
 	
 	//set control tokens
-	public void setControlTokens(Set<Set<ControlTokensPerAction>> c){
+	public void setControlTokens(Set<ControlTokensPerAction> c){
 		controlTokens = c;
-	}
-	
-	//add control token
-	public void addControlToken(Set<ControlTokensPerAction> c){
-		controlTokens.add(c);
 	}
 	
 	//get name of the graph
@@ -127,28 +122,26 @@ public class ScenarioGraph{
 	}
 		
 	//get control tokens
-	public Set<Set<ControlTokensPerAction>> getControlTokens(){
+	public Set<ControlTokensPerAction> getControlTokens(){
 		return controlTokens;
 	}	
 	
-	public void print(Stream stream){
-		stream.println("\tScenarioGraph: "+name+ ", actors: "+ actorsMap.size());
+	public void print(PrintStream out){
+		out.println("\tScenarioGraph: "+name+ ", actors: "+ actorsMap.size());
 		if(controlTokens!=null){
-			stream.println("ControlTokens: ");
-			for(Set<ControlTokensPerAction> sta: controlTokens){
-				stream.println("ControlTokensTuple: ");
-				for(ControlTokensPerAction ta: sta){
-					ta.print(stream);
+			out.println("ControlTokens: ");
+				out.println("ControlTokensTuple: ");
+				for(ControlTokensPerAction ta: controlTokens){
+					ta.print(out);
 				}
-			}
 		}
 		
 		for(Map.Entry<ActorInstance, ScenarioAwareActorAnalysis.Scenario> e:
 			actorsMap.entrySet()){
 			if(e.getValue().getTransition()!=null)
-				stream.println("\t\t"+e.getKey().getInstanceName()+" "+e.getValue().getTransition().getAction().getName());
+				out.println("\t\t"+e.getKey().getInstanceName()+" "+e.getValue().getTransition().getAction().getName());
 			else
-				stream.println("\t\t"+e.getKey().getInstanceName());
+				out.println("\t\t"+e.getKey().getInstanceName());
 		}
 	}
 }
