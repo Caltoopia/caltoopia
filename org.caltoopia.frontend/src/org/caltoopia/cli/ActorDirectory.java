@@ -54,6 +54,7 @@ import java.util.Map;
 import org.caltoopia.ast2ir.Util;
 import org.caltoopia.codegen.IrXmlReader;
 import org.caltoopia.codegen.IrXmlPrinter;
+import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.ActorInstance;
 import org.caltoopia.ir.Declaration;
@@ -135,6 +136,8 @@ public class ActorDirectory {
 	private static String currentIndexFile = null;
 	
 	private static PrintStream indexStream = null;
+	
+	private static Network transformedTopNetwork = null;
 	
 	public static void addNamespace(Namespace ns, String sourceRootPath) {		
 		String path = Util.getPathAnnotation(ns.getAnnotations());
@@ -312,6 +315,9 @@ public class ActorDirectory {
 	}
 	
 	public static TypeDeclaration findTypeDeclaration(TypeDeclarationImport typedeclImport) throws DirectoryException {
+		if(transformedTopNetwork!=null) {
+			return findTransformedTypeDeclaration(typedeclImport);
+		}
 		Namespace ns = findNamespace(typedeclImport.getNamespace());
 		
 		for (Declaration decl : ns.getDeclarations()) {
@@ -402,12 +408,35 @@ public class ActorDirectory {
 		
 			if (new File(path).exists()) {
 				AbstractActor actor = new IrXmlReader().readActor(path);
-
+				if(actor instanceof Network) {
+					transformedTopNetwork = (Network) actor;
+				}
 				return actor;
 			}
 		}
 		
 		throw new DirectoryException("[ActorDirectory] Annotated Actor '" + Util.packQualifiedName(type.getNamespace()) + "." + type.getName() + "' not found.");
+	}
+
+	/*
+	 * During period of working on elaborated network direct all request for
+	 * TypeDeclarations from imports to the ones found in the top network.
+	 */
+	public static void resetTransformedNetwork() {
+		transformedTopNetwork=null;
+	}
+
+	public static TypeDeclaration findTransformedTypeDeclaration(TypeDeclarationImport typedeclImport) throws DirectoryException {
+		if(transformedTopNetwork!=null) {
+			List<String> ns = typedeclImport.getNamespace();
+			for (Declaration decl : transformedTopNetwork.getDeclarations()) {
+				if (decl instanceof TypeDeclaration && typedeclImport.getName().equals(decl.getName()) &&
+						UtilIR.getAnnotatedNamespace(decl).containsAll(ns)) {
+					return (TypeDeclaration) decl;
+				}
+			}
+		}		
+		throw new DirectoryException("[ActorDirectory] Typedef '" + typedeclImport.getName() + "' not found.");
 	}
 
 	public static void clean() {

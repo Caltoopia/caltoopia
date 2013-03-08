@@ -87,6 +87,7 @@ public class IrAnnotations {
 		//Apply the list of annotation passes in order
 		Node node=null;
 		for(IrAnnotationTypes p : passes) {
+			node=getNode(nodeType,p);
 			switch (p) {
 			case Variable:
 				System.out.println("[IrAnnotations] ********************************************************************");
@@ -94,7 +95,6 @@ public class IrAnnotations {
 				System.out.println("[IrAnnotations] ************                     Variable                  *********");
 				System.out.println("[IrAnnotations] ********************************************************************");
 				System.out.println("[IrAnnotations] ********************************************************************");
-				node=getNode(nodeType,p);
 				new IrVariableAnnotation(node, session, true);
 				break;
 			case TypeUsage:
@@ -103,7 +103,6 @@ public class IrAnnotations {
 				System.out.println("[IrAnnotations] ************                    Type Usage                 *********");
 				System.out.println("[IrAnnotations] ********************************************************************");
 				System.out.println("[IrAnnotations] ********************************************************************");
-				node=getNode(nodeType,p);
 				new IrTypeAnnotation(node, session, true);
 				break;
 			case TypeStructure:
@@ -112,10 +111,10 @@ public class IrAnnotations {
 				System.out.println("[IrAnnotations] ************                   Type Structure              *********");
 				System.out.println("[IrAnnotations] ********************************************************************");
 				System.out.println("[IrAnnotations] ********************************************************************");
-				node=getNode(nodeType,p);
 				new IrTypeStructureAnnotation(node, session, true);
 				break;
 			}
+			ActorDirectory.resetTransformedNetwork();
 		}
 	}
 	
