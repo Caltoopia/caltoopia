@@ -72,7 +72,8 @@ public class IrAnnotations {
 		Init,
 		Variable,
 		TypeUsage,
-		TypeStructure
+		TypeStructure,
+		VariablePlacement
 	}
 	
 	/*
@@ -112,6 +113,14 @@ public class IrAnnotations {
 				System.out.println("[IrAnnotations] ********************************************************************");
 				System.out.println("[IrAnnotations] ********************************************************************");
 				new IrTypeStructureAnnotation(node, session, true);
+				break;
+			case VariablePlacement:
+				System.out.println("[IrAnnotations] ********************************************************************");
+				System.out.println("[IrAnnotations] ********************************************************************");
+				System.out.println("[IrAnnotations] ************                 Variable Placement            *********");
+				System.out.println("[IrAnnotations] ********************************************************************");
+				System.out.println("[IrAnnotations] ********************************************************************");
+				new IrVariablePlacementAnnotation(node, session, true);
 				break;
 			}
 			ActorDirectory.resetTransformedNetwork();
@@ -296,7 +305,6 @@ public class IrAnnotations {
 				System.out.println("[IrTransformNetworkInit] Write actor instance named " + 
 									nsName + "__" + a.getName() + 
 									" of class " + ((TypeActor) a.getType()).getName());
-				//FIXME need to print into file named by the instance
 				ActorDirectory.addTransformedActor(actorInstantiated, a, path);
 			}
 		}

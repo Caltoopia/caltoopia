@@ -172,6 +172,18 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
 	
 	@Override
 	public AbstractActor caseNetwork(Network network) {
+		/*DEBUG
+		System.out.println("[IrTypeStructurAnnotation] Entered caseNetwork");
+		for(Declaration d: network.getDeclarations()){
+			if(d instanceof TypeDeclaration) {
+				Annotation a = IrAnnotations.getAnalysAnnotations(d, IrAnnotations.TYPE_ANNOTATION);
+				System.out.println("[IrTypeStructurAnnotation] Get type decl " + d.getName() + "having a type annotation " + (a.getArguments().isEmpty()?"that is empty":":"));
+				for(AnnotationArgument aa: a.getArguments()){
+					System.out.println("[IrTypeStructurAnnotation]     " + aa.getId() + " = " + aa.getValue());
+				}
+			}
+		}
+		*/
 		for(Declaration d: network.getDeclarations()) {
 			doSwitch(d);
 		}

@@ -304,6 +304,18 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 			}
 		}.doSwitch(network);
 		//End DEBUG
+		/*DEBUG
+		System.out.println("[IrTypeAnnotation] Entered caseNetwork");
+		for(Declaration d: network.getDeclarations()){
+			if(d instanceof TypeDeclaration) {
+				Annotation a = IrAnnotations.getAnalysAnnotations(d, IrAnnotations.TYPE_ANNOTATION);
+				System.out.println("[IrTypeAnnotation] Get type decl " + d.getName() + "having a type annotation " + (a.getArguments().isEmpty()?"that is empty":":"));
+				for(AnnotationArgument aa: a.getArguments()){
+					System.out.println("[IrTypeAnnotation]     " + aa.getId() + " = " + aa.getValue());
+				}
+			}
+		}
+		*/
 		/* Find user types, and potential usage
 		 * Declarations in an elaborated network are
 		 * ordered, hence any type declarations comes

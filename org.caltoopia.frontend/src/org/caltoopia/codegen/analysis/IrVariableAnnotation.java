@@ -566,7 +566,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 				"VarAssign",VarAssign.assigned.name());
 		IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(assign.getTarget(),IrAnnotations.VARIABLE_ANNOTATION), 
 				"VarAssign",VarAssign.assigned.name());
-		return assign;
+		return super.caseAssign(assign);
 	}
 
 	@Override

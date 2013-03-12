@@ -300,7 +300,8 @@ public class Cal2C {
 				new IrAnnotations(session.getElaboratedNetwork().getType(), session, 
 						Arrays.asList(	IrAnnotations.IrAnnotationTypes.Variable,
 										IrAnnotations.IrAnnotationTypes.TypeUsage,
-										IrAnnotations.IrAnnotationTypes.TypeStructure));
+										IrAnnotations.IrAnnotationTypes.TypeStructure,
+										IrAnnotations.IrAnnotationTypes.VariablePlacement));
 				//For now run this to make sure the top network type declarations don't have type decl imports
 				new TypeMatchDeclaration().doSwitch(session.getElaboratedNetwork());
 			}
