@@ -49,6 +49,7 @@ import org.caltoopia.cli.DirectoryException;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.IrTransformer.IrAnnotationTypes;
+import org.caltoopia.codegen.transformer.TransUtil;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Action;
 import org.caltoopia.ir.ActorInstance;
@@ -118,7 +119,7 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 		 */
 		Declaration decl = UtilIR.getDeclaration(var.getVariable());
 		if(decl instanceof Variable) {
-			String a = IrTransformer.getAnnotationArg(decl,IrTransformer.VARIABLE_ANNOTATION,"VarType");
+			String a = TransUtil.getAnnotationArg(decl,IrTransformer.VARIABLE_ANNOTATION,"VarType");
 			Type type = ((Variable) decl).getType();
 			while(UtilIR.isList(type)) {
 				type = ((TypeList)type).getType();
@@ -176,7 +177,7 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 		if(UtilIR.isRecord(type)) {
 			for(Declaration d:userTypes) {
 				if(d.getId().equals(UtilIR.getTypeDeclaration(type).getId())) {
-					String a = IrTransformer.getAnnotationArg(decl,IrTransformer.VARIABLE_ANNOTATION,"VarType");
+					String a = TransUtil.getAnnotationArg(decl,IrTransformer.VARIABLE_ANNOTATION,"VarType");
 					putTypeUsage(d,a);
 					break;
 				}
@@ -192,7 +193,7 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 		 */
 		Variable decl = var.getDeclaration();
 		if(decl instanceof Variable) {
-			String a = IrTransformer.getAnnotationArg(decl,IrTransformer.VARIABLE_ANNOTATION,"VarType");
+			String a = TransUtil.getAnnotationArg(decl,IrTransformer.VARIABLE_ANNOTATION,"VarType");
 			Type type = ((Variable) decl).getType();
 			while(UtilIR.isList(type)) {
 				type = ((TypeList)type).getType();
@@ -337,8 +338,7 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 				//A bit uncertain relies on that toString() prints the String Set as [elem1, elem2]
 				String use = typeUsage.get(d).toString();
 				use = use.substring(1, use.length()-1);
-				IrTransformer.setAnnotation(IrTransformer.getAnalysAnnotations(d,IrTransformer.TYPE_ANNOTATION), 
-						"TypeUsage",use);
+				TransUtil.setAnnotation(d,IrTransformer.TYPE_ANNOTATION, "TypeUsage",use);
 				//... and on its user typed record members (same info as on the corresponding type declaration)
 				for(Variable m: ((TypeRecord)UtilIR.getType(d)).getMembers()) {
 					Type type = m.getType();
@@ -351,33 +351,17 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 							//A bit uncertain relies on that toString() prints the String Set as [elem1, elem2]
 							String mUse = typeUsage.get(td).toString();
 							mUse = mUse.substring(1, mUse.length()-1);
-							IrTransformer.setAnnotation(IrTransformer.getAnalysAnnotations(m,IrTransformer.TYPE_ANNOTATION), 
-									"TypeUsage",mUse);
+							TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, "TypeUsage",mUse);
 						}
 					}
 				}
 			}
 		}
 		
-		String path = null;
-		for(Annotation ann : network.getAnnotations()) {
-			if(ann.getName().equals("Project")) {
-				for(AnnotationArgument aa : ann.getArguments()) {
-					if(aa.getId().equals("name")) {
-						path = aa.getValue();
-						break;
-					}
-				}
-				if(path!=null)
-					break;
-			}
-		}
-		if(path==null) {
-			path="";
-		}
+		String path = TransUtil.getPath(network);
 
 		//Annotate that the Type pass has executed
-		IrTransformer.AnnotatePass(network, IrAnnotationTypes.TypeUsage, "0");
+		TransUtil.AnnotatePass(network, IrAnnotationTypes.TypeUsage, "0");
 		//Store in ActorDirectory $Transformed section
 	    //DEBUG
 		new IrReplaceSwitch() {

@@ -69,7 +69,15 @@ import org.caltoopia.types.TypeMatchDeclaration;
 import org.eclipse.emf.ecore.EObject;
 
 public class IrTransformer {
-	//The different types of annotation passes that can be executed
+	/*
+	 * IR annotations
+	 */
+	static public final String VARIABLE_ANNOTATION = "Variable";
+	static public final String TYPE_ANNOTATION = "Type";
+
+	/*
+	 * The different types of annotation passes that can be executed
+	 */
 	public enum IrAnnotationTypes {
 		Init,
 		Variable,
@@ -79,49 +87,32 @@ public class IrTransformer {
 	}
 	
 	/*
-	 * Constructor that runs the list of annotation passes on the top network
-	 * The Annotations passes gets a node typically a network or actor.
+	 * Constructor that runs the list of annotation & transform passes 
+	 * on the top network and actor instances.
+	 * The passes takes a top network type.
 	 * When a annotator need access to other nodes in the tree it needs 
 	 * to retrieve them from the $Transformed part of ActorDirectory
 	 */
-	//FIXME can store/retrieve elaborate network: public IrTransformer(TypeActor nodeType, CompilationSession session, List<IrAnnotationTypes> passes) {
 	public IrTransformer(TypeActor nodeType, CompilationSession session, List<IrAnnotationTypes> passes) {
-	//public IrTransformer(Node node, CompilationSession session, List<IrAnnotationTypes> passes) {
 		//Apply the list of annotation passes in order
 		Node node=null;
 		for(IrAnnotationTypes p : passes) {
 			node=getNode(nodeType,p);
 			switch (p) {
 			case Variable:
-				System.out.println("[IrTransformer] ********************************************************************");
-				System.out.println("[IrTransformer] ********************************************************************");
-				System.out.println("[IrTransformer] ************                     Variable                  *********");
-				System.out.println("[IrTransformer] ********************************************************************");
-				System.out.println("[IrTransformer] ********************************************************************");
+				printHeader("Variable");
 				new IrVariableAnnotation(node, session, true);
 				break;
 			case TypeUsage:
-				System.out.println("[IrTransformer] ********************************************************************");
-				System.out.println("[IrTransformer] ********************************************************************");
-				System.out.println("[IrTransformer] ************                    Type Usage                 *********");
-				System.out.println("[IrTransformer] ********************************************************************");
-				System.out.println("[IrTransformer] ********************************************************************");
+				printHeader("Type Usage");
 				new IrTypeAnnotation(node, session, true);
 				break;
 			case TypeStructure:
-				System.out.println("[IrTransformer] ********************************************************************");
-				System.out.println("[IrTransformer] ********************************************************************");
-				System.out.println("[IrTransformer] ************                   Type Structure              *********");
-				System.out.println("[IrTransformer] ********************************************************************");
-				System.out.println("[IrTransformer] ********************************************************************");
+				printHeader("Type Structure");
 				new IrTypeStructureAnnotation(node, session, true);
 				break;
 			case VariablePlacement:
-				System.out.println("[IrTransformer] ********************************************************************");
-				System.out.println("[IrTransformer] ********************************************************************");
-				System.out.println("[IrTransformer] ************                 Variable Placement            *********");
-				System.out.println("[IrTransformer] ********************************************************************");
-				System.out.println("[IrTransformer] ********************************************************************");
+				printHeader("Variable Placement");
 				new IrVariablePlacementAnnotation(node, session, true);
 				break;
 			}
@@ -130,7 +121,7 @@ public class IrTransformer {
 	}
 	
 	/*
-	 * Utility functions
+	 * Local utility functions
 	 */
 	private Node getNode(TypeActor nodeType, IrAnnotationTypes p) {
 		Node node=null;
@@ -142,36 +133,29 @@ public class IrTransformer {
 		}
 		return node;
 	}
+	
+	private static void printHeader(String name) {
+		System.out.println("[IrTransformer] ********************************************************************");
+		System.out.println("[IrTransformer] ********************************************************************");
+		int preSpaces = (45-name.length())/2;
+		int postSpaces = 45-name.length()-preSpaces;
+		String spaces = "                                                                                           ";
+		System.out.println("[IrTransformer] ************ " + spaces.substring(0, preSpaces) + name + spaces.substring(0, postSpaces)  + " *********");
+		System.out.println("[IrTransformer] ********************************************************************");
+		System.out.println("[IrTransformer] ********************************************************************");
+	}
 
 	/*
-	 * Function used to store the initial elaborated network 
-	 * and the instanciate actors into
+	 * Function to store the initial elaborated network 
+	 * and the instanciated actors into
 	 * the $Transformed part of the ActorDirectory.
-	 * Must be called before any passes.
-	 * FIXME does not work for the top network. Hence, back to in-memory tree.
+	 * Must be called before any pass.
+	 * The elaborated top network is taken as input the actor 
+	 * classes are obtained from ActorDirectory.
 	 */
 	public static void IrTransformNetworkInit(Network network) {
-		System.out.println("[IrTransformer] ********************************************************************");
-		System.out.println("[IrTransformer] ********************************************************************");
-		System.out.println("[IrTransformer] ************                       Init                    *********");
-		System.out.println("[IrTransformer] ********************************************************************");
-		System.out.println("[IrTransformer] ********************************************************************");
-		String path = null;
-		for(Annotation ann : network.getAnnotations()) {
-			if(ann.getName().equals("Project")) {
-				for(AnnotationArgument aa : ann.getArguments()) {
-					if(aa.getId().equals("name")) {
-						path = aa.getValue();
-						break;
-					}
-				}
-				if(path!=null)
-					break;
-			}
-		}
-		if(path==null) {
-			path="";
-		}
+		printHeader("Init");
+		String path = TransUtil.getPath(network);
 
 		new TypeAnnotater().doSwitch(network);
 		new TypeMatchDeclaration().doSwitch(network);
@@ -196,7 +180,7 @@ public class IrTransformer {
 			}
 		}.doSwitch(network);
 		*/
-		IrTransformer.AnnotatePass(network, IrAnnotationTypes.Init, "0");
+		TransUtil.AnnotatePass(network, IrAnnotationTypes.Init, "0");
 		System.out.println("[IrTransformer] Write network  " + network.getType().getName());
 		ActorDirectory.addTransformedActor(network, null, path);
 
@@ -209,24 +193,9 @@ public class IrTransformer {
 				System.err.println("[IrTransformer] Internal error could not get actor of type " + a.getType().toString() + " at init.");
 			}
 			if(actor!=null && !(actor instanceof ExternalActor)) {
-				path = null;
-				for(Annotation ann : actor.getAnnotations()) {
-					if(ann.getName().equals("Project")) {
-						for(AnnotationArgument aa : ann.getArguments()) {
-							if(aa.getId().equals("name")) {
-								path = aa.getValue();
-								break;
-							}
-						}
-						if(path!=null)
-							break;
-					}
-				}
-				if(path==null) {
-					path="";
-				}
+				path = TransUtil.getPath(actor);
 				AbstractActor actorInstantiated = Instantiator.instantiate(a, network);
-				IrTransformer.AnnotatePass(actorInstantiated, IrAnnotationTypes.Init, "0");
+				TransUtil.AnnotatePass(actorInstantiated, IrAnnotationTypes.Init, "0");
 				String nsName = Util.marshallQualifiedName(((TypeActor) a.getType()).getNamespace());
 				System.out.println("[IrTransformer] Write actor instance named " + 
 									nsName + "__" + a.getName() + 
@@ -236,59 +205,4 @@ public class IrTransformer {
 		}
 	}
 	
-	/*
-	 * Utility functions for handling IR annotations
-	 */
-	static public final String VARIABLE_ANNOTATION = "Variable";
-	static public final String TYPE_ANNOTATION = "Type";
-	static public Annotation getAnalysAnnotations(EObject obj, String name) {
-		List<Annotation> annotations = null;
-		//Most obj is a node
-		if(obj instanceof Node) {
-			annotations = ((Node)obj).getAnnotations();
-		} else {
-			return null;
-		}
-		for(Annotation a : annotations) {
-			if(a.getName().equals(name)) {
-				return a;
-			}
-		}
-		//No analyze annotation yet but we should have one
-		Annotation a = IrFactory.eINSTANCE.createAnnotation();
-		a.setName(name);
-		annotations.add(a);
-		return a;
-	}
-	static public String getAnnotationArg(EObject obj, String name, String key) {
-		Annotation a = getAnalysAnnotations(obj, name);
-		for(AnnotationArgument aa : a.getArguments()) {
-			if(aa.getId().equals(key)) {
-				return aa.getValue();
-			}
-		}
-		if(key.equals("VarAccess"))
-			return VarAccess.unknown.name();
-		else if(key.equals("VarType"))
-			return VarType.unknown.name();
-		else
-			return "unknown";
-	}
-
-	public static void setAnnotation(Annotation a, String key, String value) {
-		for(AnnotationArgument aa : a.getArguments()) {
-			if(aa.getId().equals(key)) {
-				aa.setValue(value);
-				return;
-			}
-		}
-		AnnotationArgument aa = IrFactory.eINSTANCE.createAnnotationArgument();
-		aa.setId(key);
-		aa.setValue(value);
-		a.getArguments().add(aa);
-	}
-
-	static public void AnnotatePass(Node node, IrAnnotationTypes t, String result) {
-		setAnnotation(getAnalysAnnotations(node,"AnnotationPasses"),t.name(),result);
-	}
 }

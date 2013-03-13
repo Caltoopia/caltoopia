@@ -43,6 +43,7 @@ import org.caltoopia.cli.CompilationSession;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.IrTransformer.IrAnnotationTypes;
+import org.caltoopia.codegen.transformer.TransUtil;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Annotation;
 import org.caltoopia.ir.AnnotationArgument;
@@ -94,23 +95,23 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
 	 */
 	private boolean recordMemberInline(TypeDeclaration td, Variable m, boolean isList) {
 		boolean anyByRef=false;
-		switch(TypeMember.valueOf(IrTransformer.getAnnotationArg(td, IrTransformer.TYPE_ANNOTATION, "TypeStructure"))) {
+		switch(TypeMember.valueOf(TransUtil.getAnnotationArg(td, IrTransformer.TYPE_ANNOTATION, "TypeStructure"))) {
 		case builtin:
 		case inlineFull:
 		case byListFull:
-			if(IrTransformer.getAnnotationArg(td, IrTransformer.TYPE_ANNOTATION, "TypeUsage").contains("memberOutPortVar")) {
-				IrTransformer.setAnnotation(IrTransformer.getAnalysAnnotations(m,IrTransformer.TYPE_ANNOTATION), 
+			if(TransUtil.getAnnotationArg(td, IrTransformer.TYPE_ANNOTATION, "TypeUsage").contains("memberOutPortVar")) {
+				TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, 
 						"TypeStructure",isList?TypeMember.byListSome.name():TypeMember.inlineSome.name());
 				anyByRef=true;
 			} else {
-				IrTransformer.setAnnotation(IrTransformer.getAnalysAnnotations(m,IrTransformer.TYPE_ANNOTATION), 
+				TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, 
 						"TypeStructure",isList?TypeMember.byListFull.name():TypeMember.inlineFull.name());
 			}
 			break;
 		case byRef:
 		case byListSome:
 		case inlineSome:
-			IrTransformer.setAnnotation(IrTransformer.getAnalysAnnotations(m,IrTransformer.TYPE_ANNOTATION), 
+			TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, 
 					"TypeStructure",isList?TypeMember.byListSome.name():TypeMember.inlineSome.name());
 			anyByRef=true;
 			break;
@@ -130,7 +131,7 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
 		
 		for(Variable m: ((TypeRecord)decl.getType()).getMembers()) {
 			if(!UtilIR.isListOrRecord(m.getType())) {
-				IrTransformer.setAnnotation(IrTransformer.getAnalysAnnotations(m,IrTransformer.TYPE_ANNOTATION), 
+				TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, 
 						"TypeStructure",TypeMember.builtin.name());
 			} else if(UtilIR.isList(m.getType())) {
 				Type type = m.getType();
@@ -146,12 +147,12 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
 						TypeDeclaration td = UtilIR.getTypeDeclaration(type);
 						anyByRef=recordMemberInline(td,m,true);
 					} else {
-						IrTransformer.setAnnotation(IrTransformer.getAnalysAnnotations(m,IrTransformer.TYPE_ANNOTATION), 
+						TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, 
 								"TypeStructure",TypeMember.byListFull.name());
 					}
 				} else {
 					//List of unknown size
-					IrTransformer.setAnnotation(IrTransformer.getAnalysAnnotations(m,IrTransformer.TYPE_ANNOTATION), 
+					TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, 
 							"TypeStructure",TypeMember.byRef.name());
 					anyByRef=true;
 				}
@@ -163,9 +164,8 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
 			}
 		}
 
-		anyByRef = anyByRef || IrTransformer.getAnnotationArg(decl, IrTransformer.TYPE_ANNOTATION, "TypeUsage").contains("memberOutPortVar");
-		IrTransformer.setAnnotation(
-				IrTransformer.getAnalysAnnotations(decl,IrTransformer.TYPE_ANNOTATION), 
+		anyByRef = anyByRef || TransUtil.getAnnotationArg(decl, IrTransformer.TYPE_ANNOTATION, "TypeUsage").contains("memberOutPortVar");
+		TransUtil.setAnnotation(decl,IrTransformer.TYPE_ANNOTATION, 
 				"TypeStructure",anyByRef?TypeMember.inlineSome.name():TypeMember.inlineFull.name());
 		return decl;
 	}
@@ -189,25 +189,10 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
 			doSwitch(d);
 		}
 		
-		String path = null;
-		for(Annotation ann : network.getAnnotations()) {
-			if(ann.getName().equals("Project")) {
-				for(AnnotationArgument aa : ann.getArguments()) {
-					if(aa.getId().equals("name")) {
-						path = aa.getValue();
-						break;
-					}
-				}
-				if(path!=null)
-					break;
-			}
-		}
-		if(path==null) {
-			path="";
-		}
+		String path = TransUtil.getPath(network);
 
 		//Annotate that the Type Structure pass has executed
-		IrTransformer.AnnotatePass(network, IrAnnotationTypes.TypeStructure, "0");
+		TransUtil.AnnotatePass(network, IrAnnotationTypes.TypeStructure, "0");
 		//Store in ActorDirectory $Transformed section
 		ActorDirectory.addTransformedActor(network, null, path);
 

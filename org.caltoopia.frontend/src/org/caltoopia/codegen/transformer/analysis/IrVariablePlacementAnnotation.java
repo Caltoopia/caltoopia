@@ -94,6 +94,7 @@ import org.caltoopia.codegen.IrXmlPrinter;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.IrTransformer.IrAnnotationTypes;
+import org.caltoopia.codegen.transformer.TransUtil;
 import org.caltoopia.codegen.transformer.analysis.IrTypeStructureAnnotation.TypeMember;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarType;
 
@@ -130,7 +131,7 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 	@Override
 	public Declaration caseVariable(Variable var) {
 		//Get annotations
-		Annotation varAnnotation = IrTransformer.getAnalysAnnotations(var,IrTransformer.VARIABLE_ANNOTATION);
+		Annotation varAnnotation = TransUtil.getAnnotation(var,IrTransformer.VARIABLE_ANNOTATION);
 		Map<String,String> annotations = new HashMap<String,String>();
 		for(AnnotationArgument aa:varAnnotation.getArguments()) {
 			annotations.put(aa.getId(), aa.getValue());
@@ -142,7 +143,7 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 		TypeDeclaration td=null;
 		if(UtilIR.isRecord(type)) {
 			td = UtilIR.getTypeDeclaration(type);
-			Annotation typeAnnotation = IrTransformer.getAnalysAnnotations(td,IrTransformer.TYPE_ANNOTATION);
+			Annotation typeAnnotation = TransUtil.getAnnotation(td,IrTransformer.TYPE_ANNOTATION);
 			if(!typeAnnotation.getArguments().isEmpty()) {
 				for(AnnotationArgument aa:typeAnnotation.getArguments()) {
 					annotations.put(aa.getId(), aa.getValue());
@@ -239,7 +240,7 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 			}
 		}
 		
-		IrTransformer.setAnnotation(varAnnotation,"VarPlacement",placement.name());
+		TransUtil.setAnnotation(varAnnotation,"VarPlacement",placement.name());
 
 		return super.caseVariable(var);
 	}
@@ -250,7 +251,7 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 		System.out.println("[IrVariablePlacement] Entered caseNetwork");
 		for(Declaration d: obj.getDeclarations()){
 			if(d instanceof TypeDeclaration) {
-				Annotation a = IrTransformer.getAnalysAnnotations(d, IrTransformer.TYPE_ANNOTATION);
+				Annotation a = TransUtil.getAnnotation(d, IrTransformer.TYPE_ANNOTATION);
 				System.out.println("[IrVariablePlacement] Get type decl " + d.getName() + "having a type annotation " + (a.getArguments().isEmpty()?"that is empty":":"));
 				for(AnnotationArgument aa: a.getArguments()){
 					System.out.println("[IrVariablePlacement]     " + aa.getId() + " = " + aa.getValue());
@@ -263,7 +264,7 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 		System.out.println("[IrVariablePlacement] Done super.caseNetwork");
 		for(Declaration d: obj.getDeclarations()){
 			if(d instanceof TypeDeclaration) {
-				Annotation a = IrTransformer.getAnalysAnnotations(d, IrTransformer.TYPE_ANNOTATION);
+				Annotation a = TransUtil.getAnnotation(d, IrTransformer.TYPE_ANNOTATION);
 				System.out.println("[IrVariablePlacement] Get type decl " + d.getName() + "having a type annotation " + (a.getArguments().isEmpty()?"that is empty":":"));
 				for(AnnotationArgument aa: a.getArguments()){
 					System.out.println("[IrVariablePlacement]     " + aa.getId() + " = " + aa.getValue());
@@ -271,24 +272,8 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 			}
 		}
 		//DEBUG END
-		String path = null;
-		for(Annotation ann : ret.getAnnotations()) {
-			if(ann.getName().equals("Project")) {
-				for(AnnotationArgument aa : ann.getArguments()) {
-					if(aa.getId().equals("name")) {
-						path = aa.getValue();
-						break;
-					}
-				}
-				if(path!=null)
-					break;
-			}
-		}
-		if(path==null) {
-			path="";
-		}
-
-		IrTransformer.AnnotatePass(ret, IrAnnotationTypes.VariablePlacement, "0");
+		String path = TransUtil.getPath(ret);
+		TransUtil.AnnotatePass(ret, IrAnnotationTypes.VariablePlacement, "0");
 		ActorDirectory.addTransformedActor(ret, null, path);
 
 		for(ActorInstance a : obj.getActors()) {
@@ -297,7 +282,7 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 			System.out.println("[IrVariablePlacement] Before actor instance " + a.getName());
 			for(Declaration d: obj.getDeclarations()){
 				if(d instanceof TypeDeclaration) {
-					Annotation an = IrTransformer.getAnalysAnnotations(d, IrTransformer.TYPE_ANNOTATION);
+					Annotation an = TransUtil.getAnnotation(d, IrTransformer.TYPE_ANNOTATION);
 					System.out.println("[IrVariablePlacement] Get type decl " + d.getName() + "having a type annotation " + (an.getArguments().isEmpty()?"that is empty":":"));
 					for(AnnotationArgument aa: an.getArguments()){
 						System.out.println("[IrVariablePlacement]     " + aa.getId() + " = " + aa.getValue());
@@ -319,7 +304,7 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 						TypeDeclaration d;
 						try {
 							d = ActorDirectory.findTypeDeclaration((TypeDeclarationImport)di);
-							Annotation an = IrTransformer.getAnalysAnnotations(d, IrTransformer.TYPE_ANNOTATION);
+							Annotation an = TransUtil.getAnnotation(d, IrTransformer.TYPE_ANNOTATION);
 							System.out.println("[IrVariablePlacement] Get type decl " + d.getName() + "having a type annotation " + (an.getArguments().isEmpty()?"that is empty":":"));
 							for(AnnotationArgument aa: an.getArguments()){
 								System.out.println("[IrVariablePlacement]     " + aa.getId() + " = " + aa.getValue());
@@ -331,24 +316,8 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 				}
 				//DEBUG END
 				actor = (AbstractActor) doSwitch(actor);
-				path = null;
-				for(Annotation ann : actor.getAnnotations()) {
-					if(ann.getName().equals("Project")) {
-						for(AnnotationArgument aa : ann.getArguments()) {
-							if(aa.getId().equals("name")) {
-								path = aa.getValue();
-								break;
-							}
-						}
-						if(path!=null)
-							break;
-					}
-				}
-				if(path==null) {
-					path="";
-				}
-
-				IrTransformer.AnnotatePass(actor, IrAnnotationTypes.VariablePlacement, "0");
+				path = TransUtil.getPath(actor);
+				TransUtil.AnnotatePass(actor, IrAnnotationTypes.VariablePlacement, "0");
 				ActorDirectory.addTransformedActor(actor, a, path);
 			}
 		}
