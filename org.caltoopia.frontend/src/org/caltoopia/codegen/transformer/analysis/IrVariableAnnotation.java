@@ -34,7 +34,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.caltoopia.codegen.analysis;
+package org.caltoopia.codegen.transformer.analysis;
 
 import java.io.File;
 import java.io.PrintStream;
@@ -87,7 +87,8 @@ import org.caltoopia.cli.CompilationSession;
 import org.caltoopia.cli.DirectoryException;
 import org.caltoopia.codegen.IrXmlPrinter;
 import org.caltoopia.codegen.UtilIR;
-import org.caltoopia.codegen.analysis.IrAnnotations.IrAnnotationTypes;
+import org.caltoopia.codegen.transformer.IrTransformer;
+import org.caltoopia.codegen.transformer.IrTransformer.IrAnnotationTypes;
 
 public class IrVariableAnnotation extends IrReplaceSwitch {
 
@@ -453,9 +454,9 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 	
 	@Override
 	public Expression caseVariableExpression(VariableExpression var) {
-		Annotation a = IrAnnotations.getAnalysAnnotations(var,IrAnnotations.VARIABLE_ANNOTATION);
+		Annotation a = IrTransformer.getAnalysAnnotations(var,IrTransformer.VARIABLE_ANNOTATION);
 		VarType t = findVariableType(var.getVariable());
-		IrAnnotations.setAnnotation(a,"VarType",t.name());
+		IrTransformer.setAnnotation(a,"VarType",t.name());
 		VarAccess va = VarAccess.unknown;
 		//Put the access annotation in the map, will be replicated in caseAction to all variables, var ref and exp refering to the same id
 		if(currentWrite!=null) {
@@ -472,9 +473,9 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 	
 	@Override
 	public VariableReference caseVariableReference(VariableReference var) {
-		Annotation a = IrAnnotations.getAnalysAnnotations(var,IrAnnotations.VARIABLE_ANNOTATION);
+		Annotation a = IrTransformer.getAnalysAnnotations(var,IrTransformer.VARIABLE_ANNOTATION);
 		VarType t = findVariableType(var.getDeclaration());
-		IrAnnotations.setAnnotation(a,"VarType",t.name());
+		IrTransformer.setAnnotation(a,"VarType",t.name());
 		VarAccess va = VarAccess.unknown;
 		//Put the access annotation in the map, will be replicated in caseAction to all variables, var ref and exp refering to the same id
 		if(currentRead!=null) {
@@ -486,9 +487,9 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 
 	@Override
 	public Declaration caseVariable(Variable var) {
-		Annotation a = IrAnnotations.getAnalysAnnotations(var,IrAnnotations.VARIABLE_ANNOTATION);
+		Annotation a = IrTransformer.getAnalysAnnotations(var,IrTransformer.VARIABLE_ANNOTATION);
 		VarType t = findVariableType(var);
-		IrAnnotations.setAnnotation(a,"VarType",t.name());
+		IrTransformer.setAnnotation(a,"VarType",t.name());
 		return super.caseVariable(var);
 	}
 	
@@ -509,10 +510,10 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 			@Override
 			public VariableReference caseVariableReference(VariableReference var) {
 				if(idInVarAccessMap.containsKey(var.getDeclaration().getId()))
-					IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(var,IrAnnotations.VARIABLE_ANNOTATION), 
+					IrTransformer.setAnnotation(IrTransformer.getAnalysAnnotations(var,IrTransformer.VARIABLE_ANNOTATION), 
 							"VarAccessIn",idInVarAccessMap.get(var.getDeclaration().getId()));
 				if(idOutVarAccessMap.containsKey(var.getDeclaration().getId()))
-					IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(var,IrAnnotations.VARIABLE_ANNOTATION), 
+					IrTransformer.setAnnotation(IrTransformer.getAnalysAnnotations(var,IrTransformer.VARIABLE_ANNOTATION), 
 							"VarAccessOut",idOutVarAccessMap.get(var.getDeclaration().getId()));
 				return var;
 			}
@@ -520,10 +521,10 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 			@Override
 			public VariableExpression caseVariableExpression(VariableExpression var) {
 				if(idInVarAccessMap.containsKey(var.getVariable().getId()))
-					IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(var,IrAnnotations.VARIABLE_ANNOTATION), 
+					IrTransformer.setAnnotation(IrTransformer.getAnalysAnnotations(var,IrTransformer.VARIABLE_ANNOTATION), 
 							"VarAccessIn",idInVarAccessMap.get(var.getVariable().getId()));
 				if(idOutVarAccessMap.containsKey(var.getVariable().getId()))
-					IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(var,IrAnnotations.VARIABLE_ANNOTATION), 
+					IrTransformer.setAnnotation(IrTransformer.getAnalysAnnotations(var,IrTransformer.VARIABLE_ANNOTATION), 
 							"VarAccessOut",idOutVarAccessMap.get(var.getVariable().getId()));
 				return var;
 			}
@@ -531,10 +532,10 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 			@Override
 			public Variable caseVariable(Variable var) {
 				if(idInVarAccessMap.containsKey(var.getId()))
-					IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(var,IrAnnotations.VARIABLE_ANNOTATION), 
+					IrTransformer.setAnnotation(IrTransformer.getAnalysAnnotations(var,IrTransformer.VARIABLE_ANNOTATION), 
 							"VarAccessIn",idInVarAccessMap.get(var.getId()));
 				if(idOutVarAccessMap.containsKey(var.getId()))
-					IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(var,IrAnnotations.VARIABLE_ANNOTATION), 
+					IrTransformer.setAnnotation(IrTransformer.getAnalysAnnotations(var,IrTransformer.VARIABLE_ANNOTATION), 
 							"VarAccessOut",idOutVarAccessMap.get(var.getId()));
 				return var;
 			}
@@ -562,9 +563,9 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 
 	@Override
 	public Statement caseAssign(Assign assign) {
-		IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(assign.getTarget().getDeclaration(),IrAnnotations.VARIABLE_ANNOTATION), 
+		IrTransformer.setAnnotation(IrTransformer.getAnalysAnnotations(assign.getTarget().getDeclaration(),IrTransformer.VARIABLE_ANNOTATION), 
 				"VarAssign",VarAssign.assigned.name());
-		IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(assign.getTarget(),IrAnnotations.VARIABLE_ANNOTATION), 
+		IrTransformer.setAnnotation(IrTransformer.getAnalysAnnotations(assign.getTarget(),IrTransformer.VARIABLE_ANNOTATION), 
 				"VarAssign",VarAssign.assigned.name());
 		return super.caseAssign(assign);
 	}
@@ -599,7 +600,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 					path="";
 				}
 
-				IrAnnotations.AnnotatePass(actor, IrAnnotationTypes.Variable, "0");
+				IrTransformer.AnnotatePass(actor, IrAnnotationTypes.Variable, "0");
 				ActorDirectory.addTransformedActor(actor, a, path);
 			}
 		}
@@ -621,7 +622,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 			path="";
 		}
 
-		IrAnnotations.AnnotatePass(ret, IrAnnotationTypes.Variable, "0");
+		IrTransformer.AnnotatePass(ret, IrAnnotationTypes.Variable, "0");
 		ActorDirectory.addTransformedActor(ret, null, path);
 		currentNetwork = null;
 		return ret;

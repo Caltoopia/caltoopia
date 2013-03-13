@@ -34,7 +34,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.caltoopia.codegen.analysis;
+package org.caltoopia.codegen.transformer;
 
 import java.util.HashMap;
 import java.util.List;
@@ -45,10 +45,12 @@ import org.caltoopia.ast2ir.Util;
 import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.cli.CompilationSession;
 import org.caltoopia.cli.DirectoryException;
-import org.caltoopia.codegen.CPrinter;
-import org.caltoopia.codegen.IrXmlPrinter;
-import org.caltoopia.codegen.analysis.IrVariableAnnotation.VarAccess;
-import org.caltoopia.codegen.analysis.IrVariableAnnotation.VarType;
+import org.caltoopia.codegen.transformer.analysis.IrTypeAnnotation;
+import org.caltoopia.codegen.transformer.analysis.IrTypeStructureAnnotation;
+import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation;
+import org.caltoopia.codegen.transformer.analysis.IrVariablePlacementAnnotation;
+import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarAccess;
+import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarType;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Actor;
 import org.caltoopia.ir.ActorInstance;
@@ -66,7 +68,7 @@ import org.caltoopia.types.TypeAnnotater;
 import org.caltoopia.types.TypeMatchDeclaration;
 import org.eclipse.emf.ecore.EObject;
 
-public class IrAnnotations {
+public class IrTransformer {
 	//The different types of annotation passes that can be executed
 	public enum IrAnnotationTypes {
 		Init,
@@ -82,44 +84,44 @@ public class IrAnnotations {
 	 * When a annotator need access to other nodes in the tree it needs 
 	 * to retrieve them from the $Transformed part of ActorDirectory
 	 */
-	//FIXME can store/retrieve elaborate network: public IrAnnotations(TypeActor nodeType, CompilationSession session, List<IrAnnotationTypes> passes) {
-	public IrAnnotations(TypeActor nodeType, CompilationSession session, List<IrAnnotationTypes> passes) {
-	//public IrAnnotations(Node node, CompilationSession session, List<IrAnnotationTypes> passes) {
+	//FIXME can store/retrieve elaborate network: public IrTransformer(TypeActor nodeType, CompilationSession session, List<IrAnnotationTypes> passes) {
+	public IrTransformer(TypeActor nodeType, CompilationSession session, List<IrAnnotationTypes> passes) {
+	//public IrTransformer(Node node, CompilationSession session, List<IrAnnotationTypes> passes) {
 		//Apply the list of annotation passes in order
 		Node node=null;
 		for(IrAnnotationTypes p : passes) {
 			node=getNode(nodeType,p);
 			switch (p) {
 			case Variable:
-				System.out.println("[IrAnnotations] ********************************************************************");
-				System.out.println("[IrAnnotations] ********************************************************************");
-				System.out.println("[IrAnnotations] ************                     Variable                  *********");
-				System.out.println("[IrAnnotations] ********************************************************************");
-				System.out.println("[IrAnnotations] ********************************************************************");
+				System.out.println("[IrTransformer] ********************************************************************");
+				System.out.println("[IrTransformer] ********************************************************************");
+				System.out.println("[IrTransformer] ************                     Variable                  *********");
+				System.out.println("[IrTransformer] ********************************************************************");
+				System.out.println("[IrTransformer] ********************************************************************");
 				new IrVariableAnnotation(node, session, true);
 				break;
 			case TypeUsage:
-				System.out.println("[IrAnnotations] ********************************************************************");
-				System.out.println("[IrAnnotations] ********************************************************************");
-				System.out.println("[IrAnnotations] ************                    Type Usage                 *********");
-				System.out.println("[IrAnnotations] ********************************************************************");
-				System.out.println("[IrAnnotations] ********************************************************************");
+				System.out.println("[IrTransformer] ********************************************************************");
+				System.out.println("[IrTransformer] ********************************************************************");
+				System.out.println("[IrTransformer] ************                    Type Usage                 *********");
+				System.out.println("[IrTransformer] ********************************************************************");
+				System.out.println("[IrTransformer] ********************************************************************");
 				new IrTypeAnnotation(node, session, true);
 				break;
 			case TypeStructure:
-				System.out.println("[IrAnnotations] ********************************************************************");
-				System.out.println("[IrAnnotations] ********************************************************************");
-				System.out.println("[IrAnnotations] ************                   Type Structure              *********");
-				System.out.println("[IrAnnotations] ********************************************************************");
-				System.out.println("[IrAnnotations] ********************************************************************");
+				System.out.println("[IrTransformer] ********************************************************************");
+				System.out.println("[IrTransformer] ********************************************************************");
+				System.out.println("[IrTransformer] ************                   Type Structure              *********");
+				System.out.println("[IrTransformer] ********************************************************************");
+				System.out.println("[IrTransformer] ********************************************************************");
 				new IrTypeStructureAnnotation(node, session, true);
 				break;
 			case VariablePlacement:
-				System.out.println("[IrAnnotations] ********************************************************************");
-				System.out.println("[IrAnnotations] ********************************************************************");
-				System.out.println("[IrAnnotations] ************                 Variable Placement            *********");
-				System.out.println("[IrAnnotations] ********************************************************************");
-				System.out.println("[IrAnnotations] ********************************************************************");
+				System.out.println("[IrTransformer] ********************************************************************");
+				System.out.println("[IrTransformer] ********************************************************************");
+				System.out.println("[IrTransformer] ************                 Variable Placement            *********");
+				System.out.println("[IrTransformer] ********************************************************************");
+				System.out.println("[IrTransformer] ********************************************************************");
 				new IrVariablePlacementAnnotation(node, session, true);
 				break;
 			}
@@ -133,10 +135,10 @@ public class IrAnnotations {
 	private Node getNode(TypeActor nodeType, IrAnnotationTypes p) {
 		Node node=null;
 		try {
-			System.out.println("[IrAnnotations] Get top network from storage.");
+			System.out.println("[IrTransformer] Get top network from storage.");
 			node=ActorDirectory.findTransformedActor(nodeType);
 		} catch (DirectoryException e) {
-			System.err.println("[IrAnnotate] Internal error could not get actor of type " + nodeType.toString() + " at pass " + p.toString());
+			System.err.println("[IrTransformer] Internal error could not get actor of type " + nodeType.toString() + " at pass " + p.toString());
 		}
 		return node;
 	}
@@ -149,11 +151,11 @@ public class IrAnnotations {
 	 * FIXME does not work for the top network. Hence, back to in-memory tree.
 	 */
 	public static void IrTransformNetworkInit(Network network) {
-		System.out.println("[IrAnnotations] ********************************************************************");
-		System.out.println("[IrAnnotations] ********************************************************************");
-		System.out.println("[IrAnnotations] ************                       Init                    *********");
-		System.out.println("[IrAnnotations] ********************************************************************");
-		System.out.println("[IrAnnotations] ********************************************************************");
+		System.out.println("[IrTransformer] ********************************************************************");
+		System.out.println("[IrTransformer] ********************************************************************");
+		System.out.println("[IrTransformer] ************                       Init                    *********");
+		System.out.println("[IrTransformer] ********************************************************************");
+		System.out.println("[IrTransformer] ********************************************************************");
 		String path = null;
 		for(Annotation ann : network.getAnnotations()) {
 			if(ann.getName().equals("Project")) {
@@ -170,31 +172,11 @@ public class IrAnnotations {
 		if(path==null) {
 			path="";
 		}
-	    //DEBUG
-		new IrReplaceSwitch() {
-			private Map<String,String> found = new HashMap<String,String>();
-			@Override	
-			public TypeUser caseTypeUser(TypeUser type) {
-				found.put(((TypeUser) type).getDeclaration().getId(),(((TypeUser) type).getDeclaration() instanceof TypeDeclarationImport?"I_":"R_") +((TypeUser) type).getDeclaration().getName());
-				return type;
-			}
-
-			@Override
-			public AbstractActor caseNetwork(Network network) {
-				super.caseNetwork(network);
-				System.out.println("[IrAnnotations] ----- Found type declarations usage direcly after elaboration -----");
-				for(String f:found.keySet()) {
-					System.out.println("[IrAnnotations] Found type declaration " + f + " " + found.get(f));
-				}
-				return network;
-			}
-		}.doSwitch(network);
-		//End DEBUG
 
 		new TypeAnnotater().doSwitch(network);
 		new TypeMatchDeclaration().doSwitch(network);
 		
-	    //DEBUG
+	    /*DEBUG
 		new IrReplaceSwitch() {
 			private Map<String,String> found = new HashMap<String,String>();
 			@Override	
@@ -206,81 +188,25 @@ public class IrAnnotations {
 			@Override
 			public AbstractActor caseNetwork(Network network) {
 				super.caseNetwork(network);
-				System.out.println("[IrAnnotations] ----- Found type declarations usage direcly after network type annotation -----");
+				System.out.println("[IrTransformer] ----- Found type declarations usage direcly after network type annotation -----");
 				for(String f:found.keySet()) {
-					System.out.println("[IrAnnotations] Found type declaration " + f + " " + found.get(f));
+					System.out.println("[IrTransformer] Found type declaration " + f + " " + found.get(f));
 				}
 				return network;
 			}
 		}.doSwitch(network);
-		//End DEBUG
-	    /*//DEBUG
-		new IrReplaceSwitch() {
-			@Override	
-			public TypeUser caseTypeUser(TypeUser t) {
-				if (t.getDeclaration() instanceof TypeDeclarationImport) {
-					System.out.println("[IrAnnotations] DEBUG Is STILL2 network imported TypeDeclaration " + t.getDeclaration().getName());
-				}
-				return t;
-			}
-
-			@Override	
-			public TypeDeclarationImport caseTypeDeclarationImport(TypeDeclarationImport t) {
-				System.out.println("[IrAnnotations] DEBUG Is STILL2 network imported TypeDeclaration " + t.getName());
-				return t;
-			}
-		}.doSwitch(network);
-		//End DEBUG
-		 */
-		IrAnnotations.AnnotatePass(network, IrAnnotationTypes.Init, "0");
-		System.out.println("[IrTransformNetworkInit] Write network  " + network.getType().getName());
+		*/
+		IrTransformer.AnnotatePass(network, IrAnnotationTypes.Init, "0");
+		System.out.println("[IrTransformer] Write network  " + network.getType().getName());
 		ActorDirectory.addTransformedActor(network, null, path);
 
-	    //DEBUG
-		new IrReplaceSwitch() {
-			private Map<String,String> found = new HashMap<String,String>();
-			@Override	
-			public TypeUser caseTypeUser(TypeUser type) {
-				found.put(((TypeUser) type).getDeclaration().getId(),(((TypeUser) type).getDeclaration() instanceof TypeDeclarationImport?"I_":"R_") +((TypeUser) type).getDeclaration().getName());
-				return type;
-			}
-
-			@Override
-			public AbstractActor caseNetwork(Network network) {
-				super.caseNetwork(network);
-				System.out.println("[IrAnnotations] ----- Found type declarations usage direcly after printing -----");
-				for(String f:found.keySet()) {
-					System.out.println("[IrAnnotations] Found type declaration " + f + " " + found.get(f));
-				}
-				return network;
-			}
-		}.doSwitch(network);
-		//End DEBUG
-		/*//DEBUG
-		new IrReplaceSwitch() {
-			@Override	
-			public TypeUser caseTypeUser(TypeUser t) {
-				if (t.getDeclaration() instanceof TypeDeclarationImport) {
-					System.out.println("[IrAnnotations] DEBUG Is STILL3 network imported TypeDeclaration " + t.getDeclaration().getName());
-				}
-				return t;
-			}
-
-			@Override	
-			public TypeDeclarationImport caseTypeDeclarationImport(TypeDeclarationImport t) {
-				System.out.println("[IrAnnotations] DEBUG Is STILL3 network imported TypeDeclaration " + t.getName());
-				return t;
-			}
-		}.doSwitch(network);
-		//End DEBUG
-		 */
 		for(ActorInstance a : network.getActors()) {
 			AbstractActor actor=null;
 			try {
-				System.out.println("[IrTransformNetworkInit] Read in actor class " + ((TypeActor) a.getType()).getName());
+				System.out.println("[IrTransformer] Read in actor class " + ((TypeActor) a.getType()).getName());
 				actor = (AbstractActor) ActorDirectory.findActor((TypeActor) a.getType());
 			} catch (DirectoryException x) {
-				System.err.println("[IrAnnotate] Internal error could not get actor of type " + a.getType().toString() + " at init.");
+				System.err.println("[IrTransformer] Internal error could not get actor of type " + a.getType().toString() + " at init.");
 			}
 			if(actor!=null && !(actor instanceof ExternalActor)) {
 				path = null;
@@ -300,9 +226,9 @@ public class IrAnnotations {
 					path="";
 				}
 				AbstractActor actorInstantiated = Instantiator.instantiate(a, network);
-				IrAnnotations.AnnotatePass(actorInstantiated, IrAnnotationTypes.Init, "0");
+				IrTransformer.AnnotatePass(actorInstantiated, IrAnnotationTypes.Init, "0");
 				String nsName = Util.marshallQualifiedName(((TypeActor) a.getType()).getNamespace());
-				System.out.println("[IrTransformNetworkInit] Write actor instance named " + 
+				System.out.println("[IrTransformer] Write actor instance named " + 
 									nsName + "__" + a.getName() + 
 									" of class " + ((TypeActor) a.getType()).getName());
 				ActorDirectory.addTransformedActor(actorInstantiated, a, path);

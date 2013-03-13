@@ -59,8 +59,8 @@ import org.caltoopia.ast2ir.Util;
 import org.caltoopia.codegen.CEnvironment;
 import org.caltoopia.codegen.CPrinter;
 import org.caltoopia.codegen.IR2CIR;
-import org.caltoopia.codegen.analysis.IrAnnotations;
-import org.caltoopia.codegen.analysis.IrVariableAnnotation;
+import org.caltoopia.codegen.transformer.IrTransformer;
+import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation;
 import org.caltoopia.codegen.IrDottyPrinter;
 import org.caltoopia.codegen.IrXmlPrinter;
 import org.caltoopia.codegen.UtilIR;
@@ -296,12 +296,12 @@ public class Cal2C {
 				altCodegen=true;
 			}
 			if(altCodegen) {
-				IrAnnotations.IrTransformNetworkInit(session.getElaboratedNetwork());
-				new IrAnnotations(session.getElaboratedNetwork().getType(), session, 
-						Arrays.asList(	IrAnnotations.IrAnnotationTypes.Variable,
-										IrAnnotations.IrAnnotationTypes.TypeUsage,
-										IrAnnotations.IrAnnotationTypes.TypeStructure,
-										IrAnnotations.IrAnnotationTypes.VariablePlacement));
+				IrTransformer.IrTransformNetworkInit(session.getElaboratedNetwork());
+				new IrTransformer(session.getElaboratedNetwork().getType(), session, 
+						Arrays.asList(	IrTransformer.IrAnnotationTypes.Variable,
+										IrTransformer.IrAnnotationTypes.TypeUsage,
+										IrTransformer.IrAnnotationTypes.TypeStructure,
+										IrTransformer.IrAnnotationTypes.VariablePlacement));
 				//For now run this to make sure the top network type declarations don't have type decl imports
 				new TypeMatchDeclaration().doSwitch(session.getElaboratedNetwork());
 			}

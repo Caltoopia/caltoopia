@@ -34,7 +34,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.caltoopia.codegen.analysis;
+package org.caltoopia.codegen.transformer.analysis;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -47,7 +47,8 @@ import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.cli.CompilationSession;
 import org.caltoopia.cli.DirectoryException;
 import org.caltoopia.codegen.UtilIR;
-import org.caltoopia.codegen.analysis.IrAnnotations.IrAnnotationTypes;
+import org.caltoopia.codegen.transformer.IrTransformer;
+import org.caltoopia.codegen.transformer.IrTransformer.IrAnnotationTypes;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Action;
 import org.caltoopia.ir.ActorInstance;
@@ -117,7 +118,7 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 		 */
 		Declaration decl = UtilIR.getDeclaration(var.getVariable());
 		if(decl instanceof Variable) {
-			String a = IrAnnotations.getAnnotationArg(decl,IrAnnotations.VARIABLE_ANNOTATION,"VarType");
+			String a = IrTransformer.getAnnotationArg(decl,IrTransformer.VARIABLE_ANNOTATION,"VarType");
 			Type type = ((Variable) decl).getType();
 			while(UtilIR.isList(type)) {
 				type = ((TypeList)type).getType();
@@ -175,7 +176,7 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 		if(UtilIR.isRecord(type)) {
 			for(Declaration d:userTypes) {
 				if(d.getId().equals(UtilIR.getTypeDeclaration(type).getId())) {
-					String a = IrAnnotations.getAnnotationArg(decl,IrAnnotations.VARIABLE_ANNOTATION,"VarType");
+					String a = IrTransformer.getAnnotationArg(decl,IrTransformer.VARIABLE_ANNOTATION,"VarType");
 					putTypeUsage(d,a);
 					break;
 				}
@@ -191,7 +192,7 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 		 */
 		Variable decl = var.getDeclaration();
 		if(decl instanceof Variable) {
-			String a = IrAnnotations.getAnnotationArg(decl,IrAnnotations.VARIABLE_ANNOTATION,"VarType");
+			String a = IrTransformer.getAnnotationArg(decl,IrTransformer.VARIABLE_ANNOTATION,"VarType");
 			Type type = ((Variable) decl).getType();
 			while(UtilIR.isList(type)) {
 				type = ((TypeList)type).getType();
@@ -308,7 +309,7 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 		System.out.println("[IrTypeAnnotation] Entered caseNetwork");
 		for(Declaration d: network.getDeclarations()){
 			if(d instanceof TypeDeclaration) {
-				Annotation a = IrAnnotations.getAnalysAnnotations(d, IrAnnotations.TYPE_ANNOTATION);
+				Annotation a = IrTransformer.getAnalysAnnotations(d, IrTransformer.TYPE_ANNOTATION);
 				System.out.println("[IrTypeAnnotation] Get type decl " + d.getName() + "having a type annotation " + (a.getArguments().isEmpty()?"that is empty":":"));
 				for(AnnotationArgument aa: a.getArguments()){
 					System.out.println("[IrTypeAnnotation]     " + aa.getId() + " = " + aa.getValue());
@@ -336,7 +337,7 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 				//A bit uncertain relies on that toString() prints the String Set as [elem1, elem2]
 				String use = typeUsage.get(d).toString();
 				use = use.substring(1, use.length()-1);
-				IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(d,IrAnnotations.TYPE_ANNOTATION), 
+				IrTransformer.setAnnotation(IrTransformer.getAnalysAnnotations(d,IrTransformer.TYPE_ANNOTATION), 
 						"TypeUsage",use);
 				//... and on its user typed record members (same info as on the corresponding type declaration)
 				for(Variable m: ((TypeRecord)UtilIR.getType(d)).getMembers()) {
@@ -350,7 +351,7 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 							//A bit uncertain relies on that toString() prints the String Set as [elem1, elem2]
 							String mUse = typeUsage.get(td).toString();
 							mUse = mUse.substring(1, mUse.length()-1);
-							IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(m,IrAnnotations.TYPE_ANNOTATION), 
+							IrTransformer.setAnnotation(IrTransformer.getAnalysAnnotations(m,IrTransformer.TYPE_ANNOTATION), 
 									"TypeUsage",mUse);
 						}
 					}
@@ -376,7 +377,7 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 		}
 
 		//Annotate that the Type pass has executed
-		IrAnnotations.AnnotatePass(network, IrAnnotationTypes.TypeUsage, "0");
+		IrTransformer.AnnotatePass(network, IrAnnotationTypes.TypeUsage, "0");
 		//Store in ActorDirectory $Transformed section
 	    //DEBUG
 		new IrReplaceSwitch() {

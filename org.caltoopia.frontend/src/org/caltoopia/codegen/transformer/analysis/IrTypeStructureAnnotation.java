@@ -34,14 +34,15 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.caltoopia.codegen.analysis;
+package org.caltoopia.codegen.transformer.analysis;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
 import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.cli.CompilationSession;
 import org.caltoopia.codegen.UtilIR;
-import org.caltoopia.codegen.analysis.IrAnnotations.IrAnnotationTypes;
+import org.caltoopia.codegen.transformer.IrTransformer;
+import org.caltoopia.codegen.transformer.IrTransformer.IrAnnotationTypes;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Annotation;
 import org.caltoopia.ir.AnnotationArgument;
@@ -93,23 +94,23 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
 	 */
 	private boolean recordMemberInline(TypeDeclaration td, Variable m, boolean isList) {
 		boolean anyByRef=false;
-		switch(TypeMember.valueOf(IrAnnotations.getAnnotationArg(td, IrAnnotations.TYPE_ANNOTATION, "TypeStructure"))) {
+		switch(TypeMember.valueOf(IrTransformer.getAnnotationArg(td, IrTransformer.TYPE_ANNOTATION, "TypeStructure"))) {
 		case builtin:
 		case inlineFull:
 		case byListFull:
-			if(IrAnnotations.getAnnotationArg(td, IrAnnotations.TYPE_ANNOTATION, "TypeUsage").contains("memberOutPortVar")) {
-				IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(m,IrAnnotations.TYPE_ANNOTATION), 
+			if(IrTransformer.getAnnotationArg(td, IrTransformer.TYPE_ANNOTATION, "TypeUsage").contains("memberOutPortVar")) {
+				IrTransformer.setAnnotation(IrTransformer.getAnalysAnnotations(m,IrTransformer.TYPE_ANNOTATION), 
 						"TypeStructure",isList?TypeMember.byListSome.name():TypeMember.inlineSome.name());
 				anyByRef=true;
 			} else {
-				IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(m,IrAnnotations.TYPE_ANNOTATION), 
+				IrTransformer.setAnnotation(IrTransformer.getAnalysAnnotations(m,IrTransformer.TYPE_ANNOTATION), 
 						"TypeStructure",isList?TypeMember.byListFull.name():TypeMember.inlineFull.name());
 			}
 			break;
 		case byRef:
 		case byListSome:
 		case inlineSome:
-			IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(m,IrAnnotations.TYPE_ANNOTATION), 
+			IrTransformer.setAnnotation(IrTransformer.getAnalysAnnotations(m,IrTransformer.TYPE_ANNOTATION), 
 					"TypeStructure",isList?TypeMember.byListSome.name():TypeMember.inlineSome.name());
 			anyByRef=true;
 			break;
@@ -129,7 +130,7 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
 		
 		for(Variable m: ((TypeRecord)decl.getType()).getMembers()) {
 			if(!UtilIR.isListOrRecord(m.getType())) {
-				IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(m,IrAnnotations.TYPE_ANNOTATION), 
+				IrTransformer.setAnnotation(IrTransformer.getAnalysAnnotations(m,IrTransformer.TYPE_ANNOTATION), 
 						"TypeStructure",TypeMember.builtin.name());
 			} else if(UtilIR.isList(m.getType())) {
 				Type type = m.getType();
@@ -145,12 +146,12 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
 						TypeDeclaration td = UtilIR.getTypeDeclaration(type);
 						anyByRef=recordMemberInline(td,m,true);
 					} else {
-						IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(m,IrAnnotations.TYPE_ANNOTATION), 
+						IrTransformer.setAnnotation(IrTransformer.getAnalysAnnotations(m,IrTransformer.TYPE_ANNOTATION), 
 								"TypeStructure",TypeMember.byListFull.name());
 					}
 				} else {
 					//List of unknown size
-					IrAnnotations.setAnnotation(IrAnnotations.getAnalysAnnotations(m,IrAnnotations.TYPE_ANNOTATION), 
+					IrTransformer.setAnnotation(IrTransformer.getAnalysAnnotations(m,IrTransformer.TYPE_ANNOTATION), 
 							"TypeStructure",TypeMember.byRef.name());
 					anyByRef=true;
 				}
@@ -162,9 +163,9 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
 			}
 		}
 
-		anyByRef = anyByRef || IrAnnotations.getAnnotationArg(decl, IrAnnotations.TYPE_ANNOTATION, "TypeUsage").contains("memberOutPortVar");
-		IrAnnotations.setAnnotation(
-				IrAnnotations.getAnalysAnnotations(decl,IrAnnotations.TYPE_ANNOTATION), 
+		anyByRef = anyByRef || IrTransformer.getAnnotationArg(decl, IrTransformer.TYPE_ANNOTATION, "TypeUsage").contains("memberOutPortVar");
+		IrTransformer.setAnnotation(
+				IrTransformer.getAnalysAnnotations(decl,IrTransformer.TYPE_ANNOTATION), 
 				"TypeStructure",anyByRef?TypeMember.inlineSome.name():TypeMember.inlineFull.name());
 		return decl;
 	}
@@ -176,7 +177,7 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
 		System.out.println("[IrTypeStructurAnnotation] Entered caseNetwork");
 		for(Declaration d: network.getDeclarations()){
 			if(d instanceof TypeDeclaration) {
-				Annotation a = IrAnnotations.getAnalysAnnotations(d, IrAnnotations.TYPE_ANNOTATION);
+				Annotation a = IrTransformer.getAnalysAnnotations(d, IrTransformer.TYPE_ANNOTATION);
 				System.out.println("[IrTypeStructurAnnotation] Get type decl " + d.getName() + "having a type annotation " + (a.getArguments().isEmpty()?"that is empty":":"));
 				for(AnnotationArgument aa: a.getArguments()){
 					System.out.println("[IrTypeStructurAnnotation]     " + aa.getId() + " = " + aa.getValue());
@@ -206,7 +207,7 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
 		}
 
 		//Annotate that the Type Structure pass has executed
-		IrAnnotations.AnnotatePass(network, IrAnnotationTypes.TypeStructure, "0");
+		IrTransformer.AnnotatePass(network, IrAnnotationTypes.TypeStructure, "0");
 		//Store in ActorDirectory $Transformed section
 		ActorDirectory.addTransformedActor(network, null, path);
 
