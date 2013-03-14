@@ -152,7 +152,9 @@ public class Ast2Ir extends CalSwitch<EObject> {
 	@Override
 	public Namespace caseAstNamespace(AstNamespace astNamespace) {
 		if (verbose) System.out.println("[Ast2Ir] compiling namespace '" + astNamespace.getName() + "'");
-		
+		// Make sure not referring Actor Directory to the elaborated temp directory
+		ActorDirectory.resetTransformedNetwork();
+
 		Util.clearDefs();
 		
 		Namespace ns = IrFactory.eINSTANCE.createNamespace();	

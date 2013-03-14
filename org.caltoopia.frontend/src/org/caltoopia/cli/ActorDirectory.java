@@ -233,7 +233,6 @@ public class ActorDirectory {
 	}
 
 	public static AbstractActor findActor(TypeActor type) throws DirectoryException {		
-		
 		for (String root : getSession().getPaths()) {
 			String path = getActorDirectoryLocation() + File.separator + path2Project(root);			
 			for (String s : type.getNamespace()) {
@@ -330,6 +329,9 @@ public class ActorDirectory {
 	}
 
 	public static Declaration findVariable(VariableImport variableImport) throws DirectoryException {		
+		if(transformedTopNetwork!=null) {
+			return findTransformedVariable(variableImport);
+		}
 		Namespace ns = findNamespace(variableImport.getNamespace());
 		
 		for (Declaration decl : ns.getDeclarations()) {
@@ -437,6 +439,20 @@ public class ActorDirectory {
 			}
 		}		
 		throw new DirectoryException("[ActorDirectory] Typedef '" + typedeclImport.getName() + "' not found.");
+	}
+
+	public static Declaration findTransformedVariable(VariableImport variableImport) throws DirectoryException {		
+		if(transformedTopNetwork!=null) {
+			List<String> ns = variableImport.getNamespace();
+			
+			for (Declaration decl : transformedTopNetwork.getDeclarations()) {
+				if (((decl instanceof Variable) || (decl instanceof VariableExternal)) && variableImport.getName().equals(decl.getName()) &&
+						UtilIR.getAnnotatedNamespace(decl).containsAll(ns)) {
+					return  decl;
+				}
+			}
+		}
+		throw new DirectoryException("[ActorDirectory] Variable '" + variableImport.getName() + "' not found.");
 	}
 
 	public static void clean() {

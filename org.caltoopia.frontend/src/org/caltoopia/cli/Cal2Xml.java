@@ -136,6 +136,9 @@ public class Cal2Xml {
 		
 		try {
 			out.print("Elaborating network...");
+			// Make sure not referring Actor Directory to the elaborated temp directory
+			ActorDirectory.resetTransformedNetwork();
+
 			session.elaborateNetwork(topNetwork);
 			out.println("done");
 			
