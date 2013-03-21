@@ -47,16 +47,14 @@ import java.util.Set;
 import org.caltoopia.analysis.air.ActorInstance;
 import org.caltoopia.analysis.air.State;
 import org.caltoopia.analysis.air.Transition;
-import org.caltoopia.analysis.network.ScenarioAwareNetworkAnalysis.ControlTokensPerAction;
-import org.caltoopia.analysis.network.ScenarioAwareStateExploration.ControlTokenFSMState;
+import org.caltoopia.analysis.network.ScenarioAwareStateExploration.FiringNode;
 import org.caltoopia.analysis.network.ScenarioFSM.ScenarioFSMState;
 import org.caltoopia.analysis.util.collections.CartesianProduct;
 import org.caltoopia.analysis.util.collections.Pair;
-import org.caltoopia.ast2ir.Stream;
 
 /**
  * represents a state of the state-space exploration. A state is uniquely defined 
- * by a tuple of FSM states of detector actors ('detectorStatesTuple'). The tuple has exactly 
+ * by a tuple of firings of detector actors ('detectorStatesTuple'). The tuple has exactly 
  * one state from each detector actor. All other member variables such the set of 
  * scenario graphs, the set of fsm states and the set of transition tuples can be 
  * generated from the 'detectorStatesTuple'.
@@ -68,7 +66,7 @@ public class ExplorationState{
 	//a tuple of FSM states of detector actors, exactly one fsm state per detector
 	private Map<ActorInstance, State> detectorStatesTuple = new HashMap<ActorInstance, State>();
 	
-	public Set<ControlTokenFSMState> stateTuple = new HashSet<ControlTokenFSMState>();
+	public Set<FiringNode> configuration = new HashSet<FiringNode>();
 	
 	//the set of all possible transition combinations from 'detectorStatesTuple'
 	private List<Set<Pair<ActorInstance, Transition>>> transitionTuples = 
@@ -90,8 +88,8 @@ public class ExplorationState{
 	}
 	
 	//constructor
-	public ExplorationState(Set<ControlTokenFSMState> s, String n){
-		stateTuple = s;
+	public ExplorationState(Set<FiringNode> s, String n){
+		configuration = s;
 		name = n;
 	}
 		
@@ -163,6 +161,35 @@ public class ExplorationState{
 		scenarioFsmStates.add(state);
 	}
 	
+	public String getConfigurationAsString(){
+		String conf="[ ";
+		for(FiringNode f: configuration){
+			conf+="(" + f.detectorActor.getInstanceName()+"," +f.firing.getName()+") ";
+		}
+		conf+="]";
+		return conf;
+	}
+	
+	public static String getConfigurationAsString(Set<FiringNode> confg){
+		String conf="[ ";
+		for(FiringNode f: confg){
+			conf+="(" + f.detectorActor.getInstanceName()+"," +f.firing.getName()+") ";
+		}
+		conf+="]";
+		return conf;
+	}
+	
+	public static boolean areEqual(Set<FiringNode> confg1, Set<FiringNode> confg2){
+		for(FiringNode f1: confg1){
+			for(FiringNode f2: confg2){
+				if(f1.detectorActor==f2.detectorActor){
+					if(f1.firing!=f2.firing)
+						return false;
+				}
+			}
+		}
+		return true;
+	}
 	/**
 	 * traverses all possible transition combinations at a given detectorStatesTuple
 	 * @param dStates
@@ -217,7 +244,7 @@ public class ExplorationState{
 			//check if the control tokens are the same
 			if(flag){
 				if(exists){
-					if(ScenarioAwareNetworkAnalysis.AreControlTokensEqual(
+					if(ControlTokensPerAction.AreControlTokensEqual(
 							sg.getControlTokens(), scenarioGraph.getControlTokens())){
 						return sg;
 					}
@@ -312,11 +339,11 @@ public class ExplorationState{
 	 * @return the ExplorationState of a given detectorStatesTuple if it exists or null otherwise.
 	 */
 	public static ExplorationState findVistedState(List<ExplorationState> explorationStates, 
-			Set<ControlTokenFSMState> detectorStatesTuple){
+			Set<FiringNode> detectorStatesTuple){
 		for(ExplorationState explorationState: explorationStates){
-			if(explorationState.stateTuple.size()==detectorStatesTuple.size()){
+			if(explorationState.configuration.size()==detectorStatesTuple.size()){
 				boolean found = true;
-				for(ControlTokenFSMState c: explorationState.stateTuple){
+				for(FiringNode c: explorationState.configuration){
 					if(!detectorStatesTuple.contains(c)){
 						found = false;
 						break;

@@ -112,12 +112,14 @@ class SneakyNetworkAnalysis implements NetworkAnalysis {
 	
 	public SneakyNetworkAnalysis(Network n){
 		network = n;
-		ActorAnalyzer actorAnalyzer=new SneakyActorAnalyzer();		
+		ActorAnalyzer actorAnalyzer=new SneakyActorAnalyzer();	
+		int id = 0;
 		for (ActorInstance actor: network.getActors()) {	
 			GenericActorAnalysis analysis = null;
 			if (actor.hasImplementation()) {
 				ActorImplementation actorImpl=actor.getImplementation();
-				analysis=new GenericActorAnalysis(actor,actorAnalyzer.analyze(actorImpl));				
+				analysis=new GenericActorAnalysis(actor,actorAnalyzer.analyze(actorImpl));	
+				analysis.setId(new Integer(id++));
 			}else{
 				analysis=new GenericActorAnalysis(actor,null);		
 			}

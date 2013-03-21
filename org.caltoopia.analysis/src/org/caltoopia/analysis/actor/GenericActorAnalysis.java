@@ -96,6 +96,7 @@ public class GenericActorAnalysis{
 	protected List<AnnotatedActionProperty> annotatedActionProperties = new ArrayList<AnnotatedActionProperty>();
     private Integer executionTime = null;
     private Integer stateSize = null;
+    private Integer id = new Integer(0);
     private boolean typeAnnotated = false;
     
 	public GenericActorAnalysis(ActorInstance actor, ActorAnalysis delegate) {
@@ -221,6 +222,14 @@ public class GenericActorAnalysis{
 	protected void setExecutionTime(Integer t){
 		executionTime = t;
 		
+	}
+	
+	public Integer getId(){
+		return id;
+	}
+	
+	public void setId(Integer t){
+		id = t;		
 	}
 	
 	public Integer getStateSize(){

@@ -36,9 +36,13 @@
 
 package org.caltoopia.analysis.util.collections;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
+import com.google.common.collect.Sets;
 
 public class CartesianProduct<T> {
 	/**
@@ -61,21 +65,52 @@ public class CartesianProduct<T> {
 	    	}
 	    	return setOfSets;
 	    }
-	    return _cartesianProduct(0, objects);
+	    return _cartesianProduct(0,objects);
 	}
 
-	
+	/**
+	 * Recursive implementation of Cartesian product of a list of sets
+	 * @param index: recursion depth 
+	 * @param sets: a list of sets
+	 * @return
+	 */
 	private static <T> Set<Set<T>> _cartesianProduct(int index, List<Set<T>> sets) {
 	    Set<Set<T>> ret = new HashSet<Set<T>>();
 	    if (index == sets.size()) {
 	        ret.add(new HashSet<T>());
 	    } else {
 	        for (T object : sets.get(index)) {
-	            for (Set<T> set : _cartesianProduct(index+1, sets)) {
+	        	Set<Set<T>> cartProduct = _cartesianProduct(index+1, sets);
+	            for (Set<T> set : cartProduct) {
 	                set.add(object);
 	                ret.add(set);
 	            }
 	        }
+	    }
+	    return ret;
+	}
+	
+	/**
+	 * Iterative implementation of Cartesian product of a list of sets
+	 * @param sets:  a list of sets
+	 * @return Cartesian product
+	 */
+	private static <T> Set<Set<T>> _cartesianProduct(List<Set<T>> sets) {
+	    Set<Set<T>> ret = new HashSet<Set<T>>();
+	    ret.add(new HashSet<T>());
+	    int index = sets.size()-1;
+	    while(index >= 0){
+	    	Set<Set<T>> tempret = new HashSet<Set<T>>();
+	    	for(T object : sets.get(index)){
+	    		for (Set<T> set : ret) {
+	    			Set<T> sett = new HashSet<T>(set);
+	                sett.add(object);
+	                tempret.add(sett);
+	            }
+	    	}
+	    	ret.clear();
+	    	ret.addAll(tempret);
+	    	index--;
 	    }
 	    return ret;
 	}

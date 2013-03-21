@@ -45,6 +45,7 @@ import java.util.ArrayList;
 import org.caltoopia.analysis.air.Action;
 import org.caltoopia.analysis.air.ActorInstance;
 import org.caltoopia.analysis.air.Connection;
+import org.caltoopia.analysis.actor.ActionAnalysis;
 import org.caltoopia.analysis.actor.PortAnalysis;
 import org.caltoopia.analysis.actor.ConnectionAnalysis;
 import org.caltoopia.analysis.actor.GenericActorAnalysis;
@@ -243,5 +244,17 @@ public class GenericNetworkAnalysis{
 			}
 		}
 		return executionTime;
+	}
+	
+	public String getExecutionTimeAsString(ActorInstance actor, Action action){
+		GenericActorAnalysis gaa = getGenericActorAnalysis(actor);
+		String execTime = gaa.getExecutionTime().toString();
+		if(action!=null){
+			ActionAnalysis aa = gaa.getActionAnalysis(action);
+			if(aa!=null)
+				return aa.getExecutionTime().toString();
+			
+		}
+		return execTime;
 	}
 }

@@ -229,6 +229,9 @@ public class ScenarioAwareActorAnalysis extends GenericActorAnalysis {
 	//flags if this actor is the source actor of the network
 	private Boolean source = new Boolean(false);
 	
+	//flags if this actor is going to be skip in extraction 
+	private Boolean ignore = new Boolean(false);
+	
 	/**
 	 * constructs a ScenarioAwareActorAnalysis object
 	 * It sets the actor instance type either from annotation or
@@ -268,6 +271,13 @@ public class ScenarioAwareActorAnalysis extends GenericActorAnalysis {
 				source = Boolean.TRUE;
 		}
 		
+		//check if this actor is a source actor
+		String ign = getActor().getAnnotationArgumentValue("ActorProperty","Ignore");
+		if(ign!=null){
+			if (ign.trim().equalsIgnoreCase("true"))
+				ignore = Boolean.TRUE;
+		}
+				
 		//if actor is not type-annotated, classify the actor by analysis
 		if(!isTypeAnnotated()){
 			if(isScenarioAwareStaticActor())
@@ -292,6 +302,14 @@ public class ScenarioAwareActorAnalysis extends GenericActorAnalysis {
 	 */
 	public boolean isSource(){
 		return source.booleanValue();
+	}
+	
+	/**
+	 * checks if this actor is to be ignored
+	 * @return true if actor is ignored or false, otherwise.
+	 */
+	public boolean isActorIgnored(){
+		return ignore.booleanValue();
 	}
 	
 	/**

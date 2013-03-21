@@ -42,7 +42,6 @@ import java.util.Map;
 
 import org.caltoopia.analysis.actor.ActorAnalyzer;
 import org.caltoopia.analysis.actor.ConnectionAnalysis;
-import org.caltoopia.analysis.actor.GenericActorAnalysis;
 import org.caltoopia.analysis.actor.PortAnalysis;
 import org.caltoopia.analysis.actor.SneakyActorAnalyzer;
 import org.caltoopia.analysis.actor.ConnectionAnalysis.ConnectionType;

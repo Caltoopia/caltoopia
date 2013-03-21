@@ -36,21 +36,15 @@
 package org.caltoopia.analysis.network;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.caltoopia.analysis.actor.ScenarioAwareActorAnalysis;
 import org.caltoopia.analysis.air.ActorInstance;
 import org.caltoopia.analysis.air.Connection;
-import org.caltoopia.analysis.air.PortInstance;
-import org.caltoopia.analysis.air.Transition;
-import org.caltoopia.analysis.network.ScenarioAwareNetworkAnalysis.ControlTokensPerAction;
-import org.caltoopia.analysis.util.collections.Pair;
-import org.caltoopia.ast2ir.Stream;
+import org.caltoopia.analysis.network.ControlTokensPerAction;
 
 /**
  *The ScenarioGraph class encapsulates a Synchronous Dataflow (SDF) 
@@ -125,6 +119,16 @@ public class ScenarioGraph{
 	public Set<ControlTokensPerAction> getControlTokens(){
 		return controlTokens;
 	}	
+	
+	//get control tokens as string
+	public String getControlTokensAsString(){
+		String ct = "";
+		for(ControlTokensPerAction cta: controlTokens){
+			if(cta.getControlTokens().size()>0)
+				ct += cta.toString();
+		}
+		return ct;
+	}
 	
 	public void print(PrintStream out){
 		out.println("\tScenarioGraph: "+name+ ", actors: "+ actorsMap.size());

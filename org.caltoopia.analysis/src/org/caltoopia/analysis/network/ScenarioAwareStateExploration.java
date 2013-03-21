@@ -57,20 +57,16 @@ import org.caltoopia.analysis.air.Guard;
 import org.caltoopia.analysis.air.InputLookAhead;
 import org.caltoopia.analysis.air.PortInstance;
 import org.caltoopia.analysis.air.PortSignature;
-import org.caltoopia.analysis.air.State;
 import org.caltoopia.analysis.air.Transition;
-import org.caltoopia.analysis.iradapter.CaltoopiaNetwork;
 import org.caltoopia.analysis.network.ScenarioAwareNetworkAnalysis;
-import org.caltoopia.analysis.network.ScenarioAwareNetworkAnalysis.ControlToken;
-import org.caltoopia.analysis.network.ScenarioAwareNetworkAnalysis.ControlTokensPerAction;
+import org.caltoopia.analysis.network.ControlToken;
+import org.caltoopia.analysis.network.ControlTokensPerAction;
 import org.caltoopia.analysis.network.ScenarioFSM.ScenarioFSMState;
 import org.caltoopia.analysis.network.ScenarioFSM.ScenarioFSMTransition;
 import org.caltoopia.analysis.util.collections.CartesianProduct;
-import org.caltoopia.analysis.util.collections.Interval;
 import org.caltoopia.analysis.util.collections.Pair;
 import org.caltoopia.analysis.util.collections.UnionOfDisjointIntervals;
 import org.caltoopia.ast2ir.Stream;
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -79,24 +75,27 @@ import org.w3c.dom.NodeList;
 
 public class ScenarioAwareStateExploration {
 	
-	public class ControlTokenFSMState{
+	public class FiringNode{
 		public String name;
 		public ActorInstance detectorActor = null;
-		public Action action = null;
-		public Map<String, Long> controlTokens = new HashMap<String, Long>();
-		public Set<String> transitions = new HashSet<String>();
-		public ControlTokenFSMState(String n, ActorInstance d){
+		public Action firing = null;
+		public Map<String, UnionOfDisjointIntervals> controlTokens = 
+				new HashMap<String, UnionOfDisjointIntervals>();
+		public Set<String> outGoingTransitions = new HashSet<String>();
+		public FiringNode(String n, ActorInstance d){
 			name = n;
 			detectorActor = d;
 		}
 		
 		public void print(PrintStream stream){
 			stream.println("\t\tState: "+name);
-			for(Map.Entry<String, Long> e: controlTokens.entrySet()){
-				stream.println("\t\t\tControlToken: "+e.getKey()+", Value: "+e.getValue());
+			for(Map.Entry<String, UnionOfDisjointIntervals> e: 
+				controlTokens.entrySet()){
+				stream.println("\t\t\tControlToken: "+
+						e.getKey()+", Value: "+e.getValue().toString());
 			}
 			
-			for(String s: transitions){
+			for(String s: outGoingTransitions){
 				stream.println("\t\t\tTransits to: "+s);
 			}
 		}
@@ -105,31 +104,31 @@ public class ScenarioAwareStateExploration {
 	/**
 	 * control token transition
 	 */
-	public class DetectorFSM{		
+	public class FiringSchedule{		
 		public ActorInstance detectorActor;
-		public String initialState;
-		public Set<ControlTokenFSMState> states = new HashSet<ControlTokenFSMState>();
+		public String initialFiring;
+		public Set<FiringNode> firings = new HashSet<FiringNode>();
 		
-		public DetectorFSM(ActorInstance i){
+		public FiringSchedule(ActorInstance i){
 			detectorActor = i;
 		}
 		
-		public ControlTokenFSMState getState(String n){
-			for(ControlTokenFSMState s: states){
+		public FiringNode getFiring(String n){
+			for(FiringNode s: firings){
 				if(s.name.equals(n))
 					return s;
 			}
 			return null;
 		}
 		
-		public ControlTokenFSMState getInitialState(){
-			return getState(initialState);
+		public FiringNode getInitialFiring(){
+			return getFiring(initialFiring);
 		}
 		
 		public void print(PrintStream stream){
 			stream.println("Detector: "+detectorActor.getInstanceName());
-			stream.println("\tIntialState: "+initialState);
-			for(ControlTokenFSMState s: states){
+			stream.println("\tIntialFiring: "+initialFiring);
+			for(FiringNode s: firings){
 				s.print(stream);
 			}
 		}
@@ -178,7 +177,7 @@ public class ScenarioAwareStateExploration {
 	 * number of eliminated scenario graph due to duplication
 	 * or non-existence
 	 */	
-	private int eliminatedScenarioGraphs = 0;
+	private int numberOfEliminatedScenarioGraphs = 0;
 	
 	//the scenario-aware network analysis object 
 	private ScenarioAwareNetworkAnalysis analysis = null;
@@ -187,7 +186,7 @@ public class ScenarioAwareStateExploration {
 	private Set<ControlToken> controlTokens  = new HashSet<ControlToken>();
 	
 	//detector fsm
-	private List<DetectorFSM> detectorFSMs = new ArrayList<DetectorFSM>();
+	private List<FiringSchedule> firingSchedules = new ArrayList<FiringSchedule>();
 	
 	//non-existing control token transitions
 	private List<ControlTokenTransition> nonExistingTokenTransitions =
@@ -201,7 +200,6 @@ public class ScenarioAwareStateExploration {
 		analysis = a;
 		populateControlTokens();
 		populateDetectorFSMs();
-		printDetectorFSMs(System.out);
 	}
 	
 	public ScenarioAwareNetworkAnalysis getAnalysis(){
@@ -210,6 +208,14 @@ public class ScenarioAwareStateExploration {
 	
 	public void setAnalysis(ScenarioAwareNetworkAnalysis a){
 		analysis = a;
+	}
+	
+	public ScenarioFSM getScenarioFSM(){
+		return scenarioFSM;
+	}
+	
+	public int getNumberOfEliminatedScenarioGraphs(){
+		return numberOfEliminatedScenarioGraphs;
 	}
 	
 	//print network control tokens
@@ -221,7 +227,7 @@ public class ScenarioAwareStateExploration {
 	
 	//print network control tokens
 	public void printDetectorFSMs(PrintStream stream){		
-		for(DetectorFSM d : detectorFSMs){
+		for(FiringSchedule d : firingSchedules){
 			d.print(stream);
 		}
 	}
@@ -309,7 +315,7 @@ public class ScenarioAwareStateExploration {
 					}
 				}
 			}			
-		}		
+		}			
 		return false;
 	}
 
@@ -319,10 +325,10 @@ public class ScenarioAwareStateExploration {
 	 * @param ctActions: a combination of control tokens
 	 * @return true if the combination exists or false otherwise
 	 */
-	public boolean controlTokensExist(Set<Pair<ActorInstance, Transition>> tr, 
+	public boolean controlTokensExist(Set<FiringNode> configuration, 
 			Set<ControlTokensPerAction> ctActions){	
-		for(Pair<ActorInstance, Transition> transition: tr){	
-			Action action = transition.getSecond().getAction();
+		for(FiringNode firingNode: configuration){	
+			Action action = firingNode.firing;
 			if(action.hasGuard()){
 				Guard guard = action.getGuard();
 				Map<InputLookAhead, UnionOfDisjointIntervals> modeSet 
@@ -334,7 +340,7 @@ public class ScenarioAwareStateExploration {
 					PortInstance detectorPort = lookAhead.getPort();
 					if(!isIntervalInActionScenarioTokens(detectorPort, 
 							modeSet.get(lookAhead), ctActions)){
-						eliminatedScenarioGraphs++;
+						numberOfEliminatedScenarioGraphs++;
 						return false;
 					}
 				}				
@@ -343,34 +349,152 @@ public class ScenarioAwareStateExploration {
 		return true;
 	}
 	
+	
 	/**
-	 * checks if a combination of control tokens exist
-	 * @param tr: a combination of fsm transitions
-	 * @param ctActions: a combination of control tokens
-	 * @return true if the combination exists or false otherwise
+	 * returns the all possible tuples of control tokens of a configuration
+	 * @param configuration: a tuple of firings
 	 */
-	public boolean stateTupleExist(Set<ControlTokenFSMState> stateTuple){	
-		Set<ControlTokensPerAction> ctActions = new HashSet<ControlTokensPerAction>();
-		for(ControlTokenFSMState cs: stateTuple){
-			ControlTokensPerAction t = analysis.new ControlTokensPerAction(cs.detectorActor, cs.action);
-			t.setControlTokens(cs.controlTokens);
-			ctActions.add(t);			
+	public Set<Set<ControlTokensPerAction>> getTuplesOfControlTokens(Set<FiringNode> configuration){
+		String msg = "";
+		//a list of tuples of control tokens
+		List<Set<ControlTokensPerAction>> listOfControlTokens = new ArrayList<Set<ControlTokensPerAction>>();	
+		Set<Set<ControlTokensPerAction>> tuplesOfConfiguration = new HashSet<Set<ControlTokensPerAction>>();
+		try{
+			for(FiringNode firingNode: configuration){				
+				//set of tuples of control tokens of one firing
+				Set<ControlTokensPerAction> controlTokensOfFiring = new HashSet<ControlTokensPerAction>();
+				
+				Map<String, UnionOfDisjointIntervals> controlTokens = firingNode.controlTokens;
+				List<Set<Pair<String, Long>>> tokenRanges = new ArrayList<Set<Pair<String, Long>>>();
+				for(Map.Entry<String,UnionOfDisjointIntervals> e: controlTokens.entrySet()){					
+					Set<Pair<String, Long>> tokenRange = new HashSet<Pair<String, Long>>();
+					for(Long scenario: e.getValue().asSet()){
+						tokenRange.add(new Pair<String, Long>(e.getKey().trim(), scenario));
+					}
+					tokenRanges.add(tokenRange);
+				}						
+						
+				for(Set<Pair<String, Long>> str: CartesianProduct.cartesianProduct(tokenRanges)){
+					ControlTokensPerAction sta = new ControlTokensPerAction(firingNode.detectorActor, firingNode.firing);
+					for(Pair<String, Long> e: str){
+						if(sta.getControlTokens().containsKey(e.getFirst())){
+							msg = "nonExistingConfiguration: ";
+							msg += "duplicate entry of a control token in ControlTokensPerAction detected.";
+							throw new Exception( msg );
+						}
+						sta.addControlToken(e.getFirst(),e.getSecond());
+					}
+					controlTokensOfFiring.add(sta);
+				}
+				if(controlTokensOfFiring.size()>0)
+					listOfControlTokens.add(controlTokensOfFiring);
+			}	
+			tuplesOfConfiguration = CartesianProduct.cartesianProduct(listOfControlTokens);
+		}
+		catch(Exception e){
+			System.out.println(e.getMessage());
+			System.exit(1);
 		}
 		
-		for(ControlTokenFSMState state: stateTuple){	
-			Action action = state.action;
+		return tuplesOfConfiguration;
+	}
+	
+	/**
+	 * checks if a configuration exists
+	 * @param configuration: a tuple of firings
+	 * @return true if the configuration exists or false otherwise
+	 */
+	public boolean isDetectorFiringEnabled(FiringNode firingNode, Set<FiringNode> configuration){			
+		Set<Set<ControlTokensPerAction>> tuplesOfControlTokens = getTuplesOfControlTokens(configuration);		
+		Action action = firingNode.firing;
+		if(action.hasGuard()){
+			Guard guard = action.getGuard();
+			Map<InputLookAhead, UnionOfDisjointIntervals> modeSet 
+						= guard.matchScenarioAwareGuard();
+			// If an action does not have a scenario-aware guard, skip it.
+			// The rationale is the following. If a firing does not have,
+			// a scenario-aware guard, then it is not driven by another detector actor.
+			// Thus, the firing is independent and for the sake of conservativeness,
+			// it is assumed 'active'. If the firing has a scenario-aware guard, then
+			// it will be checked later if it is driven by a detector actor.
+			if (modeSet == null){
+				return true;		
+			}
+			
+			//Otherwise, each input look-ahead of the guard must be satisfied
+			for(InputLookAhead lookAhead: modeSet.keySet()){
+				PortInstance detectorPort = lookAhead.getPort();
+				PortInstance producerPort = null;
+				ActorInstance act = detectorPort.getActor();
+				if(analysis.getScenarioAwareActorAnalysis(act).isTypeAnnotated())
+					producerPort = detectorPort;
+				else{
+					//port is input and it has only one incident connection
+					Connection c = analysis.getNetwork().getIncidentConnections(detectorPort).iterator().next();
+					producerPort = c.getProducerPort();
+				}				
+				boolean exists = false;
+				
+				for(Set<ControlTokensPerAction> ctTuple : tuplesOfControlTokens){
+					//Check if one of the ctActions satisfy the port's requirement
+					for(ControlTokensPerAction ctAction: ctTuple){							
+						if(ctAction.getDetectorActor()!=producerPort.getActor())
+							continue;
+							
+						Action detectorAction = ctAction.getDetectorAction();
+						PortSignature ps = detectorAction.getPortSignature();
+						if(ps.getPortRate(producerPort) > 0)
+							exists = true;
+						break;						
+					}
+					
+					if(exists)
+						break;
+				}
+				if(!exists)
+					return false;
+			}				
+		}
+				
+		return true;
+	}
+	
+	/**
+	 * checks if a configuration exists
+	 * @param configuration: a tuple of firings
+	 * @return true if the configuration exists or false otherwise
+	 */
+	public boolean existentConfiguration(Set<FiringNode> configuration){			
+		Set<Set<ControlTokensPerAction>> tuplesOfControlTokens = getTuplesOfControlTokens(configuration);		
+		for(FiringNode firingNode: configuration){	
+			Action action = firingNode.firing;
 			if(action.hasGuard()){
 				Guard guard = action.getGuard();
 				Map<InputLookAhead, UnionOfDisjointIntervals> modeSet 
 							= guard.matchScenarioAwareGuard();
-				if (modeSet == null)
-					continue;			
-				//each input look-ahead must be satisfied
+				// If an action does not have a scenario-aware guard, skip it.
+				// The rationale is the following. If a firing does not have,
+				// a scenario-aware guard, then it is not driven by another detector actor.
+				// Thus, the firing is independent and for the sake of conservativeness,
+				// it is assumed 'active'. If the firing has a scenario-aware guard, then
+				// it will be checked later if it is driven by a detector actor.
+				if (modeSet == null){
+					continue;		
+				}
+				
+				//Otherwise, each input look-ahead of the guard must be satisfied
 				for(InputLookAhead lookAhead: modeSet.keySet()){
 					PortInstance detectorPort = lookAhead.getPort();
-					if(!isIntervalInActionScenarioTokens(detectorPort, 
-							modeSet.get(lookAhead), ctActions)){
-						eliminatedScenarioGraphs++;
+					boolean exists = false;
+					//at least one of the tupelOfControlTokens should exist
+					for(Set<ControlTokensPerAction> ctTuple : tuplesOfControlTokens){
+						if(isIntervalInActionScenarioTokens(detectorPort, 
+								modeSet.get(lookAhead), ctTuple)){											
+							exists = true;
+							break;
+						}						
+					}
+					if(!exists){
 						return false;
 					}
 				}				
@@ -388,12 +512,12 @@ public class ScenarioAwareStateExploration {
 	 * @return a set of ScenarioGraph, possibly empty.
 	 */
 	public Set<ScenarioGraph> constructScenarioGraphs(List<ActorInstance> sources, 
-				Set<Pair<ActorInstance, Transition>> tr,
+			    Set<FiringNode> configuration,
 				Set<Set<ControlTokensPerAction>> ctActions){
 		
 		Set<ScenarioGraph> scenarioGraphs = new HashSet<ScenarioGraph>();
 		for(Set<ControlTokensPerAction> st: ctActions){
-			ScenarioGraph g = analysis.constructScenarioGraph(sources, tr, st);
+			ScenarioGraph g = analysis.constructScenarioGraph(sources, configuration, st);
 			if(g!=null){
 				//check if it is not duplicate
 				boolean exists = false;
@@ -498,135 +622,7 @@ public class ScenarioAwareStateExploration {
 		return null;
 	}
 	
-	/**
-	 * constructs the FSM using a state-space exploration. A state of the 
-	 * exploration (ExplorationState) is a map that assigns each detector
-	 * one of its 'CAL FSM state'. Exploration terminates when all possible 
-	 * ExplorationStates are found. Every ExplorationState may have multiple 
-	 * combinations of transitions possible. Each combination of transitions 
-	 * corresponds to a unique combination of actions that comprises one-action 
-	 * per detector. Each combination of actions may further define multiple 
-	 * combinations of control tokens. Each combination of control tokens
-	 * defines exactly one scenario graph of the network. 
-	 * @return
-	 */
-	public ScenarioFSM constructScenarioFSM(){		
-		//the set of visited states
-		Set<ExplorationState> visitedStates = new HashSet<ExplorationState>();
-		
-		//the set of detector actors
-		Set<ActorInstance> dActors = analysis.getScenarioAwareDetectorActors();
-		
-		//a queue of a combination of transitions to be analyzed
-		List<Set<Pair<ActorInstance, Transition>>> ttQueue = null; 		
-		ttQueue = new ArrayList<Set<Pair<ActorInstance, Transition>>>();
-		
-		try{
-			List<ActorInstance> sources = analysis.getSourceActors();
-			
-			if(sources.size()==0){
-				String msg = "constructScenarioFSM: no source actor found.";
-				msg += "Use annotation: @ActorProperty(Source=\"true\")";
-				throw new NullPointerException(msg);
-			}
-			
-			//initialExplorationState = the set of the initial states of detector actors
-			Map<ActorInstance, State> ieState = new HashMap<ActorInstance, State>();
-			for(ActorInstance d: dActors){
-				ieState.put(d,d.getImplementation().getSchedule().getInitialState());
-			}				
-			ExplorationState state = new ExplorationState(ieState, "InitialState");	
-			
-			//Find all possible transitions of the initialStateSpaceState
-			for(Set<Pair<ActorInstance, Transition>> s: 
-										ExplorationState.traverseTransitions(ieState)){
-				ttQueue.add(s);
-				state.addTransitionTuple(s);
-			}
-			visitedStates.add(state);			
-			state.printActorStateTuple(System.out);
-			
-			while(!ttQueue.isEmpty()){
-				//take a combination of transitions from the queue
-				Set<Pair<ActorInstance, Transition>> tt = ttQueue.remove(0);	
-				
-				//find the exploration state of the combination of transitions
-				ExplorationState statett = null;
-				statett = ExplorationState.findExplorationStateOfTransition(visitedStates, tt);			
-				if(statett==null){
-					String msg = "constructScenarioFSM:transition has no state";
-					throw new NullPointerException(msg);
-				}
-				List<Set<ControlTokensPerAction>> sTokens = new ArrayList<Set<ControlTokensPerAction>>();
-				Map<ActorInstance, State> newState = new HashMap<ActorInstance, State>();
-				
-				//Find the set of ControlTokensPerActions produced by each detector actor
-				for(Pair<ActorInstance, Transition> transition: tt){
-					Set<ControlTokensPerAction> cta = analysis.getControlTokensOfAction(
-							transition.getFirst(), transition.getSecond().getAction());
-					if(cta != null){
-						sTokens.add(cta);
-					}
-					newState.put(transition.getFirst(), transition.getSecond().getTargetState());	
-				}			
-				Set<Set<ControlTokensPerAction>> ctaSet = CartesianProduct.cartesianProduct(sTokens);
-				Set<ScenarioGraph> sgs = constructScenarioGraphs(sources, tt, ctaSet);				
-				if(!sgs.isEmpty()){
-					for(ScenarioGraph sg: sgs){
-						if(ExplorationState.findScenarioGraph(sg, statett.getScenarioGraphs(), false)==null)
-							statett.getScenarioGraphs().add(sg);
-						else
-							eliminatedScenarioGraphs++;
-					}
-				}				
-			
-				//If a newStateSpaceState is found, put it in the list of visited states.
-				ExplorationState existingState = ExplorationState.findVistedState(visitedStates, newState);				
-				if(existingState==null){						
-					ExplorationState newEState = new ExplorationState(newState, "EState"+visitedStates.size());
-					newEState.addIncidentState(statett);					
-					for(Set<Pair<ActorInstance, Transition>> s:ExplorationState.traverseTransitions(newState)){
-						ttQueue.add(s);
-						newEState.addTransitionTuple(s);
-					}					
-					visitedStates.add(newEState);
-					System.out.println("From ..");
-					statett.printActorStateTuple(System.out);
-					System.out.println("To ..");
-					newEState.printActorStateTuple(System.out);
-					System.out.println("---------");
-				}
-				else{
-					existingState.addIncidentState(statett);
-				}
-			}	
-		
-		//Remove all Exploration States which have no ScenarioGraphs
-		visitedStates.removeAll(getZeroGraphStates(visitedStates));	
-		
-		if(visitedStates.size() == 0){
-			throw new Exception("constructScenarioFSM: No valid exploration states found.");
-		}
-			
-		//generate the FSM states
-		generateFSMStates(visitedStates);		
-		
-		//generate the FSM transitions
-		generateFSMTransitions(visitedStates);		
-		
-		System.out.println(scenarioFSM.getScenarioFSMStates().size() + " FSM States, " + 
-							scenarioFSM.getScenarioFSMTransitions().size() + " FSM Transtions, " +
-							scenarioFSM.getScenarioGraphs().size() + " scenario graphs," +
-							eliminatedScenarioGraphs + " eliminated graphs");
-		}
-		catch(Exception e){
-			System.out.println(e.getMessage());
-			System.exit(1);
-		}	
-		
-		return scenarioFSM;
-	}
-	
+
 	/**
 	 * searches states that have no ScenarioGraphs
 	 * @param states: a set of ExplorationStates to be tested
@@ -652,19 +648,21 @@ public class ScenarioAwareStateExploration {
 	 * generates scenario FSM states from a given set of ExplorationStates
 	 * @param visitedStates
 	 */
-	private void generateFSMStates(Set<ExplorationState> visitedStates){
+	private void generateCompleteFSMStates(Set<ExplorationState> visitedStates){
 		String str;
 		//Create FSM states and scenario graphs
 		for(ExplorationState eState: visitedStates){			
 			for(ScenarioGraph sGraph: eState.getScenarioGraphs()){
 				//create new FSM state
-				str = eState.getName();
+				str = "State_"+Integer.toString(scenarioFSM.getScenarioFSMStates().size());
 				ScenarioFSMState fsmState = scenarioFSM.new ScenarioFSMState(str);
 				ScenarioGraph existingSGraph = null;
-				existingSGraph = ExplorationState.findScenarioGraph(sGraph, scenarioFSM.getScenarioGraphs(), false);				
+				existingSGraph = ExplorationState.findScenarioGraph(sGraph, 
+						                  scenarioFSM.getScenarioGraphs(), false);				
 				//if new scenario graph, add to the list
 				if(existingSGraph==null){		
-					str = "ScenarioGraph_"+scenarioFSM.getScenarioGraphs().size();
+					//str = "ScenarioGraph_"+scenarioFSM.getScenarioGraphs().size();
+					str = sGraph.getControlTokensAsString();
 					sGraph.setName(str);
 					fsmState.setScenarioGraph(sGraph);
 					scenarioFSM.addScenarioGraph(sGraph);					
@@ -680,10 +678,50 @@ public class ScenarioAwareStateExploration {
 			}
 		}
 		
+		//create initial state with just a random scenario graph (for the time-being)
+		ScenarioFSMState initialFsmState = scenarioFSM.new ScenarioFSMState("InitialState");
+		initialFsmState.setScenarioGraph(scenarioFSM.getScenarioGraphs().iterator().next());
+		scenarioFSM.addScenarioFSMState(initialFsmState);
+	}
+	
+	/**
+	 * generates scenario FSM states from a given set of ExplorationStates
+	 * @param visitedStates
+	 */
+	private void generateConservativeFSMStates(Set<ExplorationState> visitedStates){
+		String str;
+		//Create FSM states and scenario graphs
+		for(ExplorationState eState: visitedStates){			
+			for(ScenarioGraph sGraph: eState.getScenarioGraphs()){
+				//create new FSM state
+				str = eState.getName();				
+				ScenarioGraph existingSGraph = null;
+				existingSGraph = ExplorationState.findScenarioGraph(sGraph, 
+						              scenarioFSM.getScenarioGraphs(), false);				
+				//if new scenario graph, add to the list
+				if(existingSGraph==null){	
+					str = "State_"+Integer.toString(scenarioFSM.getScenarioFSMStates().size());
+					ScenarioFSMState fsmState = scenarioFSM.new ScenarioFSMState(str);
+					str = sGraph.getControlTokensAsString();
+					sGraph.setName(str);
+					fsmState.setScenarioGraph(sGraph);
+					scenarioFSM.addScenarioGraph(sGraph);
+					eState.addScenarioFSMState(fsmState);
+					scenarioFSM.addScenarioFSMState(fsmState);
+				}
+				else{
+					//change the name of the g
+					sGraph.setName(existingSGraph.getName());		
+					ScenarioFSMState fsmState = scenarioFSM.getState(existingSGraph);
+					eState.addScenarioFSMState(fsmState);
+				}				
+			}
+		}
+		
 //		//create initial state with just a random scenario graph (for the time-being)
-//		ScenarioFSMState initialFsmState = scenarioFSM.new ScenarioFSMState("InitialState");
-//		initialFsmState.setScenarioGraph(scenarioFSM.getScenarioGraphs().iterator().next());
-//		scenarioFSM.addScenarioFSMState(initialFsmState);
+		ScenarioFSMState initialFsmState = scenarioFSM.new ScenarioFSMState("InitialState");
+		initialFsmState.setScenarioGraph(scenarioFSM.getScenarioGraphs().iterator().next());
+		scenarioFSM.addScenarioFSMState(initialFsmState);
 	}
 	
 	/**
@@ -697,25 +735,25 @@ public class ScenarioAwareStateExploration {
 			
 			//connect the initial state of the scenario FSM with
 			//every FSM state of the initial exploration state
-//			if(eState.getName().equals("InitialState")){			
-//				for(ScenarioFSMState targetFSMState: eState.getScenarioFSMStates()){
-//					str = "Transition"+scenarioFSM.getScenarioFSMTransitions().size();
-//					ScenarioFSMTransition fsmTransition = scenarioFSM.new ScenarioFSMTransition(str);
-//					fsmTransition.setSourceState(scenarioFSM.getState("InitialState"));
-//					fsmTransition.setTargetState(targetFSMState);
-//					if(fsmTransition.getSourceState()==null || fsmTransition.getTargetState()==null){
-//						str = "generateFSMTransitions: transition has no source/target state.";
-//						throw new NullPointerException(str);
-//					}
-//					if(!scenarioFSM.transitionExists(fsmTransition)){
-//						scenarioFSM.addScenarioFSMTransition(fsmTransition);
-//					}
-//					else{
-//						str = "generateFSMTransitions: duplicated transitions detected.";
-//						throw new NullPointerException(str);
-//					}						
-//				}
-//			}
+			if(eState.getName().equals("InitialState")){			
+				for(ScenarioFSMState targetFSMState: eState.getScenarioFSMStates()){
+					str = "Transition"+scenarioFSM.getScenarioFSMTransitions().size();
+					ScenarioFSMTransition fsmTransition = scenarioFSM.new ScenarioFSMTransition(str);
+					fsmTransition.setSourceState(scenarioFSM.getState("InitialState"));
+					fsmTransition.setTargetState(targetFSMState);
+					if(fsmTransition.getSourceState()==null || fsmTransition.getTargetState()==null){
+						str = "generateFSMTransitions: transition has no source/target state.";
+						throw new NullPointerException(str);
+					}
+					if(!scenarioFSM.transitionExists(fsmTransition)){
+						scenarioFSM.addScenarioFSMTransition(fsmTransition);
+					}
+					else{
+						str = "generateFSMTransitions: duplicated transitions detected.";
+						throw new NullPointerException(str);
+					}						
+				}
+			}
 
 			//add a transition from every FSM state of every incidentState to 
 			//every FSM state of the current state
@@ -732,10 +770,10 @@ public class ScenarioAwareStateExploration {
 						if(!scenarioFSM.transitionExists(fsmTransition)){
 							scenarioFSM.addScenarioFSMTransition(fsmTransition);
 						}
-						else{
-							str = "generateFSMTransitions: duplicated transitions detected.";
-							throw new NullPointerException(str);
-						}
+//						else{
+//							str = "generateFSMTransitions: duplicated transitions detected.";
+//							throw new NullPointerException(str);
+//						}
 						
 					}
 				}
@@ -761,6 +799,8 @@ public class ScenarioAwareStateExploration {
 		}
 		return false;
 	}
+	
+	
 	/**
 	 * populates the control tokens of the network. Each control token has a name, 
 	 * a parent detector actor and a list of (broadcast) control ports. Hence, all
@@ -782,7 +822,7 @@ public class ScenarioAwareStateExploration {
 								hasAnnotation = true;
 								for(String t: s.split(";")){
 									String st[] = t.split(":");
-									ControlToken controlToken = analysis.new ControlToken(actor, st[0].trim());	
+									ControlToken controlToken = new ControlToken(actor, st[0].trim());	
 									//Add common ports
 									for(String p: st[1].split(",")){
 										PortInstance pi = actor.getPort(p.trim());
@@ -797,6 +837,7 @@ public class ScenarioAwareStateExploration {
 								}
 							}
 							
+							// the 'Filters' tag specifies, non-existing token transitions
 							if (actor.getAnnotationArgumentValue("ActorProperty", "Filters")!=null){
 								String s = actor.getAnnotationArgumentValue("ActorProperty", "Filters");
 								for(String t: s.split(";")){
@@ -813,7 +854,7 @@ public class ScenarioAwareStateExploration {
 						}
 						//Otherwise, assume all output ports belong to the same token type					
 						if(!hasAnnotation){
-							ControlToken controlToken = analysis.new ControlToken(actor, "default");	
+							ControlToken controlToken = new ControlToken(actor, "d");	
 							for(PortInstance pi: actor.getOutputPorts()){
 								controlToken.addControlPort(pi);
 							}
@@ -831,8 +872,8 @@ public class ScenarioAwareStateExploration {
 	private void populateDetectorFSMs(){
 		for(ActorInstance dActor: analysis.getDetectorActors()){
 			String filePath = analysis.getResourcePath()+File.separator+ 
-					dActor.getInstanceName()+".fsm";
-			DetectorFSM detectorFSM = new DetectorFSM(dActor);
+					dActor.getInstanceName()+".sched";
+			FiringSchedule firingSchedule = new FiringSchedule(dActor);
 			Document document; 
 			DocumentBuilderFactory factory =
 			            DocumentBuilderFactory.newInstance();
@@ -840,36 +881,35 @@ public class ScenarioAwareStateExploration {
 	        try {
 	           DocumentBuilder builder = factory.newDocumentBuilder();
 	           document = builder.parse(new File(filePath));
-	           if(document.getDocumentElement().getTagName().equalsIgnoreCase("fsm")){	        	   
+	           if(document.getDocumentElement().getTagName().equalsIgnoreCase("firingSchedule")){	        	   
 	        	   NamedNodeMap fsmAttributes = document.getDocumentElement().getAttributes();
-	        	   Node initialStateNode = fsmAttributes.getNamedItem("initialState");
-                   if(initialStateNode==null)
-                	   throw new Exception("No initial state in FSM");
-                   detectorFSM.initialState = initialStateNode.getNodeValue();                    
+	        	   Node initialFiringNode = fsmAttributes.getNamedItem("initialnode");
+                   if(initialFiringNode==null)
+                	   throw new Exception("No initial node in firing schedule");
+                   firingSchedule.initialFiring = initialFiringNode.getNodeValue();                    
                    
 	        	   NodeList nodes = document.getDocumentElement().getChildNodes();
 	        	   for (int i=0; i<nodes.getLength() ; i++)
 	               {   
 	        		   Node node = nodes.item(i);
 		               if (node.getNodeType() == Node.ELEMENT_NODE){
-		            	   if(((Element) node).getTagName().equalsIgnoreCase("State")){
+		            	   if(((Element) node).getTagName().equalsIgnoreCase("node")){
 		            		   Node stateNameNode = node.getAttributes().getNamedItem("name");		                  
-		            		   ControlTokenFSMState state = new ControlTokenFSMState(
+		            		   FiringNode firingNode = new FiringNode(
 		            				   stateNameNode.getNodeValue(), dActor);
 		            		   
 		            		   //set action
 		            		   Node actionNameNode = node.getAttributes().getNamedItem("action");	
 		            		   for(Action a: dActor.getImplementation().getActions()){
-	            				   System.out.println(a.getName());
 	            				   String aName = a.getName().split("__")[1];
 		            			   if(aName.equals(actionNameNode.getNodeValue())){
-		            				   state.action = a;
+		            				   firingNode.firing = a;
 		            				   break;
 		            			   }		            				   
 		            		   }
 		            		   
-		            		   if(state.action==null)
-		            			   throw new Exception("State has no action.");
+		            		   if(firingNode.firing==null)
+		            			   throw new Exception("Firing node has no action.");
 		            		   
 		            		   NodeList childNodes = node.getChildNodes();
 		            		   int numChildNodes = childNodes.getLength();
@@ -879,17 +919,18 @@ public class ScenarioAwareStateExploration {
 		            				   if(((Element) childNode).getTagName().equalsIgnoreCase("ControlToken")){
 		            					   Node valueNode = childNode.getAttributes().getNamedItem("value");
 		            					   Node nameNode = childNode.getAttributes().getNamedItem("name");
-		            					   Long l = Long.parseLong(valueNode.getNodeValue().trim());
-		            					   state.controlTokens.put(nameNode.getNodeValue(),l);
+		            					   UnionOfDisjointIntervals l = 
+		            							   ControlToken.parseIntervals(valueNode.getNodeValue().trim());
+		            					   firingNode.controlTokens.put(nameNode.getNodeValue(),l);
 		            				   }
 		                		 
 		            				   if(((Element) childNode).getTagName().equalsIgnoreCase("Transition")){
-		            					   Node tNode = childNode.getAttributes().getNamedItem("state");
-		            					   state.transitions.add(tNode.getNodeValue());
+		            					   Node tNode = childNode.getAttributes().getNamedItem("node");
+		            					   firingNode.outGoingTransitions.add(tNode.getNodeValue());
 		            				   }
 		            			   }
 		            		   }
-		            		   detectorFSM.states.add(state);
+		            		   firingSchedule.firings.add(firingNode);
 		            	   }
 		               }
 	               }
@@ -897,28 +938,68 @@ public class ScenarioAwareStateExploration {
 	        } catch (Throwable e) {
 	           e.printStackTrace();
 	        }
-	        detectorFSMs.add(detectorFSM);
+	        firingSchedules.add(firingSchedule);
 		}
 	}
 	
-	public DetectorFSM getDetectorFSM(ActorInstance a){
-		for(DetectorFSM f: detectorFSMs){
+	
+	public FiringSchedule getFiringSchedule(ActorInstance a){
+		for(FiringSchedule f: firingSchedules){
 			if(f.detectorActor == a)
 				return f;
 		}
 		return null;
 	}
 	
-	public ScenarioFSM constructScenarioFSM2(){		
-		//the set of visited states
-		List<ExplorationState> statesQueue = new ArrayList<ExplorationState>();
+	/**
+	 * prints possible scenario configurations and the tuples of control tokens of 
+	 * each scenario configuration. 
+	 */
+	public void printScenarioConfigurations(){	
+		//the set of detector actors
+		Set<ActorInstance> dActors = analysis.getScenarioAwareDetectorActors();
 		
+		List<Set<Action>> setOfSetsOfFirings = new ArrayList<Set<Action>>();
+		for(ActorInstance detector : dActors){
+			Set<Action> firings = new HashSet<Action>();
+			for(Action action : detector.getImplementation().getActions()){
+				firings.add(action);
+			}
+			System.out.println(detector.getInstanceName()+" has "+firings.size()+" firings.");
+			setOfSetsOfFirings.add(firings);
+		}
+		
+		Set<Set<Action>> configurations = CartesianProduct.cartesianProduct(setOfSetsOfFirings);
+		System.out.println(configurations.size()+" configurations found!");
+		for(Set<Action> configuration: configurations){
+			for(Action action: configuration){
+				System.out.print(action.getName()+" ");
+			}
+			System.out.println();
+		}
+	}
+	
+	/**
+	 * Extracts scenarios and constructs the FSM using the firing schedules
+	 * of detector actors. The firing schedules are constructed from file.
+	 * The FSM is constructed through state-space exploration. A state is 
+	 * uniquely identified by a scenario configuration, which is a tuple of
+	 * detector actor firings.
+	 * @return
+	 */
+	public List<ExplorationState> constructConfigurationSpace(){		
+		
+		//a list of states to be visited
+		List<ExplorationState> statesToBeVisited = new ArrayList<ExplorationState>();
+		
+		//a list of visited states
 		List<ExplorationState> visitedStates = new ArrayList<ExplorationState>();
 		
 		//the set of detector actors
-		Set<ActorInstance> dActors = analysis.getScenarioAwareDetectorActors();
+		Set<ActorInstance> detectorActors = analysis.getScenarioAwareDetectorActors();
 			
 		try{
+			//list of source actors
 			List<ActorInstance> sources = analysis.getSourceActors();
 			
 			if(sources.size()==0){
@@ -927,97 +1008,201 @@ public class ScenarioAwareStateExploration {
 				throw new NullPointerException(msg);
 			}
 			
-			//initialExplorationState = the set of the initial states of detector actors
-			Set<ControlTokenFSMState> ieState = new HashSet<ControlTokenFSMState>();
-			for(ActorInstance d: dActors){
-				ieState.add(getDetectorFSM(d).getInitialState());
-			}				
+			//initialExplorationState:= set of the initial firings of detector actors
+			Set<FiringNode> ieState = new HashSet<FiringNode>();
+			for(ActorInstance d: detectorActors){
+				ieState.add(getFiringSchedule(d).getInitialFiring());
+			}			
+			ExplorationState initialState = new ExplorationState(ieState, "InitialState");			
+			statesToBeVisited.add(initialState);	
 			
-			ExplorationState state = new ExplorationState(ieState, "EState");			
-			
-			statesQueue.add(state);	
-			
-			while(!statesQueue.isEmpty()){
-				//take a combination of transitions from the queue
-				ExplorationState tt = statesQueue.remove(0);	
+			//as long as there are states to visited
+			while(!statesToBeVisited.isEmpty()){
 				
-				//find the exploration state of the combination of transitions
-				ExplorationState existingState = ExplorationState.findVistedState(visitedStates, tt.stateTuple);	
+				//pick a state 
+				ExplorationState state = statesToBeVisited.remove(0);	
+				
+				//test if the configuration of the state has already been visited
+				ExplorationState existingState = null;
+				existingState = ExplorationState.findVistedState(visitedStates, state.configuration);	
+				
+				// if already visited, update only the list of incident states of the
+				// existing state 
 				if(existingState != null){
-					for(ExplorationState es: tt.getIncidentStates())
+					for(ExplorationState es: state.getIncidentStates()){
 						existingState.addIncidentState(es);
+					}
 				}
 				else{
+					// if the configuration is new, create a new state
+					state.setName("State_"+visitedStates.size());
+					visitedStates.add(state);	
+					System.out.println(state.getConfigurationAsString());
 					
-					tt.setName("State_"+visitedStates.size());
-					visitedStates.add(tt);
-					
-					Set<ControlTokensPerAction> sTokens = new HashSet<ControlTokensPerAction>();
-					Set<Set<ControlTokenFSMState>> nextStates = new HashSet<Set<ControlTokenFSMState>>();
-					
-					List<Set<ControlTokenFSMState>> targetStatesList = new ArrayList<Set<ControlTokenFSMState>>();
-					
-					for(ControlTokenFSMState cs: tt.stateTuple){
-						Set<ControlTokenFSMState> targetStates = new HashSet<ControlTokenFSMState>();
-						ControlTokensPerAction t = analysis.new ControlTokensPerAction(cs.detectorActor, cs.action);
-						t.setControlTokens(cs.controlTokens);
-						sTokens.add(t);			
-						
-						for(String trans: cs.transitions){
-							targetStates.add(this.getDetectorFSM(cs.detectorActor).getState(trans));
+					//a list of target firings of each firing of the configuration
+					List<Set<FiringNode>> targetFiringsList = new ArrayList<Set<FiringNode>>();
+					for(FiringNode firingNode: state.configuration){
+						Set<FiringNode> targetFirings = new HashSet<FiringNode>();
+						for(String transition: firingNode.outGoingTransitions){
+							targetFirings.add(
+									getFiringSchedule(firingNode.detectorActor).getFiring(transition));
 						}						
-						targetStatesList.add(targetStates);
+						targetFiringsList.add(targetFirings);
 					}
+
+					Set<Set<FiringNode>> nextConfigurations = computeNextConfigurations(state.configuration, targetFiringsList);	
 					
-					nextStates = CartesianProduct.cartesianProduct(targetStatesList);
-							
-					ScenarioGraph sgs = analysis.constructScenarioGraph(sources, sTokens);	
-					if(sgs!=null){
-						tt.getScenarioGraphs().add(sgs);
-					}
-					else
-						throw new Exception("ExplorationState has no scenario graph");
-					
-					for(Set<ControlTokenFSMState> st: nextStates){
-						if(stateTupleExist(st)){
-							ExplorationState newEState = new ExplorationState(st,"EState");
-							newEState.addIncidentState(tt);	
-							statesQueue.add(newEState);	
+					boolean deadEnd = true;
+					for(Set<FiringNode> nextConfiguration: nextConfigurations){
+						//System.out.print("Testing: "+ExplorationState.getConfigurationAsString(nextConfiguration));
+						if(existentConfiguration(nextConfiguration)){
+							ExplorationState newEState = new ExplorationState(nextConfiguration,"EState");
+							newEState.addIncidentState(state);	
+							statesToBeVisited.add(newEState);	
+							deadEnd = false;
+							//System.out.println(" -- exists.");
 						}
-					}					
+						//else
+							//System.out.println(" -- does not exist.");
+					}	
+					
+					
+					//Find the tuplesOfControlTokens of the configuration	
+					Set<Set<ControlTokensPerAction>> ctaSet = getTuplesOfControlTokens(state.configuration);
+					Set<ScenarioGraph> sgs = constructScenarioGraphs(sources, state.configuration, ctaSet);				
+					if(!sgs.isEmpty()){
+						for(ScenarioGraph sg: sgs){
+							if(ExplorationState.findScenarioGraph(sg, state.getScenarioGraphs(), false)==null)
+								state.addScenarioGraph(sg);
+							else
+								numberOfEliminatedScenarioGraphs++;
+						}
+					}
+					
+					if(deadEnd){
+						if(state.getScenarioGraphs().size() > 0){
+							//System.out.println(state.getConfigurationAsString());
+							System.out.println("\t\t\t --- DeadEnd");
+						}
+					}
 				}
 			}	
-		
-		Set<ExplorationState> visitedStatesSet = new HashSet<ExplorationState>();
-		visitedStatesSet.addAll(visitedStates);
-			
-		//Remove all Exploration States which have no ScenarioGraphs
-		visitedStatesSet.removeAll(getZeroGraphStates(visitedStatesSet));	
-		
-		if(visitedStatesSet.size() == 0){
-			throw new Exception("constructScenarioFSM: No valid exploration states found.");
-		}
-			
-		//generate the FSM states
-		generateFSMStates(visitedStatesSet);		
-		
-		//generate the FSM transitions
-		generateFSMTransitions(visitedStatesSet);		
-		
-		for(ExplorationState s: visitedStatesSet){
-			s.print(System.out);
-		}
-
-		System.out.println(scenarioFSM.getScenarioFSMStates().size() + " FSM States, " + 
-							scenarioFSM.getScenarioFSMTransitions().size() + " FSM Transtions, " +
-							scenarioFSM.getScenarioGraphs().size() + " scenario graphs," +
-							eliminatedScenarioGraphs + " eliminated graphs");
 		}
 		catch(Exception e){
 			System.out.println(e.getMessage());
 			System.exit(1);
 		}
 		
-		return scenarioFSM;
+		return visitedStates;
+	}
+	
+	
+	/**
+	 * constructs the complete FSM. The set of states of the 
+	 * complete FSM comprises a state for each scenario graph 
+	 * of each scenario configuration. The set of transitions 
+	 * comprises a transition between any two FSM states of two 
+	 * connected scenario configurations. 
+	 * @param states
+	 */
+	public void constructCompleteFSM(){
+		Set<ExplorationState> states = new HashSet<ExplorationState>();
+		states.addAll(constructConfigurationSpace());		
+		try{
+			//Remove all Exploration States which have no ScenarioGraphs
+			states.removeAll(getZeroGraphStates(states));	
+			
+			if(states.size() == 0){
+				throw new Exception("constructCompleteFSM: No states found.");
+			}
+				
+			//generate the FSM states
+			generateCompleteFSMStates(states);		
+			
+			//generate the FSM transitions
+			generateFSMTransitions(states);
+			
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			System.exit(1);
+		}
+
+	}
+	
+	/**
+	 * constructs the complete FSM. The set of states of the 
+	 * complete FSM comprises a state for each scenario graph 
+	 * of each scenario configuration. The set of transitions 
+	 * comprises a transition between any two FSM states of two 
+	 * connected scenario configurations. 
+	 * @param states
+	 */
+	public void constructConservativeFSM(){
+		Set<ExplorationState> states = new HashSet<ExplorationState>();
+		states.addAll(constructConfigurationSpace());		
+		try{
+			//Remove all Exploration States which have no ScenarioGraphs
+			states.removeAll(getZeroGraphStates(states));	
+			
+			if(states.size() == 0){
+				throw new Exception("constructCompleteFSM: No states found.");
+			}
+				
+			//generate the FSM states
+			generateConservativeFSMStates(states);		
+			
+			//generate the FSM transitions
+			generateFSMTransitions(states);
+			
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			System.exit(1);
+		}
+	}
+	
+	
+	public Set<Set<FiringNode>> computeNextConfigurations(Set<FiringNode> currentConfiguration,
+			List<Set<FiringNode>> targetFiringsList){
+		Set<Set<FiringNode>> nextConfigurations = new HashSet<Set<FiringNode>>();
+		for(Set<FiringNode> nextConfiguration: CartesianProduct.cartesianProduct(targetFiringsList)){
+			System.out.println("Testing: "+ExplorationState.getConfigurationAsString(nextConfiguration));
+			if(existentConfiguration(nextConfiguration)){
+				Set<FiringNode> newConfiguration = new HashSet<FiringNode>();
+				for(FiringNode firingNode: nextConfiguration){
+					//if firing is not enabled, revert the transition
+					if(!isDetectorFiringEnabled(firingNode, nextConfiguration)){
+						//find the firing in the current configuration
+						for(FiringNode cfiringNode: currentConfiguration){
+							if(cfiringNode.detectorActor==firingNode.detectorActor){
+								//replace it with the current firing 
+								newConfiguration.add(cfiringNode);
+								break;
+							}
+						}
+					}
+					else
+						newConfiguration.add(firingNode);
+				}
+				System.out.println("ATesting: "+ExplorationState.getConfigurationAsString(newConfiguration));
+				nextConfigurations.add(newConfiguration);
+			}
+		}
+		
+		//remove redundant configurations
+		Set<Set<FiringNode>> nextUniqueConfigurations = new HashSet<Set<FiringNode>>();
+		for(Set<FiringNode> nextConfiguration: nextConfigurations){
+			// check if nextConfiguration is not redundant
+			boolean exists = false;
+			for(Set<FiringNode> nextConfigurationUnique: nextUniqueConfigurations){
+				if(ExplorationState.areEqual(nextConfiguration, nextConfigurationUnique)){
+					exists = true;
+					break;
+				}
+			}
+			
+			if(!exists)
+				nextUniqueConfigurations.add(nextConfiguration);
+		}
+		return nextUniqueConfigurations;
 	}
 }

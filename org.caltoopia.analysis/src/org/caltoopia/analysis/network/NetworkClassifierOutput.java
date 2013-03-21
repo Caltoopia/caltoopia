@@ -41,10 +41,8 @@ import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.caltoopia.analysis.actor.McdfActorAnalysis;
 import org.caltoopia.analysis.actor.ScenarioAwareActorAnalysis;
 import org.caltoopia.analysis.actor.McdfActorAnalysis.McdfActorInstanceType;
-import org.caltoopia.analysis.actor.GenericActorAnalysis.ActorInstanceType;
 import org.caltoopia.analysis.network.GenericNetworkAnalysis;
 import org.caltoopia.analysis.network.McdfNetworkAnalysis;
 import org.caltoopia.analysis.network.ScenarioFSM.ScenarioFSMState;
@@ -555,14 +553,18 @@ public class NetworkClassifierOutput {
 				XMLNode actorNode = new XMLNode("actor");
 				actorNode.addAttribute("name", actor.getInstanceName());
 				String type="";
-				if(scenario.getTransition()==null){
+				
+				if(analysis.getScenarioAwareActorAnalysis(actor).getScenarioAwareActorInstanceType()==
+						ScenarioAwareActorAnalysis.ScenarioAwareActorInstanceType.SA_DETECTOR)
+				{
+					type = "detector";
+				}
+				else if(scenario.getTransition()==null){
 					if(analysis.getScenarioAwareActorAnalysis(actor).getScenarioAwareActorInstanceType()==
 							ScenarioAwareActorAnalysis.ScenarioAwareActorInstanceType.SA_STATIC){
 						type = "static";
 					}else if(analysis.getScenarioAwareActorAnalysis(actor).getScenarioAwareActorInstanceType()==
-							ScenarioAwareActorAnalysis.ScenarioAwareActorInstanceType.SA_DYNAMIC ||
-							analysis.getScenarioAwareActorAnalysis(actor).getScenarioAwareActorInstanceType()==
-							ScenarioAwareActorAnalysis.ScenarioAwareActorInstanceType.SA_DETECTOR)
+							ScenarioAwareActorAnalysis.ScenarioAwareActorInstanceType.SA_DYNAMIC) 
 					{
 						if(analysis.getScenarioAwareActorAnalysis(actor).isTypeAnnotated()){
 							type = "annotated_dynamic";
@@ -572,6 +574,7 @@ public class NetworkClassifierOutput {
 				else
 					type = scenario.getTransition().getAction().getName();
 				actorNode.addAttribute("type", type);
+				actorNode.addAttribute("index", analysis.getGenericActorAnalysis(actor).getId().toString());
 				for(PortInstance p: actor.getPorts()){
 					if(scenario.getPortRates().containsKey(p)){
 						if(scenario.getPortRate(p).intValue() > 0){
@@ -677,16 +680,6 @@ public class NetworkClassifierOutput {
 			fsmsadfDefaultPropertiesNode.addXMLNode(actorPropertiesNode);
 		}
 		
-		//add scenarios
-		XMLNode scenariosNode = new XMLNode("scenarios");
-		fsmsadfPropertiesNode.addXMLNode(scenariosNode);
-		for(ScenarioGraph scenarioGraph: analysis.getScenarioFSM().getScenarioGraphs()){
-			XMLNode scenarioNode = new XMLNode("scenario");
-			scenarioNode.addAttribute("name",  scenarioGraph.getName());
-			scenarioNode.addAttribute("graph", scenarioGraph.getName());
-			scenariosNode.addXMLNode(scenarioNode);
-		}
-		
 		//add properties of each connection
 		for(Connection c: network.getConnections()){
 			if(!c.getProducerPort().getActor().hasImplementation() ||
@@ -700,6 +693,52 @@ public class NetworkClassifierOutput {
 			connectionPropertyNode.addXMLNode(tokenSizeNode);
 			fsmsadfDefaultPropertiesNode.addXMLNode(connectionPropertyNode);
 		}
+		
+		//add scenarios
+		XMLNode scenariosNode = new XMLNode("scenarios");
+		fsmsadfPropertiesNode.addXMLNode(scenariosNode);
+		for(ScenarioGraph scenarioGraph: analysis.getScenarioFSM().getScenarioGraphs()){
+			XMLNode scenarioNode = new XMLNode("scenario");
+			scenarioNode.addAttribute("name",  scenarioGraph.getName());
+			scenarioNode.addAttribute("graph", scenarioGraph.getName());			
+			scenariosNode.addXMLNode(scenarioNode);
+			
+			//add each actor
+			for(Map.Entry<ActorInstance, ScenarioAwareActorAnalysis.Scenario> a: 
+					scenarioGraph.getActors().entrySet()){
+				ActorInstance actor = a.getKey();
+				ScenarioAwareActorAnalysis.Scenario scenario = a.getValue();
+			
+				if(!actor.hasImplementation())
+					continue;
+				XMLNode actorPropertiesNode = new XMLNode("actorProperties");
+				actorPropertiesNode.addAttribute("actor", actor.getInstanceName());
+				//add processor
+				XMLNode processorNode = new XMLNode("processor");
+				processorNode.addAttribute("type", "arm");
+				processorNode.addAttribute("default", "true");
+				
+				//add execution time
+				XMLNode executionTimeNode = new XMLNode("executionTime");	
+				
+				Action action=null;
+				if(scenario.getTransition()!=null)
+					action = scenario.getTransition().getAction();
+				executionTimeNode.addAttribute("time", analysis.getExecutionTimeAsString(actor, action));
+				processorNode.addXMLNode(executionTimeNode);
+				
+				//add memory
+				XMLNode memoryNode = new XMLNode("memory");
+				XMLNode stateSizeNode = new XMLNode("stateSize");
+				stateSizeNode.addAttribute("max", analysis.getGenericActorAnalysis(actor).getStateSize().toString());
+				memoryNode.addXMLNode(stateSizeNode);
+				processorNode.addXMLNode(memoryNode);
+				
+				actorPropertiesNode.addXMLNode(processorNode);
+				scenarioNode.addXMLNode(actorPropertiesNode);
+			}
+		}
+		
 		
 		//add timing constraints
 		XMLNode graphPropertiesNode = new XMLNode("graphProperties");
