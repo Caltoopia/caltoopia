@@ -104,7 +104,7 @@ public class GenericActorAnalysis{
 		actorAnalysis=delegate;
 		mActorType = ActorInstanceType.UNCLASSIFIED;
 				
-		stateSize = new Integer(0);
+		stateSize = new Integer(1);
 		executionTime = new Integer(0);
 		for(PortInstance portInstance : mActor.getPorts()){
 			PortAnalysis portAnalysis = new PortAnalysis(portInstance);

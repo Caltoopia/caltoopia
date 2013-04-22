@@ -596,10 +596,25 @@ public class NetworkClassifierOutput {
 						}
 					}
 				}
+				//add self-edge ports
+				XMLNode selfInPortNode = new XMLNode("port");
+				selfInPortNode.addAttribute("name","selfIn");
+				selfInPortNode.addAttribute("type", "in");
+				selfInPortNode.addAttribute("rate", "1");
+				actorNode.addXMLNode(selfInPortNode);
+				
+				
+				XMLNode selfOutPortNode = new XMLNode("port");
+				selfOutPortNode.addAttribute("name","selfOut");
+				selfOutPortNode.addAttribute("type", "out");
+				selfOutPortNode.addAttribute("rate", "1");
+				actorNode.addXMLNode(selfOutPortNode);
+				
 				scenarioGraphNode.addXMLNode(actorNode);
 			}
 			
 			//add each connection
+			Map<String,Integer> addedChannels = new HashMap<String,Integer>();
 			for(Connection c: network.getConnections()){
 				XMLNode connectionNode = new XMLNode("channel");
 				ActorInstance srcA = c.getProducerPort().getActor();
@@ -616,9 +631,19 @@ public class NetworkClassifierOutput {
 					if(spSrc.getPortRates().containsKey(c.getProducerPort()) && 
 							spDst.getPortRates().containsKey(c.getConsumerPort())){
 						if(spSrc.getPortRate(c.getProducerPort()).intValue() > 0 && 
-								spDst.getPortRate(c.getConsumerPort()).intValue() > 0){							
-							connectionNode.addAttribute("name", srcA.getInstanceName()+
-									"2"+ dstA.getInstanceName());
+								spDst.getPortRate(c.getConsumerPort()).intValue() > 0){	
+							
+							String channelName = srcA.getInstanceName()+"2"+ dstA.getInstanceName();
+							
+							if(addedChannels.containsKey(channelName)){
+								Integer value = addedChannels.get(channelName) + 1;								
+								addedChannels.put(channelName, value);
+								channelName+=value.toString();
+							}				
+							else	
+								addedChannels.put(channelName, new Integer(0));
+							
+							connectionNode.addAttribute("name", channelName);
 							connectionNode.addAttribute("srcActor", srcA.getInstanceName());
 							connectionNode.addAttribute("srcPort", c.getProducerPort().getName()+"_to_"+dstA.getInstanceName());
 							connectionNode.addAttribute("dstActor", dstA.getInstanceName());
@@ -647,6 +672,22 @@ public class NetworkClassifierOutput {
 					}
 				}
 			}
+			
+			//add self-edges
+			//add each actor
+			for(Map.Entry<ActorInstance, ScenarioAwareActorAnalysis.Scenario> a: 
+					scenarioGraph.getActors().entrySet()){
+				ActorInstance actor = a.getKey();
+				XMLNode connectionNode = new XMLNode("channel");
+				connectionNode.addAttribute("name", actor.getInstanceName()+
+						"2"+ actor.getInstanceName());
+				connectionNode.addAttribute("srcActor", actor.getInstanceName());
+				connectionNode.addAttribute("srcPort", "selfOut");
+				connectionNode.addAttribute("dstActor", actor.getInstanceName());
+				connectionNode.addAttribute("dstPort", "selfIn");
+				connectionNode.addAttribute("initialTokens","1");
+				scenarioGraphNode.addXMLNode(connectionNode);
+			}
 		}
 		
 
@@ -671,9 +712,9 @@ public class NetworkClassifierOutput {
 			
 			//add memory
 			XMLNode memoryNode = new XMLNode("memory");
-			XMLNode stateSizeNode = new XMLNode("stateSize");
-			stateSizeNode.addAttribute("max", analysis.getGenericActorAnalysis(actor).getStateSize().toString());
-			memoryNode.addXMLNode(stateSizeNode);
+			memoryNode.addAttribute("size", analysis.getGenericActorAnalysis(actor).getStateSize().toString());
+			memoryNode.addAttribute("name", "state");
+			memoryNode.addAttribute("type", "data");
 			processorNode.addXMLNode(memoryNode);
 			
 			actorPropertiesNode.addXMLNode(processorNode);
@@ -681,18 +722,40 @@ public class NetworkClassifierOutput {
 		}
 		
 		//add properties of each connection
+		Map<String,Integer> addedChannels = new HashMap<String,Integer>();
 		for(Connection c: network.getConnections()){
 			if(!c.getProducerPort().getActor().hasImplementation() ||
 					!c.getConsumerPort().getActor().hasImplementation())
 				continue;
+			String channelName = c.getProducerPort().getActor().getInstanceName()+"2"+c.getConsumerPort().getActor().getInstanceName();
+			if(addedChannels.containsKey(channelName)){
+				Integer value = addedChannels.get(channelName) + 1;
+				addedChannels.put(channelName, value);
+				channelName+=value.toString();
+			}				
+			else	
+				addedChannels.put(channelName, new Integer(0));
 			XMLNode connectionPropertyNode = new XMLNode("channelProperties");
-			connectionPropertyNode.addAttribute("channel", c.getProducerPort().getActor().getInstanceName()+
-					"2"+c.getConsumerPort().getActor().getInstanceName());
+			connectionPropertyNode.addAttribute("channel", channelName);
 			XMLNode tokenSizeNode = new XMLNode("tokenSize");
-			tokenSizeNode.addAttribute("size", Integer.toString(analysis.getConnectionAnalysis(c).getTokenSize()));
+			tokenSizeNode.addAttribute("sz", Integer.toString(analysis.getConnectionAnalysis(c).getTokenSize()));
+			connectionPropertyNode.addXMLNode(tokenSizeNode);
+			fsmsadfDefaultPropertiesNode.addXMLNode(connectionPropertyNode);
+			
+		}
+		
+		//add self-edges
+		//add each actor
+		for(ActorInstance actor: network.getActors()){
+			XMLNode connectionPropertyNode = new XMLNode("channelProperties");
+			connectionPropertyNode.addAttribute("channel", actor.getInstanceName()+
+					"2"+actor.getInstanceName());
+			XMLNode tokenSizeNode = new XMLNode("tokenSize");
+			tokenSizeNode.addAttribute("sz", "1");
 			connectionPropertyNode.addXMLNode(tokenSizeNode);
 			fsmsadfDefaultPropertiesNode.addXMLNode(connectionPropertyNode);
 		}
+		
 		
 		//add scenarios
 		XMLNode scenariosNode = new XMLNode("scenarios");
@@ -729,9 +792,9 @@ public class NetworkClassifierOutput {
 				
 				//add memory
 				XMLNode memoryNode = new XMLNode("memory");
-				XMLNode stateSizeNode = new XMLNode("stateSize");
-				stateSizeNode.addAttribute("max", analysis.getGenericActorAnalysis(actor).getStateSize().toString());
-				memoryNode.addXMLNode(stateSizeNode);
+				memoryNode.addAttribute("size", analysis.getGenericActorAnalysis(actor).getStateSize().toString());
+				memoryNode.addAttribute("name", "state");
+				memoryNode.addAttribute("type", "data");
 				processorNode.addXMLNode(memoryNode);
 				
 				actorPropertiesNode.addXMLNode(processorNode);
@@ -744,7 +807,7 @@ public class NetworkClassifierOutput {
 		XMLNode graphPropertiesNode = new XMLNode("graphProperties");
 		XMLNode timingConstraintsNode = new XMLNode("timeConstraints");
 		XMLNode throughputNode = new XMLNode("throughput");
-		throughputNode.addValue("0.000003");
+		throughputNode.addValue("0.0000178");
 		timingConstraintsNode.addXMLNode(throughputNode);
 		graphPropertiesNode.addXMLNode(timingConstraintsNode);		
 		fsmsadfPropertiesNode.addXMLNode(graphPropertiesNode);	

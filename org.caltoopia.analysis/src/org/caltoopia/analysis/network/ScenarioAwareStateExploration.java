@@ -678,10 +678,10 @@ public class ScenarioAwareStateExploration {
 			}
 		}
 		
-		//create initial state with just a random scenario graph (for the time-being)
-		ScenarioFSMState initialFsmState = scenarioFSM.new ScenarioFSMState("InitialState");
-		initialFsmState.setScenarioGraph(scenarioFSM.getScenarioGraphs().iterator().next());
-		scenarioFSM.addScenarioFSMState(initialFsmState);
+//		//create initial state with just a random scenario graph (for the time-being)
+//		ScenarioFSMState initialFsmState = scenarioFSM.new ScenarioFSMState("State0_Init");
+//		initialFsmState.setScenarioGraph(scenarioFSM.getScenarioGraphs().iterator().next());
+//		scenarioFSM.addScenarioFSMState(initialFsmState);
 	}
 	
 	/**
@@ -691,7 +691,7 @@ public class ScenarioAwareStateExploration {
 	private void generateConservativeFSMStates(Set<ExplorationState> visitedStates){
 		String str;
 		//Create FSM states and scenario graphs
-		for(ExplorationState eState: visitedStates){			
+		for(ExplorationState eState: visitedStates){
 			for(ScenarioGraph sGraph: eState.getScenarioGraphs()){
 				//create new FSM state
 				str = eState.getName();				
@@ -718,10 +718,11 @@ public class ScenarioAwareStateExploration {
 			}
 		}
 		
-//		//create initial state with just a random scenario graph (for the time-being)
-		ScenarioFSMState initialFsmState = scenarioFSM.new ScenarioFSMState("InitialState");
-		initialFsmState.setScenarioGraph(scenarioFSM.getScenarioGraphs().iterator().next());
-		scenarioFSM.addScenarioFSMState(initialFsmState);
+//		//TODO: This is temporary: create an initial fsm state and 
+//		//assign it a random scenario graph 
+//		ScenarioFSMState initialFsmState = scenarioFSM.new ScenarioFSMState("State0_Init");
+//		initialFsmState.setScenarioGraph(scenarioFSM.getScenarioGraphs().iterator().next());
+//		scenarioFSM.addScenarioFSMState(initialFsmState);
 	}
 	
 	/**
@@ -736,10 +737,10 @@ public class ScenarioAwareStateExploration {
 			//connect the initial state of the scenario FSM with
 			//every FSM state of the initial exploration state
 			if(eState.getName().equals("InitialState")){			
-				for(ScenarioFSMState targetFSMState: eState.getScenarioFSMStates()){
+				for(ScenarioFSMState targetFSMState: eState.getScenarioFSMStates()){					
 					str = "Transition"+scenarioFSM.getScenarioFSMTransitions().size();
 					ScenarioFSMTransition fsmTransition = scenarioFSM.new ScenarioFSMTransition(str);
-					fsmTransition.setSourceState(scenarioFSM.getState("InitialState"));
+					fsmTransition.setSourceState(scenarioFSM.getState("State0_Init"));
 					fsmTransition.setTargetState(targetFSMState);
 					if(fsmTransition.getSourceState()==null || fsmTransition.getTargetState()==null){
 						str = "generateFSMTransitions: transition has no source/target state.";
@@ -747,11 +748,7 @@ public class ScenarioAwareStateExploration {
 					}
 					if(!scenarioFSM.transitionExists(fsmTransition)){
 						scenarioFSM.addScenarioFSMTransition(fsmTransition);
-					}
-					else{
-						str = "generateFSMTransitions: duplicated transitions detected.";
-						throw new NullPointerException(str);
-					}						
+					}				
 				}
 			}
 
@@ -764,17 +761,10 @@ public class ScenarioAwareStateExploration {
 						ScenarioFSMTransition fsmTransition = scenarioFSM.new ScenarioFSMTransition(str);
 						fsmTransition.setSourceState(srcFSMState);
 						fsmTransition.setTargetState(targetFSMState);
-						ScenarioGraph srcG = srcFSMState.getScenarioGraph();
-						ScenarioGraph dstG = targetFSMState.getScenarioGraph();
 						//check for non-existing token transition
 						if(!scenarioFSM.transitionExists(fsmTransition)){
 							scenarioFSM.addScenarioFSMTransition(fsmTransition);
-						}
-//						else{
-//							str = "generateFSMTransitions: duplicated transitions detected.";
-//							throw new NullPointerException(str);
-//						}
-						
+						}						
 					}
 				}
 			}			
@@ -1052,18 +1042,12 @@ public class ScenarioAwareStateExploration {
 
 					Set<Set<FiringNode>> nextConfigurations = computeNextConfigurations(state.configuration, targetFiringsList);	
 					
-					boolean deadEnd = true;
 					for(Set<FiringNode> nextConfiguration: nextConfigurations){
-						//System.out.print("Testing: "+ExplorationState.getConfigurationAsString(nextConfiguration));
 						if(existentConfiguration(nextConfiguration)){
 							ExplorationState newEState = new ExplorationState(nextConfiguration,"EState");
 							newEState.addIncidentState(state);	
 							statesToBeVisited.add(newEState);	
-							deadEnd = false;
-							//System.out.println(" -- exists.");
 						}
-						//else
-							//System.out.println(" -- does not exist.");
 					}	
 					
 					
@@ -1076,13 +1060,6 @@ public class ScenarioAwareStateExploration {
 								state.addScenarioGraph(sg);
 							else
 								numberOfEliminatedScenarioGraphs++;
-						}
-					}
-					
-					if(deadEnd){
-						if(state.getScenarioGraphs().size() > 0){
-							//System.out.println(state.getConfigurationAsString());
-							System.out.println("\t\t\t --- DeadEnd");
 						}
 					}
 				}
@@ -1145,7 +1122,7 @@ public class ScenarioAwareStateExploration {
 			states.removeAll(getZeroGraphStates(states));	
 			
 			if(states.size() == 0){
-				throw new Exception("constructCompleteFSM: No states found.");
+				throw new Exception("constructConservativeFSM: No states found.");
 			}
 				
 			//generate the FSM states
@@ -1161,11 +1138,14 @@ public class ScenarioAwareStateExploration {
 	}
 	
 	
-	public Set<Set<FiringNode>> computeNextConfigurations(Set<FiringNode> currentConfiguration,
-			List<Set<FiringNode>> targetFiringsList){
+	public Set<Set<FiringNode>> computeNextConfigurations(
+						Set<FiringNode> currentConfiguration,
+							List<Set<FiringNode>> targetFiringsList){
+		
 		Set<Set<FiringNode>> nextConfigurations = new HashSet<Set<FiringNode>>();
-		for(Set<FiringNode> nextConfiguration: CartesianProduct.cartesianProduct(targetFiringsList)){
-			System.out.println("Testing: "+ExplorationState.getConfigurationAsString(nextConfiguration));
+		for(Set<FiringNode> nextConfiguration: 
+			CartesianProduct.cartesianProduct(targetFiringsList)){			
+			//System.out.println("Testing: "+ExplorationState.getConfigurationAsString(nextConfiguration));
 			if(existentConfiguration(nextConfiguration)){
 				Set<FiringNode> newConfiguration = new HashSet<FiringNode>();
 				for(FiringNode firingNode: nextConfiguration){
@@ -1183,7 +1163,7 @@ public class ScenarioAwareStateExploration {
 					else
 						newConfiguration.add(firingNode);
 				}
-				System.out.println("ATesting: "+ExplorationState.getConfigurationAsString(newConfiguration));
+				//System.out.println("ATesting: "+ExplorationState.getConfigurationAsString(newConfiguration));
 				nextConfigurations.add(newConfiguration);
 			}
 		}

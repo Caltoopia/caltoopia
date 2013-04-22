@@ -140,24 +140,26 @@ public class ScenarioAwareNetworkAnalysis extends GenericNetworkAnalysis {
 		confSpaceExploration = new ScenarioAwareStateExploration(this);
 		
 		// construct FSM
-		confSpaceExploration.constructCompleteFSM();
+		confSpaceExploration.constructConservativeFSM();
 				
 		
 		//TODO: Debug print - remove later
 		List<ExplorationState> states = confSpaceExploration.constructConfigurationSpace();
+		int sumOfTuples = 0;
 		for(ExplorationState s: states){
 			//s.print(System.out);
 			Set<Set<ControlTokensPerAction>> ctt = confSpaceExploration.getTuplesOfControlTokens(s.configuration);
 			for(FiringNode firing: s.configuration){
 				System.out.print(firing.firing.getName()+" ");
 			}
+			sumOfTuples+=ctt.size();
 			System.out.println();
 			System.out.print(ctt.size()+" tuples and ");
 			System.out.println(s.getScenarioGraphs().size()+" scenario graphs ");
 			
 			//check if every state is an
 		}
-		System.out.println(states.size()+" configurations found.");		
+		System.out.println(states.size()+" configurations and " + sumOfTuples +" tuples found.");		
 			
 		fsm = confSpaceExploration.getScenarioFSM();	
 		System.out.println(fsm.getScenarioFSMStates().size() + " FSM States, " + 
