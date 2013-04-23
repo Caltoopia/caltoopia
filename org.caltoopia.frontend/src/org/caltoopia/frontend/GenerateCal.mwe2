@@ -17,7 +17,7 @@ Workflow {
     }
 
     component = DirectoryCleaner {
-        directory = "${runtimeProject}/src-gen"
+        directory = "${runtimeProject}/src-gen/org/caltoopia/frontend"
     }
 
     component = DirectoryCleaner {

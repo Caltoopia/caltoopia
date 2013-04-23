@@ -36,6 +36,7 @@
 
 package org.caltoopia.frontend;
 
+import org.caltoopia.frontend.cal.AstEntity;
 import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstNamespace;
 import org.caltoopia.frontend.cal.AstTypeName;
@@ -51,9 +52,12 @@ public class CalQualifiedNameProvider extends DefaultDeclarativeQualifiedNamePro
 			QualifiedName tmp = super.getFullyQualifiedName(obj.eContainer().eContainer());
 			tmp = tmp.append(((AstFunction) obj).getName());
 			return tmp;
-		}
-
-		if (obj instanceof AstNamespace || obj.eContainer() instanceof AstNamespace) {
+		} else if (obj instanceof AstEntity && obj.eContainer() instanceof AstNamespace) {
+			// obj = obj.eContainer();
+			QualifiedName tmp = super.getFullyQualifiedName(obj.eContainer());
+			tmp = tmp.append(((AstEntity) obj).getActor().getName());
+			return tmp;
+		} else if (obj instanceof AstNamespace || obj.eContainer() instanceof AstNamespace) {
 			return super.getFullyQualifiedName(obj);
 		} else {
 			return null;

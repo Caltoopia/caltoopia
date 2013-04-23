@@ -91,15 +91,7 @@ public class CalProposalProvider extends AbstractCalProposalProvider {
 			AstConnection connection = (AstConnection) model;
 			AstActorVariable actor = connection.getFrom().getVariable();
 			AstEntity entity = actor.getType();
-			List<AstPort> ports;
-
-			if (entity.getActor() != null) {
-				ports = entity.getActor().getOutputs();
-			} else if (entity.getNetwork() != null) {
-				ports = entity.getNetwork().getOutputs();
-			} else {
-				ports = entity.getExternal().getOutputs();
-			}
+			List<AstPort> ports = entity.getActor().getOutputs();
 			for (AstPort port : ports) {
 				acceptor.accept(createCompletionProposal(port.getName(), context));
 			}
@@ -117,15 +109,7 @@ public class CalProposalProvider extends AbstractCalProposalProvider {
 			AstConnection connection = (AstConnection) model;
 			AstActorVariable actor = connection.getTo().getVariable();
 			AstEntity entity = actor.getType();
-			List<AstPort> ports;
-			if (entity.getActor() != null) {
-				ports = entity.getActor().getInputs();
-			} else if (entity.getNetwork() != null) {
-				ports = entity.getNetwork().getInputs();
-			} else {
-				ports = entity.getExternal().getInputs();
-			}
-			
+			List<AstPort> ports = entity.getActor().getInputs();			
 			for (AstPort port : ports) {
 				acceptor.accept(createCompletionProposal(port.getName(), context));
 			}

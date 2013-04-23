@@ -37,6 +37,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.caltoopia.frontend.cal.AstAbstractActor;
 import org.caltoopia.frontend.cal.AstAction;
 import org.caltoopia.frontend.cal.AstActor;
 import org.caltoopia.frontend.cal.AstActorVariable;
@@ -79,7 +80,6 @@ import org.caltoopia.types.TypeException;
 import org.caltoopia.types.TypePrinter;
 import org.caltoopia.types.TypeSystem;
 import org.caltoopia.ir.Type;
-
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -338,26 +338,9 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 	public void checkActorDeclaration(AstActorVariable decl) {		
 		List<String> params = new ArrayList<String>();
 		if (decl.getType() != null) {
-			if (decl.getType().getActor() != null) {
-				AstActor actor = (AstActor) decl.getType().getActor();
-				for (AstVariable v : actor.getParameters()) {
-					params.add(v.getName());
-				}
-			} else if (decl.getType().getNetwork() != null) {
-				AstNetwork network = (AstNetwork) decl.getType().getNetwork();			
-				for (AstVariable v : network.getParameters()) {
-					params.add(v.getName());
-				}
-			} else if (decl.getType().getExternal() != null) {
-				AstExternalActor externalActor = (AstExternalActor) decl.getType().getExternal();			
-				for (AstVariable v : externalActor.getParameters()) {
-					params.add(v.getName());
-				}
-			} 
-			else {
-				error("unknown type for entity '" + decl.getName() + "'", 
-						decl, 
-						CalPackage.eINSTANCE.getAstActorVariable_Name(), -1);
+			AstAbstractActor actor = decl.getType().getActor();
+			for (AstVariable v : actor.getParameters()) {
+				params.add(v.getName());
 			}
 		
 			if (params.size() != decl.getParameters().size()) {
@@ -456,7 +439,7 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 	
 	@Check(CheckType.NORMAL)
 	public void checkEntity(AstEntity entity) {
-		System.out.println("Processing actor/network '" + entity.getName() + "'");
+		System.out.println("Processing actor/network '" + entity.getActor().getName() + "'");
  	}
 
 	/**
@@ -598,7 +581,7 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 		// do not warn about unused actor parameters
 		// used for system actors
 		EReference reference = variable.eContainmentFeature();
-		if (!used && reference != CalPackage.eINSTANCE.getAstActor_Parameters()) {
+		if (!used && reference != CalPackage.eINSTANCE.getAstAbstractActor_Parameters()) {
 			warning("The variable " + variable.getName() + " is never read",
 					CalPackage.Literals.AST_VARIABLE__NAME);
 		}
@@ -762,21 +745,7 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 			} else {
 				AstActorVariable decl = ((AstActorVariable) connection.getFrom().getVariable());
 				if (decl != null) {
-					if (decl.getType().getActor() != null) {
-						AstActor source = decl.getType().getActor();			
-						outputs = source.getOutputs();
-					} else if (decl.getType().getNetwork() != null) {
-						AstNetwork source = decl.getType().getNetwork();			
-						outputs = source.getOutputs();			
-					} else if (decl.getType().getExternal() != null) {
-						AstExternalActor source = decl.getType().getExternal();			
-						outputs = source.getOutputs();			
-					} else {
-						error("Output entity '" + decl.getName() + "' not found", 
-								connection, 
-								CalPackage.eINSTANCE.getAstConnection_OutPort(), -1);	
-						return;
-					}
+					outputs = decl.getType().getActor().getOutputs();
 				} else {
 					error("Output missing", 
 							connection, 
@@ -809,21 +778,7 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 			} else {				
 				AstActorVariable decl = ((AstActorVariable) connection.getTo().getVariable());
 				if (decl != null) {
-					if (decl.getType().getActor() != null) {
-						AstActor source = decl.getType().getActor();	
-						inputs = source.getInputs();
-					} else if (decl.getType().getNetwork() != null) {
-						AstNetwork source = decl.getType().getNetwork();			
-						inputs = source.getInputs();			
-					} else if (decl.getType().getExternal() != null) {
-						AstExternalActor source = decl.getType().getExternal();			
-						inputs = source.getInputs();			
-					} else {
-						error("Input entity '" + decl.getName() + "' not found", 
-								connection, 
-								CalPackage.eINSTANCE.getAstConnection_To(), -1);	
-						return;
-					}
+					inputs = decl.getType().getActor().getInputs();
 				} else {
 					error("Input missing", 
 							connection, 
@@ -870,6 +825,9 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 	}
 
 	private String getName(EObject object) {
+		if (object instanceof AstEntity) {
+			return ((AstEntity) object).getActor().getName();
+		}
 		return resolver.getValue(object);
 	}
 
