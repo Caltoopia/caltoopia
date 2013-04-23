@@ -1,7 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
  */
 package org.caltoopia.frontend.cal.impl;
 
@@ -9,7 +6,6 @@ import java.util.Collection;
 
 import org.caltoopia.frontend.cal.AstActorVariable;
 import org.caltoopia.frontend.cal.AstNetwork;
-import org.caltoopia.frontend.cal.AstPort;
 import org.caltoopia.frontend.cal.AstStructure;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.cal.CalPackage;
@@ -23,7 +19,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -35,9 +30,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.caltoopia.frontend.cal.impl.AstNetworkImpl#getParameters <em>Parameters</em>}</li>
- *   <li>{@link org.caltoopia.frontend.cal.impl.AstNetworkImpl#getInputs <em>Inputs</em>}</li>
- *   <li>{@link org.caltoopia.frontend.cal.impl.AstNetworkImpl#getOutputs <em>Outputs</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstNetworkImpl#getVariables <em>Variables</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstNetworkImpl#getInstances <em>Instances</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstNetworkImpl#getStructure <em>Structure</em>}</li>
@@ -46,38 +38,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class AstNetworkImpl extends MinimalEObjectImpl.Container implements AstNetwork
+public class AstNetworkImpl extends AstAbstractActorImpl implements AstNetwork
 {
-  /**
-   * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getParameters()
-   * @generated
-   * @ordered
-   */
-  protected EList<AstVariable> parameters;
-
-  /**
-   * The cached value of the '{@link #getInputs() <em>Inputs</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getInputs()
-   * @generated
-   * @ordered
-   */
-  protected EList<AstPort> inputs;
-
-  /**
-   * The cached value of the '{@link #getOutputs() <em>Outputs</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getOutputs()
-   * @generated
-   * @ordered
-   */
-  protected EList<AstPort> outputs;
-
   /**
    * The cached value of the '{@link #getVariables() <em>Variables</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -127,48 +89,6 @@ public class AstNetworkImpl extends MinimalEObjectImpl.Container implements AstN
   protected EClass eStaticClass()
   {
     return CalPackage.Literals.AST_NETWORK;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<AstVariable> getParameters()
-  {
-    if (parameters == null)
-    {
-      parameters = new EObjectContainmentEList<AstVariable>(AstVariable.class, this, CalPackage.AST_NETWORK__PARAMETERS);
-    }
-    return parameters;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<AstPort> getInputs()
-  {
-    if (inputs == null)
-    {
-      inputs = new EObjectContainmentEList<AstPort>(AstPort.class, this, CalPackage.AST_NETWORK__INPUTS);
-    }
-    return inputs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<AstPort> getOutputs()
-  {
-    if (outputs == null)
-    {
-      outputs = new EObjectContainmentEList<AstPort>(AstPort.class, this, CalPackage.AST_NETWORK__OUTPUTS);
-    }
-    return outputs;
   }
 
   /**
@@ -257,12 +177,6 @@ public class AstNetworkImpl extends MinimalEObjectImpl.Container implements AstN
   {
     switch (featureID)
     {
-      case CalPackage.AST_NETWORK__PARAMETERS:
-        return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
-      case CalPackage.AST_NETWORK__INPUTS:
-        return ((InternalEList<?>)getInputs()).basicRemove(otherEnd, msgs);
-      case CalPackage.AST_NETWORK__OUTPUTS:
-        return ((InternalEList<?>)getOutputs()).basicRemove(otherEnd, msgs);
       case CalPackage.AST_NETWORK__VARIABLES:
         return ((InternalEList<?>)getVariables()).basicRemove(otherEnd, msgs);
       case CalPackage.AST_NETWORK__INSTANCES:
@@ -283,12 +197,6 @@ public class AstNetworkImpl extends MinimalEObjectImpl.Container implements AstN
   {
     switch (featureID)
     {
-      case CalPackage.AST_NETWORK__PARAMETERS:
-        return getParameters();
-      case CalPackage.AST_NETWORK__INPUTS:
-        return getInputs();
-      case CalPackage.AST_NETWORK__OUTPUTS:
-        return getOutputs();
       case CalPackage.AST_NETWORK__VARIABLES:
         return getVariables();
       case CalPackage.AST_NETWORK__INSTANCES:
@@ -310,18 +218,6 @@ public class AstNetworkImpl extends MinimalEObjectImpl.Container implements AstN
   {
     switch (featureID)
     {
-      case CalPackage.AST_NETWORK__PARAMETERS:
-        getParameters().clear();
-        getParameters().addAll((Collection<? extends AstVariable>)newValue);
-        return;
-      case CalPackage.AST_NETWORK__INPUTS:
-        getInputs().clear();
-        getInputs().addAll((Collection<? extends AstPort>)newValue);
-        return;
-      case CalPackage.AST_NETWORK__OUTPUTS:
-        getOutputs().clear();
-        getOutputs().addAll((Collection<? extends AstPort>)newValue);
-        return;
       case CalPackage.AST_NETWORK__VARIABLES:
         getVariables().clear();
         getVariables().addAll((Collection<? extends AstVariable>)newValue);
@@ -347,15 +243,6 @@ public class AstNetworkImpl extends MinimalEObjectImpl.Container implements AstN
   {
     switch (featureID)
     {
-      case CalPackage.AST_NETWORK__PARAMETERS:
-        getParameters().clear();
-        return;
-      case CalPackage.AST_NETWORK__INPUTS:
-        getInputs().clear();
-        return;
-      case CalPackage.AST_NETWORK__OUTPUTS:
-        getOutputs().clear();
-        return;
       case CalPackage.AST_NETWORK__VARIABLES:
         getVariables().clear();
         return;
@@ -379,12 +266,6 @@ public class AstNetworkImpl extends MinimalEObjectImpl.Container implements AstN
   {
     switch (featureID)
     {
-      case CalPackage.AST_NETWORK__PARAMETERS:
-        return parameters != null && !parameters.isEmpty();
-      case CalPackage.AST_NETWORK__INPUTS:
-        return inputs != null && !inputs.isEmpty();
-      case CalPackage.AST_NETWORK__OUTPUTS:
-        return outputs != null && !outputs.isEmpty();
       case CalPackage.AST_NETWORK__VARIABLES:
         return variables != null && !variables.isEmpty();
       case CalPackage.AST_NETWORK__INSTANCES:

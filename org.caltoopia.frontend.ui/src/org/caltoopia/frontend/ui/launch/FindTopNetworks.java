@@ -79,10 +79,10 @@ public class FindTopNetworks extends VoidSwitch {
 	
 	public Void caseAstEntity(AstEntity entity) {
 
-		if (entity.getNetwork() != null) {
-			AstNetwork network = (AstNetwork) entity.getNetwork();
+		if (entity.getActor() instanceof AstNetwork) {
+			AstNetwork network = (AstNetwork) entity.getActor();
 			if (network.getParameters().isEmpty() && network.getInputs().isEmpty() && network.getOutputs().isEmpty()) {
-				String qualifiedName = entity.getName();
+				String qualifiedName = entity.getActor().getName();
 				EObject container = entity.eContainer();
 				while (container != null) {
 					if (container instanceof AstNamespace) {

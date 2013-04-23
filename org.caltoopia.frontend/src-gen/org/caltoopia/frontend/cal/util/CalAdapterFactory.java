@@ -1,7 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
  */
 package org.caltoopia.frontend.cal.util;
 
@@ -101,6 +98,11 @@ public class CalAdapterFactory extends AdapterFactoryImpl
       public Adapter caseAstEntity(AstEntity object)
       {
         return createAstEntityAdapter();
+      }
+      @Override
+      public Adapter caseAstAbstractActor(AstAbstractActor object)
+      {
+        return createAstAbstractActorAdapter();
       }
       @Override
       public Adapter caseImport(Import object)
@@ -475,6 +477,21 @@ public class CalAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAstEntityAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstAbstractActor <em>Ast Abstract Actor</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.caltoopia.frontend.cal.AstAbstractActor
+   * @generated
+   */
+  public Adapter createAstAbstractActorAdapter()
   {
     return null;
   }

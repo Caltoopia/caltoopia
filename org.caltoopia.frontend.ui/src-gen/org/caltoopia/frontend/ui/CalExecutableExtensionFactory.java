@@ -8,6 +8,8 @@ import org.osgi.framework.Bundle;
 
 import com.google.inject.Injector;
 
+import org.caltoopia.frontend.ui.internal.CalActivator;
+
 /**
  * This class was generated. Customizations should only happen in a newly
  * introduced subclass. 
@@ -16,12 +18,12 @@ public class CalExecutableExtensionFactory extends AbstractGuiceAwareExecutableE
 
 	@Override
 	protected Bundle getBundle() {
-		return org.caltoopia.frontend.ui.internal.CalActivator.getInstance().getBundle();
+		return CalActivator.getInstance().getBundle();
 	}
 	
 	@Override
 	protected Injector getInjector() {
-		return org.caltoopia.frontend.ui.internal.CalActivator.getInstance().getInjector("org.caltoopia.frontend.Cal");
+		return CalActivator.getInstance().getInjector(CalActivator.ORG_CALTOOPIA_FRONTEND_CAL);
 	}
 	
 }

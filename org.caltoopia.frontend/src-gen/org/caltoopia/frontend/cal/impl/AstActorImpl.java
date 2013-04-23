@@ -1,7 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
  */
 package org.caltoopia.frontend.cal.impl;
 
@@ -10,7 +7,6 @@ import java.util.Collection;
 import org.caltoopia.frontend.cal.AstAction;
 import org.caltoopia.frontend.cal.AstActor;
 import org.caltoopia.frontend.cal.AstFunction;
-import org.caltoopia.frontend.cal.AstPort;
 import org.caltoopia.frontend.cal.AstPriority;
 import org.caltoopia.frontend.cal.AstProcedure;
 import org.caltoopia.frontend.cal.AstSchedule;
@@ -24,8 +20,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -36,9 +30,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.caltoopia.frontend.cal.impl.AstActorImpl#getParameters <em>Parameters</em>}</li>
- *   <li>{@link org.caltoopia.frontend.cal.impl.AstActorImpl#getInputs <em>Inputs</em>}</li>
- *   <li>{@link org.caltoopia.frontend.cal.impl.AstActorImpl#getOutputs <em>Outputs</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstActorImpl#getFunctions <em>Functions</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstActorImpl#getProcedures <em>Procedures</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstActorImpl#getActions <em>Actions</em>}</li>
@@ -51,38 +42,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class AstActorImpl extends MinimalEObjectImpl.Container implements AstActor
+public class AstActorImpl extends AstAbstractActorImpl implements AstActor
 {
-  /**
-   * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getParameters()
-   * @generated
-   * @ordered
-   */
-  protected EList<AstVariable> parameters;
-
-  /**
-   * The cached value of the '{@link #getInputs() <em>Inputs</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getInputs()
-   * @generated
-   * @ordered
-   */
-  protected EList<AstPort> inputs;
-
-  /**
-   * The cached value of the '{@link #getOutputs() <em>Outputs</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getOutputs()
-   * @generated
-   * @ordered
-   */
-  protected EList<AstPort> outputs;
-
   /**
    * The cached value of the '{@link #getFunctions() <em>Functions</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -172,48 +133,6 @@ public class AstActorImpl extends MinimalEObjectImpl.Container implements AstAct
   protected EClass eStaticClass()
   {
     return CalPackage.Literals.AST_ACTOR;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<AstVariable> getParameters()
-  {
-    if (parameters == null)
-    {
-      parameters = new EObjectContainmentEList<AstVariable>(AstVariable.class, this, CalPackage.AST_ACTOR__PARAMETERS);
-    }
-    return parameters;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<AstPort> getInputs()
-  {
-    if (inputs == null)
-    {
-      inputs = new EObjectContainmentEList<AstPort>(AstPort.class, this, CalPackage.AST_ACTOR__INPUTS);
-    }
-    return inputs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<AstPort> getOutputs()
-  {
-    if (outputs == null)
-    {
-      outputs = new EObjectContainmentEList<AstPort>(AstPort.class, this, CalPackage.AST_ACTOR__OUTPUTS);
-    }
-    return outputs;
   }
 
   /**
@@ -324,12 +243,6 @@ public class AstActorImpl extends MinimalEObjectImpl.Container implements AstAct
   {
     switch (featureID)
     {
-      case CalPackage.AST_ACTOR__PARAMETERS:
-        return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
-      case CalPackage.AST_ACTOR__INPUTS:
-        return ((InternalEList<?>)getInputs()).basicRemove(otherEnd, msgs);
-      case CalPackage.AST_ACTOR__OUTPUTS:
-        return ((InternalEList<?>)getOutputs()).basicRemove(otherEnd, msgs);
       case CalPackage.AST_ACTOR__FUNCTIONS:
         return ((InternalEList<?>)getFunctions()).basicRemove(otherEnd, msgs);
       case CalPackage.AST_ACTOR__PROCEDURES:
@@ -358,12 +271,6 @@ public class AstActorImpl extends MinimalEObjectImpl.Container implements AstAct
   {
     switch (featureID)
     {
-      case CalPackage.AST_ACTOR__PARAMETERS:
-        return getParameters();
-      case CalPackage.AST_ACTOR__INPUTS:
-        return getInputs();
-      case CalPackage.AST_ACTOR__OUTPUTS:
-        return getOutputs();
       case CalPackage.AST_ACTOR__FUNCTIONS:
         return getFunctions();
       case CalPackage.AST_ACTOR__PROCEDURES:
@@ -393,18 +300,6 @@ public class AstActorImpl extends MinimalEObjectImpl.Container implements AstAct
   {
     switch (featureID)
     {
-      case CalPackage.AST_ACTOR__PARAMETERS:
-        getParameters().clear();
-        getParameters().addAll((Collection<? extends AstVariable>)newValue);
-        return;
-      case CalPackage.AST_ACTOR__INPUTS:
-        getInputs().clear();
-        getInputs().addAll((Collection<? extends AstPort>)newValue);
-        return;
-      case CalPackage.AST_ACTOR__OUTPUTS:
-        getOutputs().clear();
-        getOutputs().addAll((Collection<? extends AstPort>)newValue);
-        return;
       case CalPackage.AST_ACTOR__FUNCTIONS:
         getFunctions().clear();
         getFunctions().addAll((Collection<? extends AstFunction>)newValue);
@@ -447,15 +342,6 @@ public class AstActorImpl extends MinimalEObjectImpl.Container implements AstAct
   {
     switch (featureID)
     {
-      case CalPackage.AST_ACTOR__PARAMETERS:
-        getParameters().clear();
-        return;
-      case CalPackage.AST_ACTOR__INPUTS:
-        getInputs().clear();
-        return;
-      case CalPackage.AST_ACTOR__OUTPUTS:
-        getOutputs().clear();
-        return;
       case CalPackage.AST_ACTOR__FUNCTIONS:
         getFunctions().clear();
         return;
@@ -491,12 +377,6 @@ public class AstActorImpl extends MinimalEObjectImpl.Container implements AstAct
   {
     switch (featureID)
     {
-      case CalPackage.AST_ACTOR__PARAMETERS:
-        return parameters != null && !parameters.isEmpty();
-      case CalPackage.AST_ACTOR__INPUTS:
-        return inputs != null && !inputs.isEmpty();
-      case CalPackage.AST_ACTOR__OUTPUTS:
-        return outputs != null && !outputs.isEmpty();
       case CalPackage.AST_ACTOR__FUNCTIONS:
         return functions != null && !functions.isEmpty();
       case CalPackage.AST_ACTOR__PROCEDURES:

@@ -1,7 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
  */
 package org.caltoopia.frontend.cal;
 
@@ -245,40 +242,13 @@ public interface CalPackage extends EPackage
   int AST_ENTITY__ANNOTATIONS = 0;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int AST_ENTITY__NAME = 1;
-
-  /**
    * The feature id for the '<em><b>Actor</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int AST_ENTITY__ACTOR = 2;
-
-  /**
-   * The feature id for the '<em><b>Network</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int AST_ENTITY__NETWORK = 3;
-
-  /**
-   * The feature id for the '<em><b>External</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int AST_ENTITY__EXTERNAL = 4;
+  int AST_ENTITY__ACTOR = 1;
 
   /**
    * The number of structural features of the '<em>Ast Entity</em>' class.
@@ -287,7 +257,62 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_ENTITY_FEATURE_COUNT = 5;
+  int AST_ENTITY_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstAbstractActorImpl <em>Ast Abstract Actor</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.caltoopia.frontend.cal.impl.AstAbstractActorImpl
+   * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstAbstractActor()
+   * @generated
+   */
+  int AST_ABSTRACT_ACTOR = 5;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_ABSTRACT_ACTOR__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_ABSTRACT_ACTOR__PARAMETERS = 1;
+
+  /**
+   * The feature id for the '<em><b>Inputs</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_ABSTRACT_ACTOR__INPUTS = 2;
+
+  /**
+   * The feature id for the '<em><b>Outputs</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_ABSTRACT_ACTOR__OUTPUTS = 3;
+
+  /**
+   * The number of structural features of the '<em>Ast Abstract Actor</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_ABSTRACT_ACTOR_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.ImportImpl <em>Import</em>}' class.
@@ -297,7 +322,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getImport()
    * @generated
    */
-  int IMPORT = 5;
+  int IMPORT = 6;
 
   /**
    * The feature id for the '<em><b>Imported Namespace</b></em>' attribute.
@@ -325,7 +350,16 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstNetwork()
    * @generated
    */
-  int AST_NETWORK = 6;
+  int AST_NETWORK = 7;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_NETWORK__NAME = AST_ABSTRACT_ACTOR__NAME;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
@@ -334,7 +368,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_NETWORK__PARAMETERS = 0;
+  int AST_NETWORK__PARAMETERS = AST_ABSTRACT_ACTOR__PARAMETERS;
 
   /**
    * The feature id for the '<em><b>Inputs</b></em>' containment reference list.
@@ -343,7 +377,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_NETWORK__INPUTS = 1;
+  int AST_NETWORK__INPUTS = AST_ABSTRACT_ACTOR__INPUTS;
 
   /**
    * The feature id for the '<em><b>Outputs</b></em>' containment reference list.
@@ -352,7 +386,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_NETWORK__OUTPUTS = 2;
+  int AST_NETWORK__OUTPUTS = AST_ABSTRACT_ACTOR__OUTPUTS;
 
   /**
    * The feature id for the '<em><b>Variables</b></em>' containment reference list.
@@ -361,7 +395,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_NETWORK__VARIABLES = 3;
+  int AST_NETWORK__VARIABLES = AST_ABSTRACT_ACTOR_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Instances</b></em>' containment reference list.
@@ -370,7 +404,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_NETWORK__INSTANCES = 4;
+  int AST_NETWORK__INSTANCES = AST_ABSTRACT_ACTOR_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Structure</b></em>' containment reference.
@@ -379,7 +413,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_NETWORK__STRUCTURE = 5;
+  int AST_NETWORK__STRUCTURE = AST_ABSTRACT_ACTOR_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Ast Network</em>' class.
@@ -388,7 +422,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_NETWORK_FEATURE_COUNT = 6;
+  int AST_NETWORK_FEATURE_COUNT = AST_ABSTRACT_ACTOR_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstActorVariableImpl <em>Ast Actor Variable</em>}' class.
@@ -398,7 +432,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstActorVariable()
    * @generated
    */
-  int AST_ACTOR_VARIABLE = 7;
+  int AST_ACTOR_VARIABLE = 8;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -444,7 +478,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstAssignParameter()
    * @generated
    */
-  int AST_ASSIGN_PARAMETER = 8;
+  int AST_ASSIGN_PARAMETER = 9;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -481,7 +515,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstStructure()
    * @generated
    */
-  int AST_STRUCTURE = 9;
+  int AST_STRUCTURE = 10;
 
   /**
    * The feature id for the '<em><b>Connections</b></em>' containment reference list.
@@ -509,7 +543,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstConnection()
    * @generated
    */
-  int AST_CONNECTION = 10;
+  int AST_CONNECTION = 11;
 
   /**
    * The feature id for the '<em><b>From</b></em>' containment reference.
@@ -573,7 +607,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstActorVariableReference()
    * @generated
    */
-  int AST_ACTOR_VARIABLE_REFERENCE = 11;
+  int AST_ACTOR_VARIABLE_REFERENCE = 12;
 
   /**
    * The feature id for the '<em><b>Variable</b></em>' reference.
@@ -601,7 +635,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstConnectionAttribute()
    * @generated
    */
-  int AST_CONNECTION_ATTRIBUTE = 12;
+  int AST_CONNECTION_ATTRIBUTE = 13;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -638,7 +672,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstVariable()
    * @generated
    */
-  int AST_VARIABLE = 13;
+  int AST_VARIABLE = 14;
 
   /**
    * The feature id for the '<em><b>Constant</b></em>' attribute.
@@ -711,7 +745,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstTypeName()
    * @generated
    */
-  int AST_TYPE_NAME = 14;
+  int AST_TYPE_NAME = 15;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -766,7 +800,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstTypeDefinitionParameter()
    * @generated
    */
-  int AST_TYPE_DEFINITION_PARAMETER = 15;
+  int AST_TYPE_DEFINITION_PARAMETER = 16;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -803,7 +837,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExternalFunction()
    * @generated
    */
-  int AST_EXTERNAL_FUNCTION = 19;
+  int AST_EXTERNAL_FUNCTION = 20;
 
   /**
    * The number of structural features of the '<em>Ast External Function</em>' class.
@@ -822,7 +856,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstFunction()
    * @generated
    */
-  int AST_FUNCTION = 16;
+  int AST_FUNCTION = 17;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -904,7 +938,16 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstActor()
    * @generated
    */
-  int AST_ACTOR = 17;
+  int AST_ACTOR = 18;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_ACTOR__NAME = AST_ABSTRACT_ACTOR__NAME;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
@@ -913,7 +956,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_ACTOR__PARAMETERS = 0;
+  int AST_ACTOR__PARAMETERS = AST_ABSTRACT_ACTOR__PARAMETERS;
 
   /**
    * The feature id for the '<em><b>Inputs</b></em>' containment reference list.
@@ -922,7 +965,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_ACTOR__INPUTS = 1;
+  int AST_ACTOR__INPUTS = AST_ABSTRACT_ACTOR__INPUTS;
 
   /**
    * The feature id for the '<em><b>Outputs</b></em>' containment reference list.
@@ -931,7 +974,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_ACTOR__OUTPUTS = 2;
+  int AST_ACTOR__OUTPUTS = AST_ABSTRACT_ACTOR__OUTPUTS;
 
   /**
    * The feature id for the '<em><b>Functions</b></em>' containment reference list.
@@ -940,7 +983,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_ACTOR__FUNCTIONS = 3;
+  int AST_ACTOR__FUNCTIONS = AST_ABSTRACT_ACTOR_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Procedures</b></em>' containment reference list.
@@ -949,7 +992,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_ACTOR__PROCEDURES = 4;
+  int AST_ACTOR__PROCEDURES = AST_ABSTRACT_ACTOR_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Actions</b></em>' containment reference list.
@@ -958,7 +1001,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_ACTOR__ACTIONS = 5;
+  int AST_ACTOR__ACTIONS = AST_ABSTRACT_ACTOR_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Initializes</b></em>' containment reference list.
@@ -967,7 +1010,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_ACTOR__INITIALIZES = 6;
+  int AST_ACTOR__INITIALIZES = AST_ABSTRACT_ACTOR_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>State Variables</b></em>' containment reference list.
@@ -976,7 +1019,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_ACTOR__STATE_VARIABLES = 7;
+  int AST_ACTOR__STATE_VARIABLES = AST_ABSTRACT_ACTOR_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Schedules</b></em>' containment reference list.
@@ -985,7 +1028,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_ACTOR__SCHEDULES = 8;
+  int AST_ACTOR__SCHEDULES = AST_ABSTRACT_ACTOR_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Priorities</b></em>' containment reference list.
@@ -994,7 +1037,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_ACTOR__PRIORITIES = 9;
+  int AST_ACTOR__PRIORITIES = AST_ABSTRACT_ACTOR_FEATURE_COUNT + 6;
 
   /**
    * The number of structural features of the '<em>Ast Actor</em>' class.
@@ -1003,7 +1046,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_ACTOR_FEATURE_COUNT = 10;
+  int AST_ACTOR_FEATURE_COUNT = AST_ABSTRACT_ACTOR_FEATURE_COUNT + 7;
 
   /**
    * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstPortImpl <em>Ast Port</em>}' class.
@@ -1013,7 +1056,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstPort()
    * @generated
    */
-  int AST_PORT = 18;
+  int AST_PORT = 19;
 
   /**
    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
@@ -1059,7 +1102,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExternalProcedure()
    * @generated
    */
-  int AST_EXTERNAL_PROCEDURE = 21;
+  int AST_EXTERNAL_PROCEDURE = 22;
 
   /**
    * The number of structural features of the '<em>Ast External Procedure</em>' class.
@@ -1078,7 +1121,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstProcedure()
    * @generated
    */
-  int AST_PROCEDURE = 20;
+  int AST_PROCEDURE = 21;
 
   /**
    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
@@ -1142,7 +1185,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstTag()
    * @generated
    */
-  int AST_TAG = 22;
+  int AST_TAG = 23;
 
   /**
    * The feature id for the '<em><b>Identifiers</b></em>' attribute list.
@@ -1170,7 +1213,16 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExternalActor()
    * @generated
    */
-  int AST_EXTERNAL_ACTOR = 23;
+  int AST_EXTERNAL_ACTOR = 24;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_EXTERNAL_ACTOR__NAME = AST_ABSTRACT_ACTOR__NAME;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
@@ -1179,7 +1231,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_EXTERNAL_ACTOR__PARAMETERS = 0;
+  int AST_EXTERNAL_ACTOR__PARAMETERS = AST_ABSTRACT_ACTOR__PARAMETERS;
 
   /**
    * The feature id for the '<em><b>Inputs</b></em>' containment reference list.
@@ -1188,7 +1240,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_EXTERNAL_ACTOR__INPUTS = 1;
+  int AST_EXTERNAL_ACTOR__INPUTS = AST_ABSTRACT_ACTOR__INPUTS;
 
   /**
    * The feature id for the '<em><b>Outputs</b></em>' containment reference list.
@@ -1197,7 +1249,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_EXTERNAL_ACTOR__OUTPUTS = 2;
+  int AST_EXTERNAL_ACTOR__OUTPUTS = AST_ABSTRACT_ACTOR__OUTPUTS;
 
   /**
    * The number of structural features of the '<em>Ast External Actor</em>' class.
@@ -1206,7 +1258,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_EXTERNAL_ACTOR_FEATURE_COUNT = 3;
+  int AST_EXTERNAL_ACTOR_FEATURE_COUNT = AST_ABSTRACT_ACTOR_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstInequalityImpl <em>Ast Inequality</em>}' class.
@@ -1216,7 +1268,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstInequality()
    * @generated
    */
-  int AST_INEQUALITY = 24;
+  int AST_INEQUALITY = 25;
 
   /**
    * The feature id for the '<em><b>Tags</b></em>' containment reference list.
@@ -1244,7 +1296,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstPriority()
    * @generated
    */
-  int AST_PRIORITY = 25;
+  int AST_PRIORITY = 26;
 
   /**
    * The feature id for the '<em><b>Inequalities</b></em>' containment reference list.
@@ -1272,7 +1324,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstSchedule()
    * @generated
    */
-  int AST_SCHEDULE = 26;
+  int AST_SCHEDULE = 27;
 
   /**
    * The feature id for the '<em><b>Initial State</b></em>' reference.
@@ -1309,7 +1361,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstTransition()
    * @generated
    */
-  int AST_TRANSITION = 27;
+  int AST_TRANSITION = 28;
 
   /**
    * The feature id for the '<em><b>Source</b></em>' reference.
@@ -1355,7 +1407,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstState()
    * @generated
    */
-  int AST_STATE = 28;
+  int AST_STATE = 29;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1383,7 +1435,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstAction()
    * @generated
    */
-  int AST_ACTION = 29;
+  int AST_ACTION = 30;
 
   /**
    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
@@ -1465,7 +1517,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstInputPattern()
    * @generated
    */
-  int AST_INPUT_PATTERN = 30;
+  int AST_INPUT_PATTERN = 31;
 
   /**
    * The feature id for the '<em><b>Port</b></em>' reference.
@@ -1511,7 +1563,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstOutputPattern()
    * @generated
    */
-  int AST_OUTPUT_PATTERN = 31;
+  int AST_OUTPUT_PATTERN = 32;
 
   /**
    * The feature id for the '<em><b>Port</b></em>' reference.
@@ -1557,7 +1609,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstStatement()
    * @generated
    */
-  int AST_STATEMENT = 39;
+  int AST_STATEMENT = 40;
 
   /**
    * The number of structural features of the '<em>Ast Statement</em>' class.
@@ -1576,7 +1628,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstStatementAssign()
    * @generated
    */
-  int AST_STATEMENT_ASSIGN = 32;
+  int AST_STATEMENT_ASSIGN = 33;
 
   /**
    * The feature id for the '<em><b>Target</b></em>' containment reference.
@@ -1631,7 +1683,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstStatementCall()
    * @generated
    */
-  int AST_STATEMENT_CALL = 33;
+  int AST_STATEMENT_CALL = 34;
 
   /**
    * The feature id for the '<em><b>Procedure</b></em>' reference.
@@ -1668,7 +1720,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstStatementForeach()
    * @generated
    */
-  int AST_STATEMENT_FOREACH = 34;
+  int AST_STATEMENT_FOREACH = 35;
 
   /**
    * The feature id for the '<em><b>Generators</b></em>' containment reference list.
@@ -1714,7 +1766,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstForeachGenerator()
    * @generated
    */
-  int AST_FOREACH_GENERATOR = 35;
+  int AST_FOREACH_GENERATOR = 36;
 
   /**
    * The feature id for the '<em><b>Variable</b></em>' containment reference.
@@ -1751,7 +1803,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstStatementBlock()
    * @generated
    */
-  int AST_STATEMENT_BLOCK = 36;
+  int AST_STATEMENT_BLOCK = 37;
 
   /**
    * The feature id for the '<em><b>Variables</b></em>' containment reference list.
@@ -1788,7 +1840,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstStatementIf()
    * @generated
    */
-  int AST_STATEMENT_IF = 37;
+  int AST_STATEMENT_IF = 38;
 
   /**
    * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -1834,7 +1886,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstStatementWhile()
    * @generated
    */
-  int AST_STATEMENT_WHILE = 38;
+  int AST_STATEMENT_WHILE = 39;
 
   /**
    * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -1871,7 +1923,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpression()
    * @generated
    */
-  int AST_EXPRESSION = 40;
+  int AST_EXPRESSION = 41;
 
   /**
    * The number of structural features of the '<em>Ast Expression</em>' class.
@@ -1890,7 +1942,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionCall()
    * @generated
    */
-  int AST_EXPRESSION_CALL = 41;
+  int AST_EXPRESSION_CALL = 42;
 
   /**
    * The feature id for the '<em><b>Function</b></em>' reference.
@@ -1927,7 +1979,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionIf()
    * @generated
    */
-  int AST_EXPRESSION_IF = 42;
+  int AST_EXPRESSION_IF = 43;
 
   /**
    * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -1973,7 +2025,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionList()
    * @generated
    */
-  int AST_EXPRESSION_LIST = 43;
+  int AST_EXPRESSION_LIST = 44;
 
   /**
    * The feature id for the '<em><b>Expressions</b></em>' containment reference list.
@@ -2010,7 +2062,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstGenerator()
    * @generated
    */
-  int AST_GENERATOR = 44;
+  int AST_GENERATOR = 45;
 
   /**
    * The feature id for the '<em><b>Variable</b></em>' containment reference.
@@ -2047,7 +2099,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionVariable()
    * @generated
    */
-  int AST_EXPRESSION_VARIABLE = 45;
+  int AST_EXPRESSION_VARIABLE = 46;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -2093,7 +2145,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionLiteral()
    * @generated
    */
-  int AST_EXPRESSION_LITERAL = 46;
+  int AST_EXPRESSION_LITERAL = 47;
 
   /**
    * The number of structural features of the '<em>Ast Expression Literal</em>' class.
@@ -2112,7 +2164,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionBoolean()
    * @generated
    */
-  int AST_EXPRESSION_BOOLEAN = 47;
+  int AST_EXPRESSION_BOOLEAN = 48;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -2140,7 +2192,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionFloat()
    * @generated
    */
-  int AST_EXPRESSION_FLOAT = 48;
+  int AST_EXPRESSION_FLOAT = 49;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -2168,7 +2220,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionInteger()
    * @generated
    */
-  int AST_EXPRESSION_INTEGER = 49;
+  int AST_EXPRESSION_INTEGER = 50;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -2196,7 +2248,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionString()
    * @generated
    */
-  int AST_EXPRESSION_STRING = 50;
+  int AST_EXPRESSION_STRING = 51;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -2224,7 +2276,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstType()
    * @generated
    */
-  int AST_TYPE = 51;
+  int AST_TYPE = 52;
 
   /**
    * The feature id for the '<em><b>Builtin</b></em>' attribute.
@@ -2306,7 +2358,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstTypeParameterList()
    * @generated
    */
-  int AST_TYPE_PARAMETER_LIST = 52;
+  int AST_TYPE_PARAMETER_LIST = 53;
 
   /**
    * The feature id for the '<em><b>Params</b></em>' containment reference list.
@@ -2334,7 +2386,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstTypeParam()
    * @generated
    */
-  int AST_TYPE_PARAM = 53;
+  int AST_TYPE_PARAM = 54;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2380,7 +2432,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstVariableReference()
    * @generated
    */
-  int AST_VARIABLE_REFERENCE = 54;
+  int AST_VARIABLE_REFERENCE = 55;
 
   /**
    * The feature id for the '<em><b>Variable</b></em>' reference.
@@ -2408,7 +2460,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstMemberAccess()
    * @generated
    */
-  int AST_MEMBER_ACCESS = 55;
+  int AST_MEMBER_ACCESS = 56;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2445,7 +2497,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstAnnotation()
    * @generated
    */
-  int AST_ANNOTATION = 56;
+  int AST_ANNOTATION = 57;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2482,7 +2534,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstAnnotationArgument()
    * @generated
    */
-  int AST_ANNOTATION_ARGUMENT = 57;
+  int AST_ANNOTATION_ARGUMENT = 58;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2519,7 +2571,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstInitialize()
    * @generated
    */
-  int AST_INITIALIZE = 58;
+  int AST_INITIALIZE = 59;
 
   /**
    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
@@ -2601,7 +2653,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionBinary()
    * @generated
    */
-  int AST_EXPRESSION_BINARY = 59;
+  int AST_EXPRESSION_BINARY = 60;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -2647,7 +2699,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionUnary()
    * @generated
    */
-  int AST_EXPRESSION_UNARY = 60;
+  int AST_EXPRESSION_UNARY = 61;
 
   /**
    * The feature id for the '<em><b>Unary Operator</b></em>' attribute.
@@ -2849,17 +2901,6 @@ public interface CalPackage extends EPackage
   EReference getAstEntity_Annotations();
 
   /**
-   * Returns the meta object for the attribute '{@link org.caltoopia.frontend.cal.AstEntity#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.caltoopia.frontend.cal.AstEntity#getName()
-   * @see #getAstEntity()
-   * @generated
-   */
-  EAttribute getAstEntity_Name();
-
-  /**
    * Returns the meta object for the containment reference '{@link org.caltoopia.frontend.cal.AstEntity#getActor <em>Actor</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2871,26 +2912,58 @@ public interface CalPackage extends EPackage
   EReference getAstEntity_Actor();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.caltoopia.frontend.cal.AstEntity#getNetwork <em>Network</em>}'.
+   * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstAbstractActor <em>Ast Abstract Actor</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Network</em>'.
-   * @see org.caltoopia.frontend.cal.AstEntity#getNetwork()
-   * @see #getAstEntity()
+   * @return the meta object for class '<em>Ast Abstract Actor</em>'.
+   * @see org.caltoopia.frontend.cal.AstAbstractActor
    * @generated
    */
-  EReference getAstEntity_Network();
+  EClass getAstAbstractActor();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.caltoopia.frontend.cal.AstEntity#getExternal <em>External</em>}'.
+   * Returns the meta object for the attribute '{@link org.caltoopia.frontend.cal.AstAbstractActor#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>External</em>'.
-   * @see org.caltoopia.frontend.cal.AstEntity#getExternal()
-   * @see #getAstEntity()
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.caltoopia.frontend.cal.AstAbstractActor#getName()
+   * @see #getAstAbstractActor()
    * @generated
    */
-  EReference getAstEntity_External();
+  EAttribute getAstAbstractActor_Name();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstAbstractActor#getParameters <em>Parameters</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Parameters</em>'.
+   * @see org.caltoopia.frontend.cal.AstAbstractActor#getParameters()
+   * @see #getAstAbstractActor()
+   * @generated
+   */
+  EReference getAstAbstractActor_Parameters();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstAbstractActor#getInputs <em>Inputs</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Inputs</em>'.
+   * @see org.caltoopia.frontend.cal.AstAbstractActor#getInputs()
+   * @see #getAstAbstractActor()
+   * @generated
+   */
+  EReference getAstAbstractActor_Inputs();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstAbstractActor#getOutputs <em>Outputs</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Outputs</em>'.
+   * @see org.caltoopia.frontend.cal.AstAbstractActor#getOutputs()
+   * @see #getAstAbstractActor()
+   * @generated
+   */
+  EReference getAstAbstractActor_Outputs();
 
   /**
    * Returns the meta object for class '{@link org.caltoopia.frontend.cal.Import <em>Import</em>}'.
@@ -2922,39 +2995,6 @@ public interface CalPackage extends EPackage
    * @generated
    */
   EClass getAstNetwork();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstNetwork#getParameters <em>Parameters</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Parameters</em>'.
-   * @see org.caltoopia.frontend.cal.AstNetwork#getParameters()
-   * @see #getAstNetwork()
-   * @generated
-   */
-  EReference getAstNetwork_Parameters();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstNetwork#getInputs <em>Inputs</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Inputs</em>'.
-   * @see org.caltoopia.frontend.cal.AstNetwork#getInputs()
-   * @see #getAstNetwork()
-   * @generated
-   */
-  EReference getAstNetwork_Inputs();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstNetwork#getOutputs <em>Outputs</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Outputs</em>'.
-   * @see org.caltoopia.frontend.cal.AstNetwork#getOutputs()
-   * @see #getAstNetwork()
-   * @generated
-   */
-  EReference getAstNetwork_Outputs();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstNetwork#getVariables <em>Variables</em>}'.
@@ -3463,39 +3503,6 @@ public interface CalPackage extends EPackage
   EClass getAstActor();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstActor#getParameters <em>Parameters</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Parameters</em>'.
-   * @see org.caltoopia.frontend.cal.AstActor#getParameters()
-   * @see #getAstActor()
-   * @generated
-   */
-  EReference getAstActor_Parameters();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstActor#getInputs <em>Inputs</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Inputs</em>'.
-   * @see org.caltoopia.frontend.cal.AstActor#getInputs()
-   * @see #getAstActor()
-   * @generated
-   */
-  EReference getAstActor_Inputs();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstActor#getOutputs <em>Outputs</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Outputs</em>'.
-   * @see org.caltoopia.frontend.cal.AstActor#getOutputs()
-   * @see #getAstActor()
-   * @generated
-   */
-  EReference getAstActor_Outputs();
-
-  /**
    * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstActor#getFunctions <em>Functions</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3730,39 +3737,6 @@ public interface CalPackage extends EPackage
    * @generated
    */
   EClass getAstExternalActor();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstExternalActor#getParameters <em>Parameters</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Parameters</em>'.
-   * @see org.caltoopia.frontend.cal.AstExternalActor#getParameters()
-   * @see #getAstExternalActor()
-   * @generated
-   */
-  EReference getAstExternalActor_Parameters();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstExternalActor#getInputs <em>Inputs</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Inputs</em>'.
-   * @see org.caltoopia.frontend.cal.AstExternalActor#getInputs()
-   * @see #getAstExternalActor()
-   * @generated
-   */
-  EReference getAstExternalActor_Inputs();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstExternalActor#getOutputs <em>Outputs</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Outputs</em>'.
-   * @see org.caltoopia.frontend.cal.AstExternalActor#getOutputs()
-   * @see #getAstExternalActor()
-   * @generated
-   */
-  EReference getAstExternalActor_Outputs();
 
   /**
    * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstInequality <em>Ast Inequality</em>}'.
@@ -5154,14 +5128,6 @@ public interface CalPackage extends EPackage
     EReference AST_ENTITY__ANNOTATIONS = eINSTANCE.getAstEntity_Annotations();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute AST_ENTITY__NAME = eINSTANCE.getAstEntity_Name();
-
-    /**
      * The meta object literal for the '<em><b>Actor</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5170,20 +5136,46 @@ public interface CalPackage extends EPackage
     EReference AST_ENTITY__ACTOR = eINSTANCE.getAstEntity_Actor();
 
     /**
-     * The meta object literal for the '<em><b>Network</b></em>' containment reference feature.
+     * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstAbstractActorImpl <em>Ast Abstract Actor</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @see org.caltoopia.frontend.cal.impl.AstAbstractActorImpl
+     * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstAbstractActor()
      * @generated
      */
-    EReference AST_ENTITY__NETWORK = eINSTANCE.getAstEntity_Network();
+    EClass AST_ABSTRACT_ACTOR = eINSTANCE.getAstAbstractActor();
 
     /**
-     * The meta object literal for the '<em><b>External</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference AST_ENTITY__EXTERNAL = eINSTANCE.getAstEntity_External();
+    EAttribute AST_ABSTRACT_ACTOR__NAME = eINSTANCE.getAstAbstractActor_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_ABSTRACT_ACTOR__PARAMETERS = eINSTANCE.getAstAbstractActor_Parameters();
+
+    /**
+     * The meta object literal for the '<em><b>Inputs</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_ABSTRACT_ACTOR__INPUTS = eINSTANCE.getAstAbstractActor_Inputs();
+
+    /**
+     * The meta object literal for the '<em><b>Outputs</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_ABSTRACT_ACTOR__OUTPUTS = eINSTANCE.getAstAbstractActor_Outputs();
 
     /**
      * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.ImportImpl <em>Import</em>}' class.
@@ -5212,30 +5204,6 @@ public interface CalPackage extends EPackage
      * @generated
      */
     EClass AST_NETWORK = eINSTANCE.getAstNetwork();
-
-    /**
-     * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference AST_NETWORK__PARAMETERS = eINSTANCE.getAstNetwork_Parameters();
-
-    /**
-     * The meta object literal for the '<em><b>Inputs</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference AST_NETWORK__INPUTS = eINSTANCE.getAstNetwork_Inputs();
-
-    /**
-     * The meta object literal for the '<em><b>Outputs</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference AST_NETWORK__OUTPUTS = eINSTANCE.getAstNetwork_Outputs();
 
     /**
      * The meta object literal for the '<em><b>Variables</b></em>' containment reference list feature.
@@ -5636,30 +5604,6 @@ public interface CalPackage extends EPackage
     EClass AST_ACTOR = eINSTANCE.getAstActor();
 
     /**
-     * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference AST_ACTOR__PARAMETERS = eINSTANCE.getAstActor_Parameters();
-
-    /**
-     * The meta object literal for the '<em><b>Inputs</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference AST_ACTOR__INPUTS = eINSTANCE.getAstActor_Inputs();
-
-    /**
-     * The meta object literal for the '<em><b>Outputs</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference AST_ACTOR__OUTPUTS = eINSTANCE.getAstActor_Outputs();
-
-    /**
      * The meta object literal for the '<em><b>Functions</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5846,30 +5790,6 @@ public interface CalPackage extends EPackage
      * @generated
      */
     EClass AST_EXTERNAL_ACTOR = eINSTANCE.getAstExternalActor();
-
-    /**
-     * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference AST_EXTERNAL_ACTOR__PARAMETERS = eINSTANCE.getAstExternalActor_Parameters();
-
-    /**
-     * The meta object literal for the '<em><b>Inputs</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference AST_EXTERNAL_ACTOR__INPUTS = eINSTANCE.getAstExternalActor_Inputs();
-
-    /**
-     * The meta object literal for the '<em><b>Outputs</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference AST_EXTERNAL_ACTOR__OUTPUTS = eINSTANCE.getAstExternalActor_Outputs();
 
     /**
      * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstInequalityImpl <em>Ast Inequality</em>}' class.

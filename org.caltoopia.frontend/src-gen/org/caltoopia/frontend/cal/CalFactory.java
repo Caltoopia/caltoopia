@@ -1,7 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
  */
 package org.caltoopia.frontend.cal;
 
@@ -69,6 +66,15 @@ public interface CalFactory extends EFactory
    * @generated
    */
   AstEntity createAstEntity();
+
+  /**
+   * Returns a new object of class '<em>Ast Abstract Actor</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ast Abstract Actor</em>'.
+   * @generated
+   */
+  AstAbstractActor createAstAbstractActor();
 
   /**
    * Returns a new object of class '<em>Import</em>'.
