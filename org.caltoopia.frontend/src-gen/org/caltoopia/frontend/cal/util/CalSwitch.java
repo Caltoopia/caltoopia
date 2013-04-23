@@ -1,7 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
  */
 package org.caltoopia.frontend.cal.util;
 
@@ -114,6 +111,13 @@ public class CalSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case CalPackage.AST_ABSTRACT_ACTOR:
+      {
+        AstAbstractActor astAbstractActor = (AstAbstractActor)theEObject;
+        T result = caseAstAbstractActor(astAbstractActor);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case CalPackage.IMPORT:
       {
         Import import_ = (Import)theEObject;
@@ -125,6 +129,7 @@ public class CalSwitch<T> extends Switch<T>
       {
         AstNetwork astNetwork = (AstNetwork)theEObject;
         T result = caseAstNetwork(astNetwork);
+        if (result == null) result = caseAstAbstractActor(astNetwork);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -203,6 +208,7 @@ public class CalSwitch<T> extends Switch<T>
       {
         AstActor astActor = (AstActor)theEObject;
         T result = caseAstActor(astActor);
+        if (result == null) result = caseAstAbstractActor(astActor);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -246,6 +252,7 @@ public class CalSwitch<T> extends Switch<T>
       {
         AstExternalActor astExternalActor = (AstExternalActor)theEObject;
         T result = caseAstExternalActor(astExternalActor);
+        if (result == null) result = caseAstAbstractActor(astExternalActor);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -610,6 +617,22 @@ public class CalSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAstEntity(AstEntity object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Ast Abstract Actor</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Ast Abstract Actor</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAstAbstractActor(AstAbstractActor object)
   {
     return null;
   }

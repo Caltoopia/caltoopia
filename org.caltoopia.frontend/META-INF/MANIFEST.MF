@@ -45,8 +45,7 @@ Import-Package: org.apache.commons.logging,
  org.eclipse.swt.widgets,
  org.eclipse.ui,
  org.eclipse.ui.console,
- org.eclipse.xtext.xbase.lib,
- org.eclipse.xtext.xtend2.lib
+ org.eclipse.xtext.xbase.lib
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.caltoopia.ast2ir,
  org.caltoopia.cli,

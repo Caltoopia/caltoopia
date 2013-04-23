@@ -32,7 +32,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
-
+import org.caltoopia.frontend.cal.AstAbstractActor;
 import org.caltoopia.frontend.cal.AstAction;
 import org.caltoopia.frontend.cal.AstActor;
 import org.caltoopia.frontend.cal.AstActorVariable;
@@ -214,10 +214,9 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 
 	@Override
 	public Boolean caseAstEntity(AstEntity entity) {
-		if (entity.getActor() != null) {
-			return doSwitch(entity.getActor());
-		} else if (entity.getNetwork() != null){
-			return doSwitch(entity.getNetwork());
+		AstAbstractActor actor = entity.getActor();
+		if (actor instanceof AstActor || actor instanceof AstNetwork) {
+			return doSwitch(actor);
 		} 
 		return true;
 	}

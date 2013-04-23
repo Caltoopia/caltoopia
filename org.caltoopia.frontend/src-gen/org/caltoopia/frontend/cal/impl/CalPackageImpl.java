@@ -1,10 +1,8 @@
 /**
- * <copyright>
- * </copyright>
- *
  */
 package org.caltoopia.frontend.cal.impl;
 
+import org.caltoopia.frontend.cal.AstAbstractActor;
 import org.caltoopia.frontend.cal.AstAction;
 import org.caltoopia.frontend.cal.AstActor;
 import org.caltoopia.frontend.cal.AstActorVariable;
@@ -118,6 +116,13 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * @generated
    */
   private EClass astEntityEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass astAbstractActorEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -739,19 +744,9 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getAstEntity_Name()
-  {
-    return (EAttribute)astEntityEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getAstEntity_Actor()
   {
-    return (EReference)astEntityEClass.getEStructuralFeatures().get(2);
+    return (EReference)astEntityEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -759,9 +754,9 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAstEntity_Network()
+  public EClass getAstAbstractActor()
   {
-    return (EReference)astEntityEClass.getEStructuralFeatures().get(3);
+    return astAbstractActorEClass;
   }
 
   /**
@@ -769,9 +764,39 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAstEntity_External()
+  public EAttribute getAstAbstractActor_Name()
   {
-    return (EReference)astEntityEClass.getEStructuralFeatures().get(4);
+    return (EAttribute)astAbstractActorEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAstAbstractActor_Parameters()
+  {
+    return (EReference)astAbstractActorEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAstAbstractActor_Inputs()
+  {
+    return (EReference)astAbstractActorEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAstAbstractActor_Outputs()
+  {
+    return (EReference)astAbstractActorEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -809,7 +834,7 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAstNetwork_Parameters()
+  public EReference getAstNetwork_Variables()
   {
     return (EReference)astNetworkEClass.getEStructuralFeatures().get(0);
   }
@@ -819,7 +844,7 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAstNetwork_Inputs()
+  public EReference getAstNetwork_Instances()
   {
     return (EReference)astNetworkEClass.getEStructuralFeatures().get(1);
   }
@@ -829,39 +854,9 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAstNetwork_Outputs()
-  {
-    return (EReference)astNetworkEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAstNetwork_Variables()
-  {
-    return (EReference)astNetworkEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAstNetwork_Instances()
-  {
-    return (EReference)astNetworkEClass.getEStructuralFeatures().get(4);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getAstNetwork_Structure()
   {
-    return (EReference)astNetworkEClass.getEStructuralFeatures().get(5);
+    return (EReference)astNetworkEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1309,7 +1304,7 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAstActor_Parameters()
+  public EReference getAstActor_Functions()
   {
     return (EReference)astActorEClass.getEStructuralFeatures().get(0);
   }
@@ -1319,7 +1314,7 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAstActor_Inputs()
+  public EReference getAstActor_Procedures()
   {
     return (EReference)astActorEClass.getEStructuralFeatures().get(1);
   }
@@ -1329,7 +1324,7 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAstActor_Outputs()
+  public EReference getAstActor_Actions()
   {
     return (EReference)astActorEClass.getEStructuralFeatures().get(2);
   }
@@ -1339,7 +1334,7 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAstActor_Functions()
+  public EReference getAstActor_Initializes()
   {
     return (EReference)astActorEClass.getEStructuralFeatures().get(3);
   }
@@ -1349,7 +1344,7 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAstActor_Procedures()
+  public EReference getAstActor_StateVariables()
   {
     return (EReference)astActorEClass.getEStructuralFeatures().get(4);
   }
@@ -1359,7 +1354,7 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAstActor_Actions()
+  public EReference getAstActor_Schedules()
   {
     return (EReference)astActorEClass.getEStructuralFeatures().get(5);
   }
@@ -1369,39 +1364,9 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAstActor_Initializes()
-  {
-    return (EReference)astActorEClass.getEStructuralFeatures().get(6);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAstActor_StateVariables()
-  {
-    return (EReference)astActorEClass.getEStructuralFeatures().get(7);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAstActor_Schedules()
-  {
-    return (EReference)astActorEClass.getEStructuralFeatures().get(8);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getAstActor_Priorities()
   {
-    return (EReference)astActorEClass.getEStructuralFeatures().get(9);
+    return (EReference)astActorEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -1552,36 +1517,6 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
   public EClass getAstExternalActor()
   {
     return astExternalActorEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAstExternalActor_Parameters()
-  {
-    return (EReference)astExternalActorEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAstExternalActor_Inputs()
-  {
-    return (EReference)astExternalActorEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAstExternalActor_Outputs()
-  {
-    return (EReference)astExternalActorEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -2784,18 +2719,18 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
 
     astEntityEClass = createEClass(AST_ENTITY);
     createEReference(astEntityEClass, AST_ENTITY__ANNOTATIONS);
-    createEAttribute(astEntityEClass, AST_ENTITY__NAME);
     createEReference(astEntityEClass, AST_ENTITY__ACTOR);
-    createEReference(astEntityEClass, AST_ENTITY__NETWORK);
-    createEReference(astEntityEClass, AST_ENTITY__EXTERNAL);
+
+    astAbstractActorEClass = createEClass(AST_ABSTRACT_ACTOR);
+    createEAttribute(astAbstractActorEClass, AST_ABSTRACT_ACTOR__NAME);
+    createEReference(astAbstractActorEClass, AST_ABSTRACT_ACTOR__PARAMETERS);
+    createEReference(astAbstractActorEClass, AST_ABSTRACT_ACTOR__INPUTS);
+    createEReference(astAbstractActorEClass, AST_ABSTRACT_ACTOR__OUTPUTS);
 
     importEClass = createEClass(IMPORT);
     createEAttribute(importEClass, IMPORT__IMPORTED_NAMESPACE);
 
     astNetworkEClass = createEClass(AST_NETWORK);
-    createEReference(astNetworkEClass, AST_NETWORK__PARAMETERS);
-    createEReference(astNetworkEClass, AST_NETWORK__INPUTS);
-    createEReference(astNetworkEClass, AST_NETWORK__OUTPUTS);
     createEReference(astNetworkEClass, AST_NETWORK__VARIABLES);
     createEReference(astNetworkEClass, AST_NETWORK__INSTANCES);
     createEReference(astNetworkEClass, AST_NETWORK__STRUCTURE);
@@ -2854,9 +2789,6 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     createEReference(astFunctionEClass, AST_FUNCTION__EXPRESSION);
 
     astActorEClass = createEClass(AST_ACTOR);
-    createEReference(astActorEClass, AST_ACTOR__PARAMETERS);
-    createEReference(astActorEClass, AST_ACTOR__INPUTS);
-    createEReference(astActorEClass, AST_ACTOR__OUTPUTS);
     createEReference(astActorEClass, AST_ACTOR__FUNCTIONS);
     createEReference(astActorEClass, AST_ACTOR__PROCEDURES);
     createEReference(astActorEClass, AST_ACTOR__ACTIONS);
@@ -2885,9 +2817,6 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     createEAttribute(astTagEClass, AST_TAG__IDENTIFIERS);
 
     astExternalActorEClass = createEClass(AST_EXTERNAL_ACTOR);
-    createEReference(astExternalActorEClass, AST_EXTERNAL_ACTOR__PARAMETERS);
-    createEReference(astExternalActorEClass, AST_EXTERNAL_ACTOR__INPUTS);
-    createEReference(astExternalActorEClass, AST_EXTERNAL_ACTOR__OUTPUTS);
 
     astInequalityEClass = createEClass(AST_INEQUALITY);
     createEReference(astInequalityEClass, AST_INEQUALITY__TAGS);
@@ -3075,8 +3004,11 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     astNamespaceEClass.getESuperTypes().add(this.getAstTop());
     astNamespaceEClass.getESuperTypes().add(this.getAstPackage());
     astNamespaceEClass.getESuperTypes().add(this.getAstUnit());
+    astNetworkEClass.getESuperTypes().add(this.getAstAbstractActor());
     astFunctionEClass.getESuperTypes().add(this.getAstExternalFunction());
+    astActorEClass.getESuperTypes().add(this.getAstAbstractActor());
     astProcedureEClass.getESuperTypes().add(this.getAstExternalProcedure());
+    astExternalActorEClass.getESuperTypes().add(this.getAstAbstractActor());
     astStatementAssignEClass.getESuperTypes().add(this.getAstStatement());
     astStatementCallEClass.getESuperTypes().add(this.getAstStatement());
     astStatementForeachEClass.getESuperTypes().add(this.getAstStatement());
@@ -3117,18 +3049,18 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
 
     initEClass(astEntityEClass, AstEntity.class, "AstEntity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAstEntity_Annotations(), this.getAstAnnotation(), null, "annotations", null, 0, -1, AstEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getAstEntity_Name(), ecorePackage.getEString(), "name", null, 0, 1, AstEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAstEntity_Actor(), this.getAstActor(), null, "actor", null, 0, 1, AstEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAstEntity_Network(), this.getAstNetwork(), null, "network", null, 0, 1, AstEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAstEntity_External(), this.getAstExternalActor(), null, "external", null, 0, 1, AstEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAstEntity_Actor(), this.getAstAbstractActor(), null, "actor", null, 0, 1, AstEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(astAbstractActorEClass, AstAbstractActor.class, "AstAbstractActor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getAstAbstractActor_Name(), ecorePackage.getEString(), "name", null, 0, 1, AstAbstractActor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAstAbstractActor_Parameters(), this.getAstVariable(), null, "parameters", null, 0, -1, AstAbstractActor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAstAbstractActor_Inputs(), this.getAstPort(), null, "inputs", null, 0, -1, AstAbstractActor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAstAbstractActor_Outputs(), this.getAstPort(), null, "outputs", null, 0, -1, AstAbstractActor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(importEClass, Import.class, "Import", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getImport_ImportedNamespace(), ecorePackage.getEString(), "importedNamespace", null, 0, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(astNetworkEClass, AstNetwork.class, "AstNetwork", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAstNetwork_Parameters(), this.getAstVariable(), null, "parameters", null, 0, -1, AstNetwork.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAstNetwork_Inputs(), this.getAstPort(), null, "inputs", null, 0, -1, AstNetwork.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAstNetwork_Outputs(), this.getAstPort(), null, "outputs", null, 0, -1, AstNetwork.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstNetwork_Variables(), this.getAstVariable(), null, "variables", null, 0, -1, AstNetwork.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstNetwork_Instances(), this.getAstActorVariable(), null, "instances", null, 0, -1, AstNetwork.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstNetwork_Structure(), this.getAstStructure(), null, "structure", null, 0, 1, AstNetwork.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3187,9 +3119,6 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     initEReference(getAstFunction_Expression(), this.getAstExpression(), null, "expression", null, 0, 1, AstFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(astActorEClass, AstActor.class, "AstActor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAstActor_Parameters(), this.getAstVariable(), null, "parameters", null, 0, -1, AstActor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAstActor_Inputs(), this.getAstPort(), null, "inputs", null, 0, -1, AstActor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAstActor_Outputs(), this.getAstPort(), null, "outputs", null, 0, -1, AstActor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstActor_Functions(), this.getAstFunction(), null, "functions", null, 0, -1, AstActor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstActor_Procedures(), this.getAstProcedure(), null, "procedures", null, 0, -1, AstActor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstActor_Actions(), this.getAstAction(), null, "actions", null, 0, -1, AstActor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3218,9 +3147,6 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     initEAttribute(getAstTag_Identifiers(), ecorePackage.getEString(), "identifiers", null, 0, -1, AstTag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(astExternalActorEClass, AstExternalActor.class, "AstExternalActor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAstExternalActor_Parameters(), this.getAstVariable(), null, "parameters", null, 0, -1, AstExternalActor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAstExternalActor_Inputs(), this.getAstPort(), null, "inputs", null, 0, -1, AstExternalActor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAstExternalActor_Outputs(), this.getAstPort(), null, "outputs", null, 0, -1, AstExternalActor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(astInequalityEClass, AstInequality.class, "AstInequality", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAstInequality_Tags(), this.getAstTag(), null, "tags", null, 0, -1, AstInequality.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

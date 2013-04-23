@@ -1,13 +1,8 @@
 /**
- * <copyright>
- * </copyright>
- *
  */
 package org.caltoopia.frontend.cal;
 
 import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -17,9 +12,6 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.caltoopia.frontend.cal.AstNetwork#getParameters <em>Parameters</em>}</li>
- *   <li>{@link org.caltoopia.frontend.cal.AstNetwork#getInputs <em>Inputs</em>}</li>
- *   <li>{@link org.caltoopia.frontend.cal.AstNetwork#getOutputs <em>Outputs</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.AstNetwork#getVariables <em>Variables</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.AstNetwork#getInstances <em>Instances</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.AstNetwork#getStructure <em>Structure</em>}</li>
@@ -30,56 +22,8 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface AstNetwork extends EObject
+public interface AstNetwork extends AstAbstractActor
 {
-  /**
-   * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
-   * The list contents are of type {@link org.caltoopia.frontend.cal.AstVariable}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Parameters</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Parameters</em>' containment reference list.
-   * @see org.caltoopia.frontend.cal.CalPackage#getAstNetwork_Parameters()
-   * @model containment="true"
-   * @generated
-   */
-  EList<AstVariable> getParameters();
-
-  /**
-   * Returns the value of the '<em><b>Inputs</b></em>' containment reference list.
-   * The list contents are of type {@link org.caltoopia.frontend.cal.AstPort}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Inputs</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Inputs</em>' containment reference list.
-   * @see org.caltoopia.frontend.cal.CalPackage#getAstNetwork_Inputs()
-   * @model containment="true"
-   * @generated
-   */
-  EList<AstPort> getInputs();
-
-  /**
-   * Returns the value of the '<em><b>Outputs</b></em>' containment reference list.
-   * The list contents are of type {@link org.caltoopia.frontend.cal.AstPort}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Outputs</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Outputs</em>' containment reference list.
-   * @see org.caltoopia.frontend.cal.CalPackage#getAstNetwork_Outputs()
-   * @model containment="true"
-   * @generated
-   */
-  EList<AstPort> getOutputs();
-
   /**
    * Returns the value of the '<em><b>Variables</b></em>' containment reference list.
    * The list contents are of type {@link org.caltoopia.frontend.cal.AstVariable}.

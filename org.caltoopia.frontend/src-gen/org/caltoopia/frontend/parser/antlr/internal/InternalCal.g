@@ -624,133 +624,75 @@ ruleAstEntity returns [EObject current=null]
 	    }
 
 )
-)*((	otherlv_1='actor' 
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getAstEntityAccess().getActorKeyword_1_0_0());
-    }
-(
-(
-		lv_name_2_0=RULE_ID
-		{
-			newLeafNode(lv_name_2_0, grammarAccess.getAstEntityAccess().getNameIDTerminalRuleCall_1_0_1_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAstEntityRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"name",
-        		lv_name_2_0, 
-        		"ID");
-	    }
-
-)
-)(
+)*(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstEntityAccess().getActorAstActorParserRuleCall_1_0_2_0()); 
+	        newCompositeNode(grammarAccess.getAstEntityAccess().getActorAstAbstractActorParserRuleCall_1_0()); 
 	    }
-		lv_actor_3_0=ruleAstActor		{
+		lv_actor_1_0=ruleAstAbstractActor		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstEntityRule());
 	        }
        		set(
        			$current, 
        			"actor",
-        		lv_actor_3_0, 
-        		"AstActor");
+        		lv_actor_1_0, 
+        		"AstAbstractActor");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 ))
-    |(	otherlv_4='network' 
-    {
-    	newLeafNode(otherlv_4, grammarAccess.getAstEntityAccess().getNetworkKeyword_1_1_0());
+;
+
+
+
+
+
+// Entry rule entryRuleAstAbstractActor
+entryRuleAstAbstractActor returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getAstAbstractActorRule()); }
+	 iv_ruleAstAbstractActor=ruleAstAbstractActor 
+	 { $current=$iv_ruleAstAbstractActor.current; } 
+	 EOF 
+;
+
+// Rule AstAbstractActor
+ruleAstAbstractActor returns [EObject current=null] 
+    @init { enterRule(); 
     }
+    @after { leaveRule(); }:
 (
-(
-		lv_name_5_0=RULE_ID
-		{
-			newLeafNode(lv_name_5_0, grammarAccess.getAstEntityAccess().getNameIDTerminalRuleCall_1_1_1_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAstEntityRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"name",
-        		lv_name_5_0, 
-        		"ID");
-	    }
-
-)
-)(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getAstEntityAccess().getNetworkAstNetworkParserRuleCall_1_1_2_0()); 
-	    }
-		lv_network_6_0=ruleAstNetwork		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getAstEntityRule());
-	        }
-       		set(
-       			$current, 
-       			"network",
-        		lv_network_6_0, 
-        		"AstNetwork");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))
-    |(	otherlv_7='external' 
-    {
-    	newLeafNode(otherlv_7, grammarAccess.getAstEntityAccess().getExternalKeyword_1_2_0());
+    { 
+        newCompositeNode(grammarAccess.getAstAbstractActorAccess().getAstActorParserRuleCall_0()); 
     }
-	otherlv_8='actor' 
-    {
-    	newLeafNode(otherlv_8, grammarAccess.getAstEntityAccess().getActorKeyword_1_2_1());
+    this_AstActor_0=ruleAstActor
+    { 
+        $current = $this_AstActor_0.current; 
+        afterParserOrEnumRuleCall();
     }
-(
-(
-		lv_name_9_0=RULE_ID
-		{
-			newLeafNode(lv_name_9_0, grammarAccess.getAstEntityAccess().getNameIDTerminalRuleCall_1_2_2_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAstEntityRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"name",
-        		lv_name_9_0, 
-        		"ID");
-	    }
 
-)
-)(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getAstEntityAccess().getExternalAstExternalActorParserRuleCall_1_2_3_0()); 
-	    }
-		lv_external_10_0=ruleAstExternalActor		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getAstEntityRule());
-	        }
-       		set(
-       			$current, 
-       			"external",
-        		lv_external_10_0, 
-        		"AstExternalActor");
-	        afterParserOrEnumRuleCall();
-	    }
+    |
+    { 
+        newCompositeNode(grammarAccess.getAstAbstractActorAccess().getAstNetworkParserRuleCall_1()); 
+    }
+    this_AstNetwork_1=ruleAstNetwork
+    { 
+        $current = $this_AstNetwork_1.current; 
+        afterParserOrEnumRuleCall();
+    }
 
+    |
+    { 
+        newCompositeNode(grammarAccess.getAstAbstractActorAccess().getAstExternalActorParserRuleCall_2()); 
+    }
+    this_AstExternalActor_2=ruleAstExternalActor
+    { 
+        $current = $this_AstExternalActor_2.current; 
+        afterParserOrEnumRuleCall();
+    }
 )
-))))
 ;
 
 
@@ -903,36 +845,36 @@ ruleAstNetwork returns [EObject current=null]
             grammarAccess.getAstNetworkAccess().getAstNetworkAction_0(),
             $current);
     }
-)	otherlv_1='(' 
+)	otherlv_1='network' 
     {
-    	newLeafNode(otherlv_1, grammarAccess.getAstNetworkAccess().getLeftParenthesisKeyword_1());
+    	newLeafNode(otherlv_1, grammarAccess.getAstNetworkAccess().getNetworkKeyword_1());
+    }
+(
+(
+		lv_name_2_0=RULE_ID
+		{
+			newLeafNode(lv_name_2_0, grammarAccess.getAstNetworkAccess().getNameIDTerminalRuleCall_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAstNetworkRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_2_0, 
+        		"ID");
+	    }
+
+)
+)	otherlv_3='(' 
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getAstNetworkAccess().getLeftParenthesisKeyword_3());
     }
 ((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstNetworkAccess().getParametersAstParameterParserRuleCall_2_0_0()); 
-	    }
-		lv_parameters_2_0=ruleAstParameter		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getAstNetworkRule());
-	        }
-       		add(
-       			$current, 
-       			"parameters",
-        		lv_parameters_2_0, 
-        		"AstParameter");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)(	otherlv_3=',' 
-    {
-    	newLeafNode(otherlv_3, grammarAccess.getAstNetworkAccess().getCommaKeyword_2_1_0());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getAstNetworkAccess().getParametersAstParameterParserRuleCall_2_1_1_0()); 
+	        newCompositeNode(grammarAccess.getAstNetworkAccess().getParametersAstParameterParserRuleCall_4_0_0()); 
 	    }
 		lv_parameters_4_0=ruleAstParameter		{
 	        if ($current==null) {
@@ -947,36 +889,36 @@ ruleAstNetwork returns [EObject current=null]
 	    }
 
 )
-))*)?	otherlv_5=')' 
+)(	otherlv_5=',' 
     {
-    	newLeafNode(otherlv_5, grammarAccess.getAstNetworkAccess().getRightParenthesisKeyword_3());
+    	newLeafNode(otherlv_5, grammarAccess.getAstNetworkAccess().getCommaKeyword_4_1_0());
     }
-((
+(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstNetworkAccess().getInputsAstPortParserRuleCall_4_0_0()); 
+	        newCompositeNode(grammarAccess.getAstNetworkAccess().getParametersAstParameterParserRuleCall_4_1_1_0()); 
 	    }
-		lv_inputs_6_0=ruleAstPort		{
+		lv_parameters_6_0=ruleAstParameter		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstNetworkRule());
 	        }
        		add(
        			$current, 
-       			"inputs",
-        		lv_inputs_6_0, 
-        		"AstPort");
+       			"parameters",
+        		lv_parameters_6_0, 
+        		"AstParameter");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(	otherlv_7=',' 
+))*)?	otherlv_7=')' 
     {
-    	newLeafNode(otherlv_7, grammarAccess.getAstNetworkAccess().getCommaKeyword_4_1_0());
+    	newLeafNode(otherlv_7, grammarAccess.getAstNetworkAccess().getRightParenthesisKeyword_5());
     }
-(
+((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstNetworkAccess().getInputsAstPortParserRuleCall_4_1_1_0()); 
+	        newCompositeNode(grammarAccess.getAstNetworkAccess().getInputsAstPortParserRuleCall_6_0_0()); 
 	    }
 		lv_inputs_8_0=ruleAstPort		{
 	        if ($current==null) {
@@ -991,36 +933,36 @@ ruleAstNetwork returns [EObject current=null]
 	    }
 
 )
-))*)?	otherlv_9='==>' 
+)(	otherlv_9=',' 
     {
-    	newLeafNode(otherlv_9, grammarAccess.getAstNetworkAccess().getEqualsSignEqualsSignGreaterThanSignKeyword_5());
+    	newLeafNode(otherlv_9, grammarAccess.getAstNetworkAccess().getCommaKeyword_6_1_0());
     }
-((
+(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstNetworkAccess().getOutputsAstPortParserRuleCall_6_0_0()); 
+	        newCompositeNode(grammarAccess.getAstNetworkAccess().getInputsAstPortParserRuleCall_6_1_1_0()); 
 	    }
-		lv_outputs_10_0=ruleAstPort		{
+		lv_inputs_10_0=ruleAstPort		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstNetworkRule());
 	        }
        		add(
        			$current, 
-       			"outputs",
-        		lv_outputs_10_0, 
+       			"inputs",
+        		lv_inputs_10_0, 
         		"AstPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(	otherlv_11=',' 
+))*)?	otherlv_11='==>' 
     {
-    	newLeafNode(otherlv_11, grammarAccess.getAstNetworkAccess().getCommaKeyword_6_1_0());
+    	newLeafNode(otherlv_11, grammarAccess.getAstNetworkAccess().getEqualsSignEqualsSignGreaterThanSignKeyword_7());
     }
-(
+((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstNetworkAccess().getOutputsAstPortParserRuleCall_6_1_1_0()); 
+	        newCompositeNode(grammarAccess.getAstNetworkAccess().getOutputsAstPortParserRuleCall_8_0_0()); 
 	    }
 		lv_outputs_12_0=ruleAstPort		{
 	        if ($current==null) {
@@ -1035,40 +977,40 @@ ruleAstNetwork returns [EObject current=null]
 	    }
 
 )
-))*)?	otherlv_13=':' 
+)(	otherlv_13=',' 
     {
-    	newLeafNode(otherlv_13, grammarAccess.getAstNetworkAccess().getColonKeyword_7());
-    }
-(	otherlv_14='var' 
-    {
-    	newLeafNode(otherlv_14, grammarAccess.getAstNetworkAccess().getVarKeyword_8_0());
+    	newLeafNode(otherlv_13, grammarAccess.getAstNetworkAccess().getCommaKeyword_8_1_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstNetworkAccess().getVariablesAstValuedVariableDeclarationParserRuleCall_8_1_0()); 
+	        newCompositeNode(grammarAccess.getAstNetworkAccess().getOutputsAstPortParserRuleCall_8_1_1_0()); 
 	    }
-		lv_variables_15_0=ruleAstValuedVariableDeclaration		{
+		lv_outputs_14_0=ruleAstPort		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstNetworkRule());
 	        }
        		add(
        			$current, 
-       			"variables",
-        		lv_variables_15_0, 
-        		"AstValuedVariableDeclaration");
+       			"outputs",
+        		lv_outputs_14_0, 
+        		"AstPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_16=';' 
+))*)?	otherlv_15=':' 
     {
-    	newLeafNode(otherlv_16, grammarAccess.getAstNetworkAccess().getSemicolonKeyword_8_2());
+    	newLeafNode(otherlv_15, grammarAccess.getAstNetworkAccess().getColonKeyword_9());
     }
-((
+(	otherlv_16='var' 
+    {
+    	newLeafNode(otherlv_16, grammarAccess.getAstNetworkAccess().getVarKeyword_10_0());
+    }
+(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstNetworkAccess().getVariablesAstValuedVariableDeclarationParserRuleCall_8_3_0_0()); 
+	        newCompositeNode(grammarAccess.getAstNetworkAccess().getVariablesAstValuedVariableDeclarationParserRuleCall_10_1_0()); 
 	    }
 		lv_variables_17_0=ruleAstValuedVariableDeclaration		{
 	        if ($current==null) {
@@ -1085,25 +1027,47 @@ ruleAstNetwork returns [EObject current=null]
 )
 )	otherlv_18=';' 
     {
-    	newLeafNode(otherlv_18, grammarAccess.getAstNetworkAccess().getSemicolonKeyword_8_3_1());
+    	newLeafNode(otherlv_18, grammarAccess.getAstNetworkAccess().getSemicolonKeyword_10_2());
     }
-)*)?	otherlv_19='entities' 
+((
+(
+		{ 
+	        newCompositeNode(grammarAccess.getAstNetworkAccess().getVariablesAstValuedVariableDeclarationParserRuleCall_10_3_0_0()); 
+	    }
+		lv_variables_19_0=ruleAstValuedVariableDeclaration		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getAstNetworkRule());
+	        }
+       		add(
+       			$current, 
+       			"variables",
+        		lv_variables_19_0, 
+        		"AstValuedVariableDeclaration");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)	otherlv_20=';' 
     {
-    	newLeafNode(otherlv_19, grammarAccess.getAstNetworkAccess().getEntitiesKeyword_9());
+    	newLeafNode(otherlv_20, grammarAccess.getAstNetworkAccess().getSemicolonKeyword_10_3_1());
+    }
+)*)?	otherlv_21='entities' 
+    {
+    	newLeafNode(otherlv_21, grammarAccess.getAstNetworkAccess().getEntitiesKeyword_11());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstNetworkAccess().getInstancesAstActorDeclarationParserRuleCall_10_0()); 
+	        newCompositeNode(grammarAccess.getAstNetworkAccess().getInstancesAstActorDeclarationParserRuleCall_12_0()); 
 	    }
-		lv_instances_20_0=ruleAstActorDeclaration		{
+		lv_instances_22_0=ruleAstActorDeclaration		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstNetworkRule());
 	        }
        		add(
        			$current, 
        			"instances",
-        		lv_instances_20_0, 
+        		lv_instances_22_0, 
         		"AstActorDeclaration");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1112,24 +1076,24 @@ ruleAstNetwork returns [EObject current=null]
 )+(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstNetworkAccess().getStructureAstStructureParserRuleCall_11_0()); 
+	        newCompositeNode(grammarAccess.getAstNetworkAccess().getStructureAstStructureParserRuleCall_13_0()); 
 	    }
-		lv_structure_21_0=ruleAstStructure		{
+		lv_structure_23_0=ruleAstStructure		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstNetworkRule());
 	        }
        		set(
        			$current, 
        			"structure",
-        		lv_structure_21_0, 
+        		lv_structure_23_0, 
         		"AstStructure");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_22='end' 
+)	otherlv_24='end' 
     {
-    	newLeafNode(otherlv_22, grammarAccess.getAstNetworkAccess().getEndKeyword_12());
+    	newLeafNode(otherlv_24, grammarAccess.getAstNetworkAccess().getEndKeyword_14());
     }
 )
 ;
@@ -2053,36 +2017,36 @@ ruleAstActor returns [EObject current=null]
             grammarAccess.getAstActorAccess().getAstActorAction_0(),
             $current);
     }
-)	otherlv_1='(' 
+)	otherlv_1='actor' 
     {
-    	newLeafNode(otherlv_1, grammarAccess.getAstActorAccess().getLeftParenthesisKeyword_1());
+    	newLeafNode(otherlv_1, grammarAccess.getAstActorAccess().getActorKeyword_1());
+    }
+(
+(
+		lv_name_2_0=RULE_ID
+		{
+			newLeafNode(lv_name_2_0, grammarAccess.getAstActorAccess().getNameIDTerminalRuleCall_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAstActorRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_2_0, 
+        		"ID");
+	    }
+
+)
+)	otherlv_3='(' 
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getAstActorAccess().getLeftParenthesisKeyword_3());
     }
 ((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstActorAccess().getParametersAstParameterParserRuleCall_2_0_0()); 
-	    }
-		lv_parameters_2_0=ruleAstParameter		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getAstActorRule());
-	        }
-       		add(
-       			$current, 
-       			"parameters",
-        		lv_parameters_2_0, 
-        		"AstParameter");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)(	otherlv_3=',' 
-    {
-    	newLeafNode(otherlv_3, grammarAccess.getAstActorAccess().getCommaKeyword_2_1_0());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getAstActorAccess().getParametersAstParameterParserRuleCall_2_1_1_0()); 
+	        newCompositeNode(grammarAccess.getAstActorAccess().getParametersAstParameterParserRuleCall_4_0_0()); 
 	    }
 		lv_parameters_4_0=ruleAstParameter		{
 	        if ($current==null) {
@@ -2097,36 +2061,36 @@ ruleAstActor returns [EObject current=null]
 	    }
 
 )
-))*)?	otherlv_5=')' 
+)(	otherlv_5=',' 
     {
-    	newLeafNode(otherlv_5, grammarAccess.getAstActorAccess().getRightParenthesisKeyword_3());
+    	newLeafNode(otherlv_5, grammarAccess.getAstActorAccess().getCommaKeyword_4_1_0());
     }
-((
+(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstActorAccess().getInputsAstPortParserRuleCall_4_0_0()); 
+	        newCompositeNode(grammarAccess.getAstActorAccess().getParametersAstParameterParserRuleCall_4_1_1_0()); 
 	    }
-		lv_inputs_6_0=ruleAstPort		{
+		lv_parameters_6_0=ruleAstParameter		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstActorRule());
 	        }
        		add(
        			$current, 
-       			"inputs",
-        		lv_inputs_6_0, 
-        		"AstPort");
+       			"parameters",
+        		lv_parameters_6_0, 
+        		"AstParameter");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(	otherlv_7=',' 
+))*)?	otherlv_7=')' 
     {
-    	newLeafNode(otherlv_7, grammarAccess.getAstActorAccess().getCommaKeyword_4_1_0());
+    	newLeafNode(otherlv_7, grammarAccess.getAstActorAccess().getRightParenthesisKeyword_5());
     }
-(
+((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstActorAccess().getInputsAstPortParserRuleCall_4_1_1_0()); 
+	        newCompositeNode(grammarAccess.getAstActorAccess().getInputsAstPortParserRuleCall_6_0_0()); 
 	    }
 		lv_inputs_8_0=ruleAstPort		{
 	        if ($current==null) {
@@ -2141,36 +2105,36 @@ ruleAstActor returns [EObject current=null]
 	    }
 
 )
-))*)?	otherlv_9='==>' 
+)(	otherlv_9=',' 
     {
-    	newLeafNode(otherlv_9, grammarAccess.getAstActorAccess().getEqualsSignEqualsSignGreaterThanSignKeyword_5());
+    	newLeafNode(otherlv_9, grammarAccess.getAstActorAccess().getCommaKeyword_6_1_0());
     }
-((
+(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstActorAccess().getOutputsAstPortParserRuleCall_6_0_0()); 
+	        newCompositeNode(grammarAccess.getAstActorAccess().getInputsAstPortParserRuleCall_6_1_1_0()); 
 	    }
-		lv_outputs_10_0=ruleAstPort		{
+		lv_inputs_10_0=ruleAstPort		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstActorRule());
 	        }
        		add(
        			$current, 
-       			"outputs",
-        		lv_outputs_10_0, 
+       			"inputs",
+        		lv_inputs_10_0, 
         		"AstPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(	otherlv_11=',' 
+))*)?	otherlv_11='==>' 
     {
-    	newLeafNode(otherlv_11, grammarAccess.getAstActorAccess().getCommaKeyword_6_1_0());
+    	newLeafNode(otherlv_11, grammarAccess.getAstActorAccess().getEqualsSignEqualsSignGreaterThanSignKeyword_7());
     }
-(
+((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstActorAccess().getOutputsAstPortParserRuleCall_6_1_1_0()); 
+	        newCompositeNode(grammarAccess.getAstActorAccess().getOutputsAstPortParserRuleCall_8_0_0()); 
 	    }
 		lv_outputs_12_0=ruleAstPort		{
 	        if ($current==null) {
@@ -2185,23 +2149,45 @@ ruleAstActor returns [EObject current=null]
 	    }
 
 )
-))*)?	otherlv_13=':' 
+)(	otherlv_13=',' 
     {
-    	newLeafNode(otherlv_13, grammarAccess.getAstActorAccess().getColonKeyword_7());
+    	newLeafNode(otherlv_13, grammarAccess.getAstActorAccess().getCommaKeyword_8_1_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getAstActorAccess().getOutputsAstPortParserRuleCall_8_1_1_0()); 
+	    }
+		lv_outputs_14_0=ruleAstPort		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getAstActorRule());
+	        }
+       		add(
+       			$current, 
+       			"outputs",
+        		lv_outputs_14_0, 
+        		"AstPort");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*)?	otherlv_15=':' 
+    {
+    	newLeafNode(otherlv_15, grammarAccess.getAstActorAccess().getColonKeyword_9());
     }
 ((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstActorAccess().getFunctionsAstFunctionParserRuleCall_8_0_0()); 
+	        newCompositeNode(grammarAccess.getAstActorAccess().getFunctionsAstFunctionParserRuleCall_10_0_0()); 
 	    }
-		lv_functions_14_0=ruleAstFunction		{
+		lv_functions_16_0=ruleAstFunction		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstActorRule());
 	        }
        		add(
        			$current, 
        			"functions",
-        		lv_functions_14_0, 
+        		lv_functions_16_0, 
         		"AstFunction");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -2211,16 +2197,16 @@ ruleAstActor returns [EObject current=null]
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstActorAccess().getProceduresAstProcedureParserRuleCall_8_1_0()); 
+	        newCompositeNode(grammarAccess.getAstActorAccess().getProceduresAstProcedureParserRuleCall_10_1_0()); 
 	    }
-		lv_procedures_15_0=ruleAstProcedure		{
+		lv_procedures_17_0=ruleAstProcedure		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstActorRule());
 	        }
        		add(
        			$current, 
        			"procedures",
-        		lv_procedures_15_0, 
+        		lv_procedures_17_0, 
         		"AstProcedure");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -2230,16 +2216,16 @@ ruleAstActor returns [EObject current=null]
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstActorAccess().getActionsAstActionParserRuleCall_8_2_0()); 
+	        newCompositeNode(grammarAccess.getAstActorAccess().getActionsAstActionParserRuleCall_10_2_0()); 
 	    }
-		lv_actions_16_0=ruleAstAction		{
+		lv_actions_18_0=ruleAstAction		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstActorRule());
 	        }
        		add(
        			$current, 
        			"actions",
-        		lv_actions_16_0, 
+        		lv_actions_18_0, 
         		"AstAction");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -2249,16 +2235,16 @@ ruleAstActor returns [EObject current=null]
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstActorAccess().getInitializesAstInitializeParserRuleCall_8_3_0()); 
+	        newCompositeNode(grammarAccess.getAstActorAccess().getInitializesAstInitializeParserRuleCall_10_3_0()); 
 	    }
-		lv_initializes_17_0=ruleAstInitialize		{
+		lv_initializes_19_0=ruleAstInitialize		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstActorRule());
 	        }
        		add(
        			$current, 
        			"initializes",
-        		lv_initializes_17_0, 
+        		lv_initializes_19_0, 
         		"AstInitialize");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -2268,16 +2254,16 @@ ruleAstActor returns [EObject current=null]
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstActorAccess().getStateVariablesAstStateVariableParserRuleCall_8_4_0()); 
+	        newCompositeNode(grammarAccess.getAstActorAccess().getStateVariablesAstStateVariableParserRuleCall_10_4_0()); 
 	    }
-		lv_stateVariables_18_0=ruleAstStateVariable		{
+		lv_stateVariables_20_0=ruleAstStateVariable		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstActorRule());
 	        }
        		add(
        			$current, 
        			"stateVariables",
-        		lv_stateVariables_18_0, 
+        		lv_stateVariables_20_0, 
         		"AstStateVariable");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -2287,16 +2273,16 @@ ruleAstActor returns [EObject current=null]
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstActorAccess().getSchedulesAstScheduleParserRuleCall_8_5_0()); 
+	        newCompositeNode(grammarAccess.getAstActorAccess().getSchedulesAstScheduleParserRuleCall_10_5_0()); 
 	    }
-		lv_schedules_19_0=ruleAstSchedule		{
+		lv_schedules_21_0=ruleAstSchedule		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstActorRule());
 	        }
        		add(
        			$current, 
        			"schedules",
-        		lv_schedules_19_0, 
+        		lv_schedules_21_0, 
         		"AstSchedule");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -2306,24 +2292,24 @@ ruleAstActor returns [EObject current=null]
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstActorAccess().getPrioritiesAstPriorityParserRuleCall_8_6_0()); 
+	        newCompositeNode(grammarAccess.getAstActorAccess().getPrioritiesAstPriorityParserRuleCall_10_6_0()); 
 	    }
-		lv_priorities_20_0=ruleAstPriority		{
+		lv_priorities_22_0=ruleAstPriority		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstActorRule());
 	        }
        		add(
        			$current, 
        			"priorities",
-        		lv_priorities_20_0, 
+        		lv_priorities_22_0, 
         		"AstPriority");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))*	otherlv_21='end' 
+))*	otherlv_23='end' 
     {
-    	newLeafNode(otherlv_21, grammarAccess.getAstActorAccess().getEndKeyword_9());
+    	newLeafNode(otherlv_23, grammarAccess.getAstActorAccess().getEndKeyword_11());
     }
 )
 ;
@@ -3222,141 +3208,167 @@ ruleAstExternalActor returns [EObject current=null]
             grammarAccess.getAstExternalActorAccess().getAstExternalActorAction_0(),
             $current);
     }
-)	otherlv_1='(' 
+)	otherlv_1='external' 
     {
-    	newLeafNode(otherlv_1, grammarAccess.getAstExternalActorAccess().getLeftParenthesisKeyword_1());
+    	newLeafNode(otherlv_1, grammarAccess.getAstExternalActorAccess().getExternalKeyword_1());
+    }
+	otherlv_2='actor' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getAstExternalActorAccess().getActorKeyword_2());
+    }
+(
+(
+		lv_name_3_0=RULE_ID
+		{
+			newLeafNode(lv_name_3_0, grammarAccess.getAstExternalActorAccess().getNameIDTerminalRuleCall_3_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAstExternalActorRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_3_0, 
+        		"ID");
+	    }
+
+)
+)	otherlv_4='(' 
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getAstExternalActorAccess().getLeftParenthesisKeyword_4());
     }
 ((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstExternalActorAccess().getParametersAstParameterParserRuleCall_2_0_0()); 
+	        newCompositeNode(grammarAccess.getAstExternalActorAccess().getParametersAstParameterParserRuleCall_5_0_0()); 
 	    }
-		lv_parameters_2_0=ruleAstParameter		{
+		lv_parameters_5_0=ruleAstParameter		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstExternalActorRule());
 	        }
        		add(
        			$current, 
        			"parameters",
-        		lv_parameters_2_0, 
+        		lv_parameters_5_0, 
         		"AstParameter");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(	otherlv_3=',' 
+)(	otherlv_6=',' 
     {
-    	newLeafNode(otherlv_3, grammarAccess.getAstExternalActorAccess().getCommaKeyword_2_1_0());
+    	newLeafNode(otherlv_6, grammarAccess.getAstExternalActorAccess().getCommaKeyword_5_1_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstExternalActorAccess().getParametersAstParameterParserRuleCall_2_1_1_0()); 
+	        newCompositeNode(grammarAccess.getAstExternalActorAccess().getParametersAstParameterParserRuleCall_5_1_1_0()); 
 	    }
-		lv_parameters_4_0=ruleAstParameter		{
+		lv_parameters_7_0=ruleAstParameter		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstExternalActorRule());
 	        }
        		add(
        			$current, 
        			"parameters",
-        		lv_parameters_4_0, 
+        		lv_parameters_7_0, 
         		"AstParameter");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))*)?	otherlv_5=')' 
+))*)?	otherlv_8=')' 
     {
-    	newLeafNode(otherlv_5, grammarAccess.getAstExternalActorAccess().getRightParenthesisKeyword_3());
+    	newLeafNode(otherlv_8, grammarAccess.getAstExternalActorAccess().getRightParenthesisKeyword_6());
     }
 ((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstExternalActorAccess().getInputsAstPortParserRuleCall_4_0_0()); 
+	        newCompositeNode(grammarAccess.getAstExternalActorAccess().getInputsAstPortParserRuleCall_7_0_0()); 
 	    }
-		lv_inputs_6_0=ruleAstPort		{
+		lv_inputs_9_0=ruleAstPort		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstExternalActorRule());
 	        }
        		add(
        			$current, 
        			"inputs",
-        		lv_inputs_6_0, 
+        		lv_inputs_9_0, 
         		"AstPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(	otherlv_7=',' 
+)(	otherlv_10=',' 
     {
-    	newLeafNode(otherlv_7, grammarAccess.getAstExternalActorAccess().getCommaKeyword_4_1_0());
+    	newLeafNode(otherlv_10, grammarAccess.getAstExternalActorAccess().getCommaKeyword_7_1_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstExternalActorAccess().getInputsAstPortParserRuleCall_4_1_1_0()); 
+	        newCompositeNode(grammarAccess.getAstExternalActorAccess().getInputsAstPortParserRuleCall_7_1_1_0()); 
 	    }
-		lv_inputs_8_0=ruleAstPort		{
+		lv_inputs_11_0=ruleAstPort		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstExternalActorRule());
 	        }
        		add(
        			$current, 
        			"inputs",
-        		lv_inputs_8_0, 
+        		lv_inputs_11_0, 
         		"AstPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))*)?	otherlv_9='==>' 
+))*)?	otherlv_12='==>' 
     {
-    	newLeafNode(otherlv_9, grammarAccess.getAstExternalActorAccess().getEqualsSignEqualsSignGreaterThanSignKeyword_5());
+    	newLeafNode(otherlv_12, grammarAccess.getAstExternalActorAccess().getEqualsSignEqualsSignGreaterThanSignKeyword_8());
     }
 ((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstExternalActorAccess().getOutputsAstPortParserRuleCall_6_0_0()); 
+	        newCompositeNode(grammarAccess.getAstExternalActorAccess().getOutputsAstPortParserRuleCall_9_0_0()); 
 	    }
-		lv_outputs_10_0=ruleAstPort		{
+		lv_outputs_13_0=ruleAstPort		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstExternalActorRule());
 	        }
        		add(
        			$current, 
        			"outputs",
-        		lv_outputs_10_0, 
+        		lv_outputs_13_0, 
         		"AstPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(	otherlv_11=',' 
+)(	otherlv_14=',' 
     {
-    	newLeafNode(otherlv_11, grammarAccess.getAstExternalActorAccess().getCommaKeyword_6_1_0());
+    	newLeafNode(otherlv_14, grammarAccess.getAstExternalActorAccess().getCommaKeyword_9_1_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstExternalActorAccess().getOutputsAstPortParserRuleCall_6_1_1_0()); 
+	        newCompositeNode(grammarAccess.getAstExternalActorAccess().getOutputsAstPortParserRuleCall_9_1_1_0()); 
 	    }
-		lv_outputs_12_0=ruleAstPort		{
+		lv_outputs_15_0=ruleAstPort		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstExternalActorRule());
 	        }
        		add(
        			$current, 
        			"outputs",
-        		lv_outputs_12_0, 
+        		lv_outputs_15_0, 
         		"AstPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))*)?	otherlv_13=';' 
+))*)?	otherlv_16=';' 
     {
-    	newLeafNode(otherlv_13, grammarAccess.getAstExternalActorAccess().getSemicolonKeyword_7());
+    	newLeafNode(otherlv_16, grammarAccess.getAstExternalActorAccess().getSemicolonKeyword_10());
     }
 )
 ;
