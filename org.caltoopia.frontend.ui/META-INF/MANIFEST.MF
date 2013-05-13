@@ -29,5 +29,6 @@ Import-Package: org.apache.commons.logging,
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.caltoopia.frontend.ui.contentassist.antlr,
  org.caltoopia.frontend.ui.internal,
- org.caltoopia.frontend.ui.contentassist
+ org.caltoopia.frontend.ui.contentassist,
+ org.caltoopia.frontend.ui.quickfix
 Bundle-Activator: org.caltoopia.frontend.ui.internal.CalActivator

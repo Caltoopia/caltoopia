@@ -952,10 +952,10 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = T__54;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:51:7: ( 'actor' )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:51:9: 'actor'
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:51:7: ( 'import' )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:51:9: 'import'
             {
-            match("actor"); 
+            match("import"); 
 
 
             }
@@ -973,11 +973,10 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = T__55;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:52:7: ( 'network' )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:52:9: 'network'
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:52:7: ( '.' )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:52:9: '.'
             {
-            match("network"); 
-
+            match('.'); 
 
             }
 
@@ -994,10 +993,10 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = T__56;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:53:7: ( 'external' )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:53:9: 'external'
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:53:7: ( '.*' )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:53:9: '.*'
             {
-            match("external"); 
+            match(".*"); 
 
 
             }
@@ -1015,10 +1014,10 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = T__57;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:54:7: ( 'import' )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:54:9: 'import'
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:54:7: ( 'network' )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:54:9: 'network'
             {
-            match("import"); 
+            match("network"); 
 
 
             }
@@ -1036,10 +1035,10 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = T__58;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:55:7: ( '.' )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:55:9: '.'
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:55:7: ( '(' )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:55:9: '('
             {
-            match('.'); 
+            match('('); 
 
             }
 
@@ -1056,11 +1055,10 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = T__59;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:56:7: ( '.*' )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:56:9: '.*'
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:56:7: ( ')' )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:56:9: ')'
             {
-            match(".*"); 
-
+            match(')'); 
 
             }
 
@@ -1077,10 +1075,11 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = T__60;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:57:7: ( '(' )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:57:9: '('
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:57:7: ( '==>' )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:57:9: '==>'
             {
-            match('('); 
+            match("==>"); 
+
 
             }
 
@@ -1097,10 +1096,11 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = T__61;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:58:7: ( ')' )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:58:9: ')'
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:58:7: ( 'entities' )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:58:9: 'entities'
             {
-            match(')'); 
+            match("entities"); 
+
 
             }
 
@@ -1117,11 +1117,10 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = T__62;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:59:7: ( '==>' )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:59:9: '==>'
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:59:7: ( ',' )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:59:9: ','
             {
-            match("==>"); 
-
+            match(','); 
 
             }
 
@@ -1138,10 +1137,10 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = T__63;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:60:7: ( 'entities' )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:60:9: 'entities'
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:60:7: ( 'var' )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:60:9: 'var'
             {
-            match("entities"); 
+            match("var"); 
 
 
             }
@@ -1159,10 +1158,11 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = T__64;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:61:7: ( ',' )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:61:9: ','
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:61:7: ( 'structure' )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:61:9: 'structure'
             {
-            match(','); 
+            match("structure"); 
+
 
             }
 
@@ -1179,10 +1179,10 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = T__65;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:62:7: ( 'var' )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:62:9: 'var'
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:62:7: ( '-->' )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:62:9: '-->'
             {
-            match("var"); 
+            match("-->"); 
 
 
             }
@@ -1200,11 +1200,10 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = T__66;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:63:7: ( 'structure' )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:63:9: 'structure'
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:63:7: ( '{' )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:63:9: '{'
             {
-            match("structure"); 
-
+            match('{'); 
 
             }
 
@@ -1221,11 +1220,10 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = T__67;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:64:7: ( '-->' )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:64:9: '-->'
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:64:7: ( '}' )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:64:9: '}'
             {
-            match("-->"); 
-
+            match('}'); 
 
             }
 
@@ -1242,10 +1240,11 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = T__68;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:65:7: ( '{' )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:65:9: '{'
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:65:7: ( 'external' )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:65:9: 'external'
             {
-            match('{'); 
+            match("external"); 
+
 
             }
 
@@ -1262,10 +1261,10 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = T__69;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:66:7: ( '}' )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:66:9: '}'
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:66:7: ( '|' )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:66:9: '|'
             {
-            match('}'); 
+            match('|'); 
 
             }
 
@@ -1282,10 +1281,11 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = T__70;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:67:7: ( '|' )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:67:9: '|'
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:67:7: ( 'actor' )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:67:9: 'actor'
             {
-            match('|'); 
+            match("actor"); 
+
 
             }
 
@@ -1801,10 +1801,10 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = RULE_BOOL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26362:11: ( ( 'true' | 'false' ) )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26362:13: ( 'true' | 'false' )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26270:11: ( ( 'true' | 'false' ) )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26270:13: ( 'true' | 'false' )
             {
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26362:13: ( 'true' | 'false' )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26270:13: ( 'true' | 'false' )
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -1822,7 +1822,7 @@ public class InternalCalLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26362:14: 'true'
+                    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26270:14: 'true'
                     {
                     match("true"); 
 
@@ -1830,7 +1830,7 @@ public class InternalCalLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26362:21: 'false'
+                    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26270:21: 'false'
                     {
                     match("false"); 
 
@@ -1856,8 +1856,8 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = RULE_EXP_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26364:14: ( RULE_INT ( 'e' | 'E' ) ( '-' | '+' )? RULE_INT )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26364:16: RULE_INT ( 'e' | 'E' ) ( '-' | '+' )? RULE_INT
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26272:14: ( RULE_INT ( 'e' | 'E' ) ( '-' | '+' )? RULE_INT )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26272:16: RULE_INT ( 'e' | 'E' ) ( '-' | '+' )? RULE_INT
             {
             mRULE_INT(); 
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
@@ -1869,7 +1869,7 @@ public class InternalCalLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26364:35: ( '-' | '+' )?
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26272:35: ( '-' | '+' )?
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -1912,8 +1912,8 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = RULE_HEX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26366:10: ( '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26366:12: '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26274:10: ( '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26274:12: '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
             {
             match('0'); 
             if ( input.LA(1)=='X'||input.LA(1)=='x' ) {
@@ -1925,7 +1925,7 @@ public class InternalCalLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26366:26: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26274:26: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
             int cnt3=0;
             loop3:
             do {
@@ -1979,10 +1979,10 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26368:10: ( ( '0' .. '9' )+ )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26368:12: ( '0' .. '9' )+
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26276:10: ( ( '0' .. '9' )+ )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26276:12: ( '0' .. '9' )+
             {
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26368:12: ( '0' .. '9' )+
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26276:12: ( '0' .. '9' )+
             int cnt4=0;
             loop4:
             do {
@@ -1996,7 +1996,7 @@ public class InternalCalLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26368:13: '0' .. '9'
+            	    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26276:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -2028,10 +2028,10 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26370:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26370:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26278:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26278:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26370:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26278:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -2049,10 +2049,10 @@ public class InternalCalLexer extends Lexer {
             }
             switch (alt7) {
                 case 1 :
-                    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26370:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26278:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26370:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26278:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop5:
                     do {
                         int alt5=3;
@@ -2068,7 +2068,7 @@ public class InternalCalLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26370:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26278:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -2084,7 +2084,7 @@ public class InternalCalLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26370:66: ~ ( ( '\\\\' | '\"' ) )
+                    	    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26278:66: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2109,10 +2109,10 @@ public class InternalCalLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26370:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26278:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26370:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26278:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop6:
                     do {
                         int alt6=3;
@@ -2128,7 +2128,7 @@ public class InternalCalLexer extends Lexer {
 
                         switch (alt6) {
                     	case 1 :
-                    	    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26370:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26278:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -2144,7 +2144,7 @@ public class InternalCalLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26370:137: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26278:137: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2187,8 +2187,8 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26372:9: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '$' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '$' )* )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26372:11: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '$' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '$' )*
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26280:9: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '$' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '$' )* )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26280:11: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '$' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '$' )*
             {
             if ( input.LA(1)=='$'||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -2199,7 +2199,7 @@ public class InternalCalLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26372:39: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '$' )*
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26280:39: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '$' )*
             loop8:
             do {
                 int alt8=2;
@@ -2248,12 +2248,12 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26374:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26374:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26282:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26282:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26374:24: ( options {greedy=false; } : . )*
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26282:24: ( options {greedy=false; } : . )*
             loop9:
             do {
                 int alt9=2;
@@ -2278,7 +2278,7 @@ public class InternalCalLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26374:52: .
+            	    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26282:52: .
             	    {
             	    matchAny(); 
 
@@ -2308,12 +2308,12 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26376:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26376:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26284:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26284:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26376:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26284:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop10:
             do {
                 int alt10=2;
@@ -2326,7 +2326,7 @@ public class InternalCalLexer extends Lexer {
 
                 switch (alt10) {
             	case 1 :
-            	    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26376:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26284:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -2346,7 +2346,7 @@ public class InternalCalLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26376:40: ( ( '\\r' )? '\\n' )?
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26284:40: ( ( '\\r' )? '\\n' )?
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -2355,9 +2355,9 @@ public class InternalCalLexer extends Lexer {
             }
             switch (alt12) {
                 case 1 :
-                    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26376:41: ( '\\r' )? '\\n'
+                    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26284:41: ( '\\r' )? '\\n'
                     {
-                    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26376:41: ( '\\r' )?
+                    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26284:41: ( '\\r' )?
                     int alt11=2;
                     int LA11_0 = input.LA(1);
 
@@ -2366,7 +2366,7 @@ public class InternalCalLexer extends Lexer {
                     }
                     switch (alt11) {
                         case 1 :
-                            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26376:41: '\\r'
+                            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26284:41: '\\r'
                             {
                             match('\r'); 
 
@@ -2398,10 +2398,10 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26378:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26378:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26286:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26286:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26378:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26286:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt13=0;
             loop13:
             do {
@@ -2455,8 +2455,8 @@ public class InternalCalLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26380:16: ( . )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26380:18: .
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26288:16: ( . )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:26288:18: .
             {
             matchAny(); 
 
@@ -3193,23 +3193,23 @@ public class InternalCalLexer extends Lexer {
         "\145\4\172\1\145\1\uffff\1\172\1\uffff\1\172\4\uffff\1\172\3\uffff";
     static final String DFA14_acceptS =
         "\12\uffff\1\17\5\uffff\1\25\1\uffff\1\27\11\uffff\1\44\1\uffff\1"+
-        "\57\1\60\1\63\1\uffff\1\67\1\70\1\uffff\1\104\1\105\2\uffff\1\116"+
-        "\1\117\4\uffff\1\127\1\132\1\133\1\1\1\71\2\uffff\1\127\1\3\1\56"+
-        "\1\55\1\4\1\120\2\uffff\1\61\1\6\1\7\1\11\1\14\1\10\1\13\1\uffff"+
-        "\1\12\1\17\1\66\1\20\1\121\1\21\1\130\1\131\1\22\3\uffff\1\25\3"+
-        "\uffff\1\27\24\uffff\1\42\1\46\2\uffff\1\44\3\uffff\1\57\1\60\1"+
-        "\63\1\uffff\1\67\1\70\1\uffff\1\104\1\105\2\uffff\1\116\1\117\1"+
+        "\55\1\56\1\61\1\uffff\1\65\1\66\1\uffff\1\104\1\105\2\uffff\1\116"+
+        "\1\117\4\uffff\1\127\1\132\1\133\1\1\1\70\2\uffff\1\127\1\3\1\53"+
+        "\1\52\1\4\1\120\2\uffff\1\57\1\6\1\7\1\11\1\14\1\10\1\13\1\uffff"+
+        "\1\12\1\17\1\64\1\20\1\121\1\21\1\130\1\131\1\22\3\uffff\1\25\3"+
+        "\uffff\1\27\24\uffff\1\42\1\46\2\uffff\1\44\3\uffff\1\55\1\56\1"+
+        "\61\1\uffff\1\65\1\66\1\uffff\1\104\1\105\2\uffff\1\116\1\117\1"+
         "\124\1\125\1\123\1\uffff\1\126\1\132\1\2\3\uffff\1\16\1\15\1\uffff"+
         "\1\102\6\uffff\1\110\1\uffff\1\111\34\uffff\1\30\1\5\2\uffff\1\23"+
         "\1\24\1\26\2\uffff\1\31\6\uffff\1\77\1\uffff\1\115\17\uffff\1\47"+
-        "\3\uffff\1\64\11\uffff\1\32\1\45\4\uffff\1\34\1\37\1\uffff\1\35"+
-        "\4\uffff\1\41\1\112\1\122\5\uffff\1\113\3\uffff\1\51\5\uffff\1\33"+
+        "\3\uffff\1\62\11\uffff\1\32\1\45\4\uffff\1\34\1\37\1\uffff\1\35"+
+        "\4\uffff\1\41\1\112\1\122\5\uffff\1\113\3\uffff\1\71\5\uffff\1\33"+
         "\2\uffff\1\74\2\uffff\1\40\6\uffff\1\101\1\uffff\1\114\1\100\3\uffff"+
-        "\1\54\2\uffff\1\36\7\uffff\1\106\1\uffff\1\52\2\uffff\1\107\2\uffff"+
-        "\1\43\6\uffff\1\72\1\uffff\1\76\1\uffff\1\75\1\62\1\53\1\50\1\uffff"+
-        "\1\65\1\73\1\103";
+        "\1\51\2\uffff\1\36\7\uffff\1\106\1\uffff\1\54\2\uffff\1\107\2\uffff"+
+        "\1\43\6\uffff\1\72\1\uffff\1\76\1\uffff\1\75\1\60\1\67\1\50\1\uffff"+
+        "\1\63\1\73\1\103";
     static final String DFA14_specialS =
-        "\1\1\54\uffff\1\2\1\0\u010e\uffff}>";
+        "\1\2\54\uffff\1\1\1\0\u010e\uffff}>";
     static final String[] DFA14_transitionS = {
             "\11\61\2\60\2\61\1\60\22\61\1\60\1\7\1\55\1\22\1\57\1\61\1\4"+
             "\1\56\1\36\1\37\1\14\1\12\1\40\1\13\1\3\1\15\1\53\11\54\1\32"+
@@ -3630,6 +3630,16 @@ public class InternalCalLexer extends Lexer {
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
+                        int LA14_45 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA14_45>='\u0000' && LA14_45<='\uFFFF')) ) {s = 132;}
+
+                        else s = 49;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
                         int LA14_0 = input.LA(1);
 
                         s = -1;
@@ -3730,16 +3740,6 @@ public class InternalCalLexer extends Lexer {
                         else if ( ((LA14_0>='\t' && LA14_0<='\n')||LA14_0=='\r'||LA14_0==' ') ) {s = 48;}
 
                         else if ( ((LA14_0>='\u0000' && LA14_0<='\b')||(LA14_0>='\u000B' && LA14_0<='\f')||(LA14_0>='\u000E' && LA14_0<='\u001F')||LA14_0=='%'||LA14_0=='?'||LA14_0=='\\'||LA14_0=='`'||(LA14_0>='\u007F' && LA14_0<='\uFFFF')) ) {s = 49;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA14_45 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA14_45>='\u0000' && LA14_45<='\uFFFF')) ) {s = 132;}
-
-                        else s = 49;
 
                         if ( s>=0 ) return s;
                         break;

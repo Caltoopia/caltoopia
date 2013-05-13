@@ -14,8 +14,8 @@ import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISyn
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynTransition;
 import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 
-@SuppressWarnings("restriction")
-public class AbstractCalSyntacticSequencer extends AbstractSyntacticSequencer {
+@SuppressWarnings("all")
+public abstract class AbstractCalSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected CalGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_AstAction_DoKeyword_9_0_q;
@@ -29,13 +29,13 @@ public class AbstractCalSyntacticSequencer extends AbstractSyntacticSequencer {
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (CalGrammarAccess) access;
-		match_AstAction_DoKeyword_9_0_q = new TokenAlias(true, false, grammarAccess.getAstActionAccess().getDoKeyword_9_0());
-		match_AstConnection___LeftCurlyBracketKeyword_5_0_RightCurlyBracketKeyword_5_2__q = new GroupAlias(true, false, new TokenAlias(false, false, grammarAccess.getAstConnectionAccess().getLeftCurlyBracketKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getAstConnectionAccess().getRightCurlyBracketKeyword_5_2()));
+		match_AstAction_DoKeyword_9_0_q = new TokenAlias(false, true, grammarAccess.getAstActionAccess().getDoKeyword_9_0());
+		match_AstConnection___LeftCurlyBracketKeyword_5_0_RightCurlyBracketKeyword_5_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAstConnectionAccess().getLeftCurlyBracketKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getAstConnectionAccess().getRightCurlyBracketKeyword_5_2()));
 		match_AstExpressionPostfix_LeftParenthesisKeyword_5_0_a = new TokenAlias(true, true, grammarAccess.getAstExpressionPostfixAccess().getLeftParenthesisKeyword_5_0());
-		match_AstExpressionPostfix_LeftParenthesisKeyword_5_0_p = new TokenAlias(false, true, grammarAccess.getAstExpressionPostfixAccess().getLeftParenthesisKeyword_5_0());
-		match_AstInitialize_DoKeyword_8_0_q = new TokenAlias(true, false, grammarAccess.getAstInitializeAccess().getDoKeyword_8_0());
-		match_AstStatementIf_ElseKeyword_4_0_q = new TokenAlias(true, false, grammarAccess.getAstStatementIfAccess().getElseKeyword_4_0());
-		match_AstTypeDefinition___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q = new GroupAlias(true, false, new TokenAlias(false, false, grammarAccess.getAstTypeDefinitionAccess().getLeftParenthesisKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getAstTypeDefinitionAccess().getRightParenthesisKeyword_2_2()));
+		match_AstExpressionPostfix_LeftParenthesisKeyword_5_0_p = new TokenAlias(true, false, grammarAccess.getAstExpressionPostfixAccess().getLeftParenthesisKeyword_5_0());
+		match_AstInitialize_DoKeyword_8_0_q = new TokenAlias(false, true, grammarAccess.getAstInitializeAccess().getDoKeyword_8_0());
+		match_AstStatementIf_ElseKeyword_4_0_q = new TokenAlias(false, true, grammarAccess.getAstStatementIfAccess().getElseKeyword_4_0());
+		match_AstTypeDefinition___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAstTypeDefinitionAccess().getLeftParenthesisKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getAstTypeDefinitionAccess().getRightParenthesisKeyword_2_2()));
 	}
 	
 	@Override

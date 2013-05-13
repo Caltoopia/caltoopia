@@ -1,7 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
  */
 package org.caltoopia.frontend.cal;
 
@@ -18,10 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.caltoopia.frontend.cal.AstEntity#getAnnotations <em>Annotations</em>}</li>
- *   <li>{@link org.caltoopia.frontend.cal.AstEntity#getName <em>Name</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.AstEntity#getActor <em>Actor</em>}</li>
- *   <li>{@link org.caltoopia.frontend.cal.AstEntity#getNetwork <em>Network</em>}</li>
- *   <li>{@link org.caltoopia.frontend.cal.AstEntity#getExternal <em>External</em>}</li>
  * </ul>
  * </p>
  *
@@ -48,32 +42,6 @@ public interface AstEntity extends EObject
   EList<AstAnnotation> getAnnotations();
 
   /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see org.caltoopia.frontend.cal.CalPackage#getAstEntity_Name()
-   * @model
-   * @generated
-   */
-  String getName();
-
-  /**
-   * Sets the value of the '{@link org.caltoopia.frontend.cal.AstEntity#getName <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
-   * @generated
-   */
-  void setName(String value);
-
-  /**
    * Returns the value of the '<em><b>Actor</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
@@ -82,12 +50,12 @@ public interface AstEntity extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Actor</em>' containment reference.
-   * @see #setActor(AstActor)
+   * @see #setActor(AstAbstractActor)
    * @see org.caltoopia.frontend.cal.CalPackage#getAstEntity_Actor()
    * @model containment="true"
    * @generated
    */
-  AstActor getActor();
+  AstAbstractActor getActor();
 
   /**
    * Sets the value of the '{@link org.caltoopia.frontend.cal.AstEntity#getActor <em>Actor</em>}' containment reference.
@@ -97,58 +65,6 @@ public interface AstEntity extends EObject
    * @see #getActor()
    * @generated
    */
-  void setActor(AstActor value);
-
-  /**
-   * Returns the value of the '<em><b>Network</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Network</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Network</em>' containment reference.
-   * @see #setNetwork(AstNetwork)
-   * @see org.caltoopia.frontend.cal.CalPackage#getAstEntity_Network()
-   * @model containment="true"
-   * @generated
-   */
-  AstNetwork getNetwork();
-
-  /**
-   * Sets the value of the '{@link org.caltoopia.frontend.cal.AstEntity#getNetwork <em>Network</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Network</em>' containment reference.
-   * @see #getNetwork()
-   * @generated
-   */
-  void setNetwork(AstNetwork value);
-
-  /**
-   * Returns the value of the '<em><b>External</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>External</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>External</em>' containment reference.
-   * @see #setExternal(AstExternalActor)
-   * @see org.caltoopia.frontend.cal.CalPackage#getAstEntity_External()
-   * @model containment="true"
-   * @generated
-   */
-  AstExternalActor getExternal();
-
-  /**
-   * Sets the value of the '{@link org.caltoopia.frontend.cal.AstEntity#getExternal <em>External</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>External</em>' containment reference.
-   * @see #getExternal()
-   * @generated
-   */
-  void setExternal(AstExternalActor value);
+  void setActor(AstAbstractActor value);
 
 } // AstEntity

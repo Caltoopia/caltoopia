@@ -36,9 +36,11 @@
 
 package org.caltoopia.frontend.ui.outline;
 
+import org.caltoopia.frontend.cal.AstAbstractActor;
 import org.caltoopia.frontend.cal.AstAction;
 import org.caltoopia.frontend.cal.AstActor;
 import org.caltoopia.frontend.cal.AstEntity;
+import org.caltoopia.frontend.cal.AstExternalActor;
 import org.caltoopia.frontend.cal.AstInequality;
 import org.caltoopia.frontend.cal.AstNamespace;
 import org.caltoopia.frontend.cal.AstNetwork;
@@ -48,6 +50,7 @@ import org.caltoopia.frontend.cal.AstProcedure;
 import org.caltoopia.frontend.cal.AstSchedule;
 import org.caltoopia.frontend.cal.AstTransition;
 import org.caltoopia.frontend.cal.CalPackage;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.xtext.ui.IImageHelper;
 import org.eclipse.xtext.ui.codetemplates.templates.Variable;
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
@@ -81,19 +84,9 @@ public class CalOutlineTreeProvider extends DefaultOutlineTreeProvider {
 
 		if (!namespace.getEntities().isEmpty()) {
 			for (AstEntity entity : namespace.getEntities()) {
-				if (entity.getActor() != null) {
-					createEStructuralFeatureNode(parentNode, entity,
-							CalPackage.eINSTANCE.getAstEntity_Actor(), null,
-							entity.getName(), false);
-				} else if (entity.getNetwork() != null) {
-					createEStructuralFeatureNode(parentNode, entity,
-							CalPackage.eINSTANCE.getAstEntity_Network(), null,
-							entity.getName(), false);					
-				} else {
-					createEStructuralFeatureNode(parentNode, entity,
-							CalPackage.eINSTANCE.getAstEntity_External(), null,
-							entity.getName(), false);										
-				}
+				createEStructuralFeatureNode(parentNode, entity,
+						CalPackage.eINSTANCE.getAstEntity_Actor(), null,
+						entity.getActor().getName(), false);
 			}
 		}
 		
@@ -126,19 +119,19 @@ public class CalOutlineTreeProvider extends DefaultOutlineTreeProvider {
 	protected void _createNode(IOutlineNode parentNode, AstActor actor) {
 		if (!actor.getParameters().isEmpty()) {
 			createEStructuralFeatureNode(parentNode, actor,
-					CalPackage.eINSTANCE.getAstActor_Parameters(), null,
+					CalPackage.eINSTANCE.getAstAbstractActor_Parameters(), null,
 					"parameters", false);
 		}
 
 		if (!actor.getInputs().isEmpty()) {
 			createEStructuralFeatureNode(parentNode, actor,
-					CalPackage.eINSTANCE.getAstActor_Inputs(), null, "input ports",
+					CalPackage.eINSTANCE.getAstAbstractActor_Inputs(), null, "input ports",
 					false);
 		}
 
 		if (!actor.getOutputs().isEmpty()) {
 			createEStructuralFeatureNode(parentNode, actor,
-					CalPackage.eINSTANCE.getAstActor_Outputs(), null,
+					CalPackage.eINSTANCE.getAstAbstractActor_Outputs(), null,
 					"output ports", false);
 		}
 
@@ -181,18 +174,20 @@ public class CalOutlineTreeProvider extends DefaultOutlineTreeProvider {
 
 	protected void _createNode(IOutlineNode parentNode, AstEntity entity) {	
 
-		String name = entity.getName();
-		if (entity.getActor() != null) {
-			createEStructuralFeatureNode(parentNode, entity,
-					CalPackage.eINSTANCE.getAstEntity_Actor(),
-					_image(entity.getActor()), name + " [actor]", false);
-		} else if (entity.getNetwork() != null) {
-			createEStructuralFeatureNode(parentNode, entity,
-					CalPackage.eINSTANCE.getAstEntity_Network(), null, name + " [network]", false);
-		} else if (entity.getExternal() != null) {
-			createEStructuralFeatureNode(parentNode, entity,
-					CalPackage.eINSTANCE.getAstEntity_External(), null, name + " [external]", false);
+		AstAbstractActor actor = entity.getActor();
+		String kind = "";
+		Image image = null;
+		if (actor instanceof AstActor) {
+			image = _image(actor);
+			kind = " [actor]";
+		} else if (actor instanceof AstNetwork) {
+			kind = " [network]";
+		} else if (actor instanceof AstExternalActor) {
+			kind = " [external]";
 		}
+		createEStructuralFeatureNode(parentNode, entity,
+				CalPackage.eINSTANCE.getAstEntity_Actor(),
+				image, actor.getName() + kind, false);
 	}
 
 	protected void _createNode(IOutlineNode parentNode, AstNetwork network) {
