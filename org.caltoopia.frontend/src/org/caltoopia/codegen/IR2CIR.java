@@ -1546,6 +1546,7 @@ public class IR2CIR extends IR2IRBase {
 					//The expression have been forced to be changed to a block since e.g. it used list expressions in the call
 					//Add the assignment last (the params have been updated to temp variables inside caseTypeConstructorCall)
 					((Block)obj).getStatements().add(assign);
+					leave();
 					return obj;
 				}
 			} else if(assign.getExpression() instanceof FunctionCall) {
