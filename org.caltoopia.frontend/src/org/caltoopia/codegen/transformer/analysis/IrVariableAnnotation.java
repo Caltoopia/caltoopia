@@ -88,7 +88,7 @@ import org.caltoopia.cli.DirectoryException;
 import org.caltoopia.codegen.IrXmlPrinter;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.transformer.IrTransformer;
-import org.caltoopia.codegen.transformer.IrTransformer.IrAnnotationTypes;
+import org.caltoopia.codegen.transformer.IrTransformer.IrPassTypes;
 import org.caltoopia.codegen.transformer.TransUtil;
 
 public class IrVariableAnnotation extends IrReplaceSwitch {
@@ -208,7 +208,9 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 
 	public enum VarAssign {
 		unknown,
-		assigned
+		assigned,
+		movedInitAssigned,
+		movedRetAssigned
 		//TODO add more types of assignment when needed, e.g. if member is assigned, assigned due to procedure output, etc
 	};
 	
@@ -582,13 +584,13 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 			if(actor!=null && !(actor instanceof ExternalActor)) {
 				actor = (AbstractActor) doSwitch(actor);
 				String path = TransUtil.getPath(actor);
-				TransUtil.AnnotatePass(actor, IrAnnotationTypes.Variable, "0");
+				TransUtil.AnnotatePass(actor, IrPassTypes.Variable, "0");
 				ActorDirectory.addTransformedActor(actor, a, path);
 			}
 		}
 		AbstractActor ret = super.caseNetwork(obj);
 		String path = TransUtil.getPath(ret);
-		TransUtil.AnnotatePass(ret, IrAnnotationTypes.Variable, "0");
+		TransUtil.AnnotatePass(ret, IrPassTypes.Variable, "0");
 		ActorDirectory.addTransformedActor(ret, null, path);
 		currentNetwork = null;
 		return ret;

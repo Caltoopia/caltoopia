@@ -93,7 +93,7 @@ import org.caltoopia.cli.DirectoryException;
 import org.caltoopia.codegen.IrXmlPrinter;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.transformer.IrTransformer;
-import org.caltoopia.codegen.transformer.IrTransformer.IrAnnotationTypes;
+import org.caltoopia.codegen.transformer.IrTransformer.IrPassTypes;
 import org.caltoopia.codegen.transformer.TransUtil;
 import org.caltoopia.codegen.transformer.analysis.IrTypeStructureAnnotation.TypeMember;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarType;
@@ -273,7 +273,7 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 		}
 		//DEBUG END
 		String path = TransUtil.getPath(ret);
-		TransUtil.AnnotatePass(ret, IrAnnotationTypes.VariablePlacement, "0");
+		TransUtil.AnnotatePass(ret, IrPassTypes.VariablePlacement, "0");
 		ActorDirectory.addTransformedActor(ret, null, path);
 
 		for(ActorInstance a : obj.getActors()) {
@@ -317,7 +317,7 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 				//DEBUG END
 				actor = (AbstractActor) doSwitch(actor);
 				path = TransUtil.getPath(actor);
-				TransUtil.AnnotatePass(actor, IrAnnotationTypes.VariablePlacement, "0");
+				TransUtil.AnnotatePass(actor, IrPassTypes.VariablePlacement, "0");
 				ActorDirectory.addTransformedActor(actor, a, path);
 			}
 		}

@@ -48,7 +48,7 @@ import org.caltoopia.cli.CompilationSession;
 import org.caltoopia.cli.DirectoryException;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.transformer.IrTransformer;
-import org.caltoopia.codegen.transformer.IrTransformer.IrAnnotationTypes;
+import org.caltoopia.codegen.transformer.IrTransformer.IrPassTypes;
 import org.caltoopia.codegen.transformer.TransUtil;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Action;
@@ -361,7 +361,7 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 		String path = TransUtil.getPath(network);
 
 		//Annotate that the Type pass has executed
-		TransUtil.AnnotatePass(network, IrAnnotationTypes.TypeUsage, "0");
+		TransUtil.AnnotatePass(network, IrPassTypes.TypeUsage, "0");
 		//Store in ActorDirectory $Transformed section
 	    //DEBUG
 		new IrReplaceSwitch() {

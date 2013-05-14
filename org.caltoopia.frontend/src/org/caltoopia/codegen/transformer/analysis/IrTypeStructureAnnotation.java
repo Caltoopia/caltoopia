@@ -42,7 +42,7 @@ import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.cli.CompilationSession;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.transformer.IrTransformer;
-import org.caltoopia.codegen.transformer.IrTransformer.IrAnnotationTypes;
+import org.caltoopia.codegen.transformer.IrTransformer.IrPassTypes;
 import org.caltoopia.codegen.transformer.TransUtil;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Annotation;
@@ -192,7 +192,7 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
 		String path = TransUtil.getPath(network);
 
 		//Annotate that the Type Structure pass has executed
-		TransUtil.AnnotatePass(network, IrAnnotationTypes.TypeStructure, "0");
+		TransUtil.AnnotatePass(network, IrPassTypes.TypeStructure, "0");
 		//Store in ActorDirectory $Transformed section
 		ActorDirectory.addTransformedActor(network, null, path);
 

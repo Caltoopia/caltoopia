@@ -51,6 +51,7 @@ import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation;
 import org.caltoopia.codegen.transformer.analysis.IrVariablePlacementAnnotation;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarAccess;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarType;
+import org.caltoopia.codegen.transformer.transforms.MoveInitValueExpr;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Actor;
 import org.caltoopia.ir.ActorInstance;
@@ -78,12 +79,16 @@ public class IrTransformer {
 	/*
 	 * The different types of annotation passes that can be executed
 	 */
-	public enum IrAnnotationTypes {
+	public enum IrPassTypes {
+		//Annotations
 		Init,
 		Variable,
 		TypeUsage,
 		TypeStructure,
-		VariablePlacement
+		VariablePlacement,
+		
+		//Transformations
+		MoveInitValueExpr
 	}
 	
 	/*
@@ -93,10 +98,10 @@ public class IrTransformer {
 	 * When a annotator need access to other nodes in the tree it needs 
 	 * to retrieve them from the $Transformed part of ActorDirectory
 	 */
-	public IrTransformer(TypeActor nodeType, CompilationSession session, List<IrAnnotationTypes> passes) {
+	public IrTransformer(TypeActor nodeType, CompilationSession session, List<IrPassTypes> passes) {
 		//Apply the list of annotation passes in order
 		Node node=null;
-		for(IrAnnotationTypes p : passes) {
+		for(IrPassTypes p : passes) {
 			node=getNode(nodeType,p);
 			switch (p) {
 			case Variable:
@@ -115,6 +120,12 @@ public class IrTransformer {
 				printHeader("Variable Placement");
 				new IrVariablePlacementAnnotation(node, session, true);
 				break;
+			case MoveInitValueExpr:
+				printHeader("Move initvalue expr");
+				new MoveInitValueExpr(node, session, true);
+				break;
+			default:
+				System.err.println("[IrTransformer] Trying to run an annotation or transformation pass that does not exist!");
 			}
 			ActorDirectory.resetTransformedNetwork();
 		}
@@ -123,7 +134,7 @@ public class IrTransformer {
 	/*
 	 * Local utility functions
 	 */
-	private Node getNode(TypeActor nodeType, IrAnnotationTypes p) {
+	private Node getNode(TypeActor nodeType, IrPassTypes p) {
 		Node node=null;
 		try {
 			System.out.println("[IrTransformer] Get top network from storage.");
@@ -180,7 +191,7 @@ public class IrTransformer {
 			}
 		}.doSwitch(network);
 		*/
-		TransUtil.AnnotatePass(network, IrAnnotationTypes.Init, "0");
+		TransUtil.AnnotatePass(network, IrPassTypes.Init, "0");
 		System.out.println("[IrTransformer] Write network  " + network.getType().getName());
 		ActorDirectory.addTransformedActor(network, null, path);
 
@@ -195,7 +206,7 @@ public class IrTransformer {
 			if(actor!=null && !(actor instanceof ExternalActor)) {
 				path = TransUtil.getPath(actor);
 				AbstractActor actorInstantiated = Instantiator.instantiate(a, network);
-				TransUtil.AnnotatePass(actorInstantiated, IrAnnotationTypes.Init, "0");
+				TransUtil.AnnotatePass(actorInstantiated, IrPassTypes.Init, "0");
 				String nsName = Util.marshallQualifiedName(((TypeActor) a.getType()).getNamespace());
 				System.out.println("[IrTransformer] Write actor instance named " + 
 									nsName + "__" + a.getName() + 

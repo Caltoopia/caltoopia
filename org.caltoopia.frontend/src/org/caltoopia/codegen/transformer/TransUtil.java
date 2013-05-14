@@ -36,11 +36,16 @@
 
 package org.caltoopia.codegen.transformer;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.caltoopia.codegen.transformer.IrTransformer.IrAnnotationTypes;
+import org.caltoopia.codegen.transformer.IrTransformer.IrPassTypes;
+import org.caltoopia.codegen.transformer.analysis.IrTypeStructureAnnotation.TypeMember;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarAccess;
+import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarAssign;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarType;
+import org.caltoopia.codegen.transformer.analysis.IrVariablePlacementAnnotation.VarPlacement;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Annotation;
 import org.caltoopia.ir.AnnotationArgument;
@@ -119,7 +124,7 @@ public class TransUtil {
 		a.getArguments().add(aa);
 	}
 
-	static public void AnnotatePass(Node node, IrAnnotationTypes t, String result) {
+	static public void AnnotatePass(Node node, IrPassTypes t, String result) {
 		setAnnotation(node,"AnnotationPasses",t.name(),result);
 	}
 
@@ -134,5 +139,65 @@ public class TransUtil {
 			}
 		}
 		return null;
+	}
+	
+	public static String varAnn(String ann) {
+		return IrTransformer.VARIABLE_ANNOTATION + "_" + ann;
+	}
+
+	public static String typeAnn(String ann) {
+		return IrTransformer.TYPE_ANNOTATION + "_" + ann;
+	}
+	
+	static public Map<String,String> getAnnotationsMap(EObject obj) {
+		//Most obj is a node
+		if(obj instanceof Node) {
+			Annotation annotation = getAnnotation(obj,IrTransformer.VARIABLE_ANNOTATION);
+			Map<String,String> annotations = new HashMap<String,String>();
+			if(annotation != null) {
+				for(AnnotationArgument aa:annotation.getArguments()) {
+					annotations.put(varAnn(aa.getId()), aa.getValue());
+				}
+			}
+			annotation = getAnnotation(obj,IrTransformer.TYPE_ANNOTATION);
+			if(annotation != null) {
+				for(AnnotationArgument aa:annotation.getArguments()) {
+					annotations.put(typeAnn(aa.getId()), aa.getValue());
+				}
+			}
+			if(annotations.isEmpty())
+				return null;
+			else
+				return annotations;
+		}
+		return null;
+	}
+
+	static public void copyAnnotations(EObject dst, EObject src) {
+		//Copy all variable and type annotations on a node
+		if(dst instanceof Node && src instanceof Node) {
+			Annotation annotation = getAnnotation(src,IrTransformer.VARIABLE_ANNOTATION);
+			if(annotation != null) {
+				Annotation adest = IrFactory.eINSTANCE.createAnnotation();
+				adest.setName(IrTransformer.VARIABLE_ANNOTATION);
+				for(AnnotationArgument aa:annotation.getArguments()) {
+					AnnotationArgument aadest = IrFactory.eINSTANCE.createAnnotationArgument();
+					aadest.setId(aa.getId());
+					aadest.setValue(aa.getValue());
+					adest.getArguments().add(aadest);
+				}
+			}
+			annotation = getAnnotation(src,IrTransformer.TYPE_ANNOTATION);
+			if(annotation != null) {
+				Annotation adest = IrFactory.eINSTANCE.createAnnotation();
+				adest.setName(IrTransformer.TYPE_ANNOTATION);
+				for(AnnotationArgument aa:annotation.getArguments()) {
+					AnnotationArgument aadest = IrFactory.eINSTANCE.createAnnotationArgument();
+					aadest.setId(aa.getId());
+					aadest.setValue(aa.getValue());
+					adest.getArguments().add(aadest);
+				}
+			}
+		}
 	}
 }
