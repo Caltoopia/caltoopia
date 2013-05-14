@@ -542,7 +542,7 @@ public class Util {
 	static TypeActor createType(Scope scope, AstEntity entity) {
 		TypeActor type = IrFactory.eINSTANCE.createTypeActor();
 		
-		type.setName(entity.getName());
+		type.setName(entity.getActor().getName());
 
 		if (entity.eContainer() != null) {			
 			AstNamespace namespace = (AstNamespace) entity.eContainer();

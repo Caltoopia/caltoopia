@@ -1,7 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
  */
 package org.caltoopia.frontend.cal.impl;
 
@@ -33,7 +30,7 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
   {
     try
     {
-      CalFactory theCalFactory = (CalFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.caltoopia.org/frontend/Cal"); 
+      CalFactory theCalFactory = (CalFactory)EPackage.Registry.INSTANCE.getEFactory(CalPackage.eNS_URI);
       if (theCalFactory != null)
       {
         return theCalFactory;
@@ -72,6 +69,7 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
       case CalPackage.AST_UNIT: return createAstUnit();
       case CalPackage.AST_NAMESPACE: return createAstNamespace();
       case CalPackage.AST_ENTITY: return createAstEntity();
+      case CalPackage.AST_ABSTRACT_ACTOR: return createAstAbstractActor();
       case CalPackage.IMPORT: return createImport();
       case CalPackage.AST_NETWORK: return createAstNetwork();
       case CalPackage.AST_ACTOR_VARIABLE: return createAstActorVariable();
@@ -186,6 +184,17 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
   {
     AstEntityImpl astEntity = new AstEntityImpl();
     return astEntity;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AstAbstractActor createAstAbstractActor()
+  {
+    AstAbstractActorImpl astAbstractActor = new AstAbstractActorImpl();
+    return astAbstractActor;
   }
 
   /**

@@ -62,38 +62,18 @@ import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
 import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
-import org.eclipse.xtext.serializer.sequencer.AbstractSemanticSequencer;
+import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEObjectProvider;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 
-@SuppressWarnings("restriction")
-public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
+@SuppressWarnings("all")
+public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 
 	@Inject
-	protected CalGrammarAccess grammarAccess;
-	
-	@Inject
-	protected ISemanticSequencerDiagnosticProvider diagnosticProvider;
-	
-	@Inject
-	protected ITransientValueService transientValues;
-	
-	@Inject
-	@GenericSequencer
-	protected Provider<ISemanticSequencer> genericSequencerProvider;
-	
-	protected ISemanticSequencer genericSequencer;
-	
-	
-	@Override
-	public void init(ISemanticSequencer sequencer, ISemanticSequenceAcceptor sequenceAcceptor, Acceptor errorAcceptor) {
-		super.init(sequencer, sequenceAcceptor, errorAcceptor);
-		this.genericSequencer = genericSequencerProvider.get();
-		this.genericSequencer.init(sequencer, sequenceAcceptor, errorAcceptor);
-	}
+	private CalGrammarAccess grammarAccess;
 	
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == CalPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
@@ -104,7 +84,8 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 				}
 				else break;
 			case CalPackage.AST_ACTOR:
-				if(context == grammarAccess.getAstActorRule()) {
+				if(context == grammarAccess.getAstAbstractActorRule() ||
+				   context == grammarAccess.getAstActorRule()) {
 					sequence_AstActor(context, (AstActor) semanticObject); 
 					return; 
 				}
@@ -182,7 +163,7 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 				   context == grammarAccess.getAstExpressionShiftAccess().getAstExpressionBinaryLeftAction_1_0() ||
 				   context == grammarAccess.getAstExpressionUnaryRule() ||
 				   context == grammarAccess.getAstExpressionAccess().getAstExpressionBinaryLeftAction_1_0()) {
-					sequence_AstExpressionMultiplicative(context, (AstExpressionBinary) semanticObject); 
+					sequence_AstExpression_AstExpressionAdditive_AstExpressionAnd_AstExpressionBitand_AstExpressionBitor_AstExpressionBitxor_AstExpressionEq_AstExpressionExp_AstExpressionMultiplicative_AstExpressionRelational_AstExpressionShift(context, (AstExpressionBinary) semanticObject); 
 					return; 
 				}
 				else break;
@@ -460,7 +441,8 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 				}
 				else break;
 			case CalPackage.AST_EXTERNAL_ACTOR:
-				if(context == grammarAccess.getAstExternalActorRule()) {
+				if(context == grammarAccess.getAstAbstractActorRule() ||
+				   context == grammarAccess.getAstExternalActorRule()) {
 					sequence_AstExternalActor(context, (AstExternalActor) semanticObject); 
 					return; 
 				}
@@ -520,12 +502,12 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 					sequence_AstNamespace(context, (AstNamespace) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getAstPackageRule()) {
-					sequence_AstPackage(context, (AstNamespace) semanticObject); 
+				else if(context == grammarAccess.getAstTopRule()) {
+					sequence_AstNamespace_AstPackage_AstTop(context, (AstNamespace) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getAstTopRule()) {
-					sequence_AstTop(context, (AstNamespace) semanticObject); 
+				else if(context == grammarAccess.getAstPackageRule()) {
+					sequence_AstPackage(context, (AstNamespace) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getAstUnitRule()) {
@@ -534,7 +516,8 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 				}
 				else break;
 			case CalPackage.AST_NETWORK:
-				if(context == grammarAccess.getAstNetworkRule()) {
+				if(context == grammarAccess.getAstAbstractActorRule() ||
+				   context == grammarAccess.getAstNetworkRule()) {
 					sequence_AstNetwork(context, (AstNetwork) semanticObject); 
 					return; 
 				}
@@ -645,7 +628,7 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 					return; 
 				}
 				else if(context == grammarAccess.getAstTypeRule()) {
-					sequence_AstType(context, (AstType) semanticObject); 
+					sequence_AstType_AstTypeTuple(context, (AstType) semanticObject); 
 					return; 
 				}
 				else break;
@@ -679,11 +662,11 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case CalPackage.AST_VARIABLE:
 				if(context == grammarAccess.getAstConstantVariableRule()) {
-					sequence_AstConstantVariable(context, (AstVariable) semanticObject); 
+					sequence_AstConstantVariable_AstVariableDeclaration(context, (AstVariable) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getAstParameterRule()) {
-					sequence_AstParameter(context, (AstVariable) semanticObject); 
+					sequence_AstParameter_AstVariableDeclaration(context, (AstVariable) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getAstTokenRule()) {
@@ -692,7 +675,7 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 				}
 				else if(context == grammarAccess.getAstStateVariableRule() ||
 				   context == grammarAccess.getAstValuedVariableDeclarationRule()) {
-					sequence_AstValuedVariableDeclaration(context, (AstVariable) semanticObject); 
+					sequence_AstValuedVariableDeclaration_AstVariableDeclaration(context, (AstVariable) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getAstExternalVariableRule() ||
@@ -728,15 +711,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	 *         (variables+=AstValuedVariableDeclaration variables+=AstValuedVariableDeclaration*)? 
 	 *         statements+=AstStatement*
 	 *     )
-	 *
-	 * Features:
-	 *    annotations[0, *]
-	 *    tag[0, 1]
-	 *    inputs[0, *]
-	 *    outputs[0, *]
-	 *    guards[0, *]
-	 *    variables[0, *]
-	 *    statements[0, *]
 	 */
 	protected void sequence_AstAction(EObject context, AstAction semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -746,11 +720,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (name=ID type=[AstEntity|QualifiedName] (parameters+=AstAssignParameter parameters+=AstAssignParameter*)?)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    type[1, 1]
-	 *    parameters[0, *]
 	 */
 	protected void sequence_AstActorDeclaration(EObject context, AstActorVariable semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -760,9 +729,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     variable=[AstActorVariable|ID]
-	 *
-	 * Features:
-	 *    variable[1, 1]
 	 */
 	protected void sequence_AstActorVariableReference(EObject context, AstActorVariableReference semanticObject) {
 		if(errorAcceptor != null) {
@@ -779,6 +745,7 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (
+	 *         name=ID 
 	 *         (parameters+=AstParameter parameters+=AstParameter*)? 
 	 *         (inputs+=AstPort inputs+=AstPort*)? 
 	 *         (outputs+=AstPort outputs+=AstPort*)? 
@@ -792,18 +759,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	 *             priorities+=AstPriority
 	 *         )*
 	 *     )
-	 *
-	 * Features:
-	 *    parameters[0, *]
-	 *    inputs[0, *]
-	 *    outputs[0, *]
-	 *    functions[0, *]
-	 *    procedures[0, *]
-	 *    actions[0, *]
-	 *    initializes[0, *]
-	 *    stateVariables[0, *]
-	 *    schedules[0, *]
-	 *    priorities[0, *]
 	 */
 	protected void sequence_AstActor(EObject context, AstActor semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -813,10 +768,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (name=ID value=STRING)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    value[1, 1]
 	 */
 	protected void sequence_AstAnnotationArgument(EObject context, AstAnnotationArgument semanticObject) {
 		if(errorAcceptor != null) {
@@ -836,10 +787,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (name=ID (arguments+=AstAnnotationArgument arguments+=AstAnnotationArgument*)?)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    arguments[0, *]
 	 */
 	protected void sequence_AstAnnotation(EObject context, AstAnnotation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -849,10 +796,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (name=ID value=AstExpression)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    value[1, 1]
 	 */
 	protected void sequence_AstAssignParameter(EObject context, AstAssignParameter semanticObject) {
 		if(errorAcceptor != null) {
@@ -872,10 +815,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (name=ID value=AstExpression)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    value[1, 1]
 	 */
 	protected void sequence_AstConnectionAttribute(EObject context, AstConnectionAttribute semanticObject) {
 		if(errorAcceptor != null) {
@@ -895,13 +834,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (from=AstActorVariableReference? outPort=ID to=AstActorVariableReference? inPort=ID attribute+=AstConnectionAttribute*)
-	 *
-	 * Features:
-	 *    from[0, 1]
-	 *    outPort[1, 1]
-	 *    to[0, 1]
-	 *    inPort[1, 1]
-	 *    attribute[0, *]
 	 */
 	protected void sequence_AstConnection(EObject context, AstConnection semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -918,16 +850,8 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	 *         constant?='=' 
 	 *         value=AstExpression
 	 *     )
-	 *
-	 * Features:
-	 *    constant[1, 1]
-	 *    value[1, 1]
-	 *    name[1, 1]
-	 *    annotations[0, *]
-	 *    type[1, 1]
-	 *    dimensions[0, *]
 	 */
-	protected void sequence_AstConstantVariable(EObject context, AstVariable semanticObject) {
+	protected void sequence_AstConstantVariable_AstVariableDeclaration(EObject context, AstVariable semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -935,10 +859,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (name=ID (members+=AstValuedVariableDeclaration members+=AstValuedVariableDeclaration*)?)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    members[0, *]
 	 */
 	protected void sequence_AstConstructor(EObject context, AstFunction semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -947,32 +867,7 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (annotations+=AstAnnotation* ((name=ID actor=AstActor) | (name=ID network=AstNetwork) | (name=ID external=AstExternalActor)))
-	 *
-	 * Features:
-	 *    annotations[0, *]
-	 *    name[0, 3]
-	 *    actor[0, 1]
-	 *         EXCLUDE_IF_UNSET name
-	 *         MANDATORY_IF_SET name
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET network
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET external
-	 *    network[0, 1]
-	 *         EXCLUDE_IF_UNSET name
-	 *         MANDATORY_IF_SET name
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET actor
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET external
-	 *    external[0, 1]
-	 *         EXCLUDE_IF_UNSET name
-	 *         MANDATORY_IF_SET name
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET actor
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET network
+	 *     (annotations+=AstAnnotation* actor=AstAbstractActor)
 	 */
 	protected void sequence_AstEntity(EObject context, AstEntity semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -982,9 +877,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     value=BOOL
-	 *
-	 * Features:
-	 *    value[1, 1]
 	 */
 	protected void sequence_AstExpressionBoolean(EObject context, AstExpressionBoolean semanticObject) {
 		if(errorAcceptor != null) {
@@ -1001,10 +893,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (function=[AstFunction|ID] (parameters+=AstExpression parameters+=AstExpression*)?)
-	 *
-	 * Features:
-	 *    function[1, 1]
-	 *    parameters[0, *]
 	 */
 	protected void sequence_AstExpressionCall(EObject context, AstExpressionCall semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1014,9 +902,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     value=REAL
-	 *
-	 * Features:
-	 *    value[1, 1]
 	 */
 	protected void sequence_AstExpressionFloat(EObject context, AstExpressionFloat semanticObject) {
 		if(errorAcceptor != null) {
@@ -1033,11 +918,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (condition=AstExpression then=AstExpression else=AstExpression)
-	 *
-	 * Features:
-	 *    condition[1, 1]
-	 *    then[1, 1]
-	 *    else[1, 1]
 	 */
 	protected void sequence_AstExpressionIf(EObject context, AstExpressionIf semanticObject) {
 		if(errorAcceptor != null) {
@@ -1060,9 +940,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (value=INT | value=EXP_INT | value=HEX)
-	 *
-	 * Features:
-	 *    value[0, 3]
 	 */
 	protected void sequence_AstExpressionInteger(EObject context, AstExpressionInteger semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1072,12 +949,42 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (expressions+=AstExpression expressions+=AstExpression* (generators+=AstGenerator generators+=AstGenerator*)?)
-	 *
-	 * Features:
-	 *    expressions[1, *]
-	 *    generators[0, *]
 	 */
 	protected void sequence_AstExpressionList(EObject context, AstExpressionList semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     value=STRING
+	 */
+	protected void sequence_AstExpressionString(EObject context, AstExpressionString semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, CalPackage.Literals.AST_EXPRESSION_STRING__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CalPackage.Literals.AST_EXPRESSION_STRING__VALUE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getAstExpressionStringAccess().getValueSTRINGTerminalRuleCall_0(), semanticObject.getValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ((unaryOperator='~' | unaryOperator='-' | unaryOperator='not' | unaryOperator='#' | unaryOperator='old') expression=AstExpressionPostfix)
+	 */
+	protected void sequence_AstExpressionUnary(EObject context, AstExpressionUnary semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (value=AstVariableReference indexes+=AstExpression* member+=AstMemberAccess*)
+	 */
+	protected void sequence_AstExpressionVariable(EObject context, AstExpressionVariable semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1101,71 +1008,15 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	 *         (left=AstExpressionAnd_AstExpressionBinary_1_0 (operator='&&' | operator='and') right=AstExpressionBitor) | 
 	 *         (left=AstExpression_AstExpressionBinary_1_0 (operator='||' | operator='or' | operator='..') right=AstExpressionAnd)
 	 *     )
-	 *
-	 * Features:
-	 *    left[0, 11]
-	 *    operator[0, 24]
-	 *    right[0, 11]
 	 */
-	protected void sequence_AstExpressionMultiplicative(EObject context, AstExpressionBinary semanticObject) {
+	protected void sequence_AstExpression_AstExpressionAdditive_AstExpressionAnd_AstExpressionBitand_AstExpressionBitor_AstExpressionBitxor_AstExpressionEq_AstExpressionExp_AstExpressionMultiplicative_AstExpressionRelational_AstExpressionShift(EObject context, AstExpressionBinary semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     value=STRING
-	 *
-	 * Features:
-	 *    value[1, 1]
-	 */
-	protected void sequence_AstExpressionString(EObject context, AstExpressionString semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, CalPackage.Literals.AST_EXPRESSION_STRING__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CalPackage.Literals.AST_EXPRESSION_STRING__VALUE));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getAstExpressionStringAccess().getValueSTRINGTerminalRuleCall_0(), semanticObject.getValue());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     ((unaryOperator='~' | unaryOperator='-' | unaryOperator='not' | unaryOperator='#' | unaryOperator='old') expression=AstExpressionPostfix)
-	 *
-	 * Features:
-	 *    unaryOperator[0, 5]
-	 *    expression[1, 1]
-	 */
-	protected void sequence_AstExpressionUnary(EObject context, AstExpressionUnary semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (value=AstVariableReference indexes+=AstExpression* member+=AstMemberAccess*)
-	 *
-	 * Features:
-	 *    value[1, 1]
-	 *    indexes[0, *]
-	 *    member[0, *]
-	 */
-	protected void sequence_AstExpressionVariable(EObject context, AstExpressionVariable semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     ((parameters+=AstParameter parameters+=AstParameter*)? (inputs+=AstPort inputs+=AstPort*)? (outputs+=AstPort outputs+=AstPort*)?)
-	 *
-	 * Features:
-	 *    parameters[0, *]
-	 *    inputs[0, *]
-	 *    outputs[0, *]
+	 *     (name=ID (parameters+=AstParameter parameters+=AstParameter*)? (inputs+=AstPort inputs+=AstPort*)? (outputs+=AstPort outputs+=AstPort*)?)
 	 */
 	protected void sequence_AstExternalActor(EObject context, AstExternalActor semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1175,12 +1026,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (annotations+=AstAnnotation* name=ID (parameters+=AstVariableDeclaration parameters+=AstVariableDeclaration*)? type=AstType)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    annotations[0, *]
-	 *    parameters[0, *]
-	 *    type[1, 1]
 	 */
 	protected void sequence_AstExternalFunction(EObject context, AstFunction semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1190,11 +1035,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (annotations+=AstAnnotation* name=ID (parameters+=AstVariableDeclaration parameters+=AstVariableDeclaration*)?)
-	 *
-	 * Features:
-	 *    annotations[0, *]
-	 *    name[1, 1]
-	 *    parameters[0, *]
 	 */
 	protected void sequence_AstExternalProcedure(EObject context, AstProcedure semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1204,10 +1044,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (variable=AstVariableDeclaration expression=AstExpression)
-	 *
-	 * Features:
-	 *    variable[1, 1]
-	 *    expression[1, 1]
 	 */
 	protected void sequence_AstForeachGenerator(EObject context, AstForeachGenerator semanticObject) {
 		if(errorAcceptor != null) {
@@ -1234,14 +1070,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	 *         (variables+=AstValuedVariableDeclaration variables+=AstValuedVariableDeclaration*)? 
 	 *         expression=AstExpression
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    annotations[0, *]
-	 *    parameters[0, *]
-	 *    type[1, 1]
-	 *    variables[0, *]
-	 *    expression[1, 1]
 	 */
 	protected void sequence_AstFunction(EObject context, AstFunction semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1251,10 +1079,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (variable=AstVariableDeclaration expression=AstExpression)
-	 *
-	 * Features:
-	 *    variable[1, 1]
-	 *    expression[1, 1]
 	 */
 	protected void sequence_AstGenerator(EObject context, AstGenerator semanticObject) {
 		if(errorAcceptor != null) {
@@ -1274,9 +1098,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (tags+=AstTag tags+=AstTag+)
-	 *
-	 * Features:
-	 *    tags[2, *]
 	 */
 	protected void sequence_AstInequality(EObject context, AstInequality semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1293,14 +1114,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	 *         (variables+=AstValuedVariableDeclaration variables+=AstValuedVariableDeclaration*)? 
 	 *         statements+=AstStatement*
 	 *     )
-	 *
-	 * Features:
-	 *    annotations[0, *]
-	 *    tag[0, 1]
-	 *    outputs[0, *]
-	 *    guards[0, *]
-	 *    variables[0, *]
-	 *    statements[0, *]
 	 */
 	protected void sequence_AstInitialize(EObject context, AstInitialize semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1310,11 +1123,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (port=[AstPort|ID]? tokens+=AstToken tokens+=AstToken* repeat=AstExpression?)
-	 *
-	 * Features:
-	 *    port[0, 1]
-	 *    tokens[1, *]
-	 *    repeat[0, 1]
 	 */
 	protected void sequence_AstInputPattern(EObject context, AstInputPattern semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1324,10 +1132,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (name=ID memberIndex+=AstExpression*)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    memberIndex[0, *]
 	 */
 	protected void sequence_AstMemberAccess(EObject context, AstMemberAccess semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1351,291 +1155,8 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	 *             namespaces+=AstNamespace
 	 *         )*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    entities[0, *]
-	 *    imports[0, *]
-	 *    functions[0, *]
-	 *    variables[0, *]
-	 *    externals[0, *]
-	 *    annotations[0, *]
-	 *    typedefs[0, *]
-	 *    namespaces[0, *]
 	 */
 	protected void sequence_AstNamespace(EObject context, AstNamespace semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (parameters+=AstParameter parameters+=AstParameter*)? 
-	 *         (inputs+=AstPort inputs+=AstPort*)? 
-	 *         (outputs+=AstPort outputs+=AstPort*)? 
-	 *         (variables+=AstValuedVariableDeclaration variables+=AstValuedVariableDeclaration*)? 
-	 *         instances+=AstActorDeclaration+ 
-	 *         structure=AstStructure
-	 *     )
-	 *
-	 * Features:
-	 *    parameters[0, *]
-	 *    inputs[0, *]
-	 *    outputs[0, *]
-	 *    variables[0, *]
-	 *    instances[1, *]
-	 *    structure[1, 1]
-	 */
-	protected void sequence_AstNetwork(EObject context, AstNetwork semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (port=[AstPort|ID]? values+=AstExpression values+=AstExpression* repeat=AstExpression?)
-	 *
-	 * Features:
-	 *    port[0, 1]
-	 *    values[1, *]
-	 *    repeat[0, 1]
-	 */
-	protected void sequence_AstOutputPattern(EObject context, AstOutputPattern semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (name=QualifiedName (entities+=AstEntity | imports+=Import | units+=AstUnit)*)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    entities[0, *]
-	 *    imports[0, *]
-	 *    units[0, *]
-	 */
-	protected void sequence_AstPackage(EObject context, AstNamespace semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (annotations+=AstAnnotation* type=AstType name=ID dimensions+=AstExpression* value=AstExpression?)
-	 *
-	 * Features:
-	 *    value[0, 1]
-	 *    name[1, 1]
-	 *    annotations[0, *]
-	 *    type[1, 1]
-	 *    dimensions[0, *]
-	 */
-	protected void sequence_AstParameter(EObject context, AstVariable semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (annotations+=AstAnnotation* type=AstType name=ID)
-	 *
-	 * Features:
-	 *    annotations[0, *]
-	 *    type[1, 1]
-	 *    name[1, 1]
-	 */
-	protected void sequence_AstPort(EObject context, AstPort semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (inequalities+=AstInequality*)
-	 *
-	 * Features:
-	 *    inequalities[0, *]
-	 */
-	protected void sequence_AstPriority(EObject context, AstPriority semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         annotations+=AstAnnotation* 
-	 *         name=ID 
-	 *         (parameters+=AstVariableDeclaration parameters+=AstVariableDeclaration*)? 
-	 *         (variables+=AstValuedVariableDeclaration variables+=AstValuedVariableDeclaration*)? 
-	 *         statements+=AstStatement*
-	 *     )
-	 *
-	 * Features:
-	 *    annotations[0, *]
-	 *    name[1, 1]
-	 *    parameters[0, *]
-	 *    variables[0, *]
-	 *    statements[0, *]
-	 */
-	protected void sequence_AstProcedure(EObject context, AstProcedure semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (initialState=[AstState|ID] transitions+=AstTransition*)
-	 *
-	 * Features:
-	 *    initialState[1, 1]
-	 *    transitions[0, *]
-	 */
-	protected void sequence_AstSchedule(EObject context, AstSchedule semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     name=ID
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 */
-	protected void sequence_AstState(EObject context, AstState semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, CalPackage.Literals.AST_STATE__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CalPackage.Literals.AST_STATE__NAME));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getAstStateAccess().getNameIDTerminalRuleCall_0(), semanticObject.getName());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (target=AstVariableReference indexes+=AstExpression* member+=AstMemberAccess* value=AstExpression)
-	 *
-	 * Features:
-	 *    target[1, 1]
-	 *    indexes[0, *]
-	 *    member[0, *]
-	 *    value[1, 1]
-	 */
-	protected void sequence_AstStatementAssign(EObject context, AstStatementAssign semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     ((variables+=AstValuedVariableDeclaration variables+=AstValuedVariableDeclaration*)? statements+=AstStatement*)
-	 *
-	 * Features:
-	 *    variables[0, *]
-	 *    statements[0, *]
-	 */
-	protected void sequence_AstStatementBlock(EObject context, AstStatementBlock semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (procedure=[AstProcedure|ID] (parameters+=AstExpression parameters+=AstExpression*)?)
-	 *
-	 * Features:
-	 *    procedure[1, 1]
-	 *    parameters[0, *]
-	 */
-	protected void sequence_AstStatementCall(EObject context, AstStatementCall semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         generators+=AstForeachGenerator 
-	 *         generators+=AstForeachGenerator* 
-	 *         (variables+=AstValuedVariableDeclaration variables+=AstValuedVariableDeclaration*)? 
-	 *         statements+=AstStatement*
-	 *     )
-	 *
-	 * Features:
-	 *    generators[1, *]
-	 *    variables[0, *]
-	 *    statements[0, *]
-	 */
-	protected void sequence_AstStatementForeach(EObject context, AstStatementForeach semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (condition=AstExpression then+=AstStatement* else+=AstStatement*)
-	 *
-	 * Features:
-	 *    condition[1, 1]
-	 *    then[0, *]
-	 *    else[0, *]
-	 */
-	protected void sequence_AstStatementIf(EObject context, AstStatementIf semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (condition=AstExpression statements+=AstStatement*)
-	 *
-	 * Features:
-	 *    condition[1, 1]
-	 *    statements[0, *]
-	 */
-	protected void sequence_AstStatementWhile(EObject context, AstStatementWhile semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     connections+=AstConnection+
-	 *
-	 * Features:
-	 *    connections[1, *]
-	 */
-	protected void sequence_AstStructure(EObject context, AstStructure semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (identifiers+=ID identifiers+=ID*)
-	 *
-	 * Features:
-	 *    identifiers[1, *]
-	 */
-	protected void sequence_AstTag(EObject context, AstTag semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     name=ID
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 */
-	protected void sequence_AstToken(EObject context, AstVariable semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1660,62 +1181,196 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	 *             )*
 	 *         )
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 2]
-	 *    entities[0, *]
-	 *    imports[0, *]
-	 *    units[0, *]
-	 *         EXCLUDE_IF_UNSET name
-	 *         EXCLUDE_IF_SET annotations
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET functions
-	 *         EXCLUDE_IF_SET variables
-	 *         EXCLUDE_IF_SET externals
-	 *         EXCLUDE_IF_SET externals
-	 *         EXCLUDE_IF_SET externals
-	 *         EXCLUDE_IF_SET typedefs
-	 *         EXCLUDE_IF_SET imports
-	 *         EXCLUDE_IF_SET entities
-	 *         EXCLUDE_IF_SET namespaces
-	 *    functions[0, *]
-	 *         EXCLUDE_IF_UNSET name
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET entities
-	 *         EXCLUDE_IF_SET imports
-	 *         EXCLUDE_IF_SET units
-	 *    variables[0, *]
-	 *         EXCLUDE_IF_UNSET name
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET entities
-	 *         EXCLUDE_IF_SET imports
-	 *         EXCLUDE_IF_SET units
-	 *    externals[0, *]
-	 *         EXCLUDE_IF_UNSET name
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET entities
-	 *         EXCLUDE_IF_SET imports
-	 *         EXCLUDE_IF_SET units
-	 *    annotations[0, *]
-	 *         EXCLUDE_IF_UNSET name
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET entities
-	 *         EXCLUDE_IF_SET imports
-	 *         EXCLUDE_IF_SET units
-	 *    typedefs[0, *]
-	 *         EXCLUDE_IF_UNSET name
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET entities
-	 *         EXCLUDE_IF_SET imports
-	 *         EXCLUDE_IF_SET units
-	 *    namespaces[0, *]
-	 *         EXCLUDE_IF_UNSET name
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET entities
-	 *         EXCLUDE_IF_SET imports
-	 *         EXCLUDE_IF_SET units
 	 */
-	protected void sequence_AstTop(EObject context, AstNamespace semanticObject) {
+	protected void sequence_AstNamespace_AstPackage_AstTop(EObject context, AstNamespace semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (parameters+=AstParameter parameters+=AstParameter*)? 
+	 *         (inputs+=AstPort inputs+=AstPort*)? 
+	 *         (outputs+=AstPort outputs+=AstPort*)? 
+	 *         (variables+=AstValuedVariableDeclaration variables+=AstValuedVariableDeclaration*)? 
+	 *         instances+=AstActorDeclaration+ 
+	 *         structure=AstStructure
+	 *     )
+	 */
+	protected void sequence_AstNetwork(EObject context, AstNetwork semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (port=[AstPort|ID]? values+=AstExpression values+=AstExpression* repeat=AstExpression?)
+	 */
+	protected void sequence_AstOutputPattern(EObject context, AstOutputPattern semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=QualifiedName (entities+=AstEntity | imports+=Import | units+=AstUnit)*)
+	 */
+	protected void sequence_AstPackage(EObject context, AstNamespace semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (annotations+=AstAnnotation* type=AstType name=ID dimensions+=AstExpression* value=AstExpression?)
+	 */
+	protected void sequence_AstParameter_AstVariableDeclaration(EObject context, AstVariable semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (annotations+=AstAnnotation* type=AstType name=ID)
+	 */
+	protected void sequence_AstPort(EObject context, AstPort semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (inequalities+=AstInequality*)
+	 */
+	protected void sequence_AstPriority(EObject context, AstPriority semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         annotations+=AstAnnotation* 
+	 *         name=ID 
+	 *         (parameters+=AstVariableDeclaration parameters+=AstVariableDeclaration*)? 
+	 *         (variables+=AstValuedVariableDeclaration variables+=AstValuedVariableDeclaration*)? 
+	 *         statements+=AstStatement*
+	 *     )
+	 */
+	protected void sequence_AstProcedure(EObject context, AstProcedure semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (initialState=[AstState|ID] transitions+=AstTransition*)
+	 */
+	protected void sequence_AstSchedule(EObject context, AstSchedule semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     name=ID
+	 */
+	protected void sequence_AstState(EObject context, AstState semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, CalPackage.Literals.AST_STATE__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CalPackage.Literals.AST_STATE__NAME));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getAstStateAccess().getNameIDTerminalRuleCall_0(), semanticObject.getName());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (target=AstVariableReference indexes+=AstExpression* member+=AstMemberAccess* value=AstExpression)
+	 */
+	protected void sequence_AstStatementAssign(EObject context, AstStatementAssign semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ((variables+=AstValuedVariableDeclaration variables+=AstValuedVariableDeclaration*)? statements+=AstStatement*)
+	 */
+	protected void sequence_AstStatementBlock(EObject context, AstStatementBlock semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (procedure=[AstProcedure|ID] (parameters+=AstExpression parameters+=AstExpression*)?)
+	 */
+	protected void sequence_AstStatementCall(EObject context, AstStatementCall semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         generators+=AstForeachGenerator 
+	 *         generators+=AstForeachGenerator* 
+	 *         (variables+=AstValuedVariableDeclaration variables+=AstValuedVariableDeclaration*)? 
+	 *         statements+=AstStatement*
+	 *     )
+	 */
+	protected void sequence_AstStatementForeach(EObject context, AstStatementForeach semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (condition=AstExpression then+=AstStatement* else+=AstStatement*)
+	 */
+	protected void sequence_AstStatementIf(EObject context, AstStatementIf semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (condition=AstExpression statements+=AstStatement*)
+	 */
+	protected void sequence_AstStatementWhile(EObject context, AstStatementWhile semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     connections+=AstConnection+
+	 */
+	protected void sequence_AstStructure(EObject context, AstStructure semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (identifiers+=ID identifiers+=ID*)
+	 */
+	protected void sequence_AstTag(EObject context, AstTag semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     name=ID
+	 */
+	protected void sequence_AstToken(EObject context, AstVariable semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1723,11 +1378,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (source=[AstState|ID] tags+=AstTag tags+=AstTag* target=[AstState|ID])
-	 *
-	 * Features:
-	 *    source[1, 1]
-	 *    tags[1, *]
-	 *    target[1, 1]
 	 */
 	protected void sequence_AstTransition(EObject context, AstTransition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1737,12 +1387,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (value=AstVariableDeclaration | type=AstTypeDefinitionTypeParameter)
-	 *
-	 * Features:
-	 *    value[0, 1]
-	 *         EXCLUDE_IF_SET type
-	 *    type[0, 1]
-	 *         EXCLUDE_IF_SET value
 	 */
 	protected void sequence_AstTypeDefinitionParameter(EObject context, AstTypeDefinitionParameter semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1752,9 +1396,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     name=ID
-	 *
-	 * Features:
-	 *    name[1, 1]
 	 */
 	protected void sequence_AstTypeDefinitionTypeParameter(EObject context, AstTypeName semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1768,15 +1409,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	 *         (parameters+=AstTypeDefinitionParameter parameters+=AstTypeDefinitionParameter*)? 
 	 *         ((constructor+=AstConstructor constructor+=AstConstructor?) | type=AstType)
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    parameters[0, *]
-	 *    constructor[0, 2]
-	 *         EXCLUDE_IF_SET type
-	 *    type[0, 1]
-	 *         EXCLUDE_IF_SET constructor
-	 *         EXCLUDE_IF_SET constructor
 	 */
 	protected void sequence_AstTypeDefinition(EObject context, AstTypeName semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1786,20 +1418,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     ((name=ID value=AstExpression) | ((name=ID | name='type') type=AstType))
-	 *
-	 * Features:
-	 *    name[0, 3]
-	 *    value[0, 1]
-	 *         EXCLUDE_IF_UNSET name
-	 *         MANDATORY_IF_SET name
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET type
-	 *    type[0, 1]
-	 *         MANDATORY_IF_SET name
-	 *         MANDATORY_IF_SET name
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET value
 	 */
 	protected void sequence_AstTypeParam(EObject context, AstTypeParam semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1809,9 +1427,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (params+=AstTypeParam params+=AstTypeParam*)
-	 *
-	 * Features:
-	 *    params[1, *]
 	 */
 	protected void sequence_AstTypeParameterList(EObject context, AstTypeParameterList semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1821,9 +1436,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     ((members+=AstValuedVariableDeclaration members+=AstValuedVariableDeclaration*)?)
-	 *
-	 * Features:
-	 *    members[0, *]
 	 */
 	protected void sequence_AstTypeTuple(EObject context, AstType semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1838,78 +1450,8 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	 *         ((domain+=AstType domain+=AstType*)? (codomain+=AstType domain+=AstType*)?) | 
 	 *         ((members+=AstValuedVariableDeclaration members+=AstValuedVariableDeclaration*)?)
 	 *     )
-	 *
-	 * Features:
-	 *    builtin[0, 1]
-	 *         MANDATORY_IF_SET typeParams
-	 *         MANDATORY_IF_SET dimensions
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET typeParams
-	 *         EXCLUDE_IF_SET dimensions
-	 *         EXCLUDE_IF_SET domain
-	 *         EXCLUDE_IF_SET domain
-	 *         EXCLUDE_IF_SET codomain
-	 *         EXCLUDE_IF_SET domain
-	 *         EXCLUDE_IF_SET members
-	 *         EXCLUDE_IF_SET members
-	 *    typeParams[0, 2]
-	 *         EXCLUDE_IF_SET domain
-	 *         EXCLUDE_IF_SET domain
-	 *         EXCLUDE_IF_SET codomain
-	 *         EXCLUDE_IF_SET domain
-	 *         EXCLUDE_IF_SET members
-	 *         EXCLUDE_IF_SET members
-	 *    dimensions[0, *]
-	 *         EXCLUDE_IF_SET domain
-	 *         EXCLUDE_IF_SET domain
-	 *         EXCLUDE_IF_SET codomain
-	 *         EXCLUDE_IF_SET domain
-	 *         EXCLUDE_IF_SET members
-	 *         EXCLUDE_IF_SET members
-	 *    name[0, 1]
-	 *         MANDATORY_IF_SET typeParams
-	 *         MANDATORY_IF_SET dimensions
-	 *         EXCLUDE_IF_SET builtin
-	 *         EXCLUDE_IF_SET typeParams
-	 *         EXCLUDE_IF_SET dimensions
-	 *         EXCLUDE_IF_SET domain
-	 *         EXCLUDE_IF_SET domain
-	 *         EXCLUDE_IF_SET codomain
-	 *         EXCLUDE_IF_SET domain
-	 *         EXCLUDE_IF_SET members
-	 *         EXCLUDE_IF_SET members
-	 *    domain[0, *]
-	 *         EXCLUDE_IF_SET builtin
-	 *         EXCLUDE_IF_SET typeParams
-	 *         EXCLUDE_IF_SET dimensions
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET typeParams
-	 *         EXCLUDE_IF_SET dimensions
-	 *         EXCLUDE_IF_SET members
-	 *         EXCLUDE_IF_SET members
-	 *    codomain[0, 1]
-	 *         MANDATORY_IF_SET domain
-	 *         EXCLUDE_IF_SET builtin
-	 *         EXCLUDE_IF_SET typeParams
-	 *         EXCLUDE_IF_SET dimensions
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET typeParams
-	 *         EXCLUDE_IF_SET dimensions
-	 *         EXCLUDE_IF_SET members
-	 *         EXCLUDE_IF_SET members
-	 *    members[0, *]
-	 *         EXCLUDE_IF_SET builtin
-	 *         EXCLUDE_IF_SET typeParams
-	 *         EXCLUDE_IF_SET dimensions
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET typeParams
-	 *         EXCLUDE_IF_SET dimensions
-	 *         EXCLUDE_IF_SET domain
-	 *         EXCLUDE_IF_SET domain
-	 *         EXCLUDE_IF_SET codomain
-	 *         EXCLUDE_IF_SET domain
 	 */
-	protected void sequence_AstType(EObject context, AstType semanticObject) {
+	protected void sequence_AstType_AstTypeTuple(EObject context, AstType semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1926,12 +1468,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	 *             externals+=AstExternalProcedure
 	 *         )*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    functions[0, *]
-	 *    variables[0, *]
-	 *    externals[0, *]
 	 */
 	protected void sequence_AstUnit(EObject context, AstNamespace semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1941,18 +1477,8 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (annotations+=AstAnnotation* type=AstType name=ID dimensions+=AstExpression* (constant?='='? value=AstExpression)?)
-	 *
-	 * Features:
-	 *    constant[0, 1]
-	 *         EXCLUDE_IF_UNSET value
-	 *    value[0, 1]
-	 *         MANDATORY_IF_SET constant
-	 *    name[1, 1]
-	 *    annotations[0, *]
-	 *    type[1, 1]
-	 *    dimensions[0, *]
 	 */
-	protected void sequence_AstValuedVariableDeclaration(EObject context, AstVariable semanticObject) {
+	protected void sequence_AstValuedVariableDeclaration_AstVariableDeclaration(EObject context, AstVariable semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1960,12 +1486,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (annotations+=AstAnnotation* type=AstType name=ID dimensions+=AstExpression*)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    annotations[0, *]
-	 *    type[1, 1]
-	 *    dimensions[0, *]
 	 */
 	protected void sequence_AstVariableDeclaration(EObject context, AstVariable semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1975,9 +1495,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     variable=[AstVariable|ID]
-	 *
-	 * Features:
-	 *    variable[1, 1]
 	 */
 	protected void sequence_AstVariableReference(EObject context, AstVariableReference semanticObject) {
 		if(errorAcceptor != null) {
@@ -1994,9 +1511,6 @@ public class AbstractCalSemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     importedNamespace=QualifiedNameWithWildCard
-	 *
-	 * Features:
-	 *    importedNamespace[1, 1]
 	 */
 	protected void sequence_Import(EObject context, Import semanticObject) {
 		if(errorAcceptor != null) {

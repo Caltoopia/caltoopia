@@ -29,7 +29,7 @@
 package org.caltoopia.frontend.util;
 
 import org.eclipse.emf.ecore.EObject;
-
+import org.caltoopia.frontend.cal.AstAbstractActor;
 import org.caltoopia.frontend.cal.AstAction;
 import org.caltoopia.frontend.cal.AstActor;
 import org.caltoopia.frontend.cal.AstActorVariable;
@@ -173,10 +173,9 @@ public class VoidSwitch extends CalSwitch<Void> {
 
 	@Override
 	public Void caseAstEntity(AstEntity entity) {
-		if (entity.getActor() != null) {
-			doSwitch(entity.getActor());
-		} else {
-			doSwitch(entity.getNetwork());
+		AstAbstractActor actor = entity.getActor();
+		if (actor instanceof AstActor || actor instanceof AstNetwork) {
+			doSwitch(actor);
 		} 
 		
 		return null;

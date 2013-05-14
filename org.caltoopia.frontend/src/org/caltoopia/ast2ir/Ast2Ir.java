@@ -41,7 +41,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
+
 import org.eclipse.emf.ecore.EObject;
+import org.caltoopia.frontend.cal.AstAbstractActor;
 import org.caltoopia.frontend.cal.AstActor;
 import org.caltoopia.frontend.cal.AstActorVariable;
 import org.caltoopia.frontend.cal.AstAnnotation;
@@ -246,10 +248,10 @@ public class Ast2Ir extends CalSwitch<EObject> {
 			// Do all actors and networks
 			Util.clearDefs();
 			
-			if (verbose) System.out.println("[Ast2Ir] compiling actor/network '" + astEntity.getName() + "'");
+			if (verbose) System.out.println("[Ast2Ir] compiling actor/network '" + astEntity.getActor().getName() + "'");
 			AbstractActor actor = caseAstEntity(astEntity);
 			TypeActor type = IrFactory.eINSTANCE.createTypeActor();
-			type.setName(astEntity.getName());
+			type.setName(astEntity.getActor().getName());
 			actor.setOuter(ns);
 			for (String s : ns.getName()) {
 				type.getNamespace().add(s);
@@ -277,13 +279,14 @@ public class Ast2Ir extends CalSwitch<EObject> {
 	
 	@Override
 	public AbstractActor caseAstEntity(AstEntity astEntity) {
-		AbstractActor result;
-		if (astEntity.getActor() != null) {
-			 result = caseAstActor(astEntity.getActor());
-		} else if (astEntity.getNetwork() != null){
-			result =  caseAstNetwork(astEntity.getNetwork());
-		} else {
-			result = caseAstExternalActor(astEntity.getExternal());			
+		AbstractActor result = null;
+		AstAbstractActor astActor = astEntity.getActor();
+		if (astActor instanceof AstActor) {
+			 result = caseAstActor((AstActor) astActor);
+		} else if (astActor instanceof AstNetwork){
+			result =  caseAstNetwork((AstNetwork) astActor);
+		} else if (astActor instanceof AstExternalActor){
+			result =  caseAstExternalActor((AstExternalActor) astActor);
 		}
 		doAnnotations(astEntity.getAnnotations(), result);
 		return result;
@@ -569,16 +572,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 			actorInstance.setType(typeActor);
 			actorInstance.setScope(scopeStack.peek());
 			
-			List<AstPort> inputs;
-			
-			if (astActorType.getActor() != null) {
-				inputs = astActorType.getActor().getInputs();
-			} else if (astActorType.getNetwork() != null) {
-				inputs = astActorType.getNetwork().getInputs();
-			} else {
-				inputs = astActorType.getExternal().getInputs();
-			}
-			
+			List<AstPort> inputs = astActorType.getActor().getInputs();			
 			for (AstPort port : inputs) {
 				PortInstance portInstance = IrFactory.eINSTANCE.createPortInstance();
 				portInstance.setName(port.getName());			
@@ -586,15 +580,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 				actorInstance.getInputs().add(portInstance);
 			}
 
-			List<AstPort> outputs;
-			if (astActorType.getActor() != null) {
-				outputs = astActorType.getActor().getOutputs();
-			} else if (astActorType.getNetwork() != null) {
-				outputs = astActorType.getNetwork().getOutputs();			
-			} else {
-				outputs = astActorType.getExternal().getOutputs();							
-			}
-			
+			List<AstPort> outputs = astActorType.getActor().getOutputs();
 			for (AstPort port : outputs) {
 				PortInstance portInstance = IrFactory.eINSTANCE.createPortInstance();
 				portInstance.setName(port.getName());		
