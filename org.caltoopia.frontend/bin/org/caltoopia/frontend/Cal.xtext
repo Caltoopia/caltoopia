@@ -78,7 +78,10 @@ AstNamespace:
 
 AstEntity: 
     (annotations += AstAnnotation)*
-	(('actor' name=ID actor=AstActor) | ('network' name=ID network=AstNetwork) | ('external' 'actor' name=ID external=AstExternalActor));
+    actor = AstAbstractActor
+    ;
+
+AstAbstractActor: AstActor | AstNetwork | AstExternalActor;
 
 Import: 'import' importedNamespace=QualifiedNameWithWildCard ';';
 
@@ -93,6 +96,7 @@ QualifiedNameWithWildCard:
 ///////////////////////////////////////////////////////////////////////////////
 
 AstNetwork: {AstNetwork} 
+	'network' name=ID
 	'(' (parameters += AstParameter (',' parameters += AstParameter)*)? ')'
 		(inputs += AstPort (',' inputs += AstPort)*)? '==>'
 		(outputs += AstPort (',' outputs += AstPort)*)? ':'
@@ -155,6 +159,7 @@ AstConstructor returns AstFunction:
 ///////////////////////////////////////////////////////////////////////////////
 
 AstActor: {AstActor}
+	'actor' name=ID
 		'(' (parameters += AstParameter (',' parameters += AstParameter)*)? ')'
 		(inputs += AstPort (',' inputs += AstPort)*)? '==>'
 		(outputs += AstPort (',' outputs += AstPort)*)? ':'
@@ -220,6 +225,7 @@ AstTag: (identifiers += ID) ('.' identifiers += ID)*;
 ///////////////////////////////////////////////////////////////////////////////
 
 AstExternalActor: {AstExternalActor}
+	'external' 'actor' name=ID
 '(' (parameters += AstParameter (',' parameters += AstParameter)*)? ')'
         (inputs += AstPort (',' inputs += AstPort)*)? '==>'
         (outputs += AstPort (',' outputs += AstPort)*)? ';';
