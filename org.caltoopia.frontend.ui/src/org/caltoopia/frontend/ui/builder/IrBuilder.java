@@ -82,7 +82,7 @@ public class IrBuilder implements IXtextBuilderParticipant {
 				IResourceDescription resourceDescription = delta.getNew();
 				monitor.subTask(resourceDescription.getURI().lastSegment());				
 				Resource resource = resourceSet.getResource(resourceDescription.getURI(), true);
-				if (resource.getContents().size() > 0 ) {
+				if (resource.getContents().size() > 0 && resource.getContents().get(0) instanceof AstNamespace) {
 					AstNamespace namespace = (AstNamespace) resource.getContents().get(0);
 					System.out.println("[Ast2Ir] compiling '" + namespace.getName() + "'");
 					if (!hasErrors(resource)) {
