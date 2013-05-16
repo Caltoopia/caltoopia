@@ -38,10 +38,14 @@ package org.caltoopia.tests;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -126,5 +130,36 @@ public class Util {
 		} catch(Exception x){
 			session.getOutputStream().print("Failed to execute binary! (" + x.getMessage() + ")");
 		}
+	}
+	
+	public static boolean goldCheck(CompilationSession session, String goldFile, String outFile) {
+		byte[] dataGold = new byte[8192];
+		byte[] dataOut = new byte[8192];
+		FileInputStream isGold=null;
+		FileInputStream isOut=null;
+		boolean match=false;
+		try {
+			isGold = new FileInputStream(goldFile);
+			isOut = new FileInputStream(outFile);
+			int bytesGold;
+			int bytesOut;
+			do {
+				bytesGold = isGold.read(dataGold);
+				bytesOut = isOut.read(dataOut);
+				match = ((bytesGold == bytesOut) && Arrays.equals(dataGold,dataOut));
+			} while (match && (bytesGold > -1));
+		} catch (Exception e) {
+			match = false;
+		}
+		try {isGold.close();} catch (Exception ee) {}
+		try {isOut.close();} catch (Exception ee) {}
+		if(session!=null) {
+			if(match) {
+				session.getOutputStream().println("Output matched gold vector!");
+			} else {
+				session.getOutputStream().println("Failed to match gold vector:\n" + goldFile +"\n with output vector:\n" + outFile);
+			}
+		}
+		return match;
 	}
 }

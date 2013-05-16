@@ -49,13 +49,22 @@ public class TestCal2C_RVC {
 				         "--path", Util.getCalAppsDir() + "RVC_MPEG4_SP_Decoder" + ":" + Util.getCalAppsDir() + "System",
 				         "--output", Util.getOutputDir() + "RVC_MPEG4_SP_Decoder",
 				         "--runtime", Util.getRuntimeDir()};
+		CompilationSession session = null;
 		try {
-			CompilationSession session = Cal2C.compile(args);
+			session = Cal2C.compile(args);
 			session.setWorkingDirectory(Util.getCalAppsDir() + "RVC_MPEG4_SP_Decoder");
 			Util.build(session);
 			Util.run(session);
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
+		if(!Util.goldCheck(session,
+				Util.getCalAppsDir() + "RVC_MPEG4_SP_Decoder/" + 
+					"gold/decoderTest/VID.txt", 
+				Util.getCalAppsDir() + "RVC_MPEG4_SP_Decoder/" +
+					"output/decoderTest/VID.txt")) {
+			fail("Output differs from gold vector!!!");
+		}
+
 	}
 }
