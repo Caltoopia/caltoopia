@@ -161,11 +161,13 @@ actor ParseHeaders (
     read_result_in_progress := bitor( lshift( read_result_in_progress, 1), if b then 1 else 0 end );
     bits_to_read_count := bits_to_read_count - 1;
     bit_count := bit_count + 1;
+/*
     if(bits_to_read_count<0) then
     	dprint2("Read %i bits 0x%x\\n",bit_count, read_result_in_progress);
 	else
     	dprint2("In progress read %i bits 0x%x\\n",bit_count, read_result_in_progress);
     end
+*/
   end
 
   int(size=4) bit_count := 0;
