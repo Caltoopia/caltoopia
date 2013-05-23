@@ -58,7 +58,7 @@ actor AutoCorr(int WindowSize, int MaxLag)
   do
     foreach int k in 0..MaxLag do
       sum:=0;
-      foreach int n in k..WindowSize do
+      foreach int n in k..(WindowSize-1) do
         sum:=sum + x[n]*x[n-k];
        end
       r[k] := sum/WindowSize;
