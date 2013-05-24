@@ -46,7 +46,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	TestCal2C_VoxBox2a.class, 
 	TestCal2C_VoxBox2b.class, 
 	TestCal2C_VoxBox3a.class, 
-	TestCal2C_VoxBox3b.class, 
+	//TestCal2C_VoxBox3b.class, 
 	TestCal2C_VoxBox3c.class, 
 	TestCal2C_VoxBox3d.class, 
 	TestCal2C_VoxBox4a.class, 
