@@ -53,7 +53,7 @@ actor PredictionFilter2(int BlockSize, int NumZeros)
       float Coeff ==> 
       float Out:
 
-  float[NumZeros] oldX := [ 0 : for int k in 1..NumZeros ];
+  float[NumZeros+1] oldX := [ 0 : for int k in 1..NumZeros ];
   
   action In:[x] repeat BlockSize, Coeff:[h] repeat NumZeros+1 ==> Out:[y] repeat BlockSize
   var

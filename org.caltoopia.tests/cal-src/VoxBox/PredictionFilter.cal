@@ -65,7 +65,7 @@ actor PredictionFilter(int BlockSize, int NumZeros)
   do
     foreach int n in Delay..(BlockSize-1+Delay) do
       // Determine limits Kmin,Kmax of the convolution 
-      Kmin:=if n>=BlockSize then BlockSize-1-n else 0 end;
+      Kmin:=if n>(BlockSize-1) then n-BlockSize+1 else 0 end;
       Kmax:=if n<NumZeros then n else NumZeros end;
       
       // Compute x*h
