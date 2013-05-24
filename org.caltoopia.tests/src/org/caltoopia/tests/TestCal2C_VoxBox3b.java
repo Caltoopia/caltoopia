@@ -44,6 +44,7 @@ import org.junit.Test;
 
 public class TestCal2C_VoxBox3b {
 
+	/*
 	@Test
 	public void test() {
 		String args[] = {"--top", "VoxBox.Demo3b_IdentityActor", 
@@ -70,4 +71,5 @@ public class TestCal2C_VoxBox3b {
 			fail("Output differs from gold vector!!!");
 		}
 	}
+	*/
 }
