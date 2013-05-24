@@ -36,22 +36,38 @@
 
 package org.caltoopia.tests;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import static org.junit.Assert.*;
 
-@RunWith(Suite.class)
-@SuiteClasses({ 
-	TestCal2C_VoxBox1.class, 
-	TestCal2C_VoxBox2a.class, 
-	TestCal2C_VoxBox2b.class, 
-	TestCal2C_VoxBox3a.class, 
-	TestCal2C_VoxBox3b.class, 
-	TestCal2C_VoxBox3c.class, 
-	TestCal2C_VoxBox3d.class, 
-	TestCal2C_VoxBox4a.class, 
-	TestCal2C_VoxBox4b.class, 
-	TestCal2C_RVC.class})
-public class AllTests {
+import org.caltoopia.cli.Cal2C;
+import org.caltoopia.cli.CompilationSession;
+import org.junit.Test;
 
+public class TestCal2C_VoxBox4a {
+
+	@Test
+	public void test() {
+		String args[] = {"--top", "VoxBox.Demo4a_FormantWarp", 
+				         "--path", Util.getCalAppsDir() + "VoxBox" + ":" + Util.getCalAppsDir() + "System",
+				         "--output", Util.getOutputDir() +  "VoxBox4a",
+				         "--runtime", Util.getRuntimeDir(),
+				         "--clean", 
+				         "--rangechk"};
+		CompilationSession session = null;
+		try {
+			session = Cal2C.compile(args);
+			session.setWorkingDirectory(Util.getCalAppsDir() + "VoxBox");
+			Util.build(session);
+			Util.run(session);
+			//Util.clear(session);
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+		if(!Util.goldCheck(session,
+				Util.getCalAppsDir() + "VoxBox/" + 
+					"test/gold/Demo4a_FormantWarp.wav", 
+				Util.getCalAppsDir() + "VoxBox/" +
+					"output/Demo4a_FormantWarp.wav")) {
+			fail("Output differs from gold vector!!!");
+		}
+	}
 }

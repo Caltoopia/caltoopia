@@ -37,25 +37,37 @@
 package org.caltoopia.tests;
 
 import static org.junit.Assert.*;
+
 import org.caltoopia.cli.Cal2C;
 import org.caltoopia.cli.CompilationSession;
 import org.junit.Test;
 
-public class TestCal2C_VoxBox {
+public class TestCal2C_VoxBox4b {
 
 	@Test
 	public void test() {
-		String args[] = {"--top", "VoxBox.Demo1_Vowel", 
+		String args[] = {"--top", "VoxBox.Demo4b_TransformedVoice", 
 				         "--path", Util.getCalAppsDir() + "VoxBox" + ":" + Util.getCalAppsDir() + "System",
-				         "--output", Util.getOutputDir() +  "VoxBox",
-				         "--runtime", Util.getRuntimeDir() };
+				         "--output", Util.getOutputDir() +  "VoxBox4b",
+				         "--runtime", Util.getRuntimeDir(),
+				         "--clean", 
+				         "--rangechk"};
+		CompilationSession session = null;
 		try {
-			CompilationSession session = Cal2C.compile(args);
+			session = Cal2C.compile(args);
 			session.setWorkingDirectory(Util.getCalAppsDir() + "VoxBox");
 			Util.build(session);
-			Util.run(session);			
+			Util.run(session);
+			//Util.clear(session);
 		} catch (Exception e) {
 			fail(e.getMessage());
+		}
+		if(!Util.goldCheck(session,
+				Util.getCalAppsDir() + "VoxBox/" + 
+					"test/gold/Demo4b_TransformedVoice.wav", 
+				Util.getCalAppsDir() + "VoxBox/" +
+					"output/Demo4b_TransformedVoice.wav")) {
+			fail("Output differs from gold vector!!!");
 		}
 	}
 }
