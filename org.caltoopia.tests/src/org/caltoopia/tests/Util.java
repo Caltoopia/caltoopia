@@ -48,6 +48,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import static org.junit.Assert.*;
 
 import org.caltoopia.cli.CompilationSession;
 
@@ -79,6 +80,31 @@ public class Util {
 		}
 	}
 
+	public static void removeFileDir(File item) {
+		if(item!=null) {
+			if(item.isDirectory()) {
+				File files[] = item.listFiles();
+				if(files!=null) {
+					for(File f:files) {
+						removeFileDir(f);
+					}
+				}
+				item.delete();
+			} else {
+				item.delete();
+			}
+		}
+	}
+	
+	public static void clear(CompilationSession session) {
+		File files[] = new File(session.getOutputFolder()).listFiles();
+		if(files!=null) {
+			for(File f:files){
+				removeFileDir(f);				
+			}
+		}
+	}
+
 	public static void build(CompilationSession session) {
 		try {				
 		    List<String> command = new ArrayList<String>();
@@ -99,6 +125,7 @@ public class Util {
 		    session.getOutputStream().println("Build completed!");								
 		} catch(Exception x){
 			session.getOutputStream().print("Failed to build binary! (" + x.getMessage() + ")");
+			fail("Failed to build binary! (" + x.getMessage() + ")");
 		}
 	}
 	
@@ -126,9 +153,21 @@ public class Util {
 		    while ((line = br.readLine()) != null) {
 		      session.getOutputStream().println(line);
 		    }
-		    session.getOutputStream().println("Program terminated!");								
+		    //Any error outputs?
+		    InputStream es = process.getErrorStream();
+		    InputStreamReader esr = new InputStreamReader(es);
+		    BufferedReader ebr = new BufferedReader(esr);
+		    while ((line = ebr.readLine()) != null) {
+		      session.getOutputStream().println(line);
+		    }
+		    process.waitFor();
+		    session.getOutputStream().println("Program terminated with " + process.exitValue() + " as exit value!");
+		    if(process.exitValue()>0) {
+		    	throw new Exception("exit code " + process.exitValue());
+		    }
 		} catch(Exception x){
 			session.getOutputStream().print("Failed to execute binary! (" + x.getMessage() + ")");
+			fail("Failed to execute binary! (" + x.getMessage() + ")");
 		}
 	}
 	
