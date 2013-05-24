@@ -146,6 +146,8 @@ public class CPrinter extends IrSwitch<Stream> {
 	
 	boolean debugPrint=true;
 	
+	boolean rangechk=false;
+	
 	Map<String, String> inputPortMap = new HashMap<String, String>();
 	
 	Map<String, String> outputPortMap = new HashMap<String, String>();
@@ -232,7 +234,7 @@ public class CPrinter extends IrSwitch<Stream> {
 		return false;
 	}
 	
-	public CPrinter(String outputPath, List<TaggedExpression> actualParameters, Network top, IR2CIR inCir, boolean systemC, CEnvironment env, boolean debugPrint) {
+	public CPrinter(String outputPath, List<TaggedExpression> actualParameters, Network top, IR2CIR inCir, boolean systemC, CEnvironment env, boolean debugPrint, boolean rangechk) {
 		this.outputFile = outputPath;
 		this.actualParameters = actualParameters;
 		this.topNetwork = top;
@@ -240,6 +242,7 @@ public class CPrinter extends IrSwitch<Stream> {
 		this.systemc = systemC;
 		this.cenv=env;
 		this.debugPrint=debugPrint;
+		this.rangechk = rangechk;
 		hierarchy.clear();
 
 		if(outputFile!=null) {
@@ -259,11 +262,11 @@ public class CPrinter extends IrSwitch<Stream> {
 	}
 	
 	public CPrinter(String outputPath, List<TaggedExpression> actualParameters, Network top, IR2CIR inCir, boolean systemC) {
-		this(outputPath, actualParameters, top, inCir, systemC, new CEnvironment(),true);
+		this(outputPath, actualParameters, top, inCir, systemC, new CEnvironment(),true,false);
 	}
 	
 	public CPrinter(String outputPath, List<TaggedExpression> actualParameters, Network top, IR2CIR inCir, CEnvironment env) {
-		this(outputPath, actualParameters, top, inCir, false, env,true);
+		this(outputPath, actualParameters, top, inCir, false, env,true,false);
 	}
 
 	private void listsSize(Type type) {
@@ -981,10 +984,20 @@ public class CPrinter extends IrSwitch<Stream> {
 		}
 		s.print(validCName(var.getVariable().getName()));
 		if (!var.getIndex().isEmpty()) {
+			Type list = ((Variable)var.getVariable()).getType();
 			for (Iterator<Expression> i = var.getIndex().iterator(); i.hasNext();) {
 				Expression e = i.next();
 				s.print("[");
+				if(rangechk) {
+					s.print("RANGECHK(");
+				}
 				doSwitch(e);
+				if(rangechk) {
+					s.print(",");
+					doSwitch(((TypeList)list).getSize());
+					s.print(")");
+					list = ((TypeList)list).getType();
+				}
 				s.print("]");
 			}
 		}
@@ -1011,10 +1024,20 @@ public class CPrinter extends IrSwitch<Stream> {
 		}
 		s.print(validCName(var.getDeclaration().getName()));
 		if (!var.getIndex().isEmpty()) {
+			Type list = var.getDeclaration().getType();
 			for (Iterator<Expression> i = var.getIndex().iterator(); i.hasNext();) {
 				Expression e = i.next();
 				s.print("[");
+				if(rangechk) {
+					s.print("RANGECHK(");
+				}
 				doSwitch(e);
+				if(rangechk) {
+					s.print(",");
+					doSwitch(((TypeList)list).getSize());
+					s.print(")");
+					list = ((TypeList)list).getType();
+				}
 				s.print("]");
 			}
 		}
@@ -1034,10 +1057,20 @@ public class CPrinter extends IrSwitch<Stream> {
 		enter(member);
 		s.print(validCName(member.getName()));
 		if (!member.getIndex().isEmpty()) {
+			Type list = member.getType();
 			for (Iterator<Expression> i = member.getIndex().iterator(); i.hasNext();) {
 				Expression e = i.next();
 				s.print("[");
+				if(rangechk) {
+					s.print("RANGECHK(");
+				}
 				doSwitch(e);
+				if(rangechk) {
+					s.print(",");
+					doSwitch(((TypeList)list).getSize());
+					s.print(")");
+					list = ((TypeList)list).getType();
+				}
 				s.print("]");
 			}
 		}

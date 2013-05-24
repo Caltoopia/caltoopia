@@ -134,6 +134,7 @@ public class Cal2C {
 		CmdLineParser.Option calsim = cmdLineParser.addStringOption("calsim");	
 		CmdLineParser.Option systemc = cmdLineParser.addStringOption("systemc");	
 		CmdLineParser.Option clean = cmdLineParser.addBooleanOption("clean");
+		CmdLineParser.Option rangechk = cmdLineParser.addBooleanOption("rangechk");
 		
 		try {
 			cmdLineParser.parse(args);
@@ -185,6 +186,11 @@ public class Cal2C {
     		Object doClean = cmdLineParser.getOptionValue(clean);
     		if ((doClean != null) && ((Boolean) doClean)) {
     			ActorDirectory.clean();
+    		}
+
+    		Object doRangeChk = cmdLineParser.getOptionValue(rangechk);
+    		if ((doRangeChk != null) && ((Boolean) doRangeChk)) {
+    			session.setRangeChk(true);
     		}
     		    		
 			try {
@@ -321,10 +327,10 @@ public class Cal2C {
 				boolean debugPrint = session.debugPrint() == CompilationSession.DEBUG_TYPE_ACTIONUSER;
 				
 				out.println("Writing '" + file + ".h'");
-				new CPrinter(file + ".h", Arrays.asList(UtilIR.tag("header", true)), session.getElaboratedNetwork(), cir, systemc, env, debugPrint).doSwitch(session.getElaboratedNetwork());
+				new CPrinter(file + ".h", Arrays.asList(UtilIR.tag("header", true)), session.getElaboratedNetwork(), cir, systemc, env, debugPrint, session.isRangeChk()).doSwitch(session.getElaboratedNetwork());
 	
 				out.println("Writing '" + file + ".c'");
-				new CPrinter(file + ".c", Arrays.asList(UtilIR.tag("header", false)), session.getElaboratedNetwork(), cir, systemc, env, debugPrint).doSwitch(session.getElaboratedNetwork());
+				new CPrinter(file + ".c", Arrays.asList(UtilIR.tag("header", false)), session.getElaboratedNetwork(), cir, systemc, env, debugPrint, session.isRangeChk()).doSwitch(session.getElaboratedNetwork());
 				sourceFiles.add(nsName + "__" + session.getElaboratedNetwork().getType().getName() + ".c");
 				
 				String needSdl = "n";
@@ -340,7 +346,7 @@ public class Cal2C {
 							out.println("Writing '" + file + "'");
 							AbstractActor actorInstantiated = Instantiator.instantiate(instance, session.getElaboratedNetwork());
 							new IrXmlPrinter(session.getOutputFolder()).doSwitch(actorInstantiated);
-							new CPrinter(file, null, session.getElaboratedNetwork(), cir, systemc, env, debugPrint).doSwitch(instance);
+							new CPrinter(file, null, session.getElaboratedNetwork(), cir, systemc, env, debugPrint, session.isRangeChk()).doSwitch(instance);
 							sourceFiles.add(nsName + "__" + instance.getName() + ".c");
 							//String dotFile = session.getOutputFolder() + File.separator + nsName + "__" + instance.getName() + ".dot";
 							//((org.caltoopia.ast2ir.PriorityGraph)((Actor) actor).getSchedule().getPriorityGraph()).print(new PrintStream(dotFile));

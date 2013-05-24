@@ -116,6 +116,8 @@ public class CompilationSession {
 	
 	private boolean generateDot = false;
 	
+	private boolean rangechk = false;
+
 	/* Debug print 0: None, 1: User's dprint, 2: Action firings and User's dprint */
 	private int debugPrint;
 	public static final int DEBUG_TYPE_NONE = 0;
@@ -460,6 +462,14 @@ public class CompilationSession {
 		return plugin;
 	}
 	
+	public boolean isRangeChk() {
+		return rangechk;
+	}
+
+	public void setRangeChk(boolean v) {
+		rangechk=v;
+	}
+
 	public boolean generateCdtProject() {
 		return generateCdtProject;
 	}
