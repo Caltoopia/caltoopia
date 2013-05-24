@@ -55,7 +55,7 @@ network Demo1_Vowel() ==> :
     synthFilter=AllPole(BlockSize=160, NumPoles=6);
  
 	//sink=Speaker(BLOCK_SIZE=160,NUM_CHANNELS=1,SAMPLE_RATE=16000,BITS_PER_SAMPLE=16);
-	sink=WavSink(fileName="./output/Demo1_Vowel/");
+	sink=WavSink(fileName="./output/Demo1_Vowel.wav");
 	
   structure
     period.Out --> pulse.Period;

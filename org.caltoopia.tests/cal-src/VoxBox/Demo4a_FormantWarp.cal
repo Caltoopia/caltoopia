@@ -56,9 +56,10 @@ network Demo4a_FormantWarp() ==> :
     
     synthFilter=WarpedAllPole(BlockSize=160, NumPoles=6);
  
-	sink=Speaker(BLOCK_SIZE=160,NUM_CHANNELS=1,SAMPLE_RATE=16000,BITS_PER_SAMPLE=16);
+	//sink=Speaker(BLOCK_SIZE=160,NUM_CHANNELS=1,SAMPLE_RATE=16000,BITS_PER_SAMPLE=16);
+    sink = WavSink(fileName="./output/Demo4a_FormantWarp.wav");
 	
-	probe=art_Sink_real(fileName="probe.txt");
+	//probe=art_Sink_real(fileName="probe.txt");
 	
   structure
     vowel.G --> synthFilter.G;
@@ -69,7 +70,7 @@ network Demo4a_FormantWarp() ==> :
     noise.Out --> synthFilter.In;
     
     synthFilter.Out --> sink.In;
-    synthFilter.Out --> probe.In;
+    //synthFilter.Out --> probe.In;
    end
 
 end

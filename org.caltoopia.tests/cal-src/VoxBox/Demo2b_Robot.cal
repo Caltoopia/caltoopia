@@ -46,7 +46,7 @@ import ART.art_Sink_real;
 
 network Demo2b_Robot() ==> :
   entities
-    source = WavSource(fileName="./in.wav");
+    source = WavSource(fileName="./test/wav-input/cal-is-the-way-of-the-future.wav");
     lpc=LPC(StepSize=128, 
             WindowSize=512, 
             LpcDegree=12, 
@@ -60,9 +60,9 @@ network Demo2b_Robot() ==> :
     
     deEmp=DeEmphasisFilter(Coeff=0.98);
     
-	//sink = WavSink(fileName="./out.wav");
-	sink=Speaker(BLOCK_SIZE=128,NUM_CHANNELS=1,SAMPLE_RATE=16000,BITS_PER_SAMPLE=16);
-	sinkRes = WavSink(fileName="./residual.wav");
+	//sink=Speaker(BLOCK_SIZE=128,NUM_CHANNELS=1,SAMPLE_RATE=16000,BITS_PER_SAMPLE=16);
+    sink = WavSink(fileName="./output/Demo2b_Robot.wav");
+	sinkRes = WavSink(fileName="./output/Demo2b_Robot_residual.wav");
 	
   structure
     source.Out --> lpc.In;

@@ -63,7 +63,7 @@ network Demo4b_TransformedVoice() ==> :
     //float theWarpLambda = sin((warpFromHz - warpToHz)*PI/fsHz)/sin((warpFromHz+warpToHz)*PI/fsHz);
     
   entities
-    source = WavSource(fileName="./input/cal-is-the-way-of-the-future.wav");
+    source = WavSource(fileName="./test/wav-input/cal-is-the-way-of-the-future.wav");
     
     pre=PreEmphasisFilter(Coeff=PreEmphasis);
     
@@ -95,10 +95,10 @@ network Demo4b_TransformedVoice() ==> :
         
     deEmp=DeEmphasisFilter(Coeff=PreEmphasis);
     
-	//sink = WavSink(fileName="./out.wav");
 	//sink=art_Sink_real(fileName="./out.txt");
-	sink=Speaker(BLOCK_SIZE=theSynthFrameSize,NUM_CHANNELS=1,SAMPLE_RATE=16000,BITS_PER_SAMPLE=16);
-		
+	//sink=Speaker(BLOCK_SIZE=theSynthFrameSize,NUM_CHANNELS=1,SAMPLE_RATE=16000,BITS_PER_SAMPLE=16);
+    sink = WavSink(fileName="./output/Demo4b_TransformedVoice.wav");
+
 	//probe=art_Sink_real(fileName="./residual.txt");
 	
   structure

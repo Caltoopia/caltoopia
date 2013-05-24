@@ -54,7 +54,7 @@ network Demo3b_IdentityActor() ==> :
     float PreEmphasis = 0.98;
     
   entities
-    source = WavSource(fileName="./in.wav");
+    source = WavSource(fileName="./test/wav-input/cal-is-the-way-of-the-future.wav");
     
     pre=PreEmphasisFilter(Coeff=PreEmphasis);
     
@@ -78,11 +78,11 @@ network Demo3b_IdentityActor() ==> :
     
     blackHole = DummySink();
     
-	//sink = WavSink(fileName="./out.wav");
 	//sink=art_Sink_real(fileName="./out.txt");
-	sink=Speaker(BLOCK_SIZE=theStepSize,NUM_CHANNELS=1,SAMPLE_RATE=16000,BITS_PER_SAMPLE=16);
+	//sink=Speaker(BLOCK_SIZE=theStepSize,NUM_CHANNELS=1,SAMPLE_RATE=16000,BITS_PER_SAMPLE=16);
+    sink = WavSink(fileName="./output/Demo3b_IdentityActor.wav");
 	
-	sinkRes = WavSink(fileName="./residual.wav");
+	sinkRes = WavSink(fileName="./output/Demo3b_IdentityActor_residual.wav");
 	// sinkRes=art_Sink_real(fileName="./residual.txt");
 	
   structure

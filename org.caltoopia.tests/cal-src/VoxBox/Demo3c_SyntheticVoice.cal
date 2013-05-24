@@ -58,7 +58,7 @@ network Demo3c_SyntheticVoice() ==> :
     float PreEmphasis = 0.95;
     
   entities
-    source = WavSource(fileName="./in.wav");
+    source = WavSource(fileName="./test/wav-input/cal-is-the-way-of-the-future.wav");
     
     pre=PreEmphasisFilter(Coeff=PreEmphasis);
     
@@ -84,10 +84,10 @@ network Demo3c_SyntheticVoice() ==> :
     
     deEmp=DeEmphasisFilter(Coeff=PreEmphasis);
     
-	//sink = WavSink(fileName="./out.wav");
 	//sink=art_Sink_real(fileName="./out.txt");
-	sink=Speaker(BLOCK_SIZE=theStepSize,NUM_CHANNELS=1,SAMPLE_RATE=16000,BITS_PER_SAMPLE=16);
-		
+	//sink=Speaker(BLOCK_SIZE=theStepSize,NUM_CHANNELS=1,SAMPLE_RATE=16000,BITS_PER_SAMPLE=16);
+    sink = WavSink(fileName="./output/Demo3c_SyntheticVoice.wav");
+
 	//probe=art_Sink_real(fileName="./residual.txt");
 	
   structure
