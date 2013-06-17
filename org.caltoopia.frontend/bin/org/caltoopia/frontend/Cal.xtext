@@ -90,6 +90,7 @@ QualifiedName:
 
 QualifiedNameWithWildCard:
 	QualifiedName '.*'?;
+
 		
 ///////////////////////////////////////////////////////////////////////////////
 // network
@@ -175,7 +176,7 @@ AstActor: {AstActor}
 
 AstPort: (annotations += AstAnnotation)* type=AstType name=ID;
 
-AstFunction:
+AstFunction returns AstVariable: {AstFunction}
     (annotations += AstAnnotation)*
 	'function' name=ID
 	'('

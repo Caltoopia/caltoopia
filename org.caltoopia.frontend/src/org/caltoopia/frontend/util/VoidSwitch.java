@@ -86,7 +86,7 @@ public class VoidSwitch extends CalSwitch<Void> {
 	@Override
 	public Void caseAstNamespace(AstNamespace namespace) {
 		
-		for (AstFunction fun : namespace.getFunctions()) {
+		for (AstVariable fun : namespace.getFunctions()) {
 			doSwitch(fun);
 		}
 
@@ -144,7 +144,7 @@ public class VoidSwitch extends CalSwitch<Void> {
 			doSwitch(stateVariable);
 		}
 
-		for (AstFunction function : actor.getFunctions()) {
+		for (AstVariable function : actor.getFunctions()) {
 			doSwitch(function);
 		}
 

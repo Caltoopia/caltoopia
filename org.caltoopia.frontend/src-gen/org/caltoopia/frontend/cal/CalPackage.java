@@ -775,22 +775,13 @@ public interface CalPackage extends EPackage
   int AST_TYPE_NAME__CONSTRUCTOR = 2;
 
   /**
-   * The feature id for the '<em><b>Type</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int AST_TYPE_NAME__TYPE = 3;
-
-  /**
    * The number of structural features of the '<em>Ast Type Name</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int AST_TYPE_NAME_FEATURE_COUNT = 4;
+  int AST_TYPE_NAME_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstTypeDefinitionParameterImpl <em>Ast Type Definition Parameter</em>}' class.
@@ -830,25 +821,6 @@ public interface CalPackage extends EPackage
   int AST_TYPE_DEFINITION_PARAMETER_FEATURE_COUNT = 2;
 
   /**
-   * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstExternalFunctionImpl <em>Ast External Function</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.caltoopia.frontend.cal.impl.AstExternalFunctionImpl
-   * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExternalFunction()
-   * @generated
-   */
-  int AST_EXTERNAL_FUNCTION = 20;
-
-  /**
-   * The number of structural features of the '<em>Ast External Function</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int AST_EXTERNAL_FUNCTION_FEATURE_COUNT = 0;
-
-  /**
    * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstFunctionImpl <em>Ast Function</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -859,22 +831,31 @@ public interface CalPackage extends EPackage
   int AST_FUNCTION = 17;
 
   /**
+   * The feature id for the '<em><b>Constant</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_FUNCTION__CONSTANT = AST_VARIABLE__CONSTANT;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_FUNCTION__VALUE = AST_VARIABLE__VALUE;
+
+  /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int AST_FUNCTION__NAME = AST_EXTERNAL_FUNCTION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Members</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int AST_FUNCTION__MEMBERS = AST_EXTERNAL_FUNCTION_FEATURE_COUNT + 1;
+  int AST_FUNCTION__NAME = AST_VARIABLE__NAME;
 
   /**
    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
@@ -883,16 +864,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_FUNCTION__ANNOTATIONS = AST_EXTERNAL_FUNCTION_FEATURE_COUNT + 2;
-
-  /**
-   * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int AST_FUNCTION__PARAMETERS = AST_EXTERNAL_FUNCTION_FEATURE_COUNT + 3;
+  int AST_FUNCTION__ANNOTATIONS = AST_VARIABLE__ANNOTATIONS;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' containment reference.
@@ -901,7 +873,34 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_FUNCTION__TYPE = AST_EXTERNAL_FUNCTION_FEATURE_COUNT + 4;
+  int AST_FUNCTION__TYPE = AST_VARIABLE__TYPE;
+
+  /**
+   * The feature id for the '<em><b>Dimensions</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_FUNCTION__DIMENSIONS = AST_VARIABLE__DIMENSIONS;
+
+  /**
+   * The feature id for the '<em><b>Members</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_FUNCTION__MEMBERS = AST_VARIABLE_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_FUNCTION__PARAMETERS = AST_VARIABLE_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Variables</b></em>' containment reference list.
@@ -910,7 +909,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_FUNCTION__VARIABLES = AST_EXTERNAL_FUNCTION_FEATURE_COUNT + 5;
+  int AST_FUNCTION__VARIABLES = AST_VARIABLE_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -919,7 +918,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_FUNCTION__EXPRESSION = AST_EXTERNAL_FUNCTION_FEATURE_COUNT + 6;
+  int AST_FUNCTION__EXPRESSION = AST_VARIABLE_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>Ast Function</em>' class.
@@ -928,7 +927,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_FUNCTION_FEATURE_COUNT = AST_EXTERNAL_FUNCTION_FEATURE_COUNT + 7;
+  int AST_FUNCTION_FEATURE_COUNT = AST_VARIABLE_FEATURE_COUNT + 4;
 
   /**
    * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstActorImpl <em>Ast Actor</em>}' class.
@@ -1093,6 +1092,25 @@ public interface CalPackage extends EPackage
    * @ordered
    */
   int AST_PORT_FEATURE_COUNT = 3;
+
+  /**
+   * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstExternalFunctionImpl <em>Ast External Function</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.caltoopia.frontend.cal.impl.AstExternalFunctionImpl
+   * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExternalFunction()
+   * @generated
+   */
+  int AST_EXTERNAL_FUNCTION = 20;
+
+  /**
+   * The number of structural features of the '<em>Ast External Function</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_EXTERNAL_FUNCTION_FEATURE_COUNT = 0;
 
   /**
    * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstExternalProcedureImpl <em>Ast External Procedure</em>}' class.
@@ -3363,17 +3381,6 @@ public interface CalPackage extends EPackage
   EReference getAstTypeName_Constructor();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.caltoopia.frontend.cal.AstTypeName#getType <em>Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Type</em>'.
-   * @see org.caltoopia.frontend.cal.AstTypeName#getType()
-   * @see #getAstTypeName()
-   * @generated
-   */
-  EReference getAstTypeName_Type();
-
-  /**
    * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstTypeDefinitionParameter <em>Ast Type Definition Parameter</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3416,17 +3423,6 @@ public interface CalPackage extends EPackage
   EClass getAstFunction();
 
   /**
-   * Returns the meta object for the attribute '{@link org.caltoopia.frontend.cal.AstFunction#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.caltoopia.frontend.cal.AstFunction#getName()
-   * @see #getAstFunction()
-   * @generated
-   */
-  EAttribute getAstFunction_Name();
-
-  /**
    * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstFunction#getMembers <em>Members</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3438,17 +3434,6 @@ public interface CalPackage extends EPackage
   EReference getAstFunction_Members();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstFunction#getAnnotations <em>Annotations</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Annotations</em>'.
-   * @see org.caltoopia.frontend.cal.AstFunction#getAnnotations()
-   * @see #getAstFunction()
-   * @generated
-   */
-  EReference getAstFunction_Annotations();
-
-  /**
    * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstFunction#getParameters <em>Parameters</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3458,17 +3443,6 @@ public interface CalPackage extends EPackage
    * @generated
    */
   EReference getAstFunction_Parameters();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.caltoopia.frontend.cal.AstFunction#getType <em>Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Type</em>'.
-   * @see org.caltoopia.frontend.cal.AstFunction#getType()
-   * @see #getAstFunction()
-   * @generated
-   */
-  EReference getAstFunction_Type();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstFunction#getVariables <em>Variables</em>}'.
@@ -5494,14 +5468,6 @@ public interface CalPackage extends EPackage
     EReference AST_TYPE_NAME__CONSTRUCTOR = eINSTANCE.getAstTypeName_Constructor();
 
     /**
-     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference AST_TYPE_NAME__TYPE = eINSTANCE.getAstTypeName_Type();
-
-    /**
      * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstTypeDefinitionParameterImpl <em>Ast Type Definition Parameter</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5538,14 +5504,6 @@ public interface CalPackage extends EPackage
     EClass AST_FUNCTION = eINSTANCE.getAstFunction();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute AST_FUNCTION__NAME = eINSTANCE.getAstFunction_Name();
-
-    /**
      * The meta object literal for the '<em><b>Members</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5554,28 +5512,12 @@ public interface CalPackage extends EPackage
     EReference AST_FUNCTION__MEMBERS = eINSTANCE.getAstFunction_Members();
 
     /**
-     * The meta object literal for the '<em><b>Annotations</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference AST_FUNCTION__ANNOTATIONS = eINSTANCE.getAstFunction_Annotations();
-
-    /**
      * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EReference AST_FUNCTION__PARAMETERS = eINSTANCE.getAstFunction_Parameters();
-
-    /**
-     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference AST_FUNCTION__TYPE = eINSTANCE.getAstFunction_Type();
 
     /**
      * The meta object literal for the '<em><b>Variables</b></em>' containment reference list feature.

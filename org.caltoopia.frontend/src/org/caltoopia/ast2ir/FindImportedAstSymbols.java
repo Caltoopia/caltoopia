@@ -94,7 +94,7 @@ class FindImportedAstSymbols extends VoidSwitch {
 	@Override
 	public Void caseAstNamespace(AstNamespace namespace) {
 		
-		for (AstFunction fun : namespace.getFunctions()) {
+		for (AstVariable fun : namespace.getFunctions()) {
 			doSwitch(fun);
 		}
 

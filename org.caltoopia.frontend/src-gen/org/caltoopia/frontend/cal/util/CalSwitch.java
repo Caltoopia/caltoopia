@@ -200,6 +200,7 @@ public class CalSwitch<T> extends Switch<T>
       {
         AstFunction astFunction = (AstFunction)theEObject;
         T result = caseAstFunction(astFunction);
+        if (result == null) result = caseAstVariable(astFunction);
         if (result == null) result = caseAstExternalFunction(astFunction);
         if (result == null) result = defaultCase(theEObject);
         return result;

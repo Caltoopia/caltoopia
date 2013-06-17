@@ -5,7 +5,6 @@ package org.caltoopia.frontend.cal.impl;
 import java.util.Collection;
 
 import org.caltoopia.frontend.cal.AstFunction;
-import org.caltoopia.frontend.cal.AstType;
 import org.caltoopia.frontend.cal.AstTypeDefinitionParameter;
 import org.caltoopia.frontend.cal.AstTypeName;
 import org.caltoopia.frontend.cal.CalPackage;
@@ -34,7 +33,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstTypeNameImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstTypeNameImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstTypeNameImpl#getConstructor <em>Constructor</em>}</li>
- *   <li>{@link org.caltoopia.frontend.cal.impl.AstTypeNameImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -81,16 +79,6 @@ public class AstTypeNameImpl extends MinimalEObjectImpl.Container implements Ast
    * @ordered
    */
   protected EList<AstFunction> constructor;
-
-  /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getType()
-   * @generated
-   * @ordered
-   */
-  protected AstType type;
 
   /**
    * <!-- begin-user-doc -->
@@ -169,54 +157,6 @@ public class AstTypeNameImpl extends MinimalEObjectImpl.Container implements Ast
    * <!-- end-user-doc -->
    * @generated
    */
-  public AstType getType()
-  {
-    return type;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetType(AstType newType, NotificationChain msgs)
-  {
-    AstType oldType = type;
-    type = newType;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CalPackage.AST_TYPE_NAME__TYPE, oldType, newType);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setType(AstType newType)
-  {
-    if (newType != type)
-    {
-      NotificationChain msgs = null;
-      if (type != null)
-        msgs = ((InternalEObject)type).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CalPackage.AST_TYPE_NAME__TYPE, null, msgs);
-      if (newType != null)
-        msgs = ((InternalEObject)newType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CalPackage.AST_TYPE_NAME__TYPE, null, msgs);
-      msgs = basicSetType(newType, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CalPackage.AST_TYPE_NAME__TYPE, newType, newType));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -226,8 +166,6 @@ public class AstTypeNameImpl extends MinimalEObjectImpl.Container implements Ast
         return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
       case CalPackage.AST_TYPE_NAME__CONSTRUCTOR:
         return ((InternalEList<?>)getConstructor()).basicRemove(otherEnd, msgs);
-      case CalPackage.AST_TYPE_NAME__TYPE:
-        return basicSetType(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -248,8 +186,6 @@ public class AstTypeNameImpl extends MinimalEObjectImpl.Container implements Ast
         return getParameters();
       case CalPackage.AST_TYPE_NAME__CONSTRUCTOR:
         return getConstructor();
-      case CalPackage.AST_TYPE_NAME__TYPE:
-        return getType();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -276,9 +212,6 @@ public class AstTypeNameImpl extends MinimalEObjectImpl.Container implements Ast
         getConstructor().clear();
         getConstructor().addAll((Collection<? extends AstFunction>)newValue);
         return;
-      case CalPackage.AST_TYPE_NAME__TYPE:
-        setType((AstType)newValue);
-        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -302,9 +235,6 @@ public class AstTypeNameImpl extends MinimalEObjectImpl.Container implements Ast
       case CalPackage.AST_TYPE_NAME__CONSTRUCTOR:
         getConstructor().clear();
         return;
-      case CalPackage.AST_TYPE_NAME__TYPE:
-        setType((AstType)null);
-        return;
     }
     super.eUnset(featureID);
   }
@@ -325,8 +255,6 @@ public class AstTypeNameImpl extends MinimalEObjectImpl.Container implements Ast
         return parameters != null && !parameters.isEmpty();
       case CalPackage.AST_TYPE_NAME__CONSTRUCTOR:
         return constructor != null && !constructor.isEmpty();
-      case CalPackage.AST_TYPE_NAME__TYPE:
-        return type != null;
     }
     return super.eIsSet(featureID);
   }

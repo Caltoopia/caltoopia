@@ -97,7 +97,7 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 			}
 		}
 
-		for (AstFunction fun : namespace.getFunctions()) {
+		for (AstVariable fun : namespace.getFunctions()) {
 			if (doSwitch(fun)) {
 				return true;
 			}
@@ -167,7 +167,7 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 			}
 		}
 
-		for (AstFunction function : actor.getFunctions()) {
+		for (AstVariable function : actor.getFunctions()) {
 			if (doSwitch(function)) {
 				return true;
 			}

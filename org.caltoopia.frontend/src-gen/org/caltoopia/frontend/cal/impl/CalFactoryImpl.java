@@ -30,7 +30,7 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
   {
     try
     {
-      CalFactory theCalFactory = (CalFactory)EPackage.Registry.INSTANCE.getEFactory(CalPackage.eNS_URI);
+      CalFactory theCalFactory = (CalFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.caltoopia.org/frontend/Cal"); 
       if (theCalFactory != null)
       {
         return theCalFactory;

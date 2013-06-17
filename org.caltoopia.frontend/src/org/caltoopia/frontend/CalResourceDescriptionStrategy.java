@@ -71,7 +71,7 @@ public class CalResourceDescriptionStrategy extends DefaultResourceDescriptionSt
 		}
 
 		// create the object description for the entity (with qualified name)		
-		for (AstFunction decl : namespace.getFunctions()) {
+		for (AstVariable decl : namespace.getFunctions()) {
 			tryAddWithQualifiedName(decl, acceptor);
 		}
 		

@@ -6,7 +6,6 @@ import java.util.Collection;
 
 import org.caltoopia.frontend.cal.AstAction;
 import org.caltoopia.frontend.cal.AstActor;
-import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstPriority;
 import org.caltoopia.frontend.cal.AstProcedure;
 import org.caltoopia.frontend.cal.AstSchedule;
@@ -52,7 +51,7 @@ public class AstActorImpl extends AstAbstractActorImpl implements AstActor
    * @generated
    * @ordered
    */
-  protected EList<AstFunction> functions;
+  protected EList<AstVariable> functions;
 
   /**
    * The cached value of the '{@link #getProcedures() <em>Procedures</em>}' containment reference list.
@@ -140,11 +139,11 @@ public class AstActorImpl extends AstAbstractActorImpl implements AstActor
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<AstFunction> getFunctions()
+  public EList<AstVariable> getFunctions()
   {
     if (functions == null)
     {
-      functions = new EObjectContainmentEList<AstFunction>(AstFunction.class, this, CalPackage.AST_ACTOR__FUNCTIONS);
+      functions = new EObjectContainmentEList<AstVariable>(AstVariable.class, this, CalPackage.AST_ACTOR__FUNCTIONS);
     }
     return functions;
   }
@@ -302,7 +301,7 @@ public class AstActorImpl extends AstAbstractActorImpl implements AstActor
     {
       case CalPackage.AST_ACTOR__FUNCTIONS:
         getFunctions().clear();
-        getFunctions().addAll((Collection<? extends AstFunction>)newValue);
+        getFunctions().addAll((Collection<? extends AstVariable>)newValue);
         return;
       case CalPackage.AST_ACTOR__PROCEDURES:
         getProcedures().clear();

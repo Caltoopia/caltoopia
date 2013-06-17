@@ -202,7 +202,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 			graphData.add(new AstDeclVertex(constvar));
 		}
 		
-		for (AstFunction f : astNamespace.getFunctions()) {
+		for (AstVariable f : astNamespace.getFunctions()) {
 			graphData.add(new AstDeclVertex(f));
 		}
 		
@@ -213,7 +213,14 @@ public class Ast2Ir extends CalSwitch<EObject> {
 		graphData = new Graph(graphData).sortByDependency();
 		
 		for (VertexData data : graphData) {
-			if (data.getData() instanceof AstVariable) {
+			if (data.getData() instanceof AstFunction){
+				Declaration def = Util.createForwardFunctionDeclaration(scopeStack.peek(), (AstFunction) data.getData(), false);				                                                                                   
+				ns.getDeclarations().add(def);
+			} else if (data.getData() instanceof AstProcedure) {
+				// NB Only external procedures are allow.
+				Declaration def =  Util.createForwardProcedureDeclaration(scopeStack.peek(), (AstProcedure) data.getData());				                                                                                   
+				ns.getDeclarations().add(def);
+			} else if (data.getData() instanceof AstVariable) {
 				AstVariable var = (AstVariable) data.getData();
 				Util.createVariable(scopeStack.peek(), var, false);
 			} else if (data.getData() instanceof AstTypeName) {
@@ -223,21 +230,14 @@ public class Ast2Ir extends CalSwitch<EObject> {
 					TypeConstructor  typeConstructor  = Util.createTypeConstructor(typeDecl, tc, false);
 					typeDecl.setConstructor(typeConstructor);
 				}
-			} else if (data.getData() instanceof AstFunction){
-				Declaration def = Util.createForwardFunctionDeclaration(scopeStack.peek(), (AstFunction) data.getData(), false);				                                                                                   
-				ns.getDeclarations().add(def);
-			} else if (data.getData() instanceof AstProcedure) {
-				// NB Only external procedures are allow.
-				Declaration def =  Util.createForwardProcedureDeclaration(scopeStack.peek(), (AstProcedure) data.getData());				                                                                                   
-				ns.getDeclarations().add(def);
-			}
+			} 
 			
 			else {
 				throw new RuntimeException("Internal meltdown. Fire the developer.");
 			}
 		}
 		
-		for (AstFunction astFunction : astNamespace.getFunctions()) {
+		for (AstVariable astFunction : astNamespace.getFunctions()) {
 			Variable irFunction = (Variable) doSwitch(astFunction);
 			ns.getDeclarations().add(irFunction);
 		}
@@ -313,7 +313,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 			graphData.add(new AstDeclVertex(state));
 		}
 		
-		for (AstFunction f : astActor.getFunctions()) {
+		for (AstVariable f : astActor.getFunctions()) {
 			graphData.add(new AstDeclVertex(f));
 		}
 		
@@ -325,10 +325,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 		graphData = new Graph(graphData).sortByDependency();
 		
 		for (VertexData data : graphData) {
-			if (data.getData() instanceof AstVariable) {
-				AstVariable var = (AstVariable) data.getData();
-				Util.createVariable(scopeStack.peek(), var, false);
-			} else if (data.getData() instanceof AstFunction){
+			if (data.getData() instanceof AstFunction){
 				// Create a forward declaration
 				Declaration def = Util.createForwardFunctionDeclaration(scopeStack.peek(), (AstFunction) data.getData(), false);				                                                                                   
 				actor.getDeclarations().add(def);
@@ -336,10 +333,13 @@ public class Ast2Ir extends CalSwitch<EObject> {
 				// Create a forward declaration
 				Declaration def =  Util.createForwardProcedureDeclaration(scopeStack.peek(), (AstProcedure) data.getData());				                                                                                   
 				actor.getDeclarations().add(def);
-			}
+			} else if (data.getData() instanceof AstVariable) {
+				AstVariable var = (AstVariable) data.getData();
+				Util.createVariable(scopeStack.peek(), var, false);
+			} 
 		}
 		
-		for (AstFunction astFunction : astActor.getFunctions()) {
+		for (AstVariable astFunction : astActor.getFunctions()) {
 			Variable irFunction = (Variable) doSwitch(astFunction);
 			actor.getDeclarations().add(irFunction);
 		}
@@ -539,16 +539,16 @@ public class Ast2Ir extends CalSwitch<EObject> {
 		graphData = new Graph(graphData).sortByDependency();
 		
 		for (VertexData data : graphData) {
-			if (data.getData() instanceof AstVariable) {
-				AstVariable var = (AstVariable) data.getData();
-				Util.createVariable(scopeStack.peek(), var, false);
-			} else if (data.getData() instanceof AstFunction){
+			if (data.getData() instanceof AstFunction){
 				Declaration decl = Util.createForwardFunctionDeclaration(scopeStack.peek(), (AstFunction) data.getData(), false);				                                                                                   
 				network.getDeclarations().add(decl);
 			} else if (data.getData() instanceof AstProcedure) {
 				Declaration decl =  Util.createForwardProcedureDeclaration(scopeStack.peek(), (AstProcedure) data.getData());				                                                                                   
 				network.getDeclarations().add(decl);
-			}
+			} else if (data.getData() instanceof AstVariable) {
+				AstVariable var = (AstVariable) data.getData();
+				Util.createVariable(scopeStack.peek(), var, false);
+			} 
 		}				
 		
 		for (AstPort p : astNetwork.getInputs()) {

@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.caltoopia.frontend.cal.AstTypeName#getName <em>Name</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.AstTypeName#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.AstTypeName#getConstructor <em>Constructor</em>}</li>
- *   <li>{@link org.caltoopia.frontend.cal.AstTypeName#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -84,31 +83,5 @@ public interface AstTypeName extends EObject
    * @generated
    */
   EList<AstFunction> getConstructor();
-
-  /**
-   * Returns the value of the '<em><b>Type</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Type</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Type</em>' containment reference.
-   * @see #setType(AstType)
-   * @see org.caltoopia.frontend.cal.CalPackage#getAstTypeName_Type()
-   * @model containment="true"
-   * @generated
-   */
-  AstType getType();
-
-  /**
-   * Sets the value of the '{@link org.caltoopia.frontend.cal.AstTypeName#getType <em>Type</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Type</em>' containment reference.
-   * @see #getType()
-   * @generated
-   */
-  void setType(AstType value);
 
 } // AstTypeName

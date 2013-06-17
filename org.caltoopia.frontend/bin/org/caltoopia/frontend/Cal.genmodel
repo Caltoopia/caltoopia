@@ -4,7 +4,7 @@
     editorDirectory="/org.caltoopia.frontend.editor/src" modelPluginID="org.caltoopia.frontend"
     forceOverwrite="true" modelName="Cal" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="5.0" copyrightFields="false" editPluginID="org.caltoopia.frontend.edit"
-    editorPluginID="org.caltoopia.frontend.editor" runtimeVersion="2.9">
+    editorPluginID="org.caltoopia.frontend.editor" runtimeVersion="2.8">
   <genPackages prefix="Cal" basePackage="org.caltoopia.frontend" disposableProviderFactory="true"
       ecorePackage="Cal.ecore#/">
     <genClasses ecoreClass="Cal.ecore#//AstTop"/>
@@ -78,18 +78,14 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Cal.ecore#//AstTypeName/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstTypeName/parameters"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstTypeName/constructor"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstTypeName/type"/>
     </genClasses>
     <genClasses ecoreClass="Cal.ecore#//AstTypeDefinitionParameter">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstTypeDefinitionParameter/value"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstTypeDefinitionParameter/type"/>
     </genClasses>
     <genClasses ecoreClass="Cal.ecore#//AstFunction">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Cal.ecore#//AstFunction/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstFunction/members"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstFunction/annotations"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstFunction/parameters"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstFunction/type"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstFunction/variables"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstFunction/expression"/>
     </genClasses>

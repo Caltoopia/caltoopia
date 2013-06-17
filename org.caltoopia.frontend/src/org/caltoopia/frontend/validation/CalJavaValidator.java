@@ -505,7 +505,7 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 
 		if (!used) {
 			warning("The function " + function.getName() + " is never called", 
-					CalPackage.Literals.AST_FUNCTION__NAME);
+					CalPackage.Literals.AST_VARIABLE__NAME);
 		}
 	}
 

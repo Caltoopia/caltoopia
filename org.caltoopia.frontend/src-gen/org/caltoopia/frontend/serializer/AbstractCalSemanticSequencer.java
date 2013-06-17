@@ -1407,7 +1407,8 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	 *     (
 	 *         name=ID 
 	 *         (parameters+=AstTypeDefinitionParameter parameters+=AstTypeDefinitionParameter*)? 
-	 *         ((constructor+=AstConstructor constructor+=AstConstructor?) | type=AstType)
+	 *         constructor+=AstConstructor 
+	 *         constructor+=AstConstructor*
 	 *     )
 	 */
 	protected void sequence_AstTypeDefinition(EObject context, AstTypeName semanticObject) {
