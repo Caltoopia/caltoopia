@@ -674,41 +674,41 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 	}
 
 	public void checkTypeDeclaration(final AstTypeName typedef, final List<String> breadcrumb) {
-		if (breadcrumb.contains(typedef.getName())) {
-			String s = "";			
-			for (String t : breadcrumb) {
-				s += s + ":" + t;
-			}
-			error("Recursive type definitions are not supported. (" + s + ")",
-					typedef,
-					CalPackage.eINSTANCE.getAstTypeName_Name(), -1);
-					return;
-		} else {
-			breadcrumb.add(typedef.getName());			
-			if (typedef.getType() != null) {
-				new VoidSwitch() {
-					
-					@Override
-					public Void caseAstTypeName(AstTypeName td) {
-						checkTypeDeclaration(td, new ArrayList<String>(breadcrumb));
-						return null;
-					}
-				}.doSwitch(typedef.getType());
-			} else {
-				for (AstFunction tc : typedef.getConstructor()) {			
-					for (AstVariable v : tc.getMembers()) {
-						new VoidSwitch() {
-							
-							@Override
-							public Void caseAstTypeName(AstTypeName td) {
-								checkTypeDeclaration(td, new ArrayList<String>(breadcrumb));
-								return null;
-							}
-						}.doSwitch(v.getType());
-					}
-				}
-			}
-		}		
+//		if (breadcrumb.contains(typedef.getName())) {
+//			String s = "";			
+//			for (String t : breadcrumb) {
+//				s += s + ":" + t;
+//			}
+//			error("Recursive type definitions are not supported. (" + s + ")",
+//					typedef,
+//					CalPackage.eINSTANCE.getAstTypeName_Name(), -1);
+//					return;
+//		} else {
+//			breadcrumb.add(typedef.getName());			
+//			if (typedef.getType() != null) {
+//				new VoidSwitch() {
+//					
+//					@Override
+//					public Void caseAstTypeName(AstTypeName td) {
+//						checkTypeDeclaration(td, new ArrayList<String>(breadcrumb));
+//						return null;
+//					}
+//				}.doSwitch(typedef.getType());
+//			} else {
+//				for (AstFunction tc : typedef.getConstructor()) {			
+//					for (AstVariable v : tc.getMembers()) {
+//						new VoidSwitch() {
+//							
+//							@Override
+//							public Void caseAstTypeName(AstTypeName td) {
+//								checkTypeDeclaration(td, new ArrayList<String>(breadcrumb));
+//								return null;
+//							}
+//						}.doSwitch(v.getType());
+//					}
+//				}
+//			}
+//		}		
 	}
 	
 	@Check(CheckType.NORMAL)

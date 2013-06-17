@@ -142,8 +142,8 @@ AstExternalVariable returns AstVariable:
 
 AstTypeDefinition returns AstTypeName: 
 	'type' name=ID ( '(' (parameters += AstTypeDefinitionParameter (',' parameters += AstTypeDefinitionParameter)*)? ')')? '=' 
-	 ( constructor += AstConstructor  ('|' constructor += AstConstructor )? 
-	 | (type = AstType) 
+	 ( constructor += AstConstructor  ('|' constructor += AstConstructor )* 
+//	 | (type = AstType) 
 	 ) ';'; 
 	 
 AstTypeDefinitionParameter:
@@ -153,7 +153,7 @@ AstTypeDefinitionTypeParameter returns AstTypeName:
         name = ID;
 	
 AstConstructor returns AstFunction:	
-	name=ID '(' (members += AstValuedVariableDeclaration (',' members += AstValuedVariableDeclaration)*)? ')'; 
+	name=ID ('(' (members += AstValuedVariableDeclaration (',' members += AstValuedVariableDeclaration)*)? ')')?; 
 	
 ///////////////////////////////////////////////////////////////////////////////
 // actor
