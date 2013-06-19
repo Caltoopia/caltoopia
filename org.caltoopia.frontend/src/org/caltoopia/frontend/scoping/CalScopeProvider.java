@@ -52,6 +52,7 @@ import org.caltoopia.frontend.cal.AstStatementForeach;
 import org.caltoopia.frontend.cal.AstStructure;
 import org.caltoopia.frontend.cal.AstNetwork;
 import org.caltoopia.frontend.cal.AstActorVariable;
+import org.caltoopia.frontend.cal.AstTypeName;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -79,15 +80,22 @@ public class CalScopeProvider extends AbstractDeclarativeScopeProvider {
 
 	/* 
 	 * Compute the set of functions that can are visible from within an actor 
-	 * (and subsequently from all actions and their subscopes)
+	 * (and subsequently from all actions and their sub scopes)
 	 */
 	
-	public IScope scope_AstFunction(AstActor actor, EReference reference) {
+	public IScope scope_AstVariable(AstActor actor, EReference reference) {
 		return Scopes.scopeFor(actor.getFunctions(), delegateGetScope(actor, reference));
 	}
 	
-	public IScope scope_AstFunction(AstNamespace namespace, EReference reference) {
-		return Scopes.scopeFor(namespace.getFunctions(), delegateGetScope(namespace, reference));
+	public IScope scope_AstVariable(AstNamespace namespace, EReference reference) {
+		List<AstVariable> elements = new ArrayList<AstVariable>();
+		elements.addAll(namespace.getFunctions());
+		for (AstTypeName typedef : namespace.getTypedefs()) {
+			for (AstVariable ctor : typedef.getConstructor()) {
+				elements.add(ctor);
+			}
+		}
+		return Scopes.scopeFor(elements, delegateGetScope(namespace, reference));
 	}
 
 	public IScope scope_AstInputPattern_port(AstAction action, EReference reference) {
@@ -119,7 +127,8 @@ public class CalScopeProvider extends AbstractDeclarativeScopeProvider {
 	public IScope scope_AstVariableReference_variable(AstActor actor, EReference reference) {
 		List<AstVariable> elements = new ArrayList<AstVariable>();
 		elements.addAll(actor.getParameters());
-		elements.addAll(actor.getStateVariables());		
+		elements.addAll(actor.getStateVariables());	
+		elements.addAll(actor.getFunctions());	
 			
 		return Scopes.scopeFor(elements, delegateGetScope(actor, reference));
 	}
@@ -156,8 +165,11 @@ public class CalScopeProvider extends AbstractDeclarativeScopeProvider {
 		elements.addAll(function.getParameters());
 		elements.addAll(function.getVariables());
 
-		EObject cter = function.eContainer();
-		return Scopes.scopeFor(elements, getScope(cter, reference));
+		EObject cter = function.eContainer();		
+		// return Scopes.scopeFor(elements, getScope(cter, reference));
+		IScope s = getScope(cter, reference);
+		IScope s2 = Scopes.scopeFor(elements, s);
+		return s2;
 	}
 
 	public IScope scope_AstVariableReference_variable(AstProcedure procedure, EReference reference) {

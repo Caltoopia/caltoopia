@@ -49,9 +49,11 @@ import org.caltoopia.frontend.cal.AstExpressionList;
 import org.caltoopia.frontend.cal.AstExpressionString;
 import org.caltoopia.frontend.cal.AstExpressionUnary;
 import org.caltoopia.frontend.cal.AstExpressionVariable;
+import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstGenerator;
 import org.caltoopia.frontend.cal.AstMemberAccess;
 import org.caltoopia.frontend.cal.AstTypeName;
+import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.cal.util.CalSwitch;
 import org.caltoopia.ir.BinaryExpression;
 import org.caltoopia.ir.IfExpression;
@@ -168,7 +170,7 @@ public class CreateIrExpression extends CalSwitch<Expression> {
 
 	@Override
 	public Expression caseAstExpressionCall(AstExpressionCall e) {
-		if(e.getFunction().getMembers().isEmpty()) {
+		if(e.getFunction() instanceof AstFunction) {
 			Declaration funDecl = (Declaration) Util.findIrDeclaration(e.getFunction());
 			
 			FunctionCall result = IrFactory.eINSTANCE.createFunctionCall();

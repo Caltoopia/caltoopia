@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.caltoopia.frontend.cal.AstAction;
 import org.caltoopia.frontend.cal.AstActor;
+import org.caltoopia.frontend.cal.AstConstructor;
 import org.caltoopia.frontend.cal.AstExpression;
 import org.caltoopia.frontend.cal.AstExpressionBinary;
 import org.caltoopia.frontend.cal.AstExpressionBoolean;
@@ -285,12 +286,12 @@ public class TypeConverter extends CalSwitch<Type> {
 
 	@Override
 	public Type caseAstExpressionCall(AstExpressionCall e) { 
-		AstFunction f = e.getFunction();
-		if (f.getType() != null) {	
+		AstVariable v = e.getFunction();
+		if (v instanceof AstFunction) {	
 			return doSwitch(e.getFunction().getType());
-		} else if (f.eContainer() instanceof AstTypeName) {
+		} else if (v instanceof AstConstructor) {
 			//This is not a function, but a type constructor
-			AstTypeName typeName = (AstTypeName) f.eContainer();
+			AstTypeName typeName = (AstTypeName) ((AstConstructor) v).eContainer();
 			Type t = createTypeUser(typeName, approximate);
 			return t; 
 		} else {
@@ -596,7 +597,8 @@ public class TypeConverter extends CalSwitch<Type> {
 		typeDecl.setId(Util.getDefinitionId());
 		typeDecl.setScope(scope);
 		
-		for (AstFunction tc : astTypedef.getConstructor()) {			
+		for (AstVariable v : astTypedef.getConstructor()) {		
+			AstConstructor tc = (AstConstructor) v;
 			TypeRecord record = IrFactory.eINSTANCE.createTypeRecord();
 			record.setId(Util.getDefinitionId());
 		

@@ -111,7 +111,7 @@ class FindImportedAstSymbols extends VoidSwitch {
 	
 	@Override
 	public Void caseAstExpressionCall(AstExpressionCall e) { 
-		AstFunction f = e.getFunction();
+		AstVariable v = e.getFunction();
 		AstNamespace exportingNamespace;	
 		
 		for (AstExpression arg : e.getParameters()) {
@@ -119,36 +119,32 @@ class FindImportedAstSymbols extends VoidSwitch {
 		}
 		
 		// If already imported, just leave
-		if (imported.contains(f) || visited.contains(f)) return null;
-		visited.add(f);	
+		if (imported.contains(v) || visited.contains(v)) return null;
+		visited.add(v);	
 		
-		exportingNamespace = checkDefinitionContainer(f.eContainer(), topAstContainer); 		
+		exportingNamespace = checkDefinitionContainer(v.eContainer(), topAstContainer); 		
 		
 		if (exportingNamespace != null) {
 			List<String> exportingNamespaceName = createExportingNamespace(exportingNamespace);
-			if (f instanceof AstFunction) {
-				if(((AstFunction)f).getMembers().isEmpty()) {
-					//Function definition
-					Declaration d = Util.createImportedFunctionDeclaration(exportingNamespaceName, f);	
+			if (v instanceof AstFunction) {
+				Declaration d = Util.createImportedFunctionDeclaration(exportingNamespaceName, (AstFunction) v);	
 					
-					irScope.getDeclarations().add(d);
-				} else {
-					//Type constructor
-					AstTypeName astTypedef = (AstTypeName) f.eContainer();
+				irScope.getDeclarations().add(d);
+			} else {
+				AstTypeName astTypedef = (AstTypeName) v.eContainer();
 					
-					if (imported.contains(astTypedef)) return null;
+				if (imported.contains(astTypedef)) return null;
 
-					TypeDeclarationImport typeImport = Util.createImportedTypeDeclaration(exportingNamespaceName, astTypedef);	
+				TypeDeclarationImport typeImport = Util.createImportedTypeDeclaration(exportingNamespaceName, astTypedef);	
 					
-					irScope.getDeclarations().add(typeImport);		
-					imported.add(astTypedef);
-				}
-				
-				imported.add(f);
+				irScope.getDeclarations().add(typeImport);		
+				imported.add(astTypedef);
 			}
-			
+				
+			imported.add(v);			
 		} else {		
-			doSwitch(f.getExpression());
+			if (v instanceof AstFunction)
+				doSwitch(((AstFunction) v).getExpression());
 		}
 		
 		return null;

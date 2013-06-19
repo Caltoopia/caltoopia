@@ -152,7 +152,7 @@ AstTypeDefinitionParameter:
 AstTypeDefinitionTypeParameter returns AstTypeName:
         name = ID;
 	
-AstConstructor returns AstFunction:	
+AstConstructor returns AstVariable: {AstConstructor}	
 	name=ID ('(' (members += AstValuedVariableDeclaration (',' members += AstValuedVariableDeclaration)*)? ')')?; 
 	
 ///////////////////////////////////////////////////////////////////////////////
@@ -398,7 +398,7 @@ AstExpressionPostfix returns AstExpression:
     | '(' AstExpression ')';
 
 AstExpressionCall:
-	function=[AstFunction] '(' (parameters += AstExpression (',' parameters += AstExpression)*)? ')';
+	function=[AstVariable] '(' (parameters += AstExpression (',' parameters += AstExpression)*)? ')';
 
 AstExpressionIf:
 	'if' condition=AstExpression

@@ -65,14 +65,3 @@ public class CalQualifiedNameProvider extends DefaultDeclarativeQualifiedNamePro
 	}
 
 }
-
-//public QualifiedName getFullyQualifiedName(EObject obj) {
-//	if (obj instanceof AstFunction && obj.eContainer() instanceof AstTypeName) {
-//		obj = obj.eContainer();
-//	}
-//	if (obj instanceof AstNamespace || obj.eContainer() instanceof AstNamespace) {	
-//		return super.getFullyQualifiedName(obj);
-//	} else {
-//		return null;
-//	}
-//}

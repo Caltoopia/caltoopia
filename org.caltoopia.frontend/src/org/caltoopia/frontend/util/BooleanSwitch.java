@@ -40,6 +40,7 @@ import org.caltoopia.frontend.cal.AstActorVariableReference;
 import org.caltoopia.frontend.cal.AstAssignParameter;
 import org.caltoopia.frontend.cal.AstConnection;
 import org.caltoopia.frontend.cal.AstConnectionAttribute;
+import org.caltoopia.frontend.cal.AstConstructor;
 import org.caltoopia.frontend.cal.AstEntity;
 import org.caltoopia.frontend.cal.AstExpression;
 import org.caltoopia.frontend.cal.AstExpressionBinary;
@@ -656,14 +657,25 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 			return true;
 		
 		if (typeName.getConstructor() != null) {
-			for (AstFunction tc : typeName.getConstructor()) {			
-				for (AstVariable tmd : tc.getMembers()) {
+			for (AstVariable tc : typeName.getConstructor()) {			
+				for (AstVariable tmd : ((AstConstructor) tc).getMembers()) {
 					if (doSwitch(tmd.getType())) {
 						return true;
 					}
 				}
 			}
 		} 
+		
+		return false;
+	}
+	
+	@Override
+	public Boolean caseAstConstructor(AstConstructor ctor) {
+		for (AstVariable parameter : ctor.getMembers()) {
+			if (doSwitch(parameter)) {
+				return true;
+			}
+		}
 		
 		return false;
 	}

@@ -12,6 +12,7 @@ import org.caltoopia.frontend.cal.AstAnnotationArgument;
 import org.caltoopia.frontend.cal.AstAssignParameter;
 import org.caltoopia.frontend.cal.AstConnection;
 import org.caltoopia.frontend.cal.AstConnectionAttribute;
+import org.caltoopia.frontend.cal.AstConstructor;
 import org.caltoopia.frontend.cal.AstEntity;
 import org.caltoopia.frontend.cal.AstExpression;
 import org.caltoopia.frontend.cal.AstExpressionBinary;
@@ -200,13 +201,6 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * @generated
    */
   private EClass astTypeDefinitionParameterEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass astFunctionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -494,6 +488,20 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * @generated
    */
   private EClass astAnnotationArgumentEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass astConstructorEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass astFunctionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1197,56 +1205,6 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
   public EReference getAstTypeDefinitionParameter_Type()
   {
     return (EReference)astTypeDefinitionParameterEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getAstFunction()
-  {
-    return astFunctionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAstFunction_Members()
-  {
-    return (EReference)astFunctionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAstFunction_Parameters()
-  {
-    return (EReference)astFunctionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAstFunction_Variables()
-  {
-    return (EReference)astFunctionEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAstFunction_Expression()
-  {
-    return (EReference)astFunctionEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -2554,6 +2512,66 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getAstConstructor()
+  {
+    return astConstructorEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAstConstructor_Members()
+  {
+    return (EReference)astConstructorEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getAstFunction()
+  {
+    return astFunctionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAstFunction_Parameters()
+  {
+    return (EReference)astFunctionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAstFunction_Variables()
+  {
+    return (EReference)astFunctionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAstFunction_Expression()
+  {
+    return (EReference)astFunctionEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getAstInitialize()
   {
     return astInitializeEClass;
@@ -2738,12 +2756,6 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     createEReference(astTypeDefinitionParameterEClass, AST_TYPE_DEFINITION_PARAMETER__VALUE);
     createEReference(astTypeDefinitionParameterEClass, AST_TYPE_DEFINITION_PARAMETER__TYPE);
 
-    astFunctionEClass = createEClass(AST_FUNCTION);
-    createEReference(astFunctionEClass, AST_FUNCTION__MEMBERS);
-    createEReference(astFunctionEClass, AST_FUNCTION__PARAMETERS);
-    createEReference(astFunctionEClass, AST_FUNCTION__VARIABLES);
-    createEReference(astFunctionEClass, AST_FUNCTION__EXPRESSION);
-
     astActorEClass = createEClass(AST_ACTOR);
     createEReference(astActorEClass, AST_ACTOR__FUNCTIONS);
     createEReference(astActorEClass, AST_ACTOR__PROCEDURES);
@@ -2915,6 +2927,14 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     createEAttribute(astAnnotationArgumentEClass, AST_ANNOTATION_ARGUMENT__NAME);
     createEAttribute(astAnnotationArgumentEClass, AST_ANNOTATION_ARGUMENT__VALUE);
 
+    astConstructorEClass = createEClass(AST_CONSTRUCTOR);
+    createEReference(astConstructorEClass, AST_CONSTRUCTOR__MEMBERS);
+
+    astFunctionEClass = createEClass(AST_FUNCTION);
+    createEReference(astFunctionEClass, AST_FUNCTION__PARAMETERS);
+    createEReference(astFunctionEClass, AST_FUNCTION__VARIABLES);
+    createEReference(astFunctionEClass, AST_FUNCTION__EXPRESSION);
+
     astInitializeEClass = createEClass(AST_INITIALIZE);
 
     astExpressionBinaryEClass = createEClass(AST_EXPRESSION_BINARY);
@@ -2961,8 +2981,6 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     astNamespaceEClass.getESuperTypes().add(this.getAstPackage());
     astNamespaceEClass.getESuperTypes().add(this.getAstUnit());
     astNetworkEClass.getESuperTypes().add(this.getAstAbstractActor());
-    astFunctionEClass.getESuperTypes().add(this.getAstVariable());
-    astFunctionEClass.getESuperTypes().add(this.getAstExternalFunction());
     astActorEClass.getESuperTypes().add(this.getAstAbstractActor());
     astProcedureEClass.getESuperTypes().add(this.getAstExternalProcedure());
     astExternalActorEClass.getESuperTypes().add(this.getAstAbstractActor());
@@ -2981,6 +2999,9 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     astExpressionFloatEClass.getESuperTypes().add(this.getAstExpressionLiteral());
     astExpressionIntegerEClass.getESuperTypes().add(this.getAstExpressionLiteral());
     astExpressionStringEClass.getESuperTypes().add(this.getAstExpressionLiteral());
+    astConstructorEClass.getESuperTypes().add(this.getAstVariable());
+    astFunctionEClass.getESuperTypes().add(this.getAstVariable());
+    astFunctionEClass.getESuperTypes().add(this.getAstExternalFunction());
     astInitializeEClass.getESuperTypes().add(this.getAstAction());
     astExpressionBinaryEClass.getESuperTypes().add(this.getAstExpression());
     astExpressionUnaryEClass.getESuperTypes().add(this.getAstExpression());
@@ -3059,17 +3080,11 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     initEClass(astTypeNameEClass, AstTypeName.class, "AstTypeName", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getAstTypeName_Name(), ecorePackage.getEString(), "name", null, 0, 1, AstTypeName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstTypeName_Parameters(), this.getAstTypeDefinitionParameter(), null, "parameters", null, 0, -1, AstTypeName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAstTypeName_Constructor(), this.getAstFunction(), null, "constructor", null, 0, -1, AstTypeName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAstTypeName_Constructor(), this.getAstVariable(), null, "constructor", null, 0, -1, AstTypeName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(astTypeDefinitionParameterEClass, AstTypeDefinitionParameter.class, "AstTypeDefinitionParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAstTypeDefinitionParameter_Value(), this.getAstVariable(), null, "value", null, 0, 1, AstTypeDefinitionParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstTypeDefinitionParameter_Type(), this.getAstTypeName(), null, "type", null, 0, 1, AstTypeDefinitionParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(astFunctionEClass, AstFunction.class, "AstFunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAstFunction_Members(), this.getAstVariable(), null, "members", null, 0, -1, AstFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAstFunction_Parameters(), this.getAstVariable(), null, "parameters", null, 0, -1, AstFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAstFunction_Variables(), this.getAstVariable(), null, "variables", null, 0, -1, AstFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAstFunction_Expression(), this.getAstExpression(), null, "expression", null, 0, 1, AstFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(astActorEClass, AstActor.class, "AstActor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAstActor_Functions(), this.getAstVariable(), null, "functions", null, 0, -1, AstActor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3175,7 +3190,7 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     initEClass(astExpressionEClass, AstExpression.class, "AstExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(astExpressionCallEClass, AstExpressionCall.class, "AstExpressionCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAstExpressionCall_Function(), this.getAstFunction(), null, "function", null, 0, 1, AstExpressionCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAstExpressionCall_Function(), this.getAstVariable(), null, "function", null, 0, 1, AstExpressionCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstExpressionCall_Parameters(), this.getAstExpression(), null, "parameters", null, 0, -1, AstExpressionCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(astExpressionIfEClass, AstExpressionIf.class, "AstExpressionIf", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3241,6 +3256,14 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     initEClass(astAnnotationArgumentEClass, AstAnnotationArgument.class, "AstAnnotationArgument", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getAstAnnotationArgument_Name(), ecorePackage.getEString(), "name", null, 0, 1, AstAnnotationArgument.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getAstAnnotationArgument_Value(), ecorePackage.getEString(), "value", null, 0, 1, AstAnnotationArgument.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(astConstructorEClass, AstConstructor.class, "AstConstructor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAstConstructor_Members(), this.getAstVariable(), null, "members", null, 0, -1, AstConstructor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(astFunctionEClass, AstFunction.class, "AstFunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAstFunction_Parameters(), this.getAstVariable(), null, "parameters", null, 0, -1, AstFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAstFunction_Variables(), this.getAstVariable(), null, "variables", null, 0, -1, AstFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAstFunction_Expression(), this.getAstExpression(), null, "expression", null, 0, 1, AstFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(astInitializeEClass, AstInitialize.class, "AstInitialize", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

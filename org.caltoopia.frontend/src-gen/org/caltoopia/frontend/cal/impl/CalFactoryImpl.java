@@ -81,7 +81,6 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
       case CalPackage.AST_VARIABLE: return createAstVariable();
       case CalPackage.AST_TYPE_NAME: return createAstTypeName();
       case CalPackage.AST_TYPE_DEFINITION_PARAMETER: return createAstTypeDefinitionParameter();
-      case CalPackage.AST_FUNCTION: return createAstFunction();
       case CalPackage.AST_ACTOR: return createAstActor();
       case CalPackage.AST_PORT: return createAstPort();
       case CalPackage.AST_EXTERNAL_FUNCTION: return createAstExternalFunction();
@@ -123,6 +122,8 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
       case CalPackage.AST_MEMBER_ACCESS: return createAstMemberAccess();
       case CalPackage.AST_ANNOTATION: return createAstAnnotation();
       case CalPackage.AST_ANNOTATION_ARGUMENT: return createAstAnnotationArgument();
+      case CalPackage.AST_CONSTRUCTOR: return createAstConstructor();
+      case CalPackage.AST_FUNCTION: return createAstFunction();
       case CalPackage.AST_INITIALIZE: return createAstInitialize();
       case CalPackage.AST_EXPRESSION_BINARY: return createAstExpressionBinary();
       case CalPackage.AST_EXPRESSION_UNARY: return createAstExpressionUnary();
@@ -316,17 +317,6 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
   {
     AstTypeDefinitionParameterImpl astTypeDefinitionParameter = new AstTypeDefinitionParameterImpl();
     return astTypeDefinitionParameter;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public AstFunction createAstFunction()
-  {
-    AstFunctionImpl astFunction = new AstFunctionImpl();
-    return astFunction;
   }
 
   /**
@@ -778,6 +768,28 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
   {
     AstAnnotationArgumentImpl astAnnotationArgument = new AstAnnotationArgumentImpl();
     return astAnnotationArgument;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AstConstructor createAstConstructor()
+  {
+    AstConstructorImpl astConstructor = new AstConstructorImpl();
+    return astConstructor;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AstFunction createAstFunction()
+  {
+    AstFunctionImpl astFunction = new AstFunctionImpl();
+    return astFunction;
   }
 
   /**

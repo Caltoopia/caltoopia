@@ -70,7 +70,7 @@ public interface AstTypeName extends EObject
 
   /**
    * Returns the value of the '<em><b>Constructor</b></em>' containment reference list.
-   * The list contents are of type {@link org.caltoopia.frontend.cal.AstFunction}.
+   * The list contents are of type {@link org.caltoopia.frontend.cal.AstVariable}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Constructor</em>' containment reference list isn't clear,
@@ -82,6 +82,6 @@ public interface AstTypeName extends EObject
    * @model containment="true"
    * @generated
    */
-  EList<AstFunction> getConstructor();
+  EList<AstVariable> getConstructor();
 
 } // AstTypeName

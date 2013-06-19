@@ -1906,10 +1906,16 @@ ruleAstConstructor returns [EObject current=null]
     }
     @after { leaveRule(); }:
 ((
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getAstConstructorAccess().getAstConstructorAction_0(),
+            $current);
+    }
+)(
 (
-		lv_name_0_0=RULE_ID
+		lv_name_1_0=RULE_ID
 		{
-			newLeafNode(lv_name_0_0, grammarAccess.getAstConstructorAccess().getNameIDTerminalRuleCall_0_0()); 
+			newLeafNode(lv_name_1_0, grammarAccess.getAstConstructorAccess().getNameIDTerminalRuleCall_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1918,58 +1924,58 @@ ruleAstConstructor returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"name",
-        		lv_name_0_0, 
+        		lv_name_1_0, 
         		"ID");
 	    }
 
 )
-)(	otherlv_1='(' 
+)(	otherlv_2='(' 
     {
-    	newLeafNode(otherlv_1, grammarAccess.getAstConstructorAccess().getLeftParenthesisKeyword_1_0());
+    	newLeafNode(otherlv_2, grammarAccess.getAstConstructorAccess().getLeftParenthesisKeyword_2_0());
     }
 ((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstConstructorAccess().getMembersAstValuedVariableDeclarationParserRuleCall_1_1_0_0()); 
+	        newCompositeNode(grammarAccess.getAstConstructorAccess().getMembersAstValuedVariableDeclarationParserRuleCall_2_1_0_0()); 
 	    }
-		lv_members_2_0=ruleAstValuedVariableDeclaration		{
+		lv_members_3_0=ruleAstValuedVariableDeclaration		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstConstructorRule());
 	        }
        		add(
        			$current, 
        			"members",
-        		lv_members_2_0, 
+        		lv_members_3_0, 
         		"AstValuedVariableDeclaration");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(	otherlv_3=',' 
+)(	otherlv_4=',' 
     {
-    	newLeafNode(otherlv_3, grammarAccess.getAstConstructorAccess().getCommaKeyword_1_1_1_0());
+    	newLeafNode(otherlv_4, grammarAccess.getAstConstructorAccess().getCommaKeyword_2_1_1_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstConstructorAccess().getMembersAstValuedVariableDeclarationParserRuleCall_1_1_1_1_0()); 
+	        newCompositeNode(grammarAccess.getAstConstructorAccess().getMembersAstValuedVariableDeclarationParserRuleCall_2_1_1_1_0()); 
 	    }
-		lv_members_4_0=ruleAstValuedVariableDeclaration		{
+		lv_members_5_0=ruleAstValuedVariableDeclaration		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstConstructorRule());
 	        }
        		add(
        			$current, 
        			"members",
-        		lv_members_4_0, 
+        		lv_members_5_0, 
         		"AstValuedVariableDeclaration");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))*)?	otherlv_5=')' 
+))*)?	otherlv_6=')' 
     {
-    	newLeafNode(otherlv_5, grammarAccess.getAstConstructorAccess().getRightParenthesisKeyword_1_2());
+    	newLeafNode(otherlv_6, grammarAccess.getAstConstructorAccess().getRightParenthesisKeyword_2_2());
     }
 )?)
 ;
@@ -6308,7 +6314,7 @@ ruleAstExpressionCall returns [EObject current=null]
         }
 	otherlv_0=RULE_ID
 	{
-		newLeafNode(otherlv_0, grammarAccess.getAstExpressionCallAccess().getFunctionAstFunctionCrossReference_0_0()); 
+		newLeafNode(otherlv_0, grammarAccess.getAstExpressionCallAccess().getFunctionAstVariableCrossReference_0_0()); 
 	}
 
 )

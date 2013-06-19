@@ -47,6 +47,7 @@ import org.caltoopia.frontend.cal.AstAction;
 import org.caltoopia.frontend.cal.AstActor;
 import org.caltoopia.frontend.cal.AstAnnotation;
 import org.caltoopia.frontend.cal.AstAnnotationArgument;
+import org.caltoopia.frontend.cal.AstConstructor;
 import org.caltoopia.frontend.cal.AstEntity;
 import org.caltoopia.frontend.cal.AstExpression;
 import org.caltoopia.frontend.cal.AstExpressionBoolean;
@@ -204,7 +205,7 @@ public class Util {
 		return var;
 	}	
 	
-	public static TypeConstructor createTypeConstructor(TypeDeclaration typeDecl, AstFunction f, boolean approximate) {
+	public static TypeConstructor createTypeConstructor(TypeDeclaration typeDecl, AstConstructor f, boolean approximate) {
 		TypeConstructor tc = IrFactory.eINSTANCE.createTypeConstructor();
 		tc.setId(getDefinitionId());
 		tc.setName(f.getName());

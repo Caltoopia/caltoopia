@@ -37,6 +37,7 @@ import org.caltoopia.frontend.cal.AstActorVariableReference;
 import org.caltoopia.frontend.cal.AstAssignParameter;
 import org.caltoopia.frontend.cal.AstConnection;
 import org.caltoopia.frontend.cal.AstConnectionAttribute;
+import org.caltoopia.frontend.cal.AstConstructor;
 import org.caltoopia.frontend.cal.AstEntity;
 import org.caltoopia.frontend.cal.AstExpression;
 import org.caltoopia.frontend.cal.AstExpressionBinary;
@@ -346,14 +347,10 @@ public class VoidSwitch extends CalSwitch<Void> {
 		}
 		
 		doSwitch(function.getExpression());
-
-		for (AstVariable member : function.getMembers()) {
-			doSwitch(member);
-		}
 		
 		return null;
 	}
-
+	
 	@Override
 	public Void caseAstGenerator(AstGenerator generator) {
 		doSwitch(generator.getVariable());
@@ -525,8 +522,8 @@ public class VoidSwitch extends CalSwitch<Void> {
 	@Override
 	public Void caseAstTypeName(AstTypeName typeName) { 
 		if (typeName.getConstructor() != null) {
-			for (AstFunction tc : typeName.getConstructor()) {			
-				for (AstVariable tmd : tc.getMembers()) {
+			for (AstVariable tc : typeName.getConstructor()) {			
+				for (AstVariable tmd : ((AstConstructor) tc).getMembers()) {
 					doSwitch(tmd.getType());
 				}
 			}
@@ -546,6 +543,16 @@ public class VoidSwitch extends CalSwitch<Void> {
 		return null;
 	}
 
+	@Override
+	public Void caseAstConstructor(AstConstructor ctor) {
+		
+		for (AstVariable variable : ctor.getMembers()) {
+			doSwitch(variable);
+		}
+		
+		return null;
+	}
+	
 	@Override
 	public Void caseAstVariable(AstVariable variable) {
 		doSwitch(variable.getType());

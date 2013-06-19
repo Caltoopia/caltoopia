@@ -4,9 +4,9 @@ package org.caltoopia.frontend.cal.impl;
 
 import java.util.Collection;
 
-import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstTypeDefinitionParameter;
 import org.caltoopia.frontend.cal.AstTypeName;
+import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.cal.CalPackage;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -78,7 +78,7 @@ public class AstTypeNameImpl extends MinimalEObjectImpl.Container implements Ast
    * @generated
    * @ordered
    */
-  protected EList<AstFunction> constructor;
+  protected EList<AstVariable> constructor;
 
   /**
    * <!-- begin-user-doc -->
@@ -143,11 +143,11 @@ public class AstTypeNameImpl extends MinimalEObjectImpl.Container implements Ast
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<AstFunction> getConstructor()
+  public EList<AstVariable> getConstructor()
   {
     if (constructor == null)
     {
-      constructor = new EObjectContainmentEList<AstFunction>(AstFunction.class, this, CalPackage.AST_TYPE_NAME__CONSTRUCTOR);
+      constructor = new EObjectContainmentEList<AstVariable>(AstVariable.class, this, CalPackage.AST_TYPE_NAME__CONSTRUCTOR);
     }
     return constructor;
   }
@@ -210,7 +210,7 @@ public class AstTypeNameImpl extends MinimalEObjectImpl.Container implements Ast
         return;
       case CalPackage.AST_TYPE_NAME__CONSTRUCTOR:
         getConstructor().clear();
-        getConstructor().addAll((Collection<? extends AstFunction>)newValue);
+        getConstructor().addAll((Collection<? extends AstVariable>)newValue);
         return;
     }
     super.eSet(featureID, newValue);

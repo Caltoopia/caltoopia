@@ -11,6 +11,7 @@ import org.caltoopia.frontend.cal.AstAnnotationArgument;
 import org.caltoopia.frontend.cal.AstAssignParameter;
 import org.caltoopia.frontend.cal.AstConnection;
 import org.caltoopia.frontend.cal.AstConnectionAttribute;
+import org.caltoopia.frontend.cal.AstConstructor;
 import org.caltoopia.frontend.cal.AstEntity;
 import org.caltoopia.frontend.cal.AstExpressionBinary;
 import org.caltoopia.frontend.cal.AstExpressionBoolean;
@@ -129,6 +130,12 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 			case CalPackage.AST_CONNECTION_ATTRIBUTE:
 				if(context == grammarAccess.getAstConnectionAttributeRule()) {
 					sequence_AstConnectionAttribute(context, (AstConnectionAttribute) semanticObject); 
+					return; 
+				}
+				else break;
+			case CalPackage.AST_CONSTRUCTOR:
+				if(context == grammarAccess.getAstConstructorRule()) {
+					sequence_AstConstructor(context, (AstConstructor) semanticObject); 
 					return; 
 				}
 				else break;
@@ -454,11 +461,7 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 				}
 				else break;
 			case CalPackage.AST_FUNCTION:
-				if(context == grammarAccess.getAstConstructorRule()) {
-					sequence_AstConstructor(context, (AstFunction) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getAstExternalFunctionRule()) {
+				if(context == grammarAccess.getAstExternalFunctionRule()) {
 					sequence_AstExternalFunction(context, (AstFunction) semanticObject); 
 					return; 
 				}
@@ -860,7 +863,7 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	 * Constraint:
 	 *     (name=ID (members+=AstValuedVariableDeclaration members+=AstValuedVariableDeclaration*)?)
 	 */
-	protected void sequence_AstConstructor(EObject context, AstFunction semanticObject) {
+	protected void sequence_AstConstructor(EObject context, AstConstructor semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -892,7 +895,7 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (function=[AstFunction|ID] (parameters+=AstExpression parameters+=AstExpression*)?)
+	 *     (function=[AstVariable|ID] (parameters+=AstExpression parameters+=AstExpression*)?)
 	 */
 	protected void sequence_AstExpressionCall(EObject context, AstExpressionCall semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

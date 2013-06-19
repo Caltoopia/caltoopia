@@ -160,11 +160,6 @@ public class CalAdapterFactory extends AdapterFactoryImpl
         return createAstTypeDefinitionParameterAdapter();
       }
       @Override
-      public Adapter caseAstFunction(AstFunction object)
-      {
-        return createAstFunctionAdapter();
-      }
-      @Override
       public Adapter caseAstActor(AstActor object)
       {
         return createAstActorAdapter();
@@ -368,6 +363,16 @@ public class CalAdapterFactory extends AdapterFactoryImpl
       public Adapter caseAstAnnotationArgument(AstAnnotationArgument object)
       {
         return createAstAnnotationArgumentAdapter();
+      }
+      @Override
+      public Adapter caseAstConstructor(AstConstructor object)
+      {
+        return createAstConstructorAdapter();
+      }
+      @Override
+      public Adapter caseAstFunction(AstFunction object)
+      {
+        return createAstFunctionAdapter();
       }
       @Override
       public Adapter caseAstInitialize(AstInitialize object)
@@ -657,21 +662,6 @@ public class CalAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAstTypeDefinitionParameterAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstFunction <em>Ast Function</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.caltoopia.frontend.cal.AstFunction
-   * @generated
-   */
-  public Adapter createAstFunctionAdapter()
   {
     return null;
   }
@@ -1287,6 +1277,36 @@ public class CalAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAstAnnotationArgumentAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstConstructor <em>Ast Constructor</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.caltoopia.frontend.cal.AstConstructor
+   * @generated
+   */
+  public Adapter createAstConstructorAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstFunction <em>Ast Function</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.caltoopia.frontend.cal.AstFunction
+   * @generated
+   */
+  public Adapter createAstFunctionAdapter()
   {
     return null;
   }

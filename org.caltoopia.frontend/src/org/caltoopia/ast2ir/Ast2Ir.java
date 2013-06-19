@@ -50,6 +50,7 @@ import org.caltoopia.frontend.cal.AstAnnotation;
 import org.caltoopia.frontend.cal.AstAssignParameter;
 import org.caltoopia.frontend.cal.AstConnection;
 import org.caltoopia.frontend.cal.AstConnectionAttribute;
+import org.caltoopia.frontend.cal.AstConstructor;
 import org.caltoopia.frontend.cal.AstExpressionVariable;
 import org.caltoopia.frontend.cal.AstExternalActor;
 import org.caltoopia.frontend.cal.AstForeachGenerator;
@@ -226,8 +227,8 @@ public class Ast2Ir extends CalSwitch<EObject> {
 			} else if (data.getData() instanceof AstTypeName) {
 				TypeDeclaration typeDecl  = TypeConverter.createTypeDeclaration(scopeStack.peek(), (AstTypeName) data.getData(), false);
 				ns.getDeclarations().add(typeDecl);		
-				for (AstFunction tc : ((AstTypeName) data.getData()).getConstructor()) {				
-					TypeConstructor  typeConstructor  = Util.createTypeConstructor(typeDecl, tc, false);
+				for (AstVariable tc : ((AstTypeName) data.getData()).getConstructor()) {				
+					TypeConstructor  typeConstructor  = Util.createTypeConstructor(typeDecl, (AstConstructor) tc, false);
 					typeDecl.setConstructor(typeConstructor);
 				}
 			} 

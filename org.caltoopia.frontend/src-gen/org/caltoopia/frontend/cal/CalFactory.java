@@ -176,15 +176,6 @@ public interface CalFactory extends EFactory
   AstTypeDefinitionParameter createAstTypeDefinitionParameter();
 
   /**
-   * Returns a new object of class '<em>Ast Function</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Ast Function</em>'.
-   * @generated
-   */
-  AstFunction createAstFunction();
-
-  /**
    * Returns a new object of class '<em>Ast Actor</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -552,6 +543,24 @@ public interface CalFactory extends EFactory
    * @generated
    */
   AstAnnotationArgument createAstAnnotationArgument();
+
+  /**
+   * Returns a new object of class '<em>Ast Constructor</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ast Constructor</em>'.
+   * @generated
+   */
+  AstConstructor createAstConstructor();
+
+  /**
+   * Returns a new object of class '<em>Ast Function</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ast Function</em>'.
+   * @generated
+   */
+  AstFunction createAstFunction();
 
   /**
    * Returns a new object of class '<em>Ast Initialize</em>'.

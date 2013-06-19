@@ -29,7 +29,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.caltoopia.frontend.cal.impl.AstFunctionImpl#getMembers <em>Members</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstFunctionImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstFunctionImpl#getVariables <em>Variables</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstFunctionImpl#getExpression <em>Expression</em>}</li>
@@ -40,16 +39,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class AstFunctionImpl extends AstVariableImpl implements AstFunction
 {
-  /**
-   * The cached value of the '{@link #getMembers() <em>Members</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getMembers()
-   * @generated
-   * @ordered
-   */
-  protected EList<AstVariable> members;
-
   /**
    * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -99,20 +88,6 @@ public class AstFunctionImpl extends AstVariableImpl implements AstFunction
   protected EClass eStaticClass()
   {
     return CalPackage.Literals.AST_FUNCTION;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<AstVariable> getMembers()
-  {
-    if (members == null)
-    {
-      members = new EObjectContainmentEList<AstVariable>(AstVariable.class, this, CalPackage.AST_FUNCTION__MEMBERS);
-    }
-    return members;
   }
 
   /**
@@ -201,8 +176,6 @@ public class AstFunctionImpl extends AstVariableImpl implements AstFunction
   {
     switch (featureID)
     {
-      case CalPackage.AST_FUNCTION__MEMBERS:
-        return ((InternalEList<?>)getMembers()).basicRemove(otherEnd, msgs);
       case CalPackage.AST_FUNCTION__PARAMETERS:
         return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
       case CalPackage.AST_FUNCTION__VARIABLES:
@@ -223,8 +196,6 @@ public class AstFunctionImpl extends AstVariableImpl implements AstFunction
   {
     switch (featureID)
     {
-      case CalPackage.AST_FUNCTION__MEMBERS:
-        return getMembers();
       case CalPackage.AST_FUNCTION__PARAMETERS:
         return getParameters();
       case CalPackage.AST_FUNCTION__VARIABLES:
@@ -246,10 +217,6 @@ public class AstFunctionImpl extends AstVariableImpl implements AstFunction
   {
     switch (featureID)
     {
-      case CalPackage.AST_FUNCTION__MEMBERS:
-        getMembers().clear();
-        getMembers().addAll((Collection<? extends AstVariable>)newValue);
-        return;
       case CalPackage.AST_FUNCTION__PARAMETERS:
         getParameters().clear();
         getParameters().addAll((Collection<? extends AstVariable>)newValue);
@@ -275,9 +242,6 @@ public class AstFunctionImpl extends AstVariableImpl implements AstFunction
   {
     switch (featureID)
     {
-      case CalPackage.AST_FUNCTION__MEMBERS:
-        getMembers().clear();
-        return;
       case CalPackage.AST_FUNCTION__PARAMETERS:
         getParameters().clear();
         return;
@@ -301,8 +265,6 @@ public class AstFunctionImpl extends AstVariableImpl implements AstFunction
   {
     switch (featureID)
     {
-      case CalPackage.AST_FUNCTION__MEMBERS:
-        return members != null && !members.isEmpty();
       case CalPackage.AST_FUNCTION__PARAMETERS:
         return parameters != null && !parameters.isEmpty();
       case CalPackage.AST_FUNCTION__VARIABLES:

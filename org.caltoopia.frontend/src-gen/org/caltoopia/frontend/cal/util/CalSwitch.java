@@ -196,15 +196,6 @@ public class CalSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CalPackage.AST_FUNCTION:
-      {
-        AstFunction astFunction = (AstFunction)theEObject;
-        T result = caseAstFunction(astFunction);
-        if (result == null) result = caseAstVariable(astFunction);
-        if (result == null) result = caseAstExternalFunction(astFunction);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case CalPackage.AST_ACTOR:
       {
         AstActor astActor = (AstActor)theEObject;
@@ -514,6 +505,23 @@ public class CalSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case CalPackage.AST_CONSTRUCTOR:
+      {
+        AstConstructor astConstructor = (AstConstructor)theEObject;
+        T result = caseAstConstructor(astConstructor);
+        if (result == null) result = caseAstVariable(astConstructor);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CalPackage.AST_FUNCTION:
+      {
+        AstFunction astFunction = (AstFunction)theEObject;
+        T result = caseAstFunction(astFunction);
+        if (result == null) result = caseAstVariable(astFunction);
+        if (result == null) result = caseAstExternalFunction(astFunction);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case CalPackage.AST_INITIALIZE:
       {
         AstInitialize astInitialize = (AstInitialize)theEObject;
@@ -810,22 +818,6 @@ public class CalSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAstTypeDefinitionParameter(AstTypeDefinitionParameter object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Ast Function</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Ast Function</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseAstFunction(AstFunction object)
   {
     return null;
   }
@@ -1482,6 +1474,38 @@ public class CalSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAstAnnotationArgument(AstAnnotationArgument object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Ast Constructor</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Ast Constructor</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAstConstructor(AstConstructor object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Ast Function</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Ast Function</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAstFunction(AstFunction object)
   {
     return null;
   }

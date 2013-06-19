@@ -42,6 +42,7 @@ import org.caltoopia.frontend.cal.AstAction;
 import org.caltoopia.frontend.cal.AstActor;
 import org.caltoopia.frontend.cal.AstActorVariable;
 import org.caltoopia.frontend.cal.AstAssignParameter;
+import org.caltoopia.frontend.cal.AstConstructor;
 import org.caltoopia.frontend.cal.AstExternalActor;
 import org.caltoopia.frontend.cal.AstMemberAccess;
 import org.caltoopia.frontend.cal.AstNamespace;
@@ -239,8 +240,8 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 
 	@Check(CheckType.NORMAL)	
 	public void CheckTypeDef(AstTypeName typedef) {
-		for (AstFunction tc : typedef.getConstructor()) {			
-			for (AstVariable v : tc.getMembers()) {
+		for (AstVariable tc : typedef.getConstructor()) {			
+			for (AstVariable v : ((AstConstructor) tc).getMembers()) {
 				/*
 				try {
 					TypeSystem.validateAstType(v.getType());
@@ -398,15 +399,15 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 		
 	@Check(CheckType.NORMAL)
 	public void checkAstExpressionCall(AstExpressionCall astCall) {
-		AstFunction function = astCall.getFunction();
-		String name = function.getName();
+		AstVariable var = astCall.getFunction();
+		String name = var.getName();
 		List<AstVariable> formalParameters;
 		
-		if (function.eContainer() instanceof AstTypeName) {
+		if (var instanceof AstConstructor) {
 			// This is a call to a type constructor
-			formalParameters = function.getMembers();
+			formalParameters = ((AstConstructor) var).getMembers();
 		} else {
-			formalParameters = function.getParameters();
+			formalParameters = ((AstFunction) var).getParameters();
 		}
 		List<AstExpression> parameters = astCall.getParameters();
 		if (formalParameters.size() != parameters.size()) {
@@ -416,7 +417,7 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 			return;
 		}
 		
-		Iterator<AstVariable> itFormal = function.getParameters().iterator();
+		Iterator<AstVariable> itFormal = formalParameters.iterator();
 		Iterator<AstExpression> itActual = parameters.iterator();
 		int index = 0;
 		while (itFormal.hasNext() && itActual.hasNext()) {

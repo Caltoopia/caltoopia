@@ -84,7 +84,7 @@ public class CalResourceDescriptionStrategy extends DefaultResourceDescriptionSt
 			tryAddWithQualifiedName(decl, acceptor);
 			
 			// And the type ctor
-			for (AstFunction tc : decl.getConstructor()) {			
+			for (AstVariable tc : decl.getConstructor()) {			
 				tryAddWithQualifiedName(tc, acceptor);
 			}
 		}	

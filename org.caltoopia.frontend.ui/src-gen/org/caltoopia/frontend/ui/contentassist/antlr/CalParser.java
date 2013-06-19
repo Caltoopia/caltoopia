@@ -105,9 +105,9 @@ public class CalParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAstTypeDefinitionAccess().getGroup_4(), "rule__AstTypeDefinition__Group_4__0");
 					put(grammarAccess.getAstTypeDefinitionAccess().getGroup_4_1(), "rule__AstTypeDefinition__Group_4_1__0");
 					put(grammarAccess.getAstConstructorAccess().getGroup(), "rule__AstConstructor__Group__0");
-					put(grammarAccess.getAstConstructorAccess().getGroup_1(), "rule__AstConstructor__Group_1__0");
-					put(grammarAccess.getAstConstructorAccess().getGroup_1_1(), "rule__AstConstructor__Group_1_1__0");
-					put(grammarAccess.getAstConstructorAccess().getGroup_1_1_1(), "rule__AstConstructor__Group_1_1_1__0");
+					put(grammarAccess.getAstConstructorAccess().getGroup_2(), "rule__AstConstructor__Group_2__0");
+					put(grammarAccess.getAstConstructorAccess().getGroup_2_1(), "rule__AstConstructor__Group_2_1__0");
+					put(grammarAccess.getAstConstructorAccess().getGroup_2_1_1(), "rule__AstConstructor__Group_2_1_1__0");
 					put(grammarAccess.getAstActorAccess().getGroup(), "rule__AstActor__Group__0");
 					put(grammarAccess.getAstActorAccess().getGroup_4(), "rule__AstActor__Group_4__0");
 					put(grammarAccess.getAstActorAccess().getGroup_4_1(), "rule__AstActor__Group_4_1__0");
@@ -314,9 +314,9 @@ public class CalParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAstTypeDefinitionParameterAccess().getValueAssignment_0(), "rule__AstTypeDefinitionParameter__ValueAssignment_0");
 					put(grammarAccess.getAstTypeDefinitionParameterAccess().getTypeAssignment_1(), "rule__AstTypeDefinitionParameter__TypeAssignment_1");
 					put(grammarAccess.getAstTypeDefinitionTypeParameterAccess().getNameAssignment(), "rule__AstTypeDefinitionTypeParameter__NameAssignment");
-					put(grammarAccess.getAstConstructorAccess().getNameAssignment_0(), "rule__AstConstructor__NameAssignment_0");
-					put(grammarAccess.getAstConstructorAccess().getMembersAssignment_1_1_0(), "rule__AstConstructor__MembersAssignment_1_1_0");
-					put(grammarAccess.getAstConstructorAccess().getMembersAssignment_1_1_1_1(), "rule__AstConstructor__MembersAssignment_1_1_1_1");
+					put(grammarAccess.getAstConstructorAccess().getNameAssignment_1(), "rule__AstConstructor__NameAssignment_1");
+					put(grammarAccess.getAstConstructorAccess().getMembersAssignment_2_1_0(), "rule__AstConstructor__MembersAssignment_2_1_0");
+					put(grammarAccess.getAstConstructorAccess().getMembersAssignment_2_1_1_1(), "rule__AstConstructor__MembersAssignment_2_1_1_1");
 					put(grammarAccess.getAstActorAccess().getNameAssignment_2(), "rule__AstActor__NameAssignment_2");
 					put(grammarAccess.getAstActorAccess().getParametersAssignment_4_0(), "rule__AstActor__ParametersAssignment_4_0");
 					put(grammarAccess.getAstActorAccess().getParametersAssignment_4_1_1(), "rule__AstActor__ParametersAssignment_4_1_1");

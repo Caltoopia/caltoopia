@@ -6,7 +6,7 @@ import java.util.Collection;
 
 import org.caltoopia.frontend.cal.AstExpression;
 import org.caltoopia.frontend.cal.AstExpressionCall;
-import org.caltoopia.frontend.cal.AstFunction;
+import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.cal.CalPackage;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -46,7 +46,7 @@ public class AstExpressionCallImpl extends AstExpressionImpl implements AstExpre
    * @generated
    * @ordered
    */
-  protected AstFunction function;
+  protected AstVariable function;
 
   /**
    * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
@@ -84,12 +84,12 @@ public class AstExpressionCallImpl extends AstExpressionImpl implements AstExpre
    * <!-- end-user-doc -->
    * @generated
    */
-  public AstFunction getFunction()
+  public AstVariable getFunction()
   {
     if (function != null && function.eIsProxy())
     {
       InternalEObject oldFunction = (InternalEObject)function;
-      function = (AstFunction)eResolveProxy(oldFunction);
+      function = (AstVariable)eResolveProxy(oldFunction);
       if (function != oldFunction)
       {
         if (eNotificationRequired())
@@ -104,7 +104,7 @@ public class AstExpressionCallImpl extends AstExpressionImpl implements AstExpre
    * <!-- end-user-doc -->
    * @generated
    */
-  public AstFunction basicGetFunction()
+  public AstVariable basicGetFunction()
   {
     return function;
   }
@@ -114,9 +114,9 @@ public class AstExpressionCallImpl extends AstExpressionImpl implements AstExpre
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setFunction(AstFunction newFunction)
+  public void setFunction(AstVariable newFunction)
   {
-    AstFunction oldFunction = function;
+    AstVariable oldFunction = function;
     function = newFunction;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, CalPackage.AST_EXPRESSION_CALL__FUNCTION, oldFunction, function));
@@ -183,7 +183,7 @@ public class AstExpressionCallImpl extends AstExpressionImpl implements AstExpre
     switch (featureID)
     {
       case CalPackage.AST_EXPRESSION_CALL__FUNCTION:
-        setFunction((AstFunction)newValue);
+        setFunction((AstVariable)newValue);
         return;
       case CalPackage.AST_EXPRESSION_CALL__PARAMETERS:
         getParameters().clear();
@@ -204,7 +204,7 @@ public class AstExpressionCallImpl extends AstExpressionImpl implements AstExpre
     switch (featureID)
     {
       case CalPackage.AST_EXPRESSION_CALL__FUNCTION:
-        setFunction((AstFunction)null);
+        setFunction((AstVariable)null);
         return;
       case CalPackage.AST_EXPRESSION_CALL__PARAMETERS:
         getParameters().clear();

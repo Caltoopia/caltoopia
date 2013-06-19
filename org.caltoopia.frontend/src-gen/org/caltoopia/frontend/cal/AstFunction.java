@@ -12,7 +12,6 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.caltoopia.frontend.cal.AstFunction#getMembers <em>Members</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.AstFunction#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.AstFunction#getVariables <em>Variables</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.AstFunction#getExpression <em>Expression</em>}</li>
@@ -25,22 +24,6 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface AstFunction extends AstVariable, AstExternalFunction
 {
-  /**
-   * Returns the value of the '<em><b>Members</b></em>' containment reference list.
-   * The list contents are of type {@link org.caltoopia.frontend.cal.AstVariable}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Members</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Members</em>' containment reference list.
-   * @see org.caltoopia.frontend.cal.CalPackage#getAstFunction_Members()
-   * @model containment="true"
-   * @generated
-   */
-  EList<AstVariable> getMembers();
-
   /**
    * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
    * The list contents are of type {@link org.caltoopia.frontend.cal.AstVariable}.
