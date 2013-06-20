@@ -36,6 +36,7 @@
 
 package org.caltoopia.frontend;
 
+import org.caltoopia.frontend.cal.AstConstructor;
 import org.caltoopia.frontend.cal.AstEntity;
 import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstNamespace;
@@ -47,16 +48,20 @@ import org.eclipse.xtext.naming.QualifiedName;
 public class CalQualifiedNameProvider extends DefaultDeclarativeQualifiedNameProvider  {
 
 	public QualifiedName getFullyQualifiedName(EObject obj) {
-		if (obj instanceof AstFunction && obj.eContainer() instanceof AstTypeName) {
-			// obj = obj.eContainer();
+		if (obj instanceof AstConstructor) {
 			QualifiedName tmp = super.getFullyQualifiedName(obj.eContainer().eContainer());
-			tmp = tmp.append(((AstFunction) obj).getName());
+			tmp = tmp.append(((AstConstructor) obj).getName());
 			return tmp;
 		} else if (obj instanceof AstEntity && obj.eContainer() instanceof AstNamespace) {
 			// obj = obj.eContainer();
-			QualifiedName tmp = super.getFullyQualifiedName(obj.eContainer());
-			tmp = tmp.append(((AstEntity) obj).getActor().getName());
-			return tmp;
+			QualifiedName tmp = super.getFullyQualifiedName(obj.eContainer());	
+			String name = ((AstEntity) obj).getActor().getName();
+			if (name != null) { 
+				tmp = tmp.append(name);
+				return tmp;
+			} else {
+				return null;
+			}
 		} else if (obj instanceof AstNamespace || obj.eContainer() instanceof AstNamespace) {
 			return super.getFullyQualifiedName(obj);
 		} else {

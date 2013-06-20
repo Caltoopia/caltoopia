@@ -338,7 +338,7 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 	@Check(CheckType.FAST)
 	public void checkActorDeclaration(AstActorVariable decl) {		
 		List<String> params = new ArrayList<String>();
-		if (decl.getType() != null) {
+		if (decl.getType() != null && decl.getType().getActor() != null) {
 			AstAbstractActor actor = decl.getType().getActor();
 			for (AstVariable v : actor.getParameters()) {
 				params.add(v.getName());
@@ -406,8 +406,10 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 		if (var instanceof AstConstructor) {
 			// This is a call to a type constructor
 			formalParameters = ((AstConstructor) var).getMembers();
-		} else {
+		} else if (var instanceof AstFunction){
 			formalParameters = ((AstFunction) var).getParameters();
+		} else {
+			return; //Ends here if the reference is not correctly resolved.
 		}
 		List<AstExpression> parameters = astCall.getParameters();
 		if (formalParameters.size() != parameters.size()) {
