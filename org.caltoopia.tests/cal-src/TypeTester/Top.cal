@@ -1,0 +1,64 @@
+namespace TypeTester:
+import System.io.dprint1;
+
+	type T1 = T1(int i, float f);
+	T1 t = T1(1, 3.14);
+	
+	function F1(int i) --> int: i end
+	int i1 = F1(1);
+	
+	actor Main(int max) T1 In1, T1 In2 ==> T1 Out:
+		
+		T1 t = TypeTester.T1::T1(1, 3.14);
+		int i1 = TypeTester.F1(1);
+		
+		int intCounter := 0;
+		float floatCounter := 0.0;
+		
+		action In1:[a], In2:[b] ==> Out:[T1(a.i + b.i, a.f + b.f)]
+		guard 
+			intCounter < max
+		do 
+			intCounter := intCounter + 1;	
+		end 
+	end
+
+	actor Delay(T1 init) T1 In ==> T1 Out:
+	
+	  	a1 : action ==> Out:[init] end
+
+		a2 : action In:[a] ==> Out:[a] end
+		
+		schedule fsm s0:
+			s0 (a1) --> s1;
+			s1 (a2) --> s1;
+		end
+	end
+
+	actor Sink() T1 In ==>:
+	
+	  	action In:[a] ==> 
+	  	do
+			dprint1("a.i=%i", a.i);		
+			dprint1(", a.f=%f\\n", a.f);		
+	  	end
+	
+	end
+		
+	network Test1() ==> :
+	
+		entities
+			main = Main(max=10);
+			delay1 = Delay(init=T1(0, 0));
+			delay2 = Delay(init=T1(1, 1));
+			sink = Sink();
+
+		structure
+			main.Out --> delay2.In;
+			delay2.Out --> delay1.In;
+			delay2.Out --> main.In2;
+			delay1.Out --> main.In1;
+			main.Out --> sink.In;  	
+	end
+
+end
