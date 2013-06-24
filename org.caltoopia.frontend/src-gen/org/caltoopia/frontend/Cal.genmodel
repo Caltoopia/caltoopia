@@ -185,6 +185,11 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Cal.ecore#//AstExpressionCall/function"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstExpressionCall/parameters"/>
     </genClasses>
+    <genClasses ecoreClass="Cal.ecore#//AstExpressionConstruction">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Cal.ecore#//AstExpressionConstruction/function"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Cal.ecore#//AstExpressionConstruction/ctor"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstExpressionConstruction/parameters"/>
+    </genClasses>
     <genClasses ecoreClass="Cal.ecore#//AstExpressionIf">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstExpressionIf/condition"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstExpressionIf/then"/>

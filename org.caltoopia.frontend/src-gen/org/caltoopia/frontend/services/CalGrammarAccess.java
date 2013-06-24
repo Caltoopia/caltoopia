@@ -3889,21 +3889,22 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cAstExpressionListParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cAstExpressionCallParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cAstExpressionIfParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cAstExpressionLiteralParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cAstExpressionVariableParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
-		private final Group cGroup_5 = (Group)cAlternatives.eContents().get(5);
-		private final Keyword cLeftParenthesisKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final RuleCall cAstExpressionParserRuleCall_5_1 = (RuleCall)cGroup_5.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
+		private final RuleCall cAstExpressionConstructionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cAstExpressionIfParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cAstExpressionLiteralParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cAstExpressionVariableParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final Group cGroup_6 = (Group)cAlternatives.eContents().get(6);
+		private final Keyword cLeftParenthesisKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
+		private final RuleCall cAstExpressionParserRuleCall_6_1 = (RuleCall)cGroup_6.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_6_2 = (Keyword)cGroup_6.eContents().get(2);
 		
 		//AstExpressionPostfix returns AstExpression:
-		//	AstExpressionList | AstExpressionCall | AstExpressionIf | AstExpressionLiteral | AstExpressionVariable | "("
-		//	AstExpression ")";
+		//	AstExpressionList | AstExpressionCall | AstExpressionConstruction | AstExpressionIf | AstExpressionLiteral |
+		//	AstExpressionVariable | "(" AstExpression ")";
 		public ParserRule getRule() { return rule; }
 
-		//AstExpressionList | AstExpressionCall | AstExpressionIf | AstExpressionLiteral | AstExpressionVariable | "("
-		//AstExpression ")"
+		//AstExpressionList | AstExpressionCall | AstExpressionConstruction | AstExpressionIf | AstExpressionLiteral |
+		//AstExpressionVariable | "(" AstExpression ")"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//AstExpressionList
@@ -3912,34 +3913,37 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//AstExpressionCall
 		public RuleCall getAstExpressionCallParserRuleCall_1() { return cAstExpressionCallParserRuleCall_1; }
 
+		//AstExpressionConstruction
+		public RuleCall getAstExpressionConstructionParserRuleCall_2() { return cAstExpressionConstructionParserRuleCall_2; }
+
 		//AstExpressionIf
-		public RuleCall getAstExpressionIfParserRuleCall_2() { return cAstExpressionIfParserRuleCall_2; }
+		public RuleCall getAstExpressionIfParserRuleCall_3() { return cAstExpressionIfParserRuleCall_3; }
 
 		//AstExpressionLiteral
-		public RuleCall getAstExpressionLiteralParserRuleCall_3() { return cAstExpressionLiteralParserRuleCall_3; }
+		public RuleCall getAstExpressionLiteralParserRuleCall_4() { return cAstExpressionLiteralParserRuleCall_4; }
 
 		//AstExpressionVariable
-		public RuleCall getAstExpressionVariableParserRuleCall_4() { return cAstExpressionVariableParserRuleCall_4; }
+		public RuleCall getAstExpressionVariableParserRuleCall_5() { return cAstExpressionVariableParserRuleCall_5; }
 
 		//"(" AstExpression ")"
-		public Group getGroup_5() { return cGroup_5; }
+		public Group getGroup_6() { return cGroup_6; }
 
 		//"("
-		public Keyword getLeftParenthesisKeyword_5_0() { return cLeftParenthesisKeyword_5_0; }
+		public Keyword getLeftParenthesisKeyword_6_0() { return cLeftParenthesisKeyword_6_0; }
 
 		//AstExpression
-		public RuleCall getAstExpressionParserRuleCall_5_1() { return cAstExpressionParserRuleCall_5_1; }
+		public RuleCall getAstExpressionParserRuleCall_6_1() { return cAstExpressionParserRuleCall_6_1; }
 
 		//")"
-		public Keyword getRightParenthesisKeyword_5_2() { return cRightParenthesisKeyword_5_2; }
+		public Keyword getRightParenthesisKeyword_6_2() { return cRightParenthesisKeyword_6_2; }
 	}
 
 	public class AstExpressionCallElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstExpressionCall");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cFunctionAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final CrossReference cFunctionAstVariableCrossReference_0_0 = (CrossReference)cFunctionAssignment_0.eContents().get(0);
-		private final RuleCall cFunctionAstVariableIDTerminalRuleCall_0_0_1 = (RuleCall)cFunctionAstVariableCrossReference_0_0.eContents().get(1);
+		private final CrossReference cFunctionAstFunctionCrossReference_0_0 = (CrossReference)cFunctionAssignment_0.eContents().get(0);
+		private final RuleCall cFunctionAstFunctionIDTerminalRuleCall_0_0_1 = (RuleCall)cFunctionAstFunctionCrossReference_0_0.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Assignment cParametersAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
@@ -3951,20 +3955,20 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//AstExpressionCall:
-		//	function=[AstVariable] "(" (parameters+=AstExpression ("," parameters+=AstExpression)*)? ")";
+		//	function=[AstFunction] "(" (parameters+=AstExpression ("," parameters+=AstExpression)*)? ")";
 		public ParserRule getRule() { return rule; }
 
-		//function=[AstVariable] "(" (parameters+=AstExpression ("," parameters+=AstExpression)*)? ")"
+		//function=[AstFunction] "(" (parameters+=AstExpression ("," parameters+=AstExpression)*)? ")"
 		public Group getGroup() { return cGroup; }
 
-		//function=[AstVariable]
+		//function=[AstFunction]
 		public Assignment getFunctionAssignment_0() { return cFunctionAssignment_0; }
 
-		//[AstVariable]
-		public CrossReference getFunctionAstVariableCrossReference_0_0() { return cFunctionAstVariableCrossReference_0_0; }
+		//[AstFunction]
+		public CrossReference getFunctionAstFunctionCrossReference_0_0() { return cFunctionAstFunctionCrossReference_0_0; }
 
 		//ID
-		public RuleCall getFunctionAstVariableIDTerminalRuleCall_0_0_1() { return cFunctionAstVariableIDTerminalRuleCall_0_0_1; }
+		public RuleCall getFunctionAstFunctionIDTerminalRuleCall_0_0_1() { return cFunctionAstFunctionIDTerminalRuleCall_0_0_1; }
 
 		//"("
 		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
@@ -3992,6 +3996,86 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 
 		//")"
 		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
+	}
+
+	public class AstExpressionConstructionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstExpressionConstruction");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cFunctionAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final CrossReference cFunctionAstTypeNameCrossReference_0_0 = (CrossReference)cFunctionAssignment_0.eContents().get(0);
+		private final RuleCall cFunctionAstTypeNameIDTerminalRuleCall_0_0_1 = (RuleCall)cFunctionAstTypeNameCrossReference_0_0.eContents().get(1);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cColonColonKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cCtorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cCtorIDTerminalRuleCall_1_1_0 = (RuleCall)cCtorAssignment_1_1.eContents().get(0);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cLeftParenthesisKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
+		private final Assignment cParametersAssignment_2_1_0 = (Assignment)cGroup_2_1.eContents().get(0);
+		private final RuleCall cParametersAstExpressionParserRuleCall_2_1_0_0 = (RuleCall)cParametersAssignment_2_1_0.eContents().get(0);
+		private final Group cGroup_2_1_1 = (Group)cGroup_2_1.eContents().get(1);
+		private final Keyword cCommaKeyword_2_1_1_0 = (Keyword)cGroup_2_1_1.eContents().get(0);
+		private final Assignment cParametersAssignment_2_1_1_1 = (Assignment)cGroup_2_1_1.eContents().get(1);
+		private final RuleCall cParametersAstExpressionParserRuleCall_2_1_1_1_0 = (RuleCall)cParametersAssignment_2_1_1_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
+		
+		//AstExpressionConstruction:
+		//	function=[AstTypeName] ("::" ctor=ID)? ("(" (parameters+=AstExpression ("," parameters+=AstExpression)*)? ")")?;
+		public ParserRule getRule() { return rule; }
+
+		//function=[AstTypeName] ("::" ctor=ID)? ("(" (parameters+=AstExpression ("," parameters+=AstExpression)*)? ")")?
+		public Group getGroup() { return cGroup; }
+
+		//function=[AstTypeName]
+		public Assignment getFunctionAssignment_0() { return cFunctionAssignment_0; }
+
+		//[AstTypeName]
+		public CrossReference getFunctionAstTypeNameCrossReference_0_0() { return cFunctionAstTypeNameCrossReference_0_0; }
+
+		//ID
+		public RuleCall getFunctionAstTypeNameIDTerminalRuleCall_0_0_1() { return cFunctionAstTypeNameIDTerminalRuleCall_0_0_1; }
+
+		//("::" ctor=ID)?
+		public Group getGroup_1() { return cGroup_1; }
+
+		//"::"
+		public Keyword getColonColonKeyword_1_0() { return cColonColonKeyword_1_0; }
+
+		//ctor=ID
+		public Assignment getCtorAssignment_1_1() { return cCtorAssignment_1_1; }
+
+		//ID
+		public RuleCall getCtorIDTerminalRuleCall_1_1_0() { return cCtorIDTerminalRuleCall_1_1_0; }
+
+		//("(" (parameters+=AstExpression ("," parameters+=AstExpression)*)? ")")?
+		public Group getGroup_2() { return cGroup_2; }
+
+		//"("
+		public Keyword getLeftParenthesisKeyword_2_0() { return cLeftParenthesisKeyword_2_0; }
+
+		//(parameters+=AstExpression ("," parameters+=AstExpression)*)?
+		public Group getGroup_2_1() { return cGroup_2_1; }
+
+		//parameters+=AstExpression
+		public Assignment getParametersAssignment_2_1_0() { return cParametersAssignment_2_1_0; }
+
+		//AstExpression
+		public RuleCall getParametersAstExpressionParserRuleCall_2_1_0_0() { return cParametersAstExpressionParserRuleCall_2_1_0_0; }
+
+		//("," parameters+=AstExpression)*
+		public Group getGroup_2_1_1() { return cGroup_2_1_1; }
+
+		//","
+		public Keyword getCommaKeyword_2_1_1_0() { return cCommaKeyword_2_1_1_0; }
+
+		//parameters+=AstExpression
+		public Assignment getParametersAssignment_2_1_1_1() { return cParametersAssignment_2_1_1_1; }
+
+		//AstExpression
+		public RuleCall getParametersAstExpressionParserRuleCall_2_1_1_1_0() { return cParametersAstExpressionParserRuleCall_2_1_1_1_0; }
+
+		//")"
+		public Keyword getRightParenthesisKeyword_2_2() { return cRightParenthesisKeyword_2_2; }
 	}
 
 	public class AstExpressionIfElements extends AbstractParserRuleElementFinder {
@@ -5118,6 +5202,7 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	private AstExpressionUnaryElements pAstExpressionUnary;
 	private AstExpressionPostfixElements pAstExpressionPostfix;
 	private AstExpressionCallElements pAstExpressionCall;
+	private AstExpressionConstructionElements pAstExpressionConstruction;
 	private AstExpressionIfElements pAstExpressionIf;
 	private AstExpressionListElements pAstExpressionList;
 	private AstGeneratorElements pAstGenerator;
@@ -5869,8 +5954,8 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AstExpressionPostfix returns AstExpression:
-	//	AstExpressionList | AstExpressionCall | AstExpressionIf | AstExpressionLiteral | AstExpressionVariable | "("
-	//	AstExpression ")";
+	//	AstExpressionList | AstExpressionCall | AstExpressionConstruction | AstExpressionIf | AstExpressionLiteral |
+	//	AstExpressionVariable | "(" AstExpression ")";
 	public AstExpressionPostfixElements getAstExpressionPostfixAccess() {
 		return (pAstExpressionPostfix != null) ? pAstExpressionPostfix : (pAstExpressionPostfix = new AstExpressionPostfixElements());
 	}
@@ -5880,13 +5965,23 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AstExpressionCall:
-	//	function=[AstVariable] "(" (parameters+=AstExpression ("," parameters+=AstExpression)*)? ")";
+	//	function=[AstFunction] "(" (parameters+=AstExpression ("," parameters+=AstExpression)*)? ")";
 	public AstExpressionCallElements getAstExpressionCallAccess() {
 		return (pAstExpressionCall != null) ? pAstExpressionCall : (pAstExpressionCall = new AstExpressionCallElements());
 	}
 	
 	public ParserRule getAstExpressionCallRule() {
 		return getAstExpressionCallAccess().getRule();
+	}
+
+	//AstExpressionConstruction:
+	//	function=[AstTypeName] ("::" ctor=ID)? ("(" (parameters+=AstExpression ("," parameters+=AstExpression)*)? ")")?;
+	public AstExpressionConstructionElements getAstExpressionConstructionAccess() {
+		return (pAstExpressionConstruction != null) ? pAstExpressionConstruction : (pAstExpressionConstruction = new AstExpressionConstructionElements());
+	}
+	
+	public ParserRule getAstExpressionConstructionRule() {
+		return getAstExpressionConstructionAccess().getRule();
 	}
 
 	//AstExpressionIf:

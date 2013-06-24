@@ -285,6 +285,11 @@ public class CalAdapterFactory extends AdapterFactoryImpl
         return createAstExpressionCallAdapter();
       }
       @Override
+      public Adapter caseAstExpressionConstruction(AstExpressionConstruction object)
+      {
+        return createAstExpressionConstructionAdapter();
+      }
+      @Override
       public Adapter caseAstExpressionIf(AstExpressionIf object)
       {
         return createAstExpressionIfAdapter();
@@ -1037,6 +1042,21 @@ public class CalAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAstExpressionCallAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstExpressionConstruction <em>Ast Expression Construction</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.caltoopia.frontend.cal.AstExpressionConstruction
+   * @generated
+   */
+  public Adapter createAstExpressionConstructionAdapter()
   {
     return null;
   }

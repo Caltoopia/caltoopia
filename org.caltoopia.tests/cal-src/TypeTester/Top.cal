@@ -2,20 +2,20 @@ namespace TypeTester:
 import System.io.dprint1;
 
 	type T1 = T1(int i, float f);
-	T1 t = T1(1, 3.14);
+	T1 t = T1::T1(1, 3.14);
 	
 	function F1(int i) --> int: i end
 	int i1 = F1(1);
 	
 	actor Main(int max) T1 In1, T1 In2 ==> T1 Out:
 		
-		T1 t = TypeTester.T1::T1(1, 3.14);
-		int i1 = TypeTester.F1(1);
+		T1 t = T1::T1(1, 3.14);
+		int i1 = F1(1);
 		
 		int intCounter := 0;
 		float floatCounter := 0.0;
 		
-		action In1:[a], In2:[b] ==> Out:[T1(a.i + b.i, a.f + b.f)]
+		action In1:[a], In2:[b] ==> Out:[T1::T1(a.i + b.i, a.f + b.f)]
 		guard 
 			intCounter < max
 		do 
@@ -49,8 +49,8 @@ import System.io.dprint1;
 	
 		entities
 			main = Main(max=10);
-			delay1 = Delay(init=T1(0, 0));
-			delay2 = Delay(init=T1(1, 1));
+			delay1 = Delay(init=T1::T1(0, 0));
+			delay2 = Delay(init=T1::T1(1, 1));
 			sink = Sink();
 
 		structure

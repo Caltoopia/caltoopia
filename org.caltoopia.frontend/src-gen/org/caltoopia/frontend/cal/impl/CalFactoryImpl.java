@@ -106,6 +106,7 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
       case CalPackage.AST_STATEMENT: return createAstStatement();
       case CalPackage.AST_EXPRESSION: return createAstExpression();
       case CalPackage.AST_EXPRESSION_CALL: return createAstExpressionCall();
+      case CalPackage.AST_EXPRESSION_CONSTRUCTION: return createAstExpressionConstruction();
       case CalPackage.AST_EXPRESSION_IF: return createAstExpressionIf();
       case CalPackage.AST_EXPRESSION_LIST: return createAstExpressionList();
       case CalPackage.AST_GENERATOR: return createAstGenerator();
@@ -592,6 +593,17 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
   {
     AstExpressionCallImpl astExpressionCall = new AstExpressionCallImpl();
     return astExpressionCall;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AstExpressionConstruction createAstExpressionConstruction()
+  {
+    AstExpressionConstructionImpl astExpressionConstruction = new AstExpressionConstructionImpl();
+    return astExpressionConstruction;
   }
 
   /**

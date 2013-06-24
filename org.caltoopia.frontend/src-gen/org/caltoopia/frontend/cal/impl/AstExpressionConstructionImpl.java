@@ -5,8 +5,8 @@ package org.caltoopia.frontend.cal.impl;
 import java.util.Collection;
 
 import org.caltoopia.frontend.cal.AstExpression;
-import org.caltoopia.frontend.cal.AstExpressionCall;
-import org.caltoopia.frontend.cal.AstFunction;
+import org.caltoopia.frontend.cal.AstExpressionConstruction;
+import org.caltoopia.frontend.cal.AstTypeName;
 import org.caltoopia.frontend.cal.CalPackage;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -24,19 +24,20 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Ast Expression Call</b></em>'.
+ * An implementation of the model object '<em><b>Ast Expression Construction</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.caltoopia.frontend.cal.impl.AstExpressionCallImpl#getFunction <em>Function</em>}</li>
- *   <li>{@link org.caltoopia.frontend.cal.impl.AstExpressionCallImpl#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link org.caltoopia.frontend.cal.impl.AstExpressionConstructionImpl#getFunction <em>Function</em>}</li>
+ *   <li>{@link org.caltoopia.frontend.cal.impl.AstExpressionConstructionImpl#getCtor <em>Ctor</em>}</li>
+ *   <li>{@link org.caltoopia.frontend.cal.impl.AstExpressionConstructionImpl#getParameters <em>Parameters</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class AstExpressionCallImpl extends AstExpressionImpl implements AstExpressionCall
+public class AstExpressionConstructionImpl extends AstExpressionImpl implements AstExpressionConstruction
 {
   /**
    * The cached value of the '{@link #getFunction() <em>Function</em>}' reference.
@@ -46,7 +47,27 @@ public class AstExpressionCallImpl extends AstExpressionImpl implements AstExpre
    * @generated
    * @ordered
    */
-  protected AstFunction function;
+  protected AstTypeName function;
+
+  /**
+   * The default value of the '{@link #getCtor() <em>Ctor</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getCtor()
+   * @generated
+   * @ordered
+   */
+  protected static final String CTOR_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getCtor() <em>Ctor</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getCtor()
+   * @generated
+   * @ordered
+   */
+  protected String ctor = CTOR_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
@@ -63,7 +84,7 @@ public class AstExpressionCallImpl extends AstExpressionImpl implements AstExpre
    * <!-- end-user-doc -->
    * @generated
    */
-  protected AstExpressionCallImpl()
+  protected AstExpressionConstructionImpl()
   {
     super();
   }
@@ -76,7 +97,7 @@ public class AstExpressionCallImpl extends AstExpressionImpl implements AstExpre
   @Override
   protected EClass eStaticClass()
   {
-    return CalPackage.Literals.AST_EXPRESSION_CALL;
+    return CalPackage.Literals.AST_EXPRESSION_CONSTRUCTION;
   }
 
   /**
@@ -84,16 +105,16 @@ public class AstExpressionCallImpl extends AstExpressionImpl implements AstExpre
    * <!-- end-user-doc -->
    * @generated
    */
-  public AstFunction getFunction()
+  public AstTypeName getFunction()
   {
     if (function != null && function.eIsProxy())
     {
       InternalEObject oldFunction = (InternalEObject)function;
-      function = (AstFunction)eResolveProxy(oldFunction);
+      function = (AstTypeName)eResolveProxy(oldFunction);
       if (function != oldFunction)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CalPackage.AST_EXPRESSION_CALL__FUNCTION, oldFunction, function));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CalPackage.AST_EXPRESSION_CONSTRUCTION__FUNCTION, oldFunction, function));
       }
     }
     return function;
@@ -104,7 +125,7 @@ public class AstExpressionCallImpl extends AstExpressionImpl implements AstExpre
    * <!-- end-user-doc -->
    * @generated
    */
-  public AstFunction basicGetFunction()
+  public AstTypeName basicGetFunction()
   {
     return function;
   }
@@ -114,12 +135,35 @@ public class AstExpressionCallImpl extends AstExpressionImpl implements AstExpre
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setFunction(AstFunction newFunction)
+  public void setFunction(AstTypeName newFunction)
   {
-    AstFunction oldFunction = function;
+    AstTypeName oldFunction = function;
     function = newFunction;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CalPackage.AST_EXPRESSION_CALL__FUNCTION, oldFunction, function));
+      eNotify(new ENotificationImpl(this, Notification.SET, CalPackage.AST_EXPRESSION_CONSTRUCTION__FUNCTION, oldFunction, function));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getCtor()
+  {
+    return ctor;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setCtor(String newCtor)
+  {
+    String oldCtor = ctor;
+    ctor = newCtor;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CalPackage.AST_EXPRESSION_CONSTRUCTION__CTOR, oldCtor, ctor));
   }
 
   /**
@@ -131,7 +175,7 @@ public class AstExpressionCallImpl extends AstExpressionImpl implements AstExpre
   {
     if (parameters == null)
     {
-      parameters = new EObjectContainmentEList<AstExpression>(AstExpression.class, this, CalPackage.AST_EXPRESSION_CALL__PARAMETERS);
+      parameters = new EObjectContainmentEList<AstExpression>(AstExpression.class, this, CalPackage.AST_EXPRESSION_CONSTRUCTION__PARAMETERS);
     }
     return parameters;
   }
@@ -146,7 +190,7 @@ public class AstExpressionCallImpl extends AstExpressionImpl implements AstExpre
   {
     switch (featureID)
     {
-      case CalPackage.AST_EXPRESSION_CALL__PARAMETERS:
+      case CalPackage.AST_EXPRESSION_CONSTRUCTION__PARAMETERS:
         return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -162,10 +206,12 @@ public class AstExpressionCallImpl extends AstExpressionImpl implements AstExpre
   {
     switch (featureID)
     {
-      case CalPackage.AST_EXPRESSION_CALL__FUNCTION:
+      case CalPackage.AST_EXPRESSION_CONSTRUCTION__FUNCTION:
         if (resolve) return getFunction();
         return basicGetFunction();
-      case CalPackage.AST_EXPRESSION_CALL__PARAMETERS:
+      case CalPackage.AST_EXPRESSION_CONSTRUCTION__CTOR:
+        return getCtor();
+      case CalPackage.AST_EXPRESSION_CONSTRUCTION__PARAMETERS:
         return getParameters();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -182,10 +228,13 @@ public class AstExpressionCallImpl extends AstExpressionImpl implements AstExpre
   {
     switch (featureID)
     {
-      case CalPackage.AST_EXPRESSION_CALL__FUNCTION:
-        setFunction((AstFunction)newValue);
+      case CalPackage.AST_EXPRESSION_CONSTRUCTION__FUNCTION:
+        setFunction((AstTypeName)newValue);
         return;
-      case CalPackage.AST_EXPRESSION_CALL__PARAMETERS:
+      case CalPackage.AST_EXPRESSION_CONSTRUCTION__CTOR:
+        setCtor((String)newValue);
+        return;
+      case CalPackage.AST_EXPRESSION_CONSTRUCTION__PARAMETERS:
         getParameters().clear();
         getParameters().addAll((Collection<? extends AstExpression>)newValue);
         return;
@@ -203,10 +252,13 @@ public class AstExpressionCallImpl extends AstExpressionImpl implements AstExpre
   {
     switch (featureID)
     {
-      case CalPackage.AST_EXPRESSION_CALL__FUNCTION:
-        setFunction((AstFunction)null);
+      case CalPackage.AST_EXPRESSION_CONSTRUCTION__FUNCTION:
+        setFunction((AstTypeName)null);
         return;
-      case CalPackage.AST_EXPRESSION_CALL__PARAMETERS:
+      case CalPackage.AST_EXPRESSION_CONSTRUCTION__CTOR:
+        setCtor(CTOR_EDEFAULT);
+        return;
+      case CalPackage.AST_EXPRESSION_CONSTRUCTION__PARAMETERS:
         getParameters().clear();
         return;
     }
@@ -223,12 +275,31 @@ public class AstExpressionCallImpl extends AstExpressionImpl implements AstExpre
   {
     switch (featureID)
     {
-      case CalPackage.AST_EXPRESSION_CALL__FUNCTION:
+      case CalPackage.AST_EXPRESSION_CONSTRUCTION__FUNCTION:
         return function != null;
-      case CalPackage.AST_EXPRESSION_CALL__PARAMETERS:
+      case CalPackage.AST_EXPRESSION_CONSTRUCTION__CTOR:
+        return CTOR_EDEFAULT == null ? ctor != null : !CTOR_EDEFAULT.equals(ctor);
+      case CalPackage.AST_EXPRESSION_CONSTRUCTION__PARAMETERS:
         return parameters != null && !parameters.isEmpty();
     }
     return super.eIsSet(featureID);
   }
 
-} //AstExpressionCallImpl
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (ctor: ");
+    result.append(ctor);
+    result.append(')');
+    return result.toString();
+  }
+
+} //AstExpressionConstructionImpl

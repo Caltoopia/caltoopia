@@ -32,12 +32,12 @@ public interface AstExpressionCall extends AstExpression
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Function</em>' reference.
-   * @see #setFunction(AstVariable)
+   * @see #setFunction(AstFunction)
    * @see org.caltoopia.frontend.cal.CalPackage#getAstExpressionCall_Function()
    * @model
    * @generated
    */
-  AstVariable getFunction();
+  AstFunction getFunction();
 
   /**
    * Sets the value of the '{@link org.caltoopia.frontend.cal.AstExpressionCall#getFunction <em>Function</em>}' reference.
@@ -47,7 +47,7 @@ public interface AstExpressionCall extends AstExpression
    * @see #getFunction()
    * @generated
    */
-  void setFunction(AstVariable value);
+  void setFunction(AstFunction value);
 
   /**
    * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.

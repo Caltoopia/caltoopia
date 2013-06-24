@@ -18,6 +18,7 @@ import org.caltoopia.frontend.cal.AstExpression;
 import org.caltoopia.frontend.cal.AstExpressionBinary;
 import org.caltoopia.frontend.cal.AstExpressionBoolean;
 import org.caltoopia.frontend.cal.AstExpressionCall;
+import org.caltoopia.frontend.cal.AstExpressionConstruction;
 import org.caltoopia.frontend.cal.AstExpressionFloat;
 import org.caltoopia.frontend.cal.AstExpressionIf;
 import org.caltoopia.frontend.cal.AstExpressionInteger;
@@ -376,6 +377,13 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * @generated
    */
   private EClass astExpressionCallEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass astExpressionConstructionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -2032,6 +2040,46 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getAstExpressionConstruction()
+  {
+    return astExpressionConstructionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAstExpressionConstruction_Function()
+  {
+    return (EReference)astExpressionConstructionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAstExpressionConstruction_Ctor()
+  {
+    return (EAttribute)astExpressionConstructionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAstExpressionConstruction_Parameters()
+  {
+    return (EReference)astExpressionConstructionEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getAstExpressionIf()
   {
     return astExpressionIfEClass;
@@ -2863,6 +2911,11 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     createEReference(astExpressionCallEClass, AST_EXPRESSION_CALL__FUNCTION);
     createEReference(astExpressionCallEClass, AST_EXPRESSION_CALL__PARAMETERS);
 
+    astExpressionConstructionEClass = createEClass(AST_EXPRESSION_CONSTRUCTION);
+    createEReference(astExpressionConstructionEClass, AST_EXPRESSION_CONSTRUCTION__FUNCTION);
+    createEAttribute(astExpressionConstructionEClass, AST_EXPRESSION_CONSTRUCTION__CTOR);
+    createEReference(astExpressionConstructionEClass, AST_EXPRESSION_CONSTRUCTION__PARAMETERS);
+
     astExpressionIfEClass = createEClass(AST_EXPRESSION_IF);
     createEReference(astExpressionIfEClass, AST_EXPRESSION_IF__CONDITION);
     createEReference(astExpressionIfEClass, AST_EXPRESSION_IF__THEN);
@@ -2991,6 +3044,7 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     astStatementIfEClass.getESuperTypes().add(this.getAstStatement());
     astStatementWhileEClass.getESuperTypes().add(this.getAstStatement());
     astExpressionCallEClass.getESuperTypes().add(this.getAstExpression());
+    astExpressionConstructionEClass.getESuperTypes().add(this.getAstExpression());
     astExpressionIfEClass.getESuperTypes().add(this.getAstExpression());
     astExpressionListEClass.getESuperTypes().add(this.getAstExpression());
     astExpressionVariableEClass.getESuperTypes().add(this.getAstExpression());
@@ -3190,8 +3244,13 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     initEClass(astExpressionEClass, AstExpression.class, "AstExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(astExpressionCallEClass, AstExpressionCall.class, "AstExpressionCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAstExpressionCall_Function(), this.getAstVariable(), null, "function", null, 0, 1, AstExpressionCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAstExpressionCall_Function(), this.getAstFunction(), null, "function", null, 0, 1, AstExpressionCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstExpressionCall_Parameters(), this.getAstExpression(), null, "parameters", null, 0, -1, AstExpressionCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(astExpressionConstructionEClass, AstExpressionConstruction.class, "AstExpressionConstruction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAstExpressionConstruction_Function(), this.getAstTypeName(), null, "function", null, 0, 1, AstExpressionConstruction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAstExpressionConstruction_Ctor(), ecorePackage.getEString(), "ctor", null, 0, 1, AstExpressionConstruction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAstExpressionConstruction_Parameters(), this.getAstExpression(), null, "parameters", null, 0, -1, AstExpressionConstruction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(astExpressionIfEClass, AstExpressionIf.class, "AstExpressionIf", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAstExpressionIf_Condition(), this.getAstExpression(), null, "condition", null, 0, 1, AstExpressionIf.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

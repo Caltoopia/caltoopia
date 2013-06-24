@@ -217,10 +217,15 @@ public class CalParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAstExpressionExpAccess().getGroup(), "rule__AstExpressionExp__Group__0");
 					put(grammarAccess.getAstExpressionExpAccess().getGroup_1(), "rule__AstExpressionExp__Group_1__0");
 					put(grammarAccess.getAstExpressionUnaryAccess().getGroup_0(), "rule__AstExpressionUnary__Group_0__0");
-					put(grammarAccess.getAstExpressionPostfixAccess().getGroup_5(), "rule__AstExpressionPostfix__Group_5__0");
+					put(grammarAccess.getAstExpressionPostfixAccess().getGroup_6(), "rule__AstExpressionPostfix__Group_6__0");
 					put(grammarAccess.getAstExpressionCallAccess().getGroup(), "rule__AstExpressionCall__Group__0");
 					put(grammarAccess.getAstExpressionCallAccess().getGroup_2(), "rule__AstExpressionCall__Group_2__0");
 					put(grammarAccess.getAstExpressionCallAccess().getGroup_2_1(), "rule__AstExpressionCall__Group_2_1__0");
+					put(grammarAccess.getAstExpressionConstructionAccess().getGroup(), "rule__AstExpressionConstruction__Group__0");
+					put(grammarAccess.getAstExpressionConstructionAccess().getGroup_1(), "rule__AstExpressionConstruction__Group_1__0");
+					put(grammarAccess.getAstExpressionConstructionAccess().getGroup_2(), "rule__AstExpressionConstruction__Group_2__0");
+					put(grammarAccess.getAstExpressionConstructionAccess().getGroup_2_1(), "rule__AstExpressionConstruction__Group_2_1__0");
+					put(grammarAccess.getAstExpressionConstructionAccess().getGroup_2_1_1(), "rule__AstExpressionConstruction__Group_2_1_1__0");
 					put(grammarAccess.getAstExpressionIfAccess().getGroup(), "rule__AstExpressionIf__Group__0");
 					put(grammarAccess.getAstExpressionListAccess().getGroup(), "rule__AstExpressionList__Group__0");
 					put(grammarAccess.getAstExpressionListAccess().getGroup_2(), "rule__AstExpressionList__Group_2__0");
@@ -456,6 +461,10 @@ public class CalParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAstExpressionCallAccess().getFunctionAssignment_0(), "rule__AstExpressionCall__FunctionAssignment_0");
 					put(grammarAccess.getAstExpressionCallAccess().getParametersAssignment_2_0(), "rule__AstExpressionCall__ParametersAssignment_2_0");
 					put(grammarAccess.getAstExpressionCallAccess().getParametersAssignment_2_1_1(), "rule__AstExpressionCall__ParametersAssignment_2_1_1");
+					put(grammarAccess.getAstExpressionConstructionAccess().getFunctionAssignment_0(), "rule__AstExpressionConstruction__FunctionAssignment_0");
+					put(grammarAccess.getAstExpressionConstructionAccess().getCtorAssignment_1_1(), "rule__AstExpressionConstruction__CtorAssignment_1_1");
+					put(grammarAccess.getAstExpressionConstructionAccess().getParametersAssignment_2_1_0(), "rule__AstExpressionConstruction__ParametersAssignment_2_1_0");
+					put(grammarAccess.getAstExpressionConstructionAccess().getParametersAssignment_2_1_1_1(), "rule__AstExpressionConstruction__ParametersAssignment_2_1_1_1");
 					put(grammarAccess.getAstExpressionIfAccess().getConditionAssignment_1(), "rule__AstExpressionIf__ConditionAssignment_1");
 					put(grammarAccess.getAstExpressionIfAccess().getThenAssignment_3(), "rule__AstExpressionIf__ThenAssignment_3");
 					put(grammarAccess.getAstExpressionIfAccess().getElseAssignment_5(), "rule__AstExpressionIf__ElseAssignment_5");

@@ -392,13 +392,17 @@ AstExpressionUnary returns AstExpression:
 AstExpressionPostfix returns AstExpression:
 	AstExpressionList
 	| AstExpressionCall
+	| AstExpressionConstruction
 	| AstExpressionIf
     | AstExpressionLiteral
     | AstExpressionVariable
     | '(' AstExpression ')';
 
 AstExpressionCall:
-	function=[AstVariable] '(' (parameters += AstExpression (',' parameters += AstExpression)*)? ')';
+	function=[AstFunction] '(' (parameters += AstExpression (',' parameters += AstExpression)*)? ')';
+			
+AstExpressionConstruction:
+	function=[AstTypeName] ('::' ctor = ID)? ('(' (parameters += AstExpression (',' parameters += AstExpression)*)? ')')?;
 
 AstExpressionIf:
 	'if' condition=AstExpression

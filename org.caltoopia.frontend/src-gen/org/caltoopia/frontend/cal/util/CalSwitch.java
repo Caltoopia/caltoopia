@@ -381,6 +381,14 @@ public class CalSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case CalPackage.AST_EXPRESSION_CONSTRUCTION:
+      {
+        AstExpressionConstruction astExpressionConstruction = (AstExpressionConstruction)theEObject;
+        T result = caseAstExpressionConstruction(astExpressionConstruction);
+        if (result == null) result = caseAstExpression(astExpressionConstruction);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case CalPackage.AST_EXPRESSION_IF:
       {
         AstExpressionIf astExpressionIf = (AstExpressionIf)theEObject;
@@ -1218,6 +1226,22 @@ public class CalSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAstExpressionCall(AstExpressionCall object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Ast Expression Construction</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Ast Expression Construction</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAstExpressionConstruction(AstExpressionConstruction object)
   {
     return null;
   }

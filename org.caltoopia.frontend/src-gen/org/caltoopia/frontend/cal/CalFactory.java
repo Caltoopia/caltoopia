@@ -401,6 +401,15 @@ public interface CalFactory extends EFactory
   AstExpressionCall createAstExpressionCall();
 
   /**
+   * Returns a new object of class '<em>Ast Expression Construction</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ast Expression Construction</em>'.
+   * @generated
+   */
+  AstExpressionConstruction createAstExpressionConstruction();
+
+  /**
    * Returns a new object of class '<em>Ast Expression If</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
