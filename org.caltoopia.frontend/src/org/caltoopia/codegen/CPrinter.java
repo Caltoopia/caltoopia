@@ -66,6 +66,7 @@ import org.caltoopia.ir.BooleanLiteral;
 import org.caltoopia.ir.Connection;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
+import org.caltoopia.ir.ExternalActor;
 import org.caltoopia.ir.FloatLiteral;
 import org.caltoopia.ir.ForEach;
 import org.caltoopia.ir.ForwardDeclaration;
@@ -779,7 +780,12 @@ public class CPrinter extends IrSwitch<Stream> {
 							actorClassName = actorInstanceName; 
 						}
 						s.println(actorInstanceName + " = createActorInstance(&ActorClass_" + actorClassName + ");");
-						if(type.getName().startsWith("art_")) {
+						AbstractActor aactor = null;
+						try {
+							aactor = ActorDirectory.findActor((TypeActor) actor.getType());
+						} catch (DirectoryException x) {
+						}
+						if(type.getName().startsWith("art_") || aactor instanceof ExternalActor) {
 							for(TaggedExpression param : actor.getActualParameters()) {
 		                        s.print("setParameter(" + actorInstanceName + ", \"" + param.getTag() + "\", ");
 		                        if(param.getExpression().getType() instanceof TypeString || param.getExpression() instanceof StringLiteral) {
