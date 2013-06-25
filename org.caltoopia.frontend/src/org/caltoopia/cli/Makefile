@@ -32,7 +32,7 @@ endif
 OBJECTS=$(SOURCES:.c=.o)
 LDLIBS += -lactors-rts -lpthread -lxml2 
 ifeq ($(TARGET), linux)
-LDLIBS += -lrt
+LDLIBS += -ldl -lm -lrt
 endif
 CFLAGS += -g -c -DTRACE
 CINCLUDES += -I$(RUNTIME_ROOT)/include
