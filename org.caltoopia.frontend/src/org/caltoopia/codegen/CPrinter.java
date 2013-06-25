@@ -1153,7 +1153,7 @@ public class CPrinter extends IrSwitch<Stream> {
 		return s;
 	}
 
-	private List<Annotation> collectAnnotations(VariableExternal var, Namespace ns) {
+	static public List<Annotation> collectAnnotations(VariableExternal var, Namespace ns) {
 		List<Annotation> annotations = new ArrayList<Annotation>();
 		annotations.addAll(var.getAnnotations());
 		if(ns!=null) {
@@ -1178,7 +1178,20 @@ public class CPrinter extends IrSwitch<Stream> {
 		return annotations;
 	}
 
-	private Map<String,String> getExternAnnotations(List<Annotation> annotations) {
+	static public List<Annotation> collectActorAnnotations(AbstractActor var, Namespace ns) {
+		List<Annotation> annotations = new ArrayList<Annotation>();
+		annotations.addAll(var.getAnnotations());
+		if(ns!=null) {
+			annotations.addAll(ns.getAnnotations());
+			while(ns.getOuter() instanceof Namespace) {
+				ns = (Namespace) ns.getOuter();
+				annotations.addAll(ns.getAnnotations());
+			}
+		}
+		return annotations;
+	}
+
+	static public Map<String,String> getExternAnnotations(List<Annotation> annotations) {
 		Map<String,String> args = new HashMap<String,String>();
 		String path = null;
 		for(Annotation a : annotations) {
@@ -1220,7 +1233,7 @@ public class CPrinter extends IrSwitch<Stream> {
 		return args;
 	}
 	
-	private String externalCName(Map<String,String> aargs, VariableExternal var) {
+	static public String externalCName(Map<String,String> aargs, VariableExternal var) {
 		String ret = "";
 		if(aargs.containsKey(EXTERN_ANNOTATION_CPREFIX)) {
 			ret += aargs.get(EXTERN_ANNOTATION_CPREFIX);
@@ -1233,7 +1246,7 @@ public class CPrinter extends IrSwitch<Stream> {
 		return ret;
 	}
 
-	private Set<String> externalCInclude(Map<String,String> aargs, VariableExternal var) {
+	static public Set<String> externalCInclude(Map<String,String> aargs, VariableExternal var) {
 		Set<String> ret = new HashSet<String>();
 		if(aargs.containsKey(EXTERN_ANNOTATION_CHEADER)) {
 			String headerstr = aargs.get(EXTERN_ANNOTATION_CHEADER);
@@ -1246,17 +1259,21 @@ public class CPrinter extends IrSwitch<Stream> {
 	}
 	
 	private void toEnv(Map<String,String> aargs) {
+		toEnvEnv(aargs, cenv);
+	}
+
+	static public void toEnvEnv(Map<String,String> aargs, CEnvironment env) {
 		if(aargs.containsKey(EXTERN_ANNOTATION_CSOURCES)) {
-			cenv.sources += aargs.get(EXTERN_ANNOTATION_CSOURCES) + ",";
+			env.sources += aargs.get(EXTERN_ANNOTATION_CSOURCES) + ",";
 		}
 		if(aargs.containsKey(EXTERN_ANNOTATION_CINCLUDEPATH)) {
-			cenv.includePaths += aargs.get(EXTERN_ANNOTATION_CINCLUDEPATH) + ",";
+			env.includePaths += aargs.get(EXTERN_ANNOTATION_CINCLUDEPATH) + ",";
 		}
 		if(aargs.containsKey(EXTERN_ANNOTATION_CLIB)) {
-			cenv.libraries += aargs.get(EXTERN_ANNOTATION_CLIB) + ",";
+			env.libraries += aargs.get(EXTERN_ANNOTATION_CLIB) + ",";
 		}
 		if(aargs.containsKey(EXTERN_ANNOTATION_CLIBPATH)) {
-			cenv.libraryPaths += aargs.get(EXTERN_ANNOTATION_CLIBPATH) + ",";
+			env.libraryPaths += aargs.get(EXTERN_ANNOTATION_CLIBPATH) + ",";
 		}
 	}
 

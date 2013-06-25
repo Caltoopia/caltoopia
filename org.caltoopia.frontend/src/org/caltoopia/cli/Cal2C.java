@@ -51,6 +51,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 
@@ -68,7 +69,9 @@ import org.caltoopia.frontend.CalStandaloneSetup;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Actor;
 import org.caltoopia.ir.ActorInstance;
+import org.caltoopia.ir.Annotation;
 import org.caltoopia.ir.ExternalActor;
+import org.caltoopia.ir.Namespace;
 import org.caltoopia.ir.TypeActor;
 import org.caltoopia.types.TypeMatchDeclaration;
 import org.eclipse.xtext.resource.XtextResourceSet;
@@ -353,6 +356,13 @@ public class Cal2C {
 						} else if(actor instanceof ExternalActor) {
 							if(nsName.equals("ART") && actor.getType().getName().equals("art_Display_yuv"))
 								needSdl="y";
+							Namespace ns = null;
+							try {
+								ns = ActorDirectory.findNamespace(((TypeActor) instance.getType()).getNamespace());
+							} catch (DirectoryException ee) {}
+							List<Annotation> allAnnotations = CPrinter.collectActorAnnotations(actor, ns);
+							Map<String,String> externAnnotations = CPrinter.getExternAnnotations(allAnnotations);
+							CPrinter.toEnvEnv(externAnnotations,env);
 						}
 					} catch (DirectoryException x) {
 						out.println("error: actor '" + ((TypeActor) instance.getType()).getName() + "' not found");
