@@ -51,7 +51,7 @@ import org.caltoopia.frontend.cal.AstAssignParameter;
 import org.caltoopia.frontend.cal.AstConnection;
 import org.caltoopia.frontend.cal.AstConnectionAttribute;
 import org.caltoopia.frontend.cal.AstConstructor;
-import org.caltoopia.frontend.cal.AstExpressionVariable;
+import org.caltoopia.frontend.cal.AstExpressionSymbolReference;
 import org.caltoopia.frontend.cal.AstExternalActor;
 import org.caltoopia.frontend.cal.AstForeachGenerator;
 import org.caltoopia.frontend.cal.AstMemberAccess;
@@ -221,17 +221,17 @@ public class Ast2Ir extends CalSwitch<EObject> {
 				// NB Only external procedures are allow.
 				Declaration def =  Util.createForwardProcedureDeclaration(scopeStack.peek(), (AstProcedure) data.getData());				                                                                                   
 				ns.getDeclarations().add(def);
-			} else if (data.getData() instanceof AstVariable) {
-				AstVariable var = (AstVariable) data.getData();
-				Util.createVariable(scopeStack.peek(), var, false);
 			} else if (data.getData() instanceof AstTypeName) {
 				TypeDeclaration typeDecl  = TypeConverter.createTypeDeclaration(scopeStack.peek(), (AstTypeName) data.getData(), false);
 				ns.getDeclarations().add(typeDecl);		
-				for (AstVariable tc : ((AstTypeName) data.getData()).getConstructor()) {				
+				for (AstConstructor tc : ((AstTypeName) data.getData()).getConstructor()) {				
 					TypeConstructor  typeConstructor  = Util.createTypeConstructor(typeDecl, (AstConstructor) tc, false);
 					typeDecl.setConstructor(typeConstructor);
 				}
-			} 
+			} else if (data.getData() instanceof AstVariable) {
+				AstVariable var = (AstVariable) data.getData();
+				Util.createVariable(scopeStack.peek(), var, false);
+			}
 			
 			else {
 				throw new RuntimeException("Internal meltdown. Fire the developer.");
@@ -262,8 +262,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 			actor.getAnnotations().add(Util.createPathAnnotation(filePath));
 			actor.getAnnotations().add(Util.createProjectAnnotation(projectPath));
 			ActorDirectory.addActor(actor, projectPath);
-		}
-		
+		}	
 		
 		for (AstNamespace astSubNamespace : astNamespace.getNamespaces()) {
 			// Do all subnetworks 
@@ -751,11 +750,11 @@ public class Ast2Ir extends CalSwitch<EObject> {
 							
 			new VoidSwitch() {
 				@Override
-				public Void caseAstExpressionVariable(AstExpressionVariable e)  {
-					if (e.getValue().getVariable().eContainer() instanceof AstInputPattern)  {
-						AstInputPattern inputs = (AstInputPattern) e.getValue().getVariable().eContainer();
+				public Void caseAstExpressionSymbolReference(AstExpressionSymbolReference e)  {
+					if (e.getSymbol().eContainer() instanceof AstInputPattern)  {
+						AstInputPattern inputs = (AstInputPattern) e.getSymbol().eContainer();
 						Port port = Util.createInputPort(scopeStack.peek(), inputs, false);						
-						AstVariable token = e.getValue().getVariable();
+						AstVariable token = e.getSymbol();
 						int position = inputs.getTokens().indexOf(token);
 						
 						PortPeek portPeek = IrFactory.eINSTANCE.createPortPeek();
@@ -766,7 +765,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 							portPeek.setRepeat(repeat);
 						}
 						
-						Variable varDecl = (Variable) Util.findIrDeclaration(e.getValue().getVariable());
+						Variable varDecl = (Variable) Util.findIrDeclaration(e.getSymbol());
 						portPeek.setPort(port);
 						portPeek.setPosition(position);
 						VariableReference varRef = Util.createVariableReference(varDecl);
@@ -776,8 +775,9 @@ public class Ast2Ir extends CalSwitch<EObject> {
 						}
 						portPeek.setVariable(varRef);
 						peeks.add(portPeek);
+						
 					}
-					return null;
+					return super.caseAstExpressionSymbolReference(e);
 				}
 			}.doSwitch(e);
 			
@@ -824,7 +824,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 			}
 
 			for (AstExpression e : outputs.getValues()) {
-				if(e instanceof AstExpressionVariable) {
+				if(e instanceof AstExpressionSymbolReference && !(((AstExpressionSymbolReference) e).getSymbol() instanceof AstFunction)) {
 					portWrite.getExpressions().add(CreateIrExpression.convert(scopeStack.peek(), e));
 					action.getOutputs().add(portWrite);					
 				} else {
@@ -947,7 +947,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 		
 	@Override
 	public EObject caseAstStatementAssign(AstStatementAssign astAssign) {
-		Variable varDecl = (Variable) Util.findIrDeclaration(astAssign.getTarget().getVariable()); 
+		Variable varDecl = (Variable) Util.findIrDeclaration(astAssign.getTarget()); 
 		VariableReference varRef = Util.createVariableReference(varDecl);
 		for (AstExpression e : astAssign.getIndexes()) {
 			Expression expr = CreateIrExpression.convert(scopeStack.peek(), e);

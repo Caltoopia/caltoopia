@@ -81,6 +81,7 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
       case CalPackage.AST_VARIABLE: return createAstVariable();
       case CalPackage.AST_TYPE_NAME: return createAstTypeName();
       case CalPackage.AST_TYPE_DEFINITION_PARAMETER: return createAstTypeDefinitionParameter();
+      case CalPackage.AST_CONSTRUCTOR: return createAstConstructor();
       case CalPackage.AST_ACTOR: return createAstActor();
       case CalPackage.AST_PORT: return createAstPort();
       case CalPackage.AST_EXTERNAL_FUNCTION: return createAstExternalFunction();
@@ -105,12 +106,10 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
       case CalPackage.AST_STATEMENT_WHILE: return createAstStatementWhile();
       case CalPackage.AST_STATEMENT: return createAstStatement();
       case CalPackage.AST_EXPRESSION: return createAstExpression();
-      case CalPackage.AST_EXPRESSION_CALL: return createAstExpressionCall();
-      case CalPackage.AST_EXPRESSION_CONSTRUCTION: return createAstExpressionConstruction();
+      case CalPackage.AST_EXPRESSION_SYMBOL_REFERENCE: return createAstExpressionSymbolReference();
       case CalPackage.AST_EXPRESSION_IF: return createAstExpressionIf();
       case CalPackage.AST_EXPRESSION_LIST: return createAstExpressionList();
       case CalPackage.AST_GENERATOR: return createAstGenerator();
-      case CalPackage.AST_EXPRESSION_VARIABLE: return createAstExpressionVariable();
       case CalPackage.AST_EXPRESSION_LITERAL: return createAstExpressionLiteral();
       case CalPackage.AST_EXPRESSION_BOOLEAN: return createAstExpressionBoolean();
       case CalPackage.AST_EXPRESSION_FLOAT: return createAstExpressionFloat();
@@ -119,11 +118,10 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
       case CalPackage.AST_TYPE: return createAstType();
       case CalPackage.AST_TYPE_PARAMETER_LIST: return createAstTypeParameterList();
       case CalPackage.AST_TYPE_PARAM: return createAstTypeParam();
-      case CalPackage.AST_VARIABLE_REFERENCE: return createAstVariableReference();
       case CalPackage.AST_MEMBER_ACCESS: return createAstMemberAccess();
       case CalPackage.AST_ANNOTATION: return createAstAnnotation();
       case CalPackage.AST_ANNOTATION_ARGUMENT: return createAstAnnotationArgument();
-      case CalPackage.AST_CONSTRUCTOR: return createAstConstructor();
+      case CalPackage.AST_ANONYMOUS_CONSTRUCTOR: return createAstAnonymousConstructor();
       case CalPackage.AST_FUNCTION: return createAstFunction();
       case CalPackage.AST_INITIALIZE: return createAstInitialize();
       case CalPackage.AST_EXPRESSION_BINARY: return createAstExpressionBinary();
@@ -318,6 +316,17 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
   {
     AstTypeDefinitionParameterImpl astTypeDefinitionParameter = new AstTypeDefinitionParameterImpl();
     return astTypeDefinitionParameter;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AstConstructor createAstConstructor()
+  {
+    AstConstructorImpl astConstructor = new AstConstructorImpl();
+    return astConstructor;
   }
 
   /**
@@ -589,21 +598,10 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public AstExpressionCall createAstExpressionCall()
+  public AstExpressionSymbolReference createAstExpressionSymbolReference()
   {
-    AstExpressionCallImpl astExpressionCall = new AstExpressionCallImpl();
-    return astExpressionCall;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public AstExpressionConstruction createAstExpressionConstruction()
-  {
-    AstExpressionConstructionImpl astExpressionConstruction = new AstExpressionConstructionImpl();
-    return astExpressionConstruction;
+    AstExpressionSymbolReferenceImpl astExpressionSymbolReference = new AstExpressionSymbolReferenceImpl();
+    return astExpressionSymbolReference;
   }
 
   /**
@@ -637,17 +635,6 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
   {
     AstGeneratorImpl astGenerator = new AstGeneratorImpl();
     return astGenerator;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public AstExpressionVariable createAstExpressionVariable()
-  {
-    AstExpressionVariableImpl astExpressionVariable = new AstExpressionVariableImpl();
-    return astExpressionVariable;
   }
 
   /**
@@ -743,17 +730,6 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public AstVariableReference createAstVariableReference()
-  {
-    AstVariableReferenceImpl astVariableReference = new AstVariableReferenceImpl();
-    return astVariableReference;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public AstMemberAccess createAstMemberAccess()
   {
     AstMemberAccessImpl astMemberAccess = new AstMemberAccessImpl();
@@ -787,10 +763,10 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public AstConstructor createAstConstructor()
+  public AstAnonymousConstructor createAstAnonymousConstructor()
   {
-    AstConstructorImpl astConstructor = new AstConstructorImpl();
-    return astConstructor;
+    AstAnonymousConstructorImpl astAnonymousConstructor = new AstAnonymousConstructorImpl();
+    return astAnonymousConstructor;
   }
 
   /**

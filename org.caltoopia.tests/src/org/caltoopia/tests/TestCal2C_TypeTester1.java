@@ -43,7 +43,7 @@ import org.junit.Test;
 
 public class TestCal2C_TypeTester1 {
 
-	@Test
+	//@Test
 	public void test() {
 		String args[] = {"--top", "TypeTester.Test1", 
 				         "--path", Util.getCalAppsDir() + "TypeTester" + ":" + Util.getCalAppsDir() + "System",

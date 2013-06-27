@@ -1,14 +1,22 @@
 namespace TypeTester:
 import System.io.dprint1;
 
-	type T1 = T1(int i, float f);
-	T1 t = T1::T1(1, 3.14);
+	type T1 : A(int i, float f) end
+	type T2 : A(int i, int i2) | B(int j, int j2) | C end
+	type T3 : (int i, int j) end
+	
+	T1 t1a = T1::A(1, 3.14);
+	T1 t1b = T1(1, 3.14);
+	T3 t3a = T3(1, 2);
+
+	int i = 0;
 	
 	function F1(int i) --> int: i end
 	int i1 = F1(1);
 	
 	actor Main(int max) T1 In1, T1 In2 ==> T1 Out:
 		
+		int xxx = max;
 		T1 t = T1::T1(1, 3.14);
 		int i1 = F1(1);
 		
@@ -20,6 +28,14 @@ import System.io.dprint1;
 			intCounter < max
 		do 
 			intCounter := intCounter + 1;	
+			/* 
+			switch a do
+			  A(1, y) : end
+			  A(x, y) guard x > 2 : end
+			  A(x:=2, y:=2) : end  
+			  A(_, j) : end			  
+			end
+			*/
 		end 
 	end
 

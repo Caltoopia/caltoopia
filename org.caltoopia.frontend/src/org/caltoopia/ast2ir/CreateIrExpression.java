@@ -38,22 +38,21 @@ package org.caltoopia.ast2ir;
 
 import java.util.List;
 import org.eclipse.emf.ecore.EObject;
+import org.caltoopia.frontend.cal.AstConstructor;
 import org.caltoopia.frontend.cal.AstExpression;
 import org.caltoopia.frontend.cal.AstExpressionBinary;
 import org.caltoopia.frontend.cal.AstExpressionBoolean;
-import org.caltoopia.frontend.cal.AstExpressionCall;
 import org.caltoopia.frontend.cal.AstExpressionFloat;
 import org.caltoopia.frontend.cal.AstExpressionIf;
 import org.caltoopia.frontend.cal.AstExpressionInteger;
 import org.caltoopia.frontend.cal.AstExpressionList;
 import org.caltoopia.frontend.cal.AstExpressionString;
+import org.caltoopia.frontend.cal.AstExpressionSymbolReference;
 import org.caltoopia.frontend.cal.AstExpressionUnary;
-import org.caltoopia.frontend.cal.AstExpressionVariable;
 import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstGenerator;
 import org.caltoopia.frontend.cal.AstMemberAccess;
 import org.caltoopia.frontend.cal.AstTypeName;
-import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.cal.util.CalSwitch;
 import org.caltoopia.ir.BinaryExpression;
 import org.caltoopia.ir.IfExpression;
@@ -169,9 +168,9 @@ public class CreateIrExpression extends CalSwitch<Expression> {
 	}
 
 	@Override
-	public Expression caseAstExpressionCall(AstExpressionCall e) {
-		if(e.getFunction() instanceof AstFunction) {
-			Declaration funDecl = (Declaration) Util.findIrDeclaration(e.getFunction());
+	public Expression caseAstExpressionSymbolReference(AstExpressionSymbolReference e) {
+		if(e.getSymbol() instanceof AstFunction) {
+			Declaration funDecl = (Declaration) Util.findIrDeclaration(e.getSymbol());
 			
 			FunctionCall result = IrFactory.eINSTANCE.createFunctionCall();
 			result.setId(Util.getDefinitionId());
@@ -189,13 +188,13 @@ public class CreateIrExpression extends CalSwitch<Expression> {
 			}
 			
 			return result;
-		} else {
+		} else if (e.getSymbol() instanceof AstConstructor){
 			TypeConstructorCall result = IrFactory.eINSTANCE.createTypeConstructorCall();
 			result.setId(Util.getDefinitionId());
 			result.setContext(currentScope);
 			
-			result.setName(e.getFunction().getName());
-			AstTypeName astTypedef = (AstTypeName) e.getFunction().eContainer();
+			result.setName(e.getSymbol().getName());
+			AstTypeName astTypedef = (AstTypeName) e.getSymbol().eContainer();
 			Declaration typedef = Util.findIrDeclaration(astTypedef);
 			result.setTypedef(typedef);			
 			
@@ -203,6 +202,25 @@ public class CreateIrExpression extends CalSwitch<Expression> {
 				result.getParameters().add(doSwitch(p));
 			}
 
+			return result;			
+		} else {
+			VariableExpression result = IrFactory.eINSTANCE.createVariableExpression();
+			result.setId(Util.getDefinitionId());
+			result.setContext(currentScope);
+			
+			Declaration decl = Util.findIrDeclaration(e.getSymbol());
+			result.setVariable(decl);
+				
+			for (AstExpression i : e.getIndexes()) {
+				Expression ve = convert(currentScope, i);
+				result.getIndex().add(ve);
+			}
+			
+			for (AstMemberAccess mv : e.getMember()) {
+				Member m = Util.createMemberAccess(mv, currentScope);
+				result.getMember().add(m);
+			}
+						
 			return result;			
 		}
 	}
@@ -216,29 +234,6 @@ public class CreateIrExpression extends CalSwitch<Expression> {
 		result.setOperator(e.getUnaryOperator());
 		result.setOperand(doSwitch(e.getExpression()));
 		
-		return result;
-	}
-
-	
-	@Override
-	public Expression caseAstExpressionVariable(AstExpressionVariable e)  {
-		VariableExpression result = IrFactory.eINSTANCE.createVariableExpression();
-		result.setId(Util.getDefinitionId());
-		result.setContext(currentScope);
-		
-		Declaration decl = Util.findIrDeclaration(e.getValue().getVariable());
-		result.setVariable(decl);
-			
-		for (AstExpression i : e.getIndexes()) {
-			Expression ve = convert(currentScope, i);
-			result.getIndex().add(ve);
-		}
-		
-		for (AstMemberAccess mv : e.getMember()) {
-			Member m = Util.createMemberAccess(mv, currentScope);
-			result.getMember().add(m);
-		}
-					
 		return result;
 	}
 

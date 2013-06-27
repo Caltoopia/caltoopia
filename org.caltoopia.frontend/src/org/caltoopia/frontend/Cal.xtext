@@ -141,10 +141,11 @@ AstExternalVariable returns AstVariable:
 ///////////////////////////////////////////////////////////////////////////////
 
 AstTypeDefinition returns AstTypeName: 
-	'type' name=ID ( '(' (parameters += AstTypeDefinitionParameter (',' parameters += AstTypeDefinitionParameter)*)? ')')? '=' 
-	 ( constructor += AstConstructor  ('|' constructor += AstConstructor )* 
-//	 | (type = AstType) 
-	 ) ';'; 
+	'type' name=ID ( '(' (parameters += AstTypeDefinitionParameter (',' parameters += AstTypeDefinitionParameter)*)? ')')? 
+	':' 
+	( constructor += AstAnonymousConstructor 
+	| ( constructor += AstConstructor  ('|' constructor += AstConstructor )* )) 
+	'end'; 
 	 
 AstTypeDefinitionParameter:
     (value = AstVariableDeclaration | type = AstTypeDefinitionTypeParameter );	 
@@ -152,8 +153,11 @@ AstTypeDefinitionParameter:
 AstTypeDefinitionTypeParameter returns AstTypeName:
         name = ID;
 	
-AstConstructor returns AstVariable: {AstConstructor}	
+AstConstructor :
 	name=ID ('(' (members += AstValuedVariableDeclaration (',' members += AstValuedVariableDeclaration)*)? ')')?; 
+	
+AstAnonymousConstructor	returns AstConstructor: {AstAnonymousConstructor}
+	('(' (members += AstValuedVariableDeclaration (',' members += AstValuedVariableDeclaration)*)? ')');
 	
 ///////////////////////////////////////////////////////////////////////////////
 // actor
@@ -308,8 +312,7 @@ AstOutputPattern: (port=[AstPort] ':')? '[' values+=AstExpression (',' values+=A
 ///////////////////////////////////////////////////////////////////////////////
 
 AstStatementAssign:
-	target=AstVariableReference
-		('[' indexes += AstExpression ']')* (member += AstMemberAccess)* ':=' value=AstExpression ';';
+	target=[AstVariable] ('[' indexes += AstExpression ']')* (member += AstMemberAccess)* ':=' value=AstExpression ';';
 
 AstStatementCall:
 	procedure=[AstProcedure]
@@ -391,19 +394,14 @@ AstExpressionUnary returns AstExpression:
 
 AstExpressionPostfix returns AstExpression:
 	AstExpressionList
-	| AstExpressionCall
-	| AstExpressionConstruction
+	| AstExpressionSymbolReference
 	| AstExpressionIf
     | AstExpressionLiteral
-    | AstExpressionVariable
     | '(' AstExpression ')';
 
-AstExpressionCall:
-	function=[AstFunction] '(' (parameters += AstExpression (',' parameters += AstExpression)*)? ')';
+AstExpressionSymbolReference:
+	symbol=[AstVariable] ('[' indexes += AstExpression ']')* (member += AstMemberAccess)* ('::' ctor = ID)? ('(' (parameters += AstExpression (',' parameters += AstExpression)*)? ')')?;
 			
-AstExpressionConstruction:
-	function=[AstTypeName] ('::' ctor = ID)? ('(' (parameters += AstExpression (',' parameters += AstExpression)*)? ')')?;
-
 AstExpressionIf:
 	'if' condition=AstExpression
 	'then' then=AstExpression
@@ -417,7 +415,7 @@ AstExpressionList:
 AstGenerator:
 	'for' variable=AstVariableDeclaration 'in' expression = AstExpression;
 
-AstExpressionVariable: value=AstVariableReference ('[' indexes += AstExpression ']')* (member += AstMemberAccess)*;
+//AstExpressionVariable: value=[AstVariable] ('[' indexes += AstExpression ']')* (member += AstMemberAccess)*;
 
 ///////////////////////////////////////////////////////////////////////////////
 // literal expressions
@@ -457,7 +455,7 @@ terminal ID returns ecore::EString : ('a'..'z'|'A'..'Z'|'_'|'$')('a'..'z'|'A'..'
 // type and variable declarations
 ///////////////////////////////////////////////////////////////////////////////
 
-AstTypeName : ID | AstBuiltInType;
+AstTypeName returns AstVariable: {AstTypeName} ID | AstBuiltInType;
 
 AstBuiltInType: 'int' | 'uint' | 'float' | 'bool' | 'List' | 'string' | 'byte' | 'short';
 
@@ -481,8 +479,6 @@ AstVariableDeclaration returns AstVariable:
 
 AstValuedVariableDeclaration returns AstVariable:
 	AstVariableDeclaration ((constant ?= '=' | ':=') value=AstExpression)?;
-
-AstVariableReference:  variable = [AstVariable]; 
 	
 AstMemberAccess: 
 	'.' name = ID ('[' memberIndex += AstExpression']')*;

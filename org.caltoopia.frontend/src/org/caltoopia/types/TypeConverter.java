@@ -45,14 +45,13 @@ import org.caltoopia.frontend.cal.AstConstructor;
 import org.caltoopia.frontend.cal.AstExpression;
 import org.caltoopia.frontend.cal.AstExpressionBinary;
 import org.caltoopia.frontend.cal.AstExpressionBoolean;
-import org.caltoopia.frontend.cal.AstExpressionCall;
+import org.caltoopia.frontend.cal.AstExpressionSymbolReference;
 import org.caltoopia.frontend.cal.AstExpressionFloat;
 import org.caltoopia.frontend.cal.AstExpressionIf;
 import org.caltoopia.frontend.cal.AstExpressionInteger;
 import org.caltoopia.frontend.cal.AstExpressionList;
 import org.caltoopia.frontend.cal.AstExpressionString;
 import org.caltoopia.frontend.cal.AstExpressionUnary;
-import org.caltoopia.frontend.cal.AstExpressionVariable;
 import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstInputPattern;
 import org.caltoopia.frontend.cal.AstMemberAccess;
@@ -129,13 +128,13 @@ public class TypeConverter extends CalSwitch<Type> {
 		if (var.eContainer() instanceof AstStatementAssign) {
 			// The member is being assigned
 			AstStatementAssign stmt = (AstStatementAssign) var.eContainer();
-			topVar = stmt.getTarget().getVariable();
+			topVar = stmt.getTarget();
 			pos = stmt.getMember().indexOf(var);
 			members = stmt.getMember();
 		} else {
 			// The member is in a variable expression 
-			AstExpressionVariable exp = (AstExpressionVariable) var.eContainer();
-			topVar = exp.getValue().getVariable();
+			AstExpressionSymbolReference exp = (AstExpressionSymbolReference) var.eContainer();
+			topVar = exp.getSymbol();
 			pos = exp.getMember().indexOf(var);
 			members = exp.getMember();
 		}
@@ -282,20 +281,25 @@ public class TypeConverter extends CalSwitch<Type> {
 		}
 			
 		return result;
-	}
-
+	}	
+	
 	@Override
-	public Type caseAstExpressionCall(AstExpressionCall e) { 
-		AstVariable v = e.getFunction();
+	public Type caseAstExpressionSymbolReference(AstExpressionSymbolReference e) { 
+		AstVariable v = e.getSymbol();
 		if (v instanceof AstFunction) {	
-			return doSwitch(e.getFunction().getType());
-		} else if (v instanceof AstConstructor) {
-			//This is not a function, but a type constructor
-			AstTypeName typeName = (AstTypeName) ((AstConstructor) v).eContainer();
-			Type t = createTypeUser(typeName, approximate);
+			return doSwitch(((AstFunction) e.getSymbol()).getType());
+		} else if (v instanceof AstTypeName) {
+			//This is not a function, but a type constructor			
+			Type t = createTypeUser((AstTypeName) v, approximate);
 			return t; 
 		} else {
-			return TypeSystem.createTypeUndef();
+			try {
+				Type t = getTypeOfAstVariable(v, e.getIndexes(), e.getMember(), context, approximate);
+				return t;
+			} catch (Exception x) {
+				error("Type error:" + x.getMessage(), e, null, -1);			
+				return TypeSystem.createTypeUndef();
+			}
 		}
 	}
 
@@ -305,17 +309,6 @@ public class TypeConverter extends CalSwitch<Type> {
 			return TypeSystem.createTypeInt();
 		} else {
 			return doSwitch(e.getExpression()); //FIXME - This is only almost true
-		}
-	}
-
-	@Override
-	public Type caseAstExpressionVariable(AstExpressionVariable e)  {
-		try {
-			Type t = getTypeOfAstVariable(e.getValue().getVariable(), e.getIndexes(), e.getMember(), context, approximate);
-			return t;
-		} catch (Exception x) {
-			error("Type error:" + x.getMessage(), e, null, -1);			
-			return TypeSystem.createTypeUndef();
 		}
 	}
 	
@@ -597,7 +590,7 @@ public class TypeConverter extends CalSwitch<Type> {
 		typeDecl.setId(Util.getDefinitionId());
 		typeDecl.setScope(scope);
 		
-		for (AstVariable v : astTypedef.getConstructor()) {		
+		for (AstConstructor v : astTypedef.getConstructor()) {		
 			AstConstructor tc = (AstConstructor) v;
 			TypeRecord record = IrFactory.eINSTANCE.createTypeRecord();
 			record.setId(Util.getDefinitionId());

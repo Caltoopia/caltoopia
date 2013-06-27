@@ -75,13 +75,16 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstVariable/dimensions"/>
     </genClasses>
     <genClasses ecoreClass="Cal.ecore#//AstTypeName">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Cal.ecore#//AstTypeName/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstTypeName/parameters"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstTypeName/constructor"/>
     </genClasses>
     <genClasses ecoreClass="Cal.ecore#//AstTypeDefinitionParameter">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstTypeDefinitionParameter/value"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstTypeDefinitionParameter/type"/>
+    </genClasses>
+    <genClasses ecoreClass="Cal.ecore#//AstConstructor">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Cal.ecore#//AstConstructor/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstConstructor/members"/>
     </genClasses>
     <genClasses ecoreClass="Cal.ecore#//AstActor">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstActor/functions"/>
@@ -148,7 +151,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstOutputPattern/repeat"/>
     </genClasses>
     <genClasses ecoreClass="Cal.ecore#//AstStatementAssign">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstStatementAssign/target"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Cal.ecore#//AstStatementAssign/target"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstStatementAssign/indexes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstStatementAssign/member"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstStatementAssign/value"/>
@@ -181,14 +184,12 @@
     </genClasses>
     <genClasses ecoreClass="Cal.ecore#//AstStatement"/>
     <genClasses ecoreClass="Cal.ecore#//AstExpression"/>
-    <genClasses ecoreClass="Cal.ecore#//AstExpressionCall">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Cal.ecore#//AstExpressionCall/function"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstExpressionCall/parameters"/>
-    </genClasses>
-    <genClasses ecoreClass="Cal.ecore#//AstExpressionConstruction">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Cal.ecore#//AstExpressionConstruction/function"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Cal.ecore#//AstExpressionConstruction/ctor"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstExpressionConstruction/parameters"/>
+    <genClasses ecoreClass="Cal.ecore#//AstExpressionSymbolReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Cal.ecore#//AstExpressionSymbolReference/symbol"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstExpressionSymbolReference/indexes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstExpressionSymbolReference/member"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Cal.ecore#//AstExpressionSymbolReference/ctor"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstExpressionSymbolReference/parameters"/>
     </genClasses>
     <genClasses ecoreClass="Cal.ecore#//AstExpressionIf">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstExpressionIf/condition"/>
@@ -202,11 +203,6 @@
     <genClasses ecoreClass="Cal.ecore#//AstGenerator">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstGenerator/variable"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstGenerator/expression"/>
-    </genClasses>
-    <genClasses ecoreClass="Cal.ecore#//AstExpressionVariable">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstExpressionVariable/value"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstExpressionVariable/indexes"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstExpressionVariable/member"/>
     </genClasses>
     <genClasses ecoreClass="Cal.ecore#//AstExpressionLiteral"/>
     <genClasses ecoreClass="Cal.ecore#//AstExpressionBoolean">
@@ -238,9 +234,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstTypeParam/value"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstTypeParam/type"/>
     </genClasses>
-    <genClasses ecoreClass="Cal.ecore#//AstVariableReference">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Cal.ecore#//AstVariableReference/variable"/>
-    </genClasses>
     <genClasses ecoreClass="Cal.ecore#//AstMemberAccess">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Cal.ecore#//AstMemberAccess/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstMemberAccess/memberIndex"/>
@@ -253,9 +246,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Cal.ecore#//AstAnnotationArgument/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Cal.ecore#//AstAnnotationArgument/value"/>
     </genClasses>
-    <genClasses ecoreClass="Cal.ecore#//AstConstructor">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstConstructor/members"/>
-    </genClasses>
+    <genClasses ecoreClass="Cal.ecore#//AstAnonymousConstructor"/>
     <genClasses ecoreClass="Cal.ecore#//AstFunction">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstFunction/parameters"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstFunction/variables"/>

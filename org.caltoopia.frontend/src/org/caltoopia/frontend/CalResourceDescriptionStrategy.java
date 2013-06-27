@@ -36,6 +36,7 @@
 
 package org.caltoopia.frontend;
 
+import org.caltoopia.frontend.cal.AstConstructor;
 import org.caltoopia.frontend.cal.AstEntity;
 import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstNamespace;
@@ -82,11 +83,6 @@ public class CalResourceDescriptionStrategy extends DefaultResourceDescriptionSt
 		for (AstTypeName decl : namespace.getTypedefs()) {
 			// Export the type
 			tryAddWithQualifiedName(decl, acceptor);
-			
-			// And the type ctor
-			for (AstVariable tc : decl.getConstructor()) {			
-				tryAddWithQualifiedName(tc, acceptor);
-			}
 		}	
 		
 		for (AstVariable decl : namespace.getVariables()) {

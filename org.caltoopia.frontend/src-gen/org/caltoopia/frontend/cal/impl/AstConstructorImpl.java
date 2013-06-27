@@ -8,12 +8,16 @@ import org.caltoopia.frontend.cal.AstConstructor;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.cal.CalPackage;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -25,14 +29,35 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.caltoopia.frontend.cal.impl.AstConstructorImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstConstructorImpl#getMembers <em>Members</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class AstConstructorImpl extends AstVariableImpl implements AstConstructor
+public class AstConstructorImpl extends MinimalEObjectImpl.Container implements AstConstructor
 {
+  /**
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
+
   /**
    * The cached value of the '{@link #getMembers() <em>Members</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -62,6 +87,29 @@ public class AstConstructorImpl extends AstVariableImpl implements AstConstructo
   protected EClass eStaticClass()
   {
     return CalPackage.Literals.AST_CONSTRUCTOR;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getName()
+  {
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setName(String newName)
+  {
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CalPackage.AST_CONSTRUCTOR__NAME, oldName, name));
   }
 
   /**
@@ -104,6 +152,8 @@ public class AstConstructorImpl extends AstVariableImpl implements AstConstructo
   {
     switch (featureID)
     {
+      case CalPackage.AST_CONSTRUCTOR__NAME:
+        return getName();
       case CalPackage.AST_CONSTRUCTOR__MEMBERS:
         return getMembers();
     }
@@ -121,6 +171,9 @@ public class AstConstructorImpl extends AstVariableImpl implements AstConstructo
   {
     switch (featureID)
     {
+      case CalPackage.AST_CONSTRUCTOR__NAME:
+        setName((String)newValue);
+        return;
       case CalPackage.AST_CONSTRUCTOR__MEMBERS:
         getMembers().clear();
         getMembers().addAll((Collection<? extends AstVariable>)newValue);
@@ -139,6 +192,9 @@ public class AstConstructorImpl extends AstVariableImpl implements AstConstructo
   {
     switch (featureID)
     {
+      case CalPackage.AST_CONSTRUCTOR__NAME:
+        setName(NAME_EDEFAULT);
+        return;
       case CalPackage.AST_CONSTRUCTOR__MEMBERS:
         getMembers().clear();
         return;
@@ -156,10 +212,29 @@ public class AstConstructorImpl extends AstVariableImpl implements AstConstructo
   {
     switch (featureID)
     {
+      case CalPackage.AST_CONSTRUCTOR__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case CalPackage.AST_CONSTRUCTOR__MEMBERS:
         return members != null && !members.isEmpty();
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (name: ");
+    result.append(name);
+    result.append(')');
+    return result.toString();
   }
 
 } //AstConstructorImpl

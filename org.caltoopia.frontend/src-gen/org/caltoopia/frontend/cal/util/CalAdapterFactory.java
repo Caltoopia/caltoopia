@@ -160,6 +160,11 @@ public class CalAdapterFactory extends AdapterFactoryImpl
         return createAstTypeDefinitionParameterAdapter();
       }
       @Override
+      public Adapter caseAstConstructor(AstConstructor object)
+      {
+        return createAstConstructorAdapter();
+      }
+      @Override
       public Adapter caseAstActor(AstActor object)
       {
         return createAstActorAdapter();
@@ -280,14 +285,9 @@ public class CalAdapterFactory extends AdapterFactoryImpl
         return createAstExpressionAdapter();
       }
       @Override
-      public Adapter caseAstExpressionCall(AstExpressionCall object)
+      public Adapter caseAstExpressionSymbolReference(AstExpressionSymbolReference object)
       {
-        return createAstExpressionCallAdapter();
-      }
-      @Override
-      public Adapter caseAstExpressionConstruction(AstExpressionConstruction object)
-      {
-        return createAstExpressionConstructionAdapter();
+        return createAstExpressionSymbolReferenceAdapter();
       }
       @Override
       public Adapter caseAstExpressionIf(AstExpressionIf object)
@@ -303,11 +303,6 @@ public class CalAdapterFactory extends AdapterFactoryImpl
       public Adapter caseAstGenerator(AstGenerator object)
       {
         return createAstGeneratorAdapter();
-      }
-      @Override
-      public Adapter caseAstExpressionVariable(AstExpressionVariable object)
-      {
-        return createAstExpressionVariableAdapter();
       }
       @Override
       public Adapter caseAstExpressionLiteral(AstExpressionLiteral object)
@@ -350,11 +345,6 @@ public class CalAdapterFactory extends AdapterFactoryImpl
         return createAstTypeParamAdapter();
       }
       @Override
-      public Adapter caseAstVariableReference(AstVariableReference object)
-      {
-        return createAstVariableReferenceAdapter();
-      }
-      @Override
       public Adapter caseAstMemberAccess(AstMemberAccess object)
       {
         return createAstMemberAccessAdapter();
@@ -370,9 +360,9 @@ public class CalAdapterFactory extends AdapterFactoryImpl
         return createAstAnnotationArgumentAdapter();
       }
       @Override
-      public Adapter caseAstConstructor(AstConstructor object)
+      public Adapter caseAstAnonymousConstructor(AstAnonymousConstructor object)
       {
-        return createAstConstructorAdapter();
+        return createAstAnonymousConstructorAdapter();
       }
       @Override
       public Adapter caseAstFunction(AstFunction object)
@@ -667,6 +657,21 @@ public class CalAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAstTypeDefinitionParameterAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstConstructor <em>Ast Constructor</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.caltoopia.frontend.cal.AstConstructor
+   * @generated
+   */
+  public Adapter createAstConstructorAdapter()
   {
     return null;
   }
@@ -1032,31 +1037,16 @@ public class CalAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstExpressionCall <em>Ast Expression Call</em>}'.
+   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstExpressionSymbolReference <em>Ast Expression Symbol Reference</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.caltoopia.frontend.cal.AstExpressionCall
+   * @see org.caltoopia.frontend.cal.AstExpressionSymbolReference
    * @generated
    */
-  public Adapter createAstExpressionCallAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstExpressionConstruction <em>Ast Expression Construction</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.caltoopia.frontend.cal.AstExpressionConstruction
-   * @generated
-   */
-  public Adapter createAstExpressionConstructionAdapter()
+  public Adapter createAstExpressionSymbolReferenceAdapter()
   {
     return null;
   }
@@ -1102,21 +1092,6 @@ public class CalAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAstGeneratorAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstExpressionVariable <em>Ast Expression Variable</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.caltoopia.frontend.cal.AstExpressionVariable
-   * @generated
-   */
-  public Adapter createAstExpressionVariableAdapter()
   {
     return null;
   }
@@ -1242,21 +1217,6 @@ public class CalAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstVariableReference <em>Ast Variable Reference</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.caltoopia.frontend.cal.AstVariableReference
-   * @generated
-   */
-  public Adapter createAstVariableReferenceAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstMemberAccess <em>Ast Member Access</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1302,16 +1262,16 @@ public class CalAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstConstructor <em>Ast Constructor</em>}'.
+   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstAnonymousConstructor <em>Ast Anonymous Constructor</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.caltoopia.frontend.cal.AstConstructor
+   * @see org.caltoopia.frontend.cal.AstAnonymousConstructor
    * @generated
    */
-  public Adapter createAstConstructorAdapter()
+  public Adapter createAstAnonymousConstructorAdapter()
   {
     return null;
   }

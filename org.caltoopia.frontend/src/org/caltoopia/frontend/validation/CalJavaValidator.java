@@ -43,14 +43,12 @@ import org.caltoopia.frontend.cal.AstActor;
 import org.caltoopia.frontend.cal.AstActorVariable;
 import org.caltoopia.frontend.cal.AstAssignParameter;
 import org.caltoopia.frontend.cal.AstConstructor;
-import org.caltoopia.frontend.cal.AstExternalActor;
 import org.caltoopia.frontend.cal.AstMemberAccess;
 import org.caltoopia.frontend.cal.AstNamespace;
 import org.caltoopia.frontend.cal.AstNetwork;
 import org.caltoopia.frontend.cal.AstEntity;
 import org.caltoopia.frontend.cal.AstExpression;
-import org.caltoopia.frontend.cal.AstExpressionCall;
-import org.caltoopia.frontend.cal.AstExpressionVariable;
+import org.caltoopia.frontend.cal.AstExpressionSymbolReference;
 import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstGenerator;
 import org.caltoopia.frontend.cal.AstInputPattern;
@@ -66,7 +64,6 @@ import org.caltoopia.frontend.cal.AstTag;
 import org.caltoopia.frontend.cal.AstTransition;
 import org.caltoopia.frontend.cal.AstTypeName;
 import org.caltoopia.frontend.cal.AstVariable;
-import org.caltoopia.frontend.cal.AstVariableReference;
 import org.caltoopia.frontend.cal.CalPackage;
 import org.caltoopia.frontend.cal.AstConnection;
 import org.caltoopia.frontend.cal.Import;
@@ -74,7 +71,6 @@ import org.caltoopia.frontend.util.BooleanSwitch;
 import org.caltoopia.frontend.util.CalActionList;
 import org.caltoopia.frontend.util.OrccUtil;
 import org.caltoopia.frontend.util.Util;
-import org.caltoopia.frontend.util.VoidSwitch;
 import org.caltoopia.frontend.validation.AbstractCalJavaValidator;
 import org.caltoopia.types.TypeConverter;
 import org.caltoopia.types.TypeException;
@@ -240,7 +236,7 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 
 	@Check(CheckType.NORMAL)	
 	public void CheckTypeDef(AstTypeName typedef) {
-		for (AstVariable tc : typedef.getConstructor()) {			
+		for (AstConstructor tc : typedef.getConstructor()) {			
 			for (AstVariable v : ((AstConstructor) tc).getMembers()) {
 				/*
 				try {
@@ -310,12 +306,12 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 	
 	@Check(CheckType.NORMAL)
 	public void checkAssign(AstStatementAssign assign) {
-		AstVariable variable = assign.getTarget().getVariable();
+		AstVariable variable = assign.getTarget();
 		if (variable.isConstant()) {
 			error("The variable " + variable.getName() + " is not assignable",
 					CalPackage.Literals.AST_STATEMENT_ASSIGN__TARGET);
 		}
-		Type LHS = TypeConverter.typeOf(null, assign.getTarget().getVariable(), assign.getIndexes(), assign.getMember(), true);
+		Type LHS = TypeConverter.typeOf(null, assign.getTarget(), assign.getIndexes(), assign.getMember(), true);
 		Type RHS = TypeConverter.typeOf(null, assign.getValue(), true);
 		try {
 			TypeSystem.isCompatible(LHS, RHS); 	
@@ -398,45 +394,51 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 	}
 		
 	@Check(CheckType.NORMAL)
-	public void checkAstExpressionCall(AstExpressionCall astCall) {
-		AstVariable var = astCall.getFunction();
+	public void checkAstExpressionSymbolReference(AstExpressionSymbolReference ref) {
+		AstVariable var = ref.getSymbol();
 		String name = var.getName();
 		List<AstVariable> formalParameters;
 		
-		if (var instanceof AstConstructor) {
-			// This is a call to a type constructor
-			formalParameters = ((AstConstructor) var).getMembers();
-		} else if (var instanceof AstFunction){
-			formalParameters = ((AstFunction) var).getParameters();
+		if (var instanceof AstConstructor || var instanceof AstFunction) {
+			// It is some sort of call - check paramaters
+			if (var instanceof AstConstructor) {
+				// This is a call to a type constructor
+				formalParameters = ((AstConstructor) var).getMembers();
+			} else if (var instanceof AstFunction){
+				formalParameters = ((AstFunction) var).getParameters();
+			} else {
+				return; //Ends here if the reference is not correctly resolved.
+			}
+			List<AstExpression> parameters = ref.getParameters();
+			if (formalParameters.size() != parameters.size()) {
+				error("function or type constructor '" + name + "' takes " + formalParameters.size() + " arguments.",
+						ref, 
+						CalPackage.eINSTANCE.getAstExpressionSymbolReference_Symbol(), -1);
+				return;
+			}
+			
+			Iterator<AstVariable> itFormal = formalParameters.iterator();
+			Iterator<AstExpression> itActual = parameters.iterator();
+			int index = 0;
+			while (itFormal.hasNext() && itActual.hasNext()) {
+				Type formalType = TypeConverter.convert(null, itFormal.next().getType(), true);
+				AstExpression expression = itActual.next();
+				Type actualType = TypeConverter.typeOf(null, expression, true);
+				try {
+					TypeSystem.isCompatible(formalType, actualType);
+				} catch (Exception x) {
+					TypeConverter.typeOf(null, expression, true);
+					error("Parameter type mismatch:" + x.getMessage(), 
+							ref,
+							CalPackage.eINSTANCE.getAstExpressionSymbolReference_Parameters(), index);
+					
+					return; 
+				}	
+				index++;
+			} 
+						
 		} else {
-			return; //Ends here if the reference is not correctly resolved.
-		}
-		List<AstExpression> parameters = astCall.getParameters();
-		if (formalParameters.size() != parameters.size()) {
-			error("function or type constructor '" + name + "' takes " + formalParameters.size() + " arguments.",
-					astCall, 
-					CalPackage.eINSTANCE.getAstExpressionCall_Function(), -1);
-			return;
-		}
-		
-		Iterator<AstVariable> itFormal = formalParameters.iterator();
-		Iterator<AstExpression> itActual = parameters.iterator();
-		int index = 0;
-		while (itFormal.hasNext() && itActual.hasNext()) {
-			Type formalType = TypeConverter.convert(null, itFormal.next().getType(), true);
-			AstExpression expression = itActual.next();
-			Type actualType = TypeConverter.typeOf(null, expression, true);
-			try {
-				TypeSystem.isCompatible(formalType, actualType);
-			} catch (Exception x) {
-				TypeConverter.typeOf(null, expression, true);
-				error("Parameter type mismatch:" + x.getMessage(), 
-						astCall,
-						CalPackage.eINSTANCE.getAstExpressionCall_Parameters(), index);
-				
-				return; 
-			}	
-			index++;
+			// It is a reference to a symbol	
 		}
 	}
 	
@@ -496,12 +498,12 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 		boolean used = new BooleanSwitch() {
 
 			@Override
-			public Boolean caseAstExpressionCall(AstExpressionCall expression) {
-				if (expression.getFunction().equals(function)) {
+			public Boolean caseAstExpressionSymbolReference(AstExpressionSymbolReference ref) {
+				if ((ref instanceof AstFunction) && ((AstFunction) ref.getSymbol()).equals(function)) {
 					return true;
 				}
 
-				return super.caseAstExpressionCall(expression);
+				return super.caseAstExpressionSymbolReference(ref);
 			}
 
 		}.doSwitch(Util.getTopLevelContainer(function));
@@ -520,9 +522,9 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 			new BooleanSwitch() {
 
 				@Override
-				public Boolean caseAstVariableReference(AstVariableReference varRef) {
+				public Boolean caseAstExpressionSymbolReference(AstExpressionSymbolReference ref) {
 					for (AstVariable parameter : parameters) {
-						if (varRef.getVariable() == parameter) {
+						if (ref.getSymbol() == parameter) {
 							error("Circular dependency in parameters not allowed.", 
 									parameter,
 									CalPackage.eINSTANCE.getAstVariable_Name(), -1);
@@ -565,13 +567,13 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 		boolean used = new BooleanSwitch() {
 		
 			@Override
-			public Boolean caseAstExpressionVariable(AstExpressionVariable expression) {
-				return expression.getValue().getVariable().equals(variable);
+			public Boolean caseAstExpressionSymbolReference(AstExpressionSymbolReference ref) {
+				return ref.getSymbol().equals(variable);
 			}
 
 			@Override
 			public Boolean caseAstStatementAssign(AstStatementAssign assign) {
-				if (assign.getTarget().getVariable().equals(variable)) {
+				if (assign.getTarget().equals(variable)) {
 					return true;
 				}
 
@@ -677,41 +679,35 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 	}
 
 	public void checkTypeDeclaration(final AstTypeName typedef, final List<String> breadcrumb) {
-//		if (breadcrumb.contains(typedef.getName())) {
-//			String s = "";			
-//			for (String t : breadcrumb) {
-//				s += s + ":" + t;
-//			}
-//			error("Recursive type definitions are not supported. (" + s + ")",
-//					typedef,
-//					CalPackage.eINSTANCE.getAstTypeName_Name(), -1);
-//					return;
-//		} else {
-//			breadcrumb.add(typedef.getName());			
-//			if (typedef.getType() != null) {
-//				new VoidSwitch() {
-//					
-//					@Override
-//					public Void caseAstTypeName(AstTypeName td) {
-//						checkTypeDeclaration(td, new ArrayList<String>(breadcrumb));
-//						return null;
-//					}
-//				}.doSwitch(typedef.getType());
-//			} else {
-//				for (AstFunction tc : typedef.getConstructor()) {			
-//					for (AstVariable v : tc.getMembers()) {
-//						new VoidSwitch() {
-//							
-//							@Override
-//							public Void caseAstTypeName(AstTypeName td) {
-//								checkTypeDeclaration(td, new ArrayList<String>(breadcrumb));
-//								return null;
-//							}
-//						}.doSwitch(v.getType());
-//					}
-//				}
-//			}
-//		}		
+		Set<String> ids = new HashSet<String>();
+
+		for (int i = 0; i < typedef.getConstructor().size(); i++) {
+			AstConstructor tc = typedef.getConstructor().get(i);
+			if (ids.contains(tc.getName())) {
+				error("Duplicate Tags in type defintion",
+						typedef, 
+						CalPackage.eINSTANCE.getAstTypeName_Constructor(), i);
+				return; 
+			} else {
+				ids.add(tc.getName());
+			}
+		}
+		
+		for (AstConstructor tc: typedef.getConstructor()) {
+			ids = new HashSet<String>();
+			for (int i = 0; i < tc.getMembers().size(); i++) {
+				AstVariable v = tc.getMembers().get(i);
+				if (ids.contains(v.getName())) {
+					error("Duplicate fields in type constructor defintion",
+							v, 
+							CalPackage.eINSTANCE.getAstVariable_Name(), i);
+					return; 
+				} else {
+					ids.add(v.getName());
+				}
+			}
+		}
+	
 	}
 	
 	@Check(CheckType.NORMAL)

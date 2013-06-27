@@ -43,9 +43,9 @@ import java.util.List;
 import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
 import org.caltoopia.frontend.cal.AstActor;
+import org.caltoopia.frontend.cal.AstConstructor;
 import org.caltoopia.frontend.cal.AstExpression;
-import org.caltoopia.frontend.cal.AstExpressionCall;
-import org.caltoopia.frontend.cal.AstExpressionVariable;
+import org.caltoopia.frontend.cal.AstExpressionSymbolReference;
 import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstNamespace;
 import org.caltoopia.frontend.cal.AstNetwork;
@@ -110,8 +110,8 @@ class FindImportedAstSymbols extends VoidSwitch {
 	}
 	
 	@Override
-	public Void caseAstExpressionCall(AstExpressionCall e) { 
-		AstVariable v = e.getFunction();
+	public Void caseAstExpressionSymbolReference(AstExpressionSymbolReference e) { 
+		AstVariable v = e.getSymbol();
 		AstNamespace exportingNamespace;	
 		
 		for (AstExpression arg : e.getParameters()) {
@@ -127,10 +127,9 @@ class FindImportedAstSymbols extends VoidSwitch {
 		if (exportingNamespace != null) {
 			List<String> exportingNamespaceName = createExportingNamespace(exportingNamespace);
 			if (v instanceof AstFunction) {
-				Declaration d = Util.createImportedFunctionDeclaration(exportingNamespaceName, (AstFunction) v);	
-					
+				Declaration d = Util.createImportedFunctionDeclaration(exportingNamespaceName, (AstFunction) v);						
 				irScope.getDeclarations().add(d);
-			} else {
+			} else if (v instanceof AstConstructor) {
 				AstTypeName astTypedef = (AstTypeName) v.eContainer();
 					
 				if (imported.contains(astTypedef)) return null;
@@ -139,6 +138,10 @@ class FindImportedAstSymbols extends VoidSwitch {
 					
 				irScope.getDeclarations().add(typeImport);		
 				imported.add(astTypedef);
+			} else { //AstVariable
+				VariableImport d = Util.createImportedVariableDeclaration(exportingNamespaceName, v);				
+				irScope.getDeclarations().add(d);
+				imported.add(v);
 			}
 				
 			imported.add(v);			
@@ -146,32 +149,9 @@ class FindImportedAstSymbols extends VoidSwitch {
 			if (v instanceof AstFunction)
 				doSwitch(((AstFunction) v).getExpression());
 		}
-		
+				
 		return null;
 	}
-	
-	@Override
-	public Void caseAstExpressionVariable(AstExpressionVariable e)  {
-		AstVariable v = e.getValue().getVariable();			
-		AstNamespace exportingNamespace;
-		
-		// If already imported, just leave
-		if (imported.contains(v)) return null;
-		
-		exportingNamespace = checkDefinitionContainer(v.eContainer(), topAstContainer); 		
-
-		if (exportingNamespace != null) {
-			List<String> exportingNamespaceName = createExportingNamespace(exportingNamespace);
-			VariableImport d = Util.createImportedVariableDeclaration(exportingNamespaceName, v);				
-			irScope.getDeclarations().add(d);
-
-			imported.add(v);
-		} 
-		
-		super.caseAstExpressionVariable(e);
-
-		return null;
-	}	
 		
 	@Override
 	public Void caseAstStatementCall(AstStatementCall call) {

@@ -186,6 +186,7 @@ public class CalSwitch<T> extends Switch<T>
       {
         AstTypeName astTypeName = (AstTypeName)theEObject;
         T result = caseAstTypeName(astTypeName);
+        if (result == null) result = caseAstVariable(astTypeName);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -193,6 +194,13 @@ public class CalSwitch<T> extends Switch<T>
       {
         AstTypeDefinitionParameter astTypeDefinitionParameter = (AstTypeDefinitionParameter)theEObject;
         T result = caseAstTypeDefinitionParameter(astTypeDefinitionParameter);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CalPackage.AST_CONSTRUCTOR:
+      {
+        AstConstructor astConstructor = (AstConstructor)theEObject;
+        T result = caseAstConstructor(astConstructor);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -373,19 +381,11 @@ public class CalSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CalPackage.AST_EXPRESSION_CALL:
+      case CalPackage.AST_EXPRESSION_SYMBOL_REFERENCE:
       {
-        AstExpressionCall astExpressionCall = (AstExpressionCall)theEObject;
-        T result = caseAstExpressionCall(astExpressionCall);
-        if (result == null) result = caseAstExpression(astExpressionCall);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CalPackage.AST_EXPRESSION_CONSTRUCTION:
-      {
-        AstExpressionConstruction astExpressionConstruction = (AstExpressionConstruction)theEObject;
-        T result = caseAstExpressionConstruction(astExpressionConstruction);
-        if (result == null) result = caseAstExpression(astExpressionConstruction);
+        AstExpressionSymbolReference astExpressionSymbolReference = (AstExpressionSymbolReference)theEObject;
+        T result = caseAstExpressionSymbolReference(astExpressionSymbolReference);
+        if (result == null) result = caseAstExpression(astExpressionSymbolReference);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -409,14 +409,6 @@ public class CalSwitch<T> extends Switch<T>
       {
         AstGenerator astGenerator = (AstGenerator)theEObject;
         T result = caseAstGenerator(astGenerator);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CalPackage.AST_EXPRESSION_VARIABLE:
-      {
-        AstExpressionVariable astExpressionVariable = (AstExpressionVariable)theEObject;
-        T result = caseAstExpressionVariable(astExpressionVariable);
-        if (result == null) result = caseAstExpression(astExpressionVariable);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -485,13 +477,6 @@ public class CalSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CalPackage.AST_VARIABLE_REFERENCE:
-      {
-        AstVariableReference astVariableReference = (AstVariableReference)theEObject;
-        T result = caseAstVariableReference(astVariableReference);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case CalPackage.AST_MEMBER_ACCESS:
       {
         AstMemberAccess astMemberAccess = (AstMemberAccess)theEObject;
@@ -513,11 +498,11 @@ public class CalSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CalPackage.AST_CONSTRUCTOR:
+      case CalPackage.AST_ANONYMOUS_CONSTRUCTOR:
       {
-        AstConstructor astConstructor = (AstConstructor)theEObject;
-        T result = caseAstConstructor(astConstructor);
-        if (result == null) result = caseAstVariable(astConstructor);
+        AstAnonymousConstructor astAnonymousConstructor = (AstAnonymousConstructor)theEObject;
+        T result = caseAstAnonymousConstructor(astAnonymousConstructor);
+        if (result == null) result = caseAstConstructor(astAnonymousConstructor);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -826,6 +811,22 @@ public class CalSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAstTypeDefinitionParameter(AstTypeDefinitionParameter object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Ast Constructor</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Ast Constructor</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAstConstructor(AstConstructor object)
   {
     return null;
   }
@@ -1215,33 +1216,17 @@ public class CalSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Ast Expression Call</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Ast Expression Symbol Reference</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Ast Expression Call</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Ast Expression Symbol Reference</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseAstExpressionCall(AstExpressionCall object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Ast Expression Construction</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Ast Expression Construction</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseAstExpressionConstruction(AstExpressionConstruction object)
+  public T caseAstExpressionSymbolReference(AstExpressionSymbolReference object)
   {
     return null;
   }
@@ -1290,22 +1275,6 @@ public class CalSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAstGenerator(AstGenerator object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Ast Expression Variable</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Ast Expression Variable</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseAstExpressionVariable(AstExpressionVariable object)
   {
     return null;
   }
@@ -1439,22 +1408,6 @@ public class CalSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Ast Variable Reference</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Ast Variable Reference</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseAstVariableReference(AstVariableReference object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Ast Member Access</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1503,17 +1456,17 @@ public class CalSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Ast Constructor</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Ast Anonymous Constructor</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Ast Constructor</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Ast Anonymous Constructor</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseAstConstructor(AstConstructor object)
+  public T caseAstAnonymousConstructor(AstAnonymousConstructor object)
   {
     return null;
   }

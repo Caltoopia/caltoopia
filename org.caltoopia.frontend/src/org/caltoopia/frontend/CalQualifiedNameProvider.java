@@ -48,11 +48,7 @@ import org.eclipse.xtext.naming.QualifiedName;
 public class CalQualifiedNameProvider extends DefaultDeclarativeQualifiedNameProvider  {
 
 	public QualifiedName getFullyQualifiedName(EObject obj) {
-		if (obj instanceof AstConstructor) {
-			QualifiedName tmp = super.getFullyQualifiedName(obj.eContainer().eContainer());
-			tmp = tmp.append(((AstConstructor) obj).getName());
-			return tmp;
-		} else if (obj instanceof AstEntity && obj.eContainer() instanceof AstNamespace) {
+		if (obj instanceof AstEntity && obj.eContainer() instanceof AstNamespace) {
 			// obj = obj.eContainer();
 			QualifiedName tmp = super.getFullyQualifiedName(obj.eContainer());	
 			String name = ((AstEntity) obj).getActor().getName();
