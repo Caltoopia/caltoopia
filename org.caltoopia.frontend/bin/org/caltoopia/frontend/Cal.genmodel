@@ -74,17 +74,17 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstVariable/type"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstVariable/dimensions"/>
     </genClasses>
-    <genClasses ecoreClass="Cal.ecore#//AstTypeName">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstTypeName/parameters"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstTypeName/constructor"/>
+    <genClasses ecoreClass="Cal.ecore#//AstTypeUser">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstTypeUser/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstTypeUser/tuples"/>
     </genClasses>
     <genClasses ecoreClass="Cal.ecore#//AstTypeDefinitionParameter">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstTypeDefinitionParameter/value"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstTypeDefinitionParameter/type"/>
     </genClasses>
-    <genClasses ecoreClass="Cal.ecore#//AstConstructor">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Cal.ecore#//AstConstructor/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstConstructor/members"/>
+    <genClasses ecoreClass="Cal.ecore#//AstTaggedTuple">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Cal.ecore#//AstTaggedTuple/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstTaggedTuple/fields"/>
     </genClasses>
     <genClasses ecoreClass="Cal.ecore#//AstActor">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstActor/functions"/>
@@ -224,7 +224,6 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Cal.ecore#//AstType/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstType/domain"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstType/codomain"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstType/members"/>
     </genClasses>
     <genClasses ecoreClass="Cal.ecore#//AstTypeParameterList">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstTypeParameterList/params"/>
@@ -246,7 +245,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Cal.ecore#//AstAnnotationArgument/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Cal.ecore#//AstAnnotationArgument/value"/>
     </genClasses>
-    <genClasses ecoreClass="Cal.ecore#//AstAnonymousConstructor"/>
+    <genClasses ecoreClass="Cal.ecore#//AstTuple"/>
     <genClasses ecoreClass="Cal.ecore#//AstFunction">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstFunction/parameters"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstFunction/variables"/>

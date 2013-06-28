@@ -4,7 +4,7 @@ package org.caltoopia.frontend.cal.impl;
 
 import java.util.Collection;
 
-import org.caltoopia.frontend.cal.AstConstructor;
+import org.caltoopia.frontend.cal.AstTaggedTuple;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.cal.CalPackage;
 
@@ -24,19 +24,19 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Ast Constructor</b></em>'.
+ * An implementation of the model object '<em><b>Ast Tagged Tuple</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.caltoopia.frontend.cal.impl.AstConstructorImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.caltoopia.frontend.cal.impl.AstConstructorImpl#getMembers <em>Members</em>}</li>
+ *   <li>{@link org.caltoopia.frontend.cal.impl.AstTaggedTupleImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.caltoopia.frontend.cal.impl.AstTaggedTupleImpl#getFields <em>Fields</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class AstConstructorImpl extends MinimalEObjectImpl.Container implements AstConstructor
+public class AstTaggedTupleImpl extends MinimalEObjectImpl.Container implements AstTaggedTuple
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -59,21 +59,21 @@ public class AstConstructorImpl extends MinimalEObjectImpl.Container implements 
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getMembers() <em>Members</em>}' containment reference list.
+   * The cached value of the '{@link #getFields() <em>Fields</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getMembers()
+   * @see #getFields()
    * @generated
    * @ordered
    */
-  protected EList<AstVariable> members;
+  protected EList<AstVariable> fields;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected AstConstructorImpl()
+  protected AstTaggedTupleImpl()
   {
     super();
   }
@@ -86,7 +86,7 @@ public class AstConstructorImpl extends MinimalEObjectImpl.Container implements 
   @Override
   protected EClass eStaticClass()
   {
-    return CalPackage.Literals.AST_CONSTRUCTOR;
+    return CalPackage.Literals.AST_TAGGED_TUPLE;
   }
 
   /**
@@ -109,7 +109,7 @@ public class AstConstructorImpl extends MinimalEObjectImpl.Container implements 
     String oldName = name;
     name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CalPackage.AST_CONSTRUCTOR__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, CalPackage.AST_TAGGED_TUPLE__NAME, oldName, name));
   }
 
   /**
@@ -117,13 +117,13 @@ public class AstConstructorImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<AstVariable> getMembers()
+  public EList<AstVariable> getFields()
   {
-    if (members == null)
+    if (fields == null)
     {
-      members = new EObjectContainmentEList<AstVariable>(AstVariable.class, this, CalPackage.AST_CONSTRUCTOR__MEMBERS);
+      fields = new EObjectContainmentEList<AstVariable>(AstVariable.class, this, CalPackage.AST_TAGGED_TUPLE__FIELDS);
     }
-    return members;
+    return fields;
   }
 
   /**
@@ -136,8 +136,8 @@ public class AstConstructorImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
-      case CalPackage.AST_CONSTRUCTOR__MEMBERS:
-        return ((InternalEList<?>)getMembers()).basicRemove(otherEnd, msgs);
+      case CalPackage.AST_TAGGED_TUPLE__FIELDS:
+        return ((InternalEList<?>)getFields()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -152,10 +152,10 @@ public class AstConstructorImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
-      case CalPackage.AST_CONSTRUCTOR__NAME:
+      case CalPackage.AST_TAGGED_TUPLE__NAME:
         return getName();
-      case CalPackage.AST_CONSTRUCTOR__MEMBERS:
-        return getMembers();
+      case CalPackage.AST_TAGGED_TUPLE__FIELDS:
+        return getFields();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -171,12 +171,12 @@ public class AstConstructorImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
-      case CalPackage.AST_CONSTRUCTOR__NAME:
+      case CalPackage.AST_TAGGED_TUPLE__NAME:
         setName((String)newValue);
         return;
-      case CalPackage.AST_CONSTRUCTOR__MEMBERS:
-        getMembers().clear();
-        getMembers().addAll((Collection<? extends AstVariable>)newValue);
+      case CalPackage.AST_TAGGED_TUPLE__FIELDS:
+        getFields().clear();
+        getFields().addAll((Collection<? extends AstVariable>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -192,11 +192,11 @@ public class AstConstructorImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
-      case CalPackage.AST_CONSTRUCTOR__NAME:
+      case CalPackage.AST_TAGGED_TUPLE__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case CalPackage.AST_CONSTRUCTOR__MEMBERS:
-        getMembers().clear();
+      case CalPackage.AST_TAGGED_TUPLE__FIELDS:
+        getFields().clear();
         return;
     }
     super.eUnset(featureID);
@@ -212,10 +212,10 @@ public class AstConstructorImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
-      case CalPackage.AST_CONSTRUCTOR__NAME:
+      case CalPackage.AST_TAGGED_TUPLE__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case CalPackage.AST_CONSTRUCTOR__MEMBERS:
-        return members != null && !members.isEmpty();
+      case CalPackage.AST_TAGGED_TUPLE__FIELDS:
+        return fields != null && !fields.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -237,4 +237,4 @@ public class AstConstructorImpl extends MinimalEObjectImpl.Container implements 
     return result.toString();
   }
 
-} //AstConstructorImpl
+} //AstTaggedTupleImpl

@@ -36,11 +36,10 @@
 
 package org.caltoopia.frontend;
 
-import org.caltoopia.frontend.cal.AstConstructor;
 import org.caltoopia.frontend.cal.AstEntity;
 import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstNamespace;
-import org.caltoopia.frontend.cal.AstTypeName;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.naming.QualifiedName;
@@ -80,7 +79,7 @@ public class CalResourceDescriptionStrategy extends DefaultResourceDescriptionSt
 			tryAddWithQualifiedName(decl, acceptor);
 		}
 		
-		for (AstTypeName decl : namespace.getTypedefs()) {
+		for (AstTypeUser decl : namespace.getTypedefs()) {
 			// Export the type
 			tryAddWithQualifiedName(decl, acceptor);
 		}	

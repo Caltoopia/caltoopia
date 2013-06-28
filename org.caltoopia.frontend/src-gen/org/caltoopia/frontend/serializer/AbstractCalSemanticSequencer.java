@@ -8,11 +8,9 @@ import org.caltoopia.frontend.cal.AstActorVariable;
 import org.caltoopia.frontend.cal.AstActorVariableReference;
 import org.caltoopia.frontend.cal.AstAnnotation;
 import org.caltoopia.frontend.cal.AstAnnotationArgument;
-import org.caltoopia.frontend.cal.AstAnonymousConstructor;
 import org.caltoopia.frontend.cal.AstAssignParameter;
 import org.caltoopia.frontend.cal.AstConnection;
 import org.caltoopia.frontend.cal.AstConnectionAttribute;
-import org.caltoopia.frontend.cal.AstConstructor;
 import org.caltoopia.frontend.cal.AstEntity;
 import org.caltoopia.frontend.cal.AstExpressionBinary;
 import org.caltoopia.frontend.cal.AstExpressionBoolean;
@@ -47,12 +45,14 @@ import org.caltoopia.frontend.cal.AstStatementIf;
 import org.caltoopia.frontend.cal.AstStatementWhile;
 import org.caltoopia.frontend.cal.AstStructure;
 import org.caltoopia.frontend.cal.AstTag;
+import org.caltoopia.frontend.cal.AstTaggedTuple;
 import org.caltoopia.frontend.cal.AstTransition;
+import org.caltoopia.frontend.cal.AstTuple;
 import org.caltoopia.frontend.cal.AstType;
 import org.caltoopia.frontend.cal.AstTypeDefinitionParameter;
-import org.caltoopia.frontend.cal.AstTypeName;
 import org.caltoopia.frontend.cal.AstTypeParam;
 import org.caltoopia.frontend.cal.AstTypeParameterList;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.cal.CalPackage;
 import org.caltoopia.frontend.cal.Import;
@@ -114,12 +114,6 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 					return; 
 				}
 				else break;
-			case CalPackage.AST_ANONYMOUS_CONSTRUCTOR:
-				if(context == grammarAccess.getAstAnonymousConstructorRule()) {
-					sequence_AstAnonymousConstructor(context, (AstAnonymousConstructor) semanticObject); 
-					return; 
-				}
-				else break;
 			case CalPackage.AST_ASSIGN_PARAMETER:
 				if(context == grammarAccess.getAstAssignParameterRule()) {
 					sequence_AstAssignParameter(context, (AstAssignParameter) semanticObject); 
@@ -135,12 +129,6 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 			case CalPackage.AST_CONNECTION_ATTRIBUTE:
 				if(context == grammarAccess.getAstConnectionAttributeRule()) {
 					sequence_AstConnectionAttribute(context, (AstConnectionAttribute) semanticObject); 
-					return; 
-				}
-				else break;
-			case CalPackage.AST_CONSTRUCTOR:
-				if(context == grammarAccess.getAstConstructorRule()) {
-					sequence_AstConstructor(context, (AstConstructor) semanticObject); 
 					return; 
 				}
 				else break;
@@ -594,39 +582,33 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 					return; 
 				}
 				else break;
+			case CalPackage.AST_TAGGED_TUPLE:
+				if(context == grammarAccess.getAstTaggedTupleRule()) {
+					sequence_AstTaggedTuple(context, (AstTaggedTuple) semanticObject); 
+					return; 
+				}
+				else break;
 			case CalPackage.AST_TRANSITION:
 				if(context == grammarAccess.getAstTransitionRule()) {
 					sequence_AstTransition(context, (AstTransition) semanticObject); 
 					return; 
 				}
 				else break;
-			case CalPackage.AST_TYPE:
-				if(context == grammarAccess.getAstTypeTupleRule()) {
-					sequence_AstTypeTuple(context, (AstType) semanticObject); 
+			case CalPackage.AST_TUPLE:
+				if(context == grammarAccess.getAstTupleRule()) {
+					sequence_AstTuple(context, (AstTuple) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getAstTypeRule()) {
-					sequence_AstType_AstTypeTuple(context, (AstType) semanticObject); 
+				else break;
+			case CalPackage.AST_TYPE:
+				if(context == grammarAccess.getAstTypeRule()) {
+					sequence_AstType(context, (AstType) semanticObject); 
 					return; 
 				}
 				else break;
 			case CalPackage.AST_TYPE_DEFINITION_PARAMETER:
 				if(context == grammarAccess.getAstTypeDefinitionParameterRule()) {
 					sequence_AstTypeDefinitionParameter(context, (AstTypeDefinitionParameter) semanticObject); 
-					return; 
-				}
-				else break;
-			case CalPackage.AST_TYPE_NAME:
-				if(context == grammarAccess.getAstTypeDefinitionTypeParameterRule()) {
-					sequence_AstTypeDefinitionTypeParameter(context, (AstTypeName) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getAstTypeDefinitionRule()) {
-					sequence_AstTypeDefinition(context, (AstTypeName) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getAstTypeNameRule()) {
-					sequence_AstTypeName(context, (AstTypeName) semanticObject); 
 					return; 
 				}
 				else break;
@@ -639,6 +621,20 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 			case CalPackage.AST_TYPE_PARAMETER_LIST:
 				if(context == grammarAccess.getAstTypeParameterListRule()) {
 					sequence_AstTypeParameterList(context, (AstTypeParameterList) semanticObject); 
+					return; 
+				}
+				else break;
+			case CalPackage.AST_TYPE_USER:
+				if(context == grammarAccess.getAstTypeDefinitionTypeParameterRule()) {
+					sequence_AstTypeDefinitionTypeParameter(context, (AstTypeUser) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getAstTypeDefinitionRule()) {
+					sequence_AstTypeDefinition(context, (AstTypeUser) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getAstTypeUserRule()) {
+					sequence_AstTypeUser(context, (AstTypeUser) semanticObject); 
 					return; 
 				}
 				else break;
@@ -771,15 +767,6 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     ((members+=AstValuedVariableDeclaration members+=AstValuedVariableDeclaration*)?)
-	 */
-	protected void sequence_AstAnonymousConstructor(EObject context, AstAnonymousConstructor semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (name=ID value=AstExpression)
 	 */
 	protected void sequence_AstAssignParameter(EObject context, AstAssignParameter semanticObject) {
@@ -837,15 +824,6 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	 *     )
 	 */
 	protected void sequence_AstConstantVariable_AstVariableDeclaration(EObject context, AstVariable semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (name=ID (members+=AstValuedVariableDeclaration members+=AstValuedVariableDeclaration*)?)
-	 */
-	protected void sequence_AstConstructor(EObject context, AstConstructor semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1344,6 +1322,15 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
+	 *     (name=ID (fields+=AstValuedVariableDeclaration fields+=AstValuedVariableDeclaration*)?)
+	 */
+	protected void sequence_AstTaggedTuple(EObject context, AstTaggedTuple semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     name=ID
 	 */
 	protected void sequence_AstToken(EObject context, AstVariable semanticObject) {
@@ -1362,6 +1349,15 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
+	 *     ((fields+=AstValuedVariableDeclaration fields+=AstValuedVariableDeclaration*)?)
+	 */
+	protected void sequence_AstTuple(EObject context, AstTuple semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (value=AstVariableDeclaration | type=AstTypeDefinitionTypeParameter)
 	 */
 	protected void sequence_AstTypeDefinitionParameter(EObject context, AstTypeDefinitionParameter semanticObject) {
@@ -1373,7 +1369,7 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	 * Constraint:
 	 *     name=ID
 	 */
-	protected void sequence_AstTypeDefinitionTypeParameter(EObject context, AstTypeName semanticObject) {
+	protected void sequence_AstTypeDefinitionTypeParameter(EObject context, AstTypeUser semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1383,19 +1379,10 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	 *     (
 	 *         name=ID 
 	 *         (parameters+=AstTypeDefinitionParameter parameters+=AstTypeDefinitionParameter*)? 
-	 *         (constructor+=AstAnonymousConstructor | (constructor+=AstConstructor constructor+=AstConstructor*))
+	 *         (tuples+=AstTuple | (tuples+=AstTaggedTuple tuples+=AstTaggedTuple*))
 	 *     )
 	 */
-	protected void sequence_AstTypeDefinition(EObject context, AstTypeName semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     {AstTypeName}
-	 */
-	protected void sequence_AstTypeName(EObject context, AstTypeName semanticObject) {
+	protected void sequence_AstTypeDefinition(EObject context, AstTypeUser semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1420,9 +1407,9 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     ((members+=AstValuedVariableDeclaration members+=AstValuedVariableDeclaration*)?)
+	 *     {AstTypeUser}
 	 */
-	protected void sequence_AstTypeTuple(EObject context, AstType semanticObject) {
+	protected void sequence_AstTypeUser(EObject context, AstTypeUser semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1430,13 +1417,12 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	/**
 	 * Constraint:
 	 *     (
-	 *         (builtin=AstBuiltInType typeParams=AstTypeParameterList? dimensions+=AstExpression*) | 
-	 *         (name=[AstTypeName|ID] typeParams=AstTypeParameterList? dimensions+=AstExpression*) | 
-	 *         ((domain+=AstType domain+=AstType*)? (codomain+=AstType domain+=AstType*)?) | 
-	 *         ((members+=AstValuedVariableDeclaration members+=AstValuedVariableDeclaration*)?)
+	 *         (builtin=AstTypeBuiltIn typeParams=AstTypeParameterList? dimensions+=AstExpression*) | 
+	 *         (name=[AstTypeUser|ID] typeParams=AstTypeParameterList? dimensions+=AstExpression*) | 
+	 *         ((domain+=AstType domain+=AstType*)? (codomain+=AstType domain+=AstType*)?)
 	 *     )
 	 */
-	protected void sequence_AstType_AstTypeTuple(EObject context, AstType semanticObject) {
+	protected void sequence_AstType(EObject context, AstType semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

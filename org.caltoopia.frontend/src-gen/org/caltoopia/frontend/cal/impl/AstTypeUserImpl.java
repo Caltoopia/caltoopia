@@ -4,9 +4,9 @@ package org.caltoopia.frontend.cal.impl;
 
 import java.util.Collection;
 
-import org.caltoopia.frontend.cal.AstConstructor;
+import org.caltoopia.frontend.cal.AstTaggedTuple;
 import org.caltoopia.frontend.cal.AstTypeDefinitionParameter;
-import org.caltoopia.frontend.cal.AstTypeName;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.CalPackage;
 
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -21,19 +21,19 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Ast Type Name</b></em>'.
+ * An implementation of the model object '<em><b>Ast Type User</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.caltoopia.frontend.cal.impl.AstTypeNameImpl#getParameters <em>Parameters</em>}</li>
- *   <li>{@link org.caltoopia.frontend.cal.impl.AstTypeNameImpl#getConstructor <em>Constructor</em>}</li>
+ *   <li>{@link org.caltoopia.frontend.cal.impl.AstTypeUserImpl#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link org.caltoopia.frontend.cal.impl.AstTypeUserImpl#getTuples <em>Tuples</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class AstTypeNameImpl extends AstVariableImpl implements AstTypeName
+public class AstTypeUserImpl extends AstVariableImpl implements AstTypeUser
 {
   /**
    * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
@@ -46,21 +46,21 @@ public class AstTypeNameImpl extends AstVariableImpl implements AstTypeName
   protected EList<AstTypeDefinitionParameter> parameters;
 
   /**
-   * The cached value of the '{@link #getConstructor() <em>Constructor</em>}' containment reference list.
+   * The cached value of the '{@link #getTuples() <em>Tuples</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getConstructor()
+   * @see #getTuples()
    * @generated
    * @ordered
    */
-  protected EList<AstConstructor> constructor;
+  protected EList<AstTaggedTuple> tuples;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected AstTypeNameImpl()
+  protected AstTypeUserImpl()
   {
     super();
   }
@@ -73,7 +73,7 @@ public class AstTypeNameImpl extends AstVariableImpl implements AstTypeName
   @Override
   protected EClass eStaticClass()
   {
-    return CalPackage.Literals.AST_TYPE_NAME;
+    return CalPackage.Literals.AST_TYPE_USER;
   }
 
   /**
@@ -85,7 +85,7 @@ public class AstTypeNameImpl extends AstVariableImpl implements AstTypeName
   {
     if (parameters == null)
     {
-      parameters = new EObjectContainmentEList<AstTypeDefinitionParameter>(AstTypeDefinitionParameter.class, this, CalPackage.AST_TYPE_NAME__PARAMETERS);
+      parameters = new EObjectContainmentEList<AstTypeDefinitionParameter>(AstTypeDefinitionParameter.class, this, CalPackage.AST_TYPE_USER__PARAMETERS);
     }
     return parameters;
   }
@@ -95,13 +95,13 @@ public class AstTypeNameImpl extends AstVariableImpl implements AstTypeName
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<AstConstructor> getConstructor()
+  public EList<AstTaggedTuple> getTuples()
   {
-    if (constructor == null)
+    if (tuples == null)
     {
-      constructor = new EObjectContainmentEList<AstConstructor>(AstConstructor.class, this, CalPackage.AST_TYPE_NAME__CONSTRUCTOR);
+      tuples = new EObjectContainmentEList<AstTaggedTuple>(AstTaggedTuple.class, this, CalPackage.AST_TYPE_USER__TUPLES);
     }
-    return constructor;
+    return tuples;
   }
 
   /**
@@ -114,10 +114,10 @@ public class AstTypeNameImpl extends AstVariableImpl implements AstTypeName
   {
     switch (featureID)
     {
-      case CalPackage.AST_TYPE_NAME__PARAMETERS:
+      case CalPackage.AST_TYPE_USER__PARAMETERS:
         return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
-      case CalPackage.AST_TYPE_NAME__CONSTRUCTOR:
-        return ((InternalEList<?>)getConstructor()).basicRemove(otherEnd, msgs);
+      case CalPackage.AST_TYPE_USER__TUPLES:
+        return ((InternalEList<?>)getTuples()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -132,10 +132,10 @@ public class AstTypeNameImpl extends AstVariableImpl implements AstTypeName
   {
     switch (featureID)
     {
-      case CalPackage.AST_TYPE_NAME__PARAMETERS:
+      case CalPackage.AST_TYPE_USER__PARAMETERS:
         return getParameters();
-      case CalPackage.AST_TYPE_NAME__CONSTRUCTOR:
-        return getConstructor();
+      case CalPackage.AST_TYPE_USER__TUPLES:
+        return getTuples();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -151,13 +151,13 @@ public class AstTypeNameImpl extends AstVariableImpl implements AstTypeName
   {
     switch (featureID)
     {
-      case CalPackage.AST_TYPE_NAME__PARAMETERS:
+      case CalPackage.AST_TYPE_USER__PARAMETERS:
         getParameters().clear();
         getParameters().addAll((Collection<? extends AstTypeDefinitionParameter>)newValue);
         return;
-      case CalPackage.AST_TYPE_NAME__CONSTRUCTOR:
-        getConstructor().clear();
-        getConstructor().addAll((Collection<? extends AstConstructor>)newValue);
+      case CalPackage.AST_TYPE_USER__TUPLES:
+        getTuples().clear();
+        getTuples().addAll((Collection<? extends AstTaggedTuple>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -173,11 +173,11 @@ public class AstTypeNameImpl extends AstVariableImpl implements AstTypeName
   {
     switch (featureID)
     {
-      case CalPackage.AST_TYPE_NAME__PARAMETERS:
+      case CalPackage.AST_TYPE_USER__PARAMETERS:
         getParameters().clear();
         return;
-      case CalPackage.AST_TYPE_NAME__CONSTRUCTOR:
-        getConstructor().clear();
+      case CalPackage.AST_TYPE_USER__TUPLES:
+        getTuples().clear();
         return;
     }
     super.eUnset(featureID);
@@ -193,12 +193,12 @@ public class AstTypeNameImpl extends AstVariableImpl implements AstTypeName
   {
     switch (featureID)
     {
-      case CalPackage.AST_TYPE_NAME__PARAMETERS:
+      case CalPackage.AST_TYPE_USER__PARAMETERS:
         return parameters != null && !parameters.isEmpty();
-      case CalPackage.AST_TYPE_NAME__CONSTRUCTOR:
-        return constructor != null && !constructor.isEmpty();
+      case CalPackage.AST_TYPE_USER__TUPLES:
+        return tuples != null && !tuples.isEmpty();
     }
     return super.eIsSet(featureID);
   }
 
-} //AstTypeNameImpl
+} //AstTypeUserImpl

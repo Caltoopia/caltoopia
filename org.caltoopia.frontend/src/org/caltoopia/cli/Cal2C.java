@@ -55,14 +55,14 @@ import java.util.Set;
 import java.util.regex.Matcher;
 
 import org.caltoopia.ast2ir.Instantiator;
+import org.caltoopia.ast2ir.IrDottyPrinter;
+import org.caltoopia.ast2ir.IrXmlPrinter;
 import org.caltoopia.ast2ir.Util;
 import org.caltoopia.codegen.CEnvironment;
 import org.caltoopia.codegen.CPrinter;
 import org.caltoopia.codegen.IR2CIR;
 import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation;
-import org.caltoopia.codegen.IrDottyPrinter;
-import org.caltoopia.codegen.IrXmlPrinter;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.frontend.CalStandaloneSetup;
 import org.caltoopia.ir.AbstractActor;

@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.caltoopia.ir.impl;
 
@@ -56,11 +52,11 @@ import org.caltoopia.ir.State;
 import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.StringLiteral;
 import org.caltoopia.ir.TaggedExpression;
+import org.caltoopia.ir.TaggedTuple;
 import org.caltoopia.ir.ToSink;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeBool;
-import org.caltoopia.ir.TypeConstructor;
 import org.caltoopia.ir.TypeConstructorCall;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeDeclarationImport;
@@ -70,8 +66,8 @@ import org.caltoopia.ir.TypeInt;
 import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.TypeProc;
-import org.caltoopia.ir.TypeRecord;
 import org.caltoopia.ir.TypeString;
+import org.caltoopia.ir.TypeTuple;
 import org.caltoopia.ir.TypeUint;
 import org.caltoopia.ir.TypeUndef;
 import org.caltoopia.ir.TypeUser;
@@ -536,7 +532,14 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass typeRecordEClass = null;
+	private EClass typeTupleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass taggedTupleEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -572,13 +575,6 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * @generated
 	 */
 	private EClass typeProcEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass typeConstructorEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2265,8 +2261,8 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getTypeRecord() {
-		return typeRecordEClass;
+	public EClass getTypeTuple() {
+		return typeTupleEClass;
 	}
 
 	/**
@@ -2274,8 +2270,35 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTypeRecord_Members() {
-		return (EReference)typeRecordEClass.getEStructuralFeatures().get(0);
+	public EReference getTypeTuple_TaggedTuples() {
+		return (EReference)typeTupleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTaggedTuple() {
+		return taggedTupleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTaggedTuple_Fields() {
+		return (EReference)taggedTupleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTaggedTuple_Tag() {
+		return (EAttribute)taggedTupleEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2391,33 +2414,6 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getTypeConstructor() {
-		return typeConstructorEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getTypeConstructor_Typedef() {
-		return (EReference)typeConstructorEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getTypeConstructor_Parameters() {
-		return (EReference)typeConstructorEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getTypeDeclaration() {
 		return typeDeclarationEClass;
 	}
@@ -2429,15 +2425,6 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 */
 	public EReference getTypeDeclaration_Type() {
 		return (EReference)typeDeclarationEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getTypeDeclaration_Constructor() {
-		return (EReference)typeDeclarationEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2841,8 +2828,12 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 
 		typeStringEClass = createEClass(TYPE_STRING);
 
-		typeRecordEClass = createEClass(TYPE_RECORD);
-		createEReference(typeRecordEClass, TYPE_RECORD__MEMBERS);
+		typeTupleEClass = createEClass(TYPE_TUPLE);
+		createEReference(typeTupleEClass, TYPE_TUPLE__TAGGED_TUPLES);
+
+		taggedTupleEClass = createEClass(TAGGED_TUPLE);
+		createEReference(taggedTupleEClass, TAGGED_TUPLE__FIELDS);
+		createEAttribute(taggedTupleEClass, TAGGED_TUPLE__TAG);
 
 		typeUndefEClass = createEClass(TYPE_UNDEF);
 
@@ -2861,13 +2852,8 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		createEReference(typeProcEClass, TYPE_PROC__INPUT_TYPES);
 		createEReference(typeProcEClass, TYPE_PROC__OUTPUT_TYPES);
 
-		typeConstructorEClass = createEClass(TYPE_CONSTRUCTOR);
-		createEReference(typeConstructorEClass, TYPE_CONSTRUCTOR__TYPEDEF);
-		createEReference(typeConstructorEClass, TYPE_CONSTRUCTOR__PARAMETERS);
-
 		typeDeclarationEClass = createEClass(TYPE_DECLARATION);
 		createEReference(typeDeclarationEClass, TYPE_DECLARATION__TYPE);
-		createEReference(typeDeclarationEClass, TYPE_DECLARATION__CONSTRUCTOR);
 
 		scheduleEClass = createEClass(SCHEDULE);
 		createEReference(scheduleEClass, SCHEDULE__STATES);
@@ -2980,14 +2966,13 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		typeFloatEClass.getESuperTypes().add(this.getType());
 		typeUintEClass.getESuperTypes().add(this.getType());
 		typeStringEClass.getESuperTypes().add(this.getType());
-		typeRecordEClass.getESuperTypes().add(this.getType());
-		typeRecordEClass.getESuperTypes().add(this.getNode());
+		typeTupleEClass.getESuperTypes().add(this.getType());
+		typeTupleEClass.getESuperTypes().add(this.getNode());
 		typeUndefEClass.getESuperTypes().add(this.getType());
 		typeActorEClass.getESuperTypes().add(this.getType());
 		typeUserEClass.getESuperTypes().add(this.getType());
 		typeLambdaEClass.getESuperTypes().add(this.getType());
 		typeProcEClass.getESuperTypes().add(this.getType());
-		typeConstructorEClass.getESuperTypes().add(this.getDeclaration());
 		typeDeclarationEClass.getESuperTypes().add(this.getDeclaration());
 
 		// Initialize classes and features; add operations and parameters
@@ -3229,8 +3214,12 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 
 		initEClass(typeStringEClass, TypeString.class, "TypeString", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(typeRecordEClass, TypeRecord.class, "TypeRecord", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTypeRecord_Members(), this.getVariable(), null, "members", null, 0, -1, TypeRecord.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(typeTupleEClass, TypeTuple.class, "TypeTuple", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTypeTuple_TaggedTuples(), this.getTaggedTuple(), null, "TaggedTuples", null, 0, -1, TypeTuple.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(taggedTupleEClass, TaggedTuple.class, "TaggedTuple", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTaggedTuple_Fields(), this.getVariable(), null, "fields", null, 0, -1, TaggedTuple.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTaggedTuple_Tag(), ecorePackage.getEString(), "Tag", null, 0, 1, TaggedTuple.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typeUndefEClass, TypeUndef.class, "TypeUndef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -3249,13 +3238,8 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		initEReference(getTypeProc_InputTypes(), this.getType(), null, "inputTypes", null, 0, -1, TypeProc.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTypeProc_OutputTypes(), this.getType(), null, "outputTypes", null, 0, -1, TypeProc.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(typeConstructorEClass, TypeConstructor.class, "TypeConstructor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTypeConstructor_Typedef(), this.getTypeDeclaration(), null, "typedef", null, 0, 1, TypeConstructor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTypeConstructor_Parameters(), this.getVariable(), null, "parameters", null, 0, -1, TypeConstructor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
 		initEClass(typeDeclarationEClass, TypeDeclaration.class, "TypeDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTypeDeclaration_Type(), this.getType(), null, "type", null, 0, 1, TypeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTypeDeclaration_Constructor(), this.getTypeConstructor(), null, "constructor", null, 0, 1, TypeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(scheduleEClass, Schedule.class, "Schedule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSchedule_States(), this.getState(), null, "states", null, 0, -1, Schedule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

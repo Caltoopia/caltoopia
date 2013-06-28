@@ -21,7 +21,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="annotations" upperBound="-1"
         eType="#//AstAnnotation" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typedefs" upperBound="-1"
-        eType="#//AstTypeName" containment="true"/>
+        eType="#//AstTypeUser" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="namespaces" upperBound="-1"
         eType="#//AstNamespace" containment="true"/>
   </eClassifiers>
@@ -96,21 +96,21 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="dimensions" upperBound="-1"
         eType="#//AstExpression" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AstTypeName" eSuperTypes="#//AstVariable">
+  <eClassifiers xsi:type="ecore:EClass" name="AstTypeUser" eSuperTypes="#//AstVariable">
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//AstTypeDefinitionParameter" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constructor" upperBound="-1"
-        eType="#//AstConstructor" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tuples" upperBound="-1"
+        eType="#//AstTaggedTuple" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AstTypeDefinitionParameter">
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//AstVariable"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//AstTypeName"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//AstTypeUser"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AstConstructor">
+  <eClassifiers xsi:type="ecore:EClass" name="AstTaggedTuple">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="members" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fields" upperBound="-1"
         eType="#//AstVariable" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AstActor" eSuperTypes="#//AstAbstractActor">
@@ -305,13 +305,11 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dimensions" upperBound="-1"
         eType="#//AstExpression" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//AstTypeName"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//AstTypeUser"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domain" upperBound="-1"
         eType="#//AstType" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="codomain" upperBound="-1"
         eType="#//AstType" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="members" upperBound="-1"
-        eType="#//AstVariable" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AstTypeParameterList">
     <eStructuralFeatures xsi:type="ecore:EReference" name="params" upperBound="-1"
@@ -338,7 +336,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AstAnonymousConstructor" eSuperTypes="#//AstConstructor"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AstTuple" eSuperTypes="#//AstTaggedTuple"/>
   <eClassifiers xsi:type="ecore:EClass" name="AstFunction" eSuperTypes="#//AstVariable #//AstExternalFunction">
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//AstVariable" containment="true"/>

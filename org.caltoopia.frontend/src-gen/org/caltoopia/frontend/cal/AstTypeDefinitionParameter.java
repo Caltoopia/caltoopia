@@ -58,12 +58,12 @@ public interface AstTypeDefinitionParameter extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Type</em>' containment reference.
-   * @see #setType(AstTypeName)
+   * @see #setType(AstTypeUser)
    * @see org.caltoopia.frontend.cal.CalPackage#getAstTypeDefinitionParameter_Type()
    * @model containment="true"
    * @generated
    */
-  AstTypeName getType();
+  AstTypeUser getType();
 
   /**
    * Sets the value of the '{@link org.caltoopia.frontend.cal.AstTypeDefinitionParameter#getType <em>Type</em>}' containment reference.
@@ -73,6 +73,6 @@ public interface AstTypeDefinitionParameter extends EObject
    * @see #getType()
    * @generated
    */
-  void setType(AstTypeName value);
+  void setType(AstTypeUser value);
 
 } // AstTypeDefinitionParameter

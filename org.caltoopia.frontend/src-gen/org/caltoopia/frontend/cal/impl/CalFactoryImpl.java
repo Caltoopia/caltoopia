@@ -79,9 +79,9 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
       case CalPackage.AST_ACTOR_VARIABLE_REFERENCE: return createAstActorVariableReference();
       case CalPackage.AST_CONNECTION_ATTRIBUTE: return createAstConnectionAttribute();
       case CalPackage.AST_VARIABLE: return createAstVariable();
-      case CalPackage.AST_TYPE_NAME: return createAstTypeName();
+      case CalPackage.AST_TYPE_USER: return createAstTypeUser();
       case CalPackage.AST_TYPE_DEFINITION_PARAMETER: return createAstTypeDefinitionParameter();
-      case CalPackage.AST_CONSTRUCTOR: return createAstConstructor();
+      case CalPackage.AST_TAGGED_TUPLE: return createAstTaggedTuple();
       case CalPackage.AST_ACTOR: return createAstActor();
       case CalPackage.AST_PORT: return createAstPort();
       case CalPackage.AST_EXTERNAL_FUNCTION: return createAstExternalFunction();
@@ -121,7 +121,7 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
       case CalPackage.AST_MEMBER_ACCESS: return createAstMemberAccess();
       case CalPackage.AST_ANNOTATION: return createAstAnnotation();
       case CalPackage.AST_ANNOTATION_ARGUMENT: return createAstAnnotationArgument();
-      case CalPackage.AST_ANONYMOUS_CONSTRUCTOR: return createAstAnonymousConstructor();
+      case CalPackage.AST_TUPLE: return createAstTuple();
       case CalPackage.AST_FUNCTION: return createAstFunction();
       case CalPackage.AST_INITIALIZE: return createAstInitialize();
       case CalPackage.AST_EXPRESSION_BINARY: return createAstExpressionBinary();
@@ -301,10 +301,10 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public AstTypeName createAstTypeName()
+  public AstTypeUser createAstTypeUser()
   {
-    AstTypeNameImpl astTypeName = new AstTypeNameImpl();
-    return astTypeName;
+    AstTypeUserImpl astTypeUser = new AstTypeUserImpl();
+    return astTypeUser;
   }
 
   /**
@@ -323,10 +323,10 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public AstConstructor createAstConstructor()
+  public AstTaggedTuple createAstTaggedTuple()
   {
-    AstConstructorImpl astConstructor = new AstConstructorImpl();
-    return astConstructor;
+    AstTaggedTupleImpl astTaggedTuple = new AstTaggedTupleImpl();
+    return astTaggedTuple;
   }
 
   /**
@@ -763,10 +763,10 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public AstAnonymousConstructor createAstAnonymousConstructor()
+  public AstTuple createAstTuple()
   {
-    AstAnonymousConstructorImpl astAnonymousConstructor = new AstAnonymousConstructorImpl();
-    return astAnonymousConstructor;
+    AstTupleImpl astTuple = new AstTupleImpl();
+    return astTuple;
   }
 
   /**

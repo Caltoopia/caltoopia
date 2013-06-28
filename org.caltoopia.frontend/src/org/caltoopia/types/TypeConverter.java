@@ -41,7 +41,6 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.caltoopia.frontend.cal.AstAction;
 import org.caltoopia.frontend.cal.AstActor;
-import org.caltoopia.frontend.cal.AstConstructor;
 import org.caltoopia.frontend.cal.AstExpression;
 import org.caltoopia.frontend.cal.AstExpressionBinary;
 import org.caltoopia.frontend.cal.AstExpressionBoolean;
@@ -57,8 +56,9 @@ import org.caltoopia.frontend.cal.AstInputPattern;
 import org.caltoopia.frontend.cal.AstMemberAccess;
 import org.caltoopia.frontend.cal.AstPort;
 import org.caltoopia.frontend.cal.AstStatementAssign;
+import org.caltoopia.frontend.cal.AstTaggedTuple;
 import org.caltoopia.frontend.cal.AstType;
-import org.caltoopia.frontend.cal.AstTypeName;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstTypeParam;
 import org.caltoopia.frontend.cal.AstTypeParameterList;
 import org.caltoopia.frontend.cal.AstVariable;
@@ -69,15 +69,15 @@ import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.IrFactory;
 import org.caltoopia.ir.Scope;
+import org.caltoopia.ir.TaggedTuple;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeBool;
-import org.caltoopia.ir.TypeConstructor;
+import org.caltoopia.ir.TypeTuple;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeFloat;
 import org.caltoopia.ir.TypeInt;
 import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.TypeString;
-import org.caltoopia.ir.TypeRecord;
 import org.caltoopia.ir.TypeUint;
 import org.caltoopia.ir.TypeUndef;
 import org.caltoopia.ir.TypeUser;
@@ -147,13 +147,12 @@ public class TypeConverter extends CalSwitch<Type> {
 				type = TypeSystem.getElementType(type);				
 			}
 		
-			if (TypeSystem.isRecord(type)) {
-				type = TypeSystem.asRecord(type);
-				
-				List<Variable> typeMembers  = ((TypeRecord) type).getMembers();				
+			if (TypeSystem.isTypeTuple(type)) {
+				type = TypeSystem.asTypeTuple(type);
+				TaggedTuple tt = ((TypeTuple) type).getTaggedTuples().get(0); //Take first, since there can only be one when dot notation is supported.	
 
 				boolean found = false;
-				for (Variable n : typeMembers) {
+				for (Variable n : tt.getFields()) {
 					if (n.getName().equals(members.get(i).getName())) {
 						found = true;
 						type = n.getType();
@@ -288,9 +287,9 @@ public class TypeConverter extends CalSwitch<Type> {
 		AstVariable v = e.getSymbol();
 		if (v instanceof AstFunction) {	
 			return doSwitch(((AstFunction) e.getSymbol()).getType());
-		} else if (v instanceof AstTypeName) {
+		} else if (v instanceof AstTypeUser) {
 			//This is not a function, but a type constructor			
-			Type t = createTypeUser((AstTypeName) v, approximate);
+			Type t = createTypeUser((AstTypeUser) v, approximate);
 			return t; 
 		} else {
 			try {
@@ -530,12 +529,14 @@ public class TypeConverter extends CalSwitch<Type> {
 			type = ((TypeDeclaration) decl).getType();
 		}
 		
-		if (TypeSystem.isRecord(type)) {
-			type = TypeSystem.asRecord(type);
+		if (TypeSystem.isTypeTuple(type)) {
+			type = TypeSystem.asTypeTuple(type);
+			TaggedTuple tt = ((TypeTuple) type).getTaggedTuples().get(0); //Take first, since there can only be one when dot notation is supported.
+
 			AstMemberAccess v = member.get(0);
 			String name = v.getName();
 			if (member.size() == 1) {
-				for (Variable d : ((TypeRecord) type).getMembers()) {
+				for (Variable d : tt.getFields()) {
 					if (d.getName().equals(name)) {	
 						if (v.getMemberIndex().isEmpty())
 							return d.getType();
@@ -544,7 +545,7 @@ public class TypeConverter extends CalSwitch<Type> {
 					}
 				}
 			} else {
-				for (Variable d : ((TypeRecord) type).getMembers()) {
+				for (Variable d : tt.getFields()) {
 					if (d.getName().equals(name)) {			
 						if (v.getMemberIndex().isEmpty()) {
 							return getTypeOfMember(member.subList(1,member.size()), d.getType());
@@ -567,15 +568,15 @@ public class TypeConverter extends CalSwitch<Type> {
 	}
 
 	
-	public static Type createTypeUser(AstTypeName astTypedef, boolean approximate) {
+	public static Type createTypeUser(AstTypeUser astTypeUser, boolean approximate) {
 		TypeUser type = IrFactory.eINSTANCE.createTypeUser();
 		
 		if (approximate) {
-			TypeDeclaration typedef = createTypeDeclaration(null, astTypedef, approximate);
+			TypeDeclaration typedef = createTypeDeclaration(null, astTypeUser, approximate);
 			type.setDeclaration(typedef);
 		} else {
 		  try {	
-			  Declaration typedef = (Declaration) Util.findIrDeclaration(astTypedef);
+			  Declaration typedef = (Declaration) Util.findIrDeclaration(astTypeUser);
 			  type.setDeclaration(typedef);
 		  } catch (Exception x) {
 			  System.err.println("[TypeConverter] Fatal internal error. Failed to create user type: " + x.getMessage());
@@ -585,35 +586,37 @@ public class TypeConverter extends CalSwitch<Type> {
 		return type;
 	}
 	
-	public static TypeDeclaration createTypeDeclaration(Scope scope, AstTypeName astTypedef, boolean approximate) {
+	public static TypeDeclaration createTypeDeclaration(Scope scope, AstTypeUser astTypeUser, boolean approximate) {
 		TypeDeclaration typeDecl = IrFactory.eINSTANCE.createTypeDeclaration();			
 		typeDecl.setId(Util.getDefinitionId());
 		typeDecl.setScope(scope);
 		
-		for (AstConstructor v : astTypedef.getConstructor()) {		
-			AstConstructor tc = (AstConstructor) v;
-			TypeRecord record = IrFactory.eINSTANCE.createTypeRecord();
-			record.setId(Util.getDefinitionId());
+		TypeTuple tupleType = IrFactory.eINSTANCE.createTypeTuple();
+		tupleType.setId(Util.getDefinitionId());
 		
-			for (AstVariable astMember : tc.getMembers()) {
-				Variable member = IrFactory.eINSTANCE.createVariable();
-				member.setId(Util.getDefinitionId());
-				member.setScope(scope);
+		for (AstTaggedTuple tt : astTypeUser.getTuples()) {		
+
+			TaggedTuple taggedTuple = IrFactory.eINSTANCE.createTaggedTuple();
+			taggedTuple.setTag(tt.getName());
+			
+			for (AstVariable astField : tt.getFields()) {
+				Variable field = IrFactory.eINSTANCE.createVariable();
+				field.setId(Util.getDefinitionId());
+				field.setScope(scope);
 				
-				Type t = TypeConverter.convert(scope, astMember.getType(), approximate);
-				member.setType(t);
-				member.setName(astMember.getName());
-				record.getMembers().add(member);				
+				Type t = TypeConverter.convert(scope, astField.getType(), approximate);
+				field.setType(t);
+				field.setName(astField.getName());
+				taggedTuple.getFields().add(field);
 			}
 		
-			typeDecl.setType(record);
+			tupleType.getTaggedTuples().add(taggedTuple);			
+		}
+		
+		typeDecl.setType(tupleType);
+		typeDecl.setName(astTypeUser.getName());								
 
-			typeDecl.setName(astTypedef.getName());
-			
-			TypeConstructor typeConstructor = Util.createTypeConstructor(typeDecl, tc, approximate);
-			typeDecl.setConstructor(typeConstructor); //FIXME This is broken. Only works for ONE ctor			
-		}	
-		Util.defsput(astTypedef, typeDecl);
+		Util.defsput(astTypeUser, typeDecl);
 		
 		return typeDecl;
 	}

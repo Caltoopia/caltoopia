@@ -33,7 +33,7 @@ import java.util.Collections;
 import java.util.List;
 import org.caltoopia.frontend.cal.AstState;
 import org.caltoopia.frontend.cal.AstType;
-import org.caltoopia.frontend.cal.AstTypeName;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.CalFactory;
 import org.caltoopia.frontend.cal.CalPackage;
 import org.caltoopia.frontend.util.Util;
@@ -125,9 +125,9 @@ public class CalLinkingService extends DefaultLinkingService {
 
 	public static AstType createAstTypeUndef() {
 		AstType type = CalFactory.eINSTANCE.createAstType();
-		AstTypeName name = CalFactory.eINSTANCE.createAstTypeName();
-		name.setName(strUndef);
-		type.setName(name);
+		AstTypeUser typeUser = CalFactory.eINSTANCE.createAstTypeUser();
+		typeUser.setName(strUndef);
+		type.setName(typeUser);
 		return type;
 	}
 

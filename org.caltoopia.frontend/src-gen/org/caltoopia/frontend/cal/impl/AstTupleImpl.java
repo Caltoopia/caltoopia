@@ -2,28 +2,28 @@
  */
 package org.caltoopia.frontend.cal.impl;
 
-import org.caltoopia.frontend.cal.AstAnonymousConstructor;
+import org.caltoopia.frontend.cal.AstTuple;
 import org.caltoopia.frontend.cal.CalPackage;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Ast Anonymous Constructor</b></em>'.
+ * An implementation of the model object '<em><b>Ast Tuple</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class AstAnonymousConstructorImpl extends AstConstructorImpl implements AstAnonymousConstructor
+public class AstTupleImpl extends AstTaggedTupleImpl implements AstTuple
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected AstAnonymousConstructorImpl()
+  protected AstTupleImpl()
   {
     super();
   }
@@ -36,7 +36,7 @@ public class AstAnonymousConstructorImpl extends AstConstructorImpl implements A
   @Override
   protected EClass eStaticClass()
   {
-    return CalPackage.Literals.AST_ANONYMOUS_CONSTRUCTOR;
+    return CalPackage.Literals.AST_TUPLE;
   }
 
-} //AstAnonymousConstructorImpl
+} //AstTupleImpl

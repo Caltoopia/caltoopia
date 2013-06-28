@@ -182,11 +182,11 @@ public class CalSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CalPackage.AST_TYPE_NAME:
+      case CalPackage.AST_TYPE_USER:
       {
-        AstTypeName astTypeName = (AstTypeName)theEObject;
-        T result = caseAstTypeName(astTypeName);
-        if (result == null) result = caseAstVariable(astTypeName);
+        AstTypeUser astTypeUser = (AstTypeUser)theEObject;
+        T result = caseAstTypeUser(astTypeUser);
+        if (result == null) result = caseAstVariable(astTypeUser);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -197,10 +197,10 @@ public class CalSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CalPackage.AST_CONSTRUCTOR:
+      case CalPackage.AST_TAGGED_TUPLE:
       {
-        AstConstructor astConstructor = (AstConstructor)theEObject;
-        T result = caseAstConstructor(astConstructor);
+        AstTaggedTuple astTaggedTuple = (AstTaggedTuple)theEObject;
+        T result = caseAstTaggedTuple(astTaggedTuple);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -498,11 +498,11 @@ public class CalSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CalPackage.AST_ANONYMOUS_CONSTRUCTOR:
+      case CalPackage.AST_TUPLE:
       {
-        AstAnonymousConstructor astAnonymousConstructor = (AstAnonymousConstructor)theEObject;
-        T result = caseAstAnonymousConstructor(astAnonymousConstructor);
-        if (result == null) result = caseAstConstructor(astAnonymousConstructor);
+        AstTuple astTuple = (AstTuple)theEObject;
+        T result = caseAstTuple(astTuple);
+        if (result == null) result = caseAstTaggedTuple(astTuple);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -784,17 +784,17 @@ public class CalSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Ast Type Name</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Ast Type User</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Ast Type Name</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Ast Type User</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseAstTypeName(AstTypeName object)
+  public T caseAstTypeUser(AstTypeUser object)
   {
     return null;
   }
@@ -816,17 +816,17 @@ public class CalSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Ast Constructor</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Ast Tagged Tuple</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Ast Constructor</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Ast Tagged Tuple</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseAstConstructor(AstConstructor object)
+  public T caseAstTaggedTuple(AstTaggedTuple object)
   {
     return null;
   }
@@ -1456,17 +1456,17 @@ public class CalSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Ast Anonymous Constructor</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Ast Tuple</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Ast Anonymous Constructor</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Ast Tuple</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseAstAnonymousConstructor(AstAnonymousConstructor object)
+  public T caseAstTuple(AstTuple object)
   {
     return null;
   }

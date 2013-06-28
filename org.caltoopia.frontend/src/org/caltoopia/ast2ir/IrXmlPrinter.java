@@ -34,16 +34,15 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.caltoopia.codegen;
+package org.caltoopia.ast2ir;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import org.caltoopia.ast2ir.Stream;
-import org.caltoopia.ast2ir.Util;
-import org.caltoopia.ast2ir.PriorityGraph;
+
+import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Action;
 import org.caltoopia.ir.Actor;
@@ -77,6 +76,7 @@ import org.caltoopia.ir.Point2PointConnection;
 import org.caltoopia.ir.FromSource;
 import org.caltoopia.ir.ProcExpression;
 import org.caltoopia.ir.TaggedExpression;
+import org.caltoopia.ir.TaggedTuple;
 import org.caltoopia.ir.ToSink;
 import org.caltoopia.ir.Port;
 import org.caltoopia.ir.PortInstance;
@@ -93,7 +93,6 @@ import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeBool;
 import org.caltoopia.ir.TypeLambda;
-import org.caltoopia.ir.TypeConstructor;
 import org.caltoopia.ir.TypeConstructorCall;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeFloat;
@@ -101,7 +100,7 @@ import org.caltoopia.ir.TypeInt;
 import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.TypeProc;
 import org.caltoopia.ir.TypeString;
-import org.caltoopia.ir.TypeRecord;
+import org.caltoopia.ir.TypeTuple;
 import org.caltoopia.ir.TypeUint;
 import org.caltoopia.ir.TypeUndef;
 import org.caltoopia.ir.TypeUser;
@@ -149,7 +148,7 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 	
 	@Override
 	public Stream caseNamespace(Namespace ns) {
-		File file = new File(folder + File.separator + UtilIR.namespace2Path(ns.getName()));
+		File file = new File(folder + File.separator + Util.namespace2Path(ns.getName()));
 		if (!file.exists()) 
 			file.mkdir();
 		
@@ -157,7 +156,7 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 		String filename = path.replace(File.separator, "$");
 		filename = Util.removeWindowsDriveLetter(filename.replace(".cal", ".xml"));
 		
-		s = new Stream(folder + File.separator + UtilIR.namespace2Path(ns.getName()) + File.separator + filename);				
+		s = new Stream(folder + File.separator + Util.namespace2Path(ns.getName()) + File.separator + filename);				
 		s.print("<Namespace name=\"" + Util.packQualifiedName(ns.getName()) + "\""
 			    + " id=\"" + ns.getId() + "\">");
 		
@@ -189,7 +188,7 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 				}
 			}
 		}
-		s = new Stream(folder + File.separator + UtilIR.namespace2Path(network.getType().getNamespace()) + File.separator + network.getType().getName() + ".xml");		
+		s = new Stream(folder + File.separator + Util.namespace2Path(network.getType().getNamespace()) + File.separator + network.getType().getName() + ".xml");		
 		s.printlnInc("<Network id=\"" + network.getId() + "\" >"); ;
 
 		doAnnotations(network);
@@ -304,7 +303,7 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 				}
 			}
 		}
-		s = new Stream(folder + File.separator + UtilIR.namespace2Path(actor.getType().getNamespace()) +
+		s = new Stream(folder + File.separator + Util.namespace2Path(actor.getType().getNamespace()) +
 				File.separator + actor.getType().getName() + 
 				((instance!=null)?"_$"+instance:"") + 
 				".xml");				
@@ -351,7 +350,7 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 	
 	@Override
 	public Stream caseExternalActor(ExternalActor actor) {
-		s = new Stream(folder + File.separator + UtilIR.namespace2Path(actor.getType().getNamespace()) + File.separator + actor.getType().getName() + ".xml");				
+		s = new Stream(folder + File.separator + Util.namespace2Path(actor.getType().getNamespace()) + File.separator + actor.getType().getName() + ".xml");				
 		s.printlnInc("<ExternalActor name=\"" +  actor.getType().getName() 
 				    + "\" namespace=\"" + Util.packQualifiedName(actor.getType().getNamespace())  + "\""
 				    + " id=\"" + actor.getId() + "\">"); 
@@ -594,33 +593,16 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 				    + " scope=\"" + typeDecl.getScope().getId() + "\">");	
 		doAnnotations(typeDecl);
 		doSwitch(typeDecl.getType());
-		doSwitch(typeDecl.getConstructor());
 		s.printlnDec("</Decl>");
 
 		return s;
 	}	
 
 	@Override
-	public Stream caseTypeConstructor(TypeConstructor tc) {
-		s.printlnInc("<TypeConstructor name=\"" + tc.getName() + "\""
-				    + " id=\"" + tc.getId() + "\""
-				    + " typedef-id=\"" + tc.getTypedef().getId() + "\""
-				    + " scope=\"" + tc.getScope().getId() + "\">");	
-		doAnnotations(tc);
-		for (Variable par : tc.getParameters()) {
-			doSwitch(par);
-		}
-		s.printlnDec("</TypeConstructor>");	
-		
-		return s;
-	}
-
-	
-	@Override
 	public Stream caseUnaryExpression(UnaryExpression expr) {
 		s.printlnInc("<Expr kind=\"Unary\" id=\"" + expr.getId() + "\""
 				    + " context-scope=\"" + expr.getContext().getId() + "\""
-				    + " operator=\"" + UtilIR.marshall(expr.getOperator()) + "\">");
+				    + " operator=\"" + Util.marshall(expr.getOperator()) + "\">");
 		doAnnotations(expr);
 		doSwitch(expr.getOperand());
 		s.printlnDec("</Expr>");
@@ -632,7 +614,7 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 	public Stream caseBinaryExpression(BinaryExpression expr) {
 		s.printlnInc("<Expr kind=\"Binary\" id=\"" + expr.getId() + "\""
 				    + " context-scope=\"" + expr.getContext().getId() + "\""
-				    + " operator=\"" + UtilIR.marshall(expr.getOperator()) + "\">");
+				    + " operator=\"" + Util.marshall(expr.getOperator()) + "\">");
 		doAnnotations(expr);
 	    doSwitch(expr.getOperand1());
 		doSwitch(expr.getOperand2());
@@ -1125,13 +1107,24 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 	}
 	
 	@Override
-	public Stream caseTypeRecord(TypeRecord type){		
-		s.printlnInc("<Type kind=\"record\" id=\"" + type.getId() + "\">");
+	public Stream caseTypeTuple(TypeTuple type){		
+		s.printlnInc("<Type kind=\"tuple\" id=\"" + type.getId() + "\">");
 		doAnnotations(type);
-		for (Variable m : type.getMembers()) {
-			doSwitch(m);
+		for (TaggedTuple tt : type.getTaggedTuples()) {
+			doSwitch(tt);
 		}
 		s.printlnDec("</Type>");
+		return s;
+	}
+	
+	@Override
+	public Stream caseTaggedTuple(TaggedTuple tt) {
+		s.printlnInc("<TaggedTuple tag=\"" + tt.getTag() + "\">");			
+		for (Variable par : tt.getFields()) {
+			doSwitch(par);
+		}
+		s.printlnDec("</TaggedTuple>");	
+		
 		return s;
 	}
 

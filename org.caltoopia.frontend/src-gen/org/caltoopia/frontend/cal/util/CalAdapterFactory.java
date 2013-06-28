@@ -150,9 +150,9 @@ public class CalAdapterFactory extends AdapterFactoryImpl
         return createAstVariableAdapter();
       }
       @Override
-      public Adapter caseAstTypeName(AstTypeName object)
+      public Adapter caseAstTypeUser(AstTypeUser object)
       {
-        return createAstTypeNameAdapter();
+        return createAstTypeUserAdapter();
       }
       @Override
       public Adapter caseAstTypeDefinitionParameter(AstTypeDefinitionParameter object)
@@ -160,9 +160,9 @@ public class CalAdapterFactory extends AdapterFactoryImpl
         return createAstTypeDefinitionParameterAdapter();
       }
       @Override
-      public Adapter caseAstConstructor(AstConstructor object)
+      public Adapter caseAstTaggedTuple(AstTaggedTuple object)
       {
-        return createAstConstructorAdapter();
+        return createAstTaggedTupleAdapter();
       }
       @Override
       public Adapter caseAstActor(AstActor object)
@@ -360,9 +360,9 @@ public class CalAdapterFactory extends AdapterFactoryImpl
         return createAstAnnotationArgumentAdapter();
       }
       @Override
-      public Adapter caseAstAnonymousConstructor(AstAnonymousConstructor object)
+      public Adapter caseAstTuple(AstTuple object)
       {
-        return createAstAnonymousConstructorAdapter();
+        return createAstTupleAdapter();
       }
       @Override
       public Adapter caseAstFunction(AstFunction object)
@@ -632,16 +632,16 @@ public class CalAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstTypeName <em>Ast Type Name</em>}'.
+   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstTypeUser <em>Ast Type User</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.caltoopia.frontend.cal.AstTypeName
+   * @see org.caltoopia.frontend.cal.AstTypeUser
    * @generated
    */
-  public Adapter createAstTypeNameAdapter()
+  public Adapter createAstTypeUserAdapter()
   {
     return null;
   }
@@ -662,16 +662,16 @@ public class CalAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstConstructor <em>Ast Constructor</em>}'.
+   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstTaggedTuple <em>Ast Tagged Tuple</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.caltoopia.frontend.cal.AstConstructor
+   * @see org.caltoopia.frontend.cal.AstTaggedTuple
    * @generated
    */
-  public Adapter createAstConstructorAdapter()
+  public Adapter createAstTaggedTupleAdapter()
   {
     return null;
   }
@@ -1262,16 +1262,16 @@ public class CalAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstAnonymousConstructor <em>Ast Anonymous Constructor</em>}'.
+   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstTuple <em>Ast Tuple</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.caltoopia.frontend.cal.AstAnonymousConstructor
+   * @see org.caltoopia.frontend.cal.AstTuple
    * @generated
    */
-  public Adapter createAstAnonymousConstructorAdapter()
+  public Adapter createAstTupleAdapter()
   {
     return null;
   }

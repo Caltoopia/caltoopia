@@ -44,7 +44,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
-import org.caltoopia.codegen.IrXmlPrinter;
+
+import org.caltoopia.ast2ir.IrXmlPrinter;
 import org.caltoopia.frontend.CalStandaloneSetup;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Actor;

@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.caltoopia.ir;
 
@@ -4118,14 +4114,14 @@ public interface IrPackage extends EPackage {
 	int TYPE_STRING_FEATURE_COUNT = TYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.caltoopia.ir.impl.TypeRecordImpl <em>Type Record</em>}' class.
+	 * The meta object id for the '{@link org.caltoopia.ir.impl.TypeTupleImpl <em>Type Tuple</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.caltoopia.ir.impl.TypeRecordImpl
-	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeRecord()
+	 * @see org.caltoopia.ir.impl.TypeTupleImpl
+	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeTuple()
 	 * @generated
 	 */
-	int TYPE_RECORD = 62;
+	int TYPE_TUPLE = 62;
 
 	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' reference list.
@@ -4134,7 +4130,7 @@ public interface IrPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_RECORD__ANNOTATIONS = TYPE_FEATURE_COUNT + 0;
+	int TYPE_TUPLE__ANNOTATIONS = TYPE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -4143,25 +4139,62 @@ public interface IrPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_RECORD__ID = TYPE_FEATURE_COUNT + 1;
+	int TYPE_TUPLE__ID = TYPE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Members</b></em>' reference list.
+	 * The feature id for the '<em><b>Tagged Tuples</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_RECORD__MEMBERS = TYPE_FEATURE_COUNT + 2;
+	int TYPE_TUPLE__TAGGED_TUPLES = TYPE_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the '<em>Type Record</em>' class.
+	 * The number of structural features of the '<em>Type Tuple</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_RECORD_FEATURE_COUNT = TYPE_FEATURE_COUNT + 3;
+	int TYPE_TUPLE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 3;
+
+	/**
+	 * The meta object id for the '{@link org.caltoopia.ir.impl.TaggedTupleImpl <em>Tagged Tuple</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.caltoopia.ir.impl.TaggedTupleImpl
+	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTaggedTuple()
+	 * @generated
+	 */
+	int TAGGED_TUPLE = 63;
+
+	/**
+	 * The feature id for the '<em><b>Fields</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAGGED_TUPLE__FIELDS = 0;
+
+	/**
+	 * The feature id for the '<em><b>Tag</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAGGED_TUPLE__TAG = 1;
+
+	/**
+	 * The number of structural features of the '<em>Tagged Tuple</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAGGED_TUPLE_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link org.caltoopia.ir.impl.TypeUndefImpl <em>Type Undef</em>}' class.
@@ -4171,7 +4204,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeUndef()
 	 * @generated
 	 */
-	int TYPE_UNDEF = 63;
+	int TYPE_UNDEF = 64;
 
 	/**
 	 * The number of structural features of the '<em>Type Undef</em>' class.
@@ -4190,7 +4223,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeActor()
 	 * @generated
 	 */
-	int TYPE_ACTOR = 64;
+	int TYPE_ACTOR = 65;
 
 	/**
 	 * The feature id for the '<em><b>Namespace</b></em>' attribute list.
@@ -4227,7 +4260,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeUser()
 	 * @generated
 	 */
-	int TYPE_USER = 65;
+	int TYPE_USER = 66;
 
 	/**
 	 * The feature id for the '<em><b>Declaration</b></em>' reference.
@@ -4255,7 +4288,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeLambda()
 	 * @generated
 	 */
-	int TYPE_LAMBDA = 66;
+	int TYPE_LAMBDA = 67;
 
 	/**
 	 * The feature id for the '<em><b>Input Types</b></em>' reference list.
@@ -4292,7 +4325,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeProc()
 	 * @generated
 	 */
-	int TYPE_PROC = 67;
+	int TYPE_PROC = 68;
 
 	/**
 	 * The feature id for the '<em><b>Input Types</b></em>' reference list.
@@ -4320,88 +4353,6 @@ public interface IrPackage extends EPackage {
 	 * @ordered
 	 */
 	int TYPE_PROC_FEATURE_COUNT = TYPE_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link org.caltoopia.ir.impl.TypeConstructorImpl <em>Type Constructor</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.caltoopia.ir.impl.TypeConstructorImpl
-	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeConstructor()
-	 * @generated
-	 */
-	int TYPE_CONSTRUCTOR = 68;
-
-	/**
-	 * The feature id for the '<em><b>Annotations</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_CONSTRUCTOR__ANNOTATIONS = DECLARATION__ANNOTATIONS;
-
-	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_CONSTRUCTOR__ID = DECLARATION__ID;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_CONSTRUCTOR__NAME = DECLARATION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Scope</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_CONSTRUCTOR__SCOPE = DECLARATION__SCOPE;
-
-	/**
-	 * The feature id for the '<em><b>Attributes</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_CONSTRUCTOR__ATTRIBUTES = DECLARATION__ATTRIBUTES;
-
-	/**
-	 * The feature id for the '<em><b>Typedef</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_CONSTRUCTOR__TYPEDEF = DECLARATION_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_CONSTRUCTOR__PARAMETERS = DECLARATION_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Type Constructor</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_CONSTRUCTOR_FEATURE_COUNT = DECLARATION_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.caltoopia.ir.impl.TypeDeclarationImpl <em>Type Declaration</em>}' class.
@@ -4468,22 +4419,13 @@ public interface IrPackage extends EPackage {
 	int TYPE_DECLARATION__TYPE = DECLARATION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Constructor</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_DECLARATION__CONSTRUCTOR = DECLARATION_FEATURE_COUNT + 1;
-
-	/**
 	 * The number of structural features of the '<em>Type Declaration</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_DECLARATION_FEATURE_COUNT = DECLARATION_FEATURE_COUNT + 2;
+	int TYPE_DECLARATION_FEATURE_COUNT = DECLARATION_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.caltoopia.ir.impl.ScheduleImpl <em>Schedule</em>}' class.
@@ -6536,25 +6478,57 @@ public interface IrPackage extends EPackage {
 	EClass getTypeString();
 
 	/**
-	 * Returns the meta object for class '{@link org.caltoopia.ir.TypeRecord <em>Type Record</em>}'.
+	 * Returns the meta object for class '{@link org.caltoopia.ir.TypeTuple <em>Type Tuple</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Type Record</em>'.
-	 * @see org.caltoopia.ir.TypeRecord
+	 * @return the meta object for class '<em>Type Tuple</em>'.
+	 * @see org.caltoopia.ir.TypeTuple
 	 * @generated
 	 */
-	EClass getTypeRecord();
+	EClass getTypeTuple();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.caltoopia.ir.TypeRecord#getMembers <em>Members</em>}'.
+	 * Returns the meta object for the reference list '{@link org.caltoopia.ir.TypeTuple#getTaggedTuples <em>Tagged Tuples</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Members</em>'.
-	 * @see org.caltoopia.ir.TypeRecord#getMembers()
-	 * @see #getTypeRecord()
+	 * @return the meta object for the reference list '<em>Tagged Tuples</em>'.
+	 * @see org.caltoopia.ir.TypeTuple#getTaggedTuples()
+	 * @see #getTypeTuple()
 	 * @generated
 	 */
-	EReference getTypeRecord_Members();
+	EReference getTypeTuple_TaggedTuples();
+
+	/**
+	 * Returns the meta object for class '{@link org.caltoopia.ir.TaggedTuple <em>Tagged Tuple</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Tagged Tuple</em>'.
+	 * @see org.caltoopia.ir.TaggedTuple
+	 * @generated
+	 */
+	EClass getTaggedTuple();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.caltoopia.ir.TaggedTuple#getFields <em>Fields</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Fields</em>'.
+	 * @see org.caltoopia.ir.TaggedTuple#getFields()
+	 * @see #getTaggedTuple()
+	 * @generated
+	 */
+	EReference getTaggedTuple_Fields();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.caltoopia.ir.TaggedTuple#getTag <em>Tag</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Tag</em>'.
+	 * @see org.caltoopia.ir.TaggedTuple#getTag()
+	 * @see #getTaggedTuple()
+	 * @generated
+	 */
+	EAttribute getTaggedTuple_Tag();
 
 	/**
 	 * Returns the meta object for class '{@link org.caltoopia.ir.TypeUndef <em>Type Undef</em>}'.
@@ -6684,38 +6658,6 @@ public interface IrPackage extends EPackage {
 	EReference getTypeProc_OutputTypes();
 
 	/**
-	 * Returns the meta object for class '{@link org.caltoopia.ir.TypeConstructor <em>Type Constructor</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Type Constructor</em>'.
-	 * @see org.caltoopia.ir.TypeConstructor
-	 * @generated
-	 */
-	EClass getTypeConstructor();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.caltoopia.ir.TypeConstructor#getTypedef <em>Typedef</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Typedef</em>'.
-	 * @see org.caltoopia.ir.TypeConstructor#getTypedef()
-	 * @see #getTypeConstructor()
-	 * @generated
-	 */
-	EReference getTypeConstructor_Typedef();
-
-	/**
-	 * Returns the meta object for the reference list '{@link org.caltoopia.ir.TypeConstructor#getParameters <em>Parameters</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Parameters</em>'.
-	 * @see org.caltoopia.ir.TypeConstructor#getParameters()
-	 * @see #getTypeConstructor()
-	 * @generated
-	 */
-	EReference getTypeConstructor_Parameters();
-
-	/**
 	 * Returns the meta object for class '{@link org.caltoopia.ir.TypeDeclaration <em>Type Declaration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6735,17 +6677,6 @@ public interface IrPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getTypeDeclaration_Type();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.caltoopia.ir.TypeDeclaration#getConstructor <em>Constructor</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Constructor</em>'.
-	 * @see org.caltoopia.ir.TypeDeclaration#getConstructor()
-	 * @see #getTypeDeclaration()
-	 * @generated
-	 */
-	EReference getTypeDeclaration_Constructor();
 
 	/**
 	 * Returns the meta object for class '{@link org.caltoopia.ir.Schedule <em>Schedule</em>}'.
@@ -8463,22 +8394,48 @@ public interface IrPackage extends EPackage {
 		EClass TYPE_STRING = eINSTANCE.getTypeString();
 
 		/**
-		 * The meta object literal for the '{@link org.caltoopia.ir.impl.TypeRecordImpl <em>Type Record</em>}' class.
+		 * The meta object literal for the '{@link org.caltoopia.ir.impl.TypeTupleImpl <em>Type Tuple</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.caltoopia.ir.impl.TypeRecordImpl
-		 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeRecord()
+		 * @see org.caltoopia.ir.impl.TypeTupleImpl
+		 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeTuple()
 		 * @generated
 		 */
-		EClass TYPE_RECORD = eINSTANCE.getTypeRecord();
+		EClass TYPE_TUPLE = eINSTANCE.getTypeTuple();
 
 		/**
-		 * The meta object literal for the '<em><b>Members</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Tagged Tuples</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TYPE_RECORD__MEMBERS = eINSTANCE.getTypeRecord_Members();
+		EReference TYPE_TUPLE__TAGGED_TUPLES = eINSTANCE.getTypeTuple_TaggedTuples();
+
+		/**
+		 * The meta object literal for the '{@link org.caltoopia.ir.impl.TaggedTupleImpl <em>Tagged Tuple</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.caltoopia.ir.impl.TaggedTupleImpl
+		 * @see org.caltoopia.ir.impl.IrPackageImpl#getTaggedTuple()
+		 * @generated
+		 */
+		EClass TAGGED_TUPLE = eINSTANCE.getTaggedTuple();
+
+		/**
+		 * The meta object literal for the '<em><b>Fields</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TAGGED_TUPLE__FIELDS = eINSTANCE.getTaggedTuple_Fields();
+
+		/**
+		 * The meta object literal for the '<em><b>Tag</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TAGGED_TUPLE__TAG = eINSTANCE.getTaggedTuple_Tag();
 
 		/**
 		 * The meta object literal for the '{@link org.caltoopia.ir.impl.TypeUndefImpl <em>Type Undef</em>}' class.
@@ -8587,32 +8544,6 @@ public interface IrPackage extends EPackage {
 		EReference TYPE_PROC__OUTPUT_TYPES = eINSTANCE.getTypeProc_OutputTypes();
 
 		/**
-		 * The meta object literal for the '{@link org.caltoopia.ir.impl.TypeConstructorImpl <em>Type Constructor</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.caltoopia.ir.impl.TypeConstructorImpl
-		 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeConstructor()
-		 * @generated
-		 */
-		EClass TYPE_CONSTRUCTOR = eINSTANCE.getTypeConstructor();
-
-		/**
-		 * The meta object literal for the '<em><b>Typedef</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TYPE_CONSTRUCTOR__TYPEDEF = eINSTANCE.getTypeConstructor_Typedef();
-
-		/**
-		 * The meta object literal for the '<em><b>Parameters</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TYPE_CONSTRUCTOR__PARAMETERS = eINSTANCE.getTypeConstructor_Parameters();
-
-		/**
 		 * The meta object literal for the '{@link org.caltoopia.ir.impl.TypeDeclarationImpl <em>Type Declaration</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -8629,14 +8560,6 @@ public interface IrPackage extends EPackage {
 		 * @generated
 		 */
 		EReference TYPE_DECLARATION__TYPE = eINSTANCE.getTypeDeclaration_Type();
-
-		/**
-		 * The meta object literal for the '<em><b>Constructor</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TYPE_DECLARATION__CONSTRUCTOR = eINSTANCE.getTypeDeclaration_Constructor();
 
 		/**
 		 * The meta object literal for the '{@link org.caltoopia.ir.impl.ScheduleImpl <em>Schedule</em>}' class.

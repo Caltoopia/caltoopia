@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="ir"
-    nsURI="http:///org/caltoopia/ir.ecore" nsPrefix="org.caltoopia.ir">
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="ir" nsURI="http:///org/caltoopia/ir.ecore" nsPrefix="org.caltoopia.ir">
   <eClassifiers xsi:type="ecore:EClass" name="Scope" eSuperTypes="#//Node">
     <eStructuralFeatures xsi:type="ecore:EReference" name="declarations" upperBound="-1"
         eType="#//Declaration"/>
@@ -278,9 +276,14 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="size" eType="#//Expression"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeString" eSuperTypes="#//Type"/>
-  <eClassifiers xsi:type="ecore:EClass" name="TypeRecord" eSuperTypes="#//Type #//Node">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="members" upperBound="-1"
+  <eClassifiers xsi:type="ecore:EClass" name="TypeTuple" eSuperTypes="#//Type #//Node">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="TaggedTuples" upperBound="-1"
+        eType="#//TaggedTuple"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TaggedTuple">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fields" upperBound="-1"
         eType="#//Variable"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Tag" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeUndef" eSuperTypes="#//Type"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeActor" eSuperTypes="#//Type">
@@ -302,14 +305,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="outputTypes" upperBound="-1"
         eType="#//Type"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TypeConstructor" eSuperTypes="#//Declaration">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="typedef" eType="#//TypeDeclaration"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
-        eType="#//Variable"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeDeclaration" eSuperTypes="#//Declaration">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//Type"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constructor" eType="#//TypeConstructor"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Schedule">
     <eStructuralFeatures xsi:type="ecore:EReference" name="states" upperBound="-1"

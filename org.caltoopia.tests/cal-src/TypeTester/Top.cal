@@ -4,12 +4,16 @@ import System.io.dprint1;
 	type T1 : A(int i, float f) end
 	type T2 : A(int i, int i2) | B(int j, int j2) | C end
 	type T3 : (int i, int j) end
+	type T4(Tx, int x) : A(Tx a, int(size=x) i, T3 x) end // Should work :(
 	
 	T1 t1a = T1::A(1, 3.14);
 	T1 t1b = T1(1, 3.14);
 	T3 t3a = T3(1, 2);
 
 	int i = 0;
+	int i2 = t3a.i;
+	
+	int(size=3) i3 = 2;
 	
 	function F1(int i) --> int: i end
 	int i1 = F1(1);
@@ -43,7 +47,12 @@ import System.io.dprint1;
 	
 	  	a1 : action ==> Out:[init] end
 
-		a2 : action In:[a] ==> Out:[a] end
+		a2 : action In:[a] ==> Out:[a] 
+		var
+			int i = a.i
+		do
+			a.i := i * 2;			
+		end
 		
 		schedule fsm s0:
 			s0 (a1) --> s1;
@@ -54,7 +63,7 @@ import System.io.dprint1;
 	actor Sink() T1 In ==>:
 	
 	  	action In:[a] ==> 
-	  	do
+	  	do	  		
 			dprint1("a.i=%i", a.i);		
 			dprint1(", a.f=%f\\n", a.f);		
 	  	end

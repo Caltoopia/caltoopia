@@ -4,9 +4,9 @@ package org.caltoopia.ir.impl;
 
 import java.util.Collection;
 
-import org.caltoopia.ir.Annotation;
-import org.caltoopia.ir.AnnotationArgument;
 import org.caltoopia.ir.IrPackage;
+import org.caltoopia.ir.TaggedTuple;
+import org.caltoopia.ir.Variable;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -21,55 +21,55 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Annotation</b></em>'.
+ * An implementation of the model object '<em><b>Tagged Tuple</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.caltoopia.ir.impl.AnnotationImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.caltoopia.ir.impl.AnnotationImpl#getArguments <em>Arguments</em>}</li>
+ *   <li>{@link org.caltoopia.ir.impl.TaggedTupleImpl#getFields <em>Fields</em>}</li>
+ *   <li>{@link org.caltoopia.ir.impl.TaggedTupleImpl#getTag <em>Tag</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class AnnotationImpl extends EObjectImpl implements Annotation {
+public class TaggedTupleImpl extends EObjectImpl implements TaggedTuple {
 	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * The cached value of the '{@link #getFields() <em>Fields</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
+	 * @see #getFields()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String NAME_EDEFAULT = null;
+	protected EList<Variable> fields;
 
 	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * The default value of the '{@link #getTag() <em>Tag</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
+	 * @see #getTag()
 	 * @generated
 	 * @ordered
 	 */
-	protected String name = NAME_EDEFAULT;
+	protected static final String TAG_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getArguments() <em>Arguments</em>}' reference list.
+	 * The cached value of the '{@link #getTag() <em>Tag</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getArguments()
+	 * @see #getTag()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<AnnotationArgument> arguments;
+	protected String tag = TAG_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected AnnotationImpl() {
+	protected TaggedTupleImpl() {
 		super();
 	}
 
@@ -80,7 +80,7 @@ public class AnnotationImpl extends EObjectImpl implements Annotation {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return IrPackage.Literals.ANNOTATION;
+		return IrPackage.Literals.TAGGED_TUPLE;
 	}
 
 	/**
@@ -88,32 +88,32 @@ public class AnnotationImpl extends EObjectImpl implements Annotation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setName(String newName) {
-		String oldName = name;
-		name = newName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.ANNOTATION__NAME, oldName, name));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<AnnotationArgument> getArguments() {
-		if (arguments == null) {
-			arguments = new EObjectResolvingEList<AnnotationArgument>(AnnotationArgument.class, this, IrPackage.ANNOTATION__ARGUMENTS);
+	public EList<Variable> getFields() {
+		if (fields == null) {
+			fields = new EObjectResolvingEList<Variable>(Variable.class, this, IrPackage.TAGGED_TUPLE__FIELDS);
 		}
-		return arguments;
+		return fields;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getTag() {
+		return tag;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTag(String newTag) {
+		String oldTag = tag;
+		tag = newTag;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.TAGGED_TUPLE__TAG, oldTag, tag));
 	}
 
 	/**
@@ -124,10 +124,10 @@ public class AnnotationImpl extends EObjectImpl implements Annotation {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case IrPackage.ANNOTATION__NAME:
-				return getName();
-			case IrPackage.ANNOTATION__ARGUMENTS:
-				return getArguments();
+			case IrPackage.TAGGED_TUPLE__FIELDS:
+				return getFields();
+			case IrPackage.TAGGED_TUPLE__TAG:
+				return getTag();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -141,12 +141,12 @@ public class AnnotationImpl extends EObjectImpl implements Annotation {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case IrPackage.ANNOTATION__NAME:
-				setName((String)newValue);
+			case IrPackage.TAGGED_TUPLE__FIELDS:
+				getFields().clear();
+				getFields().addAll((Collection<? extends Variable>)newValue);
 				return;
-			case IrPackage.ANNOTATION__ARGUMENTS:
-				getArguments().clear();
-				getArguments().addAll((Collection<? extends AnnotationArgument>)newValue);
+			case IrPackage.TAGGED_TUPLE__TAG:
+				setTag((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -160,11 +160,11 @@ public class AnnotationImpl extends EObjectImpl implements Annotation {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case IrPackage.ANNOTATION__NAME:
-				setName(NAME_EDEFAULT);
+			case IrPackage.TAGGED_TUPLE__FIELDS:
+				getFields().clear();
 				return;
-			case IrPackage.ANNOTATION__ARGUMENTS:
-				getArguments().clear();
+			case IrPackage.TAGGED_TUPLE__TAG:
+				setTag(TAG_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -178,10 +178,10 @@ public class AnnotationImpl extends EObjectImpl implements Annotation {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case IrPackage.ANNOTATION__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case IrPackage.ANNOTATION__ARGUMENTS:
-				return arguments != null && !arguments.isEmpty();
+			case IrPackage.TAGGED_TUPLE__FIELDS:
+				return fields != null && !fields.isEmpty();
+			case IrPackage.TAGGED_TUPLE__TAG:
+				return TAG_EDEFAULT == null ? tag != null : !TAG_EDEFAULT.equals(tag);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -196,10 +196,10 @@ public class AnnotationImpl extends EObjectImpl implements Annotation {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
-		result.append(name);
+		result.append(" (Tag: ");
+		result.append(tag);
 		result.append(')');
 		return result.toString();
 	}
 
-} //AnnotationImpl
+} //TaggedTupleImpl

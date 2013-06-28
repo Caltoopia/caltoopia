@@ -47,7 +47,6 @@ import org.caltoopia.frontend.cal.AstAction;
 import org.caltoopia.frontend.cal.AstActor;
 import org.caltoopia.frontend.cal.AstAnnotation;
 import org.caltoopia.frontend.cal.AstAnnotationArgument;
-import org.caltoopia.frontend.cal.AstConstructor;
 import org.caltoopia.frontend.cal.AstEntity;
 import org.caltoopia.frontend.cal.AstExpression;
 import org.caltoopia.frontend.cal.AstExpressionBoolean;
@@ -62,7 +61,7 @@ import org.caltoopia.frontend.cal.AstOutputPattern;
 import org.caltoopia.frontend.cal.AstPort;
 import org.caltoopia.frontend.cal.AstProcedure;
 import org.caltoopia.frontend.cal.AstType;
-import org.caltoopia.frontend.cal.AstTypeName;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.ir.Annotation;
@@ -93,10 +92,9 @@ import org.caltoopia.ir.Port;
 import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.TypeActor;
-import org.caltoopia.ir.TypeConstructor;
 import org.caltoopia.ir.TypeConstructorCall;
 import org.caltoopia.ir.TypeList;
-import org.caltoopia.ir.TypeRecord;
+import org.caltoopia.ir.TypeTuple;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.VariableExternal;
 import org.caltoopia.ir.VariableImport;
@@ -141,7 +139,7 @@ public class Util {
 		return var;
 	}
 	
-	public static TypeDeclarationImport createImportedTypeDeclaration(List<String> NamespaceName, AstTypeName t) {
+	public static TypeDeclarationImport createImportedTypeDeclaration(List<String> NamespaceName, AstTypeUser t) {
 		TypeDeclarationImport typedef = IrFactory.eINSTANCE.createTypeDeclarationImport();
 		typedef.setName(t.getName());
 		typedef.setId(getDefinitionId());
@@ -203,28 +201,7 @@ public class Util {
 		defsput(astVariable, var);
 
 		return var;
-	}	
-	
-	public static TypeConstructor createTypeConstructor(TypeDeclaration typeDecl, AstConstructor f, boolean approximate) {
-		TypeConstructor tc = IrFactory.eINSTANCE.createTypeConstructor();
-		tc.setId(getDefinitionId());
-		tc.setName(f.getName());
-		
-		for (AstVariable m : f.getMembers()) {
-			Variable member = IrFactory.eINSTANCE.createVariable();
-			member.setId(Util.getDefinitionId());
-			member.setScope(typeDecl.getScope());
-			member.setName(m.getName());
-			Type type = TypeConverter.convert(typeDecl.getScope(), m.getType(), approximate);
-			member.setType(type);			
-			tc.getParameters().add(member);
-		}
-		tc.setTypedef(typeDecl);
-		tc.setScope(typeDecl.getScope());
-		defsput(f, tc);
-		
-		return tc;
-	}
+	}		
 	
 	public static Declaration createForwardFunctionDeclaration(Scope scope, AstFunction f, boolean approximate) {
 		ForwardDeclaration fun = IrFactory.eINSTANCE.createForwardDeclaration();
@@ -582,8 +559,8 @@ public class Util {
 			String name = "unknown";
 			if (astObject instanceof AstVariable) {
 				name = ((AstVariable) astObject).getName() + " (variable)";
-			} else if (astObject instanceof AstTypeName) {
-				name = ((AstTypeName) astObject).getName() + " (typedef)";
+			} else if (astObject instanceof AstTypeUser) {
+				name = ((AstTypeUser) astObject).getName() + " (typedef)";
 			} else if (astObject instanceof AstFunction) {
 				name = ((AstFunction) astObject).getName() + " (function)";
 			} else if (astObject instanceof AstProcedure) {
@@ -628,8 +605,8 @@ public class Util {
 		}
 	}
 
-	public static boolean isTypeRecord(Type type) {
-		if (type instanceof TypeRecord) {
+	public static boolean isTypeTuple(Type type) {
+		if (type instanceof TypeTuple) {
 			return true;
 		} else {
 			return false;
@@ -643,7 +620,6 @@ public class Util {
 			return false;
 		}
 	}
-
 	
 	public static TypeConstructorCall createTypeConstructorCall(Scope scope, AstType astType, boolean approximate) {
 		TypeConstructorCall ctor = IrFactory.eINSTANCE.createTypeConstructorCall();	
@@ -830,5 +806,41 @@ public class Util {
 		} else {
 			return filename;
 		}
+	}
+	
+	public static String namespace2Path(List<String> ns) {
+		String ret="";
+		if(ns != null) {
+			for(Iterator<String> i=ns.iterator();i.hasNext();) {
+				String s=i.next();
+				ret+=s;
+				if(i.hasNext()) ret+=File.separator;
+			}
+		}
+		return ret;
+	}
+	
+	public static String marshall(String s) {
+		s = s.replace("<=", "LTE");
+		s = s.replace("<", "LT");
+		s = s.replace(">=", "GTE");
+		s = s.replace("<", "GT");
+		s = s.replace("&&", "AND");
+		s = s.replace("&", "BAND");
+		s = s.replace("/", "DIV");
+		
+		return s;
+	}
+
+	public static String unmarshall(String s) {
+		s = s.replace("LTE", "<=");
+		s = s.replace("LT", "<");
+		s = s.replace("GTE", ">=");
+		s = s.replace("GT", ">");
+		s = s.replace("BAND", "&");
+		s = s.replace("AND", "&&");
+		s = s.replace("DIV", "/");
+		
+		return s;
 	}
 }

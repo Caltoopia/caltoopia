@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.caltoopia.ir.util;
 
@@ -320,8 +316,12 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 				return createTypeStringAdapter();
 			}
 			@Override
-			public Adapter caseTypeRecord(TypeRecord object) {
-				return createTypeRecordAdapter();
+			public Adapter caseTypeTuple(TypeTuple object) {
+				return createTypeTupleAdapter();
+			}
+			@Override
+			public Adapter caseTaggedTuple(TaggedTuple object) {
+				return createTaggedTupleAdapter();
 			}
 			@Override
 			public Adapter caseTypeUndef(TypeUndef object) {
@@ -342,10 +342,6 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseTypeProc(TypeProc object) {
 				return createTypeProcAdapter();
-			}
-			@Override
-			public Adapter caseTypeConstructor(TypeConstructor object) {
-				return createTypeConstructorAdapter();
 			}
 			@Override
 			public Adapter caseTypeDeclaration(TypeDeclaration object) {
@@ -1256,16 +1252,30 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.TypeRecord <em>Type Record</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.TypeTuple <em>Type Tuple</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.caltoopia.ir.TypeRecord
+	 * @see org.caltoopia.ir.TypeTuple
 	 * @generated
 	 */
-	public Adapter createTypeRecordAdapter() {
+	public Adapter createTypeTupleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.TaggedTuple <em>Tagged Tuple</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.caltoopia.ir.TaggedTuple
+	 * @generated
+	 */
+	public Adapter createTaggedTupleAdapter() {
 		return null;
 	}
 
@@ -1336,20 +1346,6 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTypeProcAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.TypeConstructor <em>Type Constructor</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.caltoopia.ir.TypeConstructor
-	 * @generated
-	 */
-	public Adapter createTypeConstructorAdapter() {
 		return null;
 	}
 

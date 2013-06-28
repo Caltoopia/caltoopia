@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.caltoopia.ir;
 
@@ -584,13 +580,22 @@ public interface IrFactory extends EFactory {
 	TypeString createTypeString();
 
 	/**
-	 * Returns a new object of class '<em>Type Record</em>'.
+	 * Returns a new object of class '<em>Type Tuple</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Type Record</em>'.
+	 * @return a new object of class '<em>Type Tuple</em>'.
 	 * @generated
 	 */
-	TypeRecord createTypeRecord();
+	TypeTuple createTypeTuple();
+
+	/**
+	 * Returns a new object of class '<em>Tagged Tuple</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Tagged Tuple</em>'.
+	 * @generated
+	 */
+	TaggedTuple createTaggedTuple();
 
 	/**
 	 * Returns a new object of class '<em>Type Undef</em>'.
@@ -636,15 +641,6 @@ public interface IrFactory extends EFactory {
 	 * @generated
 	 */
 	TypeProc createTypeProc();
-
-	/**
-	 * Returns a new object of class '<em>Type Constructor</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Type Constructor</em>'.
-	 * @generated
-	 */
-	TypeConstructor createTypeConstructor();
 
 	/**
 	 * Returns a new object of class '<em>Type Declaration</em>'.

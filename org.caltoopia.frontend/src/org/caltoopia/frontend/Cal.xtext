@@ -137,27 +137,27 @@ AstExternalVariable returns AstVariable:
     'external' AstVariableDeclaration ';';
 
 ///////////////////////////////////////////////////////////////////////////////
-// type defintions
+// type definitions
 ///////////////////////////////////////////////////////////////////////////////
 
-AstTypeDefinition returns AstTypeName: 
+AstTypeDefinition returns AstTypeUser: 
 	'type' name=ID ( '(' (parameters += AstTypeDefinitionParameter (',' parameters += AstTypeDefinitionParameter)*)? ')')? 
 	':' 
-	( constructor += AstAnonymousConstructor 
-	| ( constructor += AstConstructor  ('|' constructor += AstConstructor )* )) 
+	( tuples += AstTuple 
+	| ( tuples += AstTaggedTuple  ('|' tuples += AstTaggedTuple )* )) 
 	'end'; 
 	 
 AstTypeDefinitionParameter:
     (value = AstVariableDeclaration | type = AstTypeDefinitionTypeParameter );	 
 
-AstTypeDefinitionTypeParameter returns AstTypeName:
+AstTypeDefinitionTypeParameter returns AstTypeUser:
         name = ID;
 	
-AstConstructor :
-	name=ID ('(' (members += AstValuedVariableDeclaration (',' members += AstValuedVariableDeclaration)*)? ')')?; 
+AstTaggedTuple :
+	name=ID ('(' (fields += AstValuedVariableDeclaration (',' fields += AstValuedVariableDeclaration)*)? ')')?; 
 	
-AstAnonymousConstructor	returns AstConstructor: {AstAnonymousConstructor}
-	('(' (members += AstValuedVariableDeclaration (',' members += AstValuedVariableDeclaration)*)? ')');
+AstTuple	returns AstTaggedTuple: {AstTuple}
+	('(' (fields += AstValuedVariableDeclaration (',' fields += AstValuedVariableDeclaration)*)? ')');
 	
 ///////////////////////////////////////////////////////////////////////////////
 // actor
@@ -455,18 +455,18 @@ terminal ID returns ecore::EString : ('a'..'z'|'A'..'Z'|'_'|'$')('a'..'z'|'A'..'
 // type and variable declarations
 ///////////////////////////////////////////////////////////////////////////////
 
-AstTypeName returns AstVariable: {AstTypeName} ID | AstBuiltInType;
+//AstTypeUser returns AstVariable: {AstTypeUser} ID | AstTypeBuiltIn;
 
-AstBuiltInType: 'int' | 'uint' | 'float' | 'bool' | 'List' | 'string' | 'byte' | 'short';
+AstTypeUser returns AstVariable: {AstTypeUser} ID;
+
+AstTypeBuiltIn: 'int' | 'uint' | 'float' | 'bool' | 'List' | 'string' | 'byte' | 'short';
 
 AstType: {AstType} 
-           (builtin = AstBuiltInType ( typeParams = AstTypeParameterList )?  ('[' dimensions += AstExpression ']')*
-         | name = [AstTypeName] ( typeParams = AstTypeParameterList )?  ('[' dimensions += AstExpression ']')*
-         | '[' (domain += AstType (',' domain += AstType)*)? '-->' (codomain += AstType  (',' domain += AstType)*)? ']')
-         | AstTypeTuple;         
-
-AstTypeTuple returns AstType: {AstType}
-    "(" (members += AstValuedVariableDeclaration (',' members += AstValuedVariableDeclaration)*)? ")";
+           (
+            builtin = AstTypeBuiltIn ( typeParams = AstTypeParameterList )?  ('[' dimensions += AstExpression ']')*
+            | name  = [AstTypeUser]  ( typeParams = AstTypeParameterList )?  ('[' dimensions += AstExpression ']')*
+            | '[' (domain += AstType (',' domain += AstType)*)? '-->' (codomain += AstType  (',' domain += AstType)*)? ']'
+           );
 
 AstTypeParameterList: '(' params += AstTypeParam (',' params += AstTypeParam)* ')';
 

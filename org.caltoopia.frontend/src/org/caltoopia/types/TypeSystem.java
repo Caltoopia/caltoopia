@@ -53,7 +53,7 @@ import org.caltoopia.ir.TypeFloat;
 import org.caltoopia.ir.TypeInt;
 import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.TypeString;
-import org.caltoopia.ir.TypeRecord;
+import org.caltoopia.ir.TypeTuple;
 import org.caltoopia.ir.TypeUint;
 import org.caltoopia.ir.TypeUndef;
 import org.caltoopia.ir.TypeUser;
@@ -165,7 +165,7 @@ public class TypeSystem {
 		return (t instanceof TypeUser);
 	}
 
-	public static boolean isRecord(Type t){		
+	public static boolean isTypeTuple(Type t){		
 		if (t instanceof TypeUser) {
 			Declaration typeDecl = ((TypeUser) t).getDeclaration();
 			if (typeDecl instanceof TypeDeclarationImport) {
@@ -176,15 +176,15 @@ public class TypeSystem {
 				}
 			}
 			Type t2 = ((TypeDeclaration) typeDecl).getType();
-			return isRecord(t2);
+			return isTypeTuple(t2);
 		} else {
-			return (t instanceof TypeRecord);
+			return (t instanceof TypeTuple);
 		}
 	}
 
-	public static TypeRecord asRecord(Type t) {
-		if (t instanceof TypeRecord) {
-			return (TypeRecord) t;
+	public static TypeTuple asTypeTuple(Type t) {
+		if (t instanceof TypeTuple) {
+			return (TypeTuple) t;
 		} else if (t instanceof TypeUser) {
 			Declaration typeDecl = ((TypeUser) t).getDeclaration();
 			if (typeDecl instanceof TypeDeclarationImport) {
@@ -194,7 +194,7 @@ public class TypeSystem {
 					throw new RuntimeException("[TypeSystem] internal error#2a");
 				}
 			}
-			return (TypeRecord) ((TypeDeclaration) typeDecl).getType();
+			return (TypeTuple) ((TypeDeclaration) typeDecl).getType();
 		} else {
 			throw new RuntimeException("[TypeSystem] internal error#2b");
 		}

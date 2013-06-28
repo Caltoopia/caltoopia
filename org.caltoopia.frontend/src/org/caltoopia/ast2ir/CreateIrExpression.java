@@ -38,7 +38,6 @@ package org.caltoopia.ast2ir;
 
 import java.util.List;
 import org.eclipse.emf.ecore.EObject;
-import org.caltoopia.frontend.cal.AstConstructor;
 import org.caltoopia.frontend.cal.AstExpression;
 import org.caltoopia.frontend.cal.AstExpressionBinary;
 import org.caltoopia.frontend.cal.AstExpressionBoolean;
@@ -52,7 +51,7 @@ import org.caltoopia.frontend.cal.AstExpressionUnary;
 import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstGenerator;
 import org.caltoopia.frontend.cal.AstMemberAccess;
-import org.caltoopia.frontend.cal.AstTypeName;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.util.CalSwitch;
 import org.caltoopia.ir.BinaryExpression;
 import org.caltoopia.ir.IfExpression;
@@ -188,13 +187,13 @@ public class CreateIrExpression extends CalSwitch<Expression> {
 			}
 			
 			return result;
-		} else if (e.getSymbol() instanceof AstConstructor){
+		} else if (e.getSymbol() instanceof AstTypeUser){
 			TypeConstructorCall result = IrFactory.eINSTANCE.createTypeConstructorCall();
 			result.setId(Util.getDefinitionId());
 			result.setContext(currentScope);
 			
-			result.setName(e.getSymbol().getName());
-			AstTypeName astTypedef = (AstTypeName) e.getSymbol().eContainer();
+			result.setName(e.getCtor());
+			AstTypeUser astTypedef = (AstTypeUser) e.getSymbol();
 			Declaration typedef = Util.findIrDeclaration(astTypedef);
 			result.setTypedef(typedef);			
 			

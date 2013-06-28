@@ -7,7 +7,7 @@ import java.util.Collection;
 import org.caltoopia.frontend.cal.AstAnnotation;
 import org.caltoopia.frontend.cal.AstEntity;
 import org.caltoopia.frontend.cal.AstNamespace;
-import org.caltoopia.frontend.cal.AstTypeName;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstUnit;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.cal.CalPackage;
@@ -149,7 +149,7 @@ public class AstNamespaceImpl extends AstTopImpl implements AstNamespace
    * @generated
    * @ordered
    */
-  protected EList<AstTypeName> typedefs;
+  protected EList<AstTypeUser> typedefs;
 
   /**
    * The cached value of the '{@link #getNamespaces() <em>Namespaces</em>}' containment reference list.
@@ -308,11 +308,11 @@ public class AstNamespaceImpl extends AstTopImpl implements AstNamespace
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<AstTypeName> getTypedefs()
+  public EList<AstTypeUser> getTypedefs()
   {
     if (typedefs == null)
     {
-      typedefs = new EObjectContainmentEList<AstTypeName>(AstTypeName.class, this, CalPackage.AST_NAMESPACE__TYPEDEFS);
+      typedefs = new EObjectContainmentEList<AstTypeUser>(AstTypeUser.class, this, CalPackage.AST_NAMESPACE__TYPEDEFS);
     }
     return typedefs;
   }
@@ -441,7 +441,7 @@ public class AstNamespaceImpl extends AstTopImpl implements AstNamespace
         return;
       case CalPackage.AST_NAMESPACE__TYPEDEFS:
         getTypedefs().clear();
-        getTypedefs().addAll((Collection<? extends AstTypeName>)newValue);
+        getTypedefs().addAll((Collection<? extends AstTypeUser>)newValue);
         return;
       case CalPackage.AST_NAMESPACE__NAMESPACES:
         getNamespaces().clear();

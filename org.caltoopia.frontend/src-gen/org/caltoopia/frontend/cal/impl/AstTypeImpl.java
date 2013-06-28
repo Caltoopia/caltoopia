@@ -6,9 +6,8 @@ import java.util.Collection;
 
 import org.caltoopia.frontend.cal.AstExpression;
 import org.caltoopia.frontend.cal.AstType;
-import org.caltoopia.frontend.cal.AstTypeName;
 import org.caltoopia.frontend.cal.AstTypeParameterList;
-import org.caltoopia.frontend.cal.AstVariable;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.CalPackage;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -38,7 +37,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstTypeImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstTypeImpl#getDomain <em>Domain</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstTypeImpl#getCodomain <em>Codomain</em>}</li>
- *   <li>{@link org.caltoopia.frontend.cal.impl.AstTypeImpl#getMembers <em>Members</em>}</li>
  * </ul>
  * </p>
  *
@@ -94,7 +92,7 @@ public class AstTypeImpl extends MinimalEObjectImpl.Container implements AstType
    * @generated
    * @ordered
    */
-  protected AstTypeName name;
+  protected AstTypeUser name;
 
   /**
    * The cached value of the '{@link #getDomain() <em>Domain</em>}' containment reference list.
@@ -115,16 +113,6 @@ public class AstTypeImpl extends MinimalEObjectImpl.Container implements AstType
    * @ordered
    */
   protected EList<AstType> codomain;
-
-  /**
-   * The cached value of the '{@link #getMembers() <em>Members</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getMembers()
-   * @generated
-   * @ordered
-   */
-  protected EList<AstVariable> members;
 
   /**
    * <!-- begin-user-doc -->
@@ -237,12 +225,12 @@ public class AstTypeImpl extends MinimalEObjectImpl.Container implements AstType
    * <!-- end-user-doc -->
    * @generated
    */
-  public AstTypeName getName()
+  public AstTypeUser getName()
   {
     if (name != null && name.eIsProxy())
     {
       InternalEObject oldName = (InternalEObject)name;
-      name = (AstTypeName)eResolveProxy(oldName);
+      name = (AstTypeUser)eResolveProxy(oldName);
       if (name != oldName)
       {
         if (eNotificationRequired())
@@ -257,7 +245,7 @@ public class AstTypeImpl extends MinimalEObjectImpl.Container implements AstType
    * <!-- end-user-doc -->
    * @generated
    */
-  public AstTypeName basicGetName()
+  public AstTypeUser basicGetName()
   {
     return name;
   }
@@ -267,9 +255,9 @@ public class AstTypeImpl extends MinimalEObjectImpl.Container implements AstType
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setName(AstTypeName newName)
+  public void setName(AstTypeUser newName)
   {
-    AstTypeName oldName = name;
+    AstTypeUser oldName = name;
     name = newName;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, CalPackage.AST_TYPE__NAME, oldName, name));
@@ -308,20 +296,6 @@ public class AstTypeImpl extends MinimalEObjectImpl.Container implements AstType
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<AstVariable> getMembers()
-  {
-    if (members == null)
-    {
-      members = new EObjectContainmentEList<AstVariable>(AstVariable.class, this, CalPackage.AST_TYPE__MEMBERS);
-    }
-    return members;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -335,8 +309,6 @@ public class AstTypeImpl extends MinimalEObjectImpl.Container implements AstType
         return ((InternalEList<?>)getDomain()).basicRemove(otherEnd, msgs);
       case CalPackage.AST_TYPE__CODOMAIN:
         return ((InternalEList<?>)getCodomain()).basicRemove(otherEnd, msgs);
-      case CalPackage.AST_TYPE__MEMBERS:
-        return ((InternalEList<?>)getMembers()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -364,8 +336,6 @@ public class AstTypeImpl extends MinimalEObjectImpl.Container implements AstType
         return getDomain();
       case CalPackage.AST_TYPE__CODOMAIN:
         return getCodomain();
-      case CalPackage.AST_TYPE__MEMBERS:
-        return getMembers();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -392,7 +362,7 @@ public class AstTypeImpl extends MinimalEObjectImpl.Container implements AstType
         getDimensions().addAll((Collection<? extends AstExpression>)newValue);
         return;
       case CalPackage.AST_TYPE__NAME:
-        setName((AstTypeName)newValue);
+        setName((AstTypeUser)newValue);
         return;
       case CalPackage.AST_TYPE__DOMAIN:
         getDomain().clear();
@@ -401,10 +371,6 @@ public class AstTypeImpl extends MinimalEObjectImpl.Container implements AstType
       case CalPackage.AST_TYPE__CODOMAIN:
         getCodomain().clear();
         getCodomain().addAll((Collection<? extends AstType>)newValue);
-        return;
-      case CalPackage.AST_TYPE__MEMBERS:
-        getMembers().clear();
-        getMembers().addAll((Collection<? extends AstVariable>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -430,16 +396,13 @@ public class AstTypeImpl extends MinimalEObjectImpl.Container implements AstType
         getDimensions().clear();
         return;
       case CalPackage.AST_TYPE__NAME:
-        setName((AstTypeName)null);
+        setName((AstTypeUser)null);
         return;
       case CalPackage.AST_TYPE__DOMAIN:
         getDomain().clear();
         return;
       case CalPackage.AST_TYPE__CODOMAIN:
         getCodomain().clear();
-        return;
-      case CalPackage.AST_TYPE__MEMBERS:
-        getMembers().clear();
         return;
     }
     super.eUnset(featureID);
@@ -467,8 +430,6 @@ public class AstTypeImpl extends MinimalEObjectImpl.Container implements AstType
         return domain != null && !domain.isEmpty();
       case CalPackage.AST_TYPE__CODOMAIN:
         return codomain != null && !codomain.isEmpty();
-      case CalPackage.AST_TYPE__MEMBERS:
-        return members != null && !members.isEmpty();
     }
     return super.eIsSet(featureID);
   }

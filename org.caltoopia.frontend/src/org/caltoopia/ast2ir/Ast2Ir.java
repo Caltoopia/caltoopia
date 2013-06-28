@@ -50,7 +50,6 @@ import org.caltoopia.frontend.cal.AstAnnotation;
 import org.caltoopia.frontend.cal.AstAssignParameter;
 import org.caltoopia.frontend.cal.AstConnection;
 import org.caltoopia.frontend.cal.AstConnectionAttribute;
-import org.caltoopia.frontend.cal.AstConstructor;
 import org.caltoopia.frontend.cal.AstExpressionSymbolReference;
 import org.caltoopia.frontend.cal.AstExternalActor;
 import org.caltoopia.frontend.cal.AstForeachGenerator;
@@ -74,7 +73,7 @@ import org.caltoopia.frontend.cal.AstStatementCall;
 import org.caltoopia.frontend.cal.AstStatementForeach;
 import org.caltoopia.frontend.cal.AstStatementIf;
 import org.caltoopia.frontend.cal.AstStatementWhile;
-import org.caltoopia.frontend.cal.AstTypeName;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.cal.util.CalSwitch;
 import org.caltoopia.cli.ActorDirectory;
@@ -119,7 +118,6 @@ import org.caltoopia.ir.ToSink;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeLambda;
-import org.caltoopia.ir.TypeConstructor;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeProc;
 import org.caltoopia.ir.VariableExternal;
@@ -207,7 +205,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 			graphData.add(new AstDeclVertex(f));
 		}
 		
-		for (AstTypeName td : astNamespace.getTypedefs()) {
+		for (AstTypeUser td : astNamespace.getTypedefs()) {
 			graphData.add(new AstDeclVertex(td));
 		}
 		
@@ -221,13 +219,9 @@ public class Ast2Ir extends CalSwitch<EObject> {
 				// NB Only external procedures are allow.
 				Declaration def =  Util.createForwardProcedureDeclaration(scopeStack.peek(), (AstProcedure) data.getData());				                                                                                   
 				ns.getDeclarations().add(def);
-			} else if (data.getData() instanceof AstTypeName) {
-				TypeDeclaration typeDecl  = TypeConverter.createTypeDeclaration(scopeStack.peek(), (AstTypeName) data.getData(), false);
-				ns.getDeclarations().add(typeDecl);		
-				for (AstConstructor tc : ((AstTypeName) data.getData()).getConstructor()) {				
-					TypeConstructor  typeConstructor  = Util.createTypeConstructor(typeDecl, (AstConstructor) tc, false);
-					typeDecl.setConstructor(typeConstructor);
-				}
+			} else if (data.getData() instanceof AstTypeUser) {
+				TypeDeclaration typeDecl  = TypeConverter.createTypeDeclaration(scopeStack.peek(), (AstTypeUser) data.getData(), false);
+				ns.getDeclarations().add(typeDecl);						
 			} else if (data.getData() instanceof AstVariable) {
 				AstVariable var = (AstVariable) data.getData();
 				Util.createVariable(scopeStack.peek(), var, false);

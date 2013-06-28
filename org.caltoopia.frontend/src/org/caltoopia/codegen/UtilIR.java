@@ -1255,39 +1255,4 @@ public class UtilIR {
 		return createVarDefN(body,name,TypeSystem.createTypeInt(),false,false,v);
 	}	
 	
-	public static String namespace2Path(List<String> ns) {
-		String ret="";
-		if(ns != null) {
-			for(Iterator<String> i=ns.iterator();i.hasNext();) {
-				String s=i.next();
-				ret+=s;
-				if(i.hasNext()) ret+=File.separator;
-			}
-		}
-		return ret;
-	}
-	
-	public static String marshall(String s) {
-		s = s.replace("<=", "LTE");
-		s = s.replace("<", "LT");
-		s = s.replace(">=", "GTE");
-		s = s.replace("<", "GT");
-		s = s.replace("&&", "AND");
-		s = s.replace("&", "BAND");
-		s = s.replace("/", "DIV");
-		
-		return s;
-	}
-
-	public static String unmarshall(String s) {
-		s = s.replace("LTE", "<=");
-		s = s.replace("LT", "<");
-		s = s.replace("GTE", ">=");
-		s = s.replace("GT", ">");
-		s = s.replace("BAND", "&");
-		s = s.replace("AND", "&&");
-		s = s.replace("DIV", "/");
-		
-		return s;
-	}
 }

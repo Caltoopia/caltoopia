@@ -984,27 +984,27 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
 		private final Keyword cColonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Alternatives cAlternatives_4 = (Alternatives)cGroup.eContents().get(4);
-		private final Assignment cConstructorAssignment_4_0 = (Assignment)cAlternatives_4.eContents().get(0);
-		private final RuleCall cConstructorAstAnonymousConstructorParserRuleCall_4_0_0 = (RuleCall)cConstructorAssignment_4_0.eContents().get(0);
+		private final Assignment cTuplesAssignment_4_0 = (Assignment)cAlternatives_4.eContents().get(0);
+		private final RuleCall cTuplesAstTupleParserRuleCall_4_0_0 = (RuleCall)cTuplesAssignment_4_0.eContents().get(0);
 		private final Group cGroup_4_1 = (Group)cAlternatives_4.eContents().get(1);
-		private final Assignment cConstructorAssignment_4_1_0 = (Assignment)cGroup_4_1.eContents().get(0);
-		private final RuleCall cConstructorAstConstructorParserRuleCall_4_1_0_0 = (RuleCall)cConstructorAssignment_4_1_0.eContents().get(0);
+		private final Assignment cTuplesAssignment_4_1_0 = (Assignment)cGroup_4_1.eContents().get(0);
+		private final RuleCall cTuplesAstTaggedTupleParserRuleCall_4_1_0_0 = (RuleCall)cTuplesAssignment_4_1_0.eContents().get(0);
 		private final Group cGroup_4_1_1 = (Group)cGroup_4_1.eContents().get(1);
 		private final Keyword cVerticalLineKeyword_4_1_1_0 = (Keyword)cGroup_4_1_1.eContents().get(0);
-		private final Assignment cConstructorAssignment_4_1_1_1 = (Assignment)cGroup_4_1_1.eContents().get(1);
-		private final RuleCall cConstructorAstConstructorParserRuleCall_4_1_1_1_0 = (RuleCall)cConstructorAssignment_4_1_1_1.eContents().get(0);
+		private final Assignment cTuplesAssignment_4_1_1_1 = (Assignment)cGroup_4_1_1.eContents().get(1);
+		private final RuleCall cTuplesAstTaggedTupleParserRuleCall_4_1_1_1_0 = (RuleCall)cTuplesAssignment_4_1_1_1.eContents().get(0);
 		private final Keyword cEndKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		/////////////////////////////////////////////////////////////////////////////////
-		//// type defintions
+		//// type definitions
 		/////////////////////////////////////////////////////////////////////////////////
-		//AstTypeDefinition returns AstTypeName:
+		//AstTypeDefinition returns AstTypeUser:
 		//	"type" name=ID ("(" (parameters+=AstTypeDefinitionParameter ("," parameters+=AstTypeDefinitionParameter)*)? ")")? ":"
-		//	(constructor+=AstAnonymousConstructor | constructor+=AstConstructor ("|" constructor+=AstConstructor)*) "end";
+		//	(tuples+=AstTuple | tuples+=AstTaggedTuple ("|" tuples+=AstTaggedTuple)*) "end";
 		public ParserRule getRule() { return rule; }
 
 		//"type" name=ID ("(" (parameters+=AstTypeDefinitionParameter ("," parameters+=AstTypeDefinitionParameter)*)? ")")? ":"
-		//(constructor+=AstAnonymousConstructor | constructor+=AstConstructor ("|" constructor+=AstConstructor)*) "end"
+		//(tuples+=AstTuple | tuples+=AstTaggedTuple ("|" tuples+=AstTaggedTuple)*) "end"
 		public Group getGroup() { return cGroup; }
 
 		//"type"
@@ -1049,35 +1049,35 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//":"
 		public Keyword getColonKeyword_3() { return cColonKeyword_3; }
 
-		//constructor+=AstAnonymousConstructor | constructor+=AstConstructor ("|" constructor+=AstConstructor)*
+		//tuples+=AstTuple | tuples+=AstTaggedTuple ("|" tuples+=AstTaggedTuple)*
 		public Alternatives getAlternatives_4() { return cAlternatives_4; }
 
-		//constructor+=AstAnonymousConstructor
-		public Assignment getConstructorAssignment_4_0() { return cConstructorAssignment_4_0; }
+		//tuples+=AstTuple
+		public Assignment getTuplesAssignment_4_0() { return cTuplesAssignment_4_0; }
 
-		//AstAnonymousConstructor
-		public RuleCall getConstructorAstAnonymousConstructorParserRuleCall_4_0_0() { return cConstructorAstAnonymousConstructorParserRuleCall_4_0_0; }
+		//AstTuple
+		public RuleCall getTuplesAstTupleParserRuleCall_4_0_0() { return cTuplesAstTupleParserRuleCall_4_0_0; }
 
-		//constructor+=AstConstructor ("|" constructor+=AstConstructor)*
+		//tuples+=AstTaggedTuple ("|" tuples+=AstTaggedTuple)*
 		public Group getGroup_4_1() { return cGroup_4_1; }
 
-		//constructor+=AstConstructor
-		public Assignment getConstructorAssignment_4_1_0() { return cConstructorAssignment_4_1_0; }
+		//tuples+=AstTaggedTuple
+		public Assignment getTuplesAssignment_4_1_0() { return cTuplesAssignment_4_1_0; }
 
-		//AstConstructor
-		public RuleCall getConstructorAstConstructorParserRuleCall_4_1_0_0() { return cConstructorAstConstructorParserRuleCall_4_1_0_0; }
+		//AstTaggedTuple
+		public RuleCall getTuplesAstTaggedTupleParserRuleCall_4_1_0_0() { return cTuplesAstTaggedTupleParserRuleCall_4_1_0_0; }
 
-		//("|" constructor+=AstConstructor)*
+		//("|" tuples+=AstTaggedTuple)*
 		public Group getGroup_4_1_1() { return cGroup_4_1_1; }
 
 		//"|"
 		public Keyword getVerticalLineKeyword_4_1_1_0() { return cVerticalLineKeyword_4_1_1_0; }
 
-		//constructor+=AstConstructor
-		public Assignment getConstructorAssignment_4_1_1_1() { return cConstructorAssignment_4_1_1_1; }
+		//tuples+=AstTaggedTuple
+		public Assignment getTuplesAssignment_4_1_1_1() { return cTuplesAssignment_4_1_1_1; }
 
-		//AstConstructor
-		public RuleCall getConstructorAstConstructorParserRuleCall_4_1_1_1_0() { return cConstructorAstConstructorParserRuleCall_4_1_1_1_0; }
+		//AstTaggedTuple
+		public RuleCall getTuplesAstTaggedTupleParserRuleCall_4_1_1_1_0() { return cTuplesAstTaggedTupleParserRuleCall_4_1_1_1_0; }
 
 		//"end"
 		public Keyword getEndKeyword_5() { return cEndKeyword_5; }
@@ -1116,7 +1116,7 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment = (Assignment)rule.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_0 = (RuleCall)cNameAssignment.eContents().get(0);
 		
-		//AstTypeDefinitionTypeParameter returns AstTypeName:
+		//AstTypeDefinitionTypeParameter returns AstTypeUser:
 		//	name=ID;
 		public ParserRule getRule() { return rule; }
 
@@ -1127,27 +1127,27 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getNameIDTerminalRuleCall_0() { return cNameIDTerminalRuleCall_0; }
 	}
 
-	public class AstConstructorElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstConstructor");
+	public class AstTaggedTupleElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstTaggedTuple");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final Group cGroup_1_1 = (Group)cGroup_1.eContents().get(1);
-		private final Assignment cMembersAssignment_1_1_0 = (Assignment)cGroup_1_1.eContents().get(0);
-		private final RuleCall cMembersAstValuedVariableDeclarationParserRuleCall_1_1_0_0 = (RuleCall)cMembersAssignment_1_1_0.eContents().get(0);
+		private final Assignment cFieldsAssignment_1_1_0 = (Assignment)cGroup_1_1.eContents().get(0);
+		private final RuleCall cFieldsAstValuedVariableDeclarationParserRuleCall_1_1_0_0 = (RuleCall)cFieldsAssignment_1_1_0.eContents().get(0);
 		private final Group cGroup_1_1_1 = (Group)cGroup_1_1.eContents().get(1);
 		private final Keyword cCommaKeyword_1_1_1_0 = (Keyword)cGroup_1_1_1.eContents().get(0);
-		private final Assignment cMembersAssignment_1_1_1_1 = (Assignment)cGroup_1_1_1.eContents().get(1);
-		private final RuleCall cMembersAstValuedVariableDeclarationParserRuleCall_1_1_1_1_0 = (RuleCall)cMembersAssignment_1_1_1_1.eContents().get(0);
+		private final Assignment cFieldsAssignment_1_1_1_1 = (Assignment)cGroup_1_1_1.eContents().get(1);
+		private final RuleCall cFieldsAstValuedVariableDeclarationParserRuleCall_1_1_1_1_0 = (RuleCall)cFieldsAssignment_1_1_1_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
 		
-		//AstConstructor:
-		//	name=ID ("(" (members+=AstValuedVariableDeclaration ("," members+=AstValuedVariableDeclaration)*)? ")")?;
+		//AstTaggedTuple:
+		//	name=ID ("(" (fields+=AstValuedVariableDeclaration ("," fields+=AstValuedVariableDeclaration)*)? ")")?;
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ("(" (members+=AstValuedVariableDeclaration ("," members+=AstValuedVariableDeclaration)*)? ")")?
+		//name=ID ("(" (fields+=AstValuedVariableDeclaration ("," fields+=AstValuedVariableDeclaration)*)? ")")?
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -1156,90 +1156,88 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
 
-		//("(" (members+=AstValuedVariableDeclaration ("," members+=AstValuedVariableDeclaration)*)? ")")?
+		//("(" (fields+=AstValuedVariableDeclaration ("," fields+=AstValuedVariableDeclaration)*)? ")")?
 		public Group getGroup_1() { return cGroup_1; }
 
 		//"("
 		public Keyword getLeftParenthesisKeyword_1_0() { return cLeftParenthesisKeyword_1_0; }
 
-		//(members+=AstValuedVariableDeclaration ("," members+=AstValuedVariableDeclaration)*)?
+		//(fields+=AstValuedVariableDeclaration ("," fields+=AstValuedVariableDeclaration)*)?
 		public Group getGroup_1_1() { return cGroup_1_1; }
 
-		//members+=AstValuedVariableDeclaration
-		public Assignment getMembersAssignment_1_1_0() { return cMembersAssignment_1_1_0; }
+		//fields+=AstValuedVariableDeclaration
+		public Assignment getFieldsAssignment_1_1_0() { return cFieldsAssignment_1_1_0; }
 
 		//AstValuedVariableDeclaration
-		public RuleCall getMembersAstValuedVariableDeclarationParserRuleCall_1_1_0_0() { return cMembersAstValuedVariableDeclarationParserRuleCall_1_1_0_0; }
+		public RuleCall getFieldsAstValuedVariableDeclarationParserRuleCall_1_1_0_0() { return cFieldsAstValuedVariableDeclarationParserRuleCall_1_1_0_0; }
 
-		//("," members+=AstValuedVariableDeclaration)*
+		//("," fields+=AstValuedVariableDeclaration)*
 		public Group getGroup_1_1_1() { return cGroup_1_1_1; }
 
 		//","
 		public Keyword getCommaKeyword_1_1_1_0() { return cCommaKeyword_1_1_1_0; }
 
-		//members+=AstValuedVariableDeclaration
-		public Assignment getMembersAssignment_1_1_1_1() { return cMembersAssignment_1_1_1_1; }
+		//fields+=AstValuedVariableDeclaration
+		public Assignment getFieldsAssignment_1_1_1_1() { return cFieldsAssignment_1_1_1_1; }
 
 		//AstValuedVariableDeclaration
-		public RuleCall getMembersAstValuedVariableDeclarationParserRuleCall_1_1_1_1_0() { return cMembersAstValuedVariableDeclarationParserRuleCall_1_1_1_1_0; }
+		public RuleCall getFieldsAstValuedVariableDeclarationParserRuleCall_1_1_1_1_0() { return cFieldsAstValuedVariableDeclarationParserRuleCall_1_1_1_1_0; }
 
 		//")"
 		public Keyword getRightParenthesisKeyword_1_2() { return cRightParenthesisKeyword_1_2; }
 	}
 
-	public class AstAnonymousConstructorElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstAnonymousConstructor");
+	public class AstTupleElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstTuple");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cAstAnonymousConstructorAction_0 = (Action)cGroup.eContents().get(0);
+		private final Action cAstTupleAction_0 = (Action)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final Group cGroup_1_1 = (Group)cGroup_1.eContents().get(1);
-		private final Assignment cMembersAssignment_1_1_0 = (Assignment)cGroup_1_1.eContents().get(0);
-		private final RuleCall cMembersAstValuedVariableDeclarationParserRuleCall_1_1_0_0 = (RuleCall)cMembersAssignment_1_1_0.eContents().get(0);
+		private final Assignment cFieldsAssignment_1_1_0 = (Assignment)cGroup_1_1.eContents().get(0);
+		private final RuleCall cFieldsAstValuedVariableDeclarationParserRuleCall_1_1_0_0 = (RuleCall)cFieldsAssignment_1_1_0.eContents().get(0);
 		private final Group cGroup_1_1_1 = (Group)cGroup_1_1.eContents().get(1);
 		private final Keyword cCommaKeyword_1_1_1_0 = (Keyword)cGroup_1_1_1.eContents().get(0);
-		private final Assignment cMembersAssignment_1_1_1_1 = (Assignment)cGroup_1_1_1.eContents().get(1);
-		private final RuleCall cMembersAstValuedVariableDeclarationParserRuleCall_1_1_1_1_0 = (RuleCall)cMembersAssignment_1_1_1_1.eContents().get(0);
+		private final Assignment cFieldsAssignment_1_1_1_1 = (Assignment)cGroup_1_1_1.eContents().get(1);
+		private final RuleCall cFieldsAstValuedVariableDeclarationParserRuleCall_1_1_1_1_0 = (RuleCall)cFieldsAssignment_1_1_1_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
 		
-		//AstAnonymousConstructor returns AstConstructor:
-		//	{AstAnonymousConstructor} ("(" (members+=AstValuedVariableDeclaration ("," members+=AstValuedVariableDeclaration)*)?
-		//	")");
+		//AstTuple returns AstTaggedTuple:
+		//	{AstTuple} ("(" (fields+=AstValuedVariableDeclaration ("," fields+=AstValuedVariableDeclaration)*)? ")");
 		public ParserRule getRule() { return rule; }
 
-		//{AstAnonymousConstructor} ("(" (members+=AstValuedVariableDeclaration ("," members+=AstValuedVariableDeclaration)*)?
-		//")")
+		//{AstTuple} ("(" (fields+=AstValuedVariableDeclaration ("," fields+=AstValuedVariableDeclaration)*)? ")")
 		public Group getGroup() { return cGroup; }
 
-		//{AstAnonymousConstructor}
-		public Action getAstAnonymousConstructorAction_0() { return cAstAnonymousConstructorAction_0; }
+		//{AstTuple}
+		public Action getAstTupleAction_0() { return cAstTupleAction_0; }
 
-		//"(" (members+=AstValuedVariableDeclaration ("," members+=AstValuedVariableDeclaration)*)? ")"
+		//"(" (fields+=AstValuedVariableDeclaration ("," fields+=AstValuedVariableDeclaration)*)? ")"
 		public Group getGroup_1() { return cGroup_1; }
 
 		//"("
 		public Keyword getLeftParenthesisKeyword_1_0() { return cLeftParenthesisKeyword_1_0; }
 
-		//(members+=AstValuedVariableDeclaration ("," members+=AstValuedVariableDeclaration)*)?
+		//(fields+=AstValuedVariableDeclaration ("," fields+=AstValuedVariableDeclaration)*)?
 		public Group getGroup_1_1() { return cGroup_1_1; }
 
-		//members+=AstValuedVariableDeclaration
-		public Assignment getMembersAssignment_1_1_0() { return cMembersAssignment_1_1_0; }
+		//fields+=AstValuedVariableDeclaration
+		public Assignment getFieldsAssignment_1_1_0() { return cFieldsAssignment_1_1_0; }
 
 		//AstValuedVariableDeclaration
-		public RuleCall getMembersAstValuedVariableDeclarationParserRuleCall_1_1_0_0() { return cMembersAstValuedVariableDeclarationParserRuleCall_1_1_0_0; }
+		public RuleCall getFieldsAstValuedVariableDeclarationParserRuleCall_1_1_0_0() { return cFieldsAstValuedVariableDeclarationParserRuleCall_1_1_0_0; }
 
-		//("," members+=AstValuedVariableDeclaration)*
+		//("," fields+=AstValuedVariableDeclaration)*
 		public Group getGroup_1_1_1() { return cGroup_1_1_1; }
 
 		//","
 		public Keyword getCommaKeyword_1_1_1_0() { return cCommaKeyword_1_1_1_0; }
 
-		//members+=AstValuedVariableDeclaration
-		public Assignment getMembersAssignment_1_1_1_1() { return cMembersAssignment_1_1_1_1; }
+		//fields+=AstValuedVariableDeclaration
+		public Assignment getFieldsAssignment_1_1_1_1() { return cFieldsAssignment_1_1_1_1; }
 
 		//AstValuedVariableDeclaration
-		public RuleCall getMembersAstValuedVariableDeclarationParserRuleCall_1_1_1_1_0() { return cMembersAstValuedVariableDeclarationParserRuleCall_1_1_1_1_0; }
+		public RuleCall getFieldsAstValuedVariableDeclarationParserRuleCall_1_1_1_1_0() { return cFieldsAstValuedVariableDeclarationParserRuleCall_1_1_1_1_0; }
 
 		//")"
 		public Keyword getRightParenthesisKeyword_1_2() { return cRightParenthesisKeyword_1_2; }
@@ -4434,39 +4432,32 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getValueSTRINGTerminalRuleCall_0() { return cValueSTRINGTerminalRuleCall_0; }
 	}
 
-	public class AstTypeNameElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstTypeName");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Action cAstTypeNameAction_0_0 = (Action)cGroup_0.eContents().get(0);
-		private final RuleCall cIDTerminalRuleCall_0_1 = (RuleCall)cGroup_0.eContents().get(1);
-		private final RuleCall cAstBuiltInTypeParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+	public class AstTypeUserElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstTypeUser");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cAstTypeUserAction_0 = (Action)cGroup.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		
 		/////////////////////////////////////////////////////////////////////////////////
 		//// type and variable declarations
 		/////////////////////////////////////////////////////////////////////////////////
-		//AstTypeName returns AstVariable:
-		//	{AstTypeName} ID | AstBuiltInType;
+		////AstTypeUser returns AstVariable: {AstTypeUser} ID | AstTypeBuiltIn;
+		//AstTypeUser returns AstVariable:
+		//	{AstTypeUser} ID;
 		public ParserRule getRule() { return rule; }
 
-		//{AstTypeName} ID | AstBuiltInType
-		public Alternatives getAlternatives() { return cAlternatives; }
+		//{AstTypeUser} ID
+		public Group getGroup() { return cGroup; }
 
-		//{AstTypeName} ID
-		public Group getGroup_0() { return cGroup_0; }
-
-		//{AstTypeName}
-		public Action getAstTypeNameAction_0_0() { return cAstTypeNameAction_0_0; }
+		//{AstTypeUser}
+		public Action getAstTypeUserAction_0() { return cAstTypeUserAction_0; }
 
 		//ID
-		public RuleCall getIDTerminalRuleCall_0_1() { return cIDTerminalRuleCall_0_1; }
-
-		//AstBuiltInType
-		public RuleCall getAstBuiltInTypeParserRuleCall_1() { return cAstBuiltInTypeParserRuleCall_1; }
+		public RuleCall getIDTerminalRuleCall_1() { return cIDTerminalRuleCall_1; }
 	}
 
-	public class AstBuiltInTypeElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstBuiltInType");
+	public class AstTypeBuiltInElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstTypeBuiltIn");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Keyword cIntKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
 		private final Keyword cUintKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
@@ -4477,7 +4468,7 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cByteKeyword_6 = (Keyword)cAlternatives.eContents().get(6);
 		private final Keyword cShortKeyword_7 = (Keyword)cAlternatives.eContents().get(7);
 		
-		//AstBuiltInType:
+		//AstTypeBuiltIn:
 		//	"int" | "uint" | "float" | "bool" | "List" | "string" | "byte" | "short";
 		public ParserRule getRule() { return rule; }
 
@@ -4511,246 +4502,184 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class AstTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstType");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Action cAstTypeAction_0_0 = (Action)cGroup_0.eContents().get(0);
-		private final Alternatives cAlternatives_0_1 = (Alternatives)cGroup_0.eContents().get(1);
-		private final Group cGroup_0_1_0 = (Group)cAlternatives_0_1.eContents().get(0);
-		private final Assignment cBuiltinAssignment_0_1_0_0 = (Assignment)cGroup_0_1_0.eContents().get(0);
-		private final RuleCall cBuiltinAstBuiltInTypeParserRuleCall_0_1_0_0_0 = (RuleCall)cBuiltinAssignment_0_1_0_0.eContents().get(0);
-		private final Assignment cTypeParamsAssignment_0_1_0_1 = (Assignment)cGroup_0_1_0.eContents().get(1);
-		private final RuleCall cTypeParamsAstTypeParameterListParserRuleCall_0_1_0_1_0 = (RuleCall)cTypeParamsAssignment_0_1_0_1.eContents().get(0);
-		private final Group cGroup_0_1_0_2 = (Group)cGroup_0_1_0.eContents().get(2);
-		private final Keyword cLeftSquareBracketKeyword_0_1_0_2_0 = (Keyword)cGroup_0_1_0_2.eContents().get(0);
-		private final Assignment cDimensionsAssignment_0_1_0_2_1 = (Assignment)cGroup_0_1_0_2.eContents().get(1);
-		private final RuleCall cDimensionsAstExpressionParserRuleCall_0_1_0_2_1_0 = (RuleCall)cDimensionsAssignment_0_1_0_2_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_0_1_0_2_2 = (Keyword)cGroup_0_1_0_2.eContents().get(2);
-		private final Group cGroup_0_1_1 = (Group)cAlternatives_0_1.eContents().get(1);
-		private final Assignment cNameAssignment_0_1_1_0 = (Assignment)cGroup_0_1_1.eContents().get(0);
-		private final CrossReference cNameAstTypeNameCrossReference_0_1_1_0_0 = (CrossReference)cNameAssignment_0_1_1_0.eContents().get(0);
-		private final RuleCall cNameAstTypeNameIDTerminalRuleCall_0_1_1_0_0_1 = (RuleCall)cNameAstTypeNameCrossReference_0_1_1_0_0.eContents().get(1);
-		private final Assignment cTypeParamsAssignment_0_1_1_1 = (Assignment)cGroup_0_1_1.eContents().get(1);
-		private final RuleCall cTypeParamsAstTypeParameterListParserRuleCall_0_1_1_1_0 = (RuleCall)cTypeParamsAssignment_0_1_1_1.eContents().get(0);
-		private final Group cGroup_0_1_1_2 = (Group)cGroup_0_1_1.eContents().get(2);
-		private final Keyword cLeftSquareBracketKeyword_0_1_1_2_0 = (Keyword)cGroup_0_1_1_2.eContents().get(0);
-		private final Assignment cDimensionsAssignment_0_1_1_2_1 = (Assignment)cGroup_0_1_1_2.eContents().get(1);
-		private final RuleCall cDimensionsAstExpressionParserRuleCall_0_1_1_2_1_0 = (RuleCall)cDimensionsAssignment_0_1_1_2_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_0_1_1_2_2 = (Keyword)cGroup_0_1_1_2.eContents().get(2);
-		private final Group cGroup_0_1_2 = (Group)cAlternatives_0_1.eContents().get(2);
-		private final Keyword cLeftSquareBracketKeyword_0_1_2_0 = (Keyword)cGroup_0_1_2.eContents().get(0);
-		private final Group cGroup_0_1_2_1 = (Group)cGroup_0_1_2.eContents().get(1);
-		private final Assignment cDomainAssignment_0_1_2_1_0 = (Assignment)cGroup_0_1_2_1.eContents().get(0);
-		private final RuleCall cDomainAstTypeParserRuleCall_0_1_2_1_0_0 = (RuleCall)cDomainAssignment_0_1_2_1_0.eContents().get(0);
-		private final Group cGroup_0_1_2_1_1 = (Group)cGroup_0_1_2_1.eContents().get(1);
-		private final Keyword cCommaKeyword_0_1_2_1_1_0 = (Keyword)cGroup_0_1_2_1_1.eContents().get(0);
-		private final Assignment cDomainAssignment_0_1_2_1_1_1 = (Assignment)cGroup_0_1_2_1_1.eContents().get(1);
-		private final RuleCall cDomainAstTypeParserRuleCall_0_1_2_1_1_1_0 = (RuleCall)cDomainAssignment_0_1_2_1_1_1.eContents().get(0);
-		private final Keyword cHyphenMinusHyphenMinusGreaterThanSignKeyword_0_1_2_2 = (Keyword)cGroup_0_1_2.eContents().get(2);
-		private final Group cGroup_0_1_2_3 = (Group)cGroup_0_1_2.eContents().get(3);
-		private final Assignment cCodomainAssignment_0_1_2_3_0 = (Assignment)cGroup_0_1_2_3.eContents().get(0);
-		private final RuleCall cCodomainAstTypeParserRuleCall_0_1_2_3_0_0 = (RuleCall)cCodomainAssignment_0_1_2_3_0.eContents().get(0);
-		private final Group cGroup_0_1_2_3_1 = (Group)cGroup_0_1_2_3.eContents().get(1);
-		private final Keyword cCommaKeyword_0_1_2_3_1_0 = (Keyword)cGroup_0_1_2_3_1.eContents().get(0);
-		private final Assignment cDomainAssignment_0_1_2_3_1_1 = (Assignment)cGroup_0_1_2_3_1.eContents().get(1);
-		private final RuleCall cDomainAstTypeParserRuleCall_0_1_2_3_1_1_0 = (RuleCall)cDomainAssignment_0_1_2_3_1_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_0_1_2_4 = (Keyword)cGroup_0_1_2.eContents().get(4);
-		private final RuleCall cAstTypeTupleParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		
-		//AstType:
-		//	{AstType} (builtin=AstBuiltInType typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* |
-		//	name=[AstTypeName] typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* | "[" (domain+=AstType (","
-		//	domain+=AstType)*)? "-->" (codomain+=AstType ("," domain+=AstType)*)? "]") | AstTypeTuple;
-		public ParserRule getRule() { return rule; }
-
-		//{AstType} (builtin=AstBuiltInType typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* |
-		//name=[AstTypeName] typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* | "[" (domain+=AstType (","
-		//domain+=AstType)*)? "-->" (codomain+=AstType ("," domain+=AstType)*)? "]") | AstTypeTuple
-		public Alternatives getAlternatives() { return cAlternatives; }
-
-		//{AstType} (builtin=AstBuiltInType typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* |
-		//name=[AstTypeName] typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* | "[" (domain+=AstType (","
-		//domain+=AstType)*)? "-->" (codomain+=AstType ("," domain+=AstType)*)? "]")
-		public Group getGroup_0() { return cGroup_0; }
-
-		//{AstType}
-		public Action getAstTypeAction_0_0() { return cAstTypeAction_0_0; }
-
-		//builtin=AstBuiltInType typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* | name=[AstTypeName]
-		//typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* | "[" (domain+=AstType ("," domain+=AstType)*)?
-		//"-->" (codomain+=AstType ("," domain+=AstType)*)? "]"
-		public Alternatives getAlternatives_0_1() { return cAlternatives_0_1; }
-
-		//builtin=AstBuiltInType typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")*
-		public Group getGroup_0_1_0() { return cGroup_0_1_0; }
-
-		//builtin=AstBuiltInType
-		public Assignment getBuiltinAssignment_0_1_0_0() { return cBuiltinAssignment_0_1_0_0; }
-
-		//AstBuiltInType
-		public RuleCall getBuiltinAstBuiltInTypeParserRuleCall_0_1_0_0_0() { return cBuiltinAstBuiltInTypeParserRuleCall_0_1_0_0_0; }
-
-		//typeParams=AstTypeParameterList?
-		public Assignment getTypeParamsAssignment_0_1_0_1() { return cTypeParamsAssignment_0_1_0_1; }
-
-		//AstTypeParameterList
-		public RuleCall getTypeParamsAstTypeParameterListParserRuleCall_0_1_0_1_0() { return cTypeParamsAstTypeParameterListParserRuleCall_0_1_0_1_0; }
-
-		//("[" dimensions+=AstExpression "]")*
-		public Group getGroup_0_1_0_2() { return cGroup_0_1_0_2; }
-
-		//"["
-		public Keyword getLeftSquareBracketKeyword_0_1_0_2_0() { return cLeftSquareBracketKeyword_0_1_0_2_0; }
-
-		//dimensions+=AstExpression
-		public Assignment getDimensionsAssignment_0_1_0_2_1() { return cDimensionsAssignment_0_1_0_2_1; }
-
-		//AstExpression
-		public RuleCall getDimensionsAstExpressionParserRuleCall_0_1_0_2_1_0() { return cDimensionsAstExpressionParserRuleCall_0_1_0_2_1_0; }
-
-		//"]"
-		public Keyword getRightSquareBracketKeyword_0_1_0_2_2() { return cRightSquareBracketKeyword_0_1_0_2_2; }
-
-		//name=[AstTypeName] typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")*
-		public Group getGroup_0_1_1() { return cGroup_0_1_1; }
-
-		//name=[AstTypeName]
-		public Assignment getNameAssignment_0_1_1_0() { return cNameAssignment_0_1_1_0; }
-
-		//[AstTypeName]
-		public CrossReference getNameAstTypeNameCrossReference_0_1_1_0_0() { return cNameAstTypeNameCrossReference_0_1_1_0_0; }
-
-		//ID
-		public RuleCall getNameAstTypeNameIDTerminalRuleCall_0_1_1_0_0_1() { return cNameAstTypeNameIDTerminalRuleCall_0_1_1_0_0_1; }
-
-		//typeParams=AstTypeParameterList?
-		public Assignment getTypeParamsAssignment_0_1_1_1() { return cTypeParamsAssignment_0_1_1_1; }
-
-		//AstTypeParameterList
-		public RuleCall getTypeParamsAstTypeParameterListParserRuleCall_0_1_1_1_0() { return cTypeParamsAstTypeParameterListParserRuleCall_0_1_1_1_0; }
-
-		//("[" dimensions+=AstExpression "]")*
-		public Group getGroup_0_1_1_2() { return cGroup_0_1_1_2; }
-
-		//"["
-		public Keyword getLeftSquareBracketKeyword_0_1_1_2_0() { return cLeftSquareBracketKeyword_0_1_1_2_0; }
-
-		//dimensions+=AstExpression
-		public Assignment getDimensionsAssignment_0_1_1_2_1() { return cDimensionsAssignment_0_1_1_2_1; }
-
-		//AstExpression
-		public RuleCall getDimensionsAstExpressionParserRuleCall_0_1_1_2_1_0() { return cDimensionsAstExpressionParserRuleCall_0_1_1_2_1_0; }
-
-		//"]"
-		public Keyword getRightSquareBracketKeyword_0_1_1_2_2() { return cRightSquareBracketKeyword_0_1_1_2_2; }
-
-		//"[" (domain+=AstType ("," domain+=AstType)*)? "-->" (codomain+=AstType ("," domain+=AstType)*)? "]"
-		public Group getGroup_0_1_2() { return cGroup_0_1_2; }
-
-		//"["
-		public Keyword getLeftSquareBracketKeyword_0_1_2_0() { return cLeftSquareBracketKeyword_0_1_2_0; }
-
-		//(domain+=AstType ("," domain+=AstType)*)?
-		public Group getGroup_0_1_2_1() { return cGroup_0_1_2_1; }
-
-		//domain+=AstType
-		public Assignment getDomainAssignment_0_1_2_1_0() { return cDomainAssignment_0_1_2_1_0; }
-
-		//AstType
-		public RuleCall getDomainAstTypeParserRuleCall_0_1_2_1_0_0() { return cDomainAstTypeParserRuleCall_0_1_2_1_0_0; }
-
-		//("," domain+=AstType)*
-		public Group getGroup_0_1_2_1_1() { return cGroup_0_1_2_1_1; }
-
-		//","
-		public Keyword getCommaKeyword_0_1_2_1_1_0() { return cCommaKeyword_0_1_2_1_1_0; }
-
-		//domain+=AstType
-		public Assignment getDomainAssignment_0_1_2_1_1_1() { return cDomainAssignment_0_1_2_1_1_1; }
-
-		//AstType
-		public RuleCall getDomainAstTypeParserRuleCall_0_1_2_1_1_1_0() { return cDomainAstTypeParserRuleCall_0_1_2_1_1_1_0; }
-
-		//"-->"
-		public Keyword getHyphenMinusHyphenMinusGreaterThanSignKeyword_0_1_2_2() { return cHyphenMinusHyphenMinusGreaterThanSignKeyword_0_1_2_2; }
-
-		//(codomain+=AstType ("," domain+=AstType)*)?
-		public Group getGroup_0_1_2_3() { return cGroup_0_1_2_3; }
-
-		//codomain+=AstType
-		public Assignment getCodomainAssignment_0_1_2_3_0() { return cCodomainAssignment_0_1_2_3_0; }
-
-		//AstType
-		public RuleCall getCodomainAstTypeParserRuleCall_0_1_2_3_0_0() { return cCodomainAstTypeParserRuleCall_0_1_2_3_0_0; }
-
-		//("," domain+=AstType)*
-		public Group getGroup_0_1_2_3_1() { return cGroup_0_1_2_3_1; }
-
-		//","
-		public Keyword getCommaKeyword_0_1_2_3_1_0() { return cCommaKeyword_0_1_2_3_1_0; }
-
-		//domain+=AstType
-		public Assignment getDomainAssignment_0_1_2_3_1_1() { return cDomainAssignment_0_1_2_3_1_1; }
-
-		//AstType
-		public RuleCall getDomainAstTypeParserRuleCall_0_1_2_3_1_1_0() { return cDomainAstTypeParserRuleCall_0_1_2_3_1_1_0; }
-
-		//"]"
-		public Keyword getRightSquareBracketKeyword_0_1_2_4() { return cRightSquareBracketKeyword_0_1_2_4; }
-
-		//AstTypeTuple
-		public RuleCall getAstTypeTupleParserRuleCall_1() { return cAstTypeTupleParserRuleCall_1; }
-	}
-
-	public class AstTypeTupleElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstTypeTuple");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cAstTypeAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Assignment cMembersAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
-		private final RuleCall cMembersAstValuedVariableDeclarationParserRuleCall_2_0_0 = (RuleCall)cMembersAssignment_2_0.eContents().get(0);
-		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
-		private final Keyword cCommaKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
-		private final Assignment cMembersAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
-		private final RuleCall cMembersAstValuedVariableDeclarationParserRuleCall_2_1_1_0 = (RuleCall)cMembersAssignment_2_1_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
+		private final Group cGroup_1_0 = (Group)cAlternatives_1.eContents().get(0);
+		private final Assignment cBuiltinAssignment_1_0_0 = (Assignment)cGroup_1_0.eContents().get(0);
+		private final RuleCall cBuiltinAstTypeBuiltInParserRuleCall_1_0_0_0 = (RuleCall)cBuiltinAssignment_1_0_0.eContents().get(0);
+		private final Assignment cTypeParamsAssignment_1_0_1 = (Assignment)cGroup_1_0.eContents().get(1);
+		private final RuleCall cTypeParamsAstTypeParameterListParserRuleCall_1_0_1_0 = (RuleCall)cTypeParamsAssignment_1_0_1.eContents().get(0);
+		private final Group cGroup_1_0_2 = (Group)cGroup_1_0.eContents().get(2);
+		private final Keyword cLeftSquareBracketKeyword_1_0_2_0 = (Keyword)cGroup_1_0_2.eContents().get(0);
+		private final Assignment cDimensionsAssignment_1_0_2_1 = (Assignment)cGroup_1_0_2.eContents().get(1);
+		private final RuleCall cDimensionsAstExpressionParserRuleCall_1_0_2_1_0 = (RuleCall)cDimensionsAssignment_1_0_2_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_1_0_2_2 = (Keyword)cGroup_1_0_2.eContents().get(2);
+		private final Group cGroup_1_1 = (Group)cAlternatives_1.eContents().get(1);
+		private final Assignment cNameAssignment_1_1_0 = (Assignment)cGroup_1_1.eContents().get(0);
+		private final CrossReference cNameAstTypeUserCrossReference_1_1_0_0 = (CrossReference)cNameAssignment_1_1_0.eContents().get(0);
+		private final RuleCall cNameAstTypeUserIDTerminalRuleCall_1_1_0_0_1 = (RuleCall)cNameAstTypeUserCrossReference_1_1_0_0.eContents().get(1);
+		private final Assignment cTypeParamsAssignment_1_1_1 = (Assignment)cGroup_1_1.eContents().get(1);
+		private final RuleCall cTypeParamsAstTypeParameterListParserRuleCall_1_1_1_0 = (RuleCall)cTypeParamsAssignment_1_1_1.eContents().get(0);
+		private final Group cGroup_1_1_2 = (Group)cGroup_1_1.eContents().get(2);
+		private final Keyword cLeftSquareBracketKeyword_1_1_2_0 = (Keyword)cGroup_1_1_2.eContents().get(0);
+		private final Assignment cDimensionsAssignment_1_1_2_1 = (Assignment)cGroup_1_1_2.eContents().get(1);
+		private final RuleCall cDimensionsAstExpressionParserRuleCall_1_1_2_1_0 = (RuleCall)cDimensionsAssignment_1_1_2_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_1_1_2_2 = (Keyword)cGroup_1_1_2.eContents().get(2);
+		private final Group cGroup_1_2 = (Group)cAlternatives_1.eContents().get(2);
+		private final Keyword cLeftSquareBracketKeyword_1_2_0 = (Keyword)cGroup_1_2.eContents().get(0);
+		private final Group cGroup_1_2_1 = (Group)cGroup_1_2.eContents().get(1);
+		private final Assignment cDomainAssignment_1_2_1_0 = (Assignment)cGroup_1_2_1.eContents().get(0);
+		private final RuleCall cDomainAstTypeParserRuleCall_1_2_1_0_0 = (RuleCall)cDomainAssignment_1_2_1_0.eContents().get(0);
+		private final Group cGroup_1_2_1_1 = (Group)cGroup_1_2_1.eContents().get(1);
+		private final Keyword cCommaKeyword_1_2_1_1_0 = (Keyword)cGroup_1_2_1_1.eContents().get(0);
+		private final Assignment cDomainAssignment_1_2_1_1_1 = (Assignment)cGroup_1_2_1_1.eContents().get(1);
+		private final RuleCall cDomainAstTypeParserRuleCall_1_2_1_1_1_0 = (RuleCall)cDomainAssignment_1_2_1_1_1.eContents().get(0);
+		private final Keyword cHyphenMinusHyphenMinusGreaterThanSignKeyword_1_2_2 = (Keyword)cGroup_1_2.eContents().get(2);
+		private final Group cGroup_1_2_3 = (Group)cGroup_1_2.eContents().get(3);
+		private final Assignment cCodomainAssignment_1_2_3_0 = (Assignment)cGroup_1_2_3.eContents().get(0);
+		private final RuleCall cCodomainAstTypeParserRuleCall_1_2_3_0_0 = (RuleCall)cCodomainAssignment_1_2_3_0.eContents().get(0);
+		private final Group cGroup_1_2_3_1 = (Group)cGroup_1_2_3.eContents().get(1);
+		private final Keyword cCommaKeyword_1_2_3_1_0 = (Keyword)cGroup_1_2_3_1.eContents().get(0);
+		private final Assignment cDomainAssignment_1_2_3_1_1 = (Assignment)cGroup_1_2_3_1.eContents().get(1);
+		private final RuleCall cDomainAstTypeParserRuleCall_1_2_3_1_1_0 = (RuleCall)cDomainAssignment_1_2_3_1_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_1_2_4 = (Keyword)cGroup_1_2.eContents().get(4);
 		
-		//AstTypeTuple returns AstType:
-		//	{AstType} "(" (members+=AstValuedVariableDeclaration ("," members+=AstValuedVariableDeclaration)*)? ")";
+		//AstType:
+		//	{AstType} (builtin=AstTypeBuiltIn typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* |
+		//	name=[AstTypeUser] typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* | "[" (domain+=AstType (","
+		//	domain+=AstType)*)? "-->" (codomain+=AstType ("," domain+=AstType)*)? "]");
 		public ParserRule getRule() { return rule; }
 
-		//{AstType} "(" (members+=AstValuedVariableDeclaration ("," members+=AstValuedVariableDeclaration)*)? ")"
+		//{AstType} (builtin=AstTypeBuiltIn typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* |
+		//name=[AstTypeUser] typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* | "[" (domain+=AstType (","
+		//domain+=AstType)*)? "-->" (codomain+=AstType ("," domain+=AstType)*)? "]")
 		public Group getGroup() { return cGroup; }
 
 		//{AstType}
 		public Action getAstTypeAction_0() { return cAstTypeAction_0; }
 
-		//"("
-		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		//builtin=AstTypeBuiltIn typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* | name=[AstTypeUser]
+		//typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* | "[" (domain+=AstType ("," domain+=AstType)*)?
+		//"-->" (codomain+=AstType ("," domain+=AstType)*)? "]"
+		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
-		//(members+=AstValuedVariableDeclaration ("," members+=AstValuedVariableDeclaration)*)?
-		public Group getGroup_2() { return cGroup_2; }
+		//builtin=AstTypeBuiltIn typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")*
+		public Group getGroup_1_0() { return cGroup_1_0; }
 
-		//members+=AstValuedVariableDeclaration
-		public Assignment getMembersAssignment_2_0() { return cMembersAssignment_2_0; }
+		//builtin=AstTypeBuiltIn
+		public Assignment getBuiltinAssignment_1_0_0() { return cBuiltinAssignment_1_0_0; }
 
-		//AstValuedVariableDeclaration
-		public RuleCall getMembersAstValuedVariableDeclarationParserRuleCall_2_0_0() { return cMembersAstValuedVariableDeclarationParserRuleCall_2_0_0; }
+		//AstTypeBuiltIn
+		public RuleCall getBuiltinAstTypeBuiltInParserRuleCall_1_0_0_0() { return cBuiltinAstTypeBuiltInParserRuleCall_1_0_0_0; }
 
-		//("," members+=AstValuedVariableDeclaration)*
-		public Group getGroup_2_1() { return cGroup_2_1; }
+		//typeParams=AstTypeParameterList?
+		public Assignment getTypeParamsAssignment_1_0_1() { return cTypeParamsAssignment_1_0_1; }
+
+		//AstTypeParameterList
+		public RuleCall getTypeParamsAstTypeParameterListParserRuleCall_1_0_1_0() { return cTypeParamsAstTypeParameterListParserRuleCall_1_0_1_0; }
+
+		//("[" dimensions+=AstExpression "]")*
+		public Group getGroup_1_0_2() { return cGroup_1_0_2; }
+
+		//"["
+		public Keyword getLeftSquareBracketKeyword_1_0_2_0() { return cLeftSquareBracketKeyword_1_0_2_0; }
+
+		//dimensions+=AstExpression
+		public Assignment getDimensionsAssignment_1_0_2_1() { return cDimensionsAssignment_1_0_2_1; }
+
+		//AstExpression
+		public RuleCall getDimensionsAstExpressionParserRuleCall_1_0_2_1_0() { return cDimensionsAstExpressionParserRuleCall_1_0_2_1_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_1_0_2_2() { return cRightSquareBracketKeyword_1_0_2_2; }
+
+		//name=[AstTypeUser] typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")*
+		public Group getGroup_1_1() { return cGroup_1_1; }
+
+		//name=[AstTypeUser]
+		public Assignment getNameAssignment_1_1_0() { return cNameAssignment_1_1_0; }
+
+		//[AstTypeUser]
+		public CrossReference getNameAstTypeUserCrossReference_1_1_0_0() { return cNameAstTypeUserCrossReference_1_1_0_0; }
+
+		//ID
+		public RuleCall getNameAstTypeUserIDTerminalRuleCall_1_1_0_0_1() { return cNameAstTypeUserIDTerminalRuleCall_1_1_0_0_1; }
+
+		//typeParams=AstTypeParameterList?
+		public Assignment getTypeParamsAssignment_1_1_1() { return cTypeParamsAssignment_1_1_1; }
+
+		//AstTypeParameterList
+		public RuleCall getTypeParamsAstTypeParameterListParserRuleCall_1_1_1_0() { return cTypeParamsAstTypeParameterListParserRuleCall_1_1_1_0; }
+
+		//("[" dimensions+=AstExpression "]")*
+		public Group getGroup_1_1_2() { return cGroup_1_1_2; }
+
+		//"["
+		public Keyword getLeftSquareBracketKeyword_1_1_2_0() { return cLeftSquareBracketKeyword_1_1_2_0; }
+
+		//dimensions+=AstExpression
+		public Assignment getDimensionsAssignment_1_1_2_1() { return cDimensionsAssignment_1_1_2_1; }
+
+		//AstExpression
+		public RuleCall getDimensionsAstExpressionParserRuleCall_1_1_2_1_0() { return cDimensionsAstExpressionParserRuleCall_1_1_2_1_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_1_1_2_2() { return cRightSquareBracketKeyword_1_1_2_2; }
+
+		//"[" (domain+=AstType ("," domain+=AstType)*)? "-->" (codomain+=AstType ("," domain+=AstType)*)? "]"
+		public Group getGroup_1_2() { return cGroup_1_2; }
+
+		//"["
+		public Keyword getLeftSquareBracketKeyword_1_2_0() { return cLeftSquareBracketKeyword_1_2_0; }
+
+		//(domain+=AstType ("," domain+=AstType)*)?
+		public Group getGroup_1_2_1() { return cGroup_1_2_1; }
+
+		//domain+=AstType
+		public Assignment getDomainAssignment_1_2_1_0() { return cDomainAssignment_1_2_1_0; }
+
+		//AstType
+		public RuleCall getDomainAstTypeParserRuleCall_1_2_1_0_0() { return cDomainAstTypeParserRuleCall_1_2_1_0_0; }
+
+		//("," domain+=AstType)*
+		public Group getGroup_1_2_1_1() { return cGroup_1_2_1_1; }
 
 		//","
-		public Keyword getCommaKeyword_2_1_0() { return cCommaKeyword_2_1_0; }
+		public Keyword getCommaKeyword_1_2_1_1_0() { return cCommaKeyword_1_2_1_1_0; }
 
-		//members+=AstValuedVariableDeclaration
-		public Assignment getMembersAssignment_2_1_1() { return cMembersAssignment_2_1_1; }
+		//domain+=AstType
+		public Assignment getDomainAssignment_1_2_1_1_1() { return cDomainAssignment_1_2_1_1_1; }
 
-		//AstValuedVariableDeclaration
-		public RuleCall getMembersAstValuedVariableDeclarationParserRuleCall_2_1_1_0() { return cMembersAstValuedVariableDeclarationParserRuleCall_2_1_1_0; }
+		//AstType
+		public RuleCall getDomainAstTypeParserRuleCall_1_2_1_1_1_0() { return cDomainAstTypeParserRuleCall_1_2_1_1_1_0; }
 
-		//")"
-		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
+		//"-->"
+		public Keyword getHyphenMinusHyphenMinusGreaterThanSignKeyword_1_2_2() { return cHyphenMinusHyphenMinusGreaterThanSignKeyword_1_2_2; }
+
+		//(codomain+=AstType ("," domain+=AstType)*)?
+		public Group getGroup_1_2_3() { return cGroup_1_2_3; }
+
+		//codomain+=AstType
+		public Assignment getCodomainAssignment_1_2_3_0() { return cCodomainAssignment_1_2_3_0; }
+
+		//AstType
+		public RuleCall getCodomainAstTypeParserRuleCall_1_2_3_0_0() { return cCodomainAstTypeParserRuleCall_1_2_3_0_0; }
+
+		//("," domain+=AstType)*
+		public Group getGroup_1_2_3_1() { return cGroup_1_2_3_1; }
+
+		//","
+		public Keyword getCommaKeyword_1_2_3_1_0() { return cCommaKeyword_1_2_3_1_0; }
+
+		//domain+=AstType
+		public Assignment getDomainAssignment_1_2_3_1_1() { return cDomainAssignment_1_2_3_1_1; }
+
+		//AstType
+		public RuleCall getDomainAstTypeParserRuleCall_1_2_3_1_1_0() { return cDomainAstTypeParserRuleCall_1_2_3_1_1_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_1_2_4() { return cRightSquareBracketKeyword_1_2_4; }
 	}
 
 	public class AstTypeParameterListElements extends AbstractParserRuleElementFinder {
@@ -5126,8 +5055,8 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	private AstTypeDefinitionElements pAstTypeDefinition;
 	private AstTypeDefinitionParameterElements pAstTypeDefinitionParameter;
 	private AstTypeDefinitionTypeParameterElements pAstTypeDefinitionTypeParameter;
-	private AstConstructorElements pAstConstructor;
-	private AstAnonymousConstructorElements pAstAnonymousConstructor;
+	private AstTaggedTupleElements pAstTaggedTuple;
+	private AstTupleElements pAstTuple;
 	private AstActorElements pAstActor;
 	private AstPortElements pAstPort;
 	private AstFunctionElements pAstFunction;
@@ -5185,10 +5114,9 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	private AstExpressionStringElements pAstExpressionString;
 	private TerminalRule tSTRING;
 	private TerminalRule tID;
-	private AstTypeNameElements pAstTypeName;
-	private AstBuiltInTypeElements pAstBuiltInType;
+	private AstTypeUserElements pAstTypeUser;
+	private AstTypeBuiltInElements pAstTypeBuiltIn;
 	private AstTypeElements pAstType;
-	private AstTypeTupleElements pAstTypeTuple;
 	private AstTypeParameterListElements pAstTypeParameterList;
 	private AstTypeParamElements pAstTypeParam;
 	private AstVariableDeclarationElements pAstVariableDeclaration;
@@ -5429,11 +5357,11 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////
-	//// type defintions
+	//// type definitions
 	/////////////////////////////////////////////////////////////////////////////////
-	//AstTypeDefinition returns AstTypeName:
+	//AstTypeDefinition returns AstTypeUser:
 	//	"type" name=ID ("(" (parameters+=AstTypeDefinitionParameter ("," parameters+=AstTypeDefinitionParameter)*)? ")")? ":"
-	//	(constructor+=AstAnonymousConstructor | constructor+=AstConstructor ("|" constructor+=AstConstructor)*) "end";
+	//	(tuples+=AstTuple | tuples+=AstTaggedTuple ("|" tuples+=AstTaggedTuple)*) "end";
 	public AstTypeDefinitionElements getAstTypeDefinitionAccess() {
 		return (pAstTypeDefinition != null) ? pAstTypeDefinition : (pAstTypeDefinition = new AstTypeDefinitionElements());
 	}
@@ -5452,7 +5380,7 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		return getAstTypeDefinitionParameterAccess().getRule();
 	}
 
-	//AstTypeDefinitionTypeParameter returns AstTypeName:
+	//AstTypeDefinitionTypeParameter returns AstTypeUser:
 	//	name=ID;
 	public AstTypeDefinitionTypeParameterElements getAstTypeDefinitionTypeParameterAccess() {
 		return (pAstTypeDefinitionTypeParameter != null) ? pAstTypeDefinitionTypeParameter : (pAstTypeDefinitionTypeParameter = new AstTypeDefinitionTypeParameterElements());
@@ -5462,25 +5390,24 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		return getAstTypeDefinitionTypeParameterAccess().getRule();
 	}
 
-	//AstConstructor:
-	//	name=ID ("(" (members+=AstValuedVariableDeclaration ("," members+=AstValuedVariableDeclaration)*)? ")")?;
-	public AstConstructorElements getAstConstructorAccess() {
-		return (pAstConstructor != null) ? pAstConstructor : (pAstConstructor = new AstConstructorElements());
+	//AstTaggedTuple:
+	//	name=ID ("(" (fields+=AstValuedVariableDeclaration ("," fields+=AstValuedVariableDeclaration)*)? ")")?;
+	public AstTaggedTupleElements getAstTaggedTupleAccess() {
+		return (pAstTaggedTuple != null) ? pAstTaggedTuple : (pAstTaggedTuple = new AstTaggedTupleElements());
 	}
 	
-	public ParserRule getAstConstructorRule() {
-		return getAstConstructorAccess().getRule();
+	public ParserRule getAstTaggedTupleRule() {
+		return getAstTaggedTupleAccess().getRule();
 	}
 
-	//AstAnonymousConstructor returns AstConstructor:
-	//	{AstAnonymousConstructor} ("(" (members+=AstValuedVariableDeclaration ("," members+=AstValuedVariableDeclaration)*)?
-	//	")");
-	public AstAnonymousConstructorElements getAstAnonymousConstructorAccess() {
-		return (pAstAnonymousConstructor != null) ? pAstAnonymousConstructor : (pAstAnonymousConstructor = new AstAnonymousConstructorElements());
+	//AstTuple returns AstTaggedTuple:
+	//	{AstTuple} ("(" (fields+=AstValuedVariableDeclaration ("," fields+=AstValuedVariableDeclaration)*)? ")");
+	public AstTupleElements getAstTupleAccess() {
+		return (pAstTuple != null) ? pAstTuple : (pAstTuple = new AstTupleElements());
 	}
 	
-	public ParserRule getAstAnonymousConstructorRule() {
-		return getAstAnonymousConstructorAccess().getRule();
+	public ParserRule getAstTupleRule() {
+		return getAstTupleAccess().getRule();
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////
@@ -6083,46 +6010,37 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	/////////////////////////////////////////////////////////////////////////////////
 	//// type and variable declarations
 	/////////////////////////////////////////////////////////////////////////////////
-	//AstTypeName returns AstVariable:
-	//	{AstTypeName} ID | AstBuiltInType;
-	public AstTypeNameElements getAstTypeNameAccess() {
-		return (pAstTypeName != null) ? pAstTypeName : (pAstTypeName = new AstTypeNameElements());
+	////AstTypeUser returns AstVariable: {AstTypeUser} ID | AstTypeBuiltIn;
+	//AstTypeUser returns AstVariable:
+	//	{AstTypeUser} ID;
+	public AstTypeUserElements getAstTypeUserAccess() {
+		return (pAstTypeUser != null) ? pAstTypeUser : (pAstTypeUser = new AstTypeUserElements());
 	}
 	
-	public ParserRule getAstTypeNameRule() {
-		return getAstTypeNameAccess().getRule();
+	public ParserRule getAstTypeUserRule() {
+		return getAstTypeUserAccess().getRule();
 	}
 
-	//AstBuiltInType:
+	//AstTypeBuiltIn:
 	//	"int" | "uint" | "float" | "bool" | "List" | "string" | "byte" | "short";
-	public AstBuiltInTypeElements getAstBuiltInTypeAccess() {
-		return (pAstBuiltInType != null) ? pAstBuiltInType : (pAstBuiltInType = new AstBuiltInTypeElements());
+	public AstTypeBuiltInElements getAstTypeBuiltInAccess() {
+		return (pAstTypeBuiltIn != null) ? pAstTypeBuiltIn : (pAstTypeBuiltIn = new AstTypeBuiltInElements());
 	}
 	
-	public ParserRule getAstBuiltInTypeRule() {
-		return getAstBuiltInTypeAccess().getRule();
+	public ParserRule getAstTypeBuiltInRule() {
+		return getAstTypeBuiltInAccess().getRule();
 	}
 
 	//AstType:
-	//	{AstType} (builtin=AstBuiltInType typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* |
-	//	name=[AstTypeName] typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* | "[" (domain+=AstType (","
-	//	domain+=AstType)*)? "-->" (codomain+=AstType ("," domain+=AstType)*)? "]") | AstTypeTuple;
+	//	{AstType} (builtin=AstTypeBuiltIn typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* |
+	//	name=[AstTypeUser] typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* | "[" (domain+=AstType (","
+	//	domain+=AstType)*)? "-->" (codomain+=AstType ("," domain+=AstType)*)? "]");
 	public AstTypeElements getAstTypeAccess() {
 		return (pAstType != null) ? pAstType : (pAstType = new AstTypeElements());
 	}
 	
 	public ParserRule getAstTypeRule() {
 		return getAstTypeAccess().getRule();
-	}
-
-	//AstTypeTuple returns AstType:
-	//	{AstType} "(" (members+=AstValuedVariableDeclaration ("," members+=AstValuedVariableDeclaration)*)? ")";
-	public AstTypeTupleElements getAstTypeTupleAccess() {
-		return (pAstTypeTuple != null) ? pAstTypeTuple : (pAstTypeTuple = new AstTypeTupleElements());
-	}
-	
-	public ParserRule getAstTypeTupleRule() {
-		return getAstTypeTupleAccess().getRule();
 	}
 
 	//AstTypeParameterList:

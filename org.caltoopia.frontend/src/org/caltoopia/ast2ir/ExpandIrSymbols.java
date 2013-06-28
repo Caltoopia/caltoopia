@@ -57,13 +57,13 @@ import org.caltoopia.ir.Namespace;
 import org.caltoopia.ir.Network;
 import org.caltoopia.ir.Node;
 import org.caltoopia.ir.Scope;
+import org.caltoopia.ir.TaggedTuple;
 import org.caltoopia.ir.Type;
-import org.caltoopia.ir.TypeConstructor;
 import org.caltoopia.ir.TypeConstructorCall;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeDeclarationImport;
 import org.caltoopia.ir.TypeLambda;
-import org.caltoopia.ir.TypeRecord;
+import org.caltoopia.ir.TypeTuple;
 import org.caltoopia.ir.TypeUser;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExpression;
@@ -112,21 +112,13 @@ public class ExpandIrSymbols {
 	    	}
 
 	    	@Override
-			public TypeConstructor caseTypeConstructor(TypeConstructor type) {
-	    		type = super.caseTypeConstructor(type);
-	    		setNamespace(type,type.getScope());
-	    		type.setScope(theNetwork);
-	    		return type;
-	    	}
-
-	    	@Override
-			public Type caseTypeRecord(TypeRecord type) {
-	    		TypeRecord typeRet = (TypeRecord) super.caseTypeRecord(type);
-	    		for (Variable member : ((TypeRecord)typeRet).getMembers()) {	
-		    		setNamespace(member,member.getScope());
-	    			member.setScope(theNetwork);			
+			public TaggedTuple caseTaggedTuple(TaggedTuple tuple) {
+	    		TaggedTuple taggedTuple = (TaggedTuple) super.caseTaggedTuple(tuple);
+	    		for (Variable field : taggedTuple.getFields()) {	
+		    		setNamespace(field, field.getScope());
+	    			field.setScope(theNetwork);			
 	    		}
-	    		return typeRet;
+	    		return taggedTuple;
 	    	}
 
 	    	@Override

@@ -43,7 +43,6 @@ import java.util.List;
 import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
 import org.caltoopia.frontend.cal.AstActor;
-import org.caltoopia.frontend.cal.AstConstructor;
 import org.caltoopia.frontend.cal.AstExpression;
 import org.caltoopia.frontend.cal.AstExpressionSymbolReference;
 import org.caltoopia.frontend.cal.AstFunction;
@@ -53,7 +52,8 @@ import org.caltoopia.frontend.cal.AstProcedure;
 import org.caltoopia.frontend.cal.AstStatement;
 import org.caltoopia.frontend.cal.AstStatementCall;
 import org.caltoopia.frontend.cal.AstType;
-import org.caltoopia.frontend.cal.AstTypeName;
+import org.caltoopia.frontend.cal.AstTypeUser;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.types.TypeConverter;
 import org.caltoopia.frontend.util.VoidSwitch;
@@ -98,7 +98,7 @@ class FindImportedAstSymbols extends VoidSwitch {
 			doSwitch(fun);
 		}
 
-		for (AstTypeName typedef : namespace.getTypedefs()) {
+		for (AstTypeUser typedef : namespace.getTypedefs()) {
 			doSwitch(typedef);
 		}
 
@@ -129,19 +129,12 @@ class FindImportedAstSymbols extends VoidSwitch {
 			if (v instanceof AstFunction) {
 				Declaration d = Util.createImportedFunctionDeclaration(exportingNamespaceName, (AstFunction) v);						
 				irScope.getDeclarations().add(d);
-			} else if (v instanceof AstConstructor) {
-				AstTypeName astTypedef = (AstTypeName) v.eContainer();
-					
-				if (imported.contains(astTypedef)) return null;
-
-				TypeDeclarationImport typeImport = Util.createImportedTypeDeclaration(exportingNamespaceName, astTypedef);	
-					
-				irScope.getDeclarations().add(typeImport);		
-				imported.add(astTypedef);
+			} else if (v instanceof AstTypeUser) {
+				TypeDeclarationImport typeImport = Util.createImportedTypeDeclaration(exportingNamespaceName, (AstTypeUser) v);					
+				irScope.getDeclarations().add(typeImport);						
 			} else { //AstVariable
 				VariableImport d = Util.createImportedVariableDeclaration(exportingNamespaceName, v);				
-				irScope.getDeclarations().add(d);
-				imported.add(v);
+				irScope.getDeclarations().add(d);				
 			}
 				
 			imported.add(v);			
@@ -196,10 +189,10 @@ class FindImportedAstSymbols extends VoidSwitch {
 			if (exportingNamespace != null) {
 				super.caseAstType(astType);
 				List<String> exportingNamespaceName = createExportingNamespace(exportingNamespace);
-				AstTypeName astTypedef = astType.getName();
-				TypeDeclarationImport typeImport = Util.createImportedTypeDeclaration(exportingNamespaceName, astTypedef);				
+				AstTypeUser astTypeUser = astType.getName();
+				TypeDeclarationImport typeImport = Util.createImportedTypeDeclaration(exportingNamespaceName, astTypeUser);				
 				irScope.getDeclarations().add(typeImport);					
-				imported.add(astTypedef);
+				imported.add(astTypeUser);
 
 				return null;
 			}

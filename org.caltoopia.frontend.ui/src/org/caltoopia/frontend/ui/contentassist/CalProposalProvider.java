@@ -48,9 +48,10 @@ import org.caltoopia.frontend.cal.CalPackage;
 import org.caltoopia.frontend.ui.contentassist.AbstractCalProposalProvider;
 import org.caltoopia.types.TypeConverter;
 import org.caltoopia.types.TypeSystem;
+import org.caltoopia.ir.TaggedTuple;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeDeclaration;
-import org.caltoopia.ir.TypeRecord;
+import org.caltoopia.ir.TypeTuple;
 import org.caltoopia.ir.TypeUser;
 import org.caltoopia.ir.Variable;
 import org.eclipse.emf.ecore.EObject;
@@ -122,10 +123,13 @@ public class CalProposalProvider extends AbstractCalProposalProvider {
 			Type type = TypeConverter.convert(null, var.getType(), true);		
 			if (TypeSystem.isUser(type)) {
 				TypeDeclaration typeDecl = (TypeDeclaration) ((TypeUser) type).getDeclaration();
-				if (TypeSystem.isRecord(typeDecl.getType())) {
-					TypeRecord typeRecord = (TypeRecord) typeDecl.getType();
-					for (Variable m : typeRecord.getMembers()) {
-						acceptor.accept(createCompletionProposal("." + m.getName(), context));
+				if (TypeSystem.isTypeTuple(typeDecl.getType())) {					
+					TypeTuple typeTuple = (TypeTuple) typeDecl.getType();
+					if (typeTuple.getTaggedTuples().size() == 1) {
+						TaggedTuple tt = typeTuple.getTaggedTuples().get(0);
+						for (Variable m : tt.getFields()) {
+							acceptor.accept(createCompletionProposal("." + m.getName(), context));
+						}						
 					}
 				}
 			}
@@ -138,10 +142,15 @@ public class CalProposalProvider extends AbstractCalProposalProvider {
 			Type type = TypeConverter.convert(null, var.getType(), true);		
 			if (TypeSystem.isUser(type)) {
 				TypeDeclaration typeDecl = (TypeDeclaration) ((TypeUser) type).getDeclaration();
-				if (TypeSystem.isRecord(typeDecl.getType())) {
-					TypeRecord typeRecord = (TypeRecord) typeDecl.getType();
-					for (Variable m : typeRecord.getMembers()) {
-						acceptor.accept(createCompletionProposal("." + m.getName(), context));
+				if (TypeSystem.isTypeTuple(typeDecl.getType())) {
+					if (TypeSystem.isTypeTuple(typeDecl.getType())) {					
+						TypeTuple typeTuple = (TypeTuple) typeDecl.getType();
+						if (typeTuple.getTaggedTuples().size() == 1) {
+							TaggedTuple tt = typeTuple.getTaggedTuples().get(0);
+							for (Variable m : tt.getFields()) {
+								acceptor.accept(createCompletionProposal("." + m.getName(), context));
+							}						
+						}
 					}
 				}
 			}

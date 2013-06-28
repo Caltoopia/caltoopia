@@ -158,13 +158,13 @@ public interface CalFactory extends EFactory
   AstVariable createAstVariable();
 
   /**
-   * Returns a new object of class '<em>Ast Type Name</em>'.
+   * Returns a new object of class '<em>Ast Type User</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Ast Type Name</em>'.
+   * @return a new object of class '<em>Ast Type User</em>'.
    * @generated
    */
-  AstTypeName createAstTypeName();
+  AstTypeUser createAstTypeUser();
 
   /**
    * Returns a new object of class '<em>Ast Type Definition Parameter</em>'.
@@ -176,13 +176,13 @@ public interface CalFactory extends EFactory
   AstTypeDefinitionParameter createAstTypeDefinitionParameter();
 
   /**
-   * Returns a new object of class '<em>Ast Constructor</em>'.
+   * Returns a new object of class '<em>Ast Tagged Tuple</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Ast Constructor</em>'.
+   * @return a new object of class '<em>Ast Tagged Tuple</em>'.
    * @generated
    */
-  AstConstructor createAstConstructor();
+  AstTaggedTuple createAstTaggedTuple();
 
   /**
    * Returns a new object of class '<em>Ast Actor</em>'.
@@ -536,13 +536,13 @@ public interface CalFactory extends EFactory
   AstAnnotationArgument createAstAnnotationArgument();
 
   /**
-   * Returns a new object of class '<em>Ast Anonymous Constructor</em>'.
+   * Returns a new object of class '<em>Ast Tuple</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Ast Anonymous Constructor</em>'.
+   * @return a new object of class '<em>Ast Tuple</em>'.
    * @generated
    */
-  AstAnonymousConstructor createAstAnonymousConstructor();
+  AstTuple createAstTuple();
 
   /**
    * Returns a new object of class '<em>Ast Function</em>'.

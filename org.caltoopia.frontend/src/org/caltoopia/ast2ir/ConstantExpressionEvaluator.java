@@ -73,11 +73,12 @@ import org.caltoopia.ir.Schedule;
 import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.StringLiteral;
+import org.caltoopia.ir.TaggedTuple;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeConstructorCall;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeDeclarationImport;
-import org.caltoopia.ir.TypeRecord;
+import org.caltoopia.ir.TypeTuple;
 import org.caltoopia.ir.UnaryExpression;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExpression;
@@ -863,12 +864,12 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 							return expression;
 						}
 					}	
-					TypeRecord typeRecord = (TypeRecord) typedecl.getType();
+					TaggedTuple taggedTuple = ((TypeTuple) typedecl.getType()).getTaggedTuples().get(0); // Can only be one if dot access is permitted
 					
 					Expression value = null;
-					for (Variable v : typeRecord.getMembers()) {
+					for (Variable v : taggedTuple.getFields()) {
 						if (v.getName().equals(member.getName())) {
-							value = ((TypeConstructorCall) result).getParameters().get(typeRecord.getMembers().indexOf(v));
+							value = ((TypeConstructorCall) result).getParameters().get(taggedTuple.getFields().indexOf(v));
 						}
 					}
 					assert(value != null);

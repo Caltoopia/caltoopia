@@ -41,8 +41,9 @@ import org.caltoopia.cli.DirectoryException;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.ForwardDeclaration;
 import org.caltoopia.ir.Member;
+import org.caltoopia.ir.TaggedTuple;
 import org.caltoopia.ir.Type;
-import org.caltoopia.ir.TypeRecord;
+import org.caltoopia.ir.TypeTuple;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExpression;
 import org.caltoopia.ir.VariableExternal;
@@ -84,10 +85,11 @@ public class TypeAnnotater extends IrReplaceSwitch {
 				for (Member member : varExpr.getMember()) {
 					if (TypeSystem.isList(type))
 						type = TypeSystem.getElementType(type);
-					type = TypeSystem.asRecord(type);
+					type = TypeSystem.asTypeTuple(type);
+					TaggedTuple tt = ((TypeTuple) type).getTaggedTuples().get(0); //Take first, since there can only be one when dot notation is supported.
 					
 					Variable found = null;
-					for (Variable field : ((TypeRecord) type).getMembers()) {					
+					for (Variable field : tt.getFields()) {					
 						if (field.getName().equals(member.getName())) {
 							found = field;
 						}
@@ -140,10 +142,11 @@ public class TypeAnnotater extends IrReplaceSwitch {
 				if (TypeSystem.isList(type))
 					type = TypeSystem.getElementType(type);
 
-				type = TypeSystem.asRecord(type);
+				type = TypeSystem.asTypeTuple(type);
+				TaggedTuple tt = ((TypeTuple) type).getTaggedTuples().get(0); //Take first, since there can only be one when dot notation is supported.
 
 				Variable found = null;
-				for (Variable field : ((TypeRecord) type).getMembers()) {					
+				for (Variable field : tt.getFields()) {					
 					if (field.getName().equals(member.getName())) {
 						found = field;
 					}

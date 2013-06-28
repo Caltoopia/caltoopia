@@ -80,11 +80,11 @@ import org.caltoopia.ir.State;
 import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.StringLiteral;
 import org.caltoopia.ir.TaggedExpression;
+import org.caltoopia.ir.TaggedTuple;
 import org.caltoopia.ir.ToSink;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeBool;
-import org.caltoopia.ir.TypeConstructor;
 import org.caltoopia.ir.TypeConstructorCall;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeFloat;
@@ -92,7 +92,7 @@ import org.caltoopia.ir.TypeInt;
 import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.TypeString;
-import org.caltoopia.ir.TypeRecord;
+import org.caltoopia.ir.TypeTuple;
 import org.caltoopia.ir.TypeUint;
 import org.caltoopia.ir.TypeUndef;
 import org.caltoopia.ir.TypeUser;
@@ -815,12 +815,21 @@ public class IrReplaceSwitch extends IrSwitch<EObject> {
 	}
 
 	@Override
-	public Type caseTypeRecord(TypeRecord type) {
-		for (Variable member : type.getMembers()) {	
+	public TypeTuple caseTypeTuple(TypeTuple type) {
+		for (int i = 0; i < type.getTaggedTuples().size(); i++) {
+			TaggedTuple tt = (TaggedTuple) doSwitch(type.getTaggedTuples().get(i));
+			type.getTaggedTuples().set(i, tt);
+		}
+		return type;
+	}
+	
+	@Override
+	public TaggedTuple caseTaggedTuple(TaggedTuple tt) {
+		for (Variable member : tt.getFields()) {	
 			Type t = (Type) doSwitch(member.getType());			
 			member.setType(t);
 		}
-		return type;
+		return tt;
 	}
 
 	@Override
@@ -857,28 +866,9 @@ public class IrReplaceSwitch extends IrSwitch<EObject> {
 	}
 
 	@Override
-	public TypeConstructor caseTypeConstructor(TypeConstructor object) {
-		List<TaggedExpression> attributes = object.getAttributes();
-		for (int i = 0; i < attributes.size(); i++) {
-			TaggedExpression te = caseTaggedExpression(attributes.get(i));
-			attributes.set(i, te);
-		}
-		//Visit the parameters
-		List<Variable> params = object.getParameters();
-		for (int i = 0; i < params.size(); i++) {
-			Variable def = (Variable) doSwitch(params.get(i));
-			params.set(i, def);
-		}
-		return object;
-	}
-
-	@Override
 	public Declaration caseTypeDeclaration(TypeDeclaration typeDecl) {
 		Type type = (Type) doSwitch(typeDecl.getType());
 		typeDecl.setType(type);
-		
-		TypeConstructor ctor = (TypeConstructor) doSwitch(typeDecl.getConstructor());
-		typeDecl.setConstructor(ctor);
 		
 		return typeDecl;
 	}

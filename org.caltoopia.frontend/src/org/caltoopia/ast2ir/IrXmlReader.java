@@ -34,7 +34,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.caltoopia.codegen;
+package org.caltoopia.ast2ir;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -88,17 +88,17 @@ import org.caltoopia.ir.State;
 import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.StringLiteral;
 import org.caltoopia.ir.TaggedExpression;
+import org.caltoopia.ir.TaggedTuple;
 import org.caltoopia.ir.ToSink;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
-import org.caltoopia.ir.TypeConstructor;
 import org.caltoopia.ir.TypeConstructorCall;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeDeclarationImport;
 import org.caltoopia.ir.TypeInt;
 import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeProc;
-import org.caltoopia.ir.TypeRecord;
+import org.caltoopia.ir.TypeTuple;
 import org.caltoopia.ir.TypeUint;
 import org.caltoopia.ir.UnaryExpression;
 import org.caltoopia.ir.Variable;
@@ -108,8 +108,7 @@ import org.caltoopia.ir.VariableImport;
 import org.caltoopia.ir.VariableReference;
 import org.caltoopia.ir.WhileLoop;
 import org.caltoopia.types.TypeSystem;
-import org.caltoopia.ast2ir.PriorityGraph;
-import org.caltoopia.ast2ir.Util;
+import org.caltoopia.codegen.UtilIR;
 import org.eclipse.emf.ecore.EObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -150,7 +149,7 @@ public class IrXmlReader {
 			
 			return result;			
 		} catch (Exception x) {
-			System.err.println("[ActorDirectory]ÊError reading '" + path + "' x " + x.getMessage()); 
+			System.err.println("[ActorDirectory] Error reading '" + path + "' x " + x.getMessage()); 
 			return null;
 		}
 		
@@ -610,16 +609,7 @@ public class IrXmlReader {
 			Element typeElement = getChild(element, "Type");
 			Type type = createType(typeElement);
 			typeDeclaration.setType(type);
-					
-			Element ctorElement = getChild(element, "TypeConstructor");
-			TypeConstructor ctor = IrFactory.eINSTANCE.createTypeConstructor();
-			ctor.setName(ctorElement.getAttribute("name"));
-			ctor.setId(ctorElement.getAttribute("id"));
-			doAnnotations(ctor, ctorElement);
-			ctor.setScope((Scope) findIrObject(ctorElement.getAttribute("scope")));
-			ctor.setTypedef(typeDeclaration);
 
-			typeDeclaration.setConstructor(ctor);
 			
 			return typeDeclaration;			
 		}
@@ -636,7 +626,7 @@ public class IrXmlReader {
 			expr.setId(element.getAttribute("id"));			
 			doAnnotations(expr, element);	
 			expr.setContext((Scope) findIrObject(element.getAttribute("context-scope"))); 
-			expr.setOperator(UtilIR.unmarshall(element.getAttribute("operator")));			
+			expr.setOperator(Util.unmarshall(element.getAttribute("operator")));			
 			expr.setOperand(createExpression(getChild(element, "Expr")));
 			// expr.setType(createType(getChild(element, "Type")));
 			
@@ -646,7 +636,7 @@ public class IrXmlReader {
 			expr.setId(element.getAttribute("id"));
 			doAnnotations(expr, element);			
 			expr.setContext((Scope) findIrObject(element.getAttribute("context-scope"))); 
-			expr.setOperator(UtilIR.unmarshall(element.getAttribute("operator")));			
+			expr.setOperator(Util.unmarshall(element.getAttribute("operator")));			
 			List<Element> operands = getChildren(element, "Expr");
 			expr.setOperand1(createExpression(operands.get(0)));
 			expr.setOperand2(createExpression(operands.get(1)));			
@@ -1090,21 +1080,28 @@ public class IrXmlReader {
 		} else if (kind.equals("user")) {
 			Declaration typeDeclaration = (Declaration) findIrObject(element.getAttribute("type-declaration-id"));
 			return TypeSystem.createTypeUser(typeDeclaration);
-		} else if (kind.equals("record")) {
-			TypeRecord typeRecord = IrFactory.eINSTANCE.createTypeRecord();
+		} else if (kind.equals("tuple")) {
+			TypeTuple typeTuple = IrFactory.eINSTANCE.createTypeTuple();
+						
 			String id = element.getAttribute("id");
-			typeRecord.setId(id);
-			doAnnotations(typeRecord, element);
+			typeTuple.setId(id);
+			doAnnotations(typeTuple, element);
 			
-			List<Element> members = getChildren(element, "Decl");			
-			for (Element member : members) {
-				Variable m = (Variable) createDeclaration(member);
-				typeRecord.getMembers().add(m);
-			}
+			List<Element> taggedTuples = getChildren(element, "TaggedTuple");
+			for (Element taggedTuple : taggedTuples) {
+				TaggedTuple tt = IrFactory.eINSTANCE.createTaggedTuple();
+				tt.setTag(taggedTuple.getAttribute("tag"));
+				List<Element> members = getChildren(taggedTuple, "Decl");			
+				for (Element member : members) {
+					Variable m = (Variable) createDeclaration(member);
+					tt.getFields().add(m);
+				}
+				typeTuple.getTaggedTuples().add(tt);
+			}			
 			
-			addIrObject(id, typeRecord);
+			addIrObject(id, typeTuple);
 			
-			return typeRecord;
+			return typeTuple;
 		} else if (kind.equals("lambda")) {
 			TypeLambda type = IrFactory.eINSTANCE.createTypeLambda();
 			Element input = getChild(element, "Input");

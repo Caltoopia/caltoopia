@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<xtext:Grammar xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xtext="http://www.eclipse.org/2008/Xtext" name="org.caltoopia.frontend.Cal" definesHiddenTokens="true" hiddenTokens="//@rules.93 //@rules.91 //@rules.92">
+<xtext:Grammar xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xtext="http://www.eclipse.org/2008/Xtext" name="org.caltoopia.frontend.Cal" definesHiddenTokens="true" hiddenTokens="//@rules.92 //@rules.90 //@rules.91">
   <metamodelDeclarations xsi:type="xtext:ReferencedMetamodel" alias="ecore">
     <ePackage href="http://www.eclipse.org/emf/2002/Ecore#/"/>
   </metamodelDeclarations>
@@ -82,7 +82,7 @@
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Assignment" cardinality="*" feature="annotations" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.89"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.88"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value="namespace"/>
       <elements xsi:type="xtext:Assignment" feature="name" operator="=">
@@ -125,7 +125,7 @@
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Assignment" cardinality="*" feature="annotations" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.89"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.88"/>
       </elements>
       <elements xsi:type="xtext:Assignment" feature="actor" operator="=">
         <terminal xsi:type="xtext:RuleCall" rule="//@rules.5"/>
@@ -229,12 +229,12 @@
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Keyword" value="var"/>
         <elements xsi:type="xtext:Assignment" feature="variables" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.87"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value=";"/>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Assignment" feature="variables" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.87"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
           </elements>
           <elements xsi:type="xtext:Keyword" value=";"/>
         </elements>
@@ -374,7 +374,7 @@
       <classifier xsi:type="ecore:EClass" href="http://www.caltoopia.org/frontend/Cal#//AstVariable"/>
     </type>
     <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.86"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.85"/>
       <elements xsi:type="xtext:Assignment" feature="constant" operator="?=">
         <terminal xsi:type="xtext:Keyword" value="="/>
       </elements>
@@ -390,13 +390,13 @@
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Keyword" value="external"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.86"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.85"/>
       <elements xsi:type="xtext:Keyword" value=";"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="AstTypeDefinition">
     <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.caltoopia.org/frontend/Cal#//AstTypeName"/>
+      <classifier xsi:type="ecore:EClass" href="http://www.caltoopia.org/frontend/Cal#//AstTypeUser"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Keyword" value="type"/>
@@ -420,16 +420,16 @@
       </elements>
       <elements xsi:type="xtext:Keyword" value=":"/>
       <elements xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:Assignment" feature="constructor" operator="+=">
+        <elements xsi:type="xtext:Assignment" feature="tuples" operator="+=">
           <terminal xsi:type="xtext:RuleCall" rule="//@rules.22"/>
         </elements>
         <elements xsi:type="xtext:Group">
-          <elements xsi:type="xtext:Assignment" feature="constructor" operator="+=">
+          <elements xsi:type="xtext:Assignment" feature="tuples" operator="+=">
             <terminal xsi:type="xtext:RuleCall" rule="//@rules.21"/>
           </elements>
           <elements xsi:type="xtext:Group" cardinality="*">
             <elements xsi:type="xtext:Keyword" value="|"/>
-            <elements xsi:type="xtext:Assignment" feature="constructor" operator="+=">
+            <elements xsi:type="xtext:Assignment" feature="tuples" operator="+=">
               <terminal xsi:type="xtext:RuleCall" rule="//@rules.21"/>
             </elements>
           </elements>
@@ -444,7 +444,7 @@
     </type>
     <alternatives xsi:type="xtext:Alternatives">
       <elements xsi:type="xtext:Assignment" feature="value" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.85"/>
       </elements>
       <elements xsi:type="xtext:Assignment" feature="type" operator="=">
         <terminal xsi:type="xtext:RuleCall" rule="//@rules.20"/>
@@ -453,15 +453,15 @@
   </rules>
   <rules xsi:type="xtext:ParserRule" name="AstTypeDefinitionTypeParameter">
     <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.caltoopia.org/frontend/Cal#//AstTypeName"/>
+      <classifier xsi:type="ecore:EClass" href="http://www.caltoopia.org/frontend/Cal#//AstTypeUser"/>
     </type>
     <alternatives xsi:type="xtext:Assignment" feature="name" operator="=">
       <terminal xsi:type="xtext:RuleCall" rule="//@rules.79"/>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="AstConstructor">
+  <rules xsi:type="xtext:ParserRule" name="AstTaggedTuple">
     <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.caltoopia.org/frontend/Cal#//AstConstructor"/>
+      <classifier xsi:type="ecore:EClass" href="http://www.caltoopia.org/frontend/Cal#//AstTaggedTuple"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Assignment" feature="name" operator="=">
@@ -470,13 +470,13 @@
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Group" cardinality="?">
-          <elements xsi:type="xtext:Assignment" feature="members" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.87"/>
+          <elements xsi:type="xtext:Assignment" feature="fields" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
           </elements>
           <elements xsi:type="xtext:Group" cardinality="*">
             <elements xsi:type="xtext:Keyword" value=","/>
-            <elements xsi:type="xtext:Assignment" feature="members" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.87"/>
+            <elements xsi:type="xtext:Assignment" feature="fields" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
             </elements>
           </elements>
         </elements>
@@ -484,26 +484,26 @@
       </elements>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="AstAnonymousConstructor">
+  <rules xsi:type="xtext:ParserRule" name="AstTuple">
     <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.caltoopia.org/frontend/Cal#//AstConstructor"/>
+      <classifier xsi:type="ecore:EClass" href="http://www.caltoopia.org/frontend/Cal#//AstTaggedTuple"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Action">
         <type metamodel="//@metamodelDeclarations.1">
-          <classifier xsi:type="ecore:EClass" href="http://www.caltoopia.org/frontend/Cal#//AstAnonymousConstructor"/>
+          <classifier xsi:type="ecore:EClass" href="http://www.caltoopia.org/frontend/Cal#//AstTuple"/>
         </type>
       </elements>
       <elements xsi:type="xtext:Group">
         <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Group" cardinality="?">
-          <elements xsi:type="xtext:Assignment" feature="members" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.87"/>
+          <elements xsi:type="xtext:Assignment" feature="fields" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
           </elements>
           <elements xsi:type="xtext:Group" cardinality="*">
             <elements xsi:type="xtext:Keyword" value=","/>
-            <elements xsi:type="xtext:Assignment" feature="members" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.87"/>
+            <elements xsi:type="xtext:Assignment" feature="fields" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
             </elements>
           </elements>
         </elements>
@@ -594,7 +594,7 @@
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Assignment" cardinality="*" feature="annotations" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.89"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.88"/>
       </elements>
       <elements xsi:type="xtext:Assignment" feature="type" operator="=">
         <terminal xsi:type="xtext:RuleCall" rule="//@rules.82"/>
@@ -615,7 +615,7 @@
         </type>
       </elements>
       <elements xsi:type="xtext:Assignment" cardinality="*" feature="annotations" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.89"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.88"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value="function"/>
       <elements xsi:type="xtext:Assignment" feature="name" operator="=">
@@ -624,12 +624,12 @@
       <elements xsi:type="xtext:Keyword" value="("/>
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.85"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Keyword" value=","/>
           <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.85"/>
           </elements>
         </elements>
       </elements>
@@ -641,12 +641,12 @@
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Keyword" value="var"/>
         <elements xsi:type="xtext:Assignment" feature="variables" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.87"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Keyword" value=","/>
           <elements xsi:type="xtext:Assignment" feature="variables" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.87"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
           </elements>
         </elements>
       </elements>
@@ -668,7 +668,7 @@
         </type>
       </elements>
       <elements xsi:type="xtext:Assignment" cardinality="*" feature="annotations" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.89"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.88"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value="external"/>
       <elements xsi:type="xtext:Keyword" value="function"/>
@@ -678,12 +678,12 @@
       <elements xsi:type="xtext:Keyword" value="("/>
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.85"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Keyword" value=","/>
           <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.85"/>
           </elements>
         </elements>
       </elements>
@@ -701,7 +701,7 @@
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Assignment" cardinality="*" feature="annotations" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.89"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.88"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value="procedure"/>
       <elements xsi:type="xtext:Assignment" feature="name" operator="=">
@@ -710,12 +710,12 @@
       <elements xsi:type="xtext:Keyword" value="("/>
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.85"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Keyword" value=","/>
           <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.85"/>
           </elements>
         </elements>
       </elements>
@@ -723,12 +723,12 @@
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Keyword" value="var"/>
         <elements xsi:type="xtext:Assignment" feature="variables" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.87"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Keyword" value=","/>
           <elements xsi:type="xtext:Assignment" feature="variables" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.87"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
           </elements>
         </elements>
       </elements>
@@ -750,7 +750,7 @@
         </type>
       </elements>
       <elements xsi:type="xtext:Assignment" cardinality="*" feature="annotations" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.89"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.88"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value="external"/>
       <elements xsi:type="xtext:Keyword" value="procedure"/>
@@ -760,12 +760,12 @@
       <elements xsi:type="xtext:Keyword" value="("/>
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.85"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Keyword" value=","/>
           <elements xsi:type="xtext:Assignment" feature="parameters" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.85"/>
           </elements>
         </elements>
       </elements>
@@ -778,7 +778,7 @@
       <classifier xsi:type="ecore:EClass" href="http://www.caltoopia.org/frontend/Cal#//AstVariable"/>
     </type>
     <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.86"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.85"/>
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Keyword" value="="/>
         <elements xsi:type="xtext:Assignment" feature="value" operator="=">
@@ -792,7 +792,7 @@
       <classifier xsi:type="ecore:EClass" href="http://www.caltoopia.org/frontend/Cal#//AstVariable"/>
     </type>
     <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.87"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.86"/>
       <elements xsi:type="xtext:Keyword" value=";"/>
     </alternatives>
   </rules>
@@ -977,7 +977,7 @@
         </type>
       </elements>
       <elements xsi:type="xtext:Assignment" cardinality="*" feature="annotations" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.89"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.88"/>
       </elements>
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Assignment" feature="tag" operator="=">
@@ -1024,12 +1024,12 @@
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Keyword" value="var"/>
         <elements xsi:type="xtext:Assignment" feature="variables" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.87"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Keyword" value=","/>
           <elements xsi:type="xtext:Assignment" feature="variables" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.87"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
           </elements>
         </elements>
       </elements>
@@ -1053,7 +1053,7 @@
         </type>
       </elements>
       <elements xsi:type="xtext:Assignment" cardinality="*" feature="annotations" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.89"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.88"/>
       </elements>
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Assignment" feature="tag" operator="=">
@@ -1089,12 +1089,12 @@
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Keyword" value="var"/>
         <elements xsi:type="xtext:Assignment" feature="variables" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.87"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Keyword" value=","/>
           <elements xsi:type="xtext:Assignment" feature="variables" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.87"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
           </elements>
         </elements>
       </elements>
@@ -1206,7 +1206,7 @@
         <elements xsi:type="xtext:Keyword" value="]"/>
       </elements>
       <elements xsi:type="xtext:Assignment" cardinality="*" feature="member" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.88"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.87"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value=":="/>
       <elements xsi:type="xtext:Assignment" feature="value" operator="=">
@@ -1262,12 +1262,12 @@
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Keyword" value="var"/>
         <elements xsi:type="xtext:Assignment" feature="variables" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.87"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Keyword" value=","/>
           <elements xsi:type="xtext:Assignment" feature="variables" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.87"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
           </elements>
         </elements>
       </elements>
@@ -1284,7 +1284,7 @@
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Assignment" feature="variable" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.85"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value="in"/>
       <elements xsi:type="xtext:Assignment" feature="expression" operator="=">
@@ -1306,12 +1306,12 @@
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Keyword" value="var"/>
         <elements xsi:type="xtext:Assignment" feature="variables" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.87"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Keyword" value=","/>
           <elements xsi:type="xtext:Assignment" feature="variables" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.87"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value="do"/>
@@ -1695,7 +1695,7 @@
         <elements xsi:type="xtext:Keyword" value="]"/>
       </elements>
       <elements xsi:type="xtext:Assignment" cardinality="*" feature="member" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.88"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.87"/>
       </elements>
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Keyword" value="::"/>
@@ -1777,7 +1777,7 @@
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Keyword" value="for"/>
       <elements xsi:type="xtext:Assignment" feature="variable" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.86"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.85"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value="in"/>
       <elements xsi:type="xtext:Assignment" feature="expression" operator="=">
@@ -2009,23 +2009,20 @@
       </elements>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="AstTypeName">
+  <rules xsi:type="xtext:ParserRule" name="AstTypeUser">
     <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.caltoopia.org/frontend/Cal#//AstVariable"/>
     </type>
-    <alternatives xsi:type="xtext:Alternatives">
-      <elements xsi:type="xtext:Group">
-        <elements xsi:type="xtext:Action">
-          <type metamodel="//@metamodelDeclarations.1">
-            <classifier xsi:type="ecore:EClass" href="http://www.caltoopia.org/frontend/Cal#//AstTypeName"/>
-          </type>
-        </elements>
-        <elements xsi:type="xtext:RuleCall" rule="//@rules.79"/>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Action">
+        <type metamodel="//@metamodelDeclarations.1">
+          <classifier xsi:type="ecore:EClass" href="http://www.caltoopia.org/frontend/Cal#//AstTypeUser"/>
+        </type>
       </elements>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.81"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.79"/>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="AstBuiltInType">
+  <rules xsi:type="xtext:ParserRule" name="AstTypeBuiltIn">
     <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
@@ -2044,104 +2041,76 @@
     <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EClass" href="http://www.caltoopia.org/frontend/Cal#//AstType"/>
     </type>
-    <alternatives xsi:type="xtext:Alternatives">
-      <elements xsi:type="xtext:Group">
-        <elements xsi:type="xtext:Action">
-          <type metamodel="//@metamodelDeclarations.1">
-            <classifier xsi:type="ecore:EClass" href="http://www.caltoopia.org/frontend/Cal#//AstType"/>
-          </type>
-        </elements>
-        <elements xsi:type="xtext:Alternatives">
-          <elements xsi:type="xtext:Group">
-            <elements xsi:type="xtext:Assignment" feature="builtin" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.81"/>
-            </elements>
-            <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeParams" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.84"/>
-            </elements>
-            <elements xsi:type="xtext:Group" cardinality="*">
-              <elements xsi:type="xtext:Keyword" value="["/>
-              <elements xsi:type="xtext:Assignment" feature="dimensions" operator="+=">
-                <terminal xsi:type="xtext:RuleCall" rule="//@rules.51"/>
-              </elements>
-              <elements xsi:type="xtext:Keyword" value="]"/>
-            </elements>
-          </elements>
-          <elements xsi:type="xtext:Group">
-            <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-              <terminal xsi:type="xtext:CrossReference">
-                <type metamodel="//@metamodelDeclarations.1">
-                  <classifier xsi:type="ecore:EClass" href="http://www.caltoopia.org/frontend/Cal#//AstTypeName"/>
-                </type>
-                <terminal xsi:type="xtext:RuleCall" rule="//@rules.79"/>
-              </terminal>
-            </elements>
-            <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeParams" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.84"/>
-            </elements>
-            <elements xsi:type="xtext:Group" cardinality="*">
-              <elements xsi:type="xtext:Keyword" value="["/>
-              <elements xsi:type="xtext:Assignment" feature="dimensions" operator="+=">
-                <terminal xsi:type="xtext:RuleCall" rule="//@rules.51"/>
-              </elements>
-              <elements xsi:type="xtext:Keyword" value="]"/>
-            </elements>
-          </elements>
-          <elements xsi:type="xtext:Group">
-            <elements xsi:type="xtext:Keyword" value="["/>
-            <elements xsi:type="xtext:Group" cardinality="?">
-              <elements xsi:type="xtext:Assignment" feature="domain" operator="+=">
-                <terminal xsi:type="xtext:RuleCall" rule="//@rules.82"/>
-              </elements>
-              <elements xsi:type="xtext:Group" cardinality="*">
-                <elements xsi:type="xtext:Keyword" value=","/>
-                <elements xsi:type="xtext:Assignment" feature="domain" operator="+=">
-                  <terminal xsi:type="xtext:RuleCall" rule="//@rules.82"/>
-                </elements>
-              </elements>
-            </elements>
-            <elements xsi:type="xtext:Keyword" value="-->"/>
-            <elements xsi:type="xtext:Group" cardinality="?">
-              <elements xsi:type="xtext:Assignment" feature="codomain" operator="+=">
-                <terminal xsi:type="xtext:RuleCall" rule="//@rules.82"/>
-              </elements>
-              <elements xsi:type="xtext:Group" cardinality="*">
-                <elements xsi:type="xtext:Keyword" value=","/>
-                <elements xsi:type="xtext:Assignment" feature="domain" operator="+=">
-                  <terminal xsi:type="xtext:RuleCall" rule="//@rules.82"/>
-                </elements>
-              </elements>
-            </elements>
-            <elements xsi:type="xtext:Keyword" value="]"/>
-          </elements>
-        </elements>
-      </elements>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.83"/>
-    </alternatives>
-  </rules>
-  <rules xsi:type="xtext:ParserRule" name="AstTypeTuple">
-    <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.caltoopia.org/frontend/Cal#//AstType"/>
-    </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Action">
         <type metamodel="//@metamodelDeclarations.1">
           <classifier xsi:type="ecore:EClass" href="http://www.caltoopia.org/frontend/Cal#//AstType"/>
         </type>
       </elements>
-      <elements xsi:type="xtext:Keyword" value="("/>
-      <elements xsi:type="xtext:Group" cardinality="?">
-        <elements xsi:type="xtext:Assignment" feature="members" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.87"/>
-        </elements>
-        <elements xsi:type="xtext:Group" cardinality="*">
-          <elements xsi:type="xtext:Keyword" value=","/>
-          <elements xsi:type="xtext:Assignment" feature="members" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.87"/>
+      <elements xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Assignment" feature="builtin" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.81"/>
+          </elements>
+          <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeParams" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.83"/>
+          </elements>
+          <elements xsi:type="xtext:Group" cardinality="*">
+            <elements xsi:type="xtext:Keyword" value="["/>
+            <elements xsi:type="xtext:Assignment" feature="dimensions" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.51"/>
+            </elements>
+            <elements xsi:type="xtext:Keyword" value="]"/>
           </elements>
         </elements>
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+            <terminal xsi:type="xtext:CrossReference">
+              <type metamodel="//@metamodelDeclarations.1">
+                <classifier xsi:type="ecore:EClass" href="http://www.caltoopia.org/frontend/Cal#//AstTypeUser"/>
+              </type>
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.79"/>
+            </terminal>
+          </elements>
+          <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeParams" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.83"/>
+          </elements>
+          <elements xsi:type="xtext:Group" cardinality="*">
+            <elements xsi:type="xtext:Keyword" value="["/>
+            <elements xsi:type="xtext:Assignment" feature="dimensions" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.51"/>
+            </elements>
+            <elements xsi:type="xtext:Keyword" value="]"/>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Keyword" value="["/>
+          <elements xsi:type="xtext:Group" cardinality="?">
+            <elements xsi:type="xtext:Assignment" feature="domain" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.82"/>
+            </elements>
+            <elements xsi:type="xtext:Group" cardinality="*">
+              <elements xsi:type="xtext:Keyword" value=","/>
+              <elements xsi:type="xtext:Assignment" feature="domain" operator="+=">
+                <terminal xsi:type="xtext:RuleCall" rule="//@rules.82"/>
+              </elements>
+            </elements>
+          </elements>
+          <elements xsi:type="xtext:Keyword" value="-->"/>
+          <elements xsi:type="xtext:Group" cardinality="?">
+            <elements xsi:type="xtext:Assignment" feature="codomain" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.82"/>
+            </elements>
+            <elements xsi:type="xtext:Group" cardinality="*">
+              <elements xsi:type="xtext:Keyword" value=","/>
+              <elements xsi:type="xtext:Assignment" feature="domain" operator="+=">
+                <terminal xsi:type="xtext:RuleCall" rule="//@rules.82"/>
+              </elements>
+            </elements>
+          </elements>
+          <elements xsi:type="xtext:Keyword" value="]"/>
+        </elements>
       </elements>
-      <elements xsi:type="xtext:Keyword" value=")"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="AstTypeParameterList">
@@ -2151,12 +2120,12 @@
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Keyword" value="("/>
       <elements xsi:type="xtext:Assignment" feature="params" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.85"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.84"/>
       </elements>
       <elements xsi:type="xtext:Group" cardinality="*">
         <elements xsi:type="xtext:Keyword" value=","/>
         <elements xsi:type="xtext:Assignment" feature="params" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.85"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.84"/>
         </elements>
       </elements>
       <elements xsi:type="xtext:Keyword" value=")"/>
@@ -2196,7 +2165,7 @@
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Assignment" cardinality="*" feature="annotations" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.89"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.88"/>
       </elements>
       <elements xsi:type="xtext:Assignment" feature="type" operator="=">
         <terminal xsi:type="xtext:RuleCall" rule="//@rules.82"/>
@@ -2218,7 +2187,7 @@
       <classifier xsi:type="ecore:EClass" href="http://www.caltoopia.org/frontend/Cal#//AstVariable"/>
     </type>
     <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.86"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.85"/>
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Alternatives">
           <elements xsi:type="xtext:Assignment" feature="constant" operator="?=">
@@ -2262,12 +2231,12 @@
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Assignment" feature="arguments" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.90"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.89"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Keyword" value=","/>
           <elements xsi:type="xtext:Assignment" feature="arguments" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.90"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.89"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value=")"/>

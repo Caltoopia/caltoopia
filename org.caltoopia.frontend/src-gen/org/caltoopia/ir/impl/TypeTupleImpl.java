@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.caltoopia.ir.impl;
 
@@ -11,8 +7,8 @@ import java.util.Collection;
 import org.caltoopia.ir.Annotation;
 import org.caltoopia.ir.IrPackage;
 import org.caltoopia.ir.Node;
-import org.caltoopia.ir.TypeRecord;
-import org.caltoopia.ir.Variable;
+import org.caltoopia.ir.TaggedTuple;
+import org.caltoopia.ir.TypeTuple;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -26,20 +22,20 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Type Record</b></em>'.
+ * An implementation of the model object '<em><b>Type Tuple</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.caltoopia.ir.impl.TypeRecordImpl#getAnnotations <em>Annotations</em>}</li>
- *   <li>{@link org.caltoopia.ir.impl.TypeRecordImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.caltoopia.ir.impl.TypeRecordImpl#getMembers <em>Members</em>}</li>
+ *   <li>{@link org.caltoopia.ir.impl.TypeTupleImpl#getAnnotations <em>Annotations</em>}</li>
+ *   <li>{@link org.caltoopia.ir.impl.TypeTupleImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.caltoopia.ir.impl.TypeTupleImpl#getTaggedTuples <em>Tagged Tuples</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class TypeRecordImpl extends TypeImpl implements TypeRecord {
+public class TypeTupleImpl extends TypeImpl implements TypeTuple {
 	/**
 	 * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' reference list.
 	 * <!-- begin-user-doc -->
@@ -71,21 +67,21 @@ public class TypeRecordImpl extends TypeImpl implements TypeRecord {
 	protected String id = ID_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getMembers() <em>Members</em>}' reference list.
+	 * The cached value of the '{@link #getTaggedTuples() <em>Tagged Tuples</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getMembers()
+	 * @see #getTaggedTuples()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Variable> members;
+	protected EList<TaggedTuple> taggedTuples;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected TypeRecordImpl() {
+	protected TypeTupleImpl() {
 		super();
 	}
 
@@ -96,7 +92,7 @@ public class TypeRecordImpl extends TypeImpl implements TypeRecord {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return IrPackage.Literals.TYPE_RECORD;
+		return IrPackage.Literals.TYPE_TUPLE;
 	}
 
 	/**
@@ -106,7 +102,7 @@ public class TypeRecordImpl extends TypeImpl implements TypeRecord {
 	 */
 	public EList<Annotation> getAnnotations() {
 		if (annotations == null) {
-			annotations = new EObjectResolvingEList<Annotation>(Annotation.class, this, IrPackage.TYPE_RECORD__ANNOTATIONS);
+			annotations = new EObjectResolvingEList<Annotation>(Annotation.class, this, IrPackage.TYPE_TUPLE__ANNOTATIONS);
 		}
 		return annotations;
 	}
@@ -129,7 +125,7 @@ public class TypeRecordImpl extends TypeImpl implements TypeRecord {
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.TYPE_RECORD__ID, oldId, id));
+			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.TYPE_TUPLE__ID, oldId, id));
 	}
 
 	/**
@@ -137,11 +133,11 @@ public class TypeRecordImpl extends TypeImpl implements TypeRecord {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Variable> getMembers() {
-		if (members == null) {
-			members = new EObjectResolvingEList<Variable>(Variable.class, this, IrPackage.TYPE_RECORD__MEMBERS);
+	public EList<TaggedTuple> getTaggedTuples() {
+		if (taggedTuples == null) {
+			taggedTuples = new EObjectResolvingEList<TaggedTuple>(TaggedTuple.class, this, IrPackage.TYPE_TUPLE__TAGGED_TUPLES);
 		}
-		return members;
+		return taggedTuples;
 	}
 
 	/**
@@ -152,12 +148,12 @@ public class TypeRecordImpl extends TypeImpl implements TypeRecord {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case IrPackage.TYPE_RECORD__ANNOTATIONS:
+			case IrPackage.TYPE_TUPLE__ANNOTATIONS:
 				return getAnnotations();
-			case IrPackage.TYPE_RECORD__ID:
+			case IrPackage.TYPE_TUPLE__ID:
 				return getId();
-			case IrPackage.TYPE_RECORD__MEMBERS:
-				return getMembers();
+			case IrPackage.TYPE_TUPLE__TAGGED_TUPLES:
+				return getTaggedTuples();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -171,16 +167,16 @@ public class TypeRecordImpl extends TypeImpl implements TypeRecord {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case IrPackage.TYPE_RECORD__ANNOTATIONS:
+			case IrPackage.TYPE_TUPLE__ANNOTATIONS:
 				getAnnotations().clear();
 				getAnnotations().addAll((Collection<? extends Annotation>)newValue);
 				return;
-			case IrPackage.TYPE_RECORD__ID:
+			case IrPackage.TYPE_TUPLE__ID:
 				setId((String)newValue);
 				return;
-			case IrPackage.TYPE_RECORD__MEMBERS:
-				getMembers().clear();
-				getMembers().addAll((Collection<? extends Variable>)newValue);
+			case IrPackage.TYPE_TUPLE__TAGGED_TUPLES:
+				getTaggedTuples().clear();
+				getTaggedTuples().addAll((Collection<? extends TaggedTuple>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -194,14 +190,14 @@ public class TypeRecordImpl extends TypeImpl implements TypeRecord {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case IrPackage.TYPE_RECORD__ANNOTATIONS:
+			case IrPackage.TYPE_TUPLE__ANNOTATIONS:
 				getAnnotations().clear();
 				return;
-			case IrPackage.TYPE_RECORD__ID:
+			case IrPackage.TYPE_TUPLE__ID:
 				setId(ID_EDEFAULT);
 				return;
-			case IrPackage.TYPE_RECORD__MEMBERS:
-				getMembers().clear();
+			case IrPackage.TYPE_TUPLE__TAGGED_TUPLES:
+				getTaggedTuples().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -215,12 +211,12 @@ public class TypeRecordImpl extends TypeImpl implements TypeRecord {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case IrPackage.TYPE_RECORD__ANNOTATIONS:
+			case IrPackage.TYPE_TUPLE__ANNOTATIONS:
 				return annotations != null && !annotations.isEmpty();
-			case IrPackage.TYPE_RECORD__ID:
+			case IrPackage.TYPE_TUPLE__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
-			case IrPackage.TYPE_RECORD__MEMBERS:
-				return members != null && !members.isEmpty();
+			case IrPackage.TYPE_TUPLE__TAGGED_TUPLES:
+				return taggedTuples != null && !taggedTuples.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -234,8 +230,8 @@ public class TypeRecordImpl extends TypeImpl implements TypeRecord {
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == Node.class) {
 			switch (derivedFeatureID) {
-				case IrPackage.TYPE_RECORD__ANNOTATIONS: return IrPackage.NODE__ANNOTATIONS;
-				case IrPackage.TYPE_RECORD__ID: return IrPackage.NODE__ID;
+				case IrPackage.TYPE_TUPLE__ANNOTATIONS: return IrPackage.NODE__ANNOTATIONS;
+				case IrPackage.TYPE_TUPLE__ID: return IrPackage.NODE__ID;
 				default: return -1;
 			}
 		}
@@ -251,8 +247,8 @@ public class TypeRecordImpl extends TypeImpl implements TypeRecord {
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == Node.class) {
 			switch (baseFeatureID) {
-				case IrPackage.NODE__ANNOTATIONS: return IrPackage.TYPE_RECORD__ANNOTATIONS;
-				case IrPackage.NODE__ID: return IrPackage.TYPE_RECORD__ID;
+				case IrPackage.NODE__ANNOTATIONS: return IrPackage.TYPE_TUPLE__ANNOTATIONS;
+				case IrPackage.NODE__ID: return IrPackage.TYPE_TUPLE__ID;
 				default: return -1;
 			}
 		}
@@ -275,4 +271,4 @@ public class TypeRecordImpl extends TypeImpl implements TypeRecord {
 		return result.toString();
 	}
 
-} //TypeRecordImpl
+} //TypeTupleImpl

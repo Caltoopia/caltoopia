@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.caltoopia.ir.util;
 
@@ -561,11 +557,17 @@ public class IrSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case IrPackage.TYPE_RECORD: {
-				TypeRecord typeRecord = (TypeRecord)theEObject;
-				T result = caseTypeRecord(typeRecord);
-				if (result == null) result = caseType(typeRecord);
-				if (result == null) result = caseNode(typeRecord);
+			case IrPackage.TYPE_TUPLE: {
+				TypeTuple typeTuple = (TypeTuple)theEObject;
+				T result = caseTypeTuple(typeTuple);
+				if (result == null) result = caseType(typeTuple);
+				if (result == null) result = caseNode(typeTuple);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case IrPackage.TAGGED_TUPLE: {
+				TaggedTuple taggedTuple = (TaggedTuple)theEObject;
+				T result = caseTaggedTuple(taggedTuple);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -601,14 +603,6 @@ public class IrSwitch<T> extends Switch<T> {
 				TypeProc typeProc = (TypeProc)theEObject;
 				T result = caseTypeProc(typeProc);
 				if (result == null) result = caseType(typeProc);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case IrPackage.TYPE_CONSTRUCTOR: {
-				TypeConstructor typeConstructor = (TypeConstructor)theEObject;
-				T result = caseTypeConstructor(typeConstructor);
-				if (result == null) result = caseDeclaration(typeConstructor);
-				if (result == null) result = caseNode(typeConstructor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1579,17 +1573,32 @@ public class IrSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Type Record</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Type Tuple</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Type Record</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Type Tuple</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseTypeRecord(TypeRecord object) {
+	public T caseTypeTuple(TypeTuple object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Tagged Tuple</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Tagged Tuple</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTaggedTuple(TaggedTuple object) {
 		return null;
 	}
 
@@ -1665,21 +1674,6 @@ public class IrSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseTypeProc(TypeProc object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Type Constructor</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Type Constructor</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseTypeConstructor(TypeConstructor object) {
 		return null;
 	}
 

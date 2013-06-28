@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.caltoopia.ir.impl;
 
@@ -122,13 +118,13 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 			case IrPackage.TYPE_FLOAT: return createTypeFloat();
 			case IrPackage.TYPE_UINT: return createTypeUint();
 			case IrPackage.TYPE_STRING: return createTypeString();
-			case IrPackage.TYPE_RECORD: return createTypeRecord();
+			case IrPackage.TYPE_TUPLE: return createTypeTuple();
+			case IrPackage.TAGGED_TUPLE: return createTaggedTuple();
 			case IrPackage.TYPE_UNDEF: return createTypeUndef();
 			case IrPackage.TYPE_ACTOR: return createTypeActor();
 			case IrPackage.TYPE_USER: return createTypeUser();
 			case IrPackage.TYPE_LAMBDA: return createTypeLambda();
 			case IrPackage.TYPE_PROC: return createTypeProc();
-			case IrPackage.TYPE_CONSTRUCTOR: return createTypeConstructor();
 			case IrPackage.TYPE_DECLARATION: return createTypeDeclaration();
 			case IrPackage.SCHEDULE: return createSchedule();
 			case IrPackage.STATE: return createState();
@@ -764,9 +760,19 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TypeRecord createTypeRecord() {
-		TypeRecordImpl typeRecord = new TypeRecordImpl();
-		return typeRecord;
+	public TypeTuple createTypeTuple() {
+		TypeTupleImpl typeTuple = new TypeTupleImpl();
+		return typeTuple;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TaggedTuple createTaggedTuple() {
+		TaggedTupleImpl taggedTuple = new TaggedTupleImpl();
+		return taggedTuple;
 	}
 
 	/**
@@ -817,16 +823,6 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 	public TypeProc createTypeProc() {
 		TypeProcImpl typeProc = new TypeProcImpl();
 		return typeProc;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TypeConstructor createTypeConstructor() {
-		TypeConstructorImpl typeConstructor = new TypeConstructorImpl();
-		return typeConstructor;
 	}
 
 	/**

@@ -40,7 +40,7 @@ import org.caltoopia.frontend.cal.AstActorVariableReference;
 import org.caltoopia.frontend.cal.AstAssignParameter;
 import org.caltoopia.frontend.cal.AstConnection;
 import org.caltoopia.frontend.cal.AstConnectionAttribute;
-import org.caltoopia.frontend.cal.AstConstructor;
+import org.caltoopia.frontend.cal.AstTaggedTuple;
 import org.caltoopia.frontend.cal.AstEntity;
 import org.caltoopia.frontend.cal.AstExpression;
 import org.caltoopia.frontend.cal.AstExpressionBinary;
@@ -70,7 +70,7 @@ import org.caltoopia.frontend.cal.AstStatementIf;
 import org.caltoopia.frontend.cal.AstStatementWhile;
 import org.caltoopia.frontend.cal.AstStatementBlock;
 import org.caltoopia.frontend.cal.AstType;
-import org.caltoopia.frontend.cal.AstTypeName;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstTypeParam;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.cal.Import;
@@ -108,7 +108,7 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 			}
 		}
 
-		for (AstTypeName typedef : namespace.getTypedefs()) {
+		for (AstTypeUser typedef : namespace.getTypedefs()) {
 			if (doSwitch(typedef)) {
 				return true;
 			}
@@ -646,13 +646,13 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 	}
 
 	@Override
-	public Boolean caseAstTypeName(AstTypeName typeName) { 
-		if (typeName.getName() == null) 
+	public Boolean caseAstTypeUser(AstTypeUser typeUser) { 
+		if (typeUser.getName() == null) 
 			return true;
 		
-		if (typeName.getConstructor() != null) {
-			for (AstConstructor tc : typeName.getConstructor()) {			
-				for (AstVariable tmd : ((AstConstructor) tc).getMembers()) {
+		if (typeUser.getTuples() != null) {
+			for (AstTaggedTuple tt : typeUser.getTuples()) {			
+				for (AstVariable tmd : tt.getFields()) {
 					if (doSwitch(tmd.getType())) {
 						return true;
 					}
@@ -664,8 +664,8 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 	}
 	
 	@Override
-	public Boolean caseAstConstructor(AstConstructor ctor) {
-		for (AstVariable parameter : ctor.getMembers()) {
+	public Boolean caseAstTaggedTuple(AstTaggedTuple tuple) {
+		for (AstVariable parameter : tuple.getFields()) {
 			if (doSwitch(parameter)) {
 				return true;
 			}

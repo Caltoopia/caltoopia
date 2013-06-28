@@ -39,12 +39,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-import org.caltoopia.frontend.cal.AstConstructor;
+import org.caltoopia.frontend.cal.AstTaggedTuple;
 import org.caltoopia.frontend.cal.AstExpressionSymbolReference;
 import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstProcedure;
+import org.caltoopia.frontend.cal.AstTaggedTuple;
 import org.caltoopia.frontend.cal.AstType;
-import org.caltoopia.frontend.cal.AstTypeName;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.util.VoidSwitch;
 import org.caltoopia.types.TypeConverter;
@@ -66,12 +67,12 @@ public class AstDeclVertex implements VertexData {
 		}	
 									
 		@Override
-		public Void caseAstTypeName(AstTypeName typeName) { 		
-			if (!typeName.getConstructor().isEmpty()) {
+		public Void caseAstTypeUser(AstTypeUser typeName) { 		
+			if (!typeName.getTuples().isEmpty()) {
 				// This means that we have found 
 				// a type definition 				
-				for (AstConstructor ctor : typeName.getConstructor()) {
-					for (AstVariable m : ((AstConstructor) ctor).getMembers()) {
+				for (AstTaggedTuple tuple : typeName.getTuples()) {
+					for (AstVariable m : tuple.getFields()) {
 						doSwitch(m.getType());
 					}
 				}
@@ -104,8 +105,8 @@ public class AstDeclVertex implements VertexData {
 			return ((AstFunction) var).getName();
 		} else if (var instanceof AstProcedure) {
 			return ((AstProcedure) var).getName();
-		} else if (var instanceof AstTypeName) {
-			return ((AstTypeName) var).getName();
+		} else if (var instanceof AstTypeUser) {
+			return ((AstTypeUser) var).getName();
 		} else {
 			throw new RuntimeException("Invalid data in dependecy graph.");
 		}
@@ -114,9 +115,9 @@ public class AstDeclVertex implements VertexData {
 	public List<VertexData> getConnectedData() {
 		DependencySwitch s = new DependencySwitch();
 		
-		if (var instanceof AstConstructor){
-			AstConstructor ctor = (AstConstructor) var;
-			for (AstVariable member : ctor.getMembers()) {
+		if (var instanceof AstTaggedTuple){
+			AstTaggedTuple tuple = (AstTaggedTuple) var;
+			for (AstVariable member : tuple.getFields()) {
 				s.doSwitch(member);
 			}	
 		} else if (var instanceof AstFunction){
@@ -132,10 +133,10 @@ public class AstDeclVertex implements VertexData {
 			for (AstVariable parameter : procedure.getParameters()) {
 				s.doSwitch(parameter);
 			}
-		} else if (var instanceof AstTypeName) {
-			AstTypeName typedef = (AstTypeName) var;
-			for (AstConstructor ctor : typedef.getConstructor()) {
-				for (AstVariable m : ((AstConstructor) ctor).getMembers()) {
+		} else if (var instanceof AstTypeUser) {
+			AstTypeUser typedef = (AstTypeUser) var;
+			for (AstTaggedTuple tuple : typedef.getTuples()) {
+				for (AstVariable m : tuple.getFields()) {
 					s.doSwitch(m);
 				}			
 			}

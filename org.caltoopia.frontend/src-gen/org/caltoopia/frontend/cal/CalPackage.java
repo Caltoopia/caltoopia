@@ -738,14 +738,14 @@ public interface CalPackage extends EPackage
   int AST_VARIABLE_FEATURE_COUNT = 6;
 
   /**
-   * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstTypeNameImpl <em>Ast Type Name</em>}' class.
+   * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstTypeUserImpl <em>Ast Type User</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.caltoopia.frontend.cal.impl.AstTypeNameImpl
-   * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstTypeName()
+   * @see org.caltoopia.frontend.cal.impl.AstTypeUserImpl
+   * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstTypeUser()
    * @generated
    */
-  int AST_TYPE_NAME = 15;
+  int AST_TYPE_USER = 15;
 
   /**
    * The feature id for the '<em><b>Constant</b></em>' attribute.
@@ -754,7 +754,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_TYPE_NAME__CONSTANT = AST_VARIABLE__CONSTANT;
+  int AST_TYPE_USER__CONSTANT = AST_VARIABLE__CONSTANT;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -763,7 +763,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_TYPE_NAME__VALUE = AST_VARIABLE__VALUE;
+  int AST_TYPE_USER__VALUE = AST_VARIABLE__VALUE;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -772,7 +772,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_TYPE_NAME__NAME = AST_VARIABLE__NAME;
+  int AST_TYPE_USER__NAME = AST_VARIABLE__NAME;
 
   /**
    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
@@ -781,7 +781,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_TYPE_NAME__ANNOTATIONS = AST_VARIABLE__ANNOTATIONS;
+  int AST_TYPE_USER__ANNOTATIONS = AST_VARIABLE__ANNOTATIONS;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' containment reference.
@@ -790,7 +790,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_TYPE_NAME__TYPE = AST_VARIABLE__TYPE;
+  int AST_TYPE_USER__TYPE = AST_VARIABLE__TYPE;
 
   /**
    * The feature id for the '<em><b>Dimensions</b></em>' containment reference list.
@@ -799,7 +799,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_TYPE_NAME__DIMENSIONS = AST_VARIABLE__DIMENSIONS;
+  int AST_TYPE_USER__DIMENSIONS = AST_VARIABLE__DIMENSIONS;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
@@ -808,25 +808,25 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_TYPE_NAME__PARAMETERS = AST_VARIABLE_FEATURE_COUNT + 0;
+  int AST_TYPE_USER__PARAMETERS = AST_VARIABLE_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Constructor</b></em>' containment reference list.
+   * The feature id for the '<em><b>Tuples</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int AST_TYPE_NAME__CONSTRUCTOR = AST_VARIABLE_FEATURE_COUNT + 1;
+  int AST_TYPE_USER__TUPLES = AST_VARIABLE_FEATURE_COUNT + 1;
 
   /**
-   * The number of structural features of the '<em>Ast Type Name</em>' class.
+   * The number of structural features of the '<em>Ast Type User</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int AST_TYPE_NAME_FEATURE_COUNT = AST_VARIABLE_FEATURE_COUNT + 2;
+  int AST_TYPE_USER_FEATURE_COUNT = AST_VARIABLE_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstTypeDefinitionParameterImpl <em>Ast Type Definition Parameter</em>}' class.
@@ -866,14 +866,14 @@ public interface CalPackage extends EPackage
   int AST_TYPE_DEFINITION_PARAMETER_FEATURE_COUNT = 2;
 
   /**
-   * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstConstructorImpl <em>Ast Constructor</em>}' class.
+   * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstTaggedTupleImpl <em>Ast Tagged Tuple</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.caltoopia.frontend.cal.impl.AstConstructorImpl
-   * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstConstructor()
+   * @see org.caltoopia.frontend.cal.impl.AstTaggedTupleImpl
+   * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstTaggedTuple()
    * @generated
    */
-  int AST_CONSTRUCTOR = 17;
+  int AST_TAGGED_TUPLE = 17;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -882,25 +882,25 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_CONSTRUCTOR__NAME = 0;
+  int AST_TAGGED_TUPLE__NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Members</b></em>' containment reference list.
+   * The feature id for the '<em><b>Fields</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int AST_CONSTRUCTOR__MEMBERS = 1;
+  int AST_TAGGED_TUPLE__FIELDS = 1;
 
   /**
-   * The number of structural features of the '<em>Ast Constructor</em>' class.
+   * The number of structural features of the '<em>Ast Tagged Tuple</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int AST_CONSTRUCTOR_FEATURE_COUNT = 2;
+  int AST_TAGGED_TUPLE_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstActorImpl <em>Ast Actor</em>}' class.
@@ -2305,22 +2305,13 @@ public interface CalPackage extends EPackage
   int AST_TYPE__CODOMAIN = 5;
 
   /**
-   * The feature id for the '<em><b>Members</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int AST_TYPE__MEMBERS = 6;
-
-  /**
    * The number of structural features of the '<em>Ast Type</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int AST_TYPE_FEATURE_COUNT = 7;
+  int AST_TYPE_FEATURE_COUNT = 6;
 
   /**
    * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstTypeParameterListImpl <em>Ast Type Parameter List</em>}' class.
@@ -2508,14 +2499,14 @@ public interface CalPackage extends EPackage
   int AST_ANNOTATION_ARGUMENT_FEATURE_COUNT = 2;
 
   /**
-   * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstAnonymousConstructorImpl <em>Ast Anonymous Constructor</em>}' class.
+   * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstTupleImpl <em>Ast Tuple</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.caltoopia.frontend.cal.impl.AstAnonymousConstructorImpl
-   * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstAnonymousConstructor()
+   * @see org.caltoopia.frontend.cal.impl.AstTupleImpl
+   * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstTuple()
    * @generated
    */
-  int AST_ANONYMOUS_CONSTRUCTOR = 57;
+  int AST_TUPLE = 57;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2524,25 +2515,25 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_ANONYMOUS_CONSTRUCTOR__NAME = AST_CONSTRUCTOR__NAME;
+  int AST_TUPLE__NAME = AST_TAGGED_TUPLE__NAME;
 
   /**
-   * The feature id for the '<em><b>Members</b></em>' containment reference list.
+   * The feature id for the '<em><b>Fields</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int AST_ANONYMOUS_CONSTRUCTOR__MEMBERS = AST_CONSTRUCTOR__MEMBERS;
+  int AST_TUPLE__FIELDS = AST_TAGGED_TUPLE__FIELDS;
 
   /**
-   * The number of structural features of the '<em>Ast Anonymous Constructor</em>' class.
+   * The number of structural features of the '<em>Ast Tuple</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int AST_ANONYMOUS_CONSTRUCTOR_FEATURE_COUNT = AST_CONSTRUCTOR_FEATURE_COUNT + 0;
+  int AST_TUPLE_FEATURE_COUNT = AST_TAGGED_TUPLE_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstFunctionImpl <em>Ast Function</em>}' class.
@@ -3401,36 +3392,36 @@ public interface CalPackage extends EPackage
   EReference getAstVariable_Dimensions();
 
   /**
-   * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstTypeName <em>Ast Type Name</em>}'.
+   * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstTypeUser <em>Ast Type User</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Ast Type Name</em>'.
-   * @see org.caltoopia.frontend.cal.AstTypeName
+   * @return the meta object for class '<em>Ast Type User</em>'.
+   * @see org.caltoopia.frontend.cal.AstTypeUser
    * @generated
    */
-  EClass getAstTypeName();
+  EClass getAstTypeUser();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstTypeName#getParameters <em>Parameters</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstTypeUser#getParameters <em>Parameters</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Parameters</em>'.
-   * @see org.caltoopia.frontend.cal.AstTypeName#getParameters()
-   * @see #getAstTypeName()
+   * @see org.caltoopia.frontend.cal.AstTypeUser#getParameters()
+   * @see #getAstTypeUser()
    * @generated
    */
-  EReference getAstTypeName_Parameters();
+  EReference getAstTypeUser_Parameters();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstTypeName#getConstructor <em>Constructor</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstTypeUser#getTuples <em>Tuples</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Constructor</em>'.
-   * @see org.caltoopia.frontend.cal.AstTypeName#getConstructor()
-   * @see #getAstTypeName()
+   * @return the meta object for the containment reference list '<em>Tuples</em>'.
+   * @see org.caltoopia.frontend.cal.AstTypeUser#getTuples()
+   * @see #getAstTypeUser()
    * @generated
    */
-  EReference getAstTypeName_Constructor();
+  EReference getAstTypeUser_Tuples();
 
   /**
    * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstTypeDefinitionParameter <em>Ast Type Definition Parameter</em>}'.
@@ -3465,36 +3456,36 @@ public interface CalPackage extends EPackage
   EReference getAstTypeDefinitionParameter_Type();
 
   /**
-   * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstConstructor <em>Ast Constructor</em>}'.
+   * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstTaggedTuple <em>Ast Tagged Tuple</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Ast Constructor</em>'.
-   * @see org.caltoopia.frontend.cal.AstConstructor
+   * @return the meta object for class '<em>Ast Tagged Tuple</em>'.
+   * @see org.caltoopia.frontend.cal.AstTaggedTuple
    * @generated
    */
-  EClass getAstConstructor();
+  EClass getAstTaggedTuple();
 
   /**
-   * Returns the meta object for the attribute '{@link org.caltoopia.frontend.cal.AstConstructor#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link org.caltoopia.frontend.cal.AstTaggedTuple#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.caltoopia.frontend.cal.AstConstructor#getName()
-   * @see #getAstConstructor()
+   * @see org.caltoopia.frontend.cal.AstTaggedTuple#getName()
+   * @see #getAstTaggedTuple()
    * @generated
    */
-  EAttribute getAstConstructor_Name();
+  EAttribute getAstTaggedTuple_Name();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstConstructor#getMembers <em>Members</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstTaggedTuple#getFields <em>Fields</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Members</em>'.
-   * @see org.caltoopia.frontend.cal.AstConstructor#getMembers()
-   * @see #getAstConstructor()
+   * @return the meta object for the containment reference list '<em>Fields</em>'.
+   * @see org.caltoopia.frontend.cal.AstTaggedTuple#getFields()
+   * @see #getAstTaggedTuple()
    * @generated
    */
-  EReference getAstConstructor_Members();
+  EReference getAstTaggedTuple_Fields();
 
   /**
    * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstActor <em>Ast Actor</em>}'.
@@ -4684,17 +4675,6 @@ public interface CalPackage extends EPackage
   EReference getAstType_Codomain();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstType#getMembers <em>Members</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Members</em>'.
-   * @see org.caltoopia.frontend.cal.AstType#getMembers()
-   * @see #getAstType()
-   * @generated
-   */
-  EReference getAstType_Members();
-
-  /**
    * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstTypeParameterList <em>Ast Type Parameter List</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4855,14 +4835,14 @@ public interface CalPackage extends EPackage
   EAttribute getAstAnnotationArgument_Value();
 
   /**
-   * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstAnonymousConstructor <em>Ast Anonymous Constructor</em>}'.
+   * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstTuple <em>Ast Tuple</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Ast Anonymous Constructor</em>'.
-   * @see org.caltoopia.frontend.cal.AstAnonymousConstructor
+   * @return the meta object for class '<em>Ast Tuple</em>'.
+   * @see org.caltoopia.frontend.cal.AstTuple
    * @generated
    */
-  EClass getAstAnonymousConstructor();
+  EClass getAstTuple();
 
   /**
    * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstFunction <em>Ast Function</em>}'.
@@ -5486,14 +5466,14 @@ public interface CalPackage extends EPackage
     EReference AST_VARIABLE__DIMENSIONS = eINSTANCE.getAstVariable_Dimensions();
 
     /**
-     * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstTypeNameImpl <em>Ast Type Name</em>}' class.
+     * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstTypeUserImpl <em>Ast Type User</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.caltoopia.frontend.cal.impl.AstTypeNameImpl
-     * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstTypeName()
+     * @see org.caltoopia.frontend.cal.impl.AstTypeUserImpl
+     * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstTypeUser()
      * @generated
      */
-    EClass AST_TYPE_NAME = eINSTANCE.getAstTypeName();
+    EClass AST_TYPE_USER = eINSTANCE.getAstTypeUser();
 
     /**
      * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
@@ -5501,15 +5481,15 @@ public interface CalPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference AST_TYPE_NAME__PARAMETERS = eINSTANCE.getAstTypeName_Parameters();
+    EReference AST_TYPE_USER__PARAMETERS = eINSTANCE.getAstTypeUser_Parameters();
 
     /**
-     * The meta object literal for the '<em><b>Constructor</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Tuples</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference AST_TYPE_NAME__CONSTRUCTOR = eINSTANCE.getAstTypeName_Constructor();
+    EReference AST_TYPE_USER__TUPLES = eINSTANCE.getAstTypeUser_Tuples();
 
     /**
      * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstTypeDefinitionParameterImpl <em>Ast Type Definition Parameter</em>}' class.
@@ -5538,14 +5518,14 @@ public interface CalPackage extends EPackage
     EReference AST_TYPE_DEFINITION_PARAMETER__TYPE = eINSTANCE.getAstTypeDefinitionParameter_Type();
 
     /**
-     * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstConstructorImpl <em>Ast Constructor</em>}' class.
+     * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstTaggedTupleImpl <em>Ast Tagged Tuple</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.caltoopia.frontend.cal.impl.AstConstructorImpl
-     * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstConstructor()
+     * @see org.caltoopia.frontend.cal.impl.AstTaggedTupleImpl
+     * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstTaggedTuple()
      * @generated
      */
-    EClass AST_CONSTRUCTOR = eINSTANCE.getAstConstructor();
+    EClass AST_TAGGED_TUPLE = eINSTANCE.getAstTaggedTuple();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -5553,15 +5533,15 @@ public interface CalPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute AST_CONSTRUCTOR__NAME = eINSTANCE.getAstConstructor_Name();
+    EAttribute AST_TAGGED_TUPLE__NAME = eINSTANCE.getAstTaggedTuple_Name();
 
     /**
-     * The meta object literal for the '<em><b>Members</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Fields</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference AST_CONSTRUCTOR__MEMBERS = eINSTANCE.getAstConstructor_Members();
+    EReference AST_TAGGED_TUPLE__FIELDS = eINSTANCE.getAstTaggedTuple_Fields();
 
     /**
      * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstActorImpl <em>Ast Actor</em>}' class.
@@ -6520,14 +6500,6 @@ public interface CalPackage extends EPackage
     EReference AST_TYPE__CODOMAIN = eINSTANCE.getAstType_Codomain();
 
     /**
-     * The meta object literal for the '<em><b>Members</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference AST_TYPE__MEMBERS = eINSTANCE.getAstType_Members();
-
-    /**
      * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstTypeParameterListImpl <em>Ast Type Parameter List</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6658,14 +6630,14 @@ public interface CalPackage extends EPackage
     EAttribute AST_ANNOTATION_ARGUMENT__VALUE = eINSTANCE.getAstAnnotationArgument_Value();
 
     /**
-     * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstAnonymousConstructorImpl <em>Ast Anonymous Constructor</em>}' class.
+     * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstTupleImpl <em>Ast Tuple</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.caltoopia.frontend.cal.impl.AstAnonymousConstructorImpl
-     * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstAnonymousConstructor()
+     * @see org.caltoopia.frontend.cal.impl.AstTupleImpl
+     * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstTuple()
      * @generated
      */
-    EClass AST_ANONYMOUS_CONSTRUCTOR = eINSTANCE.getAstAnonymousConstructor();
+    EClass AST_TUPLE = eINSTANCE.getAstTuple();
 
     /**
      * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstFunctionImpl <em>Ast Function</em>}' class.

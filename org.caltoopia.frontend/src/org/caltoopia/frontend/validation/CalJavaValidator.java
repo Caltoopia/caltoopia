@@ -42,7 +42,7 @@ import org.caltoopia.frontend.cal.AstAction;
 import org.caltoopia.frontend.cal.AstActor;
 import org.caltoopia.frontend.cal.AstActorVariable;
 import org.caltoopia.frontend.cal.AstAssignParameter;
-import org.caltoopia.frontend.cal.AstConstructor;
+import org.caltoopia.frontend.cal.AstTaggedTuple;
 import org.caltoopia.frontend.cal.AstMemberAccess;
 import org.caltoopia.frontend.cal.AstNamespace;
 import org.caltoopia.frontend.cal.AstNetwork;
@@ -62,7 +62,7 @@ import org.caltoopia.frontend.cal.AstStatementForeach;
 import org.caltoopia.frontend.cal.AstStructure;
 import org.caltoopia.frontend.cal.AstTag;
 import org.caltoopia.frontend.cal.AstTransition;
-import org.caltoopia.frontend.cal.AstTypeName;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.cal.CalPackage;
 import org.caltoopia.frontend.cal.AstConnection;
@@ -133,7 +133,7 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 			QualifiedName qn = QualifiedName.create(importSegments);
 			
 			if (resourceDescriptions.getExportedObjects(CalPackage.eINSTANCE.getAstVariable(), qn, true).iterator().hasNext()  ||
-				resourceDescriptions.getExportedObjects(CalPackage.eINSTANCE.getAstTypeName(), qn, true).iterator().hasNext()  ||
+				resourceDescriptions.getExportedObjects(CalPackage.eINSTANCE.getAstTypeUser(), qn, true).iterator().hasNext()  ||
 				resourceDescriptions.getExportedObjects(CalPackage.eINSTANCE.getAstFunction(), qn, true).iterator().hasNext()  || 
 				resourceDescriptions.getExportedObjects(CalPackage.eINSTANCE.getAstProcedure(), qn, true).iterator().hasNext() || 
 				resourceDescriptions.getExportedObjects(CalPackage.eINSTANCE.getAstEntity(), qn, true).iterator().hasNext() ) {
@@ -235,9 +235,9 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 	
 
 	@Check(CheckType.NORMAL)	
-	public void CheckTypeDef(AstTypeName typedef) {
-		for (AstConstructor tc : typedef.getConstructor()) {			
-			for (AstVariable v : ((AstConstructor) tc).getMembers()) {
+	public void CheckTypeDef(AstTypeUser typeUser) {
+		for (AstTaggedTuple tt : typeUser.getTuples()) {			
+			for (AstVariable v : ((AstTaggedTuple) tt).getFields()) {
 				/*
 				try {
 					TypeSystem.validateAstType(v.getType());
@@ -399,11 +399,11 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 		String name = var.getName();
 		List<AstVariable> formalParameters;
 		
-		if (var instanceof AstConstructor || var instanceof AstFunction) {
+		if (var instanceof AstTaggedTuple || var instanceof AstFunction) {
 			// It is some sort of call - check paramaters
-			if (var instanceof AstConstructor) {
+			if (var instanceof AstTaggedTuple) {
 				// This is a call to a type constructor
-				formalParameters = ((AstConstructor) var).getMembers();
+				formalParameters = ((AstTaggedTuple) var).getFields();
 			} else if (var instanceof AstFunction){
 				formalParameters = ((AstFunction) var).getParameters();
 			} else {
@@ -489,11 +489,6 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 		if (function.eContainer() instanceof AstNamespace) {
 			return;
 		}
-		
-		// // Skip global functions
-		if (function.eContainer() instanceof AstTypeName) {
-			return;
-		}	
 	
 		boolean used = new BooleanSwitch() {
 
@@ -672,31 +667,31 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 		checkUniqueNames(namespace.getTypedefs());
 		checkUniqueNames(namespace.getVariables());
 		
-		for (AstTypeName typedef : namespace.getTypedefs()) {
+		for (AstTypeUser typedef : namespace.getTypedefs()) {
 			List<String> breadcrumb  = new ArrayList<String>();		
 			checkTypeDeclaration(typedef, breadcrumb);
 		}
 	}
 
-	public void checkTypeDeclaration(final AstTypeName typedef, final List<String> breadcrumb) {
+	public void checkTypeDeclaration(final AstTypeUser typeUser, final List<String> breadcrumb) {
 		Set<String> ids = new HashSet<String>();
 
-		for (int i = 0; i < typedef.getConstructor().size(); i++) {
-			AstConstructor tc = typedef.getConstructor().get(i);
+		for (int i = 0; i < typeUser.getTuples().size(); i++) {
+			AstTaggedTuple tc = typeUser.getTuples().get(i);
 			if (ids.contains(tc.getName())) {
 				error("Duplicate Tags in type defintion",
-						typedef, 
-						CalPackage.eINSTANCE.getAstTypeName_Constructor(), i);
+						typeUser, 
+						CalPackage.eINSTANCE.getAstTaggedTuple_Name(), i);
 				return; 
 			} else {
 				ids.add(tc.getName());
 			}
 		}
 		
-		for (AstConstructor tc: typedef.getConstructor()) {
+		for (AstTaggedTuple tc: typeUser.getTuples()) {
 			ids = new HashSet<String>();
-			for (int i = 0; i < tc.getMembers().size(); i++) {
-				AstVariable v = tc.getMembers().get(i);
+			for (int i = 0; i < tc.getFields().size(); i++) {
+				AstVariable v = tc.getFields().get(i);
 				if (ids.contains(v.getName())) {
 					error("Duplicate fields in type constructor defintion",
 							v, 

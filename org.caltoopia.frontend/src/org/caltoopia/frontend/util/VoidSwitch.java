@@ -37,7 +37,7 @@ import org.caltoopia.frontend.cal.AstActorVariableReference;
 import org.caltoopia.frontend.cal.AstAssignParameter;
 import org.caltoopia.frontend.cal.AstConnection;
 import org.caltoopia.frontend.cal.AstConnectionAttribute;
-import org.caltoopia.frontend.cal.AstConstructor;
+import org.caltoopia.frontend.cal.AstTaggedTuple;
 import org.caltoopia.frontend.cal.AstEntity;
 import org.caltoopia.frontend.cal.AstExpression;
 import org.caltoopia.frontend.cal.AstExpressionBinary;
@@ -67,7 +67,7 @@ import org.caltoopia.frontend.cal.AstStatementForeach;
 import org.caltoopia.frontend.cal.AstStatementIf;
 import org.caltoopia.frontend.cal.AstStatementWhile;
 import org.caltoopia.frontend.cal.AstType;
-import org.caltoopia.frontend.cal.AstTypeName;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstTypeParam;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.cal.Import;
@@ -89,7 +89,7 @@ public class VoidSwitch extends CalSwitch<Void> {
 			doSwitch(fun);
 		}
 
-		for (AstTypeName typedef : namespace.getTypedefs()) {
+		for (AstTypeUser typedef : namespace.getTypedefs()) {
 			doSwitch(typedef);
 		}
 
@@ -514,10 +514,10 @@ public class VoidSwitch extends CalSwitch<Void> {
 	}
 
 	@Override
-	public Void caseAstTypeName(AstTypeName typeName) { 
-		if (typeName.getConstructor() != null) {
-			for (AstConstructor tc : typeName.getConstructor()) {			
-				for (AstVariable tmd : ((AstConstructor) tc).getMembers()) {
+	public Void caseAstTypeUser(AstTypeUser typeUser) { 
+		if (typeUser.getTuples() != null) {
+			for (AstTaggedTuple tt : typeUser.getTuples()) {			
+				for (AstVariable tmd : tt.getFields()) {
 					doSwitch(tmd.getType());
 				}
 			}
@@ -538,9 +538,9 @@ public class VoidSwitch extends CalSwitch<Void> {
 	}
 
 	@Override
-	public Void caseAstConstructor(AstConstructor ctor) {
+	public Void caseAstTaggedTuple(AstTaggedTuple tuple) {
 		
-		for (AstVariable variable : ctor.getMembers()) {
+		for (AstVariable variable : tuple.getFields()) {
 			doSwitch(variable);
 		}
 		
