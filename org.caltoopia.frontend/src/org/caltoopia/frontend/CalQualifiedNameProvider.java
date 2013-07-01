@@ -45,7 +45,7 @@ import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
 
 public class CalQualifiedNameProvider extends DefaultDeclarativeQualifiedNameProvider  {
-
+	
 	public QualifiedName getFullyQualifiedName(EObject obj) {
 		if (obj instanceof AstFunction && obj.eContainer() instanceof AstTypeName) {
 			// obj = obj.eContainer();
@@ -53,10 +53,17 @@ public class CalQualifiedNameProvider extends DefaultDeclarativeQualifiedNamePro
 			tmp = tmp.append(((AstFunction) obj).getName());
 			return tmp;
 		} else if (obj instanceof AstEntity && obj.eContainer() instanceof AstNamespace) {
-			// obj = obj.eContainer();
-			QualifiedName tmp = super.getFullyQualifiedName(obj.eContainer());
-			tmp = tmp.append(((AstEntity) obj).getActor().getName());
-			return tmp;
+			// obj = obj.eContainer();			
+			QualifiedName tmp = super.getFullyQualifiedName(obj.eContainer());	
+			String name = ((AstEntity) obj).getActor().getName();
+			//FIXME For some reason the name of the actor is sometimes empty now
+			//For now we just make an extra test to avoid exceptions
+			if (name != null) { 
+				tmp = tmp.append(name);
+				return tmp;
+			} else {
+				return null;
+			}
 		} else if (obj instanceof AstNamespace || obj.eContainer() instanceof AstNamespace) {
 			return super.getFullyQualifiedName(obj);
 		} else {
