@@ -39,6 +39,7 @@ package org.caltoopia.cli;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -205,6 +206,7 @@ public class Cal2C {
 					throw new CompilationError("Validation failed");
 				}
 			} catch (Exception x) {
+				Cal2C.generateErrorMakefile(session);
 				throw new CompilationError("[Cal2C] Internal compilation error: " + x.getMessage());
 			}
         } catch (CmdLineParser.OptionException e) {
@@ -525,6 +527,21 @@ public class Cal2C {
 			out.println("Compilation failed, no output written.");
 			out.println(x.getMessage() + " :: " + x.toString());
 			x.printStackTrace(out);
+			generateErrorMakefile(session);
+		}
+	}
+	
+	static public void generateErrorMakefile(CompilationSession session) {
+		//Print make config file including annotation information
+		String fileStr = session.getOutputFolder() + File.separator + "config.mk";			
+		session.getOutputStream().println("Overwriting '" + fileStr + "' so c-code compilation fails.");
+		PrintStream config;
+		try {
+			config = new PrintStream(fileStr);
+			config.println("$(error Failed to generate c-code, please check log)");
+			config.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 	

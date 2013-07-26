@@ -175,6 +175,7 @@ public class CaltoopiaLaunchConfigurationDelegate extends org.eclipse.debug.core
  				
  		} catch (Exception x) {
  			out.println("Compilation aborted. Error: " + x.getMessage());
+			Cal2C.generateErrorMakefile(session);
  			// x.printStackTrace();
  		} 		
 		
