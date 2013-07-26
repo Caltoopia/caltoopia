@@ -43,6 +43,7 @@ import org.caltoopia.frontend.cal.AstActor;
 import org.caltoopia.frontend.cal.AstActorVariable;
 import org.caltoopia.frontend.cal.AstAssignParameter;
 import org.caltoopia.frontend.cal.AstExternalActor;
+import org.caltoopia.frontend.cal.AstInequality;
 import org.caltoopia.frontend.cal.AstMemberAccess;
 import org.caltoopia.frontend.cal.AstNamespace;
 import org.caltoopia.frontend.cal.AstNetwork;
@@ -55,6 +56,7 @@ import org.caltoopia.frontend.cal.AstGenerator;
 import org.caltoopia.frontend.cal.AstInputPattern;
 import org.caltoopia.frontend.cal.AstOutputPattern;
 import org.caltoopia.frontend.cal.AstPort;
+import org.caltoopia.frontend.cal.AstPriority;
 import org.caltoopia.frontend.cal.AstProcedure;
 import org.caltoopia.frontend.cal.AstSchedule;
 import org.caltoopia.frontend.cal.AstStatementAssign;
@@ -603,7 +605,26 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 	 *            the action list of the actor
 	 */
 	private void checkPriorities(AstActor actor, CalActionList actionList) {
-
+		for (AstPriority prio : actor.getPriorities()) {
+			List<AstInequality> inEqs = prio.getInequalities();
+			if (inEqs != null) {
+				for (AstInequality inEq : inEqs) {
+					List<AstTag> tags = inEq.getTags();
+					if (tags != null) {
+						int cnt = 0;
+						for (AstTag tag : tags) {
+							List<AstAction> actions = actionList.getTaggedActions(tag.getIdentifiers());
+							if (actions == null || actions.isEmpty()) {
+								error("tag " + getName(tag) + " does not refer to any action", 
+										inEq,
+										CalPackage.eINSTANCE.getAstInequality_Tags(), cnt);
+							}
+							cnt++;
+						}
+					}
+				}
+			}
+		}
 	}
 
 	@Check(CheckType.NORMAL)
