@@ -459,27 +459,33 @@ public class Cal2C {
 	
 				if(!env.includePaths.isEmpty()) {
 					config.print("CINCLUDES = ");
+					Set<String> printed = new HashSet<String>();
 					for(String str : env.includePaths.split(" *, *")) {
-						if(!str.trim().isEmpty()) {
+						if(!str.trim().isEmpty() && !printed.contains(str.trim())) {
 							config.print("-I"+str.trim() + " ");
+							printed.add(str.trim());
 						}
 					}
 					config.println();
 				}
 				if(!env.libraryPaths.isEmpty()) {
 					config.print("CLIBRARIES = ");
+					Set<String> printed = new HashSet<String>();
 					for(String str : env.libraryPaths.split(" *, *")) {
-						if(!str.trim().isEmpty()) {
+						if(!str.trim().isEmpty() && !printed.contains(str.trim())) {
 							config.print("-L"+str.trim() + " ");
+							printed.add(str.trim());
 						}
 					}
 					config.println();
 				}
 				if(!env.libraries.isEmpty()) {
 					config.print("LDLIBS = ");
+					Set<String> printed = new HashSet<String>();
 					for(String str : env.libraries.split(" *, *")) {
-						if(!str.trim().isEmpty()) {
+						if(!str.trim().isEmpty() && !printed.contains(str.trim())) {
 							config.print("-l"+str.trim() + " ");
+							printed.add(str.trim());
 						}
 					}
 					config.println();
