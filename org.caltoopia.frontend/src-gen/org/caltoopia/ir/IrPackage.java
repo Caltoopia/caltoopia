@@ -164,7 +164,7 @@ public interface IrPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DECLARATION__ANNOTATIONS = NODE__ANNOTATIONS;
+	int DECLARATION__ANNOTATIONS = SCOPE__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -173,7 +173,25 @@ public interface IrPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DECLARATION__ID = NODE__ID;
+	int DECLARATION__ID = SCOPE__ID;
+
+	/**
+	 * The feature id for the '<em><b>Declarations</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECLARATION__DECLARATIONS = SCOPE__DECLARATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Outer</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECLARATION__OUTER = SCOPE__OUTER;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -182,7 +200,7 @@ public interface IrPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DECLARATION__NAME = NODE_FEATURE_COUNT + 0;
+	int DECLARATION__NAME = SCOPE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Scope</b></em>' reference.
@@ -191,7 +209,7 @@ public interface IrPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DECLARATION__SCOPE = NODE_FEATURE_COUNT + 1;
+	int DECLARATION__SCOPE = SCOPE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Attributes</b></em>' reference list.
@@ -200,7 +218,7 @@ public interface IrPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DECLARATION__ATTRIBUTES = NODE_FEATURE_COUNT + 2;
+	int DECLARATION__ATTRIBUTES = SCOPE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Declaration</em>' class.
@@ -209,7 +227,7 @@ public interface IrPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DECLARATION_FEATURE_COUNT = NODE_FEATURE_COUNT + 3;
+	int DECLARATION_FEATURE_COUNT = SCOPE_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.caltoopia.ir.impl.VariableImportImpl <em>Variable Import</em>}' class.
@@ -238,6 +256,24 @@ public interface IrPackage extends EPackage {
 	 * @ordered
 	 */
 	int VARIABLE_IMPORT__ID = DECLARATION__ID;
+
+	/**
+	 * The feature id for the '<em><b>Declarations</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE_IMPORT__DECLARATIONS = DECLARATION__DECLARATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Outer</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE_IMPORT__OUTER = DECLARATION__OUTER;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -313,6 +349,24 @@ public interface IrPackage extends EPackage {
 	int VARIABLE_EXTERNAL__ID = DECLARATION__ID;
 
 	/**
+	 * The feature id for the '<em><b>Declarations</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE_EXTERNAL__DECLARATIONS = DECLARATION__DECLARATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Outer</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE_EXTERNAL__OUTER = DECLARATION__OUTER;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -384,6 +438,24 @@ public interface IrPackage extends EPackage {
 	 * @ordered
 	 */
 	int TYPE_DECLARATION_IMPORT__ID = DECLARATION__ID;
+
+	/**
+	 * The feature id for the '<em><b>Declarations</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_DECLARATION_IMPORT__DECLARATIONS = DECLARATION__DECLARATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Outer</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_DECLARATION_IMPORT__OUTER = DECLARATION__OUTER;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1096,6 +1168,24 @@ public interface IrPackage extends EPackage {
 	int VARIABLE__ID = DECLARATION__ID;
 
 	/**
+	 * The feature id for the '<em><b>Declarations</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE__DECLARATIONS = DECLARATION__DECLARATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Outer</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE__OUTER = DECLARATION__OUTER;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1194,6 +1284,24 @@ public interface IrPackage extends EPackage {
 	 * @ordered
 	 */
 	int ACTOR_INSTANCE__ID = VARIABLE__ID;
+
+	/**
+	 * The feature id for the '<em><b>Declarations</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTOR_INSTANCE__DECLARATIONS = VARIABLE__DECLARATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Outer</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTOR_INSTANCE__OUTER = VARIABLE__OUTER;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3472,6 +3580,24 @@ public interface IrPackage extends EPackage {
 	int FORWARD_DECLARATION__ID = DECLARATION__ID;
 
 	/**
+	 * The feature id for the '<em><b>Declarations</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FORWARD_DECLARATION__DECLARATIONS = DECLARATION__DECLARATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Outer</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FORWARD_DECLARATION__OUTER = DECLARATION__OUTER;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4355,6 +4481,34 @@ public interface IrPackage extends EPackage {
 	int TYPE_PROC_FEATURE_COUNT = TYPE_FEATURE_COUNT + 2;
 
 	/**
+	 * The meta object id for the '{@link org.caltoopia.ir.impl.TypeVariableImpl <em>Type Variable</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.caltoopia.ir.impl.TypeVariableImpl
+	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeVariable()
+	 * @generated
+	 */
+	int TYPE_VARIABLE = 69;
+
+	/**
+	 * The feature id for the '<em><b>Declaration</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_VARIABLE__DECLARATION = TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Type Variable</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_VARIABLE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link org.caltoopia.ir.impl.TypeDeclarationImpl <em>Type Declaration</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4362,7 +4516,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeDeclaration()
 	 * @generated
 	 */
-	int TYPE_DECLARATION = 69;
+	int TYPE_DECLARATION = 70;
 
 	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' reference list.
@@ -4381,6 +4535,24 @@ public interface IrPackage extends EPackage {
 	 * @ordered
 	 */
 	int TYPE_DECLARATION__ID = DECLARATION__ID;
+
+	/**
+	 * The feature id for the '<em><b>Declarations</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_DECLARATION__DECLARATIONS = DECLARATION__DECLARATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Outer</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_DECLARATION__OUTER = DECLARATION__OUTER;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4419,13 +4591,113 @@ public interface IrPackage extends EPackage {
 	int TYPE_DECLARATION__TYPE = DECLARATION_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Value Parameters</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_DECLARATION__VALUE_PARAMETERS = DECLARATION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Type Parameters</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_DECLARATION__TYPE_PARAMETERS = DECLARATION_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Type Declaration</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_DECLARATION_FEATURE_COUNT = DECLARATION_FEATURE_COUNT + 1;
+	int TYPE_DECLARATION_FEATURE_COUNT = DECLARATION_FEATURE_COUNT + 3;
+
+	/**
+	 * The meta object id for the '{@link org.caltoopia.ir.impl.TypeVariableDeclarationImpl <em>Type Variable Declaration</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.caltoopia.ir.impl.TypeVariableDeclarationImpl
+	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeVariableDeclaration()
+	 * @generated
+	 */
+	int TYPE_VARIABLE_DECLARATION = 71;
+
+	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_VARIABLE_DECLARATION__ANNOTATIONS = DECLARATION__ANNOTATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_VARIABLE_DECLARATION__ID = DECLARATION__ID;
+
+	/**
+	 * The feature id for the '<em><b>Declarations</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_VARIABLE_DECLARATION__DECLARATIONS = DECLARATION__DECLARATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Outer</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_VARIABLE_DECLARATION__OUTER = DECLARATION__OUTER;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_VARIABLE_DECLARATION__NAME = DECLARATION__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Scope</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_VARIABLE_DECLARATION__SCOPE = DECLARATION__SCOPE;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_VARIABLE_DECLARATION__ATTRIBUTES = DECLARATION__ATTRIBUTES;
+
+	/**
+	 * The number of structural features of the '<em>Type Variable Declaration</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_VARIABLE_DECLARATION_FEATURE_COUNT = DECLARATION_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.caltoopia.ir.impl.ScheduleImpl <em>Schedule</em>}' class.
@@ -4435,7 +4707,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getSchedule()
 	 * @generated
 	 */
-	int SCHEDULE = 70;
+	int SCHEDULE = 72;
 
 	/**
 	 * The feature id for the '<em><b>States</b></em>' reference list.
@@ -4490,7 +4762,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getState()
 	 * @generated
 	 */
-	int STATE = 71;
+	int STATE = 73;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4536,7 +4808,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getAnnotation()
 	 * @generated
 	 */
-	int ANNOTATION = 72;
+	int ANNOTATION = 74;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4573,7 +4845,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getAnnotationArgument()
 	 * @generated
 	 */
-	int ANNOTATION_ARGUMENT = 73;
+	int ANNOTATION_ARGUMENT = 75;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -6658,6 +6930,27 @@ public interface IrPackage extends EPackage {
 	EReference getTypeProc_OutputTypes();
 
 	/**
+	 * Returns the meta object for class '{@link org.caltoopia.ir.TypeVariable <em>Type Variable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Type Variable</em>'.
+	 * @see org.caltoopia.ir.TypeVariable
+	 * @generated
+	 */
+	EClass getTypeVariable();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.caltoopia.ir.TypeVariable#getDeclaration <em>Declaration</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Declaration</em>'.
+	 * @see org.caltoopia.ir.TypeVariable#getDeclaration()
+	 * @see #getTypeVariable()
+	 * @generated
+	 */
+	EReference getTypeVariable_Declaration();
+
+	/**
 	 * Returns the meta object for class '{@link org.caltoopia.ir.TypeDeclaration <em>Type Declaration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6677,6 +6970,38 @@ public interface IrPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getTypeDeclaration_Type();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.caltoopia.ir.TypeDeclaration#getValueParameters <em>Value Parameters</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Value Parameters</em>'.
+	 * @see org.caltoopia.ir.TypeDeclaration#getValueParameters()
+	 * @see #getTypeDeclaration()
+	 * @generated
+	 */
+	EReference getTypeDeclaration_ValueParameters();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.caltoopia.ir.TypeDeclaration#getTypeParameters <em>Type Parameters</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Type Parameters</em>'.
+	 * @see org.caltoopia.ir.TypeDeclaration#getTypeParameters()
+	 * @see #getTypeDeclaration()
+	 * @generated
+	 */
+	EReference getTypeDeclaration_TypeParameters();
+
+	/**
+	 * Returns the meta object for class '{@link org.caltoopia.ir.TypeVariableDeclaration <em>Type Variable Declaration</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Type Variable Declaration</em>'.
+	 * @see org.caltoopia.ir.TypeVariableDeclaration
+	 * @generated
+	 */
+	EClass getTypeVariableDeclaration();
 
 	/**
 	 * Returns the meta object for class '{@link org.caltoopia.ir.Schedule <em>Schedule</em>}'.
@@ -8544,6 +8869,24 @@ public interface IrPackage extends EPackage {
 		EReference TYPE_PROC__OUTPUT_TYPES = eINSTANCE.getTypeProc_OutputTypes();
 
 		/**
+		 * The meta object literal for the '{@link org.caltoopia.ir.impl.TypeVariableImpl <em>Type Variable</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.caltoopia.ir.impl.TypeVariableImpl
+		 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeVariable()
+		 * @generated
+		 */
+		EClass TYPE_VARIABLE = eINSTANCE.getTypeVariable();
+
+		/**
+		 * The meta object literal for the '<em><b>Declaration</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TYPE_VARIABLE__DECLARATION = eINSTANCE.getTypeVariable_Declaration();
+
+		/**
 		 * The meta object literal for the '{@link org.caltoopia.ir.impl.TypeDeclarationImpl <em>Type Declaration</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -8560,6 +8903,32 @@ public interface IrPackage extends EPackage {
 		 * @generated
 		 */
 		EReference TYPE_DECLARATION__TYPE = eINSTANCE.getTypeDeclaration_Type();
+
+		/**
+		 * The meta object literal for the '<em><b>Value Parameters</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TYPE_DECLARATION__VALUE_PARAMETERS = eINSTANCE.getTypeDeclaration_ValueParameters();
+
+		/**
+		 * The meta object literal for the '<em><b>Type Parameters</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TYPE_DECLARATION__TYPE_PARAMETERS = eINSTANCE.getTypeDeclaration_TypeParameters();
+
+		/**
+		 * The meta object literal for the '{@link org.caltoopia.ir.impl.TypeVariableDeclarationImpl <em>Type Variable Declaration</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.caltoopia.ir.impl.TypeVariableDeclarationImpl
+		 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeVariableDeclaration()
+		 * @generated
+		 */
+		EClass TYPE_VARIABLE_DECLARATION = eINSTANCE.getTypeVariableDeclaration();
 
 		/**
 		 * The meta object literal for the '{@link org.caltoopia.ir.impl.ScheduleImpl <em>Schedule</em>}' class.

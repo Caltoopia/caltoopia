@@ -71,6 +71,8 @@ import org.caltoopia.ir.TypeTuple;
 import org.caltoopia.ir.TypeUint;
 import org.caltoopia.ir.TypeUndef;
 import org.caltoopia.ir.TypeUser;
+import org.caltoopia.ir.TypeVariable;
+import org.caltoopia.ir.TypeVariableDeclaration;
 import org.caltoopia.ir.UnaryExpression;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExpression;
@@ -581,7 +583,21 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass typeVariableEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass typeDeclarationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass typeVariableDeclarationEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2414,6 +2430,24 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getTypeVariable() {
+		return typeVariableEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTypeVariable_Declaration() {
+		return (EReference)typeVariableEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getTypeDeclaration() {
 		return typeDeclarationEClass;
 	}
@@ -2425,6 +2459,33 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 */
 	public EReference getTypeDeclaration_Type() {
 		return (EReference)typeDeclarationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTypeDeclaration_ValueParameters() {
+		return (EReference)typeDeclarationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTypeDeclaration_TypeParameters() {
+		return (EReference)typeDeclarationEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTypeVariableDeclaration() {
+		return typeVariableDeclarationEClass;
 	}
 
 	/**
@@ -2852,8 +2913,15 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		createEReference(typeProcEClass, TYPE_PROC__INPUT_TYPES);
 		createEReference(typeProcEClass, TYPE_PROC__OUTPUT_TYPES);
 
+		typeVariableEClass = createEClass(TYPE_VARIABLE);
+		createEReference(typeVariableEClass, TYPE_VARIABLE__DECLARATION);
+
 		typeDeclarationEClass = createEClass(TYPE_DECLARATION);
 		createEReference(typeDeclarationEClass, TYPE_DECLARATION__TYPE);
+		createEReference(typeDeclarationEClass, TYPE_DECLARATION__VALUE_PARAMETERS);
+		createEReference(typeDeclarationEClass, TYPE_DECLARATION__TYPE_PARAMETERS);
+
+		typeVariableDeclarationEClass = createEClass(TYPE_VARIABLE_DECLARATION);
 
 		scheduleEClass = createEClass(SCHEDULE);
 		createEReference(scheduleEClass, SCHEDULE__STATES);
@@ -2950,7 +3018,7 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		portWriteEClass.getESuperTypes().add(this.getPortAccess());
 		portReadEClass.getESuperTypes().add(this.getPortAccess());
 		portPeekEClass.getESuperTypes().add(this.getPortAccess());
-		declarationEClass.getESuperTypes().add(this.getNode());
+		declarationEClass.getESuperTypes().add(this.getScope());
 		forwardDeclarationEClass.getESuperTypes().add(this.getDeclaration());
 		variableEClass.getESuperTypes().add(this.getDeclaration());
 		lambdaExpressionEClass.getESuperTypes().add(this.getScope());
@@ -2973,7 +3041,9 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		typeUserEClass.getESuperTypes().add(this.getType());
 		typeLambdaEClass.getESuperTypes().add(this.getType());
 		typeProcEClass.getESuperTypes().add(this.getType());
+		typeVariableEClass.getESuperTypes().add(this.getType());
 		typeDeclarationEClass.getESuperTypes().add(this.getDeclaration());
+		typeVariableDeclarationEClass.getESuperTypes().add(this.getDeclaration());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(scopeEClass, Scope.class, "Scope", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3238,8 +3308,15 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		initEReference(getTypeProc_InputTypes(), this.getType(), null, "inputTypes", null, 0, -1, TypeProc.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTypeProc_OutputTypes(), this.getType(), null, "outputTypes", null, 0, -1, TypeProc.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(typeVariableEClass, TypeVariable.class, "TypeVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTypeVariable_Declaration(), this.getTypeVariableDeclaration(), null, "declaration", null, 0, 1, TypeVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(typeDeclarationEClass, TypeDeclaration.class, "TypeDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTypeDeclaration_Type(), this.getType(), null, "type", null, 0, 1, TypeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTypeDeclaration_ValueParameters(), this.getVariable(), null, "valueParameters", null, 0, -1, TypeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTypeDeclaration_TypeParameters(), this.getTypeVariable(), null, "typeParameters", null, 0, 1, TypeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(typeVariableDeclarationEClass, TypeVariableDeclaration.class, "TypeVariableDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(scheduleEClass, Schedule.class, "Schedule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSchedule_States(), this.getState(), null, "states", null, 0, -1, Schedule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

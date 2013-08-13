@@ -57,6 +57,7 @@ import org.caltoopia.ir.TypeTuple;
 import org.caltoopia.ir.TypeUint;
 import org.caltoopia.ir.TypeUndef;
 import org.caltoopia.ir.TypeUser;
+import org.caltoopia.ir.TypeVariable;
 
 public class TypeSystem {		
 		
@@ -228,6 +229,10 @@ public class TypeSystem {
 	public static boolean isString(Type t) {
 		return (t instanceof TypeString);
 	}
+	
+	public static boolean isTypeVariable(Type t) {
+		return (t instanceof TypeVariable);
+	}
 
 	//FIXME the functions "isCompatible" and "LUB" are just placeholders
 	public static boolean isCompatible(Type t1, Type t2) throws TypeException {
@@ -235,6 +240,14 @@ public class TypeSystem {
 	}
 	
 	public static Type LUB(Type t1, Type t2) throws TypeException {
+		
+	if (isTypeVariable(t1) && isTypeVariable(t2)) {
+			return t1;
+		} else if (isTypeVariable(t1)) {
+			return t2;
+		} else if (isTypeVariable(t2)) {
+			return t1;
+		}
 		
 		if (isInt(t1)  && isInt(t2)  || 
 			isInt(t1)  && isUint(t2) ||

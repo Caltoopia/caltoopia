@@ -141,7 +141,7 @@ AstExternalVariable returns AstVariable:
 ///////////////////////////////////////////////////////////////////////////////
 
 AstTypeDefinition returns AstTypeUser: 
-	'type' name=ID ( '(' (parameters += AstTypeDefinitionParameter (',' parameters += AstTypeDefinitionParameter)*)? ')')? 
+	definition ?= 'type' name=ID ( '(' (parameters += AstTypeDefinitionParameter (',' parameters += AstTypeDefinitionParameter)*)? ')')? 
 	':' 
 	( tuples += AstTuple 
 	| ( tuples += AstTaggedTuple  ('|' tuples += AstTaggedTuple )* )) 
@@ -151,7 +151,7 @@ AstTypeDefinitionParameter:
     (value = AstVariableDeclaration | type = AstTypeDefinitionTypeParameter );	 
 
 AstTypeDefinitionTypeParameter returns AstTypeUser:
-        name = ID;
+     variable ?= 'type' name = ID;
 	
 AstTaggedTuple :
 	name=ID ('(' (fields += AstValuedVariableDeclaration (',' fields += AstValuedVariableDeclaration)*)? ')')?; 
@@ -400,7 +400,7 @@ AstExpressionPostfix returns AstExpression:
     | '(' AstExpression ')';
 
 AstExpressionSymbolReference:
-	symbol=[AstVariable] ('[' indexes += AstExpression ']')* (member += AstMemberAccess)* ('::' ctor = ID)? ('(' (parameters += AstExpression (',' parameters += AstExpression)*)? ')')?;
+	symbol=[AstVariable] ('[' indexes += AstExpression ']')* (member += AstMemberAccess)* ('::' ctor = ID)? (call ?= '(' (parameters += AstExpression (',' parameters += AstExpression)*)? ')')?;
 			
 AstExpressionIf:
 	'if' condition=AstExpression

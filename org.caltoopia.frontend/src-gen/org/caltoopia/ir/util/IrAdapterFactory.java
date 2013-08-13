@@ -344,8 +344,16 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 				return createTypeProcAdapter();
 			}
 			@Override
+			public Adapter caseTypeVariable(TypeVariable object) {
+				return createTypeVariableAdapter();
+			}
+			@Override
 			public Adapter caseTypeDeclaration(TypeDeclaration object) {
 				return createTypeDeclarationAdapter();
+			}
+			@Override
+			public Adapter caseTypeVariableDeclaration(TypeVariableDeclaration object) {
+				return createTypeVariableDeclarationAdapter();
 			}
 			@Override
 			public Adapter caseSchedule(Schedule object) {
@@ -1350,6 +1358,20 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.TypeVariable <em>Type Variable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.caltoopia.ir.TypeVariable
+	 * @generated
+	 */
+	public Adapter createTypeVariableAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.TypeDeclaration <em>Type Declaration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -1360,6 +1382,20 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTypeDeclarationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.TypeVariableDeclaration <em>Type Variable Declaration</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.caltoopia.ir.TypeVariableDeclaration
+	 * @generated
+	 */
+	public Adapter createTypeVariableDeclarationAdapter() {
 		return null;
 	}
 

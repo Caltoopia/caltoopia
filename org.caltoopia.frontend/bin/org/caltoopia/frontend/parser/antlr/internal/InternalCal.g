@@ -1669,11 +1669,22 @@ ruleAstTypeDefinition returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(	otherlv_0='type' 
-    {
-    	newLeafNode(otherlv_0, grammarAccess.getAstTypeDefinitionAccess().getTypeKeyword_0());
-    }
+((
 (
+		lv_definition_0_0=	'type' 
+    {
+        newLeafNode(lv_definition_0_0, grammarAccess.getAstTypeDefinitionAccess().getDefinitionTypeKeyword_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAstTypeDefinitionRule());
+	        }
+       		setWithLastConsumed($current, "definition", true, "type");
+	    }
+
+)
+)(
 (
 		lv_name_1_0=RULE_ID
 		{
@@ -1885,11 +1896,26 @@ ruleAstTypeDefinitionTypeParameter returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
+((
 (
+		lv_variable_0_0=	'type' 
+    {
+        newLeafNode(lv_variable_0_0, grammarAccess.getAstTypeDefinitionTypeParameterAccess().getVariableTypeKeyword_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAstTypeDefinitionTypeParameterRule());
+	        }
+       		setWithLastConsumed($current, "variable", true, "type");
+	    }
+
+)
+)(
 (
-		lv_name_0_0=RULE_ID
+		lv_name_1_0=RULE_ID
 		{
-			newLeafNode(lv_name_0_0, grammarAccess.getAstTypeDefinitionTypeParameterAccess().getNameIDTerminalRuleCall_0()); 
+			newLeafNode(lv_name_1_0, grammarAccess.getAstTypeDefinitionTypeParameterAccess().getNameIDTerminalRuleCall_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1898,12 +1924,12 @@ ruleAstTypeDefinitionTypeParameter returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"name",
-        		lv_name_0_0, 
+        		lv_name_1_0, 
         		"ID");
 	    }
 
 )
-)
+))
 ;
 
 
@@ -6457,11 +6483,22 @@ ruleAstExpressionSymbolReference returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_7='(' 
+))?((
+(
+		lv_call_7_0=	'(' 
     {
-    	newLeafNode(otherlv_7, grammarAccess.getAstExpressionSymbolReferenceAccess().getLeftParenthesisKeyword_4_0());
+        newLeafNode(lv_call_7_0, grammarAccess.getAstExpressionSymbolReferenceAccess().getCallLeftParenthesisKeyword_4_0_0());
     }
-((
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAstExpressionSymbolReferenceRule());
+	        }
+       		setWithLastConsumed($current, "call", true, "(");
+	    }
+
+)
+)((
 (
 		{ 
 	        newCompositeNode(grammarAccess.getAstExpressionSymbolReferenceAccess().getParametersAstExpressionParserRuleCall_4_1_0_0()); 

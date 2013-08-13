@@ -16,6 +16,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.caltoopia.frontend.cal.AstExpressionSymbolReference#getIndexes <em>Indexes</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.AstExpressionSymbolReference#getMember <em>Member</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.AstExpressionSymbolReference#getCtor <em>Ctor</em>}</li>
+ *   <li>{@link org.caltoopia.frontend.cal.AstExpressionSymbolReference#isCall <em>Call</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.AstExpressionSymbolReference#getParameters <em>Parameters</em>}</li>
  * </ul>
  * </p>
@@ -109,6 +110,32 @@ public interface AstExpressionSymbolReference extends AstExpression
    * @generated
    */
   void setCtor(String value);
+
+  /**
+   * Returns the value of the '<em><b>Call</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Call</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Call</em>' attribute.
+   * @see #setCall(boolean)
+   * @see org.caltoopia.frontend.cal.CalPackage#getAstExpressionSymbolReference_Call()
+   * @model
+   * @generated
+   */
+  boolean isCall();
+
+  /**
+   * Sets the value of the '{@link org.caltoopia.frontend.cal.AstExpressionSymbolReference#isCall <em>Call</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Call</em>' attribute.
+   * @see #isCall()
+   * @generated
+   */
+  void setCall(boolean value);
 
   /**
    * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.

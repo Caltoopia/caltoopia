@@ -969,7 +969,8 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	public class AstTypeDefinitionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstTypeDefinition");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cTypeKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cDefinitionAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final Keyword cDefinitionTypeKeyword_0_0 = (Keyword)cDefinitionAssignment_0.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
@@ -999,16 +1000,20 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//// type definitions
 		/////////////////////////////////////////////////////////////////////////////////
 		//AstTypeDefinition returns AstTypeUser:
-		//	"type" name=ID ("(" (parameters+=AstTypeDefinitionParameter ("," parameters+=AstTypeDefinitionParameter)*)? ")")? ":"
-		//	(tuples+=AstTuple | tuples+=AstTaggedTuple ("|" tuples+=AstTaggedTuple)*) "end";
+		//	definition?="type" name=ID ("(" (parameters+=AstTypeDefinitionParameter (","
+		//	parameters+=AstTypeDefinitionParameter)*)? ")")? ":" (tuples+=AstTuple | tuples+=AstTaggedTuple ("|"
+		//	tuples+=AstTaggedTuple)*) "end";
 		public ParserRule getRule() { return rule; }
 
-		//"type" name=ID ("(" (parameters+=AstTypeDefinitionParameter ("," parameters+=AstTypeDefinitionParameter)*)? ")")? ":"
-		//(tuples+=AstTuple | tuples+=AstTaggedTuple ("|" tuples+=AstTaggedTuple)*) "end"
+		//definition?="type" name=ID ("(" (parameters+=AstTypeDefinitionParameter ("," parameters+=AstTypeDefinitionParameter)*)?
+		//")")? ":" (tuples+=AstTuple | tuples+=AstTaggedTuple ("|" tuples+=AstTaggedTuple)*) "end"
 		public Group getGroup() { return cGroup; }
 
+		//definition?="type"
+		public Assignment getDefinitionAssignment_0() { return cDefinitionAssignment_0; }
+
 		//"type"
-		public Keyword getTypeKeyword_0() { return cTypeKeyword_0; }
+		public Keyword getDefinitionTypeKeyword_0_0() { return cDefinitionTypeKeyword_0_0; }
 
 		//name=ID
 		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
@@ -1113,18 +1118,30 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class AstTypeDefinitionTypeParameterElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstTypeDefinitionTypeParameter");
-		private final Assignment cNameAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_0 = (RuleCall)cNameAssignment.eContents().get(0);
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cVariableAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final Keyword cVariableTypeKeyword_0_0 = (Keyword)cVariableAssignment_0.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		
 		//AstTypeDefinitionTypeParameter returns AstTypeUser:
-		//	name=ID;
+		//	variable?="type" name=ID;
 		public ParserRule getRule() { return rule; }
 
+		//variable?="type" name=ID
+		public Group getGroup() { return cGroup; }
+
+		//variable?="type"
+		public Assignment getVariableAssignment_0() { return cVariableAssignment_0; }
+
+		//"type"
+		public Keyword getVariableTypeKeyword_0_0() { return cVariableTypeKeyword_0_0; }
+
 		//name=ID
-		public Assignment getNameAssignment() { return cNameAssignment; }
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
 
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_0() { return cNameIDTerminalRuleCall_0; }
+		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 	}
 
 	public class AstTaggedTupleElements extends AbstractParserRuleElementFinder {
@@ -4010,7 +4027,8 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cCtorAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
 		private final RuleCall cCtorIDTerminalRuleCall_3_1_0 = (RuleCall)cCtorAssignment_3_1.eContents().get(0);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cLeftParenthesisKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cCallAssignment_4_0 = (Assignment)cGroup_4.eContents().get(0);
+		private final Keyword cCallLeftParenthesisKeyword_4_0_0 = (Keyword)cCallAssignment_4_0.eContents().get(0);
 		private final Group cGroup_4_1 = (Group)cGroup_4.eContents().get(1);
 		private final Assignment cParametersAssignment_4_1_0 = (Assignment)cGroup_4_1.eContents().get(0);
 		private final RuleCall cParametersAstExpressionParserRuleCall_4_1_0_0 = (RuleCall)cParametersAssignment_4_1_0.eContents().get(0);
@@ -4021,11 +4039,11 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
 		
 		//AstExpressionSymbolReference:
-		//	symbol=[AstVariable] ("[" indexes+=AstExpression "]")* member+=AstMemberAccess* ("::" ctor=ID)? ("("
+		//	symbol=[AstVariable] ("[" indexes+=AstExpression "]")* member+=AstMemberAccess* ("::" ctor=ID)? (call?="("
 		//	(parameters+=AstExpression ("," parameters+=AstExpression)*)? ")")?;
 		public ParserRule getRule() { return rule; }
 
-		//symbol=[AstVariable] ("[" indexes+=AstExpression "]")* member+=AstMemberAccess* ("::" ctor=ID)? ("("
+		//symbol=[AstVariable] ("[" indexes+=AstExpression "]")* member+=AstMemberAccess* ("::" ctor=ID)? (call?="("
 		//(parameters+=AstExpression ("," parameters+=AstExpression)*)? ")")?
 		public Group getGroup() { return cGroup; }
 
@@ -4071,11 +4089,14 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getCtorIDTerminalRuleCall_3_1_0() { return cCtorIDTerminalRuleCall_3_1_0; }
 
-		//("(" (parameters+=AstExpression ("," parameters+=AstExpression)*)? ")")?
+		//(call?="(" (parameters+=AstExpression ("," parameters+=AstExpression)*)? ")")?
 		public Group getGroup_4() { return cGroup_4; }
 
+		//call?="("
+		public Assignment getCallAssignment_4_0() { return cCallAssignment_4_0; }
+
 		//"("
-		public Keyword getLeftParenthesisKeyword_4_0() { return cLeftParenthesisKeyword_4_0; }
+		public Keyword getCallLeftParenthesisKeyword_4_0_0() { return cCallLeftParenthesisKeyword_4_0_0; }
 
 		//(parameters+=AstExpression ("," parameters+=AstExpression)*)?
 		public Group getGroup_4_1() { return cGroup_4_1; }
@@ -5360,8 +5381,9 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	//// type definitions
 	/////////////////////////////////////////////////////////////////////////////////
 	//AstTypeDefinition returns AstTypeUser:
-	//	"type" name=ID ("(" (parameters+=AstTypeDefinitionParameter ("," parameters+=AstTypeDefinitionParameter)*)? ")")? ":"
-	//	(tuples+=AstTuple | tuples+=AstTaggedTuple ("|" tuples+=AstTaggedTuple)*) "end";
+	//	definition?="type" name=ID ("(" (parameters+=AstTypeDefinitionParameter (","
+	//	parameters+=AstTypeDefinitionParameter)*)? ")")? ":" (tuples+=AstTuple | tuples+=AstTaggedTuple ("|"
+	//	tuples+=AstTaggedTuple)*) "end";
 	public AstTypeDefinitionElements getAstTypeDefinitionAccess() {
 		return (pAstTypeDefinition != null) ? pAstTypeDefinition : (pAstTypeDefinition = new AstTypeDefinitionElements());
 	}
@@ -5381,7 +5403,7 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AstTypeDefinitionTypeParameter returns AstTypeUser:
-	//	name=ID;
+	//	variable?="type" name=ID;
 	public AstTypeDefinitionTypeParameterElements getAstTypeDefinitionTypeParameterAccess() {
 		return (pAstTypeDefinitionTypeParameter != null) ? pAstTypeDefinitionTypeParameter : (pAstTypeDefinitionTypeParameter = new AstTypeDefinitionTypeParameterElements());
 	}
@@ -5865,7 +5887,7 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AstExpressionSymbolReference:
-	//	symbol=[AstVariable] ("[" indexes+=AstExpression "]")* member+=AstMemberAccess* ("::" ctor=ID)? ("("
+	//	symbol=[AstVariable] ("[" indexes+=AstExpression "]")* member+=AstMemberAccess* ("::" ctor=ID)? (call?="("
 	//	(parameters+=AstExpression ("," parameters+=AstExpression)*)? ")")?;
 	public AstExpressionSymbolReferenceElements getAstExpressionSymbolReferenceAccess() {
 		return (pAstExpressionSymbolReference != null) ? pAstExpressionSymbolReference : (pAstExpressionSymbolReference = new AstExpressionSymbolReferenceElements());

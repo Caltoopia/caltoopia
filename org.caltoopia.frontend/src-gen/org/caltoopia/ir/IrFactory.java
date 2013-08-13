@@ -643,6 +643,15 @@ public interface IrFactory extends EFactory {
 	TypeProc createTypeProc();
 
 	/**
+	 * Returns a new object of class '<em>Type Variable</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Type Variable</em>'.
+	 * @generated
+	 */
+	TypeVariable createTypeVariable();
+
+	/**
 	 * Returns a new object of class '<em>Type Declaration</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -650,6 +659,15 @@ public interface IrFactory extends EFactory {
 	 * @generated
 	 */
 	TypeDeclaration createTypeDeclaration();
+
+	/**
+	 * Returns a new object of class '<em>Type Variable Declaration</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Type Variable Declaration</em>'.
+	 * @generated
+	 */
+	TypeVariableDeclaration createTypeVariableDeclaration();
 
 	/**
 	 * Returns a new object of class '<em>Schedule</em>'.

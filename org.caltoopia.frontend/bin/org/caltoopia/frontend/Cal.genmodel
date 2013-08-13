@@ -75,8 +75,10 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstVariable/dimensions"/>
     </genClasses>
     <genClasses ecoreClass="Cal.ecore#//AstTypeUser">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Cal.ecore#//AstTypeUser/definition"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstTypeUser/parameters"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstTypeUser/tuples"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Cal.ecore#//AstTypeUser/variable"/>
     </genClasses>
     <genClasses ecoreClass="Cal.ecore#//AstTypeDefinitionParameter">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstTypeDefinitionParameter/value"/>
@@ -189,6 +191,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstExpressionSymbolReference/indexes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstExpressionSymbolReference/member"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Cal.ecore#//AstExpressionSymbolReference/ctor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Cal.ecore#//AstExpressionSymbolReference/call"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstExpressionSymbolReference/parameters"/>
     </genClasses>
     <genClasses ecoreClass="Cal.ecore#//AstExpressionIf">

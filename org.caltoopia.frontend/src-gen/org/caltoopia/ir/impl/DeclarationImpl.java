@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *
  * @generated
  */
-public class DeclarationImpl extends NodeImpl implements Declaration {
+public class DeclarationImpl extends ScopeImpl implements Declaration {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->

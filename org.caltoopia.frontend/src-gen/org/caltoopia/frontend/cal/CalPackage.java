@@ -802,13 +802,22 @@ public interface CalPackage extends EPackage
   int AST_TYPE_USER__DIMENSIONS = AST_VARIABLE__DIMENSIONS;
 
   /**
+   * The feature id for the '<em><b>Definition</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_TYPE_USER__DEFINITION = AST_VARIABLE_FEATURE_COUNT + 0;
+
+  /**
    * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int AST_TYPE_USER__PARAMETERS = AST_VARIABLE_FEATURE_COUNT + 0;
+  int AST_TYPE_USER__PARAMETERS = AST_VARIABLE_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Tuples</b></em>' containment reference list.
@@ -817,7 +826,16 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_TYPE_USER__TUPLES = AST_VARIABLE_FEATURE_COUNT + 1;
+  int AST_TYPE_USER__TUPLES = AST_VARIABLE_FEATURE_COUNT + 2;
+
+  /**
+   * The feature id for the '<em><b>Variable</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_TYPE_USER__VARIABLE = AST_VARIABLE_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>Ast Type User</em>' class.
@@ -826,7 +844,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_TYPE_USER_FEATURE_COUNT = AST_VARIABLE_FEATURE_COUNT + 2;
+  int AST_TYPE_USER_FEATURE_COUNT = AST_VARIABLE_FEATURE_COUNT + 4;
 
   /**
    * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstTypeDefinitionParameterImpl <em>Ast Type Definition Parameter</em>}' class.
@@ -1972,13 +1990,22 @@ public interface CalPackage extends EPackage
   int AST_EXPRESSION_SYMBOL_REFERENCE__CTOR = AST_EXPRESSION_FEATURE_COUNT + 3;
 
   /**
+   * The feature id for the '<em><b>Call</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_EXPRESSION_SYMBOL_REFERENCE__CALL = AST_EXPRESSION_FEATURE_COUNT + 4;
+
+  /**
    * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int AST_EXPRESSION_SYMBOL_REFERENCE__PARAMETERS = AST_EXPRESSION_FEATURE_COUNT + 4;
+  int AST_EXPRESSION_SYMBOL_REFERENCE__PARAMETERS = AST_EXPRESSION_FEATURE_COUNT + 5;
 
   /**
    * The number of structural features of the '<em>Ast Expression Symbol Reference</em>' class.
@@ -1987,7 +2014,7 @@ public interface CalPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AST_EXPRESSION_SYMBOL_REFERENCE_FEATURE_COUNT = AST_EXPRESSION_FEATURE_COUNT + 5;
+  int AST_EXPRESSION_SYMBOL_REFERENCE_FEATURE_COUNT = AST_EXPRESSION_FEATURE_COUNT + 6;
 
   /**
    * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstExpressionIfImpl <em>Ast Expression If</em>}' class.
@@ -3402,6 +3429,17 @@ public interface CalPackage extends EPackage
   EClass getAstTypeUser();
 
   /**
+   * Returns the meta object for the attribute '{@link org.caltoopia.frontend.cal.AstTypeUser#isDefinition <em>Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Definition</em>'.
+   * @see org.caltoopia.frontend.cal.AstTypeUser#isDefinition()
+   * @see #getAstTypeUser()
+   * @generated
+   */
+  EAttribute getAstTypeUser_Definition();
+
+  /**
    * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstTypeUser#getParameters <em>Parameters</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3422,6 +3460,17 @@ public interface CalPackage extends EPackage
    * @generated
    */
   EReference getAstTypeUser_Tuples();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.caltoopia.frontend.cal.AstTypeUser#isVariable <em>Variable</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Variable</em>'.
+   * @see org.caltoopia.frontend.cal.AstTypeUser#isVariable()
+   * @see #getAstTypeUser()
+   * @generated
+   */
+  EAttribute getAstTypeUser_Variable();
 
   /**
    * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstTypeDefinitionParameter <em>Ast Type Definition Parameter</em>}'.
@@ -4385,6 +4434,17 @@ public interface CalPackage extends EPackage
    * @generated
    */
   EAttribute getAstExpressionSymbolReference_Ctor();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.caltoopia.frontend.cal.AstExpressionSymbolReference#isCall <em>Call</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Call</em>'.
+   * @see org.caltoopia.frontend.cal.AstExpressionSymbolReference#isCall()
+   * @see #getAstExpressionSymbolReference()
+   * @generated
+   */
+  EAttribute getAstExpressionSymbolReference_Call();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstExpressionSymbolReference#getParameters <em>Parameters</em>}'.
@@ -5476,6 +5536,14 @@ public interface CalPackage extends EPackage
     EClass AST_TYPE_USER = eINSTANCE.getAstTypeUser();
 
     /**
+     * The meta object literal for the '<em><b>Definition</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute AST_TYPE_USER__DEFINITION = eINSTANCE.getAstTypeUser_Definition();
+
+    /**
      * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5490,6 +5558,14 @@ public interface CalPackage extends EPackage
      * @generated
      */
     EReference AST_TYPE_USER__TUPLES = eINSTANCE.getAstTypeUser_Tuples();
+
+    /**
+     * The meta object literal for the '<em><b>Variable</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute AST_TYPE_USER__VARIABLE = eINSTANCE.getAstTypeUser_Variable();
 
     /**
      * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstTypeDefinitionParameterImpl <em>Ast Type Definition Parameter</em>}' class.
@@ -6264,6 +6340,14 @@ public interface CalPackage extends EPackage
      * @generated
      */
     EAttribute AST_EXPRESSION_SYMBOL_REFERENCE__CTOR = eINSTANCE.getAstExpressionSymbolReference_Ctor();
+
+    /**
+     * The meta object literal for the '<em><b>Call</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute AST_EXPRESSION_SYMBOL_REFERENCE__CALL = eINSTANCE.getAstExpressionSymbolReference_Call();
 
     /**
      * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.

@@ -1144,9 +1144,19 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getAstTypeUser_Definition()
+  {
+    return (EAttribute)astTypeUserEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getAstTypeUser_Parameters()
   {
-    return (EReference)astTypeUserEClass.getEStructuralFeatures().get(0);
+    return (EReference)astTypeUserEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1156,7 +1166,17 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    */
   public EReference getAstTypeUser_Tuples()
   {
-    return (EReference)astTypeUserEClass.getEStructuralFeatures().get(1);
+    return (EReference)astTypeUserEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAstTypeUser_Variable()
+  {
+    return (EAttribute)astTypeUserEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -2064,9 +2084,19 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getAstExpressionSymbolReference_Call()
+  {
+    return (EAttribute)astExpressionSymbolReferenceEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getAstExpressionSymbolReference_Parameters()
   {
-    return (EReference)astExpressionSymbolReferenceEClass.getEStructuralFeatures().get(4);
+    return (EReference)astExpressionSymbolReferenceEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -2710,8 +2740,10 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     createEReference(astVariableEClass, AST_VARIABLE__DIMENSIONS);
 
     astTypeUserEClass = createEClass(AST_TYPE_USER);
+    createEAttribute(astTypeUserEClass, AST_TYPE_USER__DEFINITION);
     createEReference(astTypeUserEClass, AST_TYPE_USER__PARAMETERS);
     createEReference(astTypeUserEClass, AST_TYPE_USER__TUPLES);
+    createEAttribute(astTypeUserEClass, AST_TYPE_USER__VARIABLE);
 
     astTypeDefinitionParameterEClass = createEClass(AST_TYPE_DEFINITION_PARAMETER);
     createEReference(astTypeDefinitionParameterEClass, AST_TYPE_DEFINITION_PARAMETER__VALUE);
@@ -2829,6 +2861,7 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     createEReference(astExpressionSymbolReferenceEClass, AST_EXPRESSION_SYMBOL_REFERENCE__INDEXES);
     createEReference(astExpressionSymbolReferenceEClass, AST_EXPRESSION_SYMBOL_REFERENCE__MEMBER);
     createEAttribute(astExpressionSymbolReferenceEClass, AST_EXPRESSION_SYMBOL_REFERENCE__CTOR);
+    createEAttribute(astExpressionSymbolReferenceEClass, AST_EXPRESSION_SYMBOL_REFERENCE__CALL);
     createEReference(astExpressionSymbolReferenceEClass, AST_EXPRESSION_SYMBOL_REFERENCE__PARAMETERS);
 
     astExpressionIfEClass = createEClass(AST_EXPRESSION_IF);
@@ -3036,8 +3069,10 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     initEReference(getAstVariable_Dimensions(), this.getAstExpression(), null, "dimensions", null, 0, -1, AstVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(astTypeUserEClass, AstTypeUser.class, "AstTypeUser", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getAstTypeUser_Definition(), ecorePackage.getEBoolean(), "definition", null, 0, 1, AstTypeUser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstTypeUser_Parameters(), this.getAstTypeDefinitionParameter(), null, "parameters", null, 0, -1, AstTypeUser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstTypeUser_Tuples(), this.getAstTaggedTuple(), null, "tuples", null, 0, -1, AstTypeUser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAstTypeUser_Variable(), ecorePackage.getEBoolean(), "variable", null, 0, 1, AstTypeUser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(astTypeDefinitionParameterEClass, AstTypeDefinitionParameter.class, "AstTypeDefinitionParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAstTypeDefinitionParameter_Value(), this.getAstVariable(), null, "value", null, 0, 1, AstTypeDefinitionParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3155,6 +3190,7 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     initEReference(getAstExpressionSymbolReference_Indexes(), this.getAstExpression(), null, "indexes", null, 0, -1, AstExpressionSymbolReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstExpressionSymbolReference_Member(), this.getAstMemberAccess(), null, "member", null, 0, -1, AstExpressionSymbolReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getAstExpressionSymbolReference_Ctor(), ecorePackage.getEString(), "ctor", null, 0, 1, AstExpressionSymbolReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAstExpressionSymbolReference_Call(), ecorePackage.getEBoolean(), "call", null, 0, 1, AstExpressionSymbolReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstExpressionSymbolReference_Parameters(), this.getAstExpression(), null, "parameters", null, 0, -1, AstExpressionSymbolReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(astExpressionIfEClass, AstExpressionIf.class, "AstExpressionIf", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

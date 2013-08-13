@@ -125,7 +125,9 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 			case IrPackage.TYPE_USER: return createTypeUser();
 			case IrPackage.TYPE_LAMBDA: return createTypeLambda();
 			case IrPackage.TYPE_PROC: return createTypeProc();
+			case IrPackage.TYPE_VARIABLE: return createTypeVariable();
 			case IrPackage.TYPE_DECLARATION: return createTypeDeclaration();
+			case IrPackage.TYPE_VARIABLE_DECLARATION: return createTypeVariableDeclaration();
 			case IrPackage.SCHEDULE: return createSchedule();
 			case IrPackage.STATE: return createState();
 			case IrPackage.ANNOTATION: return createAnnotation();
@@ -830,9 +832,29 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public TypeVariable createTypeVariable() {
+		TypeVariableImpl typeVariable = new TypeVariableImpl();
+		return typeVariable;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public TypeDeclaration createTypeDeclaration() {
 		TypeDeclarationImpl typeDeclaration = new TypeDeclarationImpl();
 		return typeDeclaration;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TypeVariableDeclaration createTypeVariableDeclaration() {
+		TypeVariableDeclarationImpl typeVariableDeclaration = new TypeVariableDeclarationImpl();
+		return typeVariableDeclaration;
 	}
 
 	/**

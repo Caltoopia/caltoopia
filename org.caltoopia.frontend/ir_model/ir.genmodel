@@ -259,9 +259,15 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeProc/inputTypes"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeProc/outputTypes"/>
     </genClasses>
+    <genClasses ecoreClass="ir.ecore#//TypeVariable">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeVariable/declaration"/>
+    </genClasses>
     <genClasses ecoreClass="ir.ecore#//TypeDeclaration">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeDeclaration/type"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeDeclaration/valueParameters"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeDeclaration/typeParameters"/>
     </genClasses>
+    <genClasses ecoreClass="ir.ecore#//TypeVariableDeclaration"/>
     <genClasses ecoreClass="ir.ecore#//Schedule">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Schedule/states"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Schedule/freeRunners"/>

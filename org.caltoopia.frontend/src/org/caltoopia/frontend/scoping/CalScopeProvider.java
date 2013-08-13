@@ -52,6 +52,10 @@ import org.caltoopia.frontend.cal.AstStatementForeach;
 import org.caltoopia.frontend.cal.AstStructure;
 import org.caltoopia.frontend.cal.AstNetwork;
 import org.caltoopia.frontend.cal.AstActorVariable;
+import org.caltoopia.frontend.cal.AstTaggedTuple;
+import org.caltoopia.frontend.cal.AstType;
+import org.caltoopia.frontend.cal.AstTypeDefinitionParameter;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -188,6 +192,28 @@ public class CalScopeProvider extends AbstractDeclarativeScopeProvider {
 		variables.addAll(block.getVariables());
 		
 		return Scopes.scopeFor(variables, getScope(block.eContainer(), reference));
+	}
+        
+    public IScope scope_AstTypeUser(AstTaggedTuple tuple, EReference reference) {
+    	List<AstTypeUser> typeParameters = new ArrayList<AstTypeUser>();
+    	AstTypeUser typedef = (AstTypeUser) tuple.eContainer();
+    	for (AstTypeDefinitionParameter param : typedef.getParameters()) {
+    		if (param.getType() != null)
+    			typeParameters.add(param.getType()); 
+    	}
+    	
+    	return Scopes.scopeFor(typeParameters, getScope(typedef, reference));
+    }
+    
+    public IScope scope_AstVariable(AstTaggedTuple tuple, EReference reference) {
+		List<AstVariable> variables = new ArrayList<AstVariable>();		
+    	AstTypeUser typedef = (AstTypeUser) tuple.eContainer();
+    	for (AstTypeDefinitionParameter param : typedef.getParameters()) {
+    		if (param.getValue() != null)
+    			variables.add(param.getValue()); 
+    	}
+    	
+    	return Scopes.scopeFor(variables, getScope(typedef, reference));
 	}
         
 }

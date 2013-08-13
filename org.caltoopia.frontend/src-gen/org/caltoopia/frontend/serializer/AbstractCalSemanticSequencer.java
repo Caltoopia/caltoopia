@@ -927,7 +927,13 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (symbol=[AstVariable|ID] indexes+=AstExpression* member+=AstMemberAccess* ctor=ID? (parameters+=AstExpression parameters+=AstExpression*)?)
+	 *     (
+	 *         symbol=[AstVariable|ID] 
+	 *         indexes+=AstExpression* 
+	 *         member+=AstMemberAccess* 
+	 *         ctor=ID? 
+	 *         (call?='(' (parameters+=AstExpression parameters+=AstExpression*)?)?
+	 *     )
 	 */
 	protected void sequence_AstExpressionSymbolReference(EObject context, AstExpressionSymbolReference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1367,7 +1373,7 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     name=ID
+	 *     (variable?='type' name=ID)
 	 */
 	protected void sequence_AstTypeDefinitionTypeParameter(EObject context, AstTypeUser semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1377,6 +1383,7 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	/**
 	 * Constraint:
 	 *     (
+	 *         definition?='type' 
 	 *         name=ID 
 	 *         (parameters+=AstTypeDefinitionParameter parameters+=AstTypeDefinitionParameter*)? 
 	 *         (tuples+=AstTuple | (tuples+=AstTaggedTuple tuples+=AstTaggedTuple*))

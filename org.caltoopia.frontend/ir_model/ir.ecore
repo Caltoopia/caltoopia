@@ -216,7 +216,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="variable" eType="#//VariableReference"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="position" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Declaration" eSuperTypes="#//Node">
+  <eClassifiers xsi:type="ecore:EClass" name="Declaration" eSuperTypes="#//Scope">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="scope" eType="#//Scope"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"
@@ -305,9 +305,16 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="outputTypes" upperBound="-1"
         eType="#//Type"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeVariable" eSuperTypes="#//Type">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="declaration" eType="#//TypeVariableDeclaration"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeDeclaration" eSuperTypes="#//Declaration">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//Type"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="valueParameters" upperBound="-1"
+        eType="#//Variable"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeParameters" eType="#//TypeVariable"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeVariableDeclaration" eSuperTypes="#//Declaration"/>
   <eClassifiers xsi:type="ecore:EClass" name="Schedule">
     <eStructuralFeatures xsi:type="ecore:EReference" name="states" upperBound="-1"
         eType="#//State"/>

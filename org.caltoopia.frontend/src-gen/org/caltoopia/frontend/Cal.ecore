@@ -97,10 +97,12 @@
         eType="#//AstExpression" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AstTypeUser" eSuperTypes="#//AstVariable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="definition" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//AstTypeDefinitionParameter" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tuples" upperBound="-1"
         eType="#//AstTaggedTuple" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="variable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AstTypeDefinitionParameter">
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//AstVariable"
@@ -263,6 +265,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="member" upperBound="-1"
         eType="#//AstMemberAccess" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="ctor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="call" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//AstExpression" containment="true"/>
   </eClassifiers>

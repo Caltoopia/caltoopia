@@ -1,17 +1,27 @@
 namespace TypeTester:
 import System.io.dprint1;
 
+	function random() --> float: 1 end
+	int sz = 2;
 	type T1 : A(int i, float f) end
 	type T2 : A(int i, int i2) | B(int j, int j2) | C end
 	type T3 : (int i, int j) end
-	type T4(Tx, int x) : A(Tx a, int(size=x) i, T3 x) end // Should work :(
-	
+	type T4(type Tx, int x) : A(Tx a, int(size=x+sz) i, T3 x) end
+	type MyList(type myType, int mySize) : (List(type: myType, size=mySize) L) end		
+	type MyMatrix(type myType, int mySize) : (List(type: List(type: myType, size=mySize), size=mySize) d1) end			
+				
 	T1 t1a = T1::A(1, 3.14);
 	T1 t1b = T1(1, 3.14);
 	T3 t3a = T3(1, 2);
+	// T3 t3b = T3(); //Error
+	T4(myType: int, x = 3) t4a = T4::A(3, 2, T3(1, 1));
+	T4(myType: float, x = 3) t4b = T4(3.14, 2, T3(1,1));
+	// MyList(myType: int, mySize = 3) myList1 = MyList(); //Error
+	MyList(myType: int, mySize = 3) myList2 = MyList([1, 2, 3]);
 
 	int i = 0;
 	int i2 = t3a.i;
+	float f = random();
 	
 	int(size=3) i3 = 2;
 	
@@ -21,13 +31,13 @@ import System.io.dprint1;
 	actor Main(int max) T1 In1, T1 In2 ==> T1 Out:
 		
 		int xxx = max;
-		T1 t = T1::T1(1, 3.14);
+		T1 t = T1(1, 3.14);
 		int i1 = F1(1);
 		
 		int intCounter := 0;
 		float floatCounter := 0.0;
 		
-		action In1:[a], In2:[b] ==> Out:[T1::T1(a.i + b.i, a.f + b.f)]
+		action In1:[a], In2:[b] ==> Out:[T1(a.i + b.i, a.f + b.f)]
 		guard 
 			intCounter < max
 		do 
@@ -74,8 +84,8 @@ import System.io.dprint1;
 	
 		entities
 			main = Main(max=10);
-			delay1 = Delay(init=T1::T1(0, 0));
-			delay2 = Delay(init=T1::T1(1, 1));
+			delay1 = Delay(init=T1::A(0, 0));
+			delay2 = Delay(init=T1(1, 1));
 			sink = Sink();
 
 		structure

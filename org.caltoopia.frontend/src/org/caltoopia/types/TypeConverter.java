@@ -58,6 +58,7 @@ import org.caltoopia.frontend.cal.AstPort;
 import org.caltoopia.frontend.cal.AstStatementAssign;
 import org.caltoopia.frontend.cal.AstTaggedTuple;
 import org.caltoopia.frontend.cal.AstType;
+import org.caltoopia.frontend.cal.AstTypeDefinitionParameter;
 import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstTypeParam;
 import org.caltoopia.frontend.cal.AstTypeParameterList;
@@ -81,6 +82,8 @@ import org.caltoopia.ir.TypeString;
 import org.caltoopia.ir.TypeUint;
 import org.caltoopia.ir.TypeUndef;
 import org.caltoopia.ir.TypeUser;
+import org.caltoopia.ir.TypeVariable;
+import org.caltoopia.ir.TypeVariableDeclaration;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ast2ir.CreateIrExpression;
 import org.caltoopia.ast2ir.Util;
@@ -567,23 +570,28 @@ public class TypeConverter extends CalSwitch<Type> {
 		throw new TypeException("Failed to determine valid type for member reference '" + name +  "' for top type" + typePrinter.doSwitch(type) );		
 	}
 
-	
 	public static Type createTypeUser(AstTypeUser astTypeUser, boolean approximate) {
-		TypeUser type = IrFactory.eINSTANCE.createTypeUser();
-		
-		if (approximate) {
-			TypeDeclaration typedef = createTypeDeclaration(null, astTypeUser, approximate);
-			type.setDeclaration(typedef);
+		if (astTypeUser.isDefinition()) {		
+			TypeUser type = IrFactory.eINSTANCE.createTypeUser();
+			
+			if (approximate) {
+				TypeDeclaration typedef = createTypeDeclaration(null, astTypeUser, approximate);
+				type.setDeclaration(typedef);
+			} else {
+			  try {	
+				  Declaration typedef = (Declaration) Util.findIrDeclaration(astTypeUser);
+				  type.setDeclaration(typedef);
+			  } catch (Exception x) {
+				  System.err.println("[TypeConverter] Fatal internal error. Failed to create user type: " + x.getMessage());
+			  }
+			} 	
+			return type;
 		} else {
-		  try {	
-			  Declaration typedef = (Declaration) Util.findIrDeclaration(astTypeUser);
-			  type.setDeclaration(typedef);
-		  } catch (Exception x) {
-			  System.err.println("[TypeConverter] Fatal internal error. Failed to create user type: " + x.getMessage());
-		  }
-		} 	
-		
-		return type;
+			TypeVariable type = IrFactory.eINSTANCE.createTypeVariable();
+			TypeVariableDeclaration declaration = (TypeVariableDeclaration) Util.findIrDeclaration(astTypeUser);
+			type.setDeclaration(declaration);			
+			return type;
+		}
 	}
 	
 	public static TypeDeclaration createTypeDeclaration(Scope scope, AstTypeUser astTypeUser, boolean approximate) {
@@ -593,6 +601,21 @@ public class TypeConverter extends CalSwitch<Type> {
 		
 		TypeTuple tupleType = IrFactory.eINSTANCE.createTypeTuple();
 		tupleType.setId(Util.getDefinitionId());
+		
+		for (AstTypeDefinitionParameter param : astTypeUser.getParameters()) {
+			if (param.getType() != null) {
+				TypeVariableDeclaration td = IrFactory.eINSTANCE.createTypeVariableDeclaration();			
+				td.setId(Util.getDefinitionId());
+				td.setScope(scope);
+				td.setName(param.getType().getName());				
+				Util.defsput(param.getType(), td);
+			} else {
+				Variable decl = Util.createVariable(typeDecl, param.getValue(), false);
+				decl.setParameter(true);
+				decl.setConstant(true);
+				typeDecl.getValueParameters().add(decl);					
+			}
+		}
 		
 		for (AstTaggedTuple tt : astTypeUser.getTuples()) {		
 

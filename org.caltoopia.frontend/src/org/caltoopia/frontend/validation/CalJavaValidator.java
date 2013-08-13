@@ -399,11 +399,38 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 		String name = var.getName();
 		List<AstVariable> formalParameters;
 		
-		if (var instanceof AstTaggedTuple || var instanceof AstFunction) {
+		if (ref.isCall() ) {
 			// It is some sort of call - check paramaters
-			if (var instanceof AstTaggedTuple) {
+			if (var instanceof AstTypeUser) {
 				// This is a call to a type constructor
-				formalParameters = ((AstTaggedTuple) var).getFields();
+				AstTypeUser type = (AstTypeUser) var;
+				AstTaggedTuple tuple = null;
+				if (ref.getCtor() == null) {
+					// if no tagged tuple constructor is given there can 
+					// only be one and this should be used
+					if (type.getTuples().size() == 1) {
+						tuple = type.getTuples().get(0);
+					} else {
+						error("Tuple tag missing in value constructor",
+							  ref,
+							  CalPackage.eINSTANCE.getAstExpressionSymbolReference_Symbol(), -1);		
+						return;
+					}					
+				} else {
+					for (AstTaggedTuple tt : type.getTuples()) {
+						if (tt.getName().equals(ref.getCtor())) {
+							tuple = tt;
+						}						
+					}	
+					if (tuple == null) {
+						error("Unknown tag '" + ref.getCtor() + "' in value constructor",
+							  ref,
+							  CalPackage.eINSTANCE.getAstExpressionSymbolReference_Symbol(), -1);		
+						return;						
+					}
+				}
+				
+				formalParameters = tuple.getFields();
 			} else if (var instanceof AstFunction){
 				formalParameters = ((AstFunction) var).getParameters();
 			} else {
@@ -436,7 +463,7 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 				}	
 				index++;
 			} 
-						
+		
 		} else {
 			// It is a reference to a symbol	
 		}

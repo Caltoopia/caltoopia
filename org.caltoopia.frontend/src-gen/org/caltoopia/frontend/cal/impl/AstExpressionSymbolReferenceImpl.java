@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstExpressionSymbolReferenceImpl#getIndexes <em>Indexes</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstExpressionSymbolReferenceImpl#getMember <em>Member</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstExpressionSymbolReferenceImpl#getCtor <em>Ctor</em>}</li>
+ *   <li>{@link org.caltoopia.frontend.cal.impl.AstExpressionSymbolReferenceImpl#isCall <em>Call</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstExpressionSymbolReferenceImpl#getParameters <em>Parameters</em>}</li>
  * </ul>
  * </p>
@@ -91,6 +92,26 @@ public class AstExpressionSymbolReferenceImpl extends AstExpressionImpl implemen
    * @ordered
    */
   protected String ctor = CTOR_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isCall() <em>Call</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isCall()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean CALL_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isCall() <em>Call</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isCall()
+   * @generated
+   * @ordered
+   */
+  protected boolean call = CALL_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
@@ -222,6 +243,29 @@ public class AstExpressionSymbolReferenceImpl extends AstExpressionImpl implemen
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isCall()
+  {
+    return call;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setCall(boolean newCall)
+  {
+    boolean oldCall = call;
+    call = newCall;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CalPackage.AST_EXPRESSION_SYMBOL_REFERENCE__CALL, oldCall, call));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<AstExpression> getParameters()
   {
     if (parameters == null)
@@ -270,6 +314,8 @@ public class AstExpressionSymbolReferenceImpl extends AstExpressionImpl implemen
         return getMember();
       case CalPackage.AST_EXPRESSION_SYMBOL_REFERENCE__CTOR:
         return getCtor();
+      case CalPackage.AST_EXPRESSION_SYMBOL_REFERENCE__CALL:
+        return isCall();
       case CalPackage.AST_EXPRESSION_SYMBOL_REFERENCE__PARAMETERS:
         return getParameters();
     }
@@ -301,6 +347,9 @@ public class AstExpressionSymbolReferenceImpl extends AstExpressionImpl implemen
       case CalPackage.AST_EXPRESSION_SYMBOL_REFERENCE__CTOR:
         setCtor((String)newValue);
         return;
+      case CalPackage.AST_EXPRESSION_SYMBOL_REFERENCE__CALL:
+        setCall((Boolean)newValue);
+        return;
       case CalPackage.AST_EXPRESSION_SYMBOL_REFERENCE__PARAMETERS:
         getParameters().clear();
         getParameters().addAll((Collection<? extends AstExpression>)newValue);
@@ -331,6 +380,9 @@ public class AstExpressionSymbolReferenceImpl extends AstExpressionImpl implemen
       case CalPackage.AST_EXPRESSION_SYMBOL_REFERENCE__CTOR:
         setCtor(CTOR_EDEFAULT);
         return;
+      case CalPackage.AST_EXPRESSION_SYMBOL_REFERENCE__CALL:
+        setCall(CALL_EDEFAULT);
+        return;
       case CalPackage.AST_EXPRESSION_SYMBOL_REFERENCE__PARAMETERS:
         getParameters().clear();
         return;
@@ -356,6 +408,8 @@ public class AstExpressionSymbolReferenceImpl extends AstExpressionImpl implemen
         return member != null && !member.isEmpty();
       case CalPackage.AST_EXPRESSION_SYMBOL_REFERENCE__CTOR:
         return CTOR_EDEFAULT == null ? ctor != null : !CTOR_EDEFAULT.equals(ctor);
+      case CalPackage.AST_EXPRESSION_SYMBOL_REFERENCE__CALL:
+        return call != CALL_EDEFAULT;
       case CalPackage.AST_EXPRESSION_SYMBOL_REFERENCE__PARAMETERS:
         return parameters != null && !parameters.isEmpty();
     }
@@ -375,6 +429,8 @@ public class AstExpressionSymbolReferenceImpl extends AstExpressionImpl implemen
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (ctor: ");
     result.append(ctor);
+    result.append(", call: ");
+    result.append(call);
     result.append(')');
     return result.toString();
   }

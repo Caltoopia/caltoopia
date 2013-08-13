@@ -9,12 +9,15 @@ import org.caltoopia.frontend.cal.AstTypeDefinitionParameter;
 import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.CalPackage;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -26,8 +29,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.caltoopia.frontend.cal.impl.AstTypeUserImpl#isDefinition <em>Definition</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstTypeUserImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstTypeUserImpl#getTuples <em>Tuples</em>}</li>
+ *   <li>{@link org.caltoopia.frontend.cal.impl.AstTypeUserImpl#isVariable <em>Variable</em>}</li>
  * </ul>
  * </p>
  *
@@ -35,6 +40,26 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class AstTypeUserImpl extends AstVariableImpl implements AstTypeUser
 {
+  /**
+   * The default value of the '{@link #isDefinition() <em>Definition</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isDefinition()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean DEFINITION_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isDefinition() <em>Definition</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isDefinition()
+   * @generated
+   * @ordered
+   */
+  protected boolean definition = DEFINITION_EDEFAULT;
+
   /**
    * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -56,6 +81,26 @@ public class AstTypeUserImpl extends AstVariableImpl implements AstTypeUser
   protected EList<AstTaggedTuple> tuples;
 
   /**
+   * The default value of the '{@link #isVariable() <em>Variable</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isVariable()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean VARIABLE_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isVariable() <em>Variable</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isVariable()
+   * @generated
+   * @ordered
+   */
+  protected boolean variable = VARIABLE_EDEFAULT;
+
+  /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -74,6 +119,29 @@ public class AstTypeUserImpl extends AstVariableImpl implements AstTypeUser
   protected EClass eStaticClass()
   {
     return CalPackage.Literals.AST_TYPE_USER;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isDefinition()
+  {
+    return definition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDefinition(boolean newDefinition)
+  {
+    boolean oldDefinition = definition;
+    definition = newDefinition;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CalPackage.AST_TYPE_USER__DEFINITION, oldDefinition, definition));
   }
 
   /**
@@ -109,6 +177,29 @@ public class AstTypeUserImpl extends AstVariableImpl implements AstTypeUser
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isVariable()
+  {
+    return variable;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setVariable(boolean newVariable)
+  {
+    boolean oldVariable = variable;
+    variable = newVariable;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CalPackage.AST_TYPE_USER__VARIABLE, oldVariable, variable));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -132,10 +223,14 @@ public class AstTypeUserImpl extends AstVariableImpl implements AstTypeUser
   {
     switch (featureID)
     {
+      case CalPackage.AST_TYPE_USER__DEFINITION:
+        return isDefinition();
       case CalPackage.AST_TYPE_USER__PARAMETERS:
         return getParameters();
       case CalPackage.AST_TYPE_USER__TUPLES:
         return getTuples();
+      case CalPackage.AST_TYPE_USER__VARIABLE:
+        return isVariable();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -151,6 +246,9 @@ public class AstTypeUserImpl extends AstVariableImpl implements AstTypeUser
   {
     switch (featureID)
     {
+      case CalPackage.AST_TYPE_USER__DEFINITION:
+        setDefinition((Boolean)newValue);
+        return;
       case CalPackage.AST_TYPE_USER__PARAMETERS:
         getParameters().clear();
         getParameters().addAll((Collection<? extends AstTypeDefinitionParameter>)newValue);
@@ -158,6 +256,9 @@ public class AstTypeUserImpl extends AstVariableImpl implements AstTypeUser
       case CalPackage.AST_TYPE_USER__TUPLES:
         getTuples().clear();
         getTuples().addAll((Collection<? extends AstTaggedTuple>)newValue);
+        return;
+      case CalPackage.AST_TYPE_USER__VARIABLE:
+        setVariable((Boolean)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -173,11 +274,17 @@ public class AstTypeUserImpl extends AstVariableImpl implements AstTypeUser
   {
     switch (featureID)
     {
+      case CalPackage.AST_TYPE_USER__DEFINITION:
+        setDefinition(DEFINITION_EDEFAULT);
+        return;
       case CalPackage.AST_TYPE_USER__PARAMETERS:
         getParameters().clear();
         return;
       case CalPackage.AST_TYPE_USER__TUPLES:
         getTuples().clear();
+        return;
+      case CalPackage.AST_TYPE_USER__VARIABLE:
+        setVariable(VARIABLE_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -193,12 +300,35 @@ public class AstTypeUserImpl extends AstVariableImpl implements AstTypeUser
   {
     switch (featureID)
     {
+      case CalPackage.AST_TYPE_USER__DEFINITION:
+        return definition != DEFINITION_EDEFAULT;
       case CalPackage.AST_TYPE_USER__PARAMETERS:
         return parameters != null && !parameters.isEmpty();
       case CalPackage.AST_TYPE_USER__TUPLES:
         return tuples != null && !tuples.isEmpty();
+      case CalPackage.AST_TYPE_USER__VARIABLE:
+        return variable != VARIABLE_EDEFAULT;
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (definition: ");
+    result.append(definition);
+    result.append(", variable: ");
+    result.append(variable);
+    result.append(')');
+    return result.toString();
   }
 
 } //AstTypeUserImpl

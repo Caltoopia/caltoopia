@@ -22,7 +22,6 @@ public abstract class AbstractCalSyntacticSequencer extends AbstractSyntacticSeq
 	protected AbstractElementAlias match_AstConnection___LeftCurlyBracketKeyword_5_0_RightCurlyBracketKeyword_5_2__q;
 	protected AbstractElementAlias match_AstExpressionPostfix_LeftParenthesisKeyword_4_0_a;
 	protected AbstractElementAlias match_AstExpressionPostfix_LeftParenthesisKeyword_4_0_p;
-	protected AbstractElementAlias match_AstExpressionSymbolReference___LeftParenthesisKeyword_4_0_RightParenthesisKeyword_4_2__q;
 	protected AbstractElementAlias match_AstInitialize_DoKeyword_8_0_q;
 	protected AbstractElementAlias match_AstStatementIf_ElseKeyword_4_0_q;
 	protected AbstractElementAlias match_AstTaggedTuple___LeftParenthesisKeyword_1_0_RightParenthesisKeyword_1_2__q;
@@ -35,7 +34,6 @@ public abstract class AbstractCalSyntacticSequencer extends AbstractSyntacticSeq
 		match_AstConnection___LeftCurlyBracketKeyword_5_0_RightCurlyBracketKeyword_5_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAstConnectionAccess().getLeftCurlyBracketKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getAstConnectionAccess().getRightCurlyBracketKeyword_5_2()));
 		match_AstExpressionPostfix_LeftParenthesisKeyword_4_0_a = new TokenAlias(true, true, grammarAccess.getAstExpressionPostfixAccess().getLeftParenthesisKeyword_4_0());
 		match_AstExpressionPostfix_LeftParenthesisKeyword_4_0_p = new TokenAlias(true, false, grammarAccess.getAstExpressionPostfixAccess().getLeftParenthesisKeyword_4_0());
-		match_AstExpressionSymbolReference___LeftParenthesisKeyword_4_0_RightParenthesisKeyword_4_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAstExpressionSymbolReferenceAccess().getLeftParenthesisKeyword_4_0()), new TokenAlias(false, false, grammarAccess.getAstExpressionSymbolReferenceAccess().getRightParenthesisKeyword_4_2()));
 		match_AstInitialize_DoKeyword_8_0_q = new TokenAlias(false, true, grammarAccess.getAstInitializeAccess().getDoKeyword_8_0());
 		match_AstStatementIf_ElseKeyword_4_0_q = new TokenAlias(false, true, grammarAccess.getAstStatementIfAccess().getElseKeyword_4_0());
 		match_AstTaggedTuple___LeftParenthesisKeyword_1_0_RightParenthesisKeyword_1_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAstTaggedTupleAccess().getLeftParenthesisKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getAstTaggedTupleAccess().getRightParenthesisKeyword_1_2()));
@@ -72,8 +70,6 @@ public abstract class AbstractCalSyntacticSequencer extends AbstractSyntacticSeq
 				emit_AstExpressionPostfix_LeftParenthesisKeyword_4_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_AstExpressionPostfix_LeftParenthesisKeyword_4_0_p.equals(syntax))
 				emit_AstExpressionPostfix_LeftParenthesisKeyword_4_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AstExpressionSymbolReference___LeftParenthesisKeyword_4_0_RightParenthesisKeyword_4_2__q.equals(syntax))
-				emit_AstExpressionSymbolReference___LeftParenthesisKeyword_4_0_RightParenthesisKeyword_4_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_AstInitialize_DoKeyword_8_0_q.equals(syntax))
 				emit_AstInitialize_DoKeyword_8_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_AstStatementIf_ElseKeyword_4_0_q.equals(syntax))
@@ -115,14 +111,6 @@ public abstract class AbstractCalSyntacticSequencer extends AbstractSyntacticSeq
 	 *     '('+
 	 */
 	protected void emit_AstExpressionPostfix_LeftParenthesisKeyword_4_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Syntax:
-	 *     ('(' ')')?
-	 */
-	protected void emit_AstExpressionSymbolReference___LeftParenthesisKeyword_4_0_RightParenthesisKeyword_4_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
