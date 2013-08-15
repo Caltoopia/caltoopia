@@ -208,6 +208,9 @@ public class IrTransformer {
 				AbstractActor actorInstantiated = Instantiator.instantiate(a, network);
 				TransUtil.AnnotatePass(actorInstantiated, IrPassTypes.Init, "0");
 				String nsName = Util.marshallQualifiedName(((TypeActor) a.getType()).getNamespace());
+				Annotation annotation = TransUtil.createAnnotation(actorInstantiated, "Instance");
+				TransUtil.setAnnotation(annotation, "name", a.getName());
+				TransUtil.setAnnotation(annotation, "id", a.getId());
 				System.out.println("[IrTransformer] Write actor instance named " + 
 									nsName + "__" + a.getName() + 
 									" of class " + ((TypeActor) a.getType()).getName());
