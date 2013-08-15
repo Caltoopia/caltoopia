@@ -224,22 +224,18 @@ public class CPrintUtil {
     }
     
     public static class dummyCB implements ITypeCallbacks {
-        @Override
         public String preTypeFn(Type type) {
             return "";
         }
 
-        @Override
         public String postTypeFn(Type type) {
             return "";
         }
 
-        @Override
         public String listTypeFn(TypeList type) {
             return "";
         }
 
-        @Override
         public String userTypeFn(TypeUser type) {
             return "";
         }

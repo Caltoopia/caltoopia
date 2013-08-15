@@ -98,13 +98,11 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
     
     //---------------Type callbacks -----------------------------------------
     protected class varCB implements ITypeCallbacks {
-        @Override
         public String preTypeFn(Type type) {
             // TODO Auto-generated method stub
             return "";
         }
 
-        @Override
         public String postTypeFn(Type type) {
             VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(type, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
             VarAccess varAccess = VarAccess.valueOf(TransUtil.getAnnotationArg(type, IrTransformer.VARIABLE_ANNOTATION, "VarAccess"));
@@ -116,7 +114,6 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
             return "";
         }
 
-        @Override
         public String listTypeFn(TypeList type) {
             varStr += ("[");
             varStr += (new CBuildExpression(type.getSize()).toStr());
@@ -124,7 +121,6 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
             return "";
         }
 
-        @Override
         public String userTypeFn(TypeUser type) {
             // TODO Auto-generated method stub
             return "";
