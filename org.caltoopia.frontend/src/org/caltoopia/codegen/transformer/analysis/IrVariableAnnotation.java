@@ -69,11 +69,14 @@ import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeBool;
+import org.caltoopia.ir.TypeConstructor;
+import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeFloat;
 import org.caltoopia.ir.TypeInt;
 import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.TypeProc;
+import org.caltoopia.ir.TypeRecord;
 import org.caltoopia.ir.TypeUint;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExpression;
@@ -161,6 +164,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		//Functions and procedures of different flavors
 		func,
 		proc,
+		actorFunc,
 		externFunc,
 		externProc,
 		importFunc,
@@ -187,7 +191,10 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		inPortVar,
 		inOutPortVar, //input var used on output directly
 		inOutPortPeekVar, //input var used on output directly and in guard
-		outPortVar //Only when directly used as variable on port, not if part of some expression giving the output port expression
+		outPortVar, //Only when directly used as variable on port, not if part of some expression giving the output port expression
+		//Declarations
+		declarationType,
+		memberDeclType
 	};
 	
 	public enum VarAccess {
@@ -298,7 +305,11 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 				if(inDecl instanceof VariableImport) {
 					t = VarType.importFunc;
 				} else {
-					t = VarType.func;
+				    if(currentActor==null) {
+				        t = VarType.func;
+				    } else {
+                        t = VarType.actorFunc;
+				    }
 				}
 			} else if(variable.getInitValue() instanceof ProcExpression) {
 				if(inDecl instanceof VariableImport) {
@@ -501,6 +512,21 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 	}
 	
 	@Override
+	public TypeDeclaration caseTypeDeclaration(TypeDeclaration decl) {
+		TransUtil.setAnnotation(decl,IrTransformer.VARIABLE_ANNOTATION,"VarType",VarType.declarationType.name());
+		super.caseTypeDeclaration(decl);
+		return decl;
+	}
+	
+    @Override
+    public Type caseTypeRecord(TypeRecord decl) {
+        for(Declaration m : decl.getMembers()) {
+            TransUtil.setAnnotation(m,IrTransformer.VARIABLE_ANNOTATION,"VarType",VarType.memberDeclType.name());
+        }
+        return decl;
+    }
+
+    @Override
 	public AbstractActor caseActor(Actor obj) {
 		currentActor = obj;
 		AbstractActor ret = super.caseActor(obj);

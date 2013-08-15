@@ -61,6 +61,7 @@ import org.caltoopia.ast2ir.Util;
 import org.caltoopia.codegen.CEnvironment;
 import org.caltoopia.codegen.CPrinter;
 import org.caltoopia.codegen.IR2CIR;
+import org.caltoopia.codegen.printer.CPrinterTop;
 import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation;
 import org.caltoopia.codegen.IrDottyPrinter;
@@ -307,7 +308,9 @@ public class Cal2C {
 				altCodegen=true;
 			}
 			if(altCodegen) {
+                out.println("#*#*#*#*#*#*#*#*#*#*# Init  #*#*#*#*#*#*#*##*#*#*#");
 				IrTransformer.IrTransformNetworkInit(session.getElaboratedNetwork());
+                out.println("#*#*#*#*#*#*#*#*#*# Transform #*#*#*#*#*#*##*#*#*#");
 				new IrTransformer(session.getElaboratedNetwork().getType(), session, 
 						Arrays.asList(	IrTransformer.IrPassTypes.Variable,
 										IrTransformer.IrPassTypes.TypeUsage,
@@ -316,7 +319,10 @@ public class Cal2C {
 										IrTransformer.IrPassTypes.MoveInitValueExpr)
 										);
 				//For now run this to make sure the top network type declarations don't have type decl imports
+                out.println("#*#*#*#*#*#*#*#*#*# Type decl #*#*#*#*#*#*##*#*#*#");
 				new TypeMatchDeclaration().doSwitch(session.getElaboratedNetwork());
+                out.println("#*#*#*#*#*#*#*#*#*#   Print   #*#*#*#*#*#*##*#*#*#");
+				new CPrinterTop(session);
 			} else {
 				new IrXmlPrinter(session.getOutputFolder()).caseNetwork(session.getElaboratedNetwork());
 				//Transform the elaborated top network
