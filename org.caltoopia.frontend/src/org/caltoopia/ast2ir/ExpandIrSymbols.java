@@ -95,7 +95,7 @@ public class ExpandIrSymbols {
 	    			a.setName("NAMESPACE");
 	    			for(String s:((Namespace) scope).getName()) {
 		    			AnnotationArgument aa = IrFactory.eINSTANCE.createAnnotationArgument();
-		    			aa.setId(s);
+		    			aa.setId("ns");
 		    			aa.setValue(s);
 		    			a.getArguments().add(aa);
 	    			}

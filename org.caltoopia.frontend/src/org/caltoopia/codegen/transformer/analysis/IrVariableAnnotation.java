@@ -309,12 +309,15 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 			} else {
 				if(inDecl instanceof VariableImport) {
 					t = VarType.importConstVar;
+                    TransUtil.setNamespaceAnnotation(inDecl, variable.getScope());
 				} else if(variable.getScope() instanceof Actor) {
 					if(variable.isConstant() && variable.getInitValue()!=null) {
 						if(variable.isParameter())
 							t = VarType.actorConstParamVar;
-						else
+						else {
 							t = VarType.constVar;
+	                        TransUtil.setNamespaceAnnotation(inDecl, variable.getScope());
+						}
 					} else {
 						if(variable.isParameter())
 							t = VarType.actorParamVar;
@@ -324,12 +327,14 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 				} else if(variable.getScope() instanceof Namespace) {
 					if(variable.isConstant() && variable.getInitValue()!=null) {
 							t = VarType.constVar;
+							TransUtil.setNamespaceAnnotation(inDecl, variable.getScope());
 					} else {
 						System.err.println("[IrAnnotate] Did not expect a non-const var in namespace "+ ((Namespace)variable.getScope()).getName() + " and of class " + variable.getClass());
 					}
 				} else if(variable.getScope() instanceof Network) {
 					if(variable.isConstant() && variable.getInitValue()!=null) {
 							t = VarType.constVar;
+                            TransUtil.setNamespaceAnnotation(inDecl, variable.getScope());
 					} else {
 						System.err.println("[IrAnnotate] Did not expect a non-const var in network of class " + variable.getClass());
 					}
@@ -459,6 +464,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 	public Expression caseVariableExpression(VariableExpression var) {
 		VarType t = findVariableType(var.getVariable());
 		TransUtil.setAnnotation(var,IrTransformer.VARIABLE_ANNOTATION,"VarType",t.name());
+		TransUtil.copyNamespaceAnnotation(var, var.getVariable());
 		VarAccess va = VarAccess.unknown;
 		//Put the access annotation in the map, will be replicated in caseAction to all variables, var ref and exp refering to the same id
 		if(currentWrite!=null) {
@@ -477,6 +483,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 	public VariableReference caseVariableReference(VariableReference var) {
 		VarType t = findVariableType(var.getDeclaration());
 		TransUtil.setAnnotation(var,IrTransformer.VARIABLE_ANNOTATION,"VarType",t.name());
+        TransUtil.copyNamespaceAnnotation(var, var.getDeclaration());
 		VarAccess va = VarAccess.unknown;
 		//Put the access annotation in the map, will be replicated in caseAction to all variables, var ref and exp refering to the same id
 		if(currentRead!=null) {

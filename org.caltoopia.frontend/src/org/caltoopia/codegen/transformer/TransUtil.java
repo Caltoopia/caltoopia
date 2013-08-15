@@ -50,7 +50,9 @@ import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Annotation;
 import org.caltoopia.ir.AnnotationArgument;
 import org.caltoopia.ir.IrFactory;
+import org.caltoopia.ir.Namespace;
 import org.caltoopia.ir.Node;
+import org.caltoopia.ir.Scope;
 import org.eclipse.emf.ecore.EObject;
 
 public class TransUtil {
@@ -74,6 +76,70 @@ public class TransUtil {
 		return a;
 	}
 
+    static public void setNamespaceAnnotation(Node node, Scope scope) {
+        if(scope instanceof Namespace) {
+            Annotation a = getAnnotation(node,"NAMESPACE");
+            if(a==null) {
+                a = IrFactory.eINSTANCE.createAnnotation();
+                a.setName("NAMESPACE");
+            }
+            for(String s:((Namespace) scope).getName()) {
+                AnnotationArgument aa = IrFactory.eINSTANCE.createAnnotationArgument();
+                aa.setId("ns");
+                aa.setValue(s);
+                a.getArguments().add(aa);
+            }
+            node.getAnnotations().add(a);
+        } else {
+            //Just to be able to track when we miss a namespace annotation
+            Annotation a = getAnnotation(node,"NAMESPACE");
+            if(a==null) {
+                a = IrFactory.eINSTANCE.createAnnotation();
+                a.setName("NAMESPACE");
+                AnnotationArgument aa = IrFactory.eINSTANCE.createAnnotationArgument();
+                aa.setId("ns");
+                aa.setValue("MISSING_NAMESPACE");
+                a.getArguments().add(aa);
+                node.getAnnotations().add(a);
+            }
+        }
+    }
+
+    static public void copyNamespaceAnnotation(Node dst, Node src) {
+        Annotation aSrc = getAnnotation(src,"NAMESPACE");
+        if(aSrc==null) {
+            return;
+        }
+        Annotation aDst = getAnnotation(dst,"NAMESPACE");
+        if(aDst==null) {
+            aDst = IrFactory.eINSTANCE.createAnnotation();
+            aDst.setName("NAMESPACE");
+        } else {
+            //Don't overwrite
+            return;
+        }
+        for(AnnotationArgument aaSrc: aSrc.getArguments()) {
+            AnnotationArgument aaDst = IrFactory.eINSTANCE.createAnnotationArgument();
+            aaDst.setId("ns");
+            aaDst.setValue(aaSrc.getValue());
+            aDst.getArguments().add(aaDst);
+        }
+        dst.getAnnotations().add(aDst);
+    }
+
+    static public String getNamespaceAnnotation(Node node) {
+        Annotation a = getAnnotation(node,"NAMESPACE");
+        if(a==null) {
+            return "";
+        } else {
+            String ns = "";
+            for(AnnotationArgument aa: a.getArguments()) {
+                ns += "__" + aa.getValue();
+            }
+            return ns;
+        }
+    }
+	
 	static public Annotation getAnnotation(EObject obj, String name) {
 		List<Annotation> annotations = null;
 		//Most obj is a node
