@@ -78,6 +78,7 @@ import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.TypeProc;
 import org.caltoopia.ir.TypeRecord;
 import org.caltoopia.ir.TypeUint;
+import org.caltoopia.ir.TypeUser;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExpression;
 import org.caltoopia.ir.VariableExternal;
@@ -170,8 +171,10 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		importFunc,
 		importProc,
 		//Normal variables of different flavors
-		externBuiltInTypeVar,
-		externOtherTypeVar,
+        externBuiltInTypeVar,
+        externBuiltInListTypeVar,
+        externOtherTypeVar, //TODO frontend won't allow user types in external declarations
+        externOtherListTypeVar,  //TODO frontend won't allow user types in external declarations
 		importConstVar,
 		constVar,
 		generatorVar,
@@ -420,7 +423,21 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 			//TODO any more types that should be classified as built in, how about lists?
 			} else if(type instanceof TypeBool || type instanceof TypeInt || type instanceof TypeUint || type instanceof TypeFloat) {
 				t = VarType.externBuiltInTypeVar;
-			} else {
+			} else if(type instanceof TypeList) {
+			    Type list = type;
+			    while(list instanceof TypeList) {
+			        list = ((TypeList)list).getType();
+			    }
+			    if(list instanceof TypeBool || list instanceof TypeInt || list instanceof TypeUint || list instanceof TypeFloat) {
+			        t = VarType.externBuiltInListTypeVar;
+			    } else if(list instanceof TypeUser) {
+                    t = VarType.externOtherListTypeVar;
+			    } else {
+	                serr.println("[IrAnnotate] Did not expect an external list variable of type "+list.getClass());
+			    }
+            } else if(type instanceof TypeUser) {
+                t = VarType.externOtherTypeVar;
+            } else {
 				serr.println("[IrAnnotate] Did not expect an external variable of type "+type.getClass());
 			}
 		} else {
@@ -511,6 +528,13 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		return super.caseVariable(var);
 	}
 	
+    @Override
+    public Declaration caseVariableExternal(VariableExternal var) {
+        VarType t = findVariableType(var);
+        TransUtil.setAnnotation(var,IrTransformer.VARIABLE_ANNOTATION,"VarType",t.name());
+        return super.caseVariableExternal(var);
+    }
+    
 	@Override
 	public TypeDeclaration caseTypeDeclaration(TypeDeclaration decl) {
 		TransUtil.setAnnotation(decl,IrTransformer.VARIABLE_ANNOTATION,"VarType",VarType.declarationType.name());
