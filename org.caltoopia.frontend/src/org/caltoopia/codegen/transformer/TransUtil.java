@@ -36,9 +36,12 @@
 
 package org.caltoopia.codegen.transformer;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.caltoopia.codegen.transformer.IrTransformer.IrPassTypes;
 import org.caltoopia.codegen.transformer.analysis.IrTypeStructureAnnotation.TypeMember;
@@ -266,4 +269,52 @@ public class TransUtil {
 			}
 		}
 	}
+
+	static public class AnnotationsFilter {
+	    public String annotation;
+	    public Set<String> args;
+	    public AnnotationsFilter(String a, String[] aa) {
+	        this.annotation = a;
+	        this.args = new HashSet<String>(Arrays.asList(aa));
+	    }
+	}
+	
+   //Copy all variable and type annotations on a node that match the filter, overwrite exist with no duplication
+   static public void copySelectedAnnotations(EObject dst, EObject src, AnnotationsFilter[] annotationsFilter) {
+        if(dst instanceof Node && src instanceof Node) {
+            for(AnnotationsFilter n: annotationsFilter) {
+                Annotation annotation = getAnnotation(src,n.annotation);
+                if(annotation != null) {
+                    Annotation adest = getAnnotation(dst, n.annotation);
+                    if(adest == null) {
+                        adest = IrFactory.eINSTANCE.createAnnotation();
+                        adest.setName(n.annotation);
+                    }
+                    Map<String,AnnotationArgument> existingIds = new HashMap<String,AnnotationArgument>();
+                    for(AnnotationArgument aa:adest.getArguments()) {
+                        existingIds.put(aa.getId(),aa);
+                    }
+                    for(AnnotationArgument aa:annotation.getArguments()) {
+                        if(n.args.contains(aa.getId())) {
+                            AnnotationArgument aadest = null;
+                            if(existingIds.containsKey(aa.getId())) {
+                                aadest = existingIds.get(aa.getId());
+                                aadest.setValue(aa.getValue());
+                            } else {
+                                aadest = IrFactory.eINSTANCE.createAnnotationArgument();
+                                aadest.setId(aa.getId());
+                                aadest.setValue(aa.getValue());
+                                adest.getArguments().add(aadest);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+   static public void copySelectedAnnotations(EObject dst, EObject src, AnnotationsFilter annotationsFilter) {
+       AnnotationsFilter[] af ={annotationsFilter};
+       copySelectedAnnotations(dst,src,af);
+   }
 }

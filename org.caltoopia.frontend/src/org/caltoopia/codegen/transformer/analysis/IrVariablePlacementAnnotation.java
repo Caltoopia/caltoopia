@@ -61,6 +61,7 @@ import org.caltoopia.ir.Generator;
 import org.caltoopia.ir.Guard;
 import org.caltoopia.ir.IrFactory;
 import org.caltoopia.ir.LambdaExpression;
+import org.caltoopia.ir.Member;
 import org.caltoopia.ir.Namespace;
 import org.caltoopia.ir.Network;
 import org.caltoopia.ir.Node;
@@ -95,6 +96,7 @@ import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.IrTransformer.IrPassTypes;
 import org.caltoopia.codegen.transformer.TransUtil;
+import org.caltoopia.codegen.transformer.TransUtil.AnnotationsFilter;
 import org.caltoopia.codegen.transformer.analysis.IrTypeStructureAnnotation.TypeMember;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarType;
 
@@ -244,10 +246,10 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 
 		return super.caseVariable(var);
 	}
-
+	
 	@Override
 	public AbstractActor caseNetwork(Network obj) {
-		//DEBUG
+		/*DEBUG
 		System.out.println("[IrVariablePlacement] Entered caseNetwork");
 		for(Declaration d: obj.getDeclarations()){
 			if(d instanceof TypeDeclaration) {
@@ -258,9 +260,22 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 				}
 			}
 		}
-		//DEBUG END
+		//DEBUG END*/
 		AbstractActor ret = super.caseNetwork(obj);
-		//DEBUG
+        new IrReplaceSwitch(){
+            @Override
+            public VariableReference caseVariableReference(VariableReference var) {
+                TransUtil.copySelectedAnnotations(var, var.getDeclaration(), new AnnotationsFilter(IrTransformer.VARIABLE_ANNOTATION, new String[]{"VarPlacement"}));
+                return var;
+            }
+
+            @Override
+            public VariableExpression caseVariableExpression(VariableExpression var) {
+                TransUtil.copySelectedAnnotations(var, var.getVariable(), new AnnotationsFilter(IrTransformer.VARIABLE_ANNOTATION, new String[]{"VarPlacement"}));
+                return var;
+            }
+        }.doSwitch(ret);
+		/*DEBUG
 		System.out.println("[IrVariablePlacement] Done super.caseNetwork");
 		for(Declaration d: obj.getDeclarations()){
 			if(d instanceof TypeDeclaration) {
@@ -271,14 +286,14 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 				}
 			}
 		}
-		//DEBUG END
+		//DEBUG END*/
 		String path = TransUtil.getPath(ret);
 		TransUtil.AnnotatePass(ret, IrPassTypes.VariablePlacement, "0");
 		ActorDirectory.addTransformedActor(ret, null, path);
 
 		for(ActorInstance a : obj.getActors()) {
 			AbstractActor actor=null;
-			//DEBUG
+			/*DEBUG
 			System.out.println("[IrVariablePlacement] Before actor instance " + a.getName());
 			for(Declaration d: obj.getDeclarations()){
 				if(d instanceof TypeDeclaration) {
@@ -289,7 +304,7 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 					}
 				}
 			}
-			//DEBUG END
+			//DEBUG END*/
 			try {
 				System.out.println("[IrAnnotateVariablePlacement] Read in actor instance '" + a.getName() + "' of class " + ((TypeActor) a.getType()).getName());
 				actor = (AbstractActor) ActorDirectory.findTransformedActor(a);
@@ -297,7 +312,7 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 				//serr.println("[IrAnnotateVariable] Internal error could not get actor of type " + a.getType().toString());
 			}
 			if(actor!=null && !(actor instanceof ExternalActor)) {
-				//DEBUG
+				/*DEBUG
 				System.out.println("[IrVariablePlacement] Imported type decl from actor instance " + a.getName());
 				for(Declaration di: actor.getDeclarations()){
 					if(di instanceof TypeDeclarationImport) {
@@ -314,7 +329,7 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 						}
 					}
 				}
-				//DEBUG END
+				//DEBUG END*/
 				actor = (AbstractActor) doSwitch(actor);
 				path = TransUtil.getPath(actor);
 				TransUtil.AnnotatePass(actor, IrPassTypes.VariablePlacement, "0");

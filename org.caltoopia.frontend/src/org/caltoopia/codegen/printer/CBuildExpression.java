@@ -37,6 +37,7 @@
 package org.caltoopia.codegen.printer;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.caltoopia.ast2ir.Stream;
@@ -47,8 +48,10 @@ import org.caltoopia.codegen.CodegenError;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.TransUtil;
+import org.caltoopia.codegen.transformer.analysis.IrTypeStructureAnnotation.TypeMember;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarAccess;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarType;
+import org.caltoopia.codegen.transformer.analysis.IrVariablePlacementAnnotation.VarPlacement;
 import org.caltoopia.ir.BinaryExpression;
 import org.caltoopia.ir.BooleanLiteral;
 import org.caltoopia.ir.Declaration;
@@ -86,14 +89,107 @@ public class CBuildExpression extends IrSwitch<Boolean> {
     
     public String toStr() {
         Boolean res = doSwitch(expression);
-        if(!res) {
-            CodegenError.err("Expression builder", exprStr);
-        }
         return exprStr;
     }
 
     private void enter(EObject obj) {}
     private void leave() {}
+    
+    //---------------------util------------------------------------
+    //Prints indexStr, but also returns boolean true when the resulting type is not a list
+    protected Boolean indexStr(List<Expression> index, Type varType) {
+        if(index!=null && !index.isEmpty() && varType instanceof TypeList) {
+            Type list = varType;
+            for (Iterator<Expression> i = index.iterator(); i.hasNext();) {
+                Expression e = i.next();
+                exprStr += ("[");
+                if(rangechk) {
+                    exprStr += ("RANGECHK(");
+                }
+                doSwitch(e);
+                if(rangechk) {
+                    exprStr += (",");
+                    doSwitch(((TypeList)list).getSize());
+                    exprStr += (")");
+                }
+                list = ((TypeList)list).getType();
+                exprStr += ("]");
+            }
+            return !(list instanceof TypeList);
+        }
+        return false;
+    }
+    
+    
+    private boolean directMember(Member member) {
+        TypeMember typeMember = TypeMember.valueOf(TransUtil.getAnnotationArg(member, IrTransformer.TYPE_ANNOTATION, "TypeStructure"));
+        boolean direct = true;
+        switch(typeMember) {
+        case unknown:
+            CodegenError.err("Expression builder", "unknown placement of member " + member.getName());
+        case builtin:
+        case byListSome: //Used when list of decided size and inlined  but have deeper members that are not
+        case byListFull: //Used when list of decided size and inlined and all deeper members also (including lists of builtins)
+        case inlineSome: //Used when user type that is inlined but have deeper members that are not
+        case inlineFull: //Used when user type is inlined and all deeper members also
+            direct = true;
+            break;
+        case byRef: //Used when either type (or list of non-decided size?)
+            direct = false;
+            break;
+        default:
+        }
+        return direct;
+    }
+    
+    private boolean directVar(VariableExpression var) {
+        VarPlacement varPlacement = VarPlacement.valueOf(TransUtil.getAnnotationArg(var, IrTransformer.VARIABLE_ANNOTATION, "VarPlacement"));
+        boolean direct = true;
+        switch(varPlacement) {
+        case unknown:
+            CodegenError.err("Expression builder", "unknown placement of var expr " + var.getVariable().getName());
+        case constant:
+        case actor: //Placed in constructor
+        case auto:
+        case heap:
+        case fifo:
+            direct = true;
+            break;
+        case ref: //used when passing as parameter as ref
+        case fifoList:
+            direct = false;
+            break;
+        default:
+        }
+        return direct;
+    }
+    
+    private void printOperator(String operator) {
+        if (operator.equals("=")) {
+            exprStr += ("==");
+        } else if (operator.equals(":=")) {
+            exprStr += ("=");
+        } else if (operator.equals("and")) {
+            exprStr += ("&&");
+        } else if (operator.equals("or")) {
+            exprStr += ("||");
+        } else if (operator.equals("bitand")) {
+            exprStr += ("&");
+        } else if (operator.equals("bitor")) {
+            exprStr += ("|");
+        } else if (operator.equals("not")) {
+            exprStr += ("!");
+        } else if (operator.equals("mod")) {
+            exprStr += ("%");
+        } else if (operator.equals(">>>")) {
+            exprStr += (">>");
+        } else {
+            exprStr += (operator);
+        }           
+        
+    }
+
+    //---------------------caseX-----------------------------------
 
     @Override
     public Boolean caseIntegerLiteral(IntegerLiteral lit) {
@@ -138,8 +234,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         }
         if(!lit.getGenerators().isEmpty()) {
             exprStr = "/* Don't know what to do with a generator yet "+ lit.toString() +"*/";
-            leave();
-            return false;
+            CodegenError.err("Expression builder", "Don't know what to do with a generator yet "+ lit.toString() + ", check output!");
         }
         exprStr += ("}");
         leave();
@@ -151,7 +246,6 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         enter(var);
         VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(var, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
 
-        boolean constant = false;
         switch(varType) {
         case actorVar:
             exprStr += ("thisActor->");
@@ -159,35 +253,17 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         case importConstVar:
         case constVar:
             exprStr += TransUtil.getNamespaceAnnotation(var) + "__";
-            constant = true;
             break;
         default:
         }
         exprStr += (CPrintUtil.validCName(var.getVariable().getName()));
-        if (!var.getIndex().isEmpty()) {
-            Type list = ((Variable)var.getVariable()).getType();
-            for (Iterator<Expression> i = var.getIndex().iterator(); i.hasNext();) {
-                Expression e = i.next();
-                exprStr += ("[");
-                if(rangechk) {
-                    exprStr += ("RANGECHK(");
-                }
-                doSwitch(e);
-                if(rangechk) {
-                    exprStr += (",");
-                    doSwitch(((TypeList)list).getSize());
-                    exprStr += (")");
-                    list = ((TypeList)list).getType();
-                }
-                exprStr += ("]");
-            }
-        }
 
-        boolean hasIndex=var.getIndex().isEmpty()?false:true;
+        boolean hasIndex = indexStr(var.getIndex(),((Variable)var.getVariable()).getType());
+        boolean direct = directVar(var);
         for (Member m : var.getMember()) {
-            exprStr += ((constant||hasIndex)?".":"->");
-            doSwitch(m);
-            hasIndex = m.getIndex().isEmpty()?false:true;
+            exprStr += ((direct||hasIndex)?".":"->");
+            hasIndex = caseMember(m);
+            direct = directMember(m);
         }
 
         leave();
@@ -195,78 +271,12 @@ public class CBuildExpression extends IrSwitch<Boolean> {
     }
     
     @Override
-    public Boolean caseVariableReference(VariableReference var) {
-        enter(var);
-        VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(var, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
-        VarAccess varAccess = VarAccess.valueOf(TransUtil.getAnnotationArg(var, IrTransformer.VARIABLE_ANNOTATION, "VarAccess"));
-        String typeUsage = TransUtil.getAnnotationArg(var, IrTransformer.TYPE_ANNOTATION, "TypeUsage");
-        exprStr +=("/* VR " +
-                varType.name() +", " +
-                varAccess.name() +", " +
-                typeUsage +" */");
-        /*
-        boolean constant = false;
-        if(actorStructDecl.contains(var.getDeclaration().getId())) {
-            exprStr += ("thisActor->");
-        } else if(var.getDeclaration() instanceof VariableImport) {
-            exprStr += (Util.marshallQualifiedName(((VariableImport)var.getDeclaration()).getNamespace())+"_");
-            constant=true;
-        }
-        exprStr += (validCName(var.getDeclaration().getName()));
-        if (!var.getIndex().isEmpty()) {
-            Type list = var.getDeclaration().getType();
-            for (Iterator<Expression> i = var.getIndex().iterator(); i.hasNext();) {
-                Expression e = i.next();
-                exprStr += ("[");
-                if(rangechk) {
-                    exprStr += ("RANGECHK(");
-                }
-                doSwitch(e);
-                if(rangechk) {
-                    exprStr += (",");
-                    doSwitch(((TypeList)list).getSize());
-                    exprStr += (")");
-                    list = ((TypeList)list).getType();
-                }
-                exprStr += ("]");
-            }
-        }
-        boolean hasIndex=var.getIndex().isEmpty()?false:true;
-        for (Member m : var.getMember()) {
-            //s.print(hasIndex?".":"->");
-            exprStr += ((constant||hasIndex)?".":"->");
-            doSwitch(m);
-            hasIndex = m.getIndex().isEmpty()?false:true;
-        }
-        */
-        leave();
-        return true;
-    }
-
-    @Override
     public Boolean caseMember(Member member) {
         enter(member);
         exprStr += (CPrintUtil.validCName(member.getName()));
-        if (!member.getIndex().isEmpty()) {
-            Type list = member.getType();
-            for (Iterator<Expression> i = member.getIndex().iterator(); i.hasNext();) {
-                Expression e = i.next();
-                exprStr += ("[");
-                if(rangechk) {
-                    exprStr += ("RANGECHK(");
-                }
-                doSwitch(e);
-                if(rangechk) {
-                    exprStr += (",");
-                    doSwitch(((TypeList)list).getSize());
-                    exprStr += (")");
-                    list = ((TypeList)list).getType();
-                }
-                exprStr += ("]");
-            }
-        }
+        boolean hasIndex = indexStr(member.getIndex(),member.getType());
         leave();
-        return true;
+        return hasIndex;
     }
 
     @Override
@@ -296,31 +306,6 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         return true;
     }
 
-    private void printOperator(String operator) {
-        if (operator.equals("=")) {
-            exprStr += ("==");
-        } else if (operator.equals(":=")) {
-            exprStr += ("=");
-        } else if (operator.equals("and")) {
-            exprStr += ("&&");
-        } else if (operator.equals("or")) {
-            exprStr += ("||");
-        } else if (operator.equals("bitand")) {
-            exprStr += ("&");
-        } else if (operator.equals("bitor")) {
-            exprStr += ("|");
-        } else if (operator.equals("not")) {
-            exprStr += ("!");
-        } else if (operator.equals("mod")) {
-            exprStr += ("%");
-        } else if (operator.equals(">>>")) {
-            exprStr += (">>");
-        } else {
-            exprStr += (operator);
-        }           
-        
-    }
-
     @Override
     public Boolean caseUnaryExpression(UnaryExpression expr) {
         enter(expr);
@@ -332,8 +317,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
             exprStr += ("sizeof");
         } else if (operator.equals("old")) {
             exprStr += ("/* Usage of unary operator old is not supported! */");
-            leave();
-            return false;
+            CodegenError.err("Expression builder", "Usage of unary operator old is not supported, check output!");
         } else {
             exprStr += (operator);
         }           
