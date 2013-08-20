@@ -121,6 +121,7 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 
 	public enum VarPlacement {
 		unknown,
+		code, //This variable declaration is a function or procedure etc
 		constant,
 		actor, //Placed in constructor
 		auto,
@@ -240,6 +241,14 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 			} else {
 				placement = VarPlacement.heap;
 			}
+		} else if(Arrays.asList(
+                IrVariableAnnotation.VarType.func.name(),
+                IrVariableAnnotation.VarType.proc.name(),
+                IrVariableAnnotation.VarType.importFunc.name(),
+                IrVariableAnnotation.VarType.externProc.name(),
+                IrVariableAnnotation.VarType.externFunc.name(),
+                IrVariableAnnotation.VarType.importProc.name()).contains(annotations.get("VarType"))) {
+		    placement = VarPlacement.code;
 		}
 		
 		TransUtil.setAnnotation(varAnnotation,"VarPlacement",placement.name());
@@ -331,6 +340,19 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 				}
 				//DEBUG END*/
 				actor = (AbstractActor) doSwitch(actor);
+		        new IrReplaceSwitch(){
+		            @Override
+		            public VariableReference caseVariableReference(VariableReference var) {
+		                TransUtil.copySelectedAnnotations(var, var.getDeclaration(), new AnnotationsFilter(IrTransformer.VARIABLE_ANNOTATION, new String[]{"VarPlacement"}));
+		                return var;
+		            }
+
+		            @Override
+		            public VariableExpression caseVariableExpression(VariableExpression var) {
+		                TransUtil.copySelectedAnnotations(var, var.getVariable(), new AnnotationsFilter(IrTransformer.VARIABLE_ANNOTATION, new String[]{"VarPlacement"}));
+		                return var;
+		            }
+		        }.doSwitch(actor);
 				path = TransUtil.getPath(actor);
 				TransUtil.AnnotatePass(actor, IrPassTypes.VariablePlacement, "0");
 				ActorDirectory.addTransformedActor(actor, a, path);
