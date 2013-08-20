@@ -145,13 +145,17 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
         VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(variable, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
         switch(varType) {
         case memberDeclType:
+        case actorVar:
+        case procVar:
+        case generatorVar:
             buildVarDeclaration(variable);
             break;
         case funcInParamVar:
+        case procInParamVar:
             buildParamDeclaration(variable);
             break;
         default:
-            varStr += ("/*TODO BVD "+variable.getName() + " */");
+            varStr += ("/*TODO BVD "+variable.getName() + " of varType " + varType.name() + " */");
         }
         leave();
         return true;

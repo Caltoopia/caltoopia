@@ -38,15 +38,21 @@ package org.caltoopia.codegen.printer;
 
 import java.util.Iterator;
 
+import org.caltoopia.ast2ir.Stream;
 import org.caltoopia.ast2ir.Util;
+import org.caltoopia.ast2ir.Stream.Indent;
 import org.caltoopia.codegen.CodegenError;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.printer.CBuildVarDeclaration.varCB;
 import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.TransUtil;
+import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarAccess;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarType;
+import org.caltoopia.ir.Declaration;
+import org.caltoopia.ir.Block;
 import org.caltoopia.ir.LambdaExpression;
 import org.caltoopia.ir.ProcExpression;
+import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeLambda;
@@ -54,67 +60,74 @@ import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.util.IrSwitch;
 import org.eclipse.emf.ecore.EObject;
 
-public class CBuildFuncDeclaration extends IrSwitch<Boolean> {
-    String funcStr="";
-    Variable variable;
+public class CBuildBody extends IrSwitch<Boolean> {
+    String bodyStr="";
+    Block body;
     boolean header = false;
-    public CBuildFuncDeclaration(Variable variable, boolean header) {
-        funcStr="";
-        this.header = header;
-        this.variable = variable;
+    
+    private IndentStr ind = null;
+
+    public CBuildBody(Block body, IndentStr ind) {
+        bodyStr="";
+        this.body = body;
+        if(ind == null) {
+            this.ind = new IndentStr();
+        } else {
+            this.ind = ind;
+        }
     }
     
     public String toStr() {
-        Boolean res = doSwitch(variable);
+        Boolean res = doSwitch(body);
         if(!res) {
-            CodegenError.err("Func declaration builder", funcStr);
+            CodegenError.err("Body builder", bodyStr);
         }
-        return funcStr;
+        return bodyStr;
     }
     
     private void enter(EObject obj) {}
     private void leave() {}
-    
-    
 
-    public Boolean caseVariable(Variable variable) {
-        LambdaExpression lambda = (LambdaExpression) variable.getInitValue();
-        Type type = ((TypeLambda)lambda.getType()).getOutputType();
-        funcStr = new CBuildTypeName(type, new CPrintUtil.listStarCB()).toStr() + " ";
+    @Override
+    public Boolean caseBlock(Block block) {
+        enter(block);
+        bodyStr += ind.ind() + ("{") + ind.nl();
+        ind.inc();
+        for (Declaration d : block.getDeclarations()) {
+            VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
+            switch(varType) {
+            case constVar:
+                bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d,false,false).toStr()) + ";" + ind.nl();
+                break;
+            case actorVar:
+            case procVar:
+            case funcVar:
+            case actionVar:
+            case actionInitInDepVar:
+                if(((Variable)d).getInitValue() != null) {
+                    //TODO should have separate class for var declaration with initialization
+                    bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d,false,true).toStr()) + ";" + ind.nl();
+                } else {
+                    bodyStr += ind.ind() + (new CBuildVarDeclaration((Variable) d).toStr()) + ";" + ind.nl();
+                }
+                break;
+            default:
+                VarAccess varAccess = VarAccess.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarAccess"));
+                String typeUsage = TransUtil.getAnnotationArg(d, IrTransformer.TYPE_ANNOTATION, "TypeUsage");
+                String varStr =(varType.name() +", " +
+                        varAccess.name() +", " +
+                        typeUsage);
+                bodyStr += ("/*TODO BD "+d.getName() + ", " + varStr + " */");
+            } 
+        }
 
-        String thisStr = TransUtil.getNamespaceAnnotation(variable);
-        
-        funcStr += thisStr + "__";
-        funcStr += CPrintUtil.validCName(variable.getName()) + "(";
+        for (Statement s : block.getStatements()) {
+            bodyStr += new CBuildStatement(s,ind).toStr();
+        }
 
-        VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(type, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
-        if(varType == VarType.actorFunc) {
-            funcStr += ("ActorInstance_" + thisStr + "* thisActor");
-            if(!lambda.getParameters().isEmpty())
-                funcStr += (", ");
-        }
-        for(Iterator<Variable> i = lambda.getParameters().iterator();i.hasNext();) {
-            Variable p = i.next();
-            //FIXME must fix so that it can handle params
-            funcStr += new CBuildVarDeclaration(p).toStr();
-            if (i.hasNext()) funcStr += ", ";
-        }
-        funcStr += (")");
-        if(header) {
-            funcStr += (";\n");
-        } else {
-            if(lambda.getBody() instanceof ProcExpression) {
-                //Expression have been expanded to nameless proc to get a block
-                //doSwitch(((ProcExpression)lambda.getBody()).getBody());
-                funcStr += "/* Here body statements should be printed */\n";
-            } else {
-                funcStr += ("{\n");
-                funcStr += ("\treturn ");
-                funcStr += new CBuildExpression(lambda.getBody()).toStr();
-                funcStr += (";\n");
-                funcStr += ("}\n");
-            }
-        }
+        ind.dec();
+        bodyStr += ind.ind() + ("}") + ind.nl();
+        leave();
         return true;
     }
 

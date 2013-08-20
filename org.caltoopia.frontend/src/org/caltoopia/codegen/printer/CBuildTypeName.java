@@ -184,8 +184,8 @@ public class CBuildTypeName extends IrSwitch<Boolean> {
         enter(type);
         typeStr += cb.preTypeFn(type);
         doSwitch(type.getType());
-        typeStr += cb.listTypeFn(type);
         typeStr += cb.postTypeFn(type);
+        typeStr += cb.listTypeFn(type);
         leave();
         return true;
     }

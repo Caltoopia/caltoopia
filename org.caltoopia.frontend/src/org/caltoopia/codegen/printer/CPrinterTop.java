@@ -65,13 +65,17 @@ import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarAccess;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarType;
 import org.caltoopia.ir.AbstractActor;
+import org.caltoopia.ir.Action;
 import org.caltoopia.ir.Actor;
 import org.caltoopia.ir.ActorInstance;
 import org.caltoopia.ir.Annotation;
 import org.caltoopia.ir.AnnotationArgument;
 import org.caltoopia.ir.Connection;
 import org.caltoopia.ir.Declaration;
+import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.ExternalActor;
+import org.caltoopia.ir.ForwardDeclaration;
+import org.caltoopia.ir.Guard;
 import org.caltoopia.ir.IntegerLiteral;
 import org.caltoopia.ir.LambdaExpression;
 import org.caltoopia.ir.Namespace;
@@ -79,14 +83,19 @@ import org.caltoopia.ir.Network;
 import org.caltoopia.ir.Point2PointConnection;
 import org.caltoopia.ir.Port;
 import org.caltoopia.ir.PortInstance;
+import org.caltoopia.ir.PortRead;
+import org.caltoopia.ir.PortWrite;
 import org.caltoopia.ir.ProcExpression;
 import org.caltoopia.ir.ReturnValue;
+import org.caltoopia.ir.State;
+import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.StringLiteral;
 import org.caltoopia.ir.TaggedExpression;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeBool;
 import org.caltoopia.ir.TypeDeclaration;
+import org.caltoopia.ir.TypeDeclarationImport;
 import org.caltoopia.ir.TypeExternal;
 import org.caltoopia.ir.TypeFloat;
 import org.caltoopia.ir.TypeInt;
@@ -110,6 +119,8 @@ public class CPrinterTop extends IrSwitch<Stream> {
     boolean debugPrint = false;
     boolean header = false;
     CEnvironment cenv;
+    String topHeaderFilename = null;
+    Actor currentActor = null;
 
     //-----------------------------------------------------------------------------
     
@@ -134,6 +145,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
 
         nsName = Util.marshallQualifiedName(elaboratedNetworkType.getNamespace());
         baseName = nsName + "__" + elaboratedNetworkType .getName();
+        topHeaderFilename = baseName + ".h";
         file = session.getOutputFolder() + File.separator + baseName;
         s = new Stream(file + ".h");
         out.println("Writing '" + file + ".h'");
@@ -197,8 +209,16 @@ public class CPrinterTop extends IrSwitch<Stream> {
 
     //---------------------------------------------------------------------
     
-    private void enter(EObject obj) {}
-    private void leave() {}
+    private void enter(EObject obj) {
+        if(obj instanceof Actor) {
+            currentActor = (Actor) obj;
+        }
+    }
+    private void leave(EObject obj) {
+        if(obj instanceof Actor) {
+            currentActor = null;
+        }
+    }
     
     //----------------------------------------------------------------------
 
@@ -403,35 +423,320 @@ public class CPrinterTop extends IrSwitch<Stream> {
             }
         }
     
-        leave();
+        leave(network);
         return s;        
     }
 
     @Override
     public Stream caseActor(Actor actor) {
+        Map<String, String> inputPortMap = new HashMap<String, String>();
+        Map<String, String> outputPortMap = new HashMap<String, String>();
+
         enter(actor);
         s.println("// " + Util.marshallQualifiedName(actor.getType().getNamespace()) + ", "+
                     actor.getType().getName() +", "+
                     TransUtil.getAnnotationArg(actor, "Instance", "name") + ", " +
                     TransUtil.getAnnotationArg(actor, "Instance", "id"));
-        leave();
+        
+        s.println("#include \"actors-rts.h\"");
+        s.println("#include \"natives.h\"");
+        s.println("#include \"" + topHeaderFilename + "\"");
+
+        String thisStr = Util.marshallQualifiedName(actor.getType().getNamespace()) + "_" + TransUtil.getAnnotationArg(actor, "Instance", "name");
+        String actorId = "ActorInstance_" + thisStr;
+        
+        printCIncludes(actor.getDeclarations());
+        
+        for (int i = 0; i < actor.getInputPorts().size(); i++) {
+            Port p = actor.getInputPorts().get(i);          
+            s.println("#define  " + "IN" + i + "_" + p.getName() + " ART_INPUT(" + i + ")");
+            inputPortMap.put(p.getName(), "IN" + i + "_" + p.getName());
+        }
+        
+        for (int i = 0; i < actor.getOutputPorts().size(); i++) {
+            Port p = actor.getOutputPorts().get(i);         
+            s.println("#define  " + "OUT" + i + "_" + p.getName() + " ART_OUTPUT(" + i + ")");
+            outputPortMap.put(p.getName(), "OUT" + i + "_" + p.getName());
+        }
+        s.println();
+
+
+        s.println("//Actor constants");
+        for (Declaration d : actor.getDeclarations()) {
+            VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
+            switch(varType) {
+            case actorConstParamVar:
+            case constVar:
+                doSwitch(d);
+                break;
+            default:
+                //s.println("/*TODO D " + d.getName() + "of varType " + varType.name() +"*/");
+            }
+        }   
+    
+        s.println();
+
+        s.println("//Actor state");
+        s.printlnInc("typedef struct {");
+        s.println("AbstractActorInstance base;");
+        
+        s.println("int _fsmState;"); 
+        for (Declaration d : actor.getDeclarations()) {
+            VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
+            switch(varType) {
+            case actorVar:
+            case actorParamVar:
+                doSwitch(d);
+                break;
+            //These are known to not be printed here, makes sure that the default is only called for things that miss code (besides the type import or forward)
+            case actorConstParamVar:
+            case constVar:
+            case proc:
+            case func:
+            case actorFunc:
+                break;
+            default:
+                s.println("/*TODO DD " + d.getName() + " of varType " + varType.name() + " and " + ((d instanceof ForwardDeclaration)?"forward declaration":(d instanceof TypeDeclarationImport)?"type import":"NOT anticipated") + " */");
+            }
+            /*
+            if (UtilIR.isNormalDef(decl) || UtilIR.isNormalInit(decl)) {
+                UtilIR.tag(decl,"const", false);
+                actorStructDecl.add(decl.getId());
+                doSwitch(((Variable)decl).getType());
+                if(UtilIR.isList(UtilIR.getType(((Variable)decl).getType()))) {
+                    Type type = ((Variable)decl).getType();
+                    while(type instanceof TypeList) {
+                        type = ((TypeList) type).getType();
+                        s.print("*");
+                    }
+                } else if(UtilIR.isRecord(UtilIR.getType(((Variable)decl).getType()))) {
+                        s.print("*");
+                }
+                s.println(" " + validCName(((Variable)decl).getName()) + ";");
+            }
+            */
+        }
+
+        s.printlnDec("} " + actorId + ";");
+        s.println();
+        
+        s.println("//Actor functions");
+        for (Declaration d : actor.getDeclarations()) {
+            VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
+            switch(varType) {
+            case actorFunc:
+            case proc:
+                doSwitch(d);
+                break;
+            //These are known to not be printed here, makes sure that the default is only called for things that miss code (besides the type import or forward)
+            case actorVar:
+            case actorParamVar:
+            case actorConstParamVar:
+            case constVar:
+            case func:
+                break;
+            default:
+                s.println("/*TODO DF " + d.getName() + " of varType " + varType.name() + " and " + ((d instanceof ForwardDeclaration)?"forward declaration":(d instanceof TypeDeclarationImport)?"type import":"NOT anticipated") +"*/");
+            }
+        }   
+
+        s.println("ART_ACTION_CONTEXT(" + actor.getInputPorts().size() + ", " + actor.getOutputPorts().size() + ")");
+        s.println();
+
+        for (Action a : actor.getActions()) {
+            s.println("ART_ACTION(" + a.getId() + ", " + actorId + ");");
+        }
+        s.println("ART_ACTION_SCHEDULER(" + thisStr + "_action_scheduler);");
+        s.println("static void " + actorId + "_constructor(AbstractActorInstance *);");
+        s.println();
+        
+
+        s.printlnInc("static const PortDescription inputPortDescriptions[]={");
+        for (int i = 0; i < actor.getInputPorts().size(); i++) {
+            Port p = actor.getInputPorts().get(i);
+            Type type=p.getType();
+            s.print("{" + (UtilIR.isRecord(type)?"1":"0") + ", \"" + p.getName() + "\", ");
+            s.print(CPrintUtil.createDeepSizeof(null, type));
+
+            if (i < actor.getInputPorts().size()) {
+                s.println("},");            
+            } else {
+                s.println("}");                         
+            }
+        }
+        s.printlnDec("};");
+
+        s.printlnInc("static const PortDescription outputPortDescriptions[]={");
+        for (int i = 0; i < actor.getOutputPorts().size(); i++) {
+            Port p = actor.getOutputPorts().get(i);         
+            Type type=p.getType();
+            s.print("{" + (UtilIR.isRecord(type)?"1":"0") + ", \"" + p.getName() + "\", ");
+            s.print(CPrintUtil.createDeepSizeof(null, type));
+
+            if (i < actor.getOutputPorts().size()) {
+                s.println("},");            
+            } else {
+                s.println("}");                         
+            }
+        }
+        s.printlnDec("};");
+        s.println();
+        
+        for (Action action : actor.getActions()) {
+            s.print("static const int portRate_in_" + action.getId() + "[] = {");
+            for (Iterator<Port> i = actor.getInputPorts().iterator(); i.hasNext();) {
+                Port p = i.next();
+                Expression rate = Util.createIntegerLiteral(0);
+                for (PortRead r : action.getInputs()) {
+                    if(r.getPort().getName().equals(p.getName())) {
+                        if (r.getRepeat()!=null) {
+                            rate = UtilIR.createExpression(r.getRepeat(), "*", Util.createIntegerLiteral(r.getVariables().size()));
+                        }
+                        else {
+                            rate = Util.createIntegerLiteral(r.getVariables().size());
+                        }
+                        
+                    }
+                }
+                s.print(new CBuildExpression(rate).toStr());
+                if (i.hasNext()) s.print(", ");
+            }
+            s.println("};");
+            s.println();            
+            
+            s.print("static const int portRate_out_" + action.getId() + "[] = {");
+            for (Iterator<Port> i = actor.getOutputPorts().iterator(); i.hasNext();) {
+                Port p = i.next(); 
+                Expression rate = Util.createIntegerLiteral(0);
+                for (PortWrite w : action.getOutputs()) {
+                    if(w.getPort().getName().equals(p.getName())) {
+                        if (w.getRepeat()!=null) {
+                            rate = UtilIR.createExpression(w.getRepeat(), "*", Util.createIntegerLiteral(w.getExpressions().size()));
+                        }
+                        else {
+                            rate = Util.createIntegerLiteral(w.getExpressions().size());
+                        }
+                    }
+                }
+                s.print(new CBuildExpression(rate).toStr());
+                if (i.hasNext()) s.print(", ");
+
+            }
+            s.println("};");
+            s.println();    
+        }
+
+        s.printlnInc("static const ActionDescription actionDescriptions[] = {");
+        for (Action action : actor.getActions()) {
+            s.println("{\"" + action.getId() + "\", portRate_in_" + action.getId() + ", portRate_out_" + action.getId() + "},");
+        }
+        s.printlnDec("};");
+        s.println();    
+        
+        s.printlnInc("ActorClass ActorClass_" + thisStr + " = INIT_ActorClass(");
+        s.println("\"" + thisStr + "\",");
+        s.println(actorId + ",");
+        s.println(actorId + "_constructor,");
+        s.println("0, //setParam not needed anymore (we instantiate with params)");
+        s.println(thisStr + "_action_scheduler,");
+        s.println("0, // no destructor");
+        s.println(actor.getInputPorts().size() + ", inputPortDescriptions,");
+        s.println(actor.getOutputPorts().size() + ", outputPortDescriptions,");
+        s.println(actor.getActions().size() + ", actionDescriptions");
+        s.printlnDec(");");
+        s.println();
+        
+        for (Action a : actor.getActions()) {
+            //TODO CBuildAction extends CBuildBody extends CBuildStatement
+            doSwitch(a);
+        }
+        
+        if(!actor.getInitializers().isEmpty()) {
+            for(Action a : actor.getInitializers()) {
+                if(!a.getOutputs().isEmpty()) {
+                    //TODO CBuildAction extends CBuildBody extends CBuildStatement
+                    doSwitch(a);
+                }
+            }
+        }
+
+        int i = 0;
+        for (State state : actor.getSchedule().getStates()) {
+            s.println("#define " + actorId + "__" + state.getName() + "_ID " + i++);
+        }
+
+        s.printlnInc("static void " + actorId + "_constructor(AbstractActorInstance *pBase) {");
+        s.println(actorId + " *thisActor=(" + actorId + "*) pBase;");
+
+        if(actor.getSchedule().getInitialState()!=null) {
+            s.println("thisActor->_fsmState = " + actorId + "__" + actor.getSchedule().getInitialState().getName() + "_ID;//Initial state"); 
+        } else if(!actor.getSchedule().getStates().isEmpty()){
+            s.println("thisActor->_fsmState = " + actorId + "__" + actor.getSchedule().getStates().get(0).getName() + "_ID;//First state"); 
+        }
+
+        //TODO constructor
+        /*
+        doSwitch(cir.actorConstructor.get(actor));
+        if(!actor.getInitializers().isEmpty()) {
+            for(Action a : actor.getInitializers()) {
+                if(a.getOutputs().isEmpty()) {
+                    s.println("{");
+                    s.inc();
+                    for(Declaration d : a.getDeclarations()) {
+                        doSwitch(d);
+                    }
+                    for(Statement d : a.getStatements()) {
+                        doSwitch(d);
+                    }
+                    s.dec();
+                    s.println("}");
+                }
+            }
+        }
+        if(isCActiveMode(actor)) 
+        {
+            s.println("{");
+            s.inc();
+            s.println("ActorClass *actorClass = (ActorClass *)thisActor->base.actorClass;");
+            s.println("actorClass->actorExecMode = 1;");
+            s.dec();
+            s.println("}");             
+        }
+        */
+
+        s.dec();
+        s.println();
+        s.println("}");
+        
+        //TODO scheduler
+        //doActionScheduler(actor);
+
+        
+        leave(actor);
         return s;
     }
     
     //------------------------VARIABLES, FUNC, PROC, ETC DECLARATIONS---------------------------------------
-    //------------------caseX
     @Override
     public Stream caseVariable(Variable variable) {
         enter(variable);
         VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(variable, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
         switch(varType) {
+        case actorConstParamVar:
         case constVar:
-            s.print(new CBuildConstDeclaration(variable,header).toStr());
+            s.print(new CBuildConstDeclaration(variable,header,!(currentActor==null)).toStr());
+            s.println(";");
+            break;
+        case actorVar:
+            s.print(new CBuildVarDeclaration(variable).toStr());
             s.println(";");
             break;
         case func:
         case actorFunc:
             s.print(new CBuildFuncDeclaration(variable,header).toStr());
+            break;
+        case proc:
+            s.print(new CBuildProcDeclaration(variable,header).toStr());
             break;
         default:
             VarAccess varAccess = VarAccess.valueOf(TransUtil.getAnnotationArg(variable, IrTransformer.VARIABLE_ANNOTATION, "VarAccess"));
@@ -439,15 +744,13 @@ public class CPrinterTop extends IrSwitch<Stream> {
             String varStr =(varType.name() +", " +
                     varAccess.name() +", " +
                     typeUsage);
-            s.println("/*TODO T "+variable.getName() + ", " + varStr + " */");
+            s.println("/*TODO V "+variable.getName() + ", " + varStr + " */");
         } 
-        leave();
+        leave(variable);
         return s;
     }
 
     //--------------------------TYPES-------------------------------------
-    
-    //----------------- caseX-----
     @Override
     public Stream caseTypeDeclaration(TypeDeclaration type) {
         if(header) {
@@ -465,7 +768,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
             }
             s.print("} ");
             s.println(type.getName() + "_t;");
-            leave();
+            leave(type);
             s.println("");
         }
         return s;
