@@ -153,6 +153,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         case auto:
         case heap:
         case fifo:
+        case code:
             direct = true;
             break;
         case ref: //used when passing as parameter as ref
