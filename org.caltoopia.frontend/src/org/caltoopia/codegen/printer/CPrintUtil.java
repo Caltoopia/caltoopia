@@ -37,6 +37,7 @@
 package org.caltoopia.codegen.printer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -45,13 +46,23 @@ import java.util.Map;
 import java.util.Set;
 
 import org.caltoopia.codegen.CEnvironment;
+import org.caltoopia.codegen.CodegenError;
+import org.caltoopia.codegen.UtilIR;
+import org.caltoopia.codegen.transformer.IrTransformer;
+import org.caltoopia.codegen.transformer.TransUtil;
+import org.caltoopia.codegen.transformer.analysis.IrTypeStructureAnnotation.TypeMember;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Annotation;
 import org.caltoopia.ir.AnnotationArgument;
+import org.caltoopia.ir.Expression;
+import org.caltoopia.ir.FunctionCall;
 import org.caltoopia.ir.Namespace;
+import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeList;
+import org.caltoopia.ir.TypeRecord;
 import org.caltoopia.ir.TypeUser;
+import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExternal;
 
 public class CPrintUtil {
@@ -247,4 +258,64 @@ public class CPrintUtil {
             return "*";
         }
     }
+    
+    static public String createDeepSizeof(Scope body, Type type) {
+        return createDeepSizeofInner(null,body, type, false);
+    }
+
+    static private String createDeepSizeofInner(String expr, Scope body, Type type, final boolean typeByRef) {
+        if(expr==null)
+            expr="";
+        expr += "(";
+        if(UtilIR.isRecord(type)) {
+            TypeRecord struct = (TypeRecord) UtilIR.getTypeDeclaration(type).getType();
+            //each member
+            for(int i=0;i<struct.getMembers().size();i++) {
+                Variable member=struct.getMembers().get(i);
+                TypeMember typeMember = TypeMember.valueOf(TransUtil.getAnnotationArg(member, IrTransformer.TYPE_ANNOTATION, "TypeStructure"));
+                switch(typeMember) {
+                case unknown:
+                    CodegenError.err("Deep sizeof", "unknown placement of member " + member.getName());
+                case builtin:
+                case byListFull: //Used when list of decided size and inlined and all deeper members also (including lists of builtins)
+                case inlineFull: //Used when user type is inlined and all deeper members also
+                    break;
+                case byListSome: //Used when list of decided size and inlined  but have deeper members that are not
+                case inlineSome: //Used when user type that is inlined but have deeper members that are not
+                    expr += "(";
+                    expr += createDeepSizeofInner(null,body,member.getType(),true);
+                    expr += ")";
+                    break;
+                case byRef: //Used when either type (or list of non-decided size?)
+                    expr += " + " + createDeepSizeofInner(null,body,member.getType(),false);
+                    break;
+                default:
+                }
+            }
+        }
+        expr += new CBuildTypeName(type, new dummyCB(){
+            @Override
+            public String preTypeFn(Type type) {
+                return "sizeof(";
+            }
+
+            @Override
+            public String postTypeFn(Type type) {
+                if(type instanceof TypeList && typeByRef) {
+                    return "*))";
+                }
+                return "))";
+            }
+
+            @Override
+            public String listTypeFn(TypeList type) {
+                if(!typeByRef) {
+                    return " * " + new CBuildExpression(type.getSize()).toStr();
+                }
+                return "";
+            }
+        }).toStr();
+        return expr;
+    }
+
 }
