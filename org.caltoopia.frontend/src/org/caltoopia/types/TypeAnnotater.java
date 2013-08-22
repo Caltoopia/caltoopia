@@ -36,22 +36,88 @@
 
 package org.caltoopia.types;
 
+import org.caltoopia.ast2ir.Util;
 import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.cli.DirectoryException;
 import org.caltoopia.ir.Declaration;
+import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.ForwardDeclaration;
+import org.caltoopia.ir.FunctionCall;
+import org.caltoopia.ir.IrFactory;
+import org.caltoopia.ir.ListExpression;
 import org.caltoopia.ir.Member;
 import org.caltoopia.ir.Type;
+import org.caltoopia.ir.TypeConstructorCall;
+import org.caltoopia.ir.TypeDeclaration;
+import org.caltoopia.ir.TypeDeclarationImport;
+import org.caltoopia.ir.TypeLambda;
+import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.TypeRecord;
+import org.caltoopia.ir.TypeUser;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExpression;
 import org.caltoopia.ir.VariableExternal;
 import org.caltoopia.ir.VariableImport;
 import org.caltoopia.ir.VariableReference;
 import org.caltoopia.ir.util.IrReplaceSwitch;
+import org.eclipse.emf.ecore.EObject;
 
 public class TypeAnnotater extends IrReplaceSwitch {
 	
+    @Override
+    public Expression caseFunctionCall(FunctionCall call) {
+        super.caseFunctionCall(call);
+
+        if(call.getType() == null && call.getFunction() instanceof VariableExpression) {
+            VariableExpression var = (VariableExpression) call.getFunction();
+            if(var.getType() instanceof TypeLambda) {
+                call.setType(((TypeLambda)var.getType()).getOutputType());
+            }
+        }
+        return call;
+    }
+
+    @Override
+    public Expression caseTypeConstructorCall(TypeConstructorCall call) {
+        super.caseTypeConstructorCall(call);
+        
+        if(call.getType() == null) {
+            Declaration decl = call.getTypedef();
+            if (decl instanceof TypeDeclarationImport) {
+                try {
+                    decl =  ActorDirectory.findTypeDeclaration((TypeDeclarationImport)decl);
+                } catch (DirectoryException x) {
+                    System.err.println("[TypeAnnotater] Internal Error - caseTypeConstructorCall");
+                    return call;
+                }
+            } else if (decl instanceof ForwardDeclaration) {
+                decl = ((ForwardDeclaration) decl).getDeclaration();
+            }
+            if(decl instanceof TypeDeclaration) {
+                TypeUser typeUser = IrFactory.eINSTANCE.createTypeUser();
+                typeUser.setDeclaration(decl);
+                call.setType(typeUser);
+            }
+        }        
+        return call;
+    }
+
+    @Override
+    public EObject caseListExpression(ListExpression expr) {
+        super.caseListExpression(expr);
+        
+        if(expr.getType()==null && !expr.getExpressions().isEmpty()) {
+            Type elemType = expr.getExpressions().get(0).getType();
+            if(elemType!=null) {
+                TypeList listType = IrFactory.eINSTANCE.createTypeList();
+                listType.setType(elemType);
+                listType.setSize(Util.createIntegerLiteral(expr.getExpressions().size()));
+                expr.setType(listType);
+            }
+        }
+        return expr;
+    }
+
 	@Override
 	public VariableExpression caseVariableExpression(VariableExpression varExpr) {
 		super.caseVariableExpression(varExpr);

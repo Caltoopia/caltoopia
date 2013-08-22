@@ -646,6 +646,9 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 		s.printlnInc("<Expr kind=\"Call\" id=\"" + expr.getId() + "\""
 				    + " context-scope=\"" + expr.getContext().getId() + "\">"); 
 		doAnnotations(expr);
+        if(expr.getType()!=null) {
+            doSwitch(expr.getType());
+        }
 		doSwitch(expr.getFunction());
 		s.printlnInc("<Args>");
 		for (Expression e : expr.getParameters()) {
@@ -778,6 +781,9 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 				    + " id=\"" + expr.getId() + "\""
 				    + " context-scope=\"" + expr.getContext().getId() + "\" >");
 		doAnnotations(expr);
+        if(expr.getType()!=null) {
+            doSwitch(expr.getType());
+        }
 		for (Generator g : expr.getGenerators()) {
 			caseGenerator(g);
 		}

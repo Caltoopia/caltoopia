@@ -657,6 +657,10 @@ public class IrXmlReader {
 			FunctionCall expr = IrFactory.eINSTANCE.createFunctionCall();
 			expr.setId(element.getAttribute("id"));
 			doAnnotations(expr, element);
+            Element child = getChild(element,"Type");
+            if(child!=null) {
+                expr.setType(createType(child));
+            }
 			expr.setContext((Scope) findIrObject(element.getAttribute("context-scope"))); 
 			expr.setFunction(createExpression(getChild(element, "Expr")));
 			List<Element> args = getChildren(getChild(element, "Args"), "Expr");
@@ -771,6 +775,10 @@ public class IrXmlReader {
 			ListExpression expr = IrFactory.eINSTANCE.createListExpression();
 			expr.setId(element.getAttribute("id"));
 			doAnnotations(expr, element);
+            Element child = getChild(element,"Type");
+            if(child!=null) {
+                expr.setType(createType(child));
+            }
 
 			expr.setContext((Scope) findIrObject(element.getAttribute("context-scope"))); 
 			
