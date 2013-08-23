@@ -36,18 +36,11 @@
 
 package org.caltoopia.codegen.printer;
 
-import java.io.File;
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
+import org.caltoopia.ast2ir.Stream;
+import org.caltoopia.ast2ir.Util;
+import org.caltoopia.ast2ir.Stream.Indent;
 import org.caltoopia.codegen.CodegenError;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.printer.CBuildVarDeclaration.varCB;
@@ -55,85 +48,55 @@ import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.TransUtil;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarAccess;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarType;
-import org.caltoopia.ir.IntegerLiteral;
+import org.caltoopia.ir.Declaration;
+import org.caltoopia.ir.Block;
+import org.caltoopia.ir.Expression;
+import org.caltoopia.ir.LambdaExpression;
+import org.caltoopia.ir.ProcExpression;
+import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.Type;
-import org.caltoopia.ir.TypeBool;
-import org.caltoopia.ir.TypeDeclaration;
-import org.caltoopia.ir.TypeExternal;
-import org.caltoopia.ir.TypeFloat;
-import org.caltoopia.ir.TypeInt;
-import org.caltoopia.ir.TypeList;
-import org.caltoopia.ir.TypeRecord;
-import org.caltoopia.ir.TypeString;
-import org.caltoopia.ir.TypeUint;
-import org.caltoopia.ir.TypeUndef;
-import org.caltoopia.ir.TypeUser;
+import org.caltoopia.ir.TypeActor;
+import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.util.IrSwitch;
 import org.eclipse.emf.ecore.EObject;
 
-public class CBuildConstDeclaration extends CBuildVarDeclaration {
-
-    String initStr="";
+public class CBuildInlineBody extends IrSwitch<Boolean> {
+    String bodyStr="";
+    Block body;
     boolean header = false;
-    boolean noNS = false;
     
-    public CBuildConstDeclaration(Variable variable, boolean header, boolean noNS) {
-        super(variable,false);
-        this.header = header;
-        this.noNS = noNS;
+    private IndentStr ind = null;
+
+    public CBuildInlineBody(Block body, IndentStr ind) {
+        bodyStr="";
+        this.body = body;
+        this.ind = new IndentStr();
     }
     
-    @Override
     public String toStr() {
-        Boolean res = doSwitch(variable);
+        Boolean res = doSwitch(body);
         if(!res) {
-            CodegenError.err("Const declaration builder", vtypeStr + " " + varStr);
+            CodegenError.err("Body builder", bodyStr);
         }
-        return vtypeStr + " " + varStr + (header? "" : " = " + initStr);
+        return bodyStr;
     }
     
     private void enter(EObject obj) {}
     private void leave() {}
 
-    //------------------util------
-    private void buildConstDeclaration(Variable variable) {
-        vtypeStr = new CBuildTypeName(variable.getType(),new varCB()).toStr();
-        String nsStr = "";
-        if(!noNS) {
-            nsStr = TransUtil.getNamespaceAnnotation(variable) + "__";
-        }
-        varStr = nsStr + variable.getName()+varStr;
-        if(header) {
-            vtypeStr = "extern " + vtypeStr;
-        } else {
-            initStr = new CBuildExpression(variable.getInitValue()).toStr();
-        }
-    }
-
-    //------------------caseX
     @Override
-    public Boolean caseVariable(Variable variable) {
-        enter(variable);
-        VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(variable, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
-        switch(varType) {
-        case constVar:
-        case blockConstVar:
-            buildConstDeclaration(variable);
-            break;
-        case actorConstParamVar:
-            buildConstDeclaration(variable);
-            varStr = "__CalActorParam__" + varStr;
-            break;
-        //Actually declaration + initialization of non-const
-        case procVar:
-        case blockVar:
-            buildConstDeclaration(variable);
-            break;
-        default:
-            varStr += ("/*TODO BCD "+variable.getName() + " of varType " + varType.name() + " */");
+    public Boolean caseBlock(Block block) {
+        enter(block);
+        for (Iterator<Statement> i = block.getStatements().iterator();i.hasNext();) {
+            Statement s = i.next();
+            bodyStr += new CBuildStatement(s,ind,false).toStr();
+            if(i.hasNext()) {
+                bodyStr += ", ";
+            }
         }
         leave();
         return true;
     }
+
 }

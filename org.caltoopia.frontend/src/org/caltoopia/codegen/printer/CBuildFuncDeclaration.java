@@ -96,7 +96,7 @@ public class CBuildFuncDeclaration extends IrSwitch<Boolean> {
         for(Iterator<Variable> i = lambda.getParameters().iterator();i.hasNext();) {
             Variable p = i.next();
             //FIXME must fix so that it can handle params
-            funcStr += new CBuildVarDeclaration(p).toStr();
+            funcStr += new CBuildVarDeclaration(p,false).toStr();
             if (i.hasNext()) funcStr += ", ";
         }
         funcStr += (")");

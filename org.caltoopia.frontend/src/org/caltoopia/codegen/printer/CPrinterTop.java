@@ -728,7 +728,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
             s.println(";");
             break;
         case actorVar:
-            s.print(new CBuildVarDeclaration(variable).toStr());
+            s.print(new CBuildVarDeclaration(variable,false).toStr());
             s.println(";");
             break;
         case func:
@@ -760,7 +760,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
             TypeRecord struct = (TypeRecord) (type.getType() instanceof TypeUser ? ((TypeDeclaration)((TypeUser)type.getType()).getDeclaration()).getType(): type.getType());
             for (Iterator<Variable> i = struct.getMembers().iterator(); i.hasNext();) {
                 Variable var = i.next();
-                s.print(new CBuildVarDeclaration(var).toStr());
+                s.print(new CBuildVarDeclaration(var,false).toStr());
                 s.println(";");
                 if(!i.hasNext()) {
                     s.dec(); //After next println

@@ -316,7 +316,11 @@ public class Cal2C {
 										IrTransformer.IrPassTypes.TypeUsage,
 										IrTransformer.IrPassTypes.TypeStructure,
 										IrTransformer.IrPassTypes.VariablePlacement,
-										IrTransformer.IrPassTypes.MoveInitValueExpr)
+                                        IrTransformer.IrPassTypes.MoveInitValueExpr,
+                                        IrTransformer.IrPassTypes.CreateForLoop,
+                                        //Repeat some analysis passes due to that we have moved things around
+                                        IrTransformer.IrPassTypes.Variable,
+                                        IrTransformer.IrPassTypes.VariablePlacement)
 										);
 				//For now run this to make sure the top network type declarations don't have type decl imports
                 out.println("#*#*#*#*#*#*#*#*#*# Type decl #*#*#*#*#*#*##*#*#*#");

@@ -51,6 +51,7 @@ import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation;
 import org.caltoopia.codegen.transformer.analysis.IrVariablePlacementAnnotation;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarAccess;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarType;
+import org.caltoopia.codegen.transformer.transforms.CreateForLoop;
 import org.caltoopia.codegen.transformer.transforms.MoveInitValueExpr;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Actor;
@@ -74,7 +75,13 @@ public class IrTransformer {
 	 * IR annotations
 	 */
 	static public final String VARIABLE_ANNOTATION = "Variable";
-	static public final String TYPE_ANNOTATION = "Type";
+    static public final String TYPE_ANNOTATION = "Type";
+    static public final String C_ANNOTATION = "CNode";
+    public enum CNodes {
+        cNode,
+        forLoop,
+        forBlock
+    };
 
 	/*
 	 * The different types of annotation passes that can be executed
@@ -88,7 +95,8 @@ public class IrTransformer {
 		VariablePlacement,
 		
 		//Transformations
-		MoveInitValueExpr
+		MoveInitValueExpr,
+		CreateForLoop
 	}
 	
 	/*
@@ -124,6 +132,10 @@ public class IrTransformer {
 				printHeader("Move initvalue expr");
 				new MoveInitValueExpr(node, session, true);
 				break;
+            case CreateForLoop:
+                printHeader("Create c-style for loops");
+                new CreateForLoop(node, session, true);
+                break;
 			default:
 				System.err.println("[IrTransformer] Trying to run an annotation or transformation pass that does not exist!");
 			}

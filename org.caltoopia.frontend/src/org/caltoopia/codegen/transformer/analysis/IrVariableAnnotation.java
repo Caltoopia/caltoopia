@@ -178,6 +178,8 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		importConstVar,
 		constVar,
 		generatorVar,
+        blockVar,
+        blockConstVar,
 		funcVar,
 		funcInParamVar,
 		procVar,
@@ -409,6 +411,12 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 					}
 				} else if(variable.getScope() instanceof Generator) {
 					t = VarType.generatorVar;
+				} else if(variable.getScope() instanceof Block) {
+                    if(variable.isConstant() && variable.getInitValue()!=null) {
+                        t = VarType.blockConstVar;
+                    } else {
+                        t = VarType.blockVar;
+                    }
 				} else {
 					serr.println("[IrAnnotate] Did not expect a normal var in scope "+variable.getScope().getClass()+ " and of name " + variable.getName());
 				}

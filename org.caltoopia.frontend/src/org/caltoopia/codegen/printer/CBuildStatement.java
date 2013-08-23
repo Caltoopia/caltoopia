@@ -36,7 +36,9 @@
 
 package org.caltoopia.codegen.printer;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.caltoopia.ast2ir.Stream;
@@ -83,12 +85,14 @@ import org.eclipse.emf.ecore.EObject;
 public class CBuildStatement extends IrSwitch<Boolean> {
     String statStr="";
     Statement statement;
+    boolean semicolon = true;
     
     private IndentStr ind = null;
 
-    public CBuildStatement(Statement statement, IndentStr ind) {
+    public CBuildStatement(Statement statement, IndentStr ind, boolean semicolon) {
         statStr="";
         this.statement = statement;
+        this.semicolon = semicolon;
         if(ind == null) {
             this.ind = new IndentStr();
         } else {
@@ -110,7 +114,11 @@ public class CBuildStatement extends IrSwitch<Boolean> {
     @Override
     public Boolean caseBlock(Block block) {
         enter(block);
+        if(TransUtil.getAnnotationArg(block, IrTransformer.C_ANNOTATION, "forLoop").equals("c")) {
+            statStr += new CBuildInlineBody(block,ind).toStr();
+        } else {
             statStr += new CBuildBody(block,ind).toStr();
+        }
         leave();
         return true;
     }
@@ -120,7 +128,10 @@ public class CBuildStatement extends IrSwitch<Boolean> {
         enter(assign);
         //TODO fix more complicated assignments
         statStr += ind.ind() + new CBuildVarReference(assign.getTarget()).toStr() + " = ";
-        statStr += new CBuildExpression(assign.getExpression()).toStr() + ind.nl();
+        statStr += new CBuildExpression(assign.getExpression()).toStr();
+        if(semicolon) {
+            statStr += ";" + ind.nl();
+        }
         /*
         if(assign.getExpression() instanceof TypeConstructorCall && !withinDeclaration()) {
             TypeConstructorCall expr = (TypeConstructorCall) assign.getExpression();
@@ -197,7 +208,10 @@ public class CBuildStatement extends IrSwitch<Boolean> {
                 if (i<call.getOutParameters().size()-1) statStr += ", ";
             }
         }
-        statStr += ");" + ind.nl();
+        statStr += ")";
+        if(semicolon) {
+            statStr += ";" +ind.nl();
+        }
 
         leave();
         return true;
@@ -217,22 +231,8 @@ public class CBuildStatement extends IrSwitch<Boolean> {
     @Override
     public Boolean caseForEach(ForEach stmt) {
         enter(stmt);
-        for(int i = stmt.getGenerators().size()-1;i>=0;i--) {
-            Generator g = stmt.getGenerators().get(i);
-            statStr += ind.ind() + ("for(");
-            //FIXME just fishes up the names and print them inside the generator, should do a proper generator printer
-            //the problem is that it uses a declaration and the expressions are implicit
-            if(g.getSource() instanceof BinaryExpression && ((BinaryExpression) g.getSource()).getOperator().equals("..")) {
-                statStr += new CBuildVarDeclaration((Variable) g.getDeclarations().get(0)).toStr() + " = ";
-                statStr += new CBuildExpression(((BinaryExpression)g.getSource()).getOperand1()).toStr();
-                statStr += ("; " + CPrintUtil.validCName(g.getDeclarations().get(0).getName())+" <= ");
-                statStr += new CBuildExpression(((BinaryExpression)g.getSource()).getOperand2()).toStr();
-                statStr += ("; "+CPrintUtil.validCName(g.getDeclarations().get(0).getName())+"++)") + ind.nl();
-            } else {
-                throw new RuntimeException("[Statement builder] Expecting foreach expressions to have A .. B syntax");
-            }
-        }
-        statStr += new CBuildBody(stmt.getBody(),ind).toStr();
+        //The Create for loop pass has mangled the generators into the body
+        doSwitch(stmt.getBody());
         leave();
         return true;
     }
@@ -240,13 +240,27 @@ public class CBuildStatement extends IrSwitch<Boolean> {
     @Override
     public Boolean caseIfStatement(IfStatement stmt) {
         enter(stmt);
-        statStr += ind.ind() + ("if (");
-        statStr += new CBuildExpression(stmt.getCondition()).toStr();
-        statStr += (")") + ind.nl();
-        statStr += new CBuildBody(stmt.getThenBlock(),ind).toStr();
-        if (stmt.getElseBlock()!=null && !stmt.getElseBlock().getStatements().isEmpty()) {
-            statStr += ind.ind() + ("else") + ind.nl();
-            statStr += new CBuildBody(stmt.getElseBlock(),ind).toStr();
+        if(TransUtil.getAnnotationArg(stmt, IrTransformer.C_ANNOTATION, "forLoop").equals("c")) {
+            //This is a c-style for loop
+            statStr += ind.ind() + ("for (");
+            if (stmt.getThenBlock()!=null && !stmt.getThenBlock().getStatements().isEmpty()) {
+                statStr += new CBuildInlineBody(stmt.getThenBlock(),ind).toStr();
+            }
+            statStr += "; ";
+            statStr += new CBuildExpression(stmt.getCondition()).toStr() + "; ";
+            if (stmt.getElseBlock()!=null && !stmt.getElseBlock().getStatements().isEmpty()) {
+                statStr += new CBuildInlineBody(stmt.getElseBlock(),ind).toStr();
+            }
+            statStr += (")") + ind.nl();
+        } else {
+            statStr += ind.ind() + ("if (");
+            statStr += new CBuildExpression(stmt.getCondition()).toStr();
+            statStr += (")") + ind.nl();
+            statStr += new CBuildBody(stmt.getThenBlock(),ind).toStr();
+            if (stmt.getElseBlock()!=null && !stmt.getElseBlock().getStatements().isEmpty()) {
+                statStr += ind.ind() + ("else") + ind.nl();
+                statStr += new CBuildBody(stmt.getElseBlock(),ind).toStr();
+            }
         }
         leave();
         return true;
@@ -257,7 +271,9 @@ public class CBuildStatement extends IrSwitch<Boolean> {
         enter(returnValue);
         statStr += ind.ind() + ("return ");
         statStr += new CBuildExpression(returnValue.getValue()).toStr();
-        statStr += (";") + ind.nl();
+        if(semicolon) {
+            statStr += ";" + ind.nl();
+        }
         leave();
         return true;
     }

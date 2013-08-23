@@ -99,7 +99,11 @@ public class CBuildBody extends IrSwitch<Boolean> {
             case constVar:
                 bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d,false,false).toStr()) + ";" + ind.nl();
                 break;
+            case blockConstVar:
+                bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d,false,true).toStr()) + ";" + ind.nl();
+                break;
             case actorVar:
+            case blockVar:
             case procVar:
             case funcVar:
             case actionVar:
@@ -108,7 +112,7 @@ public class CBuildBody extends IrSwitch<Boolean> {
                     //TODO should have separate class for var declaration with initialization
                     bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d,false,true).toStr()) + ";" + ind.nl();
                 } else {
-                    bodyStr += ind.ind() + (new CBuildVarDeclaration((Variable) d).toStr()) + ";" + ind.nl();
+                    bodyStr += ind.ind() + (new CBuildVarDeclaration((Variable) d,false).toStr()) + ";" + ind.nl();
                 }
                 break;
             default:
@@ -117,12 +121,12 @@ public class CBuildBody extends IrSwitch<Boolean> {
                 String varStr =(varType.name() +", " +
                         varAccess.name() +", " +
                         typeUsage);
-                bodyStr += ("/*TODO BD "+d.getName() + ", " + varStr + " */");
+                bodyStr += ind.ind() + ("/*TODO BD "+d.getName() + ", " + varStr + " */") +ind.nl();
             } 
         }
 
         for (Statement s : block.getStatements()) {
-            bodyStr += new CBuildStatement(s,ind).toStr();
+            bodyStr += new CBuildStatement(s,ind,true).toStr();
         }
 
         ind.dec();

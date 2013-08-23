@@ -165,8 +165,9 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 		// -- Decide placement --
 		VarPlacement placement = VarPlacement.unknown;
 		//constants?
-		if(Arrays.asList(IrVariableAnnotation.VarType.constVar.name(), 
+		if(Arrays.asList(IrVariableAnnotation.VarType.constVar.name(),
 						 IrVariableAnnotation.VarType.importConstVar.name(),
+						 IrVariableAnnotation.VarType.blockConstVar.name(),
 						 IrVariableAnnotation.VarType.actorConstParamVar.name()).contains(annotations.get("VarType"))) {
 			placement = VarPlacement.constant;
 		//actor constructor?
@@ -175,7 +176,9 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 			placement = VarPlacement.actor;
 		//normal body var?
 		} else if(Arrays.asList(
-				IrVariableAnnotation.VarType.funcVar.name(), 
+                IrVariableAnnotation.VarType.funcVar.name(), 
+                IrVariableAnnotation.VarType.generatorVar.name(), 
+                IrVariableAnnotation.VarType.blockVar.name(), 
 				IrVariableAnnotation.VarType.procVar.name(), 
 				IrVariableAnnotation.VarType.actionVar.name(),
 				IrVariableAnnotation.VarType.actionInitInDepVar.name()).contains(annotations.get("VarType"))) {
@@ -274,12 +277,14 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
         new IrReplaceSwitch(){
             @Override
             public VariableReference caseVariableReference(VariableReference var) {
+                super.caseVariableReference(var);
                 TransUtil.copySelectedAnnotations(var, var.getDeclaration(), new AnnotationsFilter(IrTransformer.VARIABLE_ANNOTATION, new String[]{"VarPlacement"}));
                 return var;
             }
 
             @Override
             public VariableExpression caseVariableExpression(VariableExpression var) {
+                super.caseVariableExpression(var);
                 TransUtil.copySelectedAnnotations(var, var.getVariable(), new AnnotationsFilter(IrTransformer.VARIABLE_ANNOTATION, new String[]{"VarPlacement"}));
                 return var;
             }
@@ -343,12 +348,14 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 		        new IrReplaceSwitch(){
 		            @Override
 		            public VariableReference caseVariableReference(VariableReference var) {
+		                super.caseVariableReference(var);
 		                TransUtil.copySelectedAnnotations(var, var.getDeclaration(), new AnnotationsFilter(IrTransformer.VARIABLE_ANNOTATION, new String[]{"VarPlacement"}));
 		                return var;
 		            }
 
 		            @Override
 		            public VariableExpression caseVariableExpression(VariableExpression var) {
+		                super.caseVariableExpression(var);
 		                TransUtil.copySelectedAnnotations(var, var.getVariable(), new AnnotationsFilter(IrTransformer.VARIABLE_ANNOTATION, new String[]{"VarPlacement"}));
 		                return var;
 		            }

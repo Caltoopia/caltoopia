@@ -93,7 +93,7 @@ public class CBuildProcDeclaration extends IrSwitch<Boolean> {
         for(Iterator<Variable> i = proc.getParameters().iterator();i.hasNext();) {
             Variable p = i.next();
             //FIXME must fix so that it can handle params
-            procStr += new CBuildVarDeclaration(p).toStr();
+            procStr += new CBuildVarDeclaration(p,false).toStr();
             if (i.hasNext()) procStr += ", ";
         }
         if(!proc.getOutputs().isEmpty()) {
@@ -101,7 +101,7 @@ public class CBuildProcDeclaration extends IrSwitch<Boolean> {
             for(Iterator<Variable> i = proc.getOutputs().iterator();i.hasNext();) {
                 Variable p = i.next();
                 //FIXME must fix so that it can handle params
-                procStr += new CBuildVarDeclaration(p).toStr();
+                procStr += new CBuildVarDeclaration(p,false).toStr();
                 if (i.hasNext()) procStr += ", ";
             }           
         }

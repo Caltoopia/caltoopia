@@ -76,11 +76,13 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
     String vtypeStr="";
     String varStr="";
     Variable variable;
+    boolean onlyVar = false;
 
-    public CBuildVarDeclaration(Variable variable) {
+    public CBuildVarDeclaration(Variable variable, boolean onlyVar) {
         vtypeStr="";
         varStr="";
         this.variable = variable;
+        this.onlyVar = onlyVar;
     }
     
     public String toStr() {
@@ -88,7 +90,7 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
         if(!res) {
             CodegenError.err("Var declaration builder", vtypeStr + " " + varStr);
         }
-        return vtypeStr + " " + varStr;
+        return (onlyVar?"":vtypeStr + " ") + varStr;
     }
     
     //-----------Util--------------------------------------------------------
@@ -104,20 +106,22 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
         }
 
         public String postTypeFn(Type type) {
-            VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(type, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
+            /*VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(type, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
             VarAccess varAccess = VarAccess.valueOf(TransUtil.getAnnotationArg(type, IrTransformer.VARIABLE_ANNOTATION, "VarAccess"));
-            String typeUsage = TransUtil.getAnnotationArg(type, IrTransformer.TYPE_ANNOTATION, "TypeUsage");
-            varStr +=("/* " +
-                    varType.name() +", " +
-                    varAccess.name() +", " +
-                    typeUsage +" */");
+            String typeUsage = TransUtil.getAnnotationArg(type, IrTransformer.TYPE_ANNOTATION, "TypeUsage");*/
+//            varStr +=("/* " +
+//                    varType.name() +", " +
+//                    varAccess.name() +", " +
+//                    typeUsage +" */");
             return "";
         }
 
         public String listTypeFn(TypeList type) {
-            varStr += ("[");
-            varStr += (new CBuildExpression(type.getSize()).toStr());
-            varStr += ("]");
+            if(!onlyVar) {
+                varStr += ("[");
+                varStr += (new CBuildExpression(type.getSize()).toStr());
+                varStr += ("]");
+            }
             return "";
         }
 
@@ -148,6 +152,7 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
         case actorVar:
         case procVar:
         case generatorVar:
+        case blockVar:
             buildVarDeclaration(variable);
             break;
         case funcInParamVar:
