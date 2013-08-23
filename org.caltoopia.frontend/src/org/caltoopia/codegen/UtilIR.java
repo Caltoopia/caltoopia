@@ -982,6 +982,7 @@ public class UtilIR {
 	public static Block createBlock(Scope outer) {
 		Block block = IrFactory.eINSTANCE.createBlock();
 		block.setOuter(outer);
+		block.setId(Util.getDefinitionId());
 
 		return block;
 	}
