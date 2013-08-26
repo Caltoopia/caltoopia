@@ -79,8 +79,7 @@ public class IrTransformer {
     static public final String C_ANNOTATION = "CNode";
     public enum CNodes {
         cNode,
-        forLoop,
-        forBlock
+        inlineBlock
     };
 
 	/*

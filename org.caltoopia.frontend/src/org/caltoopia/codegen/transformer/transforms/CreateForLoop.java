@@ -66,35 +66,45 @@ import org.caltoopia.ir.AnnotationArgument;
 import org.caltoopia.ir.Assign;
 import org.caltoopia.ir.BinaryExpression;
 import org.caltoopia.ir.Block;
+import org.caltoopia.ir.BooleanLiteral;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.ExternalActor;
+import org.caltoopia.ir.FloatLiteral;
 import org.caltoopia.ir.ForEach;
 import org.caltoopia.ir.FunctionCall;
 import org.caltoopia.ir.Generator;
+import org.caltoopia.ir.IfExpression;
 import org.caltoopia.ir.IfStatement;
+import org.caltoopia.ir.IntegerLiteral;
 import org.caltoopia.ir.IrFactory;
 import org.caltoopia.ir.LambdaExpression;
 import org.caltoopia.ir.ListExpression;
+import org.caltoopia.ir.Member;
 import org.caltoopia.ir.Network;
 import org.caltoopia.ir.Node;
 import org.caltoopia.ir.ProcExpression;
 import org.caltoopia.ir.ReturnValue;
 import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.Statement;
+import org.caltoopia.ir.StringLiteral;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
+import org.caltoopia.ir.TypeConstructorCall;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeDeclarationImport;
 import org.caltoopia.ir.TypeInt;
 import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.TypeUint;
+import org.caltoopia.ir.UnaryExpression;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExpression;
 import org.caltoopia.ir.VariableReference;
+import org.caltoopia.ir.WhileLoop;
 import org.caltoopia.ir.util.IrFindSwitch;
 import org.caltoopia.ir.util.IrReplaceSwitch;
+import org.caltoopia.ir.util.IrSwitch;
 import org.caltoopia.types.TypeSystem;
 import org.eclipse.emf.ecore.EObject;
 
@@ -127,25 +137,19 @@ public class CreateForLoop extends IrReplaceSwitch {
          * FunctionCall returning result of type List
          * Also the list must be exactly one-dimension more than the index variable type, typically one-dimensional.
          * ---------------------
-         * This class converts all the generators into a c-like for loop inside a block to enable setup and handle of helper variables
-         * Since the IR does not have any c-style for loop, this is accomplished by utilizing an IfStatement node.
-         * The condition is the for-loop condition expression, the thenBlock is the initializing statements,
-         * the elseBlock is the update statements. This "if" will be annotated in a CNode with "forLoop". This statement is
-         * directly followed by a Block annotated with "forBlock" which contains the for loops block of statements.
-         * The then/else blocks are also annotated with "forLoop".
+         * This class converts all the generators into a while loops inside a block to enable setup and handle of helper variables
          * Hence after this conversion all the generators will be removed and the Body in ForEach will refer to the outer
-         * most CNode Block. This outer most Block is annotated "cNode". This should allow general printing of the generated
-         * IR structures with only the if statement printer detecting the forLoop annotation and printing a for-loop.
+         * most block containing a while loop.
          */
         Block innerBody = stmt.getBody();
         Scope outer = innerBody.getOuter();
         while(outer instanceof Generator) {
             outer = outer.getOuter();
         }
-        Block top = null;
         Statement access = null;
         int nesting = 0;
-        for(Generator g: stmt.getGenerators()) {
+        for(int i = stmt.getGenerators().size()-1;i>=0;i--) {
+            Generator g = stmt.getGenerators().get(i);
             if(g.getSource() instanceof VariableExpression) {
                 if(g.getDeclarations().get(0) instanceof Variable) {
                     Variable v = (Variable) g.getDeclarations().get(0);
@@ -168,18 +172,10 @@ public class CreateForLoop extends IrReplaceSwitch {
                         throw new RuntimeException("[CreateForLoop] Not yet implemented foreach variable expressions to be more than one dimensional.");
                     }
 
-                    Block body = UtilIR.createBlock(outer);
+                    Block body = UtilIR.createBlock(null);
+                    innerBody.setOuter(body);
                     body.getDeclarations().add(v);
                     v.setScope(body);
-                    //A statement from outer block inserted first
-                    if(nesting>0) {
-                        if(access!=null) {
-                            body.getStatements().add(access);
-                        }
-                        TransUtil.setAnnotation(body, IrTransformer.C_ANNOTATION, IrTransformer.CNodes.forBlock.name(), "c");
-                    } else {
-                        top = body;
-                    }
                     //Create a variable that can be used to index into the list
                     TypeInt type = IrFactory.eINSTANCE.createTypeInt();
                     Declaration index = UtilIR.createVarDef(body, v.getName()+"__ListIndex", type, false, false, UtilIR.lit(0));
@@ -189,30 +185,20 @@ public class CreateForLoop extends IrReplaceSwitch {
                     } else {
                         throw new RuntimeException("[CreateForLoop] Not yet implemented foreach variable expressions being lists of unknown length.");
                     }
-                    //for(initialize;cond;update)
+                    //initialize;while(cond){access;innerBody;update;}
                     BinaryExpression cond = (BinaryExpression) UtilIR.createExpression(UtilIR.createExpression(body, (Variable) index), "<", sz);
                     //empty intialize
-                    Block initialize = UtilIR.createBlock(body);
-                    TransUtil.setAnnotation(initialize, IrTransformer.C_ANNOTATION, IrTransformer.CNodes.forLoop.name(), "c");
                     //increment index var
-                    Block update = UtilIR.createBlock(body);
-                    TransUtil.setAnnotation(update, IrTransformer.C_ANNOTATION, IrTransformer.CNodes.forLoop.name(), "c");
-                    update.getStatements().add(UtilIR.createAssign(update, (Variable) index,
-                            UtilIR.createExpression(UtilIR.createExpression(update, (Variable) index), "+", UtilIR.lit(1))));
-                    //make for statement
-                    IfStatement forloop = UtilIR.createIf(body, cond, initialize, update);
-                    TransUtil.setAnnotation(forloop, IrTransformer.C_ANNOTATION, IrTransformer.CNodes.forLoop.name(), "c");
-                    //When not the outermost block then insert into it
-                    if(nesting>0 && outer instanceof Block) {
-                        ((Block)outer).getStatements().add(body);
-                    }
+                    Statement update = UtilIR.createAssign(-1,innerBody, (Variable) index,
+                            UtilIR.createExpression(UtilIR.createExpression(innerBody, (Variable) index), "+", UtilIR.lit(1)));
                     //statement to access list inserted first in nested/inner block
-                    access = UtilIR.createAssign(null, v, 
+                    access = UtilIR.createAssign(0,innerBody, v, 
                             UtilIR.createExpression(body, (Variable)((VariableExpression)g.getSource()).getVariable(),
                                     Arrays.asList(UtilIR.createExpression(body, (Variable) index)),
                                     null));
-
-                    outer = body;
+                    //make while statement
+                    WhileLoop whileloop = UtilIR.createWhileLoop(body, innerBody, cond);
+                    innerBody = body;
                     nesting++;
                 }
             } else if(g.getSource() instanceof BinaryExpression) {
@@ -226,42 +212,24 @@ public class CreateForLoop extends IrReplaceSwitch {
                 }
                 if(g.getDeclarations().get(0) instanceof Variable) {
                     Variable v = (Variable) g.getDeclarations().get(0);
-                    Block body = UtilIR.createBlock(outer);
+                    Block body = UtilIR.createBlock(null);
+                    innerBody.setOuter(body);
                     body.getDeclarations().add(v);
                     v.setScope(body);
-                    //A statement from outer block inserted first
-                    if(nesting>0) {
-                        if(access != null) {
-                            body.getStatements().add(access);
-                        }
-                        TransUtil.setAnnotation(body, IrTransformer.C_ANNOTATION, IrTransformer.CNodes.forBlock.name(), "c");
-                    } else {
-                        top = body;
-                    }
                     Expression sz = expr.getOperand2();
-                    //for(initialize;cond;update)
+                    //initialize;while(cond){access;innerBody;update;}
                     BinaryExpression cond = (BinaryExpression) UtilIR.createExpression(UtilIR.createExpression(body, (Variable) v), "<", sz);
                     //v=0 intialize
-                    Block initialize = UtilIR.createBlock(body);
-                    TransUtil.setAnnotation(initialize, IrTransformer.C_ANNOTATION, IrTransformer.CNodes.forLoop.name(), "c");
-                    initialize.getStatements().add(UtilIR.createAssign(initialize, (Variable) v, UtilIR.lit(0)));
+                    UtilIR.createAssign(0,body, (Variable) v, UtilIR.lit(0));
                     //increment index var
-                    Block update = UtilIR.createBlock(body);
-                    TransUtil.setAnnotation(update, IrTransformer.C_ANNOTATION, IrTransformer.CNodes.forLoop.name(), "c");
-                    update.getStatements().add(UtilIR.createAssign(update, (Variable) v,
-                            UtilIR.createExpression(UtilIR.createExpression(update, (Variable) v), "+", UtilIR.lit(1))));
-                    //make for statement
-                    IfStatement forloop = UtilIR.createIf(body, cond, initialize, update);
-                    TransUtil.setAnnotation(forloop, IrTransformer.C_ANNOTATION, IrTransformer.CNodes.forLoop.name(), "c");
-                    //When not the outermost block then insert into it
-                    if(nesting>0 && outer instanceof Block) {
-                        ((Block)outer).getStatements().add(body);
-                    }
-
-                    outer = body;
+                    UtilIR.createAssign(-1,innerBody, (Variable) v,
+                            UtilIR.createExpression(UtilIR.createExpression(innerBody, (Variable) v), "+", UtilIR.lit(1)));
+                    //make while statement
+                    WhileLoop whileloop = UtilIR.createWhileLoop(body, innerBody, cond);
+                    innerBody = body;
                     nesting++;
                 }
-            } if(g.getSource() instanceof ListExpression) {
+            } else if(g.getSource() instanceof ListExpression) {
                 if(g.getDeclarations().get(0) instanceof Variable) {
                     Variable v = (Variable) g.getDeclarations().get(0);
                     ListExpression lit = (ListExpression) g.getSource();
@@ -284,23 +252,126 @@ public class CreateForLoop extends IrReplaceSwitch {
                         throw new RuntimeException("[CreateForLoop] Not yet implemented foreach list expressions to be more than one dimensional.");
                     }
                     Block body = UtilIR.createBlock(outer);
+                    innerBody.setOuter(body);
                     body.getDeclarations().add(v);
                     v.setScope(body);
-                    //A statement from outer block inserted first
-                    if(nesting>0) {
-                        if(access!=null) {
-                            body.getStatements().add(access);
-                        }
-                        TransUtil.setAnnotation(body, IrTransformer.C_ANNOTATION, IrTransformer.CNodes.forBlock.name(), "c");
-                    } else {
-                        top = body;
-                    }
                     //Create a variable that can be used to index into the list
                     TypeInt type = IrFactory.eINSTANCE.createTypeInt();
                     Declaration index = UtilIR.createVarDef(body, v.getName()+"__ListIndex", type, false, false, UtilIR.lit(0));
                     //Create a variable that const instantiate the list
                     lit.setContext(body);
                     Declaration list = UtilIR.createVarDef(body, v.getName()+"__ListExpression", lit.getType(), true, false, lit);
+                    //TODO refactor this out to separate file
+                    final Scope finalBody = body;
+                    final Generator finalGenerator = g;
+                    new IrReplaceSwitch(){
+                        private void fixOuter(Node node) {
+                            if(node instanceof Scope && ((Scope)node).getOuter() instanceof Generator && ((Scope)node).getOuter().getId().equals(finalGenerator.getId())) {
+                                ((Scope)node).setOuter(finalBody);
+                            } else
+                            if(node instanceof Expression && ((Expression)node).getContext() instanceof Generator && ((Expression)node).getContext().getId().equals(finalGenerator.getId())) {
+                                ((Expression)node).setContext(finalBody);
+                            }
+                        }
+                        @Override
+                        public Scope caseScope(Scope scope) {
+                            super.caseScope(scope);
+                            fixOuter(scope);
+                            return scope;
+                        }
+                        @Override
+                        public Block caseBlock(Block scope) {
+                            super.caseBlock(scope);
+                            fixOuter(scope);
+                            return scope;
+                        }
+                        @Override
+                        public Expression caseExpression(Expression expr) {
+                            super.caseExpression(expr);
+                            fixOuter(expr);
+                            return expr;
+                        }
+                        @Override
+                        public Expression caseTypeConstructorCall(TypeConstructorCall expr) {
+                            super.caseTypeConstructorCall(expr);
+                            fixOuter(expr);
+                            return expr;
+                        }
+                        @Override
+                        public Expression caseIntegerLiteral(IntegerLiteral literal) {
+                            fixOuter(literal);
+                            return literal;
+                        }
+                        @Override
+                        public Expression caseFloatLiteral(FloatLiteral literal) {
+                            fixOuter(literal);
+                            return literal;
+                        }
+                        @Override
+                        public Expression caseBooleanLiteral(BooleanLiteral literal) {
+                            fixOuter(literal);
+                            return literal;
+                        }
+                        @Override
+                        public Expression caseStringLiteral(StringLiteral literal) {
+                            fixOuter(literal);
+                            return literal;
+                        }
+                        @Override
+                        public Expression caseVariableExpression(VariableExpression var) {
+                            super.caseVariableExpression(var);
+                            fixOuter(var);
+                            return var;
+                        }
+                        @Override
+                        public EObject caseLambdaExpression(LambdaExpression lambda) {
+                            super.caseLambdaExpression(lambda);
+                            fixOuter(lambda);
+                            return lambda;
+                        }
+                        @Override
+                        public EObject caseProcExpression(ProcExpression proc) {
+                            super.caseProcExpression(proc);
+                            fixOuter(proc);
+                            return proc;
+                        }
+                        @Override
+                        public EObject caseIfExpression(IfExpression expr) {
+                            super.caseIfExpression(expr);
+                            fixOuter(expr);
+                            return expr;
+                        }
+                        @Override
+                        public EObject caseListExpression(ListExpression expr) {
+                            super.caseListExpression(expr);
+                            fixOuter(expr);
+                            return expr;
+                        }
+                        @Override
+                        public EObject caseMember(Member member) {
+                            super.caseMember(member);
+                            fixOuter(member);
+                            return member;
+                        }
+                        @Override
+                        public Expression caseBinaryExpression(BinaryExpression expr) {
+                            super.caseBinaryExpression(expr);
+                            fixOuter(expr);
+                            return expr;
+                        }
+                        @Override
+                        public Expression caseUnaryExpression(UnaryExpression expr) {
+                            super.caseUnaryExpression(expr);
+                            fixOuter(expr);
+                            return expr;
+                        }
+                        @Override
+                        public Expression caseFunctionCall(FunctionCall call) {
+                            super.caseFunctionCall(call);
+                            fixOuter(call);
+                            return call;
+                        }
+                    }.doSwitch(lit);
                     Expression sz = null;
                     if(lit.getType() instanceof TypeList) {
                         sz = ((TypeList)lit.getType()).getSize();
@@ -308,33 +379,22 @@ public class CreateForLoop extends IrReplaceSwitch {
                         //Fallback when list expression misses type
                         sz = UtilIR.lit(lit.getExpressions().size());
                     }
-                    //for(initialize;cond;update)
+                    //initialize;while(cond){access;innerBody;update;}
                     BinaryExpression cond = (BinaryExpression) UtilIR.createExpression(UtilIR.createExpression(body, (Variable) index), "<", sz);
-                    //empty intialize
-                    Block initialize = UtilIR.createBlock(body);
-                    TransUtil.setAnnotation(initialize, IrTransformer.C_ANNOTATION, IrTransformer.CNodes.forLoop.name(), "c");
-                    //increment index var
-                    Block update = UtilIR.createBlock(body);
-                    TransUtil.setAnnotation(update, IrTransformer.C_ANNOTATION, IrTransformer.CNodes.forLoop.name(), "c");
-                    update.getStatements().add(UtilIR.createAssign(update, (Variable) index,
-                            UtilIR.createExpression(UtilIR.createExpression(update, (Variable) index), "+", UtilIR.lit(1))));
-                    //make for statement
-                    IfStatement forloop = UtilIR.createIf(body, cond, initialize, update);
-                    TransUtil.setAnnotation(forloop, IrTransformer.C_ANNOTATION, IrTransformer.CNodes.forLoop.name(), "c");
-                    //When not the outermost block then insert into it
-                    if(nesting>0 && outer instanceof Block) {
-                        ((Block)outer).getStatements().add(body);
-                    }
                     //statement to access list inserted first in nested/inner block
-                    access = UtilIR.createAssign(null, v, 
-                            UtilIR.createExpression(body, (Variable) list,
-                                    Arrays.asList(UtilIR.createExpression(body, (Variable) index)),
+                    access = UtilIR.createAssign(0,innerBody, v, 
+                            UtilIR.createExpression(innerBody, (Variable) list,
+                                    Arrays.asList(UtilIR.createExpression(innerBody, (Variable) index)),
                                     null));
-
-                    outer = body;
+                    //increment index var
+                    UtilIR.createAssign(-1,innerBody, (Variable) index,
+                            UtilIR.createExpression(UtilIR.createExpression(innerBody, (Variable) index), "+", UtilIR.lit(1)));
+                    //make while statement
+                    WhileLoop whileloop = UtilIR.createWhileLoop(body, innerBody, cond);
+                    innerBody = body;
                     nesting++;
                 }
-            } if(g.getSource() instanceof FunctionCall) {
+            } else if(g.getSource() instanceof FunctionCall) {
                 if(g.getDeclarations().get(0) instanceof Variable) {
                     Variable v = (Variable) g.getDeclarations().get(0);
                     FunctionCall call = (FunctionCall) g.getSource();
@@ -357,17 +417,9 @@ public class CreateForLoop extends IrReplaceSwitch {
                         throw new RuntimeException("[CreateForLoop] Not yet implemented foreach function generated list to be more than one dimensional.");
                     }
                     Block body = UtilIR.createBlock(outer);
+                    innerBody.setOuter(body);
                     body.getDeclarations().add(v);
                     v.setScope(body);
-                    //A statement from outer block inserted first
-                    if(nesting>0) {
-                        if(access!=null) {
-                            body.getStatements().add(access);
-                        }
-                        TransUtil.setAnnotation(body, IrTransformer.C_ANNOTATION, IrTransformer.CNodes.forBlock.name(), "c");
-                    } else {
-                        top = body;
-                    }
                     //Create a variable that can be used to index into the list
                     TypeInt type = IrFactory.eINSTANCE.createTypeInt();
                     Declaration index = UtilIR.createVarDef(body, v.getName()+"__ListIndex", type, false, false, UtilIR.lit(0));
@@ -384,45 +436,26 @@ public class CreateForLoop extends IrReplaceSwitch {
                     } else {
                         throw new RuntimeException("[CreateForLoop] Not yet implemented foreach list function returning lists of unknown length.");
                     }
-                    //for(initialize;cond;update)
+                    //initialize;while(cond){access;innerBody;update;}
                     BinaryExpression cond = (BinaryExpression) UtilIR.createExpression(UtilIR.createExpression(body, (Variable) index), "<", sz);
-                    //empty intialize
-                    Block initialize = UtilIR.createBlock(body);
-                    TransUtil.setAnnotation(initialize, IrTransformer.C_ANNOTATION, IrTransformer.CNodes.forLoop.name(), "c");
-                    //increment index var
-                    Block update = UtilIR.createBlock(body);
-                    TransUtil.setAnnotation(update, IrTransformer.C_ANNOTATION, IrTransformer.CNodes.forLoop.name(), "c");
-                    update.getStatements().add(UtilIR.createAssign(update, (Variable) index,
-                            UtilIR.createExpression(UtilIR.createExpression(update, (Variable) index), "+", UtilIR.lit(1))));
-                    //make for statement
-                    IfStatement forloop = UtilIR.createIf(body, cond, initialize, update);
-                    TransUtil.setAnnotation(forloop, IrTransformer.C_ANNOTATION, IrTransformer.CNodes.forLoop.name(), "c");
-                    //When not the outermost block then insert into it
-                    if(nesting>0 && outer instanceof Block) {
-                        ((Block)outer).getStatements().add(body);
-                    }
                     //statement to access list inserted first in nested/inner block
-                    access = UtilIR.createAssign(null, v, 
-                            UtilIR.createExpression(body, (Variable) list,
-                                    Arrays.asList(UtilIR.createExpression(body, (Variable) index)),
+                    access = UtilIR.createAssign(0,innerBody, v, 
+                            UtilIR.createExpression(innerBody, (Variable) list,
+                                    Arrays.asList(UtilIR.createExpression(innerBody, (Variable) index)),
                                     null));
-
-                    outer = body;
+                    //increment index var
+                    UtilIR.createAssign(-1,innerBody, (Variable) index,
+                            UtilIR.createExpression(UtilIR.createExpression(innerBody, (Variable) index), "+", UtilIR.lit(1)));
+                    //make while statement
+                    WhileLoop whileloop = UtilIR.createWhileLoop(body, innerBody, cond);
+                    innerBody = body;
                     nesting++;
                 }
             }
-
         }
-        if(nesting>0 && outer instanceof Block) {
-            if(access != null) {
-                innerBody.getStatements().add(0,access);
-            }
-            innerBody.setOuter(outer);
-            TransUtil.setAnnotation(innerBody, IrTransformer.C_ANNOTATION, IrTransformer.CNodes.forBlock.name(), "c");
-            ((Block)outer).getStatements().add(innerBody);
-            stmt.setBody(top);
-            stmt.getGenerators().clear();
-        }
+        innerBody.setOuter(outer);
+        stmt.setBody(innerBody);
+        stmt.getGenerators().clear();
         return stmt;
     }
 

@@ -1116,7 +1116,18 @@ public class UtilIR {
 		return loop;
 	}
 
-	static public ReturnValue createReturn(Block body, Variable var) {
+    static public WhileLoop createWhileLoop(Block outer, Block inner, Expression cond) {
+        WhileLoop w = IrFactory.eINSTANCE.createWhileLoop();
+        w.setId(Util.getDefinitionId());
+        w.setCondition(cond);
+        w.setBody(inner);
+        if(outer != null) {
+            outer.getStatements().add(w);
+        }
+        return w;
+    }
+
+    static public ReturnValue createReturn(Block body, Variable var) {
 		ReturnValue ret = IrFactory.eINSTANCE.createReturnValue();
 		ret.setValue(createExpression(body,var));
 		if(body!=null) {

@@ -114,7 +114,7 @@ public class CBuildStatement extends IrSwitch<Boolean> {
     @Override
     public Boolean caseBlock(Block block) {
         enter(block);
-        if(TransUtil.getAnnotationArg(block, IrTransformer.C_ANNOTATION, "forLoop").equals("c")) {
+        if(TransUtil.getAnnotationArg(block, IrTransformer.C_ANNOTATION, "inlineBlock").equals("c")) {
             statStr += new CBuildInlineBody(block,ind).toStr();
         } else {
             statStr += new CBuildBody(block,ind).toStr();
@@ -240,27 +240,13 @@ public class CBuildStatement extends IrSwitch<Boolean> {
     @Override
     public Boolean caseIfStatement(IfStatement stmt) {
         enter(stmt);
-        if(TransUtil.getAnnotationArg(stmt, IrTransformer.C_ANNOTATION, "forLoop").equals("c")) {
-            //This is a c-style for loop
-            statStr += ind.ind() + ("for (");
-            if (stmt.getThenBlock()!=null && !stmt.getThenBlock().getStatements().isEmpty()) {
-                statStr += new CBuildInlineBody(stmt.getThenBlock(),ind).toStr();
-            }
-            statStr += "; ";
-            statStr += new CBuildExpression(stmt.getCondition()).toStr() + "; ";
-            if (stmt.getElseBlock()!=null && !stmt.getElseBlock().getStatements().isEmpty()) {
-                statStr += new CBuildInlineBody(stmt.getElseBlock(),ind).toStr();
-            }
-            statStr += (")") + ind.nl();
-        } else {
-            statStr += ind.ind() + ("if (");
-            statStr += new CBuildExpression(stmt.getCondition()).toStr();
-            statStr += (")") + ind.nl();
-            statStr += new CBuildBody(stmt.getThenBlock(),ind).toStr();
-            if (stmt.getElseBlock()!=null && !stmt.getElseBlock().getStatements().isEmpty()) {
-                statStr += ind.ind() + ("else") + ind.nl();
-                statStr += new CBuildBody(stmt.getElseBlock(),ind).toStr();
-            }
+        statStr += ind.ind() + ("if (");
+        statStr += new CBuildExpression(stmt.getCondition()).toStr();
+        statStr += (")") + ind.nl();
+        statStr += new CBuildBody(stmt.getThenBlock(),ind).toStr();
+        if (stmt.getElseBlock()!=null && !stmt.getElseBlock().getStatements().isEmpty()) {
+            statStr += ind.ind() + ("else") + ind.nl();
+            statStr += new CBuildBody(stmt.getElseBlock(),ind).toStr();
         }
         leave();
         return true;
