@@ -90,7 +90,7 @@ public class CBuildFuncDeclaration extends IrSwitch<Boolean> {
         funcStr += thisStr + "__";
         funcStr += CPrintUtil.validCName(variable.getName()) + "(";
 
-        VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(type, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
+        VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(variable, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
         if(varType == VarType.actorFunc) {
             funcStr += ("ActorInstance_" + thisStr + "* thisActor");
             if(!lambda.getParameters().isEmpty())
