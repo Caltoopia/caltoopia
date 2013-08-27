@@ -219,8 +219,10 @@ public class CreateForLoop extends IrReplaceSwitch {
                     Expression sz = expr.getOperand2();
                     //initialize;while(cond){access;innerBody;update;}
                     BinaryExpression cond = (BinaryExpression) UtilIR.createExpression(UtilIR.createExpression(body, (Variable) v), "<", sz);
-                    //v=0 intialize
-                    UtilIR.createAssign(0,body, (Variable) v, UtilIR.lit(0));
+                    //v=op1 intialize
+                    Expression start = expr.getOperand1();
+                    start.setContext(body);
+                    UtilIR.createAssign(0,body, (Variable) v, start);
                     //increment index var
                     UtilIR.createAssign(-1,innerBody, (Variable) v,
                             UtilIR.createExpression(UtilIR.createExpression(innerBody, (Variable) v), "+", UtilIR.lit(1)));
@@ -260,7 +262,7 @@ public class CreateForLoop extends IrReplaceSwitch {
                     Declaration index = UtilIR.createVarDef(body, v.getName()+"__ListIndex", type, false, false, UtilIR.lit(0));
                     //Create a variable that const instantiate the list
                     lit.setContext(body);
-                    Declaration list = UtilIR.createVarDef(body, v.getName()+"__ListExpression", lit.getType(), true, false, lit);
+                    Declaration list = UtilIR.createVarDef(body, v.getName()+"__ListExpression", lit.getType());
                     //TODO refactor this out to separate file
                     final Scope finalBody = body;
                     final Generator finalGenerator = g;
@@ -372,6 +374,7 @@ public class CreateForLoop extends IrReplaceSwitch {
                             return call;
                         }
                     }.doSwitch(lit);
+                    UtilIR.createAssign(0,body, (Variable) list, lit);
                     Expression sz = null;
                     if(lit.getType() instanceof TypeList) {
                         sz = ((TypeList)lit.getType()).getSize();
@@ -429,7 +432,8 @@ public class CreateForLoop extends IrReplaceSwitch {
                     for(Expression p: call.getParameters()) {
                         p.setContext(body);
                     }
-                    Declaration list = UtilIR.createVarDef(body, v.getName()+"__ListExpression", call.getType(), true, false, call);
+                    Declaration list = UtilIR.createVarDef(body, v.getName()+"__ListExpression", call.getType());
+                    UtilIR.createAssign(0,body, (Variable) list, call);
                     Expression sz = null;
                     if(call.getType() instanceof TypeList) {
                         sz = ((TypeList)call.getType()).getSize();
