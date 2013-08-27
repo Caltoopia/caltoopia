@@ -336,66 +336,70 @@ public class CBuildExpression extends IrSwitch<Boolean> {
     @Override
     public Boolean caseFunctionCall(FunctionCall expr) {
         enter(expr);
-        VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(expr, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
-        VarAccess varAccess = VarAccess.valueOf(TransUtil.getAnnotationArg(expr, IrTransformer.VARIABLE_ANNOTATION, "VarAccess"));
-        String typeUsage = TransUtil.getAnnotationArg(expr, IrTransformer.TYPE_ANNOTATION, "TypeUsage");
-        exprStr +=("/* FC " +
-                varType.name() +", " +
-                varAccess.name() +", " +
-                typeUsage +" */");
-        /*
-        String id="";
-        if(expr.getFunction() instanceof VariableExpression && ((VariableExpression)expr.getFunction()).getVariable() instanceof Variable) {
-            Variable func = (Variable) ((VariableExpression) expr.getFunction()).getVariable();
-            id = func.getId();
-            exprStr += (thisStr + validCName(func.getName()));
-        } else if(expr.getFunction() instanceof VariableExpression && ((VariableExpression)expr.getFunction()).getVariable() instanceof VariableExternal) {
-            VariableExternal func = (VariableExternal) ((VariableExpression) expr.getFunction()).getVariable();
-            id = func.getId();
-            exprStr += (validCName(func.getName()));
-        } else if(expr.getFunction() instanceof VariableExpression && ((VariableExpression)expr.getFunction()).getVariable() instanceof VariableImport) {           
-            VariableImport func = (VariableImport) ((VariableExpression) expr.getFunction()).getVariable();
-            Declaration f = null;
-            try {
-                f = ActorDirectory.findVariable(func);
-            } catch (DirectoryException e) {
-                System.err.println("[CPrinter] Could not find imported function " + func.getName());
-            }
-            if(f instanceof VariableExternal) {
-                VariableExternal e = (VariableExternal) f;
-                id = e.getId();
-                Namespace ns = null;
-                try {
-                    ns = ActorDirectory.findNamespace(func.getNamespace());
-                } catch (DirectoryException ee) {}
-                Map<String,String> annotations = getExternAnnotations(collectAnnotations(e,ns));
-                exprStr += (externalCName(annotations,e));
-                toEnv(annotations);
-            } else {
-                id = func.getId();
-                exprStr += (validCName(func.getName()));
-            }
-        } else if(expr.getFunction() instanceof VariableExpression && ((VariableExpression)expr.getFunction()).getVariable() instanceof ForwardDeclaration) {
-            ForwardDeclaration func = (ForwardDeclaration) ((VariableExpression) expr.getFunction()).getVariable();
-            id = func.getId();
-            exprStr += (thisStr + validCName(func.getName()));
-        } else {
-            exprStr += ("WHAT_IS_MY_NAME!??");
-            throw new RuntimeException("Expected function decl in call to be of Variable type");
-        }
-        s.printLeft();
-        if(actorFuncDecl.contains(id)) {
-            exprStr += ("thisActor");
+        VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(expr.getFunction(), IrTransformer.VARIABLE_ANNOTATION, "VarType"));
+        VarAccess varAccess = VarAccess.valueOf(TransUtil.getAnnotationArg(expr.getFunction(), IrTransformer.VARIABLE_ANNOTATION, "VarAccess"));
+        String typeUsage = TransUtil.getAnnotationArg(expr.getFunction(), IrTransformer.TYPE_ANNOTATION, "TypeUsage");
+        String thisStr = "";
+        String extraParamStr = "";
+        String nameStr="";
+        Declaration f = null;
+        boolean print = false;
+        switch(varType) {
+        case func: //functions declared inside same namespace-level and likely called from a function or an initValue
+            thisStr = TransUtil.getNamespaceAnnotation(expr.getFunction());
+            f = ((VariableExpression) expr.getFunction()).getVariable();
+            Variable funcFunc = (Variable) ((f instanceof ForwardDeclaration)?((ForwardDeclaration)f).getDeclaration():f);
+            nameStr = CPrintUtil.validCName(funcFunc.getName());
+            print = true;
+            break;
+        case importFunc: //calling an imported function from any namespace including ours from inside an actor
+            thisStr = CPrintUtil.getNamespace(((VariableImport)(((VariableExpression)expr.getFunction()).getVariable())).getNamespace());
+            VariableImport funcImport = (VariableImport) ((VariableExpression) expr.getFunction()).getVariable();
+            nameStr = CPrintUtil.validCName(funcImport.getName());
+            print = true;
+            break;
+        case actorFunc: //calling a function declared in the actor scope
+            extraParamStr = ("thisActor");
             if(!expr.getParameters().isEmpty())
-                exprStr += (", ");
+                extraParamStr += (", ");
+            f = ((VariableExpression) expr.getFunction()).getVariable();
+            Variable funcActor = (Variable) ((f instanceof ForwardDeclaration)?((ForwardDeclaration)f).getDeclaration():f);
+            nameStr = CPrintUtil.validCName(funcActor.getName());
+            print = true;
+            break;
+        case externFunc: //calling a c-function
+            VariableImport funcExtern = (VariableImport) ((VariableExpression) expr.getFunction()).getVariable();
+            f = null;
+            try {
+                f = ActorDirectory.findVariable(funcExtern);
+            } catch (DirectoryException e) {
+                System.err.println("[CBuildExpression] Could not find imported extern function " + funcExtern.getName());
+            }
+            VariableExternal e = (VariableExternal) f;
+            Namespace ns = null;
+            try {
+                ns = ActorDirectory.findNamespace(funcExtern.getNamespace());
+            } catch (DirectoryException ee) {}
+            Map<String,String> annotations = CPrintUtil.getExternAnnotations(CPrintUtil.collectAnnotations(e,ns));
+            nameStr = (CPrintUtil.externalCName(annotations,e));
+            CPrintUtil.toEnvEnv(annotations,null);
+            print = true;
+            break;
+        default:
+            exprStr +=("/* TODO FC " +
+                    varType.name() +", " +
+                    varAccess.name() +", " +
+                    typeUsage + " */");
         }
-        for (int i = 0; i<expr.getParameters().size(); i++) {
-            Expression p = expr.getParameters().get(i);
-            doSwitch(p);
-            if (i<expr.getParameters().size()-1) s.printComma();
+        if(print) {
+            exprStr += (thisStr.equals("")? "": thisStr + "__") + nameStr + "(" + extraParamStr;
+            for (int i = 0; i<expr.getParameters().size(); i++) {
+                Expression p = expr.getParameters().get(i);
+                exprStr += new CBuildExpression(p, cenv).toStr();
+                if (i<expr.getParameters().size()-1) exprStr += ", ";
+            }
+            exprStr += ")";
         }
-        s.printRight();
-        */
         leave();
         return true;
     }
