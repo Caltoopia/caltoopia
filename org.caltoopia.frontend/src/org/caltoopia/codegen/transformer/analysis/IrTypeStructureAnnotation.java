@@ -67,6 +67,7 @@ import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.TypeRecord;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExpression;
+import org.caltoopia.ir.VariableExternal;
 import org.caltoopia.ir.VariableReference;
 import org.caltoopia.ir.util.IrReplaceSwitch;
 
@@ -226,7 +227,13 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
 
     @Override
     public VariableExpression caseVariableExpression(VariableExpression var) {
-        Type t = ((Variable)((var.getVariable() instanceof ForwardDeclaration)?((ForwardDeclaration) var.getVariable()).getDeclaration():var.getVariable())).getType();
+        Type t = null;
+        Declaration decl = UtilIR.getDeclarationTransformed(var.getVariable());
+        if(decl instanceof Variable) {
+            t = ((Variable) decl).getType();
+        } else if(decl instanceof VariableExternal) {
+            t = ((VariableExternal) decl).getType();
+        }
         if(!find && UtilIR.isListOrRecord(t)) {
             while(t instanceof TypeList) {
                 t = ((TypeList) t).getType();

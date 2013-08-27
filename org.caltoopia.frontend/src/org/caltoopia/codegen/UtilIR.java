@@ -438,6 +438,22 @@ public class UtilIR {
 		return decl; 
 	}
 
+    static public Declaration getDeclarationTransformed(Declaration decl) {
+        if( decl instanceof VariableImport) {
+            VariableImport imp = (VariableImport) decl;
+            if(imp.getName().startsWith("dprint"))
+                return null;
+            try {
+                Declaration var = ActorDirectory.findTransformedVariable(imp);
+                return var;
+            } catch (DirectoryException x) {
+                System.err.println("[UtilIR] Internal Error - getDeclaration");
+            }
+        } else if(decl instanceof ForwardDeclaration) 
+            return ((ForwardDeclaration) decl).getDeclaration();
+        return decl; 
+    }
+
 	static public Type getProcInputType(Declaration decl,int i) {
 		Declaration d =UtilIR.getDeclaration(decl);
 		if(d instanceof Variable) {

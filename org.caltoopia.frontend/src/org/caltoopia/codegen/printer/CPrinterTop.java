@@ -237,11 +237,21 @@ public class CPrinterTop extends IrSwitch<Stream> {
             case externProc:
                 Namespace ns = null;
                 VariableExternal e = null;
-                try {
-                    e = (VariableExternal) ActorDirectory.findVariable((VariableImport) d);
-                    ns = ActorDirectory.findNamespace(((VariableImport)d).getNamespace());
-                } catch (DirectoryException ee) {
-                    out.println();
+                d = (d instanceof ForwardDeclaration)?((ForwardDeclaration)d).getDeclaration():d;
+                if(d instanceof VariableImport) {
+                    try {
+                        e = (VariableExternal) ActorDirectory.findVariable((VariableImport) d);
+                        ns = ActorDirectory.findNamespace(((VariableImport)d).getNamespace());
+                    } catch (DirectoryException ee) {
+                        ee.printStackTrace();
+                    }
+                } else if(d instanceof VariableExternal) {
+                    e = (VariableExternal) d;
+                    try {
+                        ns = ActorDirectory.findNamespace(UtilIR.getAnnotatedNamespace(e));
+                    } catch (DirectoryException e1) {
+                        e1.printStackTrace();
+                    }
                 }
                 Map<String,String> annotations = CPrintUtil.getExternAnnotations(CPrintUtil.collectAnnotations(e,ns));
                 cHeaders.addAll(CPrintUtil.externalCInclude(annotations,e));
