@@ -551,7 +551,7 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 		} else {
 			s.printlnInc(">");		
 			doAnnotations(variable);
-			s.printlnDec("/Decl>");
+			s.printlnDec("</Decl>");
 		}
 		return s;
 	}
@@ -564,9 +564,9 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 		if (typedef.getAnnotations().isEmpty()) {
 			s.println("/>");		
 		} else {
-			s.printlnInc(">");		
+			s.printlnInc(">");
 			doAnnotations(typedef);
-			s.printlnDec("/Decl>");
+			s.printlnDec("</Decl>");
 		}
 		
 		return s;
