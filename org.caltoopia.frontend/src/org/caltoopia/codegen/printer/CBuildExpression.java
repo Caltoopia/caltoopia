@@ -346,14 +346,14 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         boolean print = false;
         switch(varType) {
         case func: //functions declared inside same namespace-level and likely called from a function or an initValue
-            thisStr = TransUtil.getNamespaceAnnotation(expr.getFunction());
+            thisStr = TransUtil.getNamespaceAnnotation(expr.getFunction()) + "__";
             f = ((VariableExpression) expr.getFunction()).getVariable();
             Variable funcFunc = (Variable) ((f instanceof ForwardDeclaration)?((ForwardDeclaration)f).getDeclaration():f);
             nameStr = CPrintUtil.validCName(funcFunc.getName());
             print = true;
             break;
         case importFunc: //calling an imported function from any namespace including ours from inside an actor
-            thisStr = CPrintUtil.getNamespace(((VariableImport)(((VariableExpression)expr.getFunction()).getVariable())).getNamespace());
+            thisStr = CPrintUtil.getNamespace(((VariableImport)(((VariableExpression)expr.getFunction()).getVariable())).getNamespace()) + "__";
             VariableImport funcImport = (VariableImport) ((VariableExpression) expr.getFunction()).getVariable();
             nameStr = CPrintUtil.validCName(funcImport.getName());
             print = true;
@@ -364,6 +364,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
                 extraParamStr += (", ");
             f = ((VariableExpression) expr.getFunction()).getVariable();
             Variable funcActor = (Variable) ((f instanceof ForwardDeclaration)?((ForwardDeclaration)f).getDeclaration():f);
+            thisStr ="__";
             nameStr = CPrintUtil.validCName(funcActor.getName());
             print = true;
             break;
@@ -392,7 +393,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
                     typeUsage + " */");
         }
         if(print) {
-            exprStr += (thisStr.equals("")? "": thisStr + "__") + nameStr + "(" + extraParamStr;
+            exprStr += thisStr + nameStr + "(" + extraParamStr;
             for (int i = 0; i<expr.getParameters().size(); i++) {
                 Expression p = expr.getParameters().get(i);
                 exprStr += new CBuildExpression(p, cenv).toStr();
