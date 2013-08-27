@@ -118,13 +118,12 @@ public class CPrinterTop extends IrSwitch<Stream> {
     PrintStream out = null;
     boolean debugPrint = false;
     boolean header = false;
-    CEnvironment cenv;
+    CEnvironment cenv = null;
     String topHeaderFilename = null;
     Actor currentActor = null;
-
     //-----------------------------------------------------------------------------
     
-    public CPrinterTop(CompilationSession session) {
+    public CPrinterTop(CompilationSession session, CEnvironment cenv) {
         List<String> sourceFiles = new ArrayList<String>();
         PrintStream out = session.getOutputStream();
         String nsName;
@@ -132,6 +131,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
         String baseName;
         this.session = session;
         this.out = session.getOutputStream();
+        this.cenv = cenv;
         Network network = null;
         TypeActor elaboratedNetworkType = session.getElaboratedNetwork().getType();
         try {
@@ -566,7 +566,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
             Port p = actor.getInputPorts().get(i);
             Type type=p.getType();
             s.print("{" + (UtilIR.isRecord(type)?"1":"0") + ", \"" + p.getName() + "\", ");
-            s.print(CPrintUtil.createDeepSizeof(null, type));
+            s.print(CPrintUtil.createDeepSizeof(null, type, cenv));
 
             if (i < actor.getInputPorts().size()) {
                 s.println("},");            
@@ -581,7 +581,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
             Port p = actor.getOutputPorts().get(i);         
             Type type=p.getType();
             s.print("{" + (UtilIR.isRecord(type)?"1":"0") + ", \"" + p.getName() + "\", ");
-            s.print(CPrintUtil.createDeepSizeof(null, type));
+            s.print(CPrintUtil.createDeepSizeof(null, type, cenv));
 
             if (i < actor.getOutputPorts().size()) {
                 s.println("},");            
@@ -608,7 +608,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
                         
                     }
                 }
-                s.print(new CBuildExpression(rate).toStr());
+                s.print(new CBuildExpression(rate,cenv).toStr());
                 if (i.hasNext()) s.print(", ");
             }
             s.println("};");
@@ -628,7 +628,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
                         }
                     }
                 }
-                s.print(new CBuildExpression(rate).toStr());
+                s.print(new CBuildExpression(rate,cenv).toStr());
                 if (i.hasNext()) s.print(", ");
 
             }
@@ -734,19 +734,19 @@ public class CPrinterTop extends IrSwitch<Stream> {
         switch(varType) {
         case actorConstParamVar:
         case constVar:
-            s.print(new CBuildConstDeclaration(variable,header,!(currentActor==null)).toStr());
+            s.print(new CBuildConstDeclaration(variable,cenv,header,!(currentActor==null)).toStr());
             s.println(";");
             break;
         case actorVar:
-            s.print(new CBuildVarDeclaration(variable,false).toStr());
+            s.print(new CBuildVarDeclaration(variable,cenv,false).toStr());
             s.println(";");
             break;
         case func:
         case actorFunc:
-            s.print(new CBuildFuncDeclaration(variable,header).toStr());
+            s.print(new CBuildFuncDeclaration(variable,cenv,header).toStr());
             break;
         case proc:
-            s.print(new CBuildProcDeclaration(variable,header).toStr());
+            s.print(new CBuildProcDeclaration(variable,cenv,header).toStr());
             break;
         default:
             VarAccess varAccess = VarAccess.valueOf(TransUtil.getAnnotationArg(variable, IrTransformer.VARIABLE_ANNOTATION, "VarAccess"));
@@ -770,7 +770,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
             TypeRecord struct = (TypeRecord) (type.getType() instanceof TypeUser ? ((TypeDeclaration)((TypeUser)type.getType()).getDeclaration()).getType(): type.getType());
             for (Iterator<Variable> i = struct.getMembers().iterator(); i.hasNext();) {
                 Variable var = i.next();
-                s.print(new CBuildVarDeclaration(var,false).toStr());
+                s.print(new CBuildVarDeclaration(var,cenv,false).toStr());
                 s.println(";");
                 if(!i.hasNext()) {
                     s.dec(); //After next println

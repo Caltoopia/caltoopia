@@ -41,6 +41,7 @@ import java.util.Iterator;
 import org.caltoopia.ast2ir.Stream;
 import org.caltoopia.ast2ir.Util;
 import org.caltoopia.ast2ir.Stream.Indent;
+import org.caltoopia.codegen.CEnvironment;
 import org.caltoopia.codegen.CodegenError;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.printer.CBuildVarDeclaration.varCB;
@@ -64,12 +65,13 @@ public class CBuildBody extends IrSwitch<Boolean> {
     String bodyStr="";
     Block body;
     boolean header = false;
-    
+    CEnvironment cenv = null;
     private IndentStr ind = null;
 
-    public CBuildBody(Block body, IndentStr ind) {
+    public CBuildBody(Block body, CEnvironment cenv, IndentStr ind) {
         bodyStr="";
         this.body = body;
+        this.cenv = cenv;
         if(ind == null) {
             this.ind = new IndentStr();
         } else {
@@ -97,10 +99,10 @@ public class CBuildBody extends IrSwitch<Boolean> {
             VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
             switch(varType) {
             case constVar:
-                bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d,false,false).toStr()) + ";" + ind.nl();
+                bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d, cenv,false,false).toStr()) + ";" + ind.nl();
                 break;
             case blockConstVar:
-                bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d,false,true).toStr()) + ";" + ind.nl();
+                bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d,cenv, false,true).toStr()) + ";" + ind.nl();
                 break;
             case actorVar:
             case blockVar:
@@ -110,9 +112,9 @@ public class CBuildBody extends IrSwitch<Boolean> {
             case actionInitInDepVar:
                 if(((Variable)d).getInitValue() != null) {
                     //TODO should have separate class for var declaration with initialization
-                    bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d,false,true).toStr()) + ";" + ind.nl();
+                    bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d, cenv, false,true).toStr()) + ";" + ind.nl();
                 } else {
-                    bodyStr += ind.ind() + (new CBuildVarDeclaration((Variable) d,false).toStr()) + ";" + ind.nl();
+                    bodyStr += ind.ind() + (new CBuildVarDeclaration((Variable) d,cenv, false).toStr()) + ";" + ind.nl();
                 }
                 break;
             default:
@@ -126,7 +128,7 @@ public class CBuildBody extends IrSwitch<Boolean> {
         }
 
         for (Statement s : block.getStatements()) {
-            bodyStr += new CBuildStatement(s,ind,true).toStr();
+            bodyStr += new CBuildStatement(s, cenv, ind,true).toStr();
         }
 
         ind.dec();

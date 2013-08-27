@@ -326,7 +326,7 @@ public class Cal2C {
                 out.println("#*#*#*#*#*#*#*#*#*# Type decl #*#*#*#*#*#*##*#*#*#");
 				new TypeMatchDeclaration().doSwitch(session.getElaboratedNetwork());
                 out.println("#*#*#*#*#*#*#*#*#*#   Print   #*#*#*#*#*#*##*#*#*#");
-				new CPrinterTop(session);
+				new CPrinterTop(session,env);
 			} else {
 				new IrXmlPrinter(session.getOutputFolder()).caseNetwork(session.getElaboratedNetwork());
 				//Transform the elaborated top network

@@ -48,6 +48,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.caltoopia.codegen.CEnvironment;
 import org.caltoopia.codegen.CodegenError;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.printer.CBuildVarDeclaration.varCB;
@@ -77,9 +78,8 @@ public class CBuildConstDeclaration extends CBuildVarDeclaration {
     String initStr="";
     boolean header = false;
     boolean noNS = false;
-    
-    public CBuildConstDeclaration(Variable variable, boolean header, boolean noNS) {
-        super(variable,false);
+    public CBuildConstDeclaration(Variable variable, CEnvironment cenv, boolean header, boolean noNS) {
+        super(variable,cenv,false);
         this.header = header;
         this.noNS = noNS;
     }
@@ -107,7 +107,7 @@ public class CBuildConstDeclaration extends CBuildVarDeclaration {
         if(header) {
             vtypeStr = "extern " + vtypeStr;
         } else {
-            initStr = new CBuildExpression(variable.getInitValue()).toStr();
+            initStr = new CBuildExpression(variable.getInitValue(),cenv).toStr();
         }
     }
 

@@ -41,6 +41,7 @@ import java.util.Iterator;
 import org.caltoopia.ast2ir.Stream;
 import org.caltoopia.ast2ir.Util;
 import org.caltoopia.ast2ir.Stream.Indent;
+import org.caltoopia.codegen.CEnvironment;
 import org.caltoopia.codegen.CodegenError;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.printer.CBuildVarDeclaration.varCB;
@@ -65,13 +66,14 @@ public class CBuildInlineBody extends IrSwitch<Boolean> {
     String bodyStr="";
     Block body;
     boolean header = false;
-    
+    CEnvironment cenv = null;
     private IndentStr ind = null;
 
-    public CBuildInlineBody(Block body, IndentStr ind) {
+    public CBuildInlineBody(Block body, CEnvironment cenv, IndentStr ind) {
         bodyStr="";
         this.body = body;
         this.ind = new IndentStr();
+        this.cenv = cenv;
     }
     
     public String toStr() {
@@ -90,7 +92,7 @@ public class CBuildInlineBody extends IrSwitch<Boolean> {
         enter(block);
         for (Iterator<Statement> i = block.getStatements().iterator();i.hasNext();) {
             Statement s = i.next();
-            bodyStr += new CBuildStatement(s,ind,false).toStr();
+            bodyStr += new CBuildStatement(s, cenv, ind,false).toStr();
             if(i.hasNext()) {
                 bodyStr += ", ";
             }

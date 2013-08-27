@@ -48,6 +48,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.caltoopia.codegen.CEnvironment;
 import org.caltoopia.codegen.CodegenError;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.printer.CPrintUtil.listStarCB;
@@ -77,12 +78,14 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
     String varStr="";
     Variable variable;
     boolean onlyVar = false;
-
-    public CBuildVarDeclaration(Variable variable, boolean onlyVar) {
+    CEnvironment cenv = null;
+    
+    public CBuildVarDeclaration(Variable variable, CEnvironment cenv, boolean onlyVar) {
         vtypeStr="";
         varStr="";
         this.variable = variable;
         this.onlyVar = onlyVar;
+        this.cenv = cenv;
     }
     
     public String toStr() {
@@ -119,7 +122,7 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
         public String listTypeFn(TypeList type) {
             if(!onlyVar) {
                 varStr += ("[");
-                varStr += (new CBuildExpression(type.getSize()).toStr());
+                varStr += (new CBuildExpression(type.getSize(),cenv).toStr());
                 varStr += ("]");
             }
             return "";

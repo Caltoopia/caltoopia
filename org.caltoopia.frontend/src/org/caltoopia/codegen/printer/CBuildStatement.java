@@ -46,6 +46,7 @@ import org.caltoopia.ast2ir.Util;
 import org.caltoopia.ast2ir.Stream.Indent;
 import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.cli.DirectoryException;
+import org.caltoopia.codegen.CEnvironment;
 import org.caltoopia.codegen.CodegenError;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.printer.CBuildVarDeclaration.varCB;
@@ -86,13 +87,14 @@ public class CBuildStatement extends IrSwitch<Boolean> {
     String statStr="";
     Statement statement;
     boolean semicolon = true;
-    
+    CEnvironment cenv = null;
     private IndentStr ind = null;
 
-    public CBuildStatement(Statement statement, IndentStr ind, boolean semicolon) {
+    public CBuildStatement(Statement statement, CEnvironment cenv, IndentStr ind, boolean semicolon) {
         statStr="";
         this.statement = statement;
         this.semicolon = semicolon;
+        this.cenv = cenv;
         if(ind == null) {
             this.ind = new IndentStr();
         } else {
@@ -115,9 +117,9 @@ public class CBuildStatement extends IrSwitch<Boolean> {
     public Boolean caseBlock(Block block) {
         enter(block);
         if(TransUtil.getAnnotationArg(block, IrTransformer.C_ANNOTATION, "inlineBlock").equals("c")) {
-            statStr += new CBuildInlineBody(block,ind).toStr();
+            statStr += new CBuildInlineBody(block, cenv, ind).toStr();
         } else {
-            statStr += new CBuildBody(block,ind).toStr();
+            statStr += new CBuildBody(block, cenv, ind).toStr();
         }
         leave();
         return true;
@@ -127,8 +129,8 @@ public class CBuildStatement extends IrSwitch<Boolean> {
     public Boolean caseAssign(Assign assign) {
         enter(assign);
         //TODO fix more complicated assignments
-        statStr += ind.ind() + new CBuildVarReference(assign.getTarget()).toStr() + " = ";
-        statStr += new CBuildExpression(assign.getExpression()).toStr();
+        statStr += ind.ind() + new CBuildVarReference(assign.getTarget(), cenv).toStr() + " = ";
+        statStr += new CBuildExpression(assign.getExpression(), cenv).toStr();
         if(semicolon) {
             statStr += ";" + ind.nl();
         }
@@ -196,7 +198,7 @@ public class CBuildStatement extends IrSwitch<Boolean> {
         
         for (int i = 0; i<call.getInParameters().size(); i++) {
             Expression p = call.getInParameters().get(i);
-            statStr += new CBuildExpression(p).toStr();
+            statStr += new CBuildExpression(p, cenv).toStr();
             if (i<call.getInParameters().size()-1) statStr += ", ";
         }
 
@@ -204,7 +206,7 @@ public class CBuildStatement extends IrSwitch<Boolean> {
             statStr += ", ";
             for (int i = 0; i<call.getOutParameters().size(); i++) {
                 VariableReference p = call.getOutParameters().get(i);
-                statStr += new CBuildVarReference(p).toStr();
+                statStr += new CBuildVarReference(p, cenv).toStr();
                 if (i<call.getOutParameters().size()-1) statStr += ", ";
             }
         }
@@ -221,9 +223,9 @@ public class CBuildStatement extends IrSwitch<Boolean> {
     public Boolean caseWhileLoop(WhileLoop stmt) {
         enter(stmt);
         statStr += ind.ind() + ("while (");
-        statStr += new CBuildExpression(stmt.getCondition()).toStr();
+        statStr += new CBuildExpression(stmt.getCondition(), cenv).toStr();
         statStr += (")") + ind.nl();
-        statStr += new CBuildBody(stmt.getBody(),ind).toStr();
+        statStr += new CBuildBody(stmt.getBody(),cenv, ind).toStr();
         leave();
         return true;
     }
@@ -241,12 +243,12 @@ public class CBuildStatement extends IrSwitch<Boolean> {
     public Boolean caseIfStatement(IfStatement stmt) {
         enter(stmt);
         statStr += ind.ind() + ("if (");
-        statStr += new CBuildExpression(stmt.getCondition()).toStr();
+        statStr += new CBuildExpression(stmt.getCondition(), cenv).toStr();
         statStr += (")") + ind.nl();
-        statStr += new CBuildBody(stmt.getThenBlock(),ind).toStr();
+        statStr += new CBuildBody(stmt.getThenBlock(), cenv, ind).toStr();
         if (stmt.getElseBlock()!=null && !stmt.getElseBlock().getStatements().isEmpty()) {
             statStr += ind.ind() + ("else") + ind.nl();
-            statStr += new CBuildBody(stmt.getElseBlock(),ind).toStr();
+            statStr += new CBuildBody(stmt.getElseBlock(), cenv, ind).toStr();
         }
         leave();
         return true;
@@ -256,7 +258,7 @@ public class CBuildStatement extends IrSwitch<Boolean> {
     public Boolean caseReturnValue(ReturnValue returnValue) {
         enter(returnValue);
         statStr += ind.ind() + ("return ");
-        statStr += new CBuildExpression(returnValue.getValue()).toStr();
+        statStr += new CBuildExpression(returnValue.getValue(), cenv).toStr();
         if(semicolon) {
             statStr += ";" + ind.nl();
         }

@@ -44,6 +44,7 @@ import org.caltoopia.ast2ir.Stream;
 import org.caltoopia.ast2ir.Util;
 import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.cli.DirectoryException;
+import org.caltoopia.codegen.CEnvironment;
 import org.caltoopia.codegen.CodegenError;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.transformer.IrTransformer;
@@ -82,9 +83,11 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
     String refStr="";
     VariableReference reference = null;
     boolean rangechk = false; //TODO be able to control this
-    public CBuildVarReference(VariableReference reference) {
+    CEnvironment cenv = null;
+    public CBuildVarReference(VariableReference reference, CEnvironment cenv) {
         refStr="";
         this.reference = reference;
+        this.cenv = cenv;
     }
     
     public String toStr() {
@@ -106,10 +109,10 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
                 if(rangechk) {
                     refStr += ("RANGECHK(");
                 }
-                refStr += new CBuildExpression(e).toStr();
+                refStr += new CBuildExpression(e, cenv).toStr();
                 if(rangechk) {
                     refStr += (",");
-                    refStr += new CBuildExpression(((TypeList)list).getSize()).toStr();
+                    refStr += new CBuildExpression(((TypeList)list).getSize(), cenv).toStr();
                     refStr += (")");
                 }
                 list = ((TypeList)list).getType();

@@ -44,6 +44,7 @@ import org.caltoopia.ast2ir.Stream;
 import org.caltoopia.ast2ir.Util;
 import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.cli.DirectoryException;
+import org.caltoopia.codegen.CEnvironment;
 import org.caltoopia.codegen.CodegenError;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.transformer.IrTransformer;
@@ -81,10 +82,12 @@ import org.eclipse.emf.ecore.EObject;
 public class CBuildExpression extends IrSwitch<Boolean> {
     String exprStr="";
     Expression expression = null;
+    CEnvironment cenv = null;
     boolean rangechk = false; //TODO be able to control this
-    public CBuildExpression(Expression expression) {
+    public CBuildExpression(Expression expression, CEnvironment cenv) {
         exprStr="";
         this.expression = expression;
+        this.cenv = cenv;
     }
     
     public String toStr() {

@@ -39,6 +39,7 @@ package org.caltoopia.codegen.printer;
 import java.util.Iterator;
 
 import org.caltoopia.ast2ir.Util;
+import org.caltoopia.codegen.CEnvironment;
 import org.caltoopia.codegen.CodegenError;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.printer.CBuildVarDeclaration.varCB;
@@ -58,10 +59,12 @@ public class CBuildFuncDeclaration extends IrSwitch<Boolean> {
     String funcStr="";
     Variable variable;
     boolean header = false;
-    public CBuildFuncDeclaration(Variable variable, boolean header) {
+    CEnvironment cenv = null;
+    public CBuildFuncDeclaration(Variable variable, CEnvironment cenv, boolean header) {
         funcStr="";
         this.header = header;
         this.variable = variable;
+        this.cenv = cenv;
     }
     
     public String toStr() {
@@ -96,7 +99,7 @@ public class CBuildFuncDeclaration extends IrSwitch<Boolean> {
         for(Iterator<Variable> i = lambda.getParameters().iterator();i.hasNext();) {
             Variable p = i.next();
             //FIXME must fix so that it can handle params
-            funcStr += new CBuildVarDeclaration(p,false).toStr();
+            funcStr += new CBuildVarDeclaration(p,cenv,false).toStr();
             if (i.hasNext()) funcStr += ", ";
         }
         funcStr += (")");
@@ -110,7 +113,7 @@ public class CBuildFuncDeclaration extends IrSwitch<Boolean> {
             } else {
                 funcStr += ("{\n");
                 funcStr += ("\treturn ");
-                funcStr += new CBuildExpression(lambda.getBody()).toStr();
+                funcStr += new CBuildExpression(lambda.getBody(),cenv).toStr();
                 funcStr += (";\n");
                 funcStr += ("}\n");
             }

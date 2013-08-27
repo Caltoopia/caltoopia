@@ -114,6 +114,15 @@ public class CPrintUtil {
         return ret;
     }
 
+    
+    static public String getNamespace(List<String> nsStrs) {
+        String ns = "";
+        for(String s:nsStrs) {
+            ns += "__" + s;
+        }
+        return ns;
+    }
+
     static public List<Annotation> collectAnnotations(VariableExternal var, Namespace ns) {
         List<Annotation> annotations = new ArrayList<Annotation>();
         annotations.addAll(var.getAnnotations());
@@ -259,11 +268,11 @@ public class CPrintUtil {
         }
     }
     
-    static public String createDeepSizeof(Scope body, Type type) {
-        return createDeepSizeofInner(null,body, type, false);
+    static public String createDeepSizeof(Scope body, Type type, CEnvironment cenv) {
+        return createDeepSizeofInner(null,body, type, false, cenv);
     }
 
-    static private String createDeepSizeofInner(String expr, Scope body, Type type, final boolean typeByRef) {
+    static private String createDeepSizeofInner(String expr, Scope body, Type type, final boolean typeByRef, CEnvironment cenv) {
         if(expr==null)
             expr="";
         expr += "(";
@@ -283,16 +292,17 @@ public class CPrintUtil {
                 case byListSome: //Used when list of decided size and inlined  but have deeper members that are not
                 case inlineSome: //Used when user type that is inlined but have deeper members that are not
                     expr += "(";
-                    expr += createDeepSizeofInner(null,body,member.getType(),true);
+                    expr += createDeepSizeofInner(null,body,member.getType(),true, cenv);
                     expr += ")";
                     break;
                 case byRef: //Used when either type (or list of non-decided size?)
-                    expr += " + " + createDeepSizeofInner(null,body,member.getType(),false);
+                    expr += " + " + createDeepSizeofInner(null,body,member.getType(),false, cenv);
                     break;
                 default:
                 }
             }
         }
+        final CEnvironment fcenv = cenv;
         expr += new CBuildTypeName(type, new dummyCB(){
             @Override
             public String preTypeFn(Type type) {
@@ -310,7 +320,7 @@ public class CPrintUtil {
             @Override
             public String listTypeFn(TypeList type) {
                 if(!typeByRef) {
-                    return " * " + new CBuildExpression(type.getSize()).toStr();
+                    return " * " + new CBuildExpression(type.getSize(), fcenv).toStr();
                 }
                 return "";
             }

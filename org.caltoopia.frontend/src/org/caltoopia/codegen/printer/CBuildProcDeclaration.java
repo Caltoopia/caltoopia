@@ -39,6 +39,7 @@ package org.caltoopia.codegen.printer;
 import java.util.Iterator;
 
 import org.caltoopia.ast2ir.Util;
+import org.caltoopia.codegen.CEnvironment;
 import org.caltoopia.codegen.CodegenError;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.printer.CBuildVarDeclaration.varCB;
@@ -60,10 +61,12 @@ public class CBuildProcDeclaration extends IrSwitch<Boolean> {
     String procStr="";
     Variable variable;
     boolean header = false;
-    public CBuildProcDeclaration(Variable variable, boolean header) {
+    CEnvironment cenv = null;
+    public CBuildProcDeclaration(Variable variable, CEnvironment cenv, boolean header) {
         procStr="";
         this.header = header;
         this.variable = variable;
+        this.cenv = cenv;
     }
     
     public String toStr() {
@@ -93,7 +96,7 @@ public class CBuildProcDeclaration extends IrSwitch<Boolean> {
         for(Iterator<Variable> i = proc.getParameters().iterator();i.hasNext();) {
             Variable p = i.next();
             //FIXME must fix so that it can handle params
-            procStr += new CBuildVarDeclaration(p,false).toStr();
+            procStr += new CBuildVarDeclaration(p,cenv, false).toStr();
             if (i.hasNext()) procStr += ", ";
         }
         if(!proc.getOutputs().isEmpty()) {
@@ -101,7 +104,7 @@ public class CBuildProcDeclaration extends IrSwitch<Boolean> {
             for(Iterator<Variable> i = proc.getOutputs().iterator();i.hasNext();) {
                 Variable p = i.next();
                 //FIXME must fix so that it can handle params
-                procStr += new CBuildVarDeclaration(p,false).toStr();
+                procStr += new CBuildVarDeclaration(p,cenv, false).toStr();
                 if (i.hasNext()) procStr += ", ";
             }           
         }
@@ -110,7 +113,7 @@ public class CBuildProcDeclaration extends IrSwitch<Boolean> {
             procStr += (";\n");
         } else {
             procStr += "\n";
-            procStr += new CBuildBody(proc.getBody(),null).toStr();
+            procStr += new CBuildBody(proc.getBody(),cenv, null).toStr();
         }
         return true;
     }
