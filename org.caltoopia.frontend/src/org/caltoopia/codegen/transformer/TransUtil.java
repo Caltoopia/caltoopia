@@ -142,8 +142,8 @@ public class TransUtil {
             return ns;
         }
     }
-	
-	static public Annotation getAnnotation(EObject obj, String name) {
+
+    static public Annotation getAnnotation(EObject obj, String name) {
 		List<Annotation> annotations = null;
 		//Most obj is a node
 		if(obj instanceof Node) {

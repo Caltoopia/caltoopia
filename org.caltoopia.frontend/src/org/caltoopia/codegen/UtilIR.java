@@ -441,8 +441,6 @@ public class UtilIR {
     static public Declaration getDeclarationTransformed(Declaration decl) {
         if( decl instanceof VariableImport) {
             VariableImport imp = (VariableImport) decl;
-            if(imp.getName().startsWith("dprint"))
-                return null;
             try {
                 Declaration var = ActorDirectory.findTransformedVariable(imp);
                 return var;

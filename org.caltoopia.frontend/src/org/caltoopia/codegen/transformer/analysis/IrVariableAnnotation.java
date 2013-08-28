@@ -449,7 +449,11 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 				serr.println("[IrAnnotate] Did not expect an external variable of type "+type.getClass());
 			}
 		} else {
-			serr.println("[IrAnnotate] Did not expect a variable of class "+inDecl.getClass());
+		    if(decl == null && inDecl.getName().startsWith("dprint")) {
+		        t = VarType.externProc; //FIXME special case until we have dropped legacy CPrinter and can change getDeclaration()
+		    } else {
+		        serr.println("[IrAnnotate] Did not expect a variable of class "+inDecl.getClass());
+		    }
 		}
 		return t;
 	}

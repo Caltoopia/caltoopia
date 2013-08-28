@@ -383,7 +383,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
             } catch (DirectoryException ee) {}
             Map<String,String> annotations = CPrintUtil.getExternAnnotations(CPrintUtil.collectAnnotations(e,ns));
             nameStr = (CPrintUtil.externalCName(annotations,e));
-            CPrintUtil.toEnvEnv(annotations,null);
+            CPrintUtil.toEnvEnv(annotations,cenv);
             print = true;
             break;
         default:
