@@ -417,13 +417,14 @@ public class CBuildExpression extends IrSwitch<Boolean> {
                 typeUsage +" */");
 
         if(UtilIR.isLiteralExpression(expr)) {
+            exprStr += "((" + CPrintUtil.validCName(expr.getName()) + "_t) ";
             exprStr += ("{");
             for(Iterator<Expression> i= ((TypeConstructorCall) expr).getParameters().iterator();i.hasNext();) {
                 Expression e = i.next();
                 doSwitch(e);
                 if(i.hasNext()) exprStr += ", ";
             }
-            exprStr += ("}");               
+            exprStr += ("})");               
         } else {
             exprStr += (CPrintUtil.validCName(expr.getName()));
             exprStr += ("(NULL, ");

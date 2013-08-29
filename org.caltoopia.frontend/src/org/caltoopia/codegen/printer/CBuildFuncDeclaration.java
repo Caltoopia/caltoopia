@@ -46,6 +46,8 @@ import org.caltoopia.codegen.printer.CBuildVarDeclaration.varCB;
 import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.TransUtil;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarType;
+import org.caltoopia.ir.Actor;
+import org.caltoopia.ir.Block;
 import org.caltoopia.ir.LambdaExpression;
 import org.caltoopia.ir.ProcExpression;
 import org.caltoopia.ir.Type;
@@ -92,6 +94,10 @@ public class CBuildFuncDeclaration extends IrSwitch<Boolean> {
 
         VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(variable, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
         if(varType == VarType.actorFunc) {
+            if(thisStr.equals("")) {
+                Actor actor = (Actor)lambda.getOuter();
+                thisStr = Util.marshallQualifiedName(actor.getType().getNamespace()) + "__" + TransUtil.getAnnotationArg(actor, "Instance", "name");
+            }
             funcStr += ("ActorInstance_" + thisStr + "* thisActor");
             if(!lambda.getParameters().isEmpty())
                 funcStr += (", ");
@@ -111,11 +117,18 @@ public class CBuildFuncDeclaration extends IrSwitch<Boolean> {
                 //doSwitch(((ProcExpression)lambda.getBody()).getBody());
                 funcStr += "/* Here body statements should be printed */\n";
             } else {
+                //TODO should probably always move to ProcExpression body in transform step but for now do a body here.
+                Block b = UtilIR.createBlock(lambda);
+                UtilIR.createReturn(b, lambda.getBody());
+                b.getDeclarations().addAll(lambda.getDeclarations());
+                funcStr += new CBuildBody(b, cenv, null).toStr();
+                /*
                 funcStr += ("{\n");
                 funcStr += ("\treturn ");
                 funcStr += new CBuildExpression(lambda.getBody(),cenv).toStr();
                 funcStr += (";\n");
                 funcStr += ("}\n");
+                */
             }
         }
         return true;

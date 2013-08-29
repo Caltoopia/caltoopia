@@ -452,7 +452,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
         s.println("#include \"natives.h\"");
         s.println("#include \"" + topHeaderFilename + "\"");
 
-        String thisStr = Util.marshallQualifiedName(actor.getType().getNamespace()) + "_" + TransUtil.getAnnotationArg(actor, "Instance", "name");
+        String thisStr = Util.marshallQualifiedName(actor.getType().getNamespace()) + "__" + TransUtil.getAnnotationArg(actor, "Instance", "name");
         String actorId = "ActorInstance_" + thisStr;
         
         printCIncludes(actor.getDeclarations());

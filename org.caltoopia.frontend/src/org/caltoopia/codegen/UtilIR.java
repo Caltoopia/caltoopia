@@ -1142,14 +1142,24 @@ public class UtilIR {
     }
 
     static public ReturnValue createReturn(Block body, Variable var) {
-		ReturnValue ret = IrFactory.eINSTANCE.createReturnValue();
-		ret.setValue(createExpression(body,var));
-		if(body!=null) {
-			body.getStatements().add(ret);
-		}
-		return ret;
-	}
-	
+        ReturnValue ret = IrFactory.eINSTANCE.createReturnValue();
+        ret.setValue(createExpression(body,var));
+        if(body!=null) {
+            body.getStatements().add(ret);
+        }
+        return ret;
+    }
+    
+    static public ReturnValue createReturn(Block body, Expression expr) {
+        ReturnValue ret = IrFactory.eINSTANCE.createReturnValue();
+        ret.setId(Util.getDefinitionId());
+        ret.setValue(expr);
+        if(body!=null) {
+            body.getStatements().add(ret);
+        }
+        return ret;
+    }
+    
 	static public IfStatement createIf(Block scope, Expression condition, Block thenBlock, Block elseBlock) {
 		IfStatement ifs= IrFactory.eINSTANCE.createIfStatement();
 		ifs.setCondition(condition);

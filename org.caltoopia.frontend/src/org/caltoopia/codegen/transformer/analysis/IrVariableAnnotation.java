@@ -54,6 +54,7 @@ import org.caltoopia.ir.Block;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.ExternalActor;
+import org.caltoopia.ir.ForwardDeclaration;
 import org.caltoopia.ir.Generator;
 import org.caltoopia.ir.Guard;
 import org.caltoopia.ir.IrFactory;
@@ -64,6 +65,7 @@ import org.caltoopia.ir.Node;
 import org.caltoopia.ir.PortPeek;
 import org.caltoopia.ir.PortRead;
 import org.caltoopia.ir.PortWrite;
+import org.caltoopia.ir.ProcCall;
 import org.caltoopia.ir.ProcExpression;
 import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.Type;
@@ -449,10 +451,10 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 				serr.println("[IrAnnotate] Did not expect an external variable of type "+type.getClass());
 			}
 		} else {
-		    if(decl == null && inDecl.getName().startsWith("dprint")) {
+		    if(decl == null && inDecl!=null && inDecl.getName().startsWith("dprint")) {
 		        t = VarType.externProc; //FIXME special case until we have dropped legacy CPrinter and can change getDeclaration()
 		    } else {
-		        serr.println("[IrAnnotate] Did not expect a variable of class "+inDecl.getClass());
+		        serr.println("[IrAnnotate] Did not expect a variable of class "+ (inDecl==null?"none":inDecl.getClass()));
 		    }
 		}
 		return t;
@@ -533,13 +535,29 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		return super.caseVariableReference(var);
 	}
 
-	@Override
+    @Override
+    public Statement caseProcCall(ProcCall call) {
+        Declaration p = call.getProcedure() instanceof ForwardDeclaration?((ForwardDeclaration)call.getProcedure()).getDeclaration():call.getProcedure();
+        VarType t = findVariableType(p);
+        TransUtil.setAnnotation(p,IrTransformer.VARIABLE_ANNOTATION,"VarType",t.name());
+        TransUtil.copyNamespaceAnnotation(call, p);
+        return super.caseProcCall(call);
+    }
+
+    @Override
 	public Declaration caseVariable(Variable var) {
 		VarType t = findVariableType(var);
 		TransUtil.setAnnotation(var,IrTransformer.VARIABLE_ANNOTATION,"VarType",t.name());
 		return super.caseVariable(var);
 	}
 	
+    @Override
+    public EObject caseVariableImport(VariableImport var) {
+        VarType t = findVariableType(var);
+        TransUtil.setAnnotation(var,IrTransformer.VARIABLE_ANNOTATION,"VarType",t.name());
+        return super.caseVariableImport(var);
+    }
+    
     @Override
     public Declaration caseVariableExternal(VariableExternal var) {
         VarType t = findVariableType(var);

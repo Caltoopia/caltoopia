@@ -46,6 +46,7 @@ import org.caltoopia.codegen.printer.CBuildVarDeclaration.varCB;
 import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.TransUtil;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarType;
+import org.caltoopia.ir.Actor;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.LambdaExpression;
 import org.caltoopia.ir.ProcExpression;
@@ -83,9 +84,12 @@ public class CBuildProcDeclaration extends IrSwitch<Boolean> {
     public Boolean caseVariable(Variable variable) {
         ProcExpression proc =  (ProcExpression) variable.getInitValue();
         procStr = "void ";
-        String thisStr = TransUtil.getNamespaceAnnotation(variable);        
-        procStr += thisStr + "__";
-        procStr += CPrintUtil.validCName(variable.getName()) + "(";
+        String thisStr = TransUtil.getNamespaceAnnotation(variable);
+        if(thisStr.equals("")) {
+            Actor actor = (Actor)proc.getOuter();
+            thisStr = Util.marshallQualifiedName(actor.getType().getNamespace()) + "__" + TransUtil.getAnnotationArg(actor, "Instance", "name");
+        }
+        procStr += "__" + CPrintUtil.validCName(variable.getName()) + "(";
 
         VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(variable, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
         if(varType == VarType.proc) {

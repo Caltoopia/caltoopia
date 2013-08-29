@@ -54,12 +54,14 @@ import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.TransUtil;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarAccess;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarType;
+import org.caltoopia.ir.Actor;
 import org.caltoopia.ir.Assign;
 import org.caltoopia.ir.BinaryExpression;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Block;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.ForEach;
+import org.caltoopia.ir.ForwardDeclaration;
 import org.caltoopia.ir.Generator;
 import org.caltoopia.ir.IfStatement;
 import org.caltoopia.ir.LambdaExpression;
@@ -76,6 +78,7 @@ import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.TypeProc;
 import org.caltoopia.ir.Variable;
+import org.caltoopia.ir.VariableExpression;
 import org.caltoopia.ir.VariableExternal;
 import org.caltoopia.ir.VariableImport;
 import org.caltoopia.ir.VariableReference;
@@ -166,55 +169,68 @@ public class CBuildStatement extends IrSwitch<Boolean> {
     @Override
     public Boolean caseProcCall(ProcCall call) {
         enter(call);
-        VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(call, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
+        Declaration p = call.getProcedure() instanceof ForwardDeclaration?((ForwardDeclaration)call.getProcedure()).getDeclaration():call.getProcedure();
+        VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(p, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
+        String thisStr = "";
+        String extraParamStr = "";
+        String nameStr="";
+        boolean print = false;
         switch(varType) {
         case proc:
-            statStr += ind.ind() + (CPrintUtil.validCName(call.getProcedure().getName()));
-            break;
-        case importProc:
-            statStr += ind.ind() + (call.getProcedure().getName().startsWith("dprint")?"":TransUtil.getNamespaceAnnotation(call) + "__");
-            statStr += (CPrintUtil.validCName(call.getProcedure().getName()));
+            thisStr = "__";
+            nameStr = (CPrintUtil.validCName(p.getName()));
+            extraParamStr = ("thisActor");
+            if(!(call.getInParameters().isEmpty() && call.getOutParameters().isEmpty()))
+                extraParamStr += (", ");
+            print = true;
             break;
         case externProc:
-            //TODO fix extern declared procedures
-            //Map<String,String> annotations = getExternAnnotations(collectAnnotations(call,ns));
-            //statStr += (externalCName(annotations,e));
-            //toEnv(annotations);
-            statStr += ind.ind() + (CPrintUtil.validCName(call.getProcedure().getName()));
-            //break;
+            Declaration pp = null;
+            try {
+                pp = ActorDirectory.findVariable((VariableImport)p);
+            } catch (DirectoryException e) {
+                System.err.println("[CBuildStatement] Could not find imported extern procedure " + p.getName());
+            }
+            VariableExternal e = (VariableExternal) pp;
+            Namespace ns = null;
+            try {
+                ns = ActorDirectory.findNamespace(((VariableImport)p).getNamespace());
+            } catch (DirectoryException ee) {}
+            Map<String,String> annotations = CPrintUtil.getExternAnnotations(CPrintUtil.collectAnnotations(e,ns));
+            nameStr = (CPrintUtil.externalCName(annotations,e));
+            CPrintUtil.toEnvEnv(annotations,cenv);
+            print = true;
+            break;
         default:
-            VarAccess varAccess = VarAccess.valueOf(TransUtil.getAnnotationArg(call, IrTransformer.VARIABLE_ANNOTATION, "VarAccess"));
-            String typeUsage = TransUtil.getAnnotationArg(call, IrTransformer.TYPE_ANNOTATION, "TypeUsage");
-            statStr +=("/* PC " + call.getProcedure().getName() + ", " +
+            VarAccess varAccess = VarAccess.valueOf(TransUtil.getAnnotationArg(p, IrTransformer.VARIABLE_ANNOTATION, "VarAccess"));
+            String typeUsage = TransUtil.getAnnotationArg(p, IrTransformer.TYPE_ANNOTATION, "TypeUsage");
+            statStr +=("/* PC " + p.getName() + ", " +
                     varType.name() +", " +
                     varAccess.name() +", " +
                     typeUsage +" */");
         }
-
-        statStr += "(";
-        statStr += ("thisActor");
-        if(!call.getOutParameters().isEmpty() || !call.getInParameters().isEmpty())
-            statStr += (", ");
-        
-        for (int i = 0; i<call.getInParameters().size(); i++) {
-            Expression p = call.getInParameters().get(i);
-            statStr += new CBuildExpression(p, cenv).toStr();
-            if (i<call.getInParameters().size()-1) statStr += ", ";
-        }
-
-        if(!call.getOutParameters().isEmpty()) {
-            statStr += ", ";
-            for (int i = 0; i<call.getOutParameters().size(); i++) {
-                VariableReference p = call.getOutParameters().get(i);
-                statStr += new CBuildVarReference(p, cenv).toStr();
-                if (i<call.getOutParameters().size()-1) statStr += ", ";
+        if(print) {
+            statStr += ind.ind() + thisStr + nameStr + "(" + extraParamStr;
+            
+            for (int i = 0; i<call.getInParameters().size(); i++) {
+                Expression ep = call.getInParameters().get(i);
+                statStr += new CBuildExpression(ep, cenv).toStr();
+                if (i<call.getInParameters().size()-1) statStr += ", ";
+            }
+    
+            if(!call.getOutParameters().isEmpty()) {
+                statStr += ", ";
+                for (int i = 0; i<call.getOutParameters().size(); i++) {
+                    VariableReference rp = call.getOutParameters().get(i);
+                    statStr += new CBuildVarReference(rp, cenv).toStr();
+                    if (i<call.getOutParameters().size()-1) statStr += ", ";
+                }
+            }
+            statStr += ")";
+            if(semicolon) {
+                statStr += ";" +ind.nl();
             }
         }
-        statStr += ")";
-        if(semicolon) {
-            statStr += ";" +ind.nl();
-        }
-
         leave();
         return true;
     }

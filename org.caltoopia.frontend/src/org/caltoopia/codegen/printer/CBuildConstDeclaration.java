@@ -126,6 +126,7 @@ public class CBuildConstDeclaration extends CBuildVarDeclaration {
             varStr = "__CalActorParam__" + varStr;
             break;
         //Actually declaration + initialization of non-const
+        case funcVar:
         case procVar:
         case blockVar:
             buildConstDeclaration(variable);
