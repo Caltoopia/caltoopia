@@ -969,7 +969,8 @@ public class IrXmlReader {
 			return stmt;
 		} else if (kind.equals("ReturnValue")) {
 			ReturnValue stmt = IrFactory.eINSTANCE.createReturnValue();
-			stmt.setValue((Expression) getChild(element, "Expr")); 
+            doAnnotations(stmt, element);
+			stmt.setValue(createExpression(getChild(element, "Expr"))); 
 			
 			return stmt;
 		}
