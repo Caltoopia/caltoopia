@@ -95,6 +95,7 @@ import org.caltoopia.codegen.IrXmlPrinter;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.IrTransformer.IrPassTypes;
+import org.caltoopia.codegen.transformer.TransUtil.HowLiteral;
 import org.caltoopia.codegen.transformer.TransUtil;
 
 public class IrVariableAnnotation extends IrReplaceSwitch {
@@ -222,13 +223,32 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 
 	public enum VarAssign {
 		unknown,
-		assigned,
+        assigned,
 		movedInitAssigned,
 		movedRetAssigned
 		//TODO add more types of assignment when needed, e.g. if member is assigned, assigned due to procedure output, etc
 	};
 	
-	private VarType annotatePortVar(Declaration variable, Action a) {
+    public enum VarLiteral {
+        unknown,
+        assignedLit,
+        assignedListLit,
+        assignedListLitwTC,
+        assignedTypeConstructLit,
+        assignedTypeConstruct,
+        assignedInitLit,
+        assignedInitListLit,
+        assignedInitListLitwTC,
+        assignedInitTypeConstructLit,
+        assignedInitTypeConstruct,
+        initializedLit,
+        initializedListLit,
+        initializedListLitwTC,
+        initializedTypeConstructLit,
+        initializedTypeConstruct
+    };
+
+    private VarType annotatePortVar(Declaration variable, Action a) {
 		VarType t = VarType.unknown;
 		if(!a.getOutputs().isEmpty()) {
 			//See if declaration is used as output variable expression
@@ -548,6 +568,53 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 	public Declaration caseVariable(Variable var) {
 		VarType t = findVariableType(var);
 		TransUtil.setAnnotation(var,IrTransformer.VARIABLE_ANNOTATION,"VarType",t.name());
+        VarLiteral l = null;
+        if(var.getInitValue() != null) {
+            HowLiteral h = TransUtil.isLiteralExpression(var.getInitValue());
+            if(h.total) {
+                if(h.list) {
+                    if(h.typeConstruct) {
+                        l = VarLiteral.initializedListLitwTC;
+                    } else {
+                        l = VarLiteral.initializedListLit;
+                    }
+                } else if(h.typeConstruct) {
+                    l = VarLiteral.initializedTypeConstructLit;
+                } else if(h.builtin) {
+                    l = VarLiteral.initializedLit;
+                }
+            } else {
+                if(h.typeConstruct) {
+                    l = VarLiteral.initializedTypeConstruct;
+                }
+            }
+            if(l != null) {
+                TransUtil.setAnnotation(var.getInitValue(),IrTransformer.VARIABLE_ANNOTATION, 
+                        "VarLiteral",l.name());
+                VarLiteral current = VarLiteral.valueOf(TransUtil.getAnnotationArg(var, IrTransformer.VARIABLE_ANNOTATION, "VarLiteral"));
+                switch(current) {
+                case assignedLit:
+                    l = VarLiteral.assignedInitLit;
+                    break;
+                case assignedListLit:
+                    l = VarLiteral.assignedInitListLit;
+                    break;
+                case assignedTypeConstructLit:
+                    l = VarLiteral.assignedInitTypeConstructLit;
+                    break;
+                case assignedTypeConstruct:
+                    l = VarLiteral.assignedInitTypeConstruct;
+                    break;
+                case unknown:
+                    break;
+                default:
+                    //>>>>> NB! leaving current function <<<<<<
+                    return super.caseVariable(var);
+                }
+                TransUtil.setAnnotation(var,IrTransformer.VARIABLE_ANNOTATION, 
+                        "VarLiteral",l.name());
+            }
+        }
 		return super.caseVariable(var);
 	}
 	
@@ -650,10 +717,57 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 
 	@Override
 	public Statement caseAssign(Assign assign) {
-		TransUtil.setAnnotation(assign.getTarget().getDeclaration(),IrTransformer.VARIABLE_ANNOTATION, 
-				"VarAssign",VarAssign.assigned.name());
-		TransUtil.setAnnotation(assign.getTarget(),IrTransformer.VARIABLE_ANNOTATION, 
-				"VarAssign",VarAssign.assigned.name());
+        TransUtil.setAnnotation(assign.getTarget().getDeclaration(),IrTransformer.VARIABLE_ANNOTATION, 
+                "VarAssign",VarAssign.assigned.name());
+        TransUtil.setAnnotation(assign.getTarget(),IrTransformer.VARIABLE_ANNOTATION, 
+                "VarAssign",VarAssign.assigned.name());
+        VarLiteral l = null;
+        HowLiteral h = TransUtil.isLiteralExpression(assign.getExpression());
+        if(h.total) {
+            if(h.list) {
+                if(h.typeConstruct) {
+                    l = VarLiteral.initializedListLitwTC;
+                } else {
+                    l = VarLiteral.initializedListLit;
+                }
+            } else if(h.literalTypeConstruct) {
+                l = VarLiteral.assignedTypeConstructLit;
+            } else if(h.builtin) {
+                l = VarLiteral.assignedLit;
+            }
+        } else {
+            if(h.typeConstruct) {
+                l = VarLiteral.assignedTypeConstruct;
+            }
+        }
+        if(l != null) {
+            TransUtil.setAnnotation(assign.getTarget(),IrTransformer.VARIABLE_ANNOTATION, 
+                    "VarLiteral",l.name());
+            TransUtil.setAnnotation(assign.getExpression(),IrTransformer.VARIABLE_ANNOTATION, 
+                    "VarLiteral",l.name());
+            VarLiteral current = VarLiteral.valueOf(TransUtil.getAnnotationArg(assign.getTarget().getDeclaration(), IrTransformer.VARIABLE_ANNOTATION, "VarLiteral"));
+            switch(current) {
+            case initializedLit:
+                l = VarLiteral.assignedInitLit;
+                break;
+            case initializedListLit:
+                l = VarLiteral.assignedInitListLit;
+                break;
+            case initializedTypeConstructLit:
+                l = VarLiteral.assignedInitTypeConstructLit;
+                break;
+            case initializedTypeConstruct:
+                l = VarLiteral.assignedInitTypeConstruct;
+                break;
+            case unknown:
+                break;
+            default:
+                //>>>>> NB! leaving current function <<<<<<
+                return super.caseAssign(assign);
+            }
+            TransUtil.setAnnotation(assign.getTarget().getDeclaration(),IrTransformer.VARIABLE_ANNOTATION, 
+                    "VarLiteral",l.name());
+        }
 		return super.caseAssign(assign);
 	}
 

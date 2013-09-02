@@ -52,10 +52,14 @@ import org.caltoopia.codegen.transformer.analysis.IrVariablePlacementAnnotation.
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Annotation;
 import org.caltoopia.ir.AnnotationArgument;
+import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.IrFactory;
+import org.caltoopia.ir.ListExpression;
+import org.caltoopia.ir.LiteralExpression;
 import org.caltoopia.ir.Namespace;
 import org.caltoopia.ir.Node;
 import org.caltoopia.ir.Scope;
+import org.caltoopia.ir.TypeConstructorCall;
 import org.eclipse.emf.ecore.EObject;
 
 public class TransUtil {
@@ -317,4 +321,78 @@ public class TransUtil {
        AnnotationsFilter[] af ={annotationsFilter};
        copySelectedAnnotations(dst,src,af);
    }
+   
+   static public class HowLiteral {
+       public boolean list = false; //Has list expression
+       public boolean typeConstruct = false; //Has typeconstructor
+       public boolean literalTypeConstruct = false; //Has typeconstructor with only literal parameters
+       public boolean builtin = false; //is literal of builtin type at top level
+       public boolean total = true; //complete expression is literal (assuming type construct calls with only literal params are literals)
+   }
+   
+   static private HowLiteral literalList(ListExpression list, HowLiteral in) {
+       if(list==null) return in;
+       if(list.getGenerators().isEmpty() && !list.getExpressions().isEmpty()) {
+           for(Expression e : list.getExpressions()) {
+               if(e instanceof ListExpression) {
+                   in = literalList((ListExpression)e,in);
+               } else if(e instanceof TypeConstructorCall) {
+                   in.typeConstruct = true;
+                   in.literalTypeConstruct = true;
+                   in = literalTypeConstruct((TypeConstructorCall) e,in);
+               } else if(!(e instanceof LiteralExpression)) {
+                   in.total = false;
+               }
+           }
+       } else {
+           in.total = false;
+       }
+       return in;
+   }
+
+   static private HowLiteral literalTypeConstruct(TypeConstructorCall call, HowLiteral in) {
+       if(call==null) return in;
+       if(!call.getParameters().isEmpty()) {
+           for(Expression e : call.getParameters()) {
+               if(e instanceof ListExpression) {
+                   HowLiteral h = new HowLiteral();
+                   h = literalList((ListExpression)e,h);
+                   if(!h.total) {
+                       in.total=false;
+                       in.literalTypeConstruct = false;
+                   }
+                   if(h.list) {
+                       in.list = true;
+                   }
+               } else if(e instanceof TypeConstructorCall) {
+                   in = literalTypeConstruct((TypeConstructorCall) e,in);
+               } else if(!(e instanceof LiteralExpression)) {
+                   in.total = false;
+                   in.literalTypeConstruct = false;
+               }
+           }
+       } else {
+           in.total = false;
+       }
+       return in;
+   }
+
+   static public HowLiteral isLiteralExpression(Expression expr) {
+       HowLiteral h = new HowLiteral();
+       if(expr instanceof LiteralExpression) {
+           h.builtin = true;
+           h.total = true;
+           return h;
+       } else if(expr instanceof ListExpression) {
+           h.list = true;
+           return literalList((ListExpression) expr,h);
+       } else if(expr instanceof TypeConstructorCall) {
+           h.typeConstruct = true;
+           h.literalTypeConstruct = true;
+           return literalTypeConstruct((TypeConstructorCall) expr,h);
+       }
+       h.total = false;
+       return h;
+   }
+   
 }
