@@ -192,12 +192,10 @@ public class ExpandIrSymbols {
 	    		setNamespace(call,call.getContext());
 	    		call.setContext(theNetwork);
 
-	    		//Visit the parameter types
-	    		/*
+	    		//Visit the parameters
 	    		for (int i = 0; i < call.getParameters().size(); i++) {
 	    			doSwitch(call.getParameters().get(i));
 	    		}
-	    		*/
 	    		return call;
 	    	}
 
