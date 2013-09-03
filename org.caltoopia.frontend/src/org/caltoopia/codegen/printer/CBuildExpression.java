@@ -237,7 +237,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
             if (i.hasNext()) exprStr += ", ";
         }
         if(!lit.getGenerators().isEmpty()) {
-            exprStr = "/* Don't know what to do with a generator yet "+ lit.toString() +"*/";
+            exprStr += "/* Don't know what to do with a generator yet "+ lit.toString() +"*/";
             CodegenError.err("Expression builder", "Don't know what to do with a generator yet "+ lit.toString() + ", check output!");
         }
         exprStr += ("}");

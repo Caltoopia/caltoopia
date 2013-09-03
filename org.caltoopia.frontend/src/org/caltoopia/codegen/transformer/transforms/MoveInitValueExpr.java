@@ -203,7 +203,7 @@ public class MoveInitValueExpr extends IrReplaceSwitch {
 			pe.setType(TypeSystem.createTypeUndef()); //Normally a TypeProc, but this is a nameless parameterless ProcExpression
 			body.setId(Util.getDefinitionId());
 			body.setOuter(pe);
-
+			body.getDeclarations().addAll(obj.getDeclarations());
 			//The original expr as return stmt in temp variable (to allow for statements after the expression)
 			Variable ret = UtilIR.createVarDef(body, "CAL__ret__", ((TypeLambda)obj.getType()).getOutputType());
 			Assign assign = UtilIR.createAssign(body, ret, obj.getBody());

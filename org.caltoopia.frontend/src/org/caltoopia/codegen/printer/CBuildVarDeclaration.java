@@ -153,6 +153,7 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
         switch(varType) {
         case memberDeclType:
         case actorVar:
+        case funcVar:
         case procVar:
         case generatorVar:
         case blockVar:

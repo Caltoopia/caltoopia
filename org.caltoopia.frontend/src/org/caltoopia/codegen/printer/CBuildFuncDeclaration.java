@@ -114,8 +114,7 @@ public class CBuildFuncDeclaration extends IrSwitch<Boolean> {
         } else {
             if(lambda.getBody() instanceof ProcExpression) {
                 //Expression have been expanded to nameless proc to get a block
-                //doSwitch(((ProcExpression)lambda.getBody()).getBody());
-                funcStr += "/* Here body statements should be printed */\n";
+                funcStr += new CBuildBody(((ProcExpression)lambda.getBody()).getBody(), cenv, null).toStr();
             } else {
                 //TODO should probably always move to ProcExpression body in transform step but for now do a body here.
                 Block b = UtilIR.createBlock(lambda);

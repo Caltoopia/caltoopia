@@ -97,6 +97,7 @@ import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.IrTransformer.IrPassTypes;
 import org.caltoopia.codegen.transformer.TransUtil;
 import org.caltoopia.codegen.transformer.TransUtil.AnnotationsFilter;
+import org.caltoopia.codegen.transformer.TransUtil.HowLiteral;
 import org.caltoopia.codegen.transformer.analysis.IrTypeStructureAnnotation.TypeMember;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarType;
 
@@ -139,8 +140,13 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 		for(AnnotationArgument aa:varAnnotation.getArguments()) {
 			annotations.put(aa.getId(), aa.getValue());
 		}
+		boolean litSize = true;
 		Type type = var.getType();
 		while(type instanceof TypeList) {
+		    HowLiteral h = TransUtil.isLiteralExpression(((TypeList)type).getSize());
+		    if(!h.builtin) {
+		        litSize = false;
+		    }
 			type = ((TypeList)type).getType();
 		}
 		TypeDeclaration td=null;
@@ -157,7 +163,11 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 		} else {
 			//Since non-user types don't have a TypeDeclaration just put a builtin in the annotations map
 			if(UtilIR.isList(var.getType())) {
-				annotations.put("TypeStructure", IrTypeStructureAnnotation.TypeMember.byListFull.name());
+			    if(litSize) {
+			        annotations.put("TypeStructure", IrTypeStructureAnnotation.TypeMember.byListFull.name());
+			    } else {
+                    annotations.put("TypeStructure", IrTypeStructureAnnotation.TypeMember.byRef.name());
+			    }
 			} else {
 				annotations.put("TypeStructure", IrTypeStructureAnnotation.TypeMember.builtin.name());
 			}
