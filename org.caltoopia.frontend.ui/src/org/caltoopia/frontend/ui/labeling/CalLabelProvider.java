@@ -70,6 +70,8 @@ public class CalLabelProvider extends DefaultEObjectLabelProvider {
 	}
 	
 	private String doType(AstType type) {
+		if (type == null) 
+			return "<undef>";
 		if (type.getBuiltin() != null) {
 			return type.getBuiltin();
 		} else {

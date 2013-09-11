@@ -68,10 +68,12 @@ import org.caltoopia.ir.Annotation;
 import org.caltoopia.ir.AnnotationArgument;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.ForwardDeclaration;
+import org.caltoopia.ir.TaggedTupleFieldExpression;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeDeclarationImport;
 import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeProc;
+import org.caltoopia.ir.TypeUser;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Actor;
@@ -328,11 +330,11 @@ public class Util {
 		return annotation;
 	}
 
-	public static VariableExpression createVariableExpression(Scope scope, Variable var) {
+	public static VariableExpression createVariableExpression(Scope context, Variable var) {
 		VariableExpression result = IrFactory.eINSTANCE.createVariableExpression();
 		result.setId(Util.getDefinitionId());
 		result.setVariable(var);
-		result.setContext(scope);
+		result.setContext(context);
 		return result;
 	}
 
@@ -573,7 +575,7 @@ public class Util {
 		return irObject;
 	}
 		
-	public static Member createMemberAccess(AstMemberAccess field, Scope scope) {
+	public static Member createFieldAccess(AstMemberAccess field, Scope scope) {
 		Member member = IrFactory.eINSTANCE.createMember();
 		member.setName(field.getName());
 		// Type type = TypeConverter.typeOf(scope, field);
@@ -842,5 +844,16 @@ public class Util {
 		s = s.replace("DIV", "/");
 		
 		return s;
+	}
+
+	public static Expression createTaggedTupleFieldExpression(Scope context, TypeUser type, String tag, String label) {
+		TaggedTupleFieldExpression field = IrFactory.eINSTANCE.createTaggedTupleFieldExpression();
+		field.setId(Util.getDefinitionId());
+		field.setContext(context);
+		field.setType(type);
+		field.setTag(tag);
+		field.setLabel(label);		
+		
+		return field;
 	}
 }

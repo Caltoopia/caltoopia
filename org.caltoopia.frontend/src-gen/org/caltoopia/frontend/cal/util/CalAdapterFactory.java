@@ -275,6 +275,16 @@ public class CalAdapterFactory extends AdapterFactoryImpl
         return createAstStatementWhileAdapter();
       }
       @Override
+      public Adapter caseAstStatementCase(AstStatementCase object)
+      {
+        return createAstStatementCaseAdapter();
+      }
+      @Override
+      public Adapter caseAstStatementAlternative(AstStatementAlternative object)
+      {
+        return createAstStatementAlternativeAdapter();
+      }
+      @Override
       public Adapter caseAstStatement(AstStatement object)
       {
         return createAstStatementAdapter();
@@ -305,6 +315,16 @@ public class CalAdapterFactory extends AdapterFactoryImpl
         return createAstGeneratorAdapter();
       }
       @Override
+      public Adapter caseAstExpressionCase(AstExpressionCase object)
+      {
+        return createAstExpressionCaseAdapter();
+      }
+      @Override
+      public Adapter caseAstExpressionAlternative(AstExpressionAlternative object)
+      {
+        return createAstExpressionAlternativeAdapter();
+      }
+      @Override
       public Adapter caseAstExpressionLiteral(AstExpressionLiteral object)
       {
         return createAstExpressionLiteralAdapter();
@@ -328,6 +348,31 @@ public class CalAdapterFactory extends AdapterFactoryImpl
       public Adapter caseAstExpressionString(AstExpressionString object)
       {
         return createAstExpressionStringAdapter();
+      }
+      @Override
+      public Adapter caseAstPattern(AstPattern object)
+      {
+        return createAstPatternAdapter();
+      }
+      @Override
+      public Adapter caseAstSubPattern(AstSubPattern object)
+      {
+        return createAstSubPatternAdapter();
+      }
+      @Override
+      public Adapter caseAstPatternExpressionSymbolReference(AstPatternExpressionSymbolReference object)
+      {
+        return createAstPatternExpressionSymbolReferenceAdapter();
+      }
+      @Override
+      public Adapter caseAstPatternExpressionIf(AstPatternExpressionIf object)
+      {
+        return createAstPatternExpressionIfAdapter();
+      }
+      @Override
+      public Adapter caseAstPatternExpressionLiteral(AstPatternExpressionLiteral object)
+      {
+        return createAstPatternExpressionLiteralAdapter();
       }
       @Override
       public Adapter caseAstType(AstType object)
@@ -383,6 +428,16 @@ public class CalAdapterFactory extends AdapterFactoryImpl
       public Adapter caseAstExpressionUnary(AstExpressionUnary object)
       {
         return createAstExpressionUnaryAdapter();
+      }
+      @Override
+      public Adapter caseAstPatternExpressionBinary(AstPatternExpressionBinary object)
+      {
+        return createAstPatternExpressionBinaryAdapter();
+      }
+      @Override
+      public Adapter caseAstPatternExpressionUnary(AstPatternExpressionUnary object)
+      {
+        return createAstPatternExpressionUnaryAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -1007,6 +1062,36 @@ public class CalAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstStatementCase <em>Ast Statement Case</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.caltoopia.frontend.cal.AstStatementCase
+   * @generated
+   */
+  public Adapter createAstStatementCaseAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstStatementAlternative <em>Ast Statement Alternative</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.caltoopia.frontend.cal.AstStatementAlternative
+   * @generated
+   */
+  public Adapter createAstStatementAlternativeAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstStatement <em>Ast Statement</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1097,6 +1182,36 @@ public class CalAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstExpressionCase <em>Ast Expression Case</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.caltoopia.frontend.cal.AstExpressionCase
+   * @generated
+   */
+  public Adapter createAstExpressionCaseAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstExpressionAlternative <em>Ast Expression Alternative</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.caltoopia.frontend.cal.AstExpressionAlternative
+   * @generated
+   */
+  public Adapter createAstExpressionAlternativeAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstExpressionLiteral <em>Ast Expression Literal</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1167,6 +1282,81 @@ public class CalAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAstExpressionStringAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstPattern <em>Ast Pattern</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.caltoopia.frontend.cal.AstPattern
+   * @generated
+   */
+  public Adapter createAstPatternAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstSubPattern <em>Ast Sub Pattern</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.caltoopia.frontend.cal.AstSubPattern
+   * @generated
+   */
+  public Adapter createAstSubPatternAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstPatternExpressionSymbolReference <em>Ast Pattern Expression Symbol Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.caltoopia.frontend.cal.AstPatternExpressionSymbolReference
+   * @generated
+   */
+  public Adapter createAstPatternExpressionSymbolReferenceAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstPatternExpressionIf <em>Ast Pattern Expression If</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.caltoopia.frontend.cal.AstPatternExpressionIf
+   * @generated
+   */
+  public Adapter createAstPatternExpressionIfAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstPatternExpressionLiteral <em>Ast Pattern Expression Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.caltoopia.frontend.cal.AstPatternExpressionLiteral
+   * @generated
+   */
+  public Adapter createAstPatternExpressionLiteralAdapter()
   {
     return null;
   }
@@ -1332,6 +1522,36 @@ public class CalAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAstExpressionUnaryAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstPatternExpressionBinary <em>Ast Pattern Expression Binary</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.caltoopia.frontend.cal.AstPatternExpressionBinary
+   * @generated
+   */
+  public Adapter createAstPatternExpressionBinaryAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstPatternExpressionUnary <em>Ast Pattern Expression Unary</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.caltoopia.frontend.cal.AstPatternExpressionUnary
+   * @generated
+   */
+  public Adapter createAstPatternExpressionUnaryAdapter()
   {
     return null;
   }

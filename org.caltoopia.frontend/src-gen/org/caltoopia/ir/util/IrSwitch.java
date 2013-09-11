@@ -413,6 +413,34 @@ public class IrSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case IrPackage.CASE_STATEMENT: {
+				CaseStatement caseStatement = (CaseStatement)theEObject;
+				T result = caseCaseStatement(caseStatement);
+				if (result == null) result = caseStatement(caseStatement);
+				if (result == null) result = caseNode(caseStatement);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case IrPackage.STMT_ALTERNATIVE: {
+				StmtAlternative stmtAlternative = (StmtAlternative)theEObject;
+				T result = caseStmtAlternative(stmtAlternative);
+				if (result == null) result = caseScope(stmtAlternative);
+				if (result == null) result = caseNode(stmtAlternative);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case IrPackage.PATTERN: {
+				Pattern pattern = (Pattern)theEObject;
+				T result = casePattern(pattern);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case IrPackage.SUB_PATTERN: {
+				SubPattern subPattern = (SubPattern)theEObject;
+				T result = caseSubPattern(subPattern);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case IrPackage.PORT_ACCESS: {
 				PortAccess portAccess = (PortAccess)theEObject;
 				T result = casePortAccess(portAccess);
@@ -575,6 +603,14 @@ public class IrSwitch<T> extends Switch<T> {
 			case IrPackage.TAGGED_TUPLE: {
 				TaggedTuple taggedTuple = (TaggedTuple)theEObject;
 				T result = caseTaggedTuple(taggedTuple);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case IrPackage.TAGGED_TUPLE_FIELD_EXPRESSION: {
+				TaggedTupleFieldExpression taggedTupleFieldExpression = (TaggedTupleFieldExpression)theEObject;
+				T result = caseTaggedTupleFieldExpression(taggedTupleFieldExpression);
+				if (result == null) result = caseExpression(taggedTupleFieldExpression);
+				if (result == null) result = caseNode(taggedTupleFieldExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1312,6 +1348,66 @@ public class IrSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Case Statement</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Case Statement</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCaseStatement(CaseStatement object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Stmt Alternative</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Stmt Alternative</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseStmtAlternative(StmtAlternative object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Pattern</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Pattern</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePattern(Pattern object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Sub Pattern</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Sub Pattern</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSubPattern(SubPattern object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Port Access</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1623,6 +1719,21 @@ public class IrSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseTaggedTuple(TaggedTuple object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Tagged Tuple Field Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Tagged Tuple Field Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTaggedTupleFieldExpression(TaggedTupleFieldExpression object) {
 		return null;
 	}
 

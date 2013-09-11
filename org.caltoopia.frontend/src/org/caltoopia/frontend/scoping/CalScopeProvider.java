@@ -40,18 +40,22 @@ import java.util.ArrayList;
 import java.util.List;
 import org.caltoopia.frontend.cal.AstAction;
 import org.caltoopia.frontend.cal.AstActor;
+import org.caltoopia.frontend.cal.AstExpressionAlternative;
 import org.caltoopia.frontend.cal.AstExpressionList;
 import org.caltoopia.frontend.cal.AstForeachGenerator;
 import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstGenerator;
 import org.caltoopia.frontend.cal.AstInputPattern;
 import org.caltoopia.frontend.cal.AstNamespace;
+import org.caltoopia.frontend.cal.AstPattern;
 import org.caltoopia.frontend.cal.AstProcedure;
+import org.caltoopia.frontend.cal.AstStatementAlternative;
 import org.caltoopia.frontend.cal.AstStatementBlock;
 import org.caltoopia.frontend.cal.AstStatementForeach;
 import org.caltoopia.frontend.cal.AstStructure;
 import org.caltoopia.frontend.cal.AstNetwork;
 import org.caltoopia.frontend.cal.AstActorVariable;
+import org.caltoopia.frontend.cal.AstSubPattern;
 import org.caltoopia.frontend.cal.AstTaggedTuple;
 import org.caltoopia.frontend.cal.AstType;
 import org.caltoopia.frontend.cal.AstTypeDefinitionParameter;
@@ -215,6 +219,30 @@ public class CalScopeProvider extends AbstractDeclarativeScopeProvider {
     	
     	return Scopes.scopeFor(variables, getScope(typedef, reference));
 	}
-        
+ 
+	public IScope scope_AstVariable(AstStatementAlternative alternative, EReference reference) {		
+		List<AstVariable> variables = new ArrayList<AstVariable>();
+		doPattern(variables, alternative.getPattern());
+		
+		return Scopes.scopeFor(variables, getScope(alternative.eContainer(), reference));
+	}
+	
+	public IScope scope_AstVariable(AstExpressionAlternative alternative, EReference reference) {		
+		List<AstVariable> variables = new ArrayList<AstVariable>();
+		doPattern(variables, alternative.getPattern());
+		
+		return Scopes.scopeFor(variables, getScope(alternative.eContainer(), reference));
+	}
+	
+	private void doPattern(List<AstVariable> variables, AstPattern pattern) {
+		for (AstSubPattern subPattern : pattern.getSubpatterns()) {			
+			if (subPattern.getVariable() != null) {
+				variables.add(subPattern.getVariable());
+			} else if (subPattern.getPattern() != null) {
+				doPattern(variables, subPattern.getPattern());
+			}
+		}
+	}
+    
 }
 

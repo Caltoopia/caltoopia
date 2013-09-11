@@ -3,19 +3,22 @@
 package org.caltoopia.ir.impl;
 
 import java.util.Collection;
+
 import org.caltoopia.ir.IrPackage;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeDeclaration;
-
 import org.caltoopia.ir.TypeVariable;
 import org.caltoopia.ir.Variable;
+
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 /**
@@ -53,6 +56,7 @@ public class TypeDeclarationImpl extends DeclarationImpl implements TypeDeclarat
 	 * @ordered
 	 */
 	protected EList<Variable> valueParameters;
+
 	/**
 	 * The cached value of the '{@link #getTypeParameters() <em>Type Parameters</em>}' reference.
 	 * <!-- begin-user-doc -->

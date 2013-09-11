@@ -56,7 +56,11 @@ import org.caltoopia.frontend.cal.AstForeachGenerator;
 import org.caltoopia.frontend.cal.AstMemberAccess;
 import org.caltoopia.frontend.cal.AstNamespace;
 import org.caltoopia.frontend.cal.AstNetwork;
+import org.caltoopia.frontend.cal.AstPattern;
+import org.caltoopia.frontend.cal.AstStatementAlternative;
 import org.caltoopia.frontend.cal.AstStatementBlock;
+import org.caltoopia.frontend.cal.AstStatementCase;
+import org.caltoopia.frontend.cal.AstSubPattern;
 import org.caltoopia.frontend.cal.AstTag;
 import org.caltoopia.frontend.cal.AstTransition;
 import org.caltoopia.frontend.cal.AstAction;
@@ -73,6 +77,7 @@ import org.caltoopia.frontend.cal.AstStatementCall;
 import org.caltoopia.frontend.cal.AstStatementForeach;
 import org.caltoopia.frontend.cal.AstStatementIf;
 import org.caltoopia.frontend.cal.AstStatementWhile;
+import org.caltoopia.frontend.cal.AstType;
 import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.cal.util.CalSwitch;
@@ -87,6 +92,7 @@ import org.caltoopia.ir.Actor;
 import org.caltoopia.ir.ActorInstance;
 import org.caltoopia.ir.Annotation;
 import org.caltoopia.ir.Block;
+import org.caltoopia.ir.CaseStatement;
 import org.caltoopia.ir.Connection;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
@@ -103,6 +109,7 @@ import org.caltoopia.ir.Member;
 import org.caltoopia.ir.Namespace;
 import org.caltoopia.ir.Network;
 import org.caltoopia.ir.Node;
+import org.caltoopia.ir.Pattern;
 import org.caltoopia.ir.Point2PointConnection;
 import org.caltoopia.ir.Port;
 import org.caltoopia.ir.PortInstance;
@@ -113,13 +120,19 @@ import org.caltoopia.ir.ProcCall;
 import org.caltoopia.ir.ProcExpression;
 import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.Statement;
+import org.caltoopia.ir.StmtAlternative;
+import org.caltoopia.ir.SubPattern;
 import org.caltoopia.ir.TaggedExpression;
+import org.caltoopia.ir.TaggedTuple;
 import org.caltoopia.ir.ToSink;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeProc;
+import org.caltoopia.ir.TypeTuple;
+import org.caltoopia.ir.TypeUser;
+import org.caltoopia.ir.VariableExpression;
 import org.caltoopia.ir.VariableExternal;
 import org.caltoopia.ir.VariableReference;
 import org.caltoopia.ir.Variable;
@@ -1099,8 +1112,6 @@ public class Ast2Ir extends CalSwitch<EObject> {
 	public EObject caseAstStatementWhile(AstStatementWhile stmtWhile) {
 		WhileLoop whileLoop = IrFactory.eINSTANCE.createWhileLoop();
 		
-		// Variable tmp = Util.createTmpVariable(scopeStack.peek(), TypeSystem.createTypeBool(), CreateIrExpression.convert(scopeStack.peek(), stmtWhile.getCondition()));
-		// VariableExpression condition = Util.createVariableExpression(scopeStack.peek(), tmp);
 		Expression condition = CreateIrExpression.convert(scopeStack.peek(), stmtWhile.getCondition());
 		
 		whileLoop.setCondition(condition);
@@ -1112,8 +1123,6 @@ public class Ast2Ir extends CalSwitch<EObject> {
 			Statement stmt = (Statement) doSwitch(s);
 			body.getStatements().add(stmt);
 		}
-		//Statement stmt = Util.createAssignment(body, tmp, stmtWhile.getCondition());
-		// body.getStatements().add(stmt);
 		scopeStack.pop();
 		
 		return whileLoop;
@@ -1133,6 +1142,121 @@ public class Ast2Ir extends CalSwitch<EObject> {
 		}
 		
 		return block;
+	}
+	
+	@Override
+	public EObject caseAstStatementCase(AstStatementCase stmtCase) {
+		CaseStatement caseStatement = IrFactory.eINSTANCE.createCaseStatement();
+		caseStatement.setId(Util.getDefinitionId());
+		Expression condition = CreateIrExpression.convert(scopeStack.peek(), stmtCase.getExpression());
+		caseStatement.setExpression(condition);
+		
+		try {
+			AstVariable v = stmtCase.getExpression().getSymbol();
+			AstType astType = null;;
+			if (v.eContainer() instanceof AstInputPattern) {
+				AstInputPattern pattern = (AstInputPattern) v.eContainer();
+				AstPort port = null;
+				if (pattern.getPort() != null) {
+					port = pattern.getPort();
+				} else {
+					AstAction action = (AstAction) pattern.eContainer();
+					List<AstInputPattern> inputs = action.getInputs();
+					AstActor actor = (AstActor) action.eContainer();
+					List<AstPort> ports = actor.getInputs();
+					for (int i = 0; i < inputs.size(); i++) {
+						if (inputs.get(i) == pattern) {
+							port = ports.get(i);
+						}
+					}
+				}
+				astType = port.getType();
+			} else {
+				astType = v.getType();
+			}
+			Type t = TypeConverter.convert(null, astType, true);
+			if (t instanceof TypeLambda) {
+				t = ((TypeLambda) t).getOutputType();
+			}
+			assert(t instanceof TypeUser);
+			TypeUser tu = (TypeUser) t;
+			for (AstStatementAlternative a : stmtCase.getCases()) {
+				StmtAlternative alt = IrFactory.eINSTANCE.createStmtAlternative();
+				alt.setId(Util.getDefinitionId());
+				alt.setOuter(scopeStack.peek());
+				scopeStack.push(alt);
+				doPattern(tu, a.getPattern());
+
+				for (AstExpression g : a.getGuards()) {
+					final Guard guard =  IrFactory.eINSTANCE.createGuard();
+					guard.setId(Util.getDefinitionId());
+					guard.setOuter(scopeStack.peek());
+					guard.setContext(scopeStack.peek());
+					guard.setBody(CreateIrExpression.convert(scopeStack.peek(), g));
+				}
+				
+				//alt.setPattern(pattern);
+				caseStatement.getAlternatives().add(alt);
+				scopeStack.pop();
+			}
+		} catch (Exception e) {
+			System.err.println("Internal error in Ast2Ir");
+		}
+				
+		return caseStatement;
+	}
+		
+	private Pattern doPattern(TypeUser tu, AstPattern astPattern) { 
+		Pattern pattern = IrFactory.eINSTANCE.createPattern();
+		pattern.setTag(astPattern.getTag());
+		TaggedTuple tt = null;
+		TypeDeclaration typedef = (TypeDeclaration) tu.getDeclaration();            
+ 
+		for (TaggedTuple tmp :  ((TypeTuple) typedef.getType()).getTaggedTuples()) {
+			if (tmp.getTag().equals(astPattern.getTag())) {
+				tt = tmp;
+			}
+		}
+		assert(tt != null);
+				
+		for (AstSubPattern astSubPattern : astPattern.getSubpatterns()) {
+			SubPattern sp = IrFactory.eINSTANCE.createSubPattern();
+			int pos = astPattern.getSubpatterns().indexOf(astSubPattern);
+			String label;
+			if (astSubPattern.getLabel() != null) {
+				label = astSubPattern.getLabel();
+			} else {
+				label = tt.getFields().get(pos).getName();
+			}
+			sp.setLabel(label);
+			
+			if (astSubPattern.getCondition() != null) {
+				Type t1 = tt.getFields().get(pos).getType();
+				Expression memberValue = Util.createTaggedTupleFieldExpression(scopeStack.peek(), tu, astPattern.getTag(), label);
+				Variable tmp = Util.createTmpVariable(scopeStack.peek(), t1, memberValue);
+				
+				Expression e = CreateIrExpression.convert(null, astSubPattern.getCondition());
+				VariableExpression varExpr = Util.createVariableExpression(scopeStack.peek(), tmp);
+				Expression condition = Util.createBinaryExpression(scopeStack.peek(), varExpr, "=", e, TypeSystem.createTypeBool());
+				
+				final Guard guard =  IrFactory.eINSTANCE.createGuard();
+				guard.setId(Util.getDefinitionId());
+				guard.setOuter(scopeStack.peek());
+				guard.setContext(scopeStack.peek());
+				guard.setBody(condition);
+				((StmtAlternative) scopeStack.peek()).getGuards().add(guard);
+			} else if (astSubPattern.getVariable() != null) {
+				Expression value = Util.createTaggedTupleFieldExpression(scopeStack.peek(), tu, astPattern.getTag(), label);
+				Variable var = Util.createVariable(scopeStack.peek(), astSubPattern.getVariable(), tt.getFields().get(pos).getType(), value);
+				sp.setBinding(var);
+			} else if (astSubPattern.getPattern() != null) {
+				Type t1 = tt.getFields().get(pos).getType();
+				sp.setPattern(doPattern((TypeUser) t1, astSubPattern.getPattern()));					
+			}		
+			pattern.getSubPatterns().add(sp);			
+		}
+		
+		return pattern;		
 	}
 	
 	private void doAnnotations(List<AstAnnotation> annotations, Node irNode) {

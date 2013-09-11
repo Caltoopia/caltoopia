@@ -383,6 +383,24 @@ public interface CalFactory extends EFactory
   AstStatementWhile createAstStatementWhile();
 
   /**
+   * Returns a new object of class '<em>Ast Statement Case</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ast Statement Case</em>'.
+   * @generated
+   */
+  AstStatementCase createAstStatementCase();
+
+  /**
+   * Returns a new object of class '<em>Ast Statement Alternative</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ast Statement Alternative</em>'.
+   * @generated
+   */
+  AstStatementAlternative createAstStatementAlternative();
+
+  /**
    * Returns a new object of class '<em>Ast Statement</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -437,6 +455,24 @@ public interface CalFactory extends EFactory
   AstGenerator createAstGenerator();
 
   /**
+   * Returns a new object of class '<em>Ast Expression Case</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ast Expression Case</em>'.
+   * @generated
+   */
+  AstExpressionCase createAstExpressionCase();
+
+  /**
+   * Returns a new object of class '<em>Ast Expression Alternative</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ast Expression Alternative</em>'.
+   * @generated
+   */
+  AstExpressionAlternative createAstExpressionAlternative();
+
+  /**
    * Returns a new object of class '<em>Ast Expression Literal</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -480,6 +516,51 @@ public interface CalFactory extends EFactory
    * @generated
    */
   AstExpressionString createAstExpressionString();
+
+  /**
+   * Returns a new object of class '<em>Ast Pattern</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ast Pattern</em>'.
+   * @generated
+   */
+  AstPattern createAstPattern();
+
+  /**
+   * Returns a new object of class '<em>Ast Sub Pattern</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ast Sub Pattern</em>'.
+   * @generated
+   */
+  AstSubPattern createAstSubPattern();
+
+  /**
+   * Returns a new object of class '<em>Ast Pattern Expression Symbol Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ast Pattern Expression Symbol Reference</em>'.
+   * @generated
+   */
+  AstPatternExpressionSymbolReference createAstPatternExpressionSymbolReference();
+
+  /**
+   * Returns a new object of class '<em>Ast Pattern Expression If</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ast Pattern Expression If</em>'.
+   * @generated
+   */
+  AstPatternExpressionIf createAstPatternExpressionIf();
+
+  /**
+   * Returns a new object of class '<em>Ast Pattern Expression Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ast Pattern Expression Literal</em>'.
+   * @generated
+   */
+  AstPatternExpressionLiteral createAstPatternExpressionLiteral();
 
   /**
    * Returns a new object of class '<em>Ast Type</em>'.
@@ -579,6 +660,24 @@ public interface CalFactory extends EFactory
    * @generated
    */
   AstExpressionUnary createAstExpressionUnary();
+
+  /**
+   * Returns a new object of class '<em>Ast Pattern Expression Binary</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ast Pattern Expression Binary</em>'.
+   * @generated
+   */
+  AstPatternExpressionBinary createAstPatternExpressionBinary();
+
+  /**
+   * Returns a new object of class '<em>Ast Pattern Expression Unary</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ast Pattern Expression Unary</em>'.
+   * @generated
+   */
+  AstPatternExpressionUnary createAstPatternExpressionUnary();
 
   /**
    * Returns the package supported by this factory.

@@ -1,12 +1,13 @@
 namespace TypeTester:
 import System.io.dprint1;
-
-	function random() --> float: 1 end
+	
 	int sz = 2;
 	type T1 : A(int i, float f) end
 	type T2 : A(int i, int i2) | B(int j, int j2) | C end
 	type T3 : (int i, int j) end
 	type T4(type Tx, int x) : A(Tx a, int(size=x+sz) i, T3 x) end
+	type T5 : ONE | TWO | THREE | FOUR end
+	type T6 : A(T1 a) | B (T2 b) end
 	type MyList(type myType, int mySize) : (List(type: myType, size=mySize) L) end		
 	type MyMatrix(type myType, int mySize) : (List(type: List(type: myType, size=mySize), size=mySize) d1) end			
 				
@@ -20,8 +21,7 @@ import System.io.dprint1;
 	MyList(myType: int, mySize = 3) myList2 = MyList([1, 2, 3]);
 
 	int i = 0;
-	int i2 = t3a.i;
-	float f = random();
+	int i2 = t3a.i + t1a.i;
 	
 	int(size=3) i3 = 2;
 	
@@ -40,17 +40,40 @@ import System.io.dprint1;
 		action In1:[a], In2:[b] ==> Out:[T1(a.i + b.i, a.f + b.f)]
 		guard 
 			intCounter < max
+		var 
+		   int x1
 		do 
 			intCounter := intCounter + 1;	
-			/* 
-			switch a do
-			  A(1, y) : end
-			  A(x, y) guard x > 2 : end
-			  A(x:=2, y:=2) : end  
-			  A(_, j) : end			  
-			end
-			*/
+	
+ 			case a of
+			  A(1, y) do intCounter := intCounter + y; end
+			  A(x, y) guard x > 2 do x1 := x; end
+			  A(i:2, f:x) do end  
+			  A(_, j) do end	
+			end						
+			
 		end 
+	end
+	
+	actor XXX() ==>:
+	   T6 v;
+	   int i := 1;
+	   
+	   action ==>  do	   
+	      case v of
+	      	A(a) do i := i + 1; end
+	      	A(a:A(x, y)) guard x > y do i :=  x; end	      	
+	      end
+	    
+//	      i := case v of 
+//	             A(a:A(x, _)) guard x > 1: x end
+//	             A(a:A(x, _)) guard x = 0: 0 end
+//	           else
+//	             0 
+//	           end;
+	           
+//	      i := if i > 1 then 1 else 0 end;     
+	   end
 	end
 
 	actor Delay(T1 init) T1 In ==> T1 Out:

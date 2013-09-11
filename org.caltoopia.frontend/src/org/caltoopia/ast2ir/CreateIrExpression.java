@@ -216,7 +216,7 @@ public class CreateIrExpression extends CalSwitch<Expression> {
 			}
 			
 			for (AstMemberAccess mv : e.getMember()) {
-				Member m = Util.createMemberAccess(mv, currentScope);
+				Member m = Util.createFieldAccess(mv, currentScope);
 				result.getMember().add(m);
 			}
 						

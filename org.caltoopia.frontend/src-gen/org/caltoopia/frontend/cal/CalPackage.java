@@ -1618,7 +1618,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstStatement()
    * @generated
    */
-  int AST_STATEMENT = 40;
+  int AST_STATEMENT = 42;
 
   /**
    * The number of structural features of the '<em>Ast Statement</em>' class.
@@ -1925,6 +1925,89 @@ public interface CalPackage extends EPackage
   int AST_STATEMENT_WHILE_FEATURE_COUNT = AST_STATEMENT_FEATURE_COUNT + 2;
 
   /**
+   * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstStatementCaseImpl <em>Ast Statement Case</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.caltoopia.frontend.cal.impl.AstStatementCaseImpl
+   * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstStatementCase()
+   * @generated
+   */
+  int AST_STATEMENT_CASE = 40;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_STATEMENT_CASE__EXPRESSION = AST_STATEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Cases</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_STATEMENT_CASE__CASES = AST_STATEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Ast Statement Case</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_STATEMENT_CASE_FEATURE_COUNT = AST_STATEMENT_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstStatementAlternativeImpl <em>Ast Statement Alternative</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.caltoopia.frontend.cal.impl.AstStatementAlternativeImpl
+   * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstStatementAlternative()
+   * @generated
+   */
+  int AST_STATEMENT_ALTERNATIVE = 41;
+
+  /**
+   * The feature id for the '<em><b>Pattern</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_STATEMENT_ALTERNATIVE__PATTERN = 0;
+
+  /**
+   * The feature id for the '<em><b>Guards</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_STATEMENT_ALTERNATIVE__GUARDS = 1;
+
+  /**
+   * The feature id for the '<em><b>Statements</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_STATEMENT_ALTERNATIVE__STATEMENTS = 2;
+
+  /**
+   * The number of structural features of the '<em>Ast Statement Alternative</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_STATEMENT_ALTERNATIVE_FEATURE_COUNT = 3;
+
+  /**
    * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstExpressionImpl <em>Ast Expression</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1932,7 +2015,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpression()
    * @generated
    */
-  int AST_EXPRESSION = 41;
+  int AST_EXPRESSION = 43;
 
   /**
    * The number of structural features of the '<em>Ast Expression</em>' class.
@@ -1951,7 +2034,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionSymbolReference()
    * @generated
    */
-  int AST_EXPRESSION_SYMBOL_REFERENCE = 42;
+  int AST_EXPRESSION_SYMBOL_REFERENCE = 44;
 
   /**
    * The feature id for the '<em><b>Symbol</b></em>' reference.
@@ -2024,7 +2107,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionIf()
    * @generated
    */
-  int AST_EXPRESSION_IF = 43;
+  int AST_EXPRESSION_IF = 45;
 
   /**
    * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -2070,7 +2153,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionList()
    * @generated
    */
-  int AST_EXPRESSION_LIST = 44;
+  int AST_EXPRESSION_LIST = 46;
 
   /**
    * The feature id for the '<em><b>Expressions</b></em>' containment reference list.
@@ -2107,7 +2190,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstGenerator()
    * @generated
    */
-  int AST_GENERATOR = 45;
+  int AST_GENERATOR = 47;
 
   /**
    * The feature id for the '<em><b>Variable</b></em>' containment reference.
@@ -2137,6 +2220,98 @@ public interface CalPackage extends EPackage
   int AST_GENERATOR_FEATURE_COUNT = 2;
 
   /**
+   * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstExpressionCaseImpl <em>Ast Expression Case</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.caltoopia.frontend.cal.impl.AstExpressionCaseImpl
+   * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionCase()
+   * @generated
+   */
+  int AST_EXPRESSION_CASE = 48;
+
+  /**
+   * The feature id for the '<em><b>Variable</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_EXPRESSION_CASE__VARIABLE = AST_EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Cases</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_EXPRESSION_CASE__CASES = AST_EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Default</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_EXPRESSION_CASE__DEFAULT = AST_EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>Ast Expression Case</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_EXPRESSION_CASE_FEATURE_COUNT = AST_EXPRESSION_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstExpressionAlternativeImpl <em>Ast Expression Alternative</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.caltoopia.frontend.cal.impl.AstExpressionAlternativeImpl
+   * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionAlternative()
+   * @generated
+   */
+  int AST_EXPRESSION_ALTERNATIVE = 49;
+
+  /**
+   * The feature id for the '<em><b>Pattern</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_EXPRESSION_ALTERNATIVE__PATTERN = 0;
+
+  /**
+   * The feature id for the '<em><b>Guards</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_EXPRESSION_ALTERNATIVE__GUARDS = 1;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_EXPRESSION_ALTERNATIVE__EXPRESSION = 2;
+
+  /**
+   * The number of structural features of the '<em>Ast Expression Alternative</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_EXPRESSION_ALTERNATIVE_FEATURE_COUNT = 3;
+
+  /**
    * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstExpressionLiteralImpl <em>Ast Expression Literal</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2144,7 +2319,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionLiteral()
    * @generated
    */
-  int AST_EXPRESSION_LITERAL = 46;
+  int AST_EXPRESSION_LITERAL = 50;
 
   /**
    * The number of structural features of the '<em>Ast Expression Literal</em>' class.
@@ -2163,7 +2338,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionBoolean()
    * @generated
    */
-  int AST_EXPRESSION_BOOLEAN = 47;
+  int AST_EXPRESSION_BOOLEAN = 51;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -2191,7 +2366,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionFloat()
    * @generated
    */
-  int AST_EXPRESSION_FLOAT = 48;
+  int AST_EXPRESSION_FLOAT = 52;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -2219,7 +2394,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionInteger()
    * @generated
    */
-  int AST_EXPRESSION_INTEGER = 49;
+  int AST_EXPRESSION_INTEGER = 53;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -2247,7 +2422,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionString()
    * @generated
    */
-  int AST_EXPRESSION_STRING = 50;
+  int AST_EXPRESSION_STRING = 54;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -2268,6 +2443,245 @@ public interface CalPackage extends EPackage
   int AST_EXPRESSION_STRING_FEATURE_COUNT = AST_EXPRESSION_LITERAL_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstPatternImpl <em>Ast Pattern</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.caltoopia.frontend.cal.impl.AstPatternImpl
+   * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstPattern()
+   * @generated
+   */
+  int AST_PATTERN = 55;
+
+  /**
+   * The feature id for the '<em><b>Tag</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_PATTERN__TAG = 0;
+
+  /**
+   * The feature id for the '<em><b>Subpatterns</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_PATTERN__SUBPATTERNS = 1;
+
+  /**
+   * The number of structural features of the '<em>Ast Pattern</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_PATTERN_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstSubPatternImpl <em>Ast Sub Pattern</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.caltoopia.frontend.cal.impl.AstSubPatternImpl
+   * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstSubPattern()
+   * @generated
+   */
+  int AST_SUB_PATTERN = 56;
+
+  /**
+   * The feature id for the '<em><b>Label</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_SUB_PATTERN__LABEL = 0;
+
+  /**
+   * The feature id for the '<em><b>Dontcare</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_SUB_PATTERN__DONTCARE = 1;
+
+  /**
+   * The feature id for the '<em><b>Condition</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_SUB_PATTERN__CONDITION = 2;
+
+  /**
+   * The feature id for the '<em><b>Variable</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_SUB_PATTERN__VARIABLE = 3;
+
+  /**
+   * The feature id for the '<em><b>Pattern</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_SUB_PATTERN__PATTERN = 4;
+
+  /**
+   * The number of structural features of the '<em>Ast Sub Pattern</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_SUB_PATTERN_FEATURE_COUNT = 5;
+
+  /**
+   * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstPatternExpressionSymbolReferenceImpl <em>Ast Pattern Expression Symbol Reference</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.caltoopia.frontend.cal.impl.AstPatternExpressionSymbolReferenceImpl
+   * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstPatternExpressionSymbolReference()
+   * @generated
+   */
+  int AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE = 57;
+
+  /**
+   * The feature id for the '<em><b>Symbol</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE__SYMBOL = AST_EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Indexes</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE__INDEXES = AST_EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Member</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE__MEMBER = AST_EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The feature id for the '<em><b>Ctor</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE__CTOR = AST_EXPRESSION_FEATURE_COUNT + 3;
+
+  /**
+   * The feature id for the '<em><b>Call</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE__CALL = AST_EXPRESSION_FEATURE_COUNT + 4;
+
+  /**
+   * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE__PARAMETERS = AST_EXPRESSION_FEATURE_COUNT + 5;
+
+  /**
+   * The number of structural features of the '<em>Ast Pattern Expression Symbol Reference</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE_FEATURE_COUNT = AST_EXPRESSION_FEATURE_COUNT + 6;
+
+  /**
+   * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstPatternExpressionIfImpl <em>Ast Pattern Expression If</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.caltoopia.frontend.cal.impl.AstPatternExpressionIfImpl
+   * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstPatternExpressionIf()
+   * @generated
+   */
+  int AST_PATTERN_EXPRESSION_IF = 58;
+
+  /**
+   * The feature id for the '<em><b>Condition</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_PATTERN_EXPRESSION_IF__CONDITION = AST_EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Then</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_PATTERN_EXPRESSION_IF__THEN = AST_EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Else</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_PATTERN_EXPRESSION_IF__ELSE = AST_EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>Ast Pattern Expression If</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_PATTERN_EXPRESSION_IF_FEATURE_COUNT = AST_EXPRESSION_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstPatternExpressionLiteralImpl <em>Ast Pattern Expression Literal</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.caltoopia.frontend.cal.impl.AstPatternExpressionLiteralImpl
+   * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstPatternExpressionLiteral()
+   * @generated
+   */
+  int AST_PATTERN_EXPRESSION_LITERAL = 59;
+
+  /**
+   * The number of structural features of the '<em>Ast Pattern Expression Literal</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_PATTERN_EXPRESSION_LITERAL_FEATURE_COUNT = AST_EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
    * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstTypeImpl <em>Ast Type</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2275,7 +2689,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstType()
    * @generated
    */
-  int AST_TYPE = 51;
+  int AST_TYPE = 60;
 
   /**
    * The feature id for the '<em><b>Builtin</b></em>' attribute.
@@ -2348,7 +2762,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstTypeParameterList()
    * @generated
    */
-  int AST_TYPE_PARAMETER_LIST = 52;
+  int AST_TYPE_PARAMETER_LIST = 61;
 
   /**
    * The feature id for the '<em><b>Params</b></em>' containment reference list.
@@ -2376,7 +2790,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstTypeParam()
    * @generated
    */
-  int AST_TYPE_PARAM = 53;
+  int AST_TYPE_PARAM = 62;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2422,7 +2836,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstMemberAccess()
    * @generated
    */
-  int AST_MEMBER_ACCESS = 54;
+  int AST_MEMBER_ACCESS = 63;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2459,7 +2873,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstAnnotation()
    * @generated
    */
-  int AST_ANNOTATION = 55;
+  int AST_ANNOTATION = 64;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2496,7 +2910,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstAnnotationArgument()
    * @generated
    */
-  int AST_ANNOTATION_ARGUMENT = 56;
+  int AST_ANNOTATION_ARGUMENT = 65;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2533,7 +2947,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstTuple()
    * @generated
    */
-  int AST_TUPLE = 57;
+  int AST_TUPLE = 66;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2570,7 +2984,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstFunction()
    * @generated
    */
-  int AST_FUNCTION = 58;
+  int AST_FUNCTION = 67;
 
   /**
    * The feature id for the '<em><b>Constant</b></em>' attribute.
@@ -2670,7 +3084,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstInitialize()
    * @generated
    */
-  int AST_INITIALIZE = 59;
+  int AST_INITIALIZE = 68;
 
   /**
    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
@@ -2752,7 +3166,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionBinary()
    * @generated
    */
-  int AST_EXPRESSION_BINARY = 60;
+  int AST_EXPRESSION_BINARY = 69;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -2798,7 +3212,7 @@ public interface CalPackage extends EPackage
    * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionUnary()
    * @generated
    */
-  int AST_EXPRESSION_UNARY = 61;
+  int AST_EXPRESSION_UNARY = 70;
 
   /**
    * The feature id for the '<em><b>Unary Operator</b></em>' attribute.
@@ -2826,6 +3240,89 @@ public interface CalPackage extends EPackage
    * @ordered
    */
   int AST_EXPRESSION_UNARY_FEATURE_COUNT = AST_EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstPatternExpressionBinaryImpl <em>Ast Pattern Expression Binary</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.caltoopia.frontend.cal.impl.AstPatternExpressionBinaryImpl
+   * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstPatternExpressionBinary()
+   * @generated
+   */
+  int AST_PATTERN_EXPRESSION_BINARY = 71;
+
+  /**
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_PATTERN_EXPRESSION_BINARY__LEFT = AST_EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Operator</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_PATTERN_EXPRESSION_BINARY__OPERATOR = AST_EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_PATTERN_EXPRESSION_BINARY__RIGHT = AST_EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>Ast Pattern Expression Binary</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_PATTERN_EXPRESSION_BINARY_FEATURE_COUNT = AST_EXPRESSION_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link org.caltoopia.frontend.cal.impl.AstPatternExpressionUnaryImpl <em>Ast Pattern Expression Unary</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.caltoopia.frontend.cal.impl.AstPatternExpressionUnaryImpl
+   * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstPatternExpressionUnary()
+   * @generated
+   */
+  int AST_PATTERN_EXPRESSION_UNARY = 72;
+
+  /**
+   * The feature id for the '<em><b>Unary Operator</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_PATTERN_EXPRESSION_UNARY__UNARY_OPERATOR = AST_EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_PATTERN_EXPRESSION_UNARY__EXPRESSION = AST_EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Ast Pattern Expression Unary</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AST_PATTERN_EXPRESSION_UNARY_FEATURE_COUNT = AST_EXPRESSION_FEATURE_COUNT + 2;
 
 
   /**
@@ -4362,6 +4859,81 @@ public interface CalPackage extends EPackage
   EReference getAstStatementWhile_Statements();
 
   /**
+   * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstStatementCase <em>Ast Statement Case</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Ast Statement Case</em>'.
+   * @see org.caltoopia.frontend.cal.AstStatementCase
+   * @generated
+   */
+  EClass getAstStatementCase();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.caltoopia.frontend.cal.AstStatementCase#getExpression <em>Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Expression</em>'.
+   * @see org.caltoopia.frontend.cal.AstStatementCase#getExpression()
+   * @see #getAstStatementCase()
+   * @generated
+   */
+  EReference getAstStatementCase_Expression();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstStatementCase#getCases <em>Cases</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Cases</em>'.
+   * @see org.caltoopia.frontend.cal.AstStatementCase#getCases()
+   * @see #getAstStatementCase()
+   * @generated
+   */
+  EReference getAstStatementCase_Cases();
+
+  /**
+   * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstStatementAlternative <em>Ast Statement Alternative</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Ast Statement Alternative</em>'.
+   * @see org.caltoopia.frontend.cal.AstStatementAlternative
+   * @generated
+   */
+  EClass getAstStatementAlternative();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.caltoopia.frontend.cal.AstStatementAlternative#getPattern <em>Pattern</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Pattern</em>'.
+   * @see org.caltoopia.frontend.cal.AstStatementAlternative#getPattern()
+   * @see #getAstStatementAlternative()
+   * @generated
+   */
+  EReference getAstStatementAlternative_Pattern();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstStatementAlternative#getGuards <em>Guards</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Guards</em>'.
+   * @see org.caltoopia.frontend.cal.AstStatementAlternative#getGuards()
+   * @see #getAstStatementAlternative()
+   * @generated
+   */
+  EReference getAstStatementAlternative_Guards();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstStatementAlternative#getStatements <em>Statements</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Statements</em>'.
+   * @see org.caltoopia.frontend.cal.AstStatementAlternative#getStatements()
+   * @see #getAstStatementAlternative()
+   * @generated
+   */
+  EReference getAstStatementAlternative_Statements();
+
+  /**
    * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstStatement <em>Ast Statement</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4565,6 +5137,92 @@ public interface CalPackage extends EPackage
   EReference getAstGenerator_Expression();
 
   /**
+   * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstExpressionCase <em>Ast Expression Case</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Ast Expression Case</em>'.
+   * @see org.caltoopia.frontend.cal.AstExpressionCase
+   * @generated
+   */
+  EClass getAstExpressionCase();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.caltoopia.frontend.cal.AstExpressionCase#getVariable <em>Variable</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Variable</em>'.
+   * @see org.caltoopia.frontend.cal.AstExpressionCase#getVariable()
+   * @see #getAstExpressionCase()
+   * @generated
+   */
+  EReference getAstExpressionCase_Variable();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstExpressionCase#getCases <em>Cases</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Cases</em>'.
+   * @see org.caltoopia.frontend.cal.AstExpressionCase#getCases()
+   * @see #getAstExpressionCase()
+   * @generated
+   */
+  EReference getAstExpressionCase_Cases();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.caltoopia.frontend.cal.AstExpressionCase#getDefault <em>Default</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Default</em>'.
+   * @see org.caltoopia.frontend.cal.AstExpressionCase#getDefault()
+   * @see #getAstExpressionCase()
+   * @generated
+   */
+  EReference getAstExpressionCase_Default();
+
+  /**
+   * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstExpressionAlternative <em>Ast Expression Alternative</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Ast Expression Alternative</em>'.
+   * @see org.caltoopia.frontend.cal.AstExpressionAlternative
+   * @generated
+   */
+  EClass getAstExpressionAlternative();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.caltoopia.frontend.cal.AstExpressionAlternative#getPattern <em>Pattern</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Pattern</em>'.
+   * @see org.caltoopia.frontend.cal.AstExpressionAlternative#getPattern()
+   * @see #getAstExpressionAlternative()
+   * @generated
+   */
+  EReference getAstExpressionAlternative_Pattern();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstExpressionAlternative#getGuards <em>Guards</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Guards</em>'.
+   * @see org.caltoopia.frontend.cal.AstExpressionAlternative#getGuards()
+   * @see #getAstExpressionAlternative()
+   * @generated
+   */
+  EReference getAstExpressionAlternative_Guards();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.caltoopia.frontend.cal.AstExpressionAlternative#getExpression <em>Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Expression</em>'.
+   * @see org.caltoopia.frontend.cal.AstExpressionAlternative#getExpression()
+   * @see #getAstExpressionAlternative()
+   * @generated
+   */
+  EReference getAstExpressionAlternative_Expression();
+
+  /**
    * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstExpressionLiteral <em>Ast Expression Literal</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4657,6 +5315,232 @@ public interface CalPackage extends EPackage
    * @generated
    */
   EAttribute getAstExpressionString_Value();
+
+  /**
+   * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstPattern <em>Ast Pattern</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Ast Pattern</em>'.
+   * @see org.caltoopia.frontend.cal.AstPattern
+   * @generated
+   */
+  EClass getAstPattern();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.caltoopia.frontend.cal.AstPattern#getTag <em>Tag</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Tag</em>'.
+   * @see org.caltoopia.frontend.cal.AstPattern#getTag()
+   * @see #getAstPattern()
+   * @generated
+   */
+  EAttribute getAstPattern_Tag();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstPattern#getSubpatterns <em>Subpatterns</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Subpatterns</em>'.
+   * @see org.caltoopia.frontend.cal.AstPattern#getSubpatterns()
+   * @see #getAstPattern()
+   * @generated
+   */
+  EReference getAstPattern_Subpatterns();
+
+  /**
+   * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstSubPattern <em>Ast Sub Pattern</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Ast Sub Pattern</em>'.
+   * @see org.caltoopia.frontend.cal.AstSubPattern
+   * @generated
+   */
+  EClass getAstSubPattern();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.caltoopia.frontend.cal.AstSubPattern#getLabel <em>Label</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Label</em>'.
+   * @see org.caltoopia.frontend.cal.AstSubPattern#getLabel()
+   * @see #getAstSubPattern()
+   * @generated
+   */
+  EAttribute getAstSubPattern_Label();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.caltoopia.frontend.cal.AstSubPattern#isDontcare <em>Dontcare</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Dontcare</em>'.
+   * @see org.caltoopia.frontend.cal.AstSubPattern#isDontcare()
+   * @see #getAstSubPattern()
+   * @generated
+   */
+  EAttribute getAstSubPattern_Dontcare();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.caltoopia.frontend.cal.AstSubPattern#getCondition <em>Condition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Condition</em>'.
+   * @see org.caltoopia.frontend.cal.AstSubPattern#getCondition()
+   * @see #getAstSubPattern()
+   * @generated
+   */
+  EReference getAstSubPattern_Condition();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.caltoopia.frontend.cal.AstSubPattern#getVariable <em>Variable</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Variable</em>'.
+   * @see org.caltoopia.frontend.cal.AstSubPattern#getVariable()
+   * @see #getAstSubPattern()
+   * @generated
+   */
+  EReference getAstSubPattern_Variable();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.caltoopia.frontend.cal.AstSubPattern#getPattern <em>Pattern</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Pattern</em>'.
+   * @see org.caltoopia.frontend.cal.AstSubPattern#getPattern()
+   * @see #getAstSubPattern()
+   * @generated
+   */
+  EReference getAstSubPattern_Pattern();
+
+  /**
+   * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstPatternExpressionSymbolReference <em>Ast Pattern Expression Symbol Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Ast Pattern Expression Symbol Reference</em>'.
+   * @see org.caltoopia.frontend.cal.AstPatternExpressionSymbolReference
+   * @generated
+   */
+  EClass getAstPatternExpressionSymbolReference();
+
+  /**
+   * Returns the meta object for the reference '{@link org.caltoopia.frontend.cal.AstPatternExpressionSymbolReference#getSymbol <em>Symbol</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Symbol</em>'.
+   * @see org.caltoopia.frontend.cal.AstPatternExpressionSymbolReference#getSymbol()
+   * @see #getAstPatternExpressionSymbolReference()
+   * @generated
+   */
+  EReference getAstPatternExpressionSymbolReference_Symbol();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstPatternExpressionSymbolReference#getIndexes <em>Indexes</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Indexes</em>'.
+   * @see org.caltoopia.frontend.cal.AstPatternExpressionSymbolReference#getIndexes()
+   * @see #getAstPatternExpressionSymbolReference()
+   * @generated
+   */
+  EReference getAstPatternExpressionSymbolReference_Indexes();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstPatternExpressionSymbolReference#getMember <em>Member</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Member</em>'.
+   * @see org.caltoopia.frontend.cal.AstPatternExpressionSymbolReference#getMember()
+   * @see #getAstPatternExpressionSymbolReference()
+   * @generated
+   */
+  EReference getAstPatternExpressionSymbolReference_Member();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.caltoopia.frontend.cal.AstPatternExpressionSymbolReference#getCtor <em>Ctor</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Ctor</em>'.
+   * @see org.caltoopia.frontend.cal.AstPatternExpressionSymbolReference#getCtor()
+   * @see #getAstPatternExpressionSymbolReference()
+   * @generated
+   */
+  EAttribute getAstPatternExpressionSymbolReference_Ctor();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.caltoopia.frontend.cal.AstPatternExpressionSymbolReference#isCall <em>Call</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Call</em>'.
+   * @see org.caltoopia.frontend.cal.AstPatternExpressionSymbolReference#isCall()
+   * @see #getAstPatternExpressionSymbolReference()
+   * @generated
+   */
+  EAttribute getAstPatternExpressionSymbolReference_Call();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstPatternExpressionSymbolReference#getParameters <em>Parameters</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Parameters</em>'.
+   * @see org.caltoopia.frontend.cal.AstPatternExpressionSymbolReference#getParameters()
+   * @see #getAstPatternExpressionSymbolReference()
+   * @generated
+   */
+  EReference getAstPatternExpressionSymbolReference_Parameters();
+
+  /**
+   * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstPatternExpressionIf <em>Ast Pattern Expression If</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Ast Pattern Expression If</em>'.
+   * @see org.caltoopia.frontend.cal.AstPatternExpressionIf
+   * @generated
+   */
+  EClass getAstPatternExpressionIf();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.caltoopia.frontend.cal.AstPatternExpressionIf#getCondition <em>Condition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Condition</em>'.
+   * @see org.caltoopia.frontend.cal.AstPatternExpressionIf#getCondition()
+   * @see #getAstPatternExpressionIf()
+   * @generated
+   */
+  EReference getAstPatternExpressionIf_Condition();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.caltoopia.frontend.cal.AstPatternExpressionIf#getThen <em>Then</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Then</em>'.
+   * @see org.caltoopia.frontend.cal.AstPatternExpressionIf#getThen()
+   * @see #getAstPatternExpressionIf()
+   * @generated
+   */
+  EReference getAstPatternExpressionIf_Then();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.caltoopia.frontend.cal.AstPatternExpressionIf#getElse <em>Else</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Else</em>'.
+   * @see org.caltoopia.frontend.cal.AstPatternExpressionIf#getElse()
+   * @see #getAstPatternExpressionIf()
+   * @generated
+   */
+  EReference getAstPatternExpressionIf_Else();
+
+  /**
+   * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstPatternExpressionLiteral <em>Ast Pattern Expression Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Ast Pattern Expression Literal</em>'.
+   * @see org.caltoopia.frontend.cal.AstPatternExpressionLiteral
+   * @generated
+   */
+  EClass getAstPatternExpressionLiteral();
 
   /**
    * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstType <em>Ast Type</em>}'.
@@ -5031,6 +5915,81 @@ public interface CalPackage extends EPackage
    * @generated
    */
   EReference getAstExpressionUnary_Expression();
+
+  /**
+   * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstPatternExpressionBinary <em>Ast Pattern Expression Binary</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Ast Pattern Expression Binary</em>'.
+   * @see org.caltoopia.frontend.cal.AstPatternExpressionBinary
+   * @generated
+   */
+  EClass getAstPatternExpressionBinary();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.caltoopia.frontend.cal.AstPatternExpressionBinary#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see org.caltoopia.frontend.cal.AstPatternExpressionBinary#getLeft()
+   * @see #getAstPatternExpressionBinary()
+   * @generated
+   */
+  EReference getAstPatternExpressionBinary_Left();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.caltoopia.frontend.cal.AstPatternExpressionBinary#getOperator <em>Operator</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Operator</em>'.
+   * @see org.caltoopia.frontend.cal.AstPatternExpressionBinary#getOperator()
+   * @see #getAstPatternExpressionBinary()
+   * @generated
+   */
+  EAttribute getAstPatternExpressionBinary_Operator();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.caltoopia.frontend.cal.AstPatternExpressionBinary#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see org.caltoopia.frontend.cal.AstPatternExpressionBinary#getRight()
+   * @see #getAstPatternExpressionBinary()
+   * @generated
+   */
+  EReference getAstPatternExpressionBinary_Right();
+
+  /**
+   * Returns the meta object for class '{@link org.caltoopia.frontend.cal.AstPatternExpressionUnary <em>Ast Pattern Expression Unary</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Ast Pattern Expression Unary</em>'.
+   * @see org.caltoopia.frontend.cal.AstPatternExpressionUnary
+   * @generated
+   */
+  EClass getAstPatternExpressionUnary();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.caltoopia.frontend.cal.AstPatternExpressionUnary#getUnaryOperator <em>Unary Operator</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Unary Operator</em>'.
+   * @see org.caltoopia.frontend.cal.AstPatternExpressionUnary#getUnaryOperator()
+   * @see #getAstPatternExpressionUnary()
+   * @generated
+   */
+  EAttribute getAstPatternExpressionUnary_UnaryOperator();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.caltoopia.frontend.cal.AstPatternExpressionUnary#getExpression <em>Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Expression</em>'.
+   * @see org.caltoopia.frontend.cal.AstPatternExpressionUnary#getExpression()
+   * @see #getAstPatternExpressionUnary()
+   * @generated
+   */
+  EReference getAstPatternExpressionUnary_Expression();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -6280,6 +7239,66 @@ public interface CalPackage extends EPackage
     EReference AST_STATEMENT_WHILE__STATEMENTS = eINSTANCE.getAstStatementWhile_Statements();
 
     /**
+     * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstStatementCaseImpl <em>Ast Statement Case</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.caltoopia.frontend.cal.impl.AstStatementCaseImpl
+     * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstStatementCase()
+     * @generated
+     */
+    EClass AST_STATEMENT_CASE = eINSTANCE.getAstStatementCase();
+
+    /**
+     * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_STATEMENT_CASE__EXPRESSION = eINSTANCE.getAstStatementCase_Expression();
+
+    /**
+     * The meta object literal for the '<em><b>Cases</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_STATEMENT_CASE__CASES = eINSTANCE.getAstStatementCase_Cases();
+
+    /**
+     * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstStatementAlternativeImpl <em>Ast Statement Alternative</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.caltoopia.frontend.cal.impl.AstStatementAlternativeImpl
+     * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstStatementAlternative()
+     * @generated
+     */
+    EClass AST_STATEMENT_ALTERNATIVE = eINSTANCE.getAstStatementAlternative();
+
+    /**
+     * The meta object literal for the '<em><b>Pattern</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_STATEMENT_ALTERNATIVE__PATTERN = eINSTANCE.getAstStatementAlternative_Pattern();
+
+    /**
+     * The meta object literal for the '<em><b>Guards</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_STATEMENT_ALTERNATIVE__GUARDS = eINSTANCE.getAstStatementAlternative_Guards();
+
+    /**
+     * The meta object literal for the '<em><b>Statements</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_STATEMENT_ALTERNATIVE__STATEMENTS = eINSTANCE.getAstStatementAlternative_Statements();
+
+    /**
      * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstStatementImpl <em>Ast Statement</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6444,6 +7463,74 @@ public interface CalPackage extends EPackage
     EReference AST_GENERATOR__EXPRESSION = eINSTANCE.getAstGenerator_Expression();
 
     /**
+     * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstExpressionCaseImpl <em>Ast Expression Case</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.caltoopia.frontend.cal.impl.AstExpressionCaseImpl
+     * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionCase()
+     * @generated
+     */
+    EClass AST_EXPRESSION_CASE = eINSTANCE.getAstExpressionCase();
+
+    /**
+     * The meta object literal for the '<em><b>Variable</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_EXPRESSION_CASE__VARIABLE = eINSTANCE.getAstExpressionCase_Variable();
+
+    /**
+     * The meta object literal for the '<em><b>Cases</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_EXPRESSION_CASE__CASES = eINSTANCE.getAstExpressionCase_Cases();
+
+    /**
+     * The meta object literal for the '<em><b>Default</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_EXPRESSION_CASE__DEFAULT = eINSTANCE.getAstExpressionCase_Default();
+
+    /**
+     * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstExpressionAlternativeImpl <em>Ast Expression Alternative</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.caltoopia.frontend.cal.impl.AstExpressionAlternativeImpl
+     * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstExpressionAlternative()
+     * @generated
+     */
+    EClass AST_EXPRESSION_ALTERNATIVE = eINSTANCE.getAstExpressionAlternative();
+
+    /**
+     * The meta object literal for the '<em><b>Pattern</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_EXPRESSION_ALTERNATIVE__PATTERN = eINSTANCE.getAstExpressionAlternative_Pattern();
+
+    /**
+     * The meta object literal for the '<em><b>Guards</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_EXPRESSION_ALTERNATIVE__GUARDS = eINSTANCE.getAstExpressionAlternative_Guards();
+
+    /**
+     * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_EXPRESSION_ALTERNATIVE__EXPRESSION = eINSTANCE.getAstExpressionAlternative_Expression();
+
+    /**
      * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstExpressionLiteralImpl <em>Ast Expression Literal</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6524,6 +7611,184 @@ public interface CalPackage extends EPackage
      * @generated
      */
     EAttribute AST_EXPRESSION_STRING__VALUE = eINSTANCE.getAstExpressionString_Value();
+
+    /**
+     * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstPatternImpl <em>Ast Pattern</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.caltoopia.frontend.cal.impl.AstPatternImpl
+     * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstPattern()
+     * @generated
+     */
+    EClass AST_PATTERN = eINSTANCE.getAstPattern();
+
+    /**
+     * The meta object literal for the '<em><b>Tag</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute AST_PATTERN__TAG = eINSTANCE.getAstPattern_Tag();
+
+    /**
+     * The meta object literal for the '<em><b>Subpatterns</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_PATTERN__SUBPATTERNS = eINSTANCE.getAstPattern_Subpatterns();
+
+    /**
+     * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstSubPatternImpl <em>Ast Sub Pattern</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.caltoopia.frontend.cal.impl.AstSubPatternImpl
+     * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstSubPattern()
+     * @generated
+     */
+    EClass AST_SUB_PATTERN = eINSTANCE.getAstSubPattern();
+
+    /**
+     * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute AST_SUB_PATTERN__LABEL = eINSTANCE.getAstSubPattern_Label();
+
+    /**
+     * The meta object literal for the '<em><b>Dontcare</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute AST_SUB_PATTERN__DONTCARE = eINSTANCE.getAstSubPattern_Dontcare();
+
+    /**
+     * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_SUB_PATTERN__CONDITION = eINSTANCE.getAstSubPattern_Condition();
+
+    /**
+     * The meta object literal for the '<em><b>Variable</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_SUB_PATTERN__VARIABLE = eINSTANCE.getAstSubPattern_Variable();
+
+    /**
+     * The meta object literal for the '<em><b>Pattern</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_SUB_PATTERN__PATTERN = eINSTANCE.getAstSubPattern_Pattern();
+
+    /**
+     * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstPatternExpressionSymbolReferenceImpl <em>Ast Pattern Expression Symbol Reference</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.caltoopia.frontend.cal.impl.AstPatternExpressionSymbolReferenceImpl
+     * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstPatternExpressionSymbolReference()
+     * @generated
+     */
+    EClass AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE = eINSTANCE.getAstPatternExpressionSymbolReference();
+
+    /**
+     * The meta object literal for the '<em><b>Symbol</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE__SYMBOL = eINSTANCE.getAstPatternExpressionSymbolReference_Symbol();
+
+    /**
+     * The meta object literal for the '<em><b>Indexes</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE__INDEXES = eINSTANCE.getAstPatternExpressionSymbolReference_Indexes();
+
+    /**
+     * The meta object literal for the '<em><b>Member</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE__MEMBER = eINSTANCE.getAstPatternExpressionSymbolReference_Member();
+
+    /**
+     * The meta object literal for the '<em><b>Ctor</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE__CTOR = eINSTANCE.getAstPatternExpressionSymbolReference_Ctor();
+
+    /**
+     * The meta object literal for the '<em><b>Call</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE__CALL = eINSTANCE.getAstPatternExpressionSymbolReference_Call();
+
+    /**
+     * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE__PARAMETERS = eINSTANCE.getAstPatternExpressionSymbolReference_Parameters();
+
+    /**
+     * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstPatternExpressionIfImpl <em>Ast Pattern Expression If</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.caltoopia.frontend.cal.impl.AstPatternExpressionIfImpl
+     * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstPatternExpressionIf()
+     * @generated
+     */
+    EClass AST_PATTERN_EXPRESSION_IF = eINSTANCE.getAstPatternExpressionIf();
+
+    /**
+     * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_PATTERN_EXPRESSION_IF__CONDITION = eINSTANCE.getAstPatternExpressionIf_Condition();
+
+    /**
+     * The meta object literal for the '<em><b>Then</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_PATTERN_EXPRESSION_IF__THEN = eINSTANCE.getAstPatternExpressionIf_Then();
+
+    /**
+     * The meta object literal for the '<em><b>Else</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_PATTERN_EXPRESSION_IF__ELSE = eINSTANCE.getAstPatternExpressionIf_Else();
+
+    /**
+     * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstPatternExpressionLiteralImpl <em>Ast Pattern Expression Literal</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.caltoopia.frontend.cal.impl.AstPatternExpressionLiteralImpl
+     * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstPatternExpressionLiteral()
+     * @generated
+     */
+    EClass AST_PATTERN_EXPRESSION_LITERAL = eINSTANCE.getAstPatternExpressionLiteral();
 
     /**
      * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstTypeImpl <em>Ast Type</em>}' class.
@@ -6826,6 +8091,66 @@ public interface CalPackage extends EPackage
      * @generated
      */
     EReference AST_EXPRESSION_UNARY__EXPRESSION = eINSTANCE.getAstExpressionUnary_Expression();
+
+    /**
+     * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstPatternExpressionBinaryImpl <em>Ast Pattern Expression Binary</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.caltoopia.frontend.cal.impl.AstPatternExpressionBinaryImpl
+     * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstPatternExpressionBinary()
+     * @generated
+     */
+    EClass AST_PATTERN_EXPRESSION_BINARY = eINSTANCE.getAstPatternExpressionBinary();
+
+    /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_PATTERN_EXPRESSION_BINARY__LEFT = eINSTANCE.getAstPatternExpressionBinary_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Operator</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute AST_PATTERN_EXPRESSION_BINARY__OPERATOR = eINSTANCE.getAstPatternExpressionBinary_Operator();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_PATTERN_EXPRESSION_BINARY__RIGHT = eINSTANCE.getAstPatternExpressionBinary_Right();
+
+    /**
+     * The meta object literal for the '{@link org.caltoopia.frontend.cal.impl.AstPatternExpressionUnaryImpl <em>Ast Pattern Expression Unary</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.caltoopia.frontend.cal.impl.AstPatternExpressionUnaryImpl
+     * @see org.caltoopia.frontend.cal.impl.CalPackageImpl#getAstPatternExpressionUnary()
+     * @generated
+     */
+    EClass AST_PATTERN_EXPRESSION_UNARY = eINSTANCE.getAstPatternExpressionUnary();
+
+    /**
+     * The meta object literal for the '<em><b>Unary Operator</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute AST_PATTERN_EXPRESSION_UNARY__UNARY_OPERATOR = eINSTANCE.getAstPatternExpressionUnary_UnaryOperator();
+
+    /**
+     * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AST_PATTERN_EXPRESSION_UNARY__EXPRESSION = eINSTANCE.getAstPatternExpressionUnary_Expression();
 
   }
 

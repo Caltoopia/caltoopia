@@ -21,7 +21,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalCalParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_BOOL", "RULE_INT", "RULE_EXP_INT", "RULE_HEX", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'package'", "';'", "'unit'", "':'", "'end'", "'namespace'", "'import'", "'.'", "'.*'", "'network'", "'('", "','", "')'", "'==>'", "'var'", "'entities'", "'='", "'structure'", "'-->'", "'{'", "'}'", "'external'", "'type'", "'|'", "'actor'", "'function'", "'procedure'", "'begin'", "'>'", "'priority'", "'schedule'", "'fsm'", "'action'", "'guard'", "'do'", "'initialize'", "'['", "']'", "'repeat'", "':='", "'foreach'", "'in'", "'if'", "'then'", "'else'", "'while'", "'||'", "'or'", "'..'", "'&&'", "'and'", "'^'", "'&'", "'!='", "'<'", "'<='", "'>='", "'<<'", "'>>'", "'>>>'", "'+'", "'-'", "'*'", "'/'", "'div'", "'mod'", "'**'", "'~'", "'not'", "'#'", "'old'", "'::'", "'for'", "'int'", "'uint'", "'float'", "'bool'", "'List'", "'string'", "'byte'", "'short'", "'@'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_BOOL", "RULE_INT", "RULE_EXP_INT", "RULE_HEX", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'package'", "';'", "'unit'", "':'", "'end'", "'namespace'", "'import'", "'.'", "'.*'", "'network'", "'('", "','", "')'", "'==>'", "'var'", "'entities'", "'='", "'structure'", "'-->'", "'{'", "'}'", "'external'", "'type'", "'|'", "'actor'", "'function'", "'procedure'", "'begin'", "'>'", "'priority'", "'schedule'", "'fsm'", "'action'", "'guard'", "'do'", "'initialize'", "'['", "']'", "'repeat'", "':='", "'foreach'", "'in'", "'if'", "'then'", "'else'", "'while'", "'case'", "'of'", "'||'", "'or'", "'..'", "'&&'", "'and'", "'^'", "'&'", "'!='", "'<'", "'<='", "'>='", "'<<'", "'>>'", "'>>>'", "'+'", "'-'", "'*'", "'/'", "'div'", "'mod'", "'**'", "'~'", "'not'", "'#'", "'old'", "'::'", "'for'", "'_'", "'!'", "'int'", "'uint'", "'float'", "'bool'", "'List'", "'string'", "'byte'", "'short'", "'@'"
     };
     public static final int RULE_ID=4;
     public static final int T__29=29;
@@ -40,14 +40,18 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
     public static final int T__19=19;
     public static final int T__94=94;
     public static final int T__91=91;
-    public static final int T__92=92;
     public static final int RULE_HEX=8;
+    public static final int T__92=92;
     public static final int T__16=16;
     public static final int T__15=15;
     public static final int T__90=90;
     public static final int T__18=18;
     public static final int T__17=17;
     public static final int T__14=14;
+    public static final int T__99=99;
+    public static final int T__98=98;
+    public static final int T__97=97;
+    public static final int T__96=96;
     public static final int T__95=95;
     public static final int T__80=80;
     public static final int T__81=81;
@@ -60,8 +64,8 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
     public static final int T__89=89;
     public static final int T__88=88;
     public static final int RULE_ML_COMMENT=10;
-    public static final int RULE_EXP_INT=7;
     public static final int RULE_STRING=9;
+    public static final int RULE_EXP_INT=7;
     public static final int T__71=71;
     public static final int T__72=72;
     public static final int T__70=70;
@@ -214,7 +218,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             if ( (LA1_0==14) ) {
                 alt1=1;
             }
-            else if ( (LA1_0==19||LA1_0==95) ) {
+            else if ( (LA1_0==19||LA1_0==99) ) {
                 alt1=2;
             }
             else {
@@ -399,7 +403,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                 case 23:
                 case 35:
                 case 38:
-                case 95:
+                case 99:
                     {
                     alt2=1;
                     }
@@ -963,7 +967,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                 int alt5=2;
                 int LA5_0 = input.LA(1);
 
-                if ( (LA5_0==95) ) {
+                if ( (LA5_0==99) ) {
                     alt5=1;
                 }
 
@@ -1464,7 +1468,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                 int alt8=2;
                 int LA8_0 = input.LA(1);
 
-                if ( (LA8_0==95) ) {
+                if ( (LA8_0==99) ) {
                     alt8=1;
                 }
 
@@ -2187,7 +2191,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             int alt13=2;
             int LA13_0 = input.LA(1);
 
-            if ( (LA13_0==RULE_ID||LA13_0==50||(LA13_0>=87 && LA13_0<=95)) ) {
+            if ( (LA13_0==RULE_ID||LA13_0==50||(LA13_0>=91 && LA13_0<=99)) ) {
                 alt13=1;
             }
             switch (alt13) {
@@ -2298,7 +2302,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             int alt15=2;
             int LA15_0 = input.LA(1);
 
-            if ( (LA15_0==RULE_ID||LA15_0==50||(LA15_0>=87 && LA15_0<=95)) ) {
+            if ( (LA15_0==RULE_ID||LA15_0==50||(LA15_0>=91 && LA15_0<=99)) ) {
                 alt15=1;
             }
             switch (alt15) {
@@ -2409,7 +2413,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             int alt17=2;
             int LA17_0 = input.LA(1);
 
-            if ( (LA17_0==RULE_ID||LA17_0==50||(LA17_0>=87 && LA17_0<=95)) ) {
+            if ( (LA17_0==RULE_ID||LA17_0==50||(LA17_0>=91 && LA17_0<=99)) ) {
                 alt17=1;
             }
             switch (alt17) {
@@ -2572,7 +2576,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                         int alt18=2;
                         int LA18_0 = input.LA(1);
 
-                        if ( (LA18_0==RULE_ID||LA18_0==50||(LA18_0>=87 && LA18_0<=95)) ) {
+                        if ( (LA18_0==RULE_ID||LA18_0==50||(LA18_0>=91 && LA18_0<=99)) ) {
                             alt18=1;
                         }
 
@@ -4206,7 +4210,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     int alt29=2;
                     int LA29_0 = input.LA(1);
 
-                    if ( (LA29_0==RULE_ID||LA29_0==36||LA29_0==50||(LA29_0>=87 && LA29_0<=95)) ) {
+                    if ( (LA29_0==RULE_ID||LA29_0==36||LA29_0==50||(LA29_0>=91 && LA29_0<=99)) ) {
                         alt29=1;
                     }
                     switch (alt29) {
@@ -4562,7 +4566,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             int alt33=2;
             int LA33_0 = input.LA(1);
 
-            if ( (LA33_0==RULE_ID||LA33_0==50||(LA33_0>=87 && LA33_0<=95)) ) {
+            if ( (LA33_0==RULE_ID||LA33_0==50||(LA33_0>=91 && LA33_0<=99)) ) {
                 alt33=1;
             }
             else if ( (LA33_0==36) ) {
@@ -4894,7 +4898,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     int alt35=2;
                     int LA35_0 = input.LA(1);
 
-                    if ( (LA35_0==RULE_ID||LA35_0==50||(LA35_0>=87 && LA35_0<=95)) ) {
+                    if ( (LA35_0==RULE_ID||LA35_0==50||(LA35_0>=91 && LA35_0<=99)) ) {
                         alt35=1;
                     }
                     switch (alt35) {
@@ -5107,7 +5111,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             int alt38=2;
             int LA38_0 = input.LA(1);
 
-            if ( (LA38_0==RULE_ID||LA38_0==50||(LA38_0>=87 && LA38_0<=95)) ) {
+            if ( (LA38_0==RULE_ID||LA38_0==50||(LA38_0>=91 && LA38_0<=99)) ) {
                 alt38=1;
             }
             switch (alt38) {
@@ -5373,7 +5377,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             int alt40=2;
             int LA40_0 = input.LA(1);
 
-            if ( (LA40_0==RULE_ID||LA40_0==50||(LA40_0>=87 && LA40_0<=95)) ) {
+            if ( (LA40_0==RULE_ID||LA40_0==50||(LA40_0>=91 && LA40_0<=99)) ) {
                 alt40=1;
             }
             switch (alt40) {
@@ -5484,7 +5488,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             int alt42=2;
             int LA42_0 = input.LA(1);
 
-            if ( (LA42_0==RULE_ID||LA42_0==50||(LA42_0>=87 && LA42_0<=95)) ) {
+            if ( (LA42_0==RULE_ID||LA42_0==50||(LA42_0>=91 && LA42_0<=99)) ) {
                 alt42=1;
             }
             switch (alt42) {
@@ -5595,7 +5599,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             int alt44=2;
             int LA44_0 = input.LA(1);
 
-            if ( (LA44_0==RULE_ID||LA44_0==50||(LA44_0>=87 && LA44_0<=95)) ) {
+            if ( (LA44_0==RULE_ID||LA44_0==50||(LA44_0>=91 && LA44_0<=99)) ) {
                 alt44=1;
             }
             switch (alt44) {
@@ -6059,7 +6063,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                 int alt46=2;
                 int LA46_0 = input.LA(1);
 
-                if ( (LA46_0==95) ) {
+                if ( (LA46_0==99) ) {
                     alt46=1;
                 }
 
@@ -6271,7 +6275,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                 int alt47=2;
                 int LA47_0 = input.LA(1);
 
-                if ( (LA47_0==95) ) {
+                if ( (LA47_0==99) ) {
                     alt47=1;
                 }
 
@@ -6352,7 +6356,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             int alt49=2;
             int LA49_0 = input.LA(1);
 
-            if ( (LA49_0==RULE_ID||LA49_0==50||(LA49_0>=87 && LA49_0<=95)) ) {
+            if ( (LA49_0==RULE_ID||LA49_0==50||(LA49_0>=91 && LA49_0<=99)) ) {
                 alt49=1;
             }
             switch (alt49) {
@@ -6748,7 +6752,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                 int alt52=2;
                 int LA52_0 = input.LA(1);
 
-                if ( (LA52_0==95) ) {
+                if ( (LA52_0==99) ) {
                     alt52=1;
                 }
 
@@ -6833,7 +6837,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             int alt54=2;
             int LA54_0 = input.LA(1);
 
-            if ( (LA54_0==RULE_ID||LA54_0==50||(LA54_0>=87 && LA54_0<=95)) ) {
+            if ( (LA54_0==RULE_ID||LA54_0==50||(LA54_0>=91 && LA54_0<=99)) ) {
                 alt54=1;
             }
             switch (alt54) {
@@ -7077,7 +7081,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                 int alt55=2;
                 int LA55_0 = input.LA(1);
 
-                if ( (LA55_0==95) ) {
+                if ( (LA55_0==99) ) {
                     alt55=1;
                 }
 
@@ -7158,7 +7162,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             int alt57=2;
             int LA57_0 = input.LA(1);
 
-            if ( (LA57_0==RULE_ID||LA57_0==50||(LA57_0>=87 && LA57_0<=95)) ) {
+            if ( (LA57_0==RULE_ID||LA57_0==50||(LA57_0>=91 && LA57_0<=99)) ) {
                 alt57=1;
             }
             switch (alt57) {
@@ -7386,7 +7390,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                 int alt60=2;
                 int LA60_0 = input.LA(1);
 
-                if ( (LA60_0==RULE_ID||LA60_0==41||LA60_0==54||LA60_0==56||LA60_0==59) ) {
+                if ( (LA60_0==RULE_ID||LA60_0==41||LA60_0==54||LA60_0==56||(LA60_0>=59 && LA60_0<=60)) ) {
                     alt60=1;
                 }
 
@@ -7534,7 +7538,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                 int alt61=2;
                 int LA61_0 = input.LA(1);
 
-                if ( (LA61_0==95) ) {
+                if ( (LA61_0==99) ) {
                     alt61=1;
                 }
 
@@ -7619,7 +7623,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             int alt63=2;
             int LA63_0 = input.LA(1);
 
-            if ( (LA63_0==RULE_ID||LA63_0==50||(LA63_0>=87 && LA63_0<=95)) ) {
+            if ( (LA63_0==RULE_ID||LA63_0==50||(LA63_0>=91 && LA63_0<=99)) ) {
                 alt63=1;
             }
             switch (alt63) {
@@ -8260,7 +8264,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             int alt67=2;
             int LA67_0 = input.LA(1);
 
-            if ( (LA67_0==RULE_ID||LA67_0==50||(LA67_0>=87 && LA67_0<=95)) ) {
+            if ( (LA67_0==RULE_ID||LA67_0==50||(LA67_0>=91 && LA67_0<=99)) ) {
                 alt67=1;
             }
             switch (alt67) {
@@ -8371,7 +8375,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             int alt69=2;
             int LA69_0 = input.LA(1);
 
-            if ( (LA69_0==RULE_ID||LA69_0==50||(LA69_0>=87 && LA69_0<=95)) ) {
+            if ( (LA69_0==RULE_ID||LA69_0==50||(LA69_0>=91 && LA69_0<=99)) ) {
                 alt69=1;
             }
             switch (alt69) {
@@ -8482,7 +8486,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             int alt71=2;
             int LA71_0 = input.LA(1);
 
-            if ( (LA71_0==RULE_ID||LA71_0==50||(LA71_0>=87 && LA71_0<=95)) ) {
+            if ( (LA71_0==RULE_ID||LA71_0==50||(LA71_0>=91 && LA71_0<=99)) ) {
                 alt71=1;
             }
             switch (alt71) {
@@ -9423,7 +9427,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                 int alt76=2;
                 int LA76_0 = input.LA(1);
 
-                if ( (LA76_0==95) ) {
+                if ( (LA76_0==99) ) {
                     alt76=1;
                 }
 
@@ -9983,7 +9987,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                         int alt86=2;
                         int LA86_0 = input.LA(1);
 
-                        if ( (LA86_0==RULE_ID||LA86_0==41||LA86_0==54||LA86_0==56||LA86_0==59) ) {
+                        if ( (LA86_0==RULE_ID||LA86_0==41||LA86_0==54||LA86_0==56||(LA86_0>=59 && LA86_0<=60)) ) {
                             alt86=1;
                         }
 
@@ -10152,7 +10156,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                 int alt88=2;
                 int LA88_0 = input.LA(1);
 
-                if ( (LA88_0==95) ) {
+                if ( (LA88_0==99) ) {
                     alt88=1;
                 }
 
@@ -10605,7 +10609,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                         int alt96=2;
                         int LA96_0 = input.LA(1);
 
-                        if ( (LA96_0==RULE_ID||LA96_0==41||LA96_0==54||LA96_0==56||LA96_0==59) ) {
+                        if ( (LA96_0==RULE_ID||LA96_0==41||LA96_0==54||LA96_0==56||(LA96_0>=59 && LA96_0<=60)) ) {
                             alt96=1;
                         }
 
@@ -11663,7 +11667,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             int alt107=2;
             int LA107_0 = input.LA(1);
 
-            if ( ((LA107_0>=RULE_ID && LA107_0<=RULE_STRING)||LA107_0==21||LA107_0==24||LA107_0==50||LA107_0==56||LA107_0==75||(LA107_0>=81 && LA107_0<=84)) ) {
+            if ( ((LA107_0>=RULE_ID && LA107_0<=RULE_STRING)||LA107_0==21||LA107_0==24||LA107_0==50||LA107_0==56||LA107_0==60||LA107_0==77||(LA107_0>=83 && LA107_0<=86)) ) {
                 alt107=1;
             }
             switch (alt107) {
@@ -12076,7 +12080,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                 int alt111=2;
                 int LA111_0 = input.LA(1);
 
-                if ( (LA111_0==RULE_ID||LA111_0==41||LA111_0==54||LA111_0==56||LA111_0==59) ) {
+                if ( (LA111_0==RULE_ID||LA111_0==41||LA111_0==54||LA111_0==56||(LA111_0>=59 && LA111_0<=60)) ) {
                     alt111=1;
                 }
 
@@ -12483,7 +12487,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                 int alt114=2;
                 int LA114_0 = input.LA(1);
 
-                if ( (LA114_0==RULE_ID||LA114_0==41||LA114_0==54||LA114_0==56||LA114_0==59) ) {
+                if ( (LA114_0==RULE_ID||LA114_0==41||LA114_0==54||LA114_0==56||(LA114_0>=59 && LA114_0<=60)) ) {
                     alt114=1;
                 }
 
@@ -12656,7 +12660,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                 int alt115=2;
                 int LA115_0 = input.LA(1);
 
-                if ( (LA115_0==RULE_ID||LA115_0==41||LA115_0==54||LA115_0==56||LA115_0==59) ) {
+                if ( (LA115_0==RULE_ID||LA115_0==41||LA115_0==54||LA115_0==56||(LA115_0>=59 && LA115_0<=60)) ) {
                     alt115=1;
                 }
 
@@ -12720,7 +12724,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                         int alt116=2;
                         int LA116_0 = input.LA(1);
 
-                        if ( (LA116_0==RULE_ID||LA116_0==41||LA116_0==54||LA116_0==56||LA116_0==59) ) {
+                        if ( (LA116_0==RULE_ID||LA116_0==41||LA116_0==54||LA116_0==56||(LA116_0>=59 && LA116_0<=60)) ) {
                             alt116=1;
                         }
 
@@ -12896,7 +12900,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                 int alt118=2;
                 int LA118_0 = input.LA(1);
 
-                if ( (LA118_0==RULE_ID||LA118_0==41||LA118_0==54||LA118_0==56||LA118_0==59) ) {
+                if ( (LA118_0==RULE_ID||LA118_0==41||LA118_0==54||LA118_0==56||(LA118_0>=59 && LA118_0<=60)) ) {
                     alt118=1;
                 }
 
@@ -12963,8 +12967,465 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleAstStatementWhile"
 
 
+    // $ANTLR start "entryRuleAstStatementCase"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5179:1: entryRuleAstStatementCase returns [EObject current=null] : iv_ruleAstStatementCase= ruleAstStatementCase EOF ;
+    public final EObject entryRuleAstStatementCase() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstStatementCase = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5180:2: (iv_ruleAstStatementCase= ruleAstStatementCase EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5181:2: iv_ruleAstStatementCase= ruleAstStatementCase EOF
+            {
+             newCompositeNode(grammarAccess.getAstStatementCaseRule()); 
+            pushFollow(FOLLOW_ruleAstStatementCase_in_entryRuleAstStatementCase10289);
+            iv_ruleAstStatementCase=ruleAstStatementCase();
+
+            state._fsp--;
+
+             current =iv_ruleAstStatementCase; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstStatementCase10299); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstStatementCase"
+
+
+    // $ANTLR start "ruleAstStatementCase"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5188:1: ruleAstStatementCase returns [EObject current=null] : (otherlv_0= 'case' ( (lv_expression_1_0= ruleAstExpressionSymbolReference ) ) otherlv_2= 'of' ( (lv_cases_3_0= ruleAstStatementAlternative ) )+ otherlv_4= 'end' ) ;
+    public final EObject ruleAstStatementCase() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_0=null;
+        Token otherlv_2=null;
+        Token otherlv_4=null;
+        EObject lv_expression_1_0 = null;
+
+        EObject lv_cases_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5191:28: ( (otherlv_0= 'case' ( (lv_expression_1_0= ruleAstExpressionSymbolReference ) ) otherlv_2= 'of' ( (lv_cases_3_0= ruleAstStatementAlternative ) )+ otherlv_4= 'end' ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5192:1: (otherlv_0= 'case' ( (lv_expression_1_0= ruleAstExpressionSymbolReference ) ) otherlv_2= 'of' ( (lv_cases_3_0= ruleAstStatementAlternative ) )+ otherlv_4= 'end' )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5192:1: (otherlv_0= 'case' ( (lv_expression_1_0= ruleAstExpressionSymbolReference ) ) otherlv_2= 'of' ( (lv_cases_3_0= ruleAstStatementAlternative ) )+ otherlv_4= 'end' )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5192:3: otherlv_0= 'case' ( (lv_expression_1_0= ruleAstExpressionSymbolReference ) ) otherlv_2= 'of' ( (lv_cases_3_0= ruleAstStatementAlternative ) )+ otherlv_4= 'end'
+            {
+            otherlv_0=(Token)match(input,60,FOLLOW_60_in_ruleAstStatementCase10336); 
+
+                	newLeafNode(otherlv_0, grammarAccess.getAstStatementCaseAccess().getCaseKeyword_0());
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5196:1: ( (lv_expression_1_0= ruleAstExpressionSymbolReference ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5197:1: (lv_expression_1_0= ruleAstExpressionSymbolReference )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5197:1: (lv_expression_1_0= ruleAstExpressionSymbolReference )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5198:3: lv_expression_1_0= ruleAstExpressionSymbolReference
+            {
+             
+            	        newCompositeNode(grammarAccess.getAstStatementCaseAccess().getExpressionAstExpressionSymbolReferenceParserRuleCall_1_0()); 
+            	    
+            pushFollow(FOLLOW_ruleAstExpressionSymbolReference_in_ruleAstStatementCase10357);
+            lv_expression_1_0=ruleAstExpressionSymbolReference();
+
+            state._fsp--;
+
+
+            	        if (current==null) {
+            	            current = createModelElementForParent(grammarAccess.getAstStatementCaseRule());
+            	        }
+                   		set(
+                   			current, 
+                   			"expression",
+                    		lv_expression_1_0, 
+                    		"AstExpressionSymbolReference");
+            	        afterParserOrEnumRuleCall();
+            	    
+
+            }
+
+
+            }
+
+            otherlv_2=(Token)match(input,61,FOLLOW_61_in_ruleAstStatementCase10369); 
+
+                	newLeafNode(otherlv_2, grammarAccess.getAstStatementCaseAccess().getOfKeyword_2());
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5218:1: ( (lv_cases_3_0= ruleAstStatementAlternative ) )+
+            int cnt119=0;
+            loop119:
+            do {
+                int alt119=2;
+                int LA119_0 = input.LA(1);
+
+                if ( (LA119_0==RULE_ID) ) {
+                    alt119=1;
+                }
+
+
+                switch (alt119) {
+            	case 1 :
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5219:1: (lv_cases_3_0= ruleAstStatementAlternative )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5219:1: (lv_cases_3_0= ruleAstStatementAlternative )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5220:3: lv_cases_3_0= ruleAstStatementAlternative
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getAstStatementCaseAccess().getCasesAstStatementAlternativeParserRuleCall_3_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleAstStatementAlternative_in_ruleAstStatementCase10390);
+            	    lv_cases_3_0=ruleAstStatementAlternative();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getAstStatementCaseRule());
+            	    	        }
+            	           		add(
+            	           			current, 
+            	           			"cases",
+            	            		lv_cases_3_0, 
+            	            		"AstStatementAlternative");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt119 >= 1 ) break loop119;
+                        EarlyExitException eee =
+                            new EarlyExitException(119, input);
+                        throw eee;
+                }
+                cnt119++;
+            } while (true);
+
+            otherlv_4=(Token)match(input,18,FOLLOW_18_in_ruleAstStatementCase10403); 
+
+                	newLeafNode(otherlv_4, grammarAccess.getAstStatementCaseAccess().getEndKeyword_4());
+                
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAstStatementCase"
+
+
+    // $ANTLR start "entryRuleAstStatementAlternative"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5248:1: entryRuleAstStatementAlternative returns [EObject current=null] : iv_ruleAstStatementAlternative= ruleAstStatementAlternative EOF ;
+    public final EObject entryRuleAstStatementAlternative() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstStatementAlternative = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5249:2: (iv_ruleAstStatementAlternative= ruleAstStatementAlternative EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5250:2: iv_ruleAstStatementAlternative= ruleAstStatementAlternative EOF
+            {
+             newCompositeNode(grammarAccess.getAstStatementAlternativeRule()); 
+            pushFollow(FOLLOW_ruleAstStatementAlternative_in_entryRuleAstStatementAlternative10439);
+            iv_ruleAstStatementAlternative=ruleAstStatementAlternative();
+
+            state._fsp--;
+
+             current =iv_ruleAstStatementAlternative; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstStatementAlternative10449); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstStatementAlternative"
+
+
+    // $ANTLR start "ruleAstStatementAlternative"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5257:1: ruleAstStatementAlternative returns [EObject current=null] : ( ( (lv_pattern_0_0= ruleAstPattern ) ) (otherlv_1= 'guard' ( (lv_guards_2_0= ruleAstExpression ) ) (otherlv_3= ',' ( (lv_guards_4_0= ruleAstExpression ) ) )* )? otherlv_5= 'do' ( (lv_statements_6_0= ruleAstStatement ) )* otherlv_7= 'end' ) ;
+    public final EObject ruleAstStatementAlternative() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_1=null;
+        Token otherlv_3=null;
+        Token otherlv_5=null;
+        Token otherlv_7=null;
+        EObject lv_pattern_0_0 = null;
+
+        EObject lv_guards_2_0 = null;
+
+        EObject lv_guards_4_0 = null;
+
+        EObject lv_statements_6_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5260:28: ( ( ( (lv_pattern_0_0= ruleAstPattern ) ) (otherlv_1= 'guard' ( (lv_guards_2_0= ruleAstExpression ) ) (otherlv_3= ',' ( (lv_guards_4_0= ruleAstExpression ) ) )* )? otherlv_5= 'do' ( (lv_statements_6_0= ruleAstStatement ) )* otherlv_7= 'end' ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5261:1: ( ( (lv_pattern_0_0= ruleAstPattern ) ) (otherlv_1= 'guard' ( (lv_guards_2_0= ruleAstExpression ) ) (otherlv_3= ',' ( (lv_guards_4_0= ruleAstExpression ) ) )* )? otherlv_5= 'do' ( (lv_statements_6_0= ruleAstStatement ) )* otherlv_7= 'end' )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5261:1: ( ( (lv_pattern_0_0= ruleAstPattern ) ) (otherlv_1= 'guard' ( (lv_guards_2_0= ruleAstExpression ) ) (otherlv_3= ',' ( (lv_guards_4_0= ruleAstExpression ) ) )* )? otherlv_5= 'do' ( (lv_statements_6_0= ruleAstStatement ) )* otherlv_7= 'end' )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5261:2: ( (lv_pattern_0_0= ruleAstPattern ) ) (otherlv_1= 'guard' ( (lv_guards_2_0= ruleAstExpression ) ) (otherlv_3= ',' ( (lv_guards_4_0= ruleAstExpression ) ) )* )? otherlv_5= 'do' ( (lv_statements_6_0= ruleAstStatement ) )* otherlv_7= 'end'
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5261:2: ( (lv_pattern_0_0= ruleAstPattern ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5262:1: (lv_pattern_0_0= ruleAstPattern )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5262:1: (lv_pattern_0_0= ruleAstPattern )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5263:3: lv_pattern_0_0= ruleAstPattern
+            {
+             
+            	        newCompositeNode(grammarAccess.getAstStatementAlternativeAccess().getPatternAstPatternParserRuleCall_0_0()); 
+            	    
+            pushFollow(FOLLOW_ruleAstPattern_in_ruleAstStatementAlternative10495);
+            lv_pattern_0_0=ruleAstPattern();
+
+            state._fsp--;
+
+
+            	        if (current==null) {
+            	            current = createModelElementForParent(grammarAccess.getAstStatementAlternativeRule());
+            	        }
+                   		set(
+                   			current, 
+                   			"pattern",
+                    		lv_pattern_0_0, 
+                    		"AstPattern");
+            	        afterParserOrEnumRuleCall();
+            	    
+
+            }
+
+
+            }
+
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5279:2: (otherlv_1= 'guard' ( (lv_guards_2_0= ruleAstExpression ) ) (otherlv_3= ',' ( (lv_guards_4_0= ruleAstExpression ) ) )* )?
+            int alt121=2;
+            int LA121_0 = input.LA(1);
+
+            if ( (LA121_0==47) ) {
+                alt121=1;
+            }
+            switch (alt121) {
+                case 1 :
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5279:4: otherlv_1= 'guard' ( (lv_guards_2_0= ruleAstExpression ) ) (otherlv_3= ',' ( (lv_guards_4_0= ruleAstExpression ) ) )*
+                    {
+                    otherlv_1=(Token)match(input,47,FOLLOW_47_in_ruleAstStatementAlternative10508); 
+
+                        	newLeafNode(otherlv_1, grammarAccess.getAstStatementAlternativeAccess().getGuardKeyword_1_0());
+                        
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5283:1: ( (lv_guards_2_0= ruleAstExpression ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5284:1: (lv_guards_2_0= ruleAstExpression )
+                    {
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5284:1: (lv_guards_2_0= ruleAstExpression )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5285:3: lv_guards_2_0= ruleAstExpression
+                    {
+                     
+                    	        newCompositeNode(grammarAccess.getAstStatementAlternativeAccess().getGuardsAstExpressionParserRuleCall_1_1_0()); 
+                    	    
+                    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstStatementAlternative10529);
+                    lv_guards_2_0=ruleAstExpression();
+
+                    state._fsp--;
+
+
+                    	        if (current==null) {
+                    	            current = createModelElementForParent(grammarAccess.getAstStatementAlternativeRule());
+                    	        }
+                           		add(
+                           			current, 
+                           			"guards",
+                            		lv_guards_2_0, 
+                            		"AstExpression");
+                    	        afterParserOrEnumRuleCall();
+                    	    
+
+                    }
+
+
+                    }
+
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5301:2: (otherlv_3= ',' ( (lv_guards_4_0= ruleAstExpression ) ) )*
+                    loop120:
+                    do {
+                        int alt120=2;
+                        int LA120_0 = input.LA(1);
+
+                        if ( (LA120_0==25) ) {
+                            alt120=1;
+                        }
+
+
+                        switch (alt120) {
+                    	case 1 :
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5301:4: otherlv_3= ',' ( (lv_guards_4_0= ruleAstExpression ) )
+                    	    {
+                    	    otherlv_3=(Token)match(input,25,FOLLOW_25_in_ruleAstStatementAlternative10542); 
+
+                    	        	newLeafNode(otherlv_3, grammarAccess.getAstStatementAlternativeAccess().getCommaKeyword_1_2_0());
+                    	        
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5305:1: ( (lv_guards_4_0= ruleAstExpression ) )
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5306:1: (lv_guards_4_0= ruleAstExpression )
+                    	    {
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5306:1: (lv_guards_4_0= ruleAstExpression )
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5307:3: lv_guards_4_0= ruleAstExpression
+                    	    {
+                    	     
+                    	    	        newCompositeNode(grammarAccess.getAstStatementAlternativeAccess().getGuardsAstExpressionParserRuleCall_1_2_1_0()); 
+                    	    	    
+                    	    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstStatementAlternative10563);
+                    	    lv_guards_4_0=ruleAstExpression();
+
+                    	    state._fsp--;
+
+
+                    	    	        if (current==null) {
+                    	    	            current = createModelElementForParent(grammarAccess.getAstStatementAlternativeRule());
+                    	    	        }
+                    	           		add(
+                    	           			current, 
+                    	           			"guards",
+                    	            		lv_guards_4_0, 
+                    	            		"AstExpression");
+                    	    	        afterParserOrEnumRuleCall();
+                    	    	    
+
+                    	    }
+
+
+                    	    }
+
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    break loop120;
+                        }
+                    } while (true);
+
+
+                    }
+                    break;
+
+            }
+
+            otherlv_5=(Token)match(input,48,FOLLOW_48_in_ruleAstStatementAlternative10579); 
+
+                	newLeafNode(otherlv_5, grammarAccess.getAstStatementAlternativeAccess().getDoKeyword_2());
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5327:1: ( (lv_statements_6_0= ruleAstStatement ) )*
+            loop122:
+            do {
+                int alt122=2;
+                int LA122_0 = input.LA(1);
+
+                if ( (LA122_0==RULE_ID||LA122_0==41||LA122_0==54||LA122_0==56||(LA122_0>=59 && LA122_0<=60)) ) {
+                    alt122=1;
+                }
+
+
+                switch (alt122) {
+            	case 1 :
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5328:1: (lv_statements_6_0= ruleAstStatement )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5328:1: (lv_statements_6_0= ruleAstStatement )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5329:3: lv_statements_6_0= ruleAstStatement
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getAstStatementAlternativeAccess().getStatementsAstStatementParserRuleCall_3_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleAstStatement_in_ruleAstStatementAlternative10600);
+            	    lv_statements_6_0=ruleAstStatement();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getAstStatementAlternativeRule());
+            	    	        }
+            	           		add(
+            	           			current, 
+            	           			"statements",
+            	            		lv_statements_6_0, 
+            	            		"AstStatement");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop122;
+                }
+            } while (true);
+
+            otherlv_7=(Token)match(input,18,FOLLOW_18_in_ruleAstStatementAlternative10613); 
+
+                	newLeafNode(otherlv_7, grammarAccess.getAstStatementAlternativeAccess().getEndKeyword_4());
+                
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAstStatementAlternative"
+
+
     // $ANTLR start "entryRuleAstStatement"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5179:1: entryRuleAstStatement returns [EObject current=null] : iv_ruleAstStatement= ruleAstStatement EOF ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5357:1: entryRuleAstStatement returns [EObject current=null] : iv_ruleAstStatement= ruleAstStatement EOF ;
     public final EObject entryRuleAstStatement() throws RecognitionException {
         EObject current = null;
 
@@ -12972,17 +13433,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5180:2: (iv_ruleAstStatement= ruleAstStatement EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5181:2: iv_ruleAstStatement= ruleAstStatement EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5358:2: (iv_ruleAstStatement= ruleAstStatement EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5359:2: iv_ruleAstStatement= ruleAstStatement EOF
             {
              newCompositeNode(grammarAccess.getAstStatementRule()); 
-            pushFollow(FOLLOW_ruleAstStatement_in_entryRuleAstStatement10289);
+            pushFollow(FOLLOW_ruleAstStatement_in_entryRuleAstStatement10649);
             iv_ruleAstStatement=ruleAstStatement();
 
             state._fsp--;
 
              current =iv_ruleAstStatement; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstStatement10299); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstStatement10659); 
 
             }
 
@@ -13000,7 +13461,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAstStatement"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5188:1: ruleAstStatement returns [EObject current=null] : (this_AstStatementAssign_0= ruleAstStatementAssign | this_AstStatementCall_1= ruleAstStatementCall | this_AstStatementForeach_2= ruleAstStatementForeach | this_AstStatementIf_3= ruleAstStatementIf | this_AstStatementWhile_4= ruleAstStatementWhile | this_AstStatementBlock_5= ruleAstStatementBlock ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5366:1: ruleAstStatement returns [EObject current=null] : (this_AstStatementAssign_0= ruleAstStatementAssign | this_AstStatementCall_1= ruleAstStatementCall | this_AstStatementForeach_2= ruleAstStatementForeach | this_AstStatementIf_3= ruleAstStatementIf | this_AstStatementWhile_4= ruleAstStatementWhile | this_AstStatementBlock_5= ruleAstStatementBlock | this_AstStatementCase_6= ruleAstStatementCase ) ;
     public final EObject ruleAstStatement() throws RecognitionException {
         EObject current = null;
 
@@ -13016,29 +13477,31 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
         EObject this_AstStatementBlock_5 = null;
 
+        EObject this_AstStatementCase_6 = null;
+
 
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5191:28: ( (this_AstStatementAssign_0= ruleAstStatementAssign | this_AstStatementCall_1= ruleAstStatementCall | this_AstStatementForeach_2= ruleAstStatementForeach | this_AstStatementIf_3= ruleAstStatementIf | this_AstStatementWhile_4= ruleAstStatementWhile | this_AstStatementBlock_5= ruleAstStatementBlock ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5192:1: (this_AstStatementAssign_0= ruleAstStatementAssign | this_AstStatementCall_1= ruleAstStatementCall | this_AstStatementForeach_2= ruleAstStatementForeach | this_AstStatementIf_3= ruleAstStatementIf | this_AstStatementWhile_4= ruleAstStatementWhile | this_AstStatementBlock_5= ruleAstStatementBlock )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5369:28: ( (this_AstStatementAssign_0= ruleAstStatementAssign | this_AstStatementCall_1= ruleAstStatementCall | this_AstStatementForeach_2= ruleAstStatementForeach | this_AstStatementIf_3= ruleAstStatementIf | this_AstStatementWhile_4= ruleAstStatementWhile | this_AstStatementBlock_5= ruleAstStatementBlock | this_AstStatementCase_6= ruleAstStatementCase ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5370:1: (this_AstStatementAssign_0= ruleAstStatementAssign | this_AstStatementCall_1= ruleAstStatementCall | this_AstStatementForeach_2= ruleAstStatementForeach | this_AstStatementIf_3= ruleAstStatementIf | this_AstStatementWhile_4= ruleAstStatementWhile | this_AstStatementBlock_5= ruleAstStatementBlock | this_AstStatementCase_6= ruleAstStatementCase )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5192:1: (this_AstStatementAssign_0= ruleAstStatementAssign | this_AstStatementCall_1= ruleAstStatementCall | this_AstStatementForeach_2= ruleAstStatementForeach | this_AstStatementIf_3= ruleAstStatementIf | this_AstStatementWhile_4= ruleAstStatementWhile | this_AstStatementBlock_5= ruleAstStatementBlock )
-            int alt119=6;
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5370:1: (this_AstStatementAssign_0= ruleAstStatementAssign | this_AstStatementCall_1= ruleAstStatementCall | this_AstStatementForeach_2= ruleAstStatementForeach | this_AstStatementIf_3= ruleAstStatementIf | this_AstStatementWhile_4= ruleAstStatementWhile | this_AstStatementBlock_5= ruleAstStatementBlock | this_AstStatementCase_6= ruleAstStatementCase )
+            int alt123=7;
             switch ( input.LA(1) ) {
             case RULE_ID:
                 {
-                int LA119_1 = input.LA(2);
+                int LA123_1 = input.LA(2);
 
-                if ( (LA119_1==21||LA119_1==50||LA119_1==53) ) {
-                    alt119=1;
+                if ( (LA123_1==24) ) {
+                    alt123=2;
                 }
-                else if ( (LA119_1==24) ) {
-                    alt119=2;
+                else if ( (LA123_1==21||LA123_1==50||LA123_1==53) ) {
+                    alt123=1;
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 119, 1, input);
+                        new NoViableAltException("", 123, 1, input);
 
                     throw nvae;
                 }
@@ -13046,39 +13509,44 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                 break;
             case 54:
                 {
-                alt119=3;
+                alt123=3;
                 }
                 break;
             case 56:
                 {
-                alt119=4;
+                alt123=4;
                 }
                 break;
             case 59:
                 {
-                alt119=5;
+                alt123=5;
                 }
                 break;
             case 41:
                 {
-                alt119=6;
+                alt123=6;
+                }
+                break;
+            case 60:
+                {
+                alt123=7;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 119, 0, input);
+                    new NoViableAltException("", 123, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt119) {
+            switch (alt123) {
                 case 1 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5193:5: this_AstStatementAssign_0= ruleAstStatementAssign
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5371:5: this_AstStatementAssign_0= ruleAstStatementAssign
                     {
                      
                             newCompositeNode(grammarAccess.getAstStatementAccess().getAstStatementAssignParserRuleCall_0()); 
                         
-                    pushFollow(FOLLOW_ruleAstStatementAssign_in_ruleAstStatement10346);
+                    pushFollow(FOLLOW_ruleAstStatementAssign_in_ruleAstStatement10706);
                     this_AstStatementAssign_0=ruleAstStatementAssign();
 
                     state._fsp--;
@@ -13091,12 +13559,12 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5203:5: this_AstStatementCall_1= ruleAstStatementCall
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5381:5: this_AstStatementCall_1= ruleAstStatementCall
                     {
                      
                             newCompositeNode(grammarAccess.getAstStatementAccess().getAstStatementCallParserRuleCall_1()); 
                         
-                    pushFollow(FOLLOW_ruleAstStatementCall_in_ruleAstStatement10373);
+                    pushFollow(FOLLOW_ruleAstStatementCall_in_ruleAstStatement10733);
                     this_AstStatementCall_1=ruleAstStatementCall();
 
                     state._fsp--;
@@ -13109,12 +13577,12 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5213:5: this_AstStatementForeach_2= ruleAstStatementForeach
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5391:5: this_AstStatementForeach_2= ruleAstStatementForeach
                     {
                      
                             newCompositeNode(grammarAccess.getAstStatementAccess().getAstStatementForeachParserRuleCall_2()); 
                         
-                    pushFollow(FOLLOW_ruleAstStatementForeach_in_ruleAstStatement10400);
+                    pushFollow(FOLLOW_ruleAstStatementForeach_in_ruleAstStatement10760);
                     this_AstStatementForeach_2=ruleAstStatementForeach();
 
                     state._fsp--;
@@ -13127,12 +13595,12 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5223:5: this_AstStatementIf_3= ruleAstStatementIf
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5401:5: this_AstStatementIf_3= ruleAstStatementIf
                     {
                      
                             newCompositeNode(grammarAccess.getAstStatementAccess().getAstStatementIfParserRuleCall_3()); 
                         
-                    pushFollow(FOLLOW_ruleAstStatementIf_in_ruleAstStatement10427);
+                    pushFollow(FOLLOW_ruleAstStatementIf_in_ruleAstStatement10787);
                     this_AstStatementIf_3=ruleAstStatementIf();
 
                     state._fsp--;
@@ -13145,12 +13613,12 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5233:5: this_AstStatementWhile_4= ruleAstStatementWhile
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5411:5: this_AstStatementWhile_4= ruleAstStatementWhile
                     {
                      
                             newCompositeNode(grammarAccess.getAstStatementAccess().getAstStatementWhileParserRuleCall_4()); 
                         
-                    pushFollow(FOLLOW_ruleAstStatementWhile_in_ruleAstStatement10454);
+                    pushFollow(FOLLOW_ruleAstStatementWhile_in_ruleAstStatement10814);
                     this_AstStatementWhile_4=ruleAstStatementWhile();
 
                     state._fsp--;
@@ -13163,18 +13631,36 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5243:5: this_AstStatementBlock_5= ruleAstStatementBlock
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5421:5: this_AstStatementBlock_5= ruleAstStatementBlock
                     {
                      
                             newCompositeNode(grammarAccess.getAstStatementAccess().getAstStatementBlockParserRuleCall_5()); 
                         
-                    pushFollow(FOLLOW_ruleAstStatementBlock_in_ruleAstStatement10481);
+                    pushFollow(FOLLOW_ruleAstStatementBlock_in_ruleAstStatement10841);
                     this_AstStatementBlock_5=ruleAstStatementBlock();
 
                     state._fsp--;
 
                      
                             current = this_AstStatementBlock_5; 
+                            afterParserOrEnumRuleCall();
+                        
+
+                    }
+                    break;
+                case 7 :
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5431:5: this_AstStatementCase_6= ruleAstStatementCase
+                    {
+                     
+                            newCompositeNode(grammarAccess.getAstStatementAccess().getAstStatementCaseParserRuleCall_6()); 
+                        
+                    pushFollow(FOLLOW_ruleAstStatementCase_in_ruleAstStatement10868);
+                    this_AstStatementCase_6=ruleAstStatementCase();
+
+                    state._fsp--;
+
+                     
+                            current = this_AstStatementCase_6; 
                             afterParserOrEnumRuleCall();
                         
 
@@ -13201,7 +13687,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAstExpression"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5259:1: entryRuleAstExpression returns [EObject current=null] : iv_ruleAstExpression= ruleAstExpression EOF ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5447:1: entryRuleAstExpression returns [EObject current=null] : iv_ruleAstExpression= ruleAstExpression EOF ;
     public final EObject entryRuleAstExpression() throws RecognitionException {
         EObject current = null;
 
@@ -13209,17 +13695,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5260:2: (iv_ruleAstExpression= ruleAstExpression EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5261:2: iv_ruleAstExpression= ruleAstExpression EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5448:2: (iv_ruleAstExpression= ruleAstExpression EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5449:2: iv_ruleAstExpression= ruleAstExpression EOF
             {
              newCompositeNode(grammarAccess.getAstExpressionRule()); 
-            pushFollow(FOLLOW_ruleAstExpression_in_entryRuleAstExpression10516);
+            pushFollow(FOLLOW_ruleAstExpression_in_entryRuleAstExpression10903);
             iv_ruleAstExpression=ruleAstExpression();
 
             state._fsp--;
 
              current =iv_ruleAstExpression; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpression10526); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpression10913); 
 
             }
 
@@ -13237,7 +13723,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAstExpression"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5268:1: ruleAstExpression returns [EObject current=null] : (this_AstExpressionAnd_0= ruleAstExpressionAnd ( () ( ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) ) ) ( (lv_right_3_0= ruleAstExpressionAnd ) ) )* ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5456:1: ruleAstExpression returns [EObject current=null] : (this_AstExpressionAnd_0= ruleAstExpressionAnd ( () ( ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) ) ) ( (lv_right_3_0= ruleAstExpressionAnd ) ) )* ) ;
     public final EObject ruleAstExpression() throws RecognitionException {
         EObject current = null;
 
@@ -13252,16 +13738,16 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5271:28: ( (this_AstExpressionAnd_0= ruleAstExpressionAnd ( () ( ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) ) ) ( (lv_right_3_0= ruleAstExpressionAnd ) ) )* ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5272:1: (this_AstExpressionAnd_0= ruleAstExpressionAnd ( () ( ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) ) ) ( (lv_right_3_0= ruleAstExpressionAnd ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5459:28: ( (this_AstExpressionAnd_0= ruleAstExpressionAnd ( () ( ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) ) ) ( (lv_right_3_0= ruleAstExpressionAnd ) ) )* ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5460:1: (this_AstExpressionAnd_0= ruleAstExpressionAnd ( () ( ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) ) ) ( (lv_right_3_0= ruleAstExpressionAnd ) ) )* )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5272:1: (this_AstExpressionAnd_0= ruleAstExpressionAnd ( () ( ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) ) ) ( (lv_right_3_0= ruleAstExpressionAnd ) ) )* )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5273:5: this_AstExpressionAnd_0= ruleAstExpressionAnd ( () ( ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) ) ) ( (lv_right_3_0= ruleAstExpressionAnd ) ) )*
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5460:1: (this_AstExpressionAnd_0= ruleAstExpressionAnd ( () ( ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) ) ) ( (lv_right_3_0= ruleAstExpressionAnd ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5461:5: this_AstExpressionAnd_0= ruleAstExpressionAnd ( () ( ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) ) ) ( (lv_right_3_0= ruleAstExpressionAnd ) ) )*
             {
              
                     newCompositeNode(grammarAccess.getAstExpressionAccess().getAstExpressionAndParserRuleCall_0()); 
                 
-            pushFollow(FOLLOW_ruleAstExpressionAnd_in_ruleAstExpression10573);
+            pushFollow(FOLLOW_ruleAstExpressionAnd_in_ruleAstExpression10960);
             this_AstExpressionAnd_0=ruleAstExpressionAnd();
 
             state._fsp--;
@@ -13270,23 +13756,23 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     current = this_AstExpressionAnd_0; 
                     afterParserOrEnumRuleCall();
                 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5281:1: ( () ( ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) ) ) ( (lv_right_3_0= ruleAstExpressionAnd ) ) )*
-            loop121:
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5469:1: ( () ( ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) ) ) ( (lv_right_3_0= ruleAstExpressionAnd ) ) )*
+            loop125:
             do {
-                int alt121=2;
-                int LA121_0 = input.LA(1);
+                int alt125=2;
+                int LA125_0 = input.LA(1);
 
-                if ( ((LA121_0>=60 && LA121_0<=62)) ) {
-                    alt121=1;
+                if ( ((LA125_0>=62 && LA125_0<=64)) ) {
+                    alt125=1;
                 }
 
 
-                switch (alt121) {
+                switch (alt125) {
             	case 1 :
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5281:2: () ( ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) ) ) ( (lv_right_3_0= ruleAstExpressionAnd ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5469:2: () ( ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) ) ) ( (lv_right_3_0= ruleAstExpressionAnd ) )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5281:2: ()
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5282:5: 
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5469:2: ()
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5470:5: 
             	    {
 
             	            current = forceCreateModelElementAndSet(
@@ -13296,42 +13782,42 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5287:2: ( ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5288:1: ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5475:2: ( ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5476:1: ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5288:1: ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5289:1: (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5476:1: ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5477:1: (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5289:1: (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' )
-            	    int alt120=3;
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5477:1: (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' )
+            	    int alt124=3;
             	    switch ( input.LA(1) ) {
-            	    case 60:
-            	        {
-            	        alt120=1;
-            	        }
-            	        break;
-            	    case 61:
-            	        {
-            	        alt120=2;
-            	        }
-            	        break;
             	    case 62:
             	        {
-            	        alt120=3;
+            	        alt124=1;
+            	        }
+            	        break;
+            	    case 63:
+            	        {
+            	        alt124=2;
+            	        }
+            	        break;
+            	    case 64:
+            	        {
+            	        alt124=3;
             	        }
             	        break;
             	    default:
             	        NoViableAltException nvae =
-            	            new NoViableAltException("", 120, 0, input);
+            	            new NoViableAltException("", 124, 0, input);
 
             	        throw nvae;
             	    }
 
-            	    switch (alt120) {
+            	    switch (alt124) {
             	        case 1 :
-            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5290:3: lv_operator_2_1= '||'
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5478:3: lv_operator_2_1= '||'
             	            {
-            	            lv_operator_2_1=(Token)match(input,60,FOLLOW_60_in_ruleAstExpression10602); 
+            	            lv_operator_2_1=(Token)match(input,62,FOLLOW_62_in_ruleAstExpression10989); 
 
             	                    newLeafNode(lv_operator_2_1, grammarAccess.getAstExpressionAccess().getOperatorVerticalLineVerticalLineKeyword_1_1_0_0());
             	                
@@ -13345,9 +13831,9 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             	            }
             	            break;
             	        case 2 :
-            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5302:8: lv_operator_2_2= 'or'
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5490:8: lv_operator_2_2= 'or'
             	            {
-            	            lv_operator_2_2=(Token)match(input,61,FOLLOW_61_in_ruleAstExpression10631); 
+            	            lv_operator_2_2=(Token)match(input,63,FOLLOW_63_in_ruleAstExpression11018); 
 
             	                    newLeafNode(lv_operator_2_2, grammarAccess.getAstExpressionAccess().getOperatorOrKeyword_1_1_0_1());
             	                
@@ -13361,9 +13847,9 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             	            }
             	            break;
             	        case 3 :
-            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5314:8: lv_operator_2_3= '..'
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5502:8: lv_operator_2_3= '..'
             	            {
-            	            lv_operator_2_3=(Token)match(input,62,FOLLOW_62_in_ruleAstExpression10660); 
+            	            lv_operator_2_3=(Token)match(input,64,FOLLOW_64_in_ruleAstExpression11047); 
 
             	                    newLeafNode(lv_operator_2_3, grammarAccess.getAstExpressionAccess().getOperatorFullStopFullStopKeyword_1_1_0_2());
             	                
@@ -13385,16 +13871,16 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5329:2: ( (lv_right_3_0= ruleAstExpressionAnd ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5330:1: (lv_right_3_0= ruleAstExpressionAnd )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5517:2: ( (lv_right_3_0= ruleAstExpressionAnd ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5518:1: (lv_right_3_0= ruleAstExpressionAnd )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5330:1: (lv_right_3_0= ruleAstExpressionAnd )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5331:3: lv_right_3_0= ruleAstExpressionAnd
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5518:1: (lv_right_3_0= ruleAstExpressionAnd )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5519:3: lv_right_3_0= ruleAstExpressionAnd
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getAstExpressionAccess().getRightAstExpressionAndParserRuleCall_1_2_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleAstExpressionAnd_in_ruleAstExpression10697);
+            	    pushFollow(FOLLOW_ruleAstExpressionAnd_in_ruleAstExpression11084);
             	    lv_right_3_0=ruleAstExpressionAnd();
 
             	    state._fsp--;
@@ -13408,577 +13894,6 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             	           			"right",
             	            		lv_right_3_0, 
             	            		"AstExpressionAnd");
-            	    	        afterParserOrEnumRuleCall();
-            	    	    
-
-            	    }
-
-
-            	    }
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop121;
-                }
-            } while (true);
-
-
-            }
-
-
-            }
-
-             leaveRule(); 
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleAstExpression"
-
-
-    // $ANTLR start "entryRuleAstExpressionAnd"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5355:1: entryRuleAstExpressionAnd returns [EObject current=null] : iv_ruleAstExpressionAnd= ruleAstExpressionAnd EOF ;
-    public final EObject entryRuleAstExpressionAnd() throws RecognitionException {
-        EObject current = null;
-
-        EObject iv_ruleAstExpressionAnd = null;
-
-
-        try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5356:2: (iv_ruleAstExpressionAnd= ruleAstExpressionAnd EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5357:2: iv_ruleAstExpressionAnd= ruleAstExpressionAnd EOF
-            {
-             newCompositeNode(grammarAccess.getAstExpressionAndRule()); 
-            pushFollow(FOLLOW_ruleAstExpressionAnd_in_entryRuleAstExpressionAnd10735);
-            iv_ruleAstExpressionAnd=ruleAstExpressionAnd();
-
-            state._fsp--;
-
-             current =iv_ruleAstExpressionAnd; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionAnd10745); 
-
-            }
-
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleAstExpressionAnd"
-
-
-    // $ANTLR start "ruleAstExpressionAnd"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5364:1: ruleAstExpressionAnd returns [EObject current=null] : (this_AstExpressionBitor_0= ruleAstExpressionBitor ( () ( ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) ) ) ( (lv_right_3_0= ruleAstExpressionBitor ) ) )* ) ;
-    public final EObject ruleAstExpressionAnd() throws RecognitionException {
-        EObject current = null;
-
-        Token lv_operator_2_1=null;
-        Token lv_operator_2_2=null;
-        EObject this_AstExpressionBitor_0 = null;
-
-        EObject lv_right_3_0 = null;
-
-
-         enterRule(); 
-            
-        try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5367:28: ( (this_AstExpressionBitor_0= ruleAstExpressionBitor ( () ( ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) ) ) ( (lv_right_3_0= ruleAstExpressionBitor ) ) )* ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5368:1: (this_AstExpressionBitor_0= ruleAstExpressionBitor ( () ( ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) ) ) ( (lv_right_3_0= ruleAstExpressionBitor ) ) )* )
-            {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5368:1: (this_AstExpressionBitor_0= ruleAstExpressionBitor ( () ( ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) ) ) ( (lv_right_3_0= ruleAstExpressionBitor ) ) )* )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5369:5: this_AstExpressionBitor_0= ruleAstExpressionBitor ( () ( ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) ) ) ( (lv_right_3_0= ruleAstExpressionBitor ) ) )*
-            {
-             
-                    newCompositeNode(grammarAccess.getAstExpressionAndAccess().getAstExpressionBitorParserRuleCall_0()); 
-                
-            pushFollow(FOLLOW_ruleAstExpressionBitor_in_ruleAstExpressionAnd10792);
-            this_AstExpressionBitor_0=ruleAstExpressionBitor();
-
-            state._fsp--;
-
-             
-                    current = this_AstExpressionBitor_0; 
-                    afterParserOrEnumRuleCall();
-                
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5377:1: ( () ( ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) ) ) ( (lv_right_3_0= ruleAstExpressionBitor ) ) )*
-            loop123:
-            do {
-                int alt123=2;
-                int LA123_0 = input.LA(1);
-
-                if ( ((LA123_0>=63 && LA123_0<=64)) ) {
-                    alt123=1;
-                }
-
-
-                switch (alt123) {
-            	case 1 :
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5377:2: () ( ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) ) ) ( (lv_right_3_0= ruleAstExpressionBitor ) )
-            	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5377:2: ()
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5378:5: 
-            	    {
-
-            	            current = forceCreateModelElementAndSet(
-            	                grammarAccess.getAstExpressionAndAccess().getAstExpressionBinaryLeftAction_1_0(),
-            	                current);
-            	        
-
-            	    }
-
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5383:2: ( ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5384:1: ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) )
-            	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5384:1: ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5385:1: (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' )
-            	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5385:1: (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' )
-            	    int alt122=2;
-            	    int LA122_0 = input.LA(1);
-
-            	    if ( (LA122_0==63) ) {
-            	        alt122=1;
-            	    }
-            	    else if ( (LA122_0==64) ) {
-            	        alt122=2;
-            	    }
-            	    else {
-            	        NoViableAltException nvae =
-            	            new NoViableAltException("", 122, 0, input);
-
-            	        throw nvae;
-            	    }
-            	    switch (alt122) {
-            	        case 1 :
-            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5386:3: lv_operator_2_1= '&&'
-            	            {
-            	            lv_operator_2_1=(Token)match(input,63,FOLLOW_63_in_ruleAstExpressionAnd10821); 
-
-            	                    newLeafNode(lv_operator_2_1, grammarAccess.getAstExpressionAndAccess().getOperatorAmpersandAmpersandKeyword_1_1_0_0());
-            	                
-
-            	            	        if (current==null) {
-            	            	            current = createModelElement(grammarAccess.getAstExpressionAndRule());
-            	            	        }
-            	                   		setWithLastConsumed(current, "operator", lv_operator_2_1, null);
-            	            	    
-
-            	            }
-            	            break;
-            	        case 2 :
-            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5398:8: lv_operator_2_2= 'and'
-            	            {
-            	            lv_operator_2_2=(Token)match(input,64,FOLLOW_64_in_ruleAstExpressionAnd10850); 
-
-            	                    newLeafNode(lv_operator_2_2, grammarAccess.getAstExpressionAndAccess().getOperatorAndKeyword_1_1_0_1());
-            	                
-
-            	            	        if (current==null) {
-            	            	            current = createModelElement(grammarAccess.getAstExpressionAndRule());
-            	            	        }
-            	                   		setWithLastConsumed(current, "operator", lv_operator_2_2, null);
-            	            	    
-
-            	            }
-            	            break;
-
-            	    }
-
-
-            	    }
-
-
-            	    }
-
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5413:2: ( (lv_right_3_0= ruleAstExpressionBitor ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5414:1: (lv_right_3_0= ruleAstExpressionBitor )
-            	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5414:1: (lv_right_3_0= ruleAstExpressionBitor )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5415:3: lv_right_3_0= ruleAstExpressionBitor
-            	    {
-            	     
-            	    	        newCompositeNode(grammarAccess.getAstExpressionAndAccess().getRightAstExpressionBitorParserRuleCall_1_2_0()); 
-            	    	    
-            	    pushFollow(FOLLOW_ruleAstExpressionBitor_in_ruleAstExpressionAnd10887);
-            	    lv_right_3_0=ruleAstExpressionBitor();
-
-            	    state._fsp--;
-
-
-            	    	        if (current==null) {
-            	    	            current = createModelElementForParent(grammarAccess.getAstExpressionAndRule());
-            	    	        }
-            	           		set(
-            	           			current, 
-            	           			"right",
-            	            		lv_right_3_0, 
-            	            		"AstExpressionBitor");
-            	    	        afterParserOrEnumRuleCall();
-            	    	    
-
-            	    }
-
-
-            	    }
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop123;
-                }
-            } while (true);
-
-
-            }
-
-
-            }
-
-             leaveRule(); 
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleAstExpressionAnd"
-
-
-    // $ANTLR start "entryRuleAstExpressionBitor"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5439:1: entryRuleAstExpressionBitor returns [EObject current=null] : iv_ruleAstExpressionBitor= ruleAstExpressionBitor EOF ;
-    public final EObject entryRuleAstExpressionBitor() throws RecognitionException {
-        EObject current = null;
-
-        EObject iv_ruleAstExpressionBitor = null;
-
-
-        try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5440:2: (iv_ruleAstExpressionBitor= ruleAstExpressionBitor EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5441:2: iv_ruleAstExpressionBitor= ruleAstExpressionBitor EOF
-            {
-             newCompositeNode(grammarAccess.getAstExpressionBitorRule()); 
-            pushFollow(FOLLOW_ruleAstExpressionBitor_in_entryRuleAstExpressionBitor10925);
-            iv_ruleAstExpressionBitor=ruleAstExpressionBitor();
-
-            state._fsp--;
-
-             current =iv_ruleAstExpressionBitor; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionBitor10935); 
-
-            }
-
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleAstExpressionBitor"
-
-
-    // $ANTLR start "ruleAstExpressionBitor"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5448:1: ruleAstExpressionBitor returns [EObject current=null] : (this_AstExpressionBitxor_0= ruleAstExpressionBitxor ( () ( (lv_operator_2_0= '|' ) ) ( (lv_right_3_0= ruleAstExpressionBitxor ) ) )* ) ;
-    public final EObject ruleAstExpressionBitor() throws RecognitionException {
-        EObject current = null;
-
-        Token lv_operator_2_0=null;
-        EObject this_AstExpressionBitxor_0 = null;
-
-        EObject lv_right_3_0 = null;
-
-
-         enterRule(); 
-            
-        try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5451:28: ( (this_AstExpressionBitxor_0= ruleAstExpressionBitxor ( () ( (lv_operator_2_0= '|' ) ) ( (lv_right_3_0= ruleAstExpressionBitxor ) ) )* ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5452:1: (this_AstExpressionBitxor_0= ruleAstExpressionBitxor ( () ( (lv_operator_2_0= '|' ) ) ( (lv_right_3_0= ruleAstExpressionBitxor ) ) )* )
-            {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5452:1: (this_AstExpressionBitxor_0= ruleAstExpressionBitxor ( () ( (lv_operator_2_0= '|' ) ) ( (lv_right_3_0= ruleAstExpressionBitxor ) ) )* )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5453:5: this_AstExpressionBitxor_0= ruleAstExpressionBitxor ( () ( (lv_operator_2_0= '|' ) ) ( (lv_right_3_0= ruleAstExpressionBitxor ) ) )*
-            {
-             
-                    newCompositeNode(grammarAccess.getAstExpressionBitorAccess().getAstExpressionBitxorParserRuleCall_0()); 
-                
-            pushFollow(FOLLOW_ruleAstExpressionBitxor_in_ruleAstExpressionBitor10982);
-            this_AstExpressionBitxor_0=ruleAstExpressionBitxor();
-
-            state._fsp--;
-
-             
-                    current = this_AstExpressionBitxor_0; 
-                    afterParserOrEnumRuleCall();
-                
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5461:1: ( () ( (lv_operator_2_0= '|' ) ) ( (lv_right_3_0= ruleAstExpressionBitxor ) ) )*
-            loop124:
-            do {
-                int alt124=2;
-                int LA124_0 = input.LA(1);
-
-                if ( (LA124_0==37) ) {
-                    alt124=1;
-                }
-
-
-                switch (alt124) {
-            	case 1 :
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5461:2: () ( (lv_operator_2_0= '|' ) ) ( (lv_right_3_0= ruleAstExpressionBitxor ) )
-            	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5461:2: ()
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5462:5: 
-            	    {
-
-            	            current = forceCreateModelElementAndSet(
-            	                grammarAccess.getAstExpressionBitorAccess().getAstExpressionBinaryLeftAction_1_0(),
-            	                current);
-            	        
-
-            	    }
-
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5467:2: ( (lv_operator_2_0= '|' ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5468:1: (lv_operator_2_0= '|' )
-            	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5468:1: (lv_operator_2_0= '|' )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5469:3: lv_operator_2_0= '|'
-            	    {
-            	    lv_operator_2_0=(Token)match(input,37,FOLLOW_37_in_ruleAstExpressionBitor11009); 
-
-            	            newLeafNode(lv_operator_2_0, grammarAccess.getAstExpressionBitorAccess().getOperatorVerticalLineKeyword_1_1_0());
-            	        
-
-            	    	        if (current==null) {
-            	    	            current = createModelElement(grammarAccess.getAstExpressionBitorRule());
-            	    	        }
-            	           		setWithLastConsumed(current, "operator", lv_operator_2_0, "|");
-            	    	    
-
-            	    }
-
-
-            	    }
-
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5482:2: ( (lv_right_3_0= ruleAstExpressionBitxor ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5483:1: (lv_right_3_0= ruleAstExpressionBitxor )
-            	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5483:1: (lv_right_3_0= ruleAstExpressionBitxor )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5484:3: lv_right_3_0= ruleAstExpressionBitxor
-            	    {
-            	     
-            	    	        newCompositeNode(grammarAccess.getAstExpressionBitorAccess().getRightAstExpressionBitxorParserRuleCall_1_2_0()); 
-            	    	    
-            	    pushFollow(FOLLOW_ruleAstExpressionBitxor_in_ruleAstExpressionBitor11043);
-            	    lv_right_3_0=ruleAstExpressionBitxor();
-
-            	    state._fsp--;
-
-
-            	    	        if (current==null) {
-            	    	            current = createModelElementForParent(grammarAccess.getAstExpressionBitorRule());
-            	    	        }
-            	           		set(
-            	           			current, 
-            	           			"right",
-            	            		lv_right_3_0, 
-            	            		"AstExpressionBitxor");
-            	    	        afterParserOrEnumRuleCall();
-            	    	    
-
-            	    }
-
-
-            	    }
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop124;
-                }
-            } while (true);
-
-
-            }
-
-
-            }
-
-             leaveRule(); 
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleAstExpressionBitor"
-
-
-    // $ANTLR start "entryRuleAstExpressionBitxor"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5508:1: entryRuleAstExpressionBitxor returns [EObject current=null] : iv_ruleAstExpressionBitxor= ruleAstExpressionBitxor EOF ;
-    public final EObject entryRuleAstExpressionBitxor() throws RecognitionException {
-        EObject current = null;
-
-        EObject iv_ruleAstExpressionBitxor = null;
-
-
-        try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5509:2: (iv_ruleAstExpressionBitxor= ruleAstExpressionBitxor EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5510:2: iv_ruleAstExpressionBitxor= ruleAstExpressionBitxor EOF
-            {
-             newCompositeNode(grammarAccess.getAstExpressionBitxorRule()); 
-            pushFollow(FOLLOW_ruleAstExpressionBitxor_in_entryRuleAstExpressionBitxor11081);
-            iv_ruleAstExpressionBitxor=ruleAstExpressionBitxor();
-
-            state._fsp--;
-
-             current =iv_ruleAstExpressionBitxor; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionBitxor11091); 
-
-            }
-
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleAstExpressionBitxor"
-
-
-    // $ANTLR start "ruleAstExpressionBitxor"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5517:1: ruleAstExpressionBitxor returns [EObject current=null] : (this_AstExpressionBitand_0= ruleAstExpressionBitand ( () ( (lv_operator_2_0= '^' ) ) ( (lv_right_3_0= ruleAstExpressionBitand ) ) )* ) ;
-    public final EObject ruleAstExpressionBitxor() throws RecognitionException {
-        EObject current = null;
-
-        Token lv_operator_2_0=null;
-        EObject this_AstExpressionBitand_0 = null;
-
-        EObject lv_right_3_0 = null;
-
-
-         enterRule(); 
-            
-        try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5520:28: ( (this_AstExpressionBitand_0= ruleAstExpressionBitand ( () ( (lv_operator_2_0= '^' ) ) ( (lv_right_3_0= ruleAstExpressionBitand ) ) )* ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5521:1: (this_AstExpressionBitand_0= ruleAstExpressionBitand ( () ( (lv_operator_2_0= '^' ) ) ( (lv_right_3_0= ruleAstExpressionBitand ) ) )* )
-            {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5521:1: (this_AstExpressionBitand_0= ruleAstExpressionBitand ( () ( (lv_operator_2_0= '^' ) ) ( (lv_right_3_0= ruleAstExpressionBitand ) ) )* )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5522:5: this_AstExpressionBitand_0= ruleAstExpressionBitand ( () ( (lv_operator_2_0= '^' ) ) ( (lv_right_3_0= ruleAstExpressionBitand ) ) )*
-            {
-             
-                    newCompositeNode(grammarAccess.getAstExpressionBitxorAccess().getAstExpressionBitandParserRuleCall_0()); 
-                
-            pushFollow(FOLLOW_ruleAstExpressionBitand_in_ruleAstExpressionBitxor11138);
-            this_AstExpressionBitand_0=ruleAstExpressionBitand();
-
-            state._fsp--;
-
-             
-                    current = this_AstExpressionBitand_0; 
-                    afterParserOrEnumRuleCall();
-                
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5530:1: ( () ( (lv_operator_2_0= '^' ) ) ( (lv_right_3_0= ruleAstExpressionBitand ) ) )*
-            loop125:
-            do {
-                int alt125=2;
-                int LA125_0 = input.LA(1);
-
-                if ( (LA125_0==65) ) {
-                    alt125=1;
-                }
-
-
-                switch (alt125) {
-            	case 1 :
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5530:2: () ( (lv_operator_2_0= '^' ) ) ( (lv_right_3_0= ruleAstExpressionBitand ) )
-            	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5530:2: ()
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5531:5: 
-            	    {
-
-            	            current = forceCreateModelElementAndSet(
-            	                grammarAccess.getAstExpressionBitxorAccess().getAstExpressionBinaryLeftAction_1_0(),
-            	                current);
-            	        
-
-            	    }
-
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5536:2: ( (lv_operator_2_0= '^' ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5537:1: (lv_operator_2_0= '^' )
-            	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5537:1: (lv_operator_2_0= '^' )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5538:3: lv_operator_2_0= '^'
-            	    {
-            	    lv_operator_2_0=(Token)match(input,65,FOLLOW_65_in_ruleAstExpressionBitxor11165); 
-
-            	            newLeafNode(lv_operator_2_0, grammarAccess.getAstExpressionBitxorAccess().getOperatorCircumflexAccentKeyword_1_1_0());
-            	        
-
-            	    	        if (current==null) {
-            	    	            current = createModelElement(grammarAccess.getAstExpressionBitxorRule());
-            	    	        }
-            	           		setWithLastConsumed(current, "operator", lv_operator_2_0, "^");
-            	    	    
-
-            	    }
-
-
-            	    }
-
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5551:2: ( (lv_right_3_0= ruleAstExpressionBitand ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5552:1: (lv_right_3_0= ruleAstExpressionBitand )
-            	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5552:1: (lv_right_3_0= ruleAstExpressionBitand )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5553:3: lv_right_3_0= ruleAstExpressionBitand
-            	    {
-            	     
-            	    	        newCompositeNode(grammarAccess.getAstExpressionBitxorAccess().getRightAstExpressionBitandParserRuleCall_1_2_0()); 
-            	    	    
-            	    pushFollow(FOLLOW_ruleAstExpressionBitand_in_ruleAstExpressionBitxor11199);
-            	    lv_right_3_0=ruleAstExpressionBitand();
-
-            	    state._fsp--;
-
-
-            	    	        if (current==null) {
-            	    	            current = createModelElementForParent(grammarAccess.getAstExpressionBitxorRule());
-            	    	        }
-            	           		set(
-            	           			current, 
-            	           			"right",
-            	            		lv_right_3_0, 
-            	            		"AstExpressionBitand");
             	    	        afterParserOrEnumRuleCall();
             	    	    
 
@@ -14013,29 +13928,29 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleAstExpressionBitxor"
+    // $ANTLR end "ruleAstExpression"
 
 
-    // $ANTLR start "entryRuleAstExpressionBitand"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5577:1: entryRuleAstExpressionBitand returns [EObject current=null] : iv_ruleAstExpressionBitand= ruleAstExpressionBitand EOF ;
-    public final EObject entryRuleAstExpressionBitand() throws RecognitionException {
+    // $ANTLR start "entryRuleAstExpressionAnd"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5543:1: entryRuleAstExpressionAnd returns [EObject current=null] : iv_ruleAstExpressionAnd= ruleAstExpressionAnd EOF ;
+    public final EObject entryRuleAstExpressionAnd() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleAstExpressionBitand = null;
+        EObject iv_ruleAstExpressionAnd = null;
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5578:2: (iv_ruleAstExpressionBitand= ruleAstExpressionBitand EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5579:2: iv_ruleAstExpressionBitand= ruleAstExpressionBitand EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5544:2: (iv_ruleAstExpressionAnd= ruleAstExpressionAnd EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5545:2: iv_ruleAstExpressionAnd= ruleAstExpressionAnd EOF
             {
-             newCompositeNode(grammarAccess.getAstExpressionBitandRule()); 
-            pushFollow(FOLLOW_ruleAstExpressionBitand_in_entryRuleAstExpressionBitand11237);
-            iv_ruleAstExpressionBitand=ruleAstExpressionBitand();
+             newCompositeNode(grammarAccess.getAstExpressionAndRule()); 
+            pushFollow(FOLLOW_ruleAstExpressionAnd_in_entryRuleAstExpressionAnd11122);
+            iv_ruleAstExpressionAnd=ruleAstExpressionAnd();
 
             state._fsp--;
 
-             current =iv_ruleAstExpressionBitand; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionBitand11247); 
+             current =iv_ruleAstExpressionAnd; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionAnd11132); 
 
             }
 
@@ -14049,16 +13964,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleAstExpressionBitand"
+    // $ANTLR end "entryRuleAstExpressionAnd"
 
 
-    // $ANTLR start "ruleAstExpressionBitand"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5586:1: ruleAstExpressionBitand returns [EObject current=null] : (this_AstExpressionEq_0= ruleAstExpressionEq ( () ( (lv_operator_2_0= '&' ) ) ( (lv_right_3_0= ruleAstExpressionEq ) ) )* ) ;
-    public final EObject ruleAstExpressionBitand() throws RecognitionException {
+    // $ANTLR start "ruleAstExpressionAnd"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5552:1: ruleAstExpressionAnd returns [EObject current=null] : (this_AstExpressionBitor_0= ruleAstExpressionBitor ( () ( ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) ) ) ( (lv_right_3_0= ruleAstExpressionBitor ) ) )* ) ;
+    public final EObject ruleAstExpressionAnd() throws RecognitionException {
         EObject current = null;
 
-        Token lv_operator_2_0=null;
-        EObject this_AstExpressionEq_0 = null;
+        Token lv_operator_2_1=null;
+        Token lv_operator_2_2=null;
+        EObject this_AstExpressionBitor_0 = null;
 
         EObject lv_right_3_0 = null;
 
@@ -14066,95 +13982,137 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5589:28: ( (this_AstExpressionEq_0= ruleAstExpressionEq ( () ( (lv_operator_2_0= '&' ) ) ( (lv_right_3_0= ruleAstExpressionEq ) ) )* ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5590:1: (this_AstExpressionEq_0= ruleAstExpressionEq ( () ( (lv_operator_2_0= '&' ) ) ( (lv_right_3_0= ruleAstExpressionEq ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5555:28: ( (this_AstExpressionBitor_0= ruleAstExpressionBitor ( () ( ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) ) ) ( (lv_right_3_0= ruleAstExpressionBitor ) ) )* ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5556:1: (this_AstExpressionBitor_0= ruleAstExpressionBitor ( () ( ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) ) ) ( (lv_right_3_0= ruleAstExpressionBitor ) ) )* )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5590:1: (this_AstExpressionEq_0= ruleAstExpressionEq ( () ( (lv_operator_2_0= '&' ) ) ( (lv_right_3_0= ruleAstExpressionEq ) ) )* )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5591:5: this_AstExpressionEq_0= ruleAstExpressionEq ( () ( (lv_operator_2_0= '&' ) ) ( (lv_right_3_0= ruleAstExpressionEq ) ) )*
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5556:1: (this_AstExpressionBitor_0= ruleAstExpressionBitor ( () ( ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) ) ) ( (lv_right_3_0= ruleAstExpressionBitor ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5557:5: this_AstExpressionBitor_0= ruleAstExpressionBitor ( () ( ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) ) ) ( (lv_right_3_0= ruleAstExpressionBitor ) ) )*
             {
              
-                    newCompositeNode(grammarAccess.getAstExpressionBitandAccess().getAstExpressionEqParserRuleCall_0()); 
+                    newCompositeNode(grammarAccess.getAstExpressionAndAccess().getAstExpressionBitorParserRuleCall_0()); 
                 
-            pushFollow(FOLLOW_ruleAstExpressionEq_in_ruleAstExpressionBitand11294);
-            this_AstExpressionEq_0=ruleAstExpressionEq();
+            pushFollow(FOLLOW_ruleAstExpressionBitor_in_ruleAstExpressionAnd11179);
+            this_AstExpressionBitor_0=ruleAstExpressionBitor();
 
             state._fsp--;
 
              
-                    current = this_AstExpressionEq_0; 
+                    current = this_AstExpressionBitor_0; 
                     afterParserOrEnumRuleCall();
                 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5599:1: ( () ( (lv_operator_2_0= '&' ) ) ( (lv_right_3_0= ruleAstExpressionEq ) ) )*
-            loop126:
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5565:1: ( () ( ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) ) ) ( (lv_right_3_0= ruleAstExpressionBitor ) ) )*
+            loop127:
             do {
-                int alt126=2;
-                int LA126_0 = input.LA(1);
+                int alt127=2;
+                int LA127_0 = input.LA(1);
 
-                if ( (LA126_0==66) ) {
-                    alt126=1;
+                if ( ((LA127_0>=65 && LA127_0<=66)) ) {
+                    alt127=1;
                 }
 
 
-                switch (alt126) {
+                switch (alt127) {
             	case 1 :
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5599:2: () ( (lv_operator_2_0= '&' ) ) ( (lv_right_3_0= ruleAstExpressionEq ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5565:2: () ( ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) ) ) ( (lv_right_3_0= ruleAstExpressionBitor ) )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5599:2: ()
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5600:5: 
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5565:2: ()
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5566:5: 
             	    {
 
             	            current = forceCreateModelElementAndSet(
-            	                grammarAccess.getAstExpressionBitandAccess().getAstExpressionBinaryLeftAction_1_0(),
+            	                grammarAccess.getAstExpressionAndAccess().getAstExpressionBinaryLeftAction_1_0(),
             	                current);
             	        
 
             	    }
 
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5605:2: ( (lv_operator_2_0= '&' ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5606:1: (lv_operator_2_0= '&' )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5571:2: ( ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5572:1: ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5606:1: (lv_operator_2_0= '&' )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5607:3: lv_operator_2_0= '&'
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5572:1: ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5573:1: (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' )
             	    {
-            	    lv_operator_2_0=(Token)match(input,66,FOLLOW_66_in_ruleAstExpressionBitand11321); 
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5573:1: (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' )
+            	    int alt126=2;
+            	    int LA126_0 = input.LA(1);
 
-            	            newLeafNode(lv_operator_2_0, grammarAccess.getAstExpressionBitandAccess().getOperatorAmpersandKeyword_1_1_0());
-            	        
+            	    if ( (LA126_0==65) ) {
+            	        alt126=1;
+            	    }
+            	    else if ( (LA126_0==66) ) {
+            	        alt126=2;
+            	    }
+            	    else {
+            	        NoViableAltException nvae =
+            	            new NoViableAltException("", 126, 0, input);
 
-            	    	        if (current==null) {
-            	    	            current = createModelElement(grammarAccess.getAstExpressionBitandRule());
-            	    	        }
-            	           		setWithLastConsumed(current, "operator", lv_operator_2_0, "&");
-            	    	    
+            	        throw nvae;
+            	    }
+            	    switch (alt126) {
+            	        case 1 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5574:3: lv_operator_2_1= '&&'
+            	            {
+            	            lv_operator_2_1=(Token)match(input,65,FOLLOW_65_in_ruleAstExpressionAnd11208); 
+
+            	                    newLeafNode(lv_operator_2_1, grammarAccess.getAstExpressionAndAccess().getOperatorAmpersandAmpersandKeyword_1_1_0_0());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstExpressionAndRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_1, null);
+            	            	    
+
+            	            }
+            	            break;
+            	        case 2 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5586:8: lv_operator_2_2= 'and'
+            	            {
+            	            lv_operator_2_2=(Token)match(input,66,FOLLOW_66_in_ruleAstExpressionAnd11237); 
+
+            	                    newLeafNode(lv_operator_2_2, grammarAccess.getAstExpressionAndAccess().getOperatorAndKeyword_1_1_0_1());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstExpressionAndRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_2, null);
+            	            	    
+
+            	            }
+            	            break;
 
             	    }
 
 
             	    }
 
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5620:2: ( (lv_right_3_0= ruleAstExpressionEq ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5621:1: (lv_right_3_0= ruleAstExpressionEq )
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5601:2: ( (lv_right_3_0= ruleAstExpressionBitor ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5602:1: (lv_right_3_0= ruleAstExpressionBitor )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5621:1: (lv_right_3_0= ruleAstExpressionEq )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5622:3: lv_right_3_0= ruleAstExpressionEq
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5602:1: (lv_right_3_0= ruleAstExpressionBitor )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5603:3: lv_right_3_0= ruleAstExpressionBitor
             	    {
             	     
-            	    	        newCompositeNode(grammarAccess.getAstExpressionBitandAccess().getRightAstExpressionEqParserRuleCall_1_2_0()); 
+            	    	        newCompositeNode(grammarAccess.getAstExpressionAndAccess().getRightAstExpressionBitorParserRuleCall_1_2_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleAstExpressionEq_in_ruleAstExpressionBitand11355);
-            	    lv_right_3_0=ruleAstExpressionEq();
+            	    pushFollow(FOLLOW_ruleAstExpressionBitor_in_ruleAstExpressionAnd11274);
+            	    lv_right_3_0=ruleAstExpressionBitor();
 
             	    state._fsp--;
 
 
             	    	        if (current==null) {
-            	    	            current = createModelElementForParent(grammarAccess.getAstExpressionBitandRule());
+            	    	            current = createModelElementForParent(grammarAccess.getAstExpressionAndRule());
             	    	        }
             	           		set(
             	           			current, 
             	           			"right",
             	            		lv_right_3_0, 
-            	            		"AstExpressionEq");
+            	            		"AstExpressionBitor");
             	    	        afterParserOrEnumRuleCall();
             	    	    
 
@@ -14168,7 +14126,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop126;
+            	    break loop127;
                 }
             } while (true);
 
@@ -14189,29 +14147,29 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleAstExpressionBitand"
+    // $ANTLR end "ruleAstExpressionAnd"
 
 
-    // $ANTLR start "entryRuleAstExpressionEq"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5646:1: entryRuleAstExpressionEq returns [EObject current=null] : iv_ruleAstExpressionEq= ruleAstExpressionEq EOF ;
-    public final EObject entryRuleAstExpressionEq() throws RecognitionException {
+    // $ANTLR start "entryRuleAstExpressionBitor"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5627:1: entryRuleAstExpressionBitor returns [EObject current=null] : iv_ruleAstExpressionBitor= ruleAstExpressionBitor EOF ;
+    public final EObject entryRuleAstExpressionBitor() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleAstExpressionEq = null;
+        EObject iv_ruleAstExpressionBitor = null;
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5647:2: (iv_ruleAstExpressionEq= ruleAstExpressionEq EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5648:2: iv_ruleAstExpressionEq= ruleAstExpressionEq EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5628:2: (iv_ruleAstExpressionBitor= ruleAstExpressionBitor EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5629:2: iv_ruleAstExpressionBitor= ruleAstExpressionBitor EOF
             {
-             newCompositeNode(grammarAccess.getAstExpressionEqRule()); 
-            pushFollow(FOLLOW_ruleAstExpressionEq_in_entryRuleAstExpressionEq11393);
-            iv_ruleAstExpressionEq=ruleAstExpressionEq();
+             newCompositeNode(grammarAccess.getAstExpressionBitorRule()); 
+            pushFollow(FOLLOW_ruleAstExpressionBitor_in_entryRuleAstExpressionBitor11312);
+            iv_ruleAstExpressionBitor=ruleAstExpressionBitor();
 
             state._fsp--;
 
-             current =iv_ruleAstExpressionEq; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionEq11403); 
+             current =iv_ruleAstExpressionBitor; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionBitor11322); 
 
             }
 
@@ -14225,17 +14183,16 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleAstExpressionEq"
+    // $ANTLR end "entryRuleAstExpressionBitor"
 
 
-    // $ANTLR start "ruleAstExpressionEq"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5655:1: ruleAstExpressionEq returns [EObject current=null] : (this_AstExpressionRelational_0= ruleAstExpressionRelational ( () ( ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) ) ) ( (lv_right_3_0= ruleAstExpressionRelational ) ) )* ) ;
-    public final EObject ruleAstExpressionEq() throws RecognitionException {
+    // $ANTLR start "ruleAstExpressionBitor"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5636:1: ruleAstExpressionBitor returns [EObject current=null] : (this_AstExpressionBitxor_0= ruleAstExpressionBitxor ( () ( (lv_operator_2_0= '|' ) ) ( (lv_right_3_0= ruleAstExpressionBitxor ) ) )* ) ;
+    public final EObject ruleAstExpressionBitor() throws RecognitionException {
         EObject current = null;
 
-        Token lv_operator_2_1=null;
-        Token lv_operator_2_2=null;
-        EObject this_AstExpressionRelational_0 = null;
+        Token lv_operator_2_0=null;
+        EObject this_AstExpressionBitxor_0 = null;
 
         EObject lv_right_3_0 = null;
 
@@ -14243,137 +14200,95 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5658:28: ( (this_AstExpressionRelational_0= ruleAstExpressionRelational ( () ( ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) ) ) ( (lv_right_3_0= ruleAstExpressionRelational ) ) )* ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5659:1: (this_AstExpressionRelational_0= ruleAstExpressionRelational ( () ( ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) ) ) ( (lv_right_3_0= ruleAstExpressionRelational ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5639:28: ( (this_AstExpressionBitxor_0= ruleAstExpressionBitxor ( () ( (lv_operator_2_0= '|' ) ) ( (lv_right_3_0= ruleAstExpressionBitxor ) ) )* ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5640:1: (this_AstExpressionBitxor_0= ruleAstExpressionBitxor ( () ( (lv_operator_2_0= '|' ) ) ( (lv_right_3_0= ruleAstExpressionBitxor ) ) )* )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5659:1: (this_AstExpressionRelational_0= ruleAstExpressionRelational ( () ( ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) ) ) ( (lv_right_3_0= ruleAstExpressionRelational ) ) )* )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5660:5: this_AstExpressionRelational_0= ruleAstExpressionRelational ( () ( ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) ) ) ( (lv_right_3_0= ruleAstExpressionRelational ) ) )*
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5640:1: (this_AstExpressionBitxor_0= ruleAstExpressionBitxor ( () ( (lv_operator_2_0= '|' ) ) ( (lv_right_3_0= ruleAstExpressionBitxor ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5641:5: this_AstExpressionBitxor_0= ruleAstExpressionBitxor ( () ( (lv_operator_2_0= '|' ) ) ( (lv_right_3_0= ruleAstExpressionBitxor ) ) )*
             {
              
-                    newCompositeNode(grammarAccess.getAstExpressionEqAccess().getAstExpressionRelationalParserRuleCall_0()); 
+                    newCompositeNode(grammarAccess.getAstExpressionBitorAccess().getAstExpressionBitxorParserRuleCall_0()); 
                 
-            pushFollow(FOLLOW_ruleAstExpressionRelational_in_ruleAstExpressionEq11450);
-            this_AstExpressionRelational_0=ruleAstExpressionRelational();
+            pushFollow(FOLLOW_ruleAstExpressionBitxor_in_ruleAstExpressionBitor11369);
+            this_AstExpressionBitxor_0=ruleAstExpressionBitxor();
 
             state._fsp--;
 
              
-                    current = this_AstExpressionRelational_0; 
+                    current = this_AstExpressionBitxor_0; 
                     afterParserOrEnumRuleCall();
                 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5668:1: ( () ( ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) ) ) ( (lv_right_3_0= ruleAstExpressionRelational ) ) )*
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5649:1: ( () ( (lv_operator_2_0= '|' ) ) ( (lv_right_3_0= ruleAstExpressionBitxor ) ) )*
             loop128:
             do {
                 int alt128=2;
                 int LA128_0 = input.LA(1);
 
-                if ( (LA128_0==30||LA128_0==67) ) {
+                if ( (LA128_0==37) ) {
                     alt128=1;
                 }
 
 
                 switch (alt128) {
             	case 1 :
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5668:2: () ( ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) ) ) ( (lv_right_3_0= ruleAstExpressionRelational ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5649:2: () ( (lv_operator_2_0= '|' ) ) ( (lv_right_3_0= ruleAstExpressionBitxor ) )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5668:2: ()
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5669:5: 
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5649:2: ()
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5650:5: 
             	    {
 
             	            current = forceCreateModelElementAndSet(
-            	                grammarAccess.getAstExpressionEqAccess().getAstExpressionBinaryLeftAction_1_0(),
+            	                grammarAccess.getAstExpressionBitorAccess().getAstExpressionBinaryLeftAction_1_0(),
             	                current);
             	        
 
             	    }
 
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5674:2: ( ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5675:1: ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5655:2: ( (lv_operator_2_0= '|' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5656:1: (lv_operator_2_0= '|' )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5675:1: ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5676:1: (lv_operator_2_1= '=' | lv_operator_2_2= '!=' )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5656:1: (lv_operator_2_0= '|' )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5657:3: lv_operator_2_0= '|'
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5676:1: (lv_operator_2_1= '=' | lv_operator_2_2= '!=' )
-            	    int alt127=2;
-            	    int LA127_0 = input.LA(1);
+            	    lv_operator_2_0=(Token)match(input,37,FOLLOW_37_in_ruleAstExpressionBitor11396); 
 
-            	    if ( (LA127_0==30) ) {
-            	        alt127=1;
-            	    }
-            	    else if ( (LA127_0==67) ) {
-            	        alt127=2;
-            	    }
-            	    else {
-            	        NoViableAltException nvae =
-            	            new NoViableAltException("", 127, 0, input);
+            	            newLeafNode(lv_operator_2_0, grammarAccess.getAstExpressionBitorAccess().getOperatorVerticalLineKeyword_1_1_0());
+            	        
 
-            	        throw nvae;
-            	    }
-            	    switch (alt127) {
-            	        case 1 :
-            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5677:3: lv_operator_2_1= '='
-            	            {
-            	            lv_operator_2_1=(Token)match(input,30,FOLLOW_30_in_ruleAstExpressionEq11479); 
-
-            	                    newLeafNode(lv_operator_2_1, grammarAccess.getAstExpressionEqAccess().getOperatorEqualsSignKeyword_1_1_0_0());
-            	                
-
-            	            	        if (current==null) {
-            	            	            current = createModelElement(grammarAccess.getAstExpressionEqRule());
-            	            	        }
-            	                   		setWithLastConsumed(current, "operator", lv_operator_2_1, null);
-            	            	    
-
-            	            }
-            	            break;
-            	        case 2 :
-            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5689:8: lv_operator_2_2= '!='
-            	            {
-            	            lv_operator_2_2=(Token)match(input,67,FOLLOW_67_in_ruleAstExpressionEq11508); 
-
-            	                    newLeafNode(lv_operator_2_2, grammarAccess.getAstExpressionEqAccess().getOperatorExclamationMarkEqualsSignKeyword_1_1_0_1());
-            	                
-
-            	            	        if (current==null) {
-            	            	            current = createModelElement(grammarAccess.getAstExpressionEqRule());
-            	            	        }
-            	                   		setWithLastConsumed(current, "operator", lv_operator_2_2, null);
-            	            	    
-
-            	            }
-            	            break;
+            	    	        if (current==null) {
+            	    	            current = createModelElement(grammarAccess.getAstExpressionBitorRule());
+            	    	        }
+            	           		setWithLastConsumed(current, "operator", lv_operator_2_0, "|");
+            	    	    
 
             	    }
 
 
             	    }
 
-
-            	    }
-
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5704:2: ( (lv_right_3_0= ruleAstExpressionRelational ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5705:1: (lv_right_3_0= ruleAstExpressionRelational )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5670:2: ( (lv_right_3_0= ruleAstExpressionBitxor ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5671:1: (lv_right_3_0= ruleAstExpressionBitxor )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5705:1: (lv_right_3_0= ruleAstExpressionRelational )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5706:3: lv_right_3_0= ruleAstExpressionRelational
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5671:1: (lv_right_3_0= ruleAstExpressionBitxor )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5672:3: lv_right_3_0= ruleAstExpressionBitxor
             	    {
             	     
-            	    	        newCompositeNode(grammarAccess.getAstExpressionEqAccess().getRightAstExpressionRelationalParserRuleCall_1_2_0()); 
+            	    	        newCompositeNode(grammarAccess.getAstExpressionBitorAccess().getRightAstExpressionBitxorParserRuleCall_1_2_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleAstExpressionRelational_in_ruleAstExpressionEq11545);
-            	    lv_right_3_0=ruleAstExpressionRelational();
+            	    pushFollow(FOLLOW_ruleAstExpressionBitxor_in_ruleAstExpressionBitor11430);
+            	    lv_right_3_0=ruleAstExpressionBitxor();
 
             	    state._fsp--;
 
 
             	    	        if (current==null) {
-            	    	            current = createModelElementForParent(grammarAccess.getAstExpressionEqRule());
+            	    	            current = createModelElementForParent(grammarAccess.getAstExpressionBitorRule());
             	    	        }
             	           		set(
             	           			current, 
             	           			"right",
             	            		lv_right_3_0, 
-            	            		"AstExpressionRelational");
+            	            		"AstExpressionBitxor");
             	    	        afterParserOrEnumRuleCall();
             	    	    
 
@@ -14408,29 +14323,29 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleAstExpressionEq"
+    // $ANTLR end "ruleAstExpressionBitor"
 
 
-    // $ANTLR start "entryRuleAstExpressionRelational"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5730:1: entryRuleAstExpressionRelational returns [EObject current=null] : iv_ruleAstExpressionRelational= ruleAstExpressionRelational EOF ;
-    public final EObject entryRuleAstExpressionRelational() throws RecognitionException {
+    // $ANTLR start "entryRuleAstExpressionBitxor"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5696:1: entryRuleAstExpressionBitxor returns [EObject current=null] : iv_ruleAstExpressionBitxor= ruleAstExpressionBitxor EOF ;
+    public final EObject entryRuleAstExpressionBitxor() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleAstExpressionRelational = null;
+        EObject iv_ruleAstExpressionBitxor = null;
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5731:2: (iv_ruleAstExpressionRelational= ruleAstExpressionRelational EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5732:2: iv_ruleAstExpressionRelational= ruleAstExpressionRelational EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5697:2: (iv_ruleAstExpressionBitxor= ruleAstExpressionBitxor EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5698:2: iv_ruleAstExpressionBitxor= ruleAstExpressionBitxor EOF
             {
-             newCompositeNode(grammarAccess.getAstExpressionRelationalRule()); 
-            pushFollow(FOLLOW_ruleAstExpressionRelational_in_entryRuleAstExpressionRelational11583);
-            iv_ruleAstExpressionRelational=ruleAstExpressionRelational();
+             newCompositeNode(grammarAccess.getAstExpressionBitxorRule()); 
+            pushFollow(FOLLOW_ruleAstExpressionBitxor_in_entryRuleAstExpressionBitxor11468);
+            iv_ruleAstExpressionBitxor=ruleAstExpressionBitxor();
 
             state._fsp--;
 
-             current =iv_ruleAstExpressionRelational; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionRelational11593); 
+             current =iv_ruleAstExpressionBitxor; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionBitxor11478); 
 
             }
 
@@ -14444,19 +14359,16 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleAstExpressionRelational"
+    // $ANTLR end "entryRuleAstExpressionBitxor"
 
 
-    // $ANTLR start "ruleAstExpressionRelational"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5739:1: ruleAstExpressionRelational returns [EObject current=null] : (this_AstExpressionShift_0= ruleAstExpressionShift ( () ( ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) ) ) ( (lv_right_3_0= ruleAstExpressionShift ) ) )* ) ;
-    public final EObject ruleAstExpressionRelational() throws RecognitionException {
+    // $ANTLR start "ruleAstExpressionBitxor"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5705:1: ruleAstExpressionBitxor returns [EObject current=null] : (this_AstExpressionBitand_0= ruleAstExpressionBitand ( () ( (lv_operator_2_0= '^' ) ) ( (lv_right_3_0= ruleAstExpressionBitand ) ) )* ) ;
+    public final EObject ruleAstExpressionBitxor() throws RecognitionException {
         EObject current = null;
 
-        Token lv_operator_2_1=null;
-        Token lv_operator_2_2=null;
-        Token lv_operator_2_3=null;
-        Token lv_operator_2_4=null;
-        EObject this_AstExpressionShift_0 = null;
+        Token lv_operator_2_0=null;
+        EObject this_AstExpressionBitand_0 = null;
 
         EObject lv_right_3_0 = null;
 
@@ -14464,183 +14376,271 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5742:28: ( (this_AstExpressionShift_0= ruleAstExpressionShift ( () ( ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) ) ) ( (lv_right_3_0= ruleAstExpressionShift ) ) )* ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5743:1: (this_AstExpressionShift_0= ruleAstExpressionShift ( () ( ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) ) ) ( (lv_right_3_0= ruleAstExpressionShift ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5708:28: ( (this_AstExpressionBitand_0= ruleAstExpressionBitand ( () ( (lv_operator_2_0= '^' ) ) ( (lv_right_3_0= ruleAstExpressionBitand ) ) )* ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5709:1: (this_AstExpressionBitand_0= ruleAstExpressionBitand ( () ( (lv_operator_2_0= '^' ) ) ( (lv_right_3_0= ruleAstExpressionBitand ) ) )* )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5743:1: (this_AstExpressionShift_0= ruleAstExpressionShift ( () ( ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) ) ) ( (lv_right_3_0= ruleAstExpressionShift ) ) )* )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5744:5: this_AstExpressionShift_0= ruleAstExpressionShift ( () ( ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) ) ) ( (lv_right_3_0= ruleAstExpressionShift ) ) )*
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5709:1: (this_AstExpressionBitand_0= ruleAstExpressionBitand ( () ( (lv_operator_2_0= '^' ) ) ( (lv_right_3_0= ruleAstExpressionBitand ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5710:5: this_AstExpressionBitand_0= ruleAstExpressionBitand ( () ( (lv_operator_2_0= '^' ) ) ( (lv_right_3_0= ruleAstExpressionBitand ) ) )*
             {
              
-                    newCompositeNode(grammarAccess.getAstExpressionRelationalAccess().getAstExpressionShiftParserRuleCall_0()); 
+                    newCompositeNode(grammarAccess.getAstExpressionBitxorAccess().getAstExpressionBitandParserRuleCall_0()); 
                 
-            pushFollow(FOLLOW_ruleAstExpressionShift_in_ruleAstExpressionRelational11640);
-            this_AstExpressionShift_0=ruleAstExpressionShift();
+            pushFollow(FOLLOW_ruleAstExpressionBitand_in_ruleAstExpressionBitxor11525);
+            this_AstExpressionBitand_0=ruleAstExpressionBitand();
 
             state._fsp--;
 
              
-                    current = this_AstExpressionShift_0; 
+                    current = this_AstExpressionBitand_0; 
                     afterParserOrEnumRuleCall();
                 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5752:1: ( () ( ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) ) ) ( (lv_right_3_0= ruleAstExpressionShift ) ) )*
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5718:1: ( () ( (lv_operator_2_0= '^' ) ) ( (lv_right_3_0= ruleAstExpressionBitand ) ) )*
+            loop129:
+            do {
+                int alt129=2;
+                int LA129_0 = input.LA(1);
+
+                if ( (LA129_0==67) ) {
+                    alt129=1;
+                }
+
+
+                switch (alt129) {
+            	case 1 :
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5718:2: () ( (lv_operator_2_0= '^' ) ) ( (lv_right_3_0= ruleAstExpressionBitand ) )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5718:2: ()
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5719:5: 
+            	    {
+
+            	            current = forceCreateModelElementAndSet(
+            	                grammarAccess.getAstExpressionBitxorAccess().getAstExpressionBinaryLeftAction_1_0(),
+            	                current);
+            	        
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5724:2: ( (lv_operator_2_0= '^' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5725:1: (lv_operator_2_0= '^' )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5725:1: (lv_operator_2_0= '^' )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5726:3: lv_operator_2_0= '^'
+            	    {
+            	    lv_operator_2_0=(Token)match(input,67,FOLLOW_67_in_ruleAstExpressionBitxor11552); 
+
+            	            newLeafNode(lv_operator_2_0, grammarAccess.getAstExpressionBitxorAccess().getOperatorCircumflexAccentKeyword_1_1_0());
+            	        
+
+            	    	        if (current==null) {
+            	    	            current = createModelElement(grammarAccess.getAstExpressionBitxorRule());
+            	    	        }
+            	           		setWithLastConsumed(current, "operator", lv_operator_2_0, "^");
+            	    	    
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5739:2: ( (lv_right_3_0= ruleAstExpressionBitand ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5740:1: (lv_right_3_0= ruleAstExpressionBitand )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5740:1: (lv_right_3_0= ruleAstExpressionBitand )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5741:3: lv_right_3_0= ruleAstExpressionBitand
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getAstExpressionBitxorAccess().getRightAstExpressionBitandParserRuleCall_1_2_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleAstExpressionBitand_in_ruleAstExpressionBitxor11586);
+            	    lv_right_3_0=ruleAstExpressionBitand();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getAstExpressionBitxorRule());
+            	    	        }
+            	           		set(
+            	           			current, 
+            	           			"right",
+            	            		lv_right_3_0, 
+            	            		"AstExpressionBitand");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop129;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAstExpressionBitxor"
+
+
+    // $ANTLR start "entryRuleAstExpressionBitand"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5765:1: entryRuleAstExpressionBitand returns [EObject current=null] : iv_ruleAstExpressionBitand= ruleAstExpressionBitand EOF ;
+    public final EObject entryRuleAstExpressionBitand() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstExpressionBitand = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5766:2: (iv_ruleAstExpressionBitand= ruleAstExpressionBitand EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5767:2: iv_ruleAstExpressionBitand= ruleAstExpressionBitand EOF
+            {
+             newCompositeNode(grammarAccess.getAstExpressionBitandRule()); 
+            pushFollow(FOLLOW_ruleAstExpressionBitand_in_entryRuleAstExpressionBitand11624);
+            iv_ruleAstExpressionBitand=ruleAstExpressionBitand();
+
+            state._fsp--;
+
+             current =iv_ruleAstExpressionBitand; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionBitand11634); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstExpressionBitand"
+
+
+    // $ANTLR start "ruleAstExpressionBitand"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5774:1: ruleAstExpressionBitand returns [EObject current=null] : (this_AstExpressionEq_0= ruleAstExpressionEq ( () ( (lv_operator_2_0= '&' ) ) ( (lv_right_3_0= ruleAstExpressionEq ) ) )* ) ;
+    public final EObject ruleAstExpressionBitand() throws RecognitionException {
+        EObject current = null;
+
+        Token lv_operator_2_0=null;
+        EObject this_AstExpressionEq_0 = null;
+
+        EObject lv_right_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5777:28: ( (this_AstExpressionEq_0= ruleAstExpressionEq ( () ( (lv_operator_2_0= '&' ) ) ( (lv_right_3_0= ruleAstExpressionEq ) ) )* ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5778:1: (this_AstExpressionEq_0= ruleAstExpressionEq ( () ( (lv_operator_2_0= '&' ) ) ( (lv_right_3_0= ruleAstExpressionEq ) ) )* )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5778:1: (this_AstExpressionEq_0= ruleAstExpressionEq ( () ( (lv_operator_2_0= '&' ) ) ( (lv_right_3_0= ruleAstExpressionEq ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5779:5: this_AstExpressionEq_0= ruleAstExpressionEq ( () ( (lv_operator_2_0= '&' ) ) ( (lv_right_3_0= ruleAstExpressionEq ) ) )*
+            {
+             
+                    newCompositeNode(grammarAccess.getAstExpressionBitandAccess().getAstExpressionEqParserRuleCall_0()); 
+                
+            pushFollow(FOLLOW_ruleAstExpressionEq_in_ruleAstExpressionBitand11681);
+            this_AstExpressionEq_0=ruleAstExpressionEq();
+
+            state._fsp--;
+
+             
+                    current = this_AstExpressionEq_0; 
+                    afterParserOrEnumRuleCall();
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5787:1: ( () ( (lv_operator_2_0= '&' ) ) ( (lv_right_3_0= ruleAstExpressionEq ) ) )*
             loop130:
             do {
                 int alt130=2;
                 int LA130_0 = input.LA(1);
 
-                if ( (LA130_0==42||(LA130_0>=68 && LA130_0<=70)) ) {
+                if ( (LA130_0==68) ) {
                     alt130=1;
                 }
 
 
                 switch (alt130) {
             	case 1 :
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5752:2: () ( ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) ) ) ( (lv_right_3_0= ruleAstExpressionShift ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5787:2: () ( (lv_operator_2_0= '&' ) ) ( (lv_right_3_0= ruleAstExpressionEq ) )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5752:2: ()
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5753:5: 
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5787:2: ()
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5788:5: 
             	    {
 
             	            current = forceCreateModelElementAndSet(
-            	                grammarAccess.getAstExpressionRelationalAccess().getAstExpressionBinaryLeftAction_1_0(),
+            	                grammarAccess.getAstExpressionBitandAccess().getAstExpressionBinaryLeftAction_1_0(),
             	                current);
             	        
 
             	    }
 
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5758:2: ( ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5759:1: ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5793:2: ( (lv_operator_2_0= '&' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5794:1: (lv_operator_2_0= '&' )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5759:1: ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5760:1: (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5794:1: (lv_operator_2_0= '&' )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5795:3: lv_operator_2_0= '&'
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5760:1: (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' )
-            	    int alt129=4;
-            	    switch ( input.LA(1) ) {
-            	    case 68:
-            	        {
-            	        alt129=1;
-            	        }
-            	        break;
-            	    case 69:
-            	        {
-            	        alt129=2;
-            	        }
-            	        break;
-            	    case 42:
-            	        {
-            	        alt129=3;
-            	        }
-            	        break;
-            	    case 70:
-            	        {
-            	        alt129=4;
-            	        }
-            	        break;
-            	    default:
-            	        NoViableAltException nvae =
-            	            new NoViableAltException("", 129, 0, input);
+            	    lv_operator_2_0=(Token)match(input,68,FOLLOW_68_in_ruleAstExpressionBitand11708); 
 
-            	        throw nvae;
-            	    }
+            	            newLeafNode(lv_operator_2_0, grammarAccess.getAstExpressionBitandAccess().getOperatorAmpersandKeyword_1_1_0());
+            	        
 
-            	    switch (alt129) {
-            	        case 1 :
-            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5761:3: lv_operator_2_1= '<'
-            	            {
-            	            lv_operator_2_1=(Token)match(input,68,FOLLOW_68_in_ruleAstExpressionRelational11669); 
-
-            	                    newLeafNode(lv_operator_2_1, grammarAccess.getAstExpressionRelationalAccess().getOperatorLessThanSignKeyword_1_1_0_0());
-            	                
-
-            	            	        if (current==null) {
-            	            	            current = createModelElement(grammarAccess.getAstExpressionRelationalRule());
-            	            	        }
-            	                   		setWithLastConsumed(current, "operator", lv_operator_2_1, null);
-            	            	    
-
-            	            }
-            	            break;
-            	        case 2 :
-            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5773:8: lv_operator_2_2= '<='
-            	            {
-            	            lv_operator_2_2=(Token)match(input,69,FOLLOW_69_in_ruleAstExpressionRelational11698); 
-
-            	                    newLeafNode(lv_operator_2_2, grammarAccess.getAstExpressionRelationalAccess().getOperatorLessThanSignEqualsSignKeyword_1_1_0_1());
-            	                
-
-            	            	        if (current==null) {
-            	            	            current = createModelElement(grammarAccess.getAstExpressionRelationalRule());
-            	            	        }
-            	                   		setWithLastConsumed(current, "operator", lv_operator_2_2, null);
-            	            	    
-
-            	            }
-            	            break;
-            	        case 3 :
-            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5785:8: lv_operator_2_3= '>'
-            	            {
-            	            lv_operator_2_3=(Token)match(input,42,FOLLOW_42_in_ruleAstExpressionRelational11727); 
-
-            	                    newLeafNode(lv_operator_2_3, grammarAccess.getAstExpressionRelationalAccess().getOperatorGreaterThanSignKeyword_1_1_0_2());
-            	                
-
-            	            	        if (current==null) {
-            	            	            current = createModelElement(grammarAccess.getAstExpressionRelationalRule());
-            	            	        }
-            	                   		setWithLastConsumed(current, "operator", lv_operator_2_3, null);
-            	            	    
-
-            	            }
-            	            break;
-            	        case 4 :
-            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5797:8: lv_operator_2_4= '>='
-            	            {
-            	            lv_operator_2_4=(Token)match(input,70,FOLLOW_70_in_ruleAstExpressionRelational11756); 
-
-            	                    newLeafNode(lv_operator_2_4, grammarAccess.getAstExpressionRelationalAccess().getOperatorGreaterThanSignEqualsSignKeyword_1_1_0_3());
-            	                
-
-            	            	        if (current==null) {
-            	            	            current = createModelElement(grammarAccess.getAstExpressionRelationalRule());
-            	            	        }
-            	                   		setWithLastConsumed(current, "operator", lv_operator_2_4, null);
-            	            	    
-
-            	            }
-            	            break;
+            	    	        if (current==null) {
+            	    	            current = createModelElement(grammarAccess.getAstExpressionBitandRule());
+            	    	        }
+            	           		setWithLastConsumed(current, "operator", lv_operator_2_0, "&");
+            	    	    
 
             	    }
 
 
             	    }
 
-
-            	    }
-
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5812:2: ( (lv_right_3_0= ruleAstExpressionShift ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5813:1: (lv_right_3_0= ruleAstExpressionShift )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5808:2: ( (lv_right_3_0= ruleAstExpressionEq ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5809:1: (lv_right_3_0= ruleAstExpressionEq )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5813:1: (lv_right_3_0= ruleAstExpressionShift )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5814:3: lv_right_3_0= ruleAstExpressionShift
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5809:1: (lv_right_3_0= ruleAstExpressionEq )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5810:3: lv_right_3_0= ruleAstExpressionEq
             	    {
             	     
-            	    	        newCompositeNode(grammarAccess.getAstExpressionRelationalAccess().getRightAstExpressionShiftParserRuleCall_1_2_0()); 
+            	    	        newCompositeNode(grammarAccess.getAstExpressionBitandAccess().getRightAstExpressionEqParserRuleCall_1_2_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleAstExpressionShift_in_ruleAstExpressionRelational11793);
-            	    lv_right_3_0=ruleAstExpressionShift();
+            	    pushFollow(FOLLOW_ruleAstExpressionEq_in_ruleAstExpressionBitand11742);
+            	    lv_right_3_0=ruleAstExpressionEq();
 
             	    state._fsp--;
 
 
             	    	        if (current==null) {
-            	    	            current = createModelElementForParent(grammarAccess.getAstExpressionRelationalRule());
+            	    	            current = createModelElementForParent(grammarAccess.getAstExpressionBitandRule());
             	    	        }
             	           		set(
             	           			current, 
             	           			"right",
             	            		lv_right_3_0, 
-            	            		"AstExpressionShift");
+            	            		"AstExpressionEq");
             	    	        afterParserOrEnumRuleCall();
             	    	    
 
@@ -14675,29 +14675,29 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleAstExpressionRelational"
+    // $ANTLR end "ruleAstExpressionBitand"
 
 
-    // $ANTLR start "entryRuleAstExpressionShift"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5838:1: entryRuleAstExpressionShift returns [EObject current=null] : iv_ruleAstExpressionShift= ruleAstExpressionShift EOF ;
-    public final EObject entryRuleAstExpressionShift() throws RecognitionException {
+    // $ANTLR start "entryRuleAstExpressionEq"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5834:1: entryRuleAstExpressionEq returns [EObject current=null] : iv_ruleAstExpressionEq= ruleAstExpressionEq EOF ;
+    public final EObject entryRuleAstExpressionEq() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleAstExpressionShift = null;
+        EObject iv_ruleAstExpressionEq = null;
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5839:2: (iv_ruleAstExpressionShift= ruleAstExpressionShift EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5840:2: iv_ruleAstExpressionShift= ruleAstExpressionShift EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5835:2: (iv_ruleAstExpressionEq= ruleAstExpressionEq EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5836:2: iv_ruleAstExpressionEq= ruleAstExpressionEq EOF
             {
-             newCompositeNode(grammarAccess.getAstExpressionShiftRule()); 
-            pushFollow(FOLLOW_ruleAstExpressionShift_in_entryRuleAstExpressionShift11831);
-            iv_ruleAstExpressionShift=ruleAstExpressionShift();
+             newCompositeNode(grammarAccess.getAstExpressionEqRule()); 
+            pushFollow(FOLLOW_ruleAstExpressionEq_in_entryRuleAstExpressionEq11780);
+            iv_ruleAstExpressionEq=ruleAstExpressionEq();
 
             state._fsp--;
 
-             current =iv_ruleAstExpressionShift; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionShift11841); 
+             current =iv_ruleAstExpressionEq; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionEq11790); 
 
             }
 
@@ -14711,18 +14711,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleAstExpressionShift"
+    // $ANTLR end "entryRuleAstExpressionEq"
 
 
-    // $ANTLR start "ruleAstExpressionShift"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5847:1: ruleAstExpressionShift returns [EObject current=null] : (this_AstExpressionAdditive_0= ruleAstExpressionAdditive ( () ( ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) ) ) ( (lv_right_3_0= ruleAstExpressionAdditive ) ) )* ) ;
-    public final EObject ruleAstExpressionShift() throws RecognitionException {
+    // $ANTLR start "ruleAstExpressionEq"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5843:1: ruleAstExpressionEq returns [EObject current=null] : (this_AstExpressionRelational_0= ruleAstExpressionRelational ( () ( ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) ) ) ( (lv_right_3_0= ruleAstExpressionRelational ) ) )* ) ;
+    public final EObject ruleAstExpressionEq() throws RecognitionException {
         EObject current = null;
 
         Token lv_operator_2_1=null;
         Token lv_operator_2_2=null;
-        Token lv_operator_2_3=null;
-        EObject this_AstExpressionAdditive_0 = null;
+        EObject this_AstExpressionRelational_0 = null;
 
         EObject lv_right_3_0 = null;
 
@@ -14730,92 +14729,83 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5850:28: ( (this_AstExpressionAdditive_0= ruleAstExpressionAdditive ( () ( ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) ) ) ( (lv_right_3_0= ruleAstExpressionAdditive ) ) )* ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5851:1: (this_AstExpressionAdditive_0= ruleAstExpressionAdditive ( () ( ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) ) ) ( (lv_right_3_0= ruleAstExpressionAdditive ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5846:28: ( (this_AstExpressionRelational_0= ruleAstExpressionRelational ( () ( ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) ) ) ( (lv_right_3_0= ruleAstExpressionRelational ) ) )* ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5847:1: (this_AstExpressionRelational_0= ruleAstExpressionRelational ( () ( ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) ) ) ( (lv_right_3_0= ruleAstExpressionRelational ) ) )* )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5851:1: (this_AstExpressionAdditive_0= ruleAstExpressionAdditive ( () ( ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) ) ) ( (lv_right_3_0= ruleAstExpressionAdditive ) ) )* )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5852:5: this_AstExpressionAdditive_0= ruleAstExpressionAdditive ( () ( ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) ) ) ( (lv_right_3_0= ruleAstExpressionAdditive ) ) )*
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5847:1: (this_AstExpressionRelational_0= ruleAstExpressionRelational ( () ( ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) ) ) ( (lv_right_3_0= ruleAstExpressionRelational ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5848:5: this_AstExpressionRelational_0= ruleAstExpressionRelational ( () ( ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) ) ) ( (lv_right_3_0= ruleAstExpressionRelational ) ) )*
             {
              
-                    newCompositeNode(grammarAccess.getAstExpressionShiftAccess().getAstExpressionAdditiveParserRuleCall_0()); 
+                    newCompositeNode(grammarAccess.getAstExpressionEqAccess().getAstExpressionRelationalParserRuleCall_0()); 
                 
-            pushFollow(FOLLOW_ruleAstExpressionAdditive_in_ruleAstExpressionShift11888);
-            this_AstExpressionAdditive_0=ruleAstExpressionAdditive();
+            pushFollow(FOLLOW_ruleAstExpressionRelational_in_ruleAstExpressionEq11837);
+            this_AstExpressionRelational_0=ruleAstExpressionRelational();
 
             state._fsp--;
 
              
-                    current = this_AstExpressionAdditive_0; 
+                    current = this_AstExpressionRelational_0; 
                     afterParserOrEnumRuleCall();
                 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5860:1: ( () ( ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) ) ) ( (lv_right_3_0= ruleAstExpressionAdditive ) ) )*
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5856:1: ( () ( ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) ) ) ( (lv_right_3_0= ruleAstExpressionRelational ) ) )*
             loop132:
             do {
                 int alt132=2;
                 int LA132_0 = input.LA(1);
 
-                if ( ((LA132_0>=71 && LA132_0<=73)) ) {
+                if ( (LA132_0==30||LA132_0==69) ) {
                     alt132=1;
                 }
 
 
                 switch (alt132) {
             	case 1 :
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5860:2: () ( ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) ) ) ( (lv_right_3_0= ruleAstExpressionAdditive ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5856:2: () ( ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) ) ) ( (lv_right_3_0= ruleAstExpressionRelational ) )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5860:2: ()
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5861:5: 
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5856:2: ()
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5857:5: 
             	    {
 
             	            current = forceCreateModelElementAndSet(
-            	                grammarAccess.getAstExpressionShiftAccess().getAstExpressionBinaryLeftAction_1_0(),
+            	                grammarAccess.getAstExpressionEqAccess().getAstExpressionBinaryLeftAction_1_0(),
             	                current);
             	        
 
             	    }
 
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5866:2: ( ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5867:1: ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5862:2: ( ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5863:1: ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5867:1: ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5868:1: (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5863:1: ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5864:1: (lv_operator_2_1= '=' | lv_operator_2_2= '!=' )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5868:1: (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' )
-            	    int alt131=3;
-            	    switch ( input.LA(1) ) {
-            	    case 71:
-            	        {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5864:1: (lv_operator_2_1= '=' | lv_operator_2_2= '!=' )
+            	    int alt131=2;
+            	    int LA131_0 = input.LA(1);
+
+            	    if ( (LA131_0==30) ) {
             	        alt131=1;
-            	        }
-            	        break;
-            	    case 72:
-            	        {
+            	    }
+            	    else if ( (LA131_0==69) ) {
             	        alt131=2;
-            	        }
-            	        break;
-            	    case 73:
-            	        {
-            	        alt131=3;
-            	        }
-            	        break;
-            	    default:
+            	    }
+            	    else {
             	        NoViableAltException nvae =
             	            new NoViableAltException("", 131, 0, input);
 
             	        throw nvae;
             	    }
-
             	    switch (alt131) {
             	        case 1 :
-            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5869:3: lv_operator_2_1= '<<'
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5865:3: lv_operator_2_1= '='
             	            {
-            	            lv_operator_2_1=(Token)match(input,71,FOLLOW_71_in_ruleAstExpressionShift11917); 
+            	            lv_operator_2_1=(Token)match(input,30,FOLLOW_30_in_ruleAstExpressionEq11866); 
 
-            	                    newLeafNode(lv_operator_2_1, grammarAccess.getAstExpressionShiftAccess().getOperatorLessThanSignLessThanSignKeyword_1_1_0_0());
+            	                    newLeafNode(lv_operator_2_1, grammarAccess.getAstExpressionEqAccess().getOperatorEqualsSignKeyword_1_1_0_0());
             	                
 
             	            	        if (current==null) {
-            	            	            current = createModelElement(grammarAccess.getAstExpressionShiftRule());
+            	            	            current = createModelElement(grammarAccess.getAstExpressionEqRule());
             	            	        }
             	                   		setWithLastConsumed(current, "operator", lv_operator_2_1, null);
             	            	    
@@ -14823,37 +14813,21 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             	            }
             	            break;
             	        case 2 :
-            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5881:8: lv_operator_2_2= '>>'
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5877:8: lv_operator_2_2= '!='
             	            {
-            	            lv_operator_2_2=(Token)match(input,72,FOLLOW_72_in_ruleAstExpressionShift11946); 
+            	            lv_operator_2_2=(Token)match(input,69,FOLLOW_69_in_ruleAstExpressionEq11895); 
 
-            	                    newLeafNode(lv_operator_2_2, grammarAccess.getAstExpressionShiftAccess().getOperatorGreaterThanSignGreaterThanSignKeyword_1_1_0_1());
+            	                    newLeafNode(lv_operator_2_2, grammarAccess.getAstExpressionEqAccess().getOperatorExclamationMarkEqualsSignKeyword_1_1_0_1());
             	                
 
             	            	        if (current==null) {
-            	            	            current = createModelElement(grammarAccess.getAstExpressionShiftRule());
+            	            	            current = createModelElement(grammarAccess.getAstExpressionEqRule());
             	            	        }
             	                   		setWithLastConsumed(current, "operator", lv_operator_2_2, null);
             	            	    
 
             	            }
             	            break;
-            	        case 3 :
-            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5893:8: lv_operator_2_3= '>>>'
-            	            {
-            	            lv_operator_2_3=(Token)match(input,73,FOLLOW_73_in_ruleAstExpressionShift11975); 
-
-            	                    newLeafNode(lv_operator_2_3, grammarAccess.getAstExpressionShiftAccess().getOperatorGreaterThanSignGreaterThanSignGreaterThanSignKeyword_1_1_0_2());
-            	                
-
-            	            	        if (current==null) {
-            	            	            current = createModelElement(grammarAccess.getAstExpressionShiftRule());
-            	            	        }
-            	                   		setWithLastConsumed(current, "operator", lv_operator_2_3, null);
-            	            	    
-
-            	            }
-            	            break;
 
             	    }
 
@@ -14863,29 +14837,29 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5908:2: ( (lv_right_3_0= ruleAstExpressionAdditive ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5909:1: (lv_right_3_0= ruleAstExpressionAdditive )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5892:2: ( (lv_right_3_0= ruleAstExpressionRelational ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5893:1: (lv_right_3_0= ruleAstExpressionRelational )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5909:1: (lv_right_3_0= ruleAstExpressionAdditive )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5910:3: lv_right_3_0= ruleAstExpressionAdditive
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5893:1: (lv_right_3_0= ruleAstExpressionRelational )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5894:3: lv_right_3_0= ruleAstExpressionRelational
             	    {
             	     
-            	    	        newCompositeNode(grammarAccess.getAstExpressionShiftAccess().getRightAstExpressionAdditiveParserRuleCall_1_2_0()); 
+            	    	        newCompositeNode(grammarAccess.getAstExpressionEqAccess().getRightAstExpressionRelationalParserRuleCall_1_2_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleAstExpressionAdditive_in_ruleAstExpressionShift12012);
-            	    lv_right_3_0=ruleAstExpressionAdditive();
+            	    pushFollow(FOLLOW_ruleAstExpressionRelational_in_ruleAstExpressionEq11932);
+            	    lv_right_3_0=ruleAstExpressionRelational();
 
             	    state._fsp--;
 
 
             	    	        if (current==null) {
-            	    	            current = createModelElementForParent(grammarAccess.getAstExpressionShiftRule());
+            	    	            current = createModelElementForParent(grammarAccess.getAstExpressionEqRule());
             	    	        }
             	           		set(
             	           			current, 
             	           			"right",
             	            		lv_right_3_0, 
-            	            		"AstExpressionAdditive");
+            	            		"AstExpressionRelational");
             	    	        afterParserOrEnumRuleCall();
             	    	    
 
@@ -14920,29 +14894,29 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleAstExpressionShift"
+    // $ANTLR end "ruleAstExpressionEq"
 
 
-    // $ANTLR start "entryRuleAstExpressionAdditive"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5934:1: entryRuleAstExpressionAdditive returns [EObject current=null] : iv_ruleAstExpressionAdditive= ruleAstExpressionAdditive EOF ;
-    public final EObject entryRuleAstExpressionAdditive() throws RecognitionException {
+    // $ANTLR start "entryRuleAstExpressionRelational"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5918:1: entryRuleAstExpressionRelational returns [EObject current=null] : iv_ruleAstExpressionRelational= ruleAstExpressionRelational EOF ;
+    public final EObject entryRuleAstExpressionRelational() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleAstExpressionAdditive = null;
+        EObject iv_ruleAstExpressionRelational = null;
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5935:2: (iv_ruleAstExpressionAdditive= ruleAstExpressionAdditive EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5936:2: iv_ruleAstExpressionAdditive= ruleAstExpressionAdditive EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5919:2: (iv_ruleAstExpressionRelational= ruleAstExpressionRelational EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5920:2: iv_ruleAstExpressionRelational= ruleAstExpressionRelational EOF
             {
-             newCompositeNode(grammarAccess.getAstExpressionAdditiveRule()); 
-            pushFollow(FOLLOW_ruleAstExpressionAdditive_in_entryRuleAstExpressionAdditive12050);
-            iv_ruleAstExpressionAdditive=ruleAstExpressionAdditive();
+             newCompositeNode(grammarAccess.getAstExpressionRelationalRule()); 
+            pushFollow(FOLLOW_ruleAstExpressionRelational_in_entryRuleAstExpressionRelational11970);
+            iv_ruleAstExpressionRelational=ruleAstExpressionRelational();
 
             state._fsp--;
 
-             current =iv_ruleAstExpressionAdditive; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionAdditive12060); 
+             current =iv_ruleAstExpressionRelational; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionRelational11980); 
 
             }
 
@@ -14956,17 +14930,19 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleAstExpressionAdditive"
+    // $ANTLR end "entryRuleAstExpressionRelational"
 
 
-    // $ANTLR start "ruleAstExpressionAdditive"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5943:1: ruleAstExpressionAdditive returns [EObject current=null] : (this_AstExpressionMultiplicative_0= ruleAstExpressionMultiplicative ( () ( ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) ) ) ( (lv_right_3_0= ruleAstExpressionMultiplicative ) ) )* ) ;
-    public final EObject ruleAstExpressionAdditive() throws RecognitionException {
+    // $ANTLR start "ruleAstExpressionRelational"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5927:1: ruleAstExpressionRelational returns [EObject current=null] : (this_AstExpressionShift_0= ruleAstExpressionShift ( () ( ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) ) ) ( (lv_right_3_0= ruleAstExpressionShift ) ) )* ) ;
+    public final EObject ruleAstExpressionRelational() throws RecognitionException {
         EObject current = null;
 
         Token lv_operator_2_1=null;
         Token lv_operator_2_2=null;
-        EObject this_AstExpressionMultiplicative_0 = null;
+        Token lv_operator_2_3=null;
+        Token lv_operator_2_4=null;
+        EObject this_AstExpressionShift_0 = null;
 
         EObject lv_right_3_0 = null;
 
@@ -14974,83 +14950,97 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5946:28: ( (this_AstExpressionMultiplicative_0= ruleAstExpressionMultiplicative ( () ( ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) ) ) ( (lv_right_3_0= ruleAstExpressionMultiplicative ) ) )* ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5947:1: (this_AstExpressionMultiplicative_0= ruleAstExpressionMultiplicative ( () ( ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) ) ) ( (lv_right_3_0= ruleAstExpressionMultiplicative ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5930:28: ( (this_AstExpressionShift_0= ruleAstExpressionShift ( () ( ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) ) ) ( (lv_right_3_0= ruleAstExpressionShift ) ) )* ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5931:1: (this_AstExpressionShift_0= ruleAstExpressionShift ( () ( ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) ) ) ( (lv_right_3_0= ruleAstExpressionShift ) ) )* )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5947:1: (this_AstExpressionMultiplicative_0= ruleAstExpressionMultiplicative ( () ( ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) ) ) ( (lv_right_3_0= ruleAstExpressionMultiplicative ) ) )* )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5948:5: this_AstExpressionMultiplicative_0= ruleAstExpressionMultiplicative ( () ( ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) ) ) ( (lv_right_3_0= ruleAstExpressionMultiplicative ) ) )*
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5931:1: (this_AstExpressionShift_0= ruleAstExpressionShift ( () ( ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) ) ) ( (lv_right_3_0= ruleAstExpressionShift ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5932:5: this_AstExpressionShift_0= ruleAstExpressionShift ( () ( ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) ) ) ( (lv_right_3_0= ruleAstExpressionShift ) ) )*
             {
              
-                    newCompositeNode(grammarAccess.getAstExpressionAdditiveAccess().getAstExpressionMultiplicativeParserRuleCall_0()); 
+                    newCompositeNode(grammarAccess.getAstExpressionRelationalAccess().getAstExpressionShiftParserRuleCall_0()); 
                 
-            pushFollow(FOLLOW_ruleAstExpressionMultiplicative_in_ruleAstExpressionAdditive12107);
-            this_AstExpressionMultiplicative_0=ruleAstExpressionMultiplicative();
+            pushFollow(FOLLOW_ruleAstExpressionShift_in_ruleAstExpressionRelational12027);
+            this_AstExpressionShift_0=ruleAstExpressionShift();
 
             state._fsp--;
 
              
-                    current = this_AstExpressionMultiplicative_0; 
+                    current = this_AstExpressionShift_0; 
                     afterParserOrEnumRuleCall();
                 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5956:1: ( () ( ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) ) ) ( (lv_right_3_0= ruleAstExpressionMultiplicative ) ) )*
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5940:1: ( () ( ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) ) ) ( (lv_right_3_0= ruleAstExpressionShift ) ) )*
             loop134:
             do {
                 int alt134=2;
                 int LA134_0 = input.LA(1);
 
-                if ( ((LA134_0>=74 && LA134_0<=75)) ) {
+                if ( (LA134_0==42||(LA134_0>=70 && LA134_0<=72)) ) {
                     alt134=1;
                 }
 
 
                 switch (alt134) {
             	case 1 :
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5956:2: () ( ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) ) ) ( (lv_right_3_0= ruleAstExpressionMultiplicative ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5940:2: () ( ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) ) ) ( (lv_right_3_0= ruleAstExpressionShift ) )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5956:2: ()
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5957:5: 
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5940:2: ()
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5941:5: 
             	    {
 
             	            current = forceCreateModelElementAndSet(
-            	                grammarAccess.getAstExpressionAdditiveAccess().getAstExpressionBinaryLeftAction_1_0(),
+            	                grammarAccess.getAstExpressionRelationalAccess().getAstExpressionBinaryLeftAction_1_0(),
             	                current);
             	        
 
             	    }
 
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5962:2: ( ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5963:1: ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5946:2: ( ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5947:1: ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5963:1: ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5964:1: (lv_operator_2_1= '+' | lv_operator_2_2= '-' )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5947:1: ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5948:1: (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5964:1: (lv_operator_2_1= '+' | lv_operator_2_2= '-' )
-            	    int alt133=2;
-            	    int LA133_0 = input.LA(1);
-
-            	    if ( (LA133_0==74) ) {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5948:1: (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' )
+            	    int alt133=4;
+            	    switch ( input.LA(1) ) {
+            	    case 70:
+            	        {
             	        alt133=1;
-            	    }
-            	    else if ( (LA133_0==75) ) {
+            	        }
+            	        break;
+            	    case 71:
+            	        {
             	        alt133=2;
-            	    }
-            	    else {
+            	        }
+            	        break;
+            	    case 42:
+            	        {
+            	        alt133=3;
+            	        }
+            	        break;
+            	    case 72:
+            	        {
+            	        alt133=4;
+            	        }
+            	        break;
+            	    default:
             	        NoViableAltException nvae =
             	            new NoViableAltException("", 133, 0, input);
 
             	        throw nvae;
             	    }
+
             	    switch (alt133) {
             	        case 1 :
-            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5965:3: lv_operator_2_1= '+'
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5949:3: lv_operator_2_1= '<'
             	            {
-            	            lv_operator_2_1=(Token)match(input,74,FOLLOW_74_in_ruleAstExpressionAdditive12136); 
+            	            lv_operator_2_1=(Token)match(input,70,FOLLOW_70_in_ruleAstExpressionRelational12056); 
 
-            	                    newLeafNode(lv_operator_2_1, grammarAccess.getAstExpressionAdditiveAccess().getOperatorPlusSignKeyword_1_1_0_0());
+            	                    newLeafNode(lv_operator_2_1, grammarAccess.getAstExpressionRelationalAccess().getOperatorLessThanSignKeyword_1_1_0_0());
             	                
 
             	            	        if (current==null) {
-            	            	            current = createModelElement(grammarAccess.getAstExpressionAdditiveRule());
+            	            	            current = createModelElement(grammarAccess.getAstExpressionRelationalRule());
             	            	        }
             	                   		setWithLastConsumed(current, "operator", lv_operator_2_1, null);
             	            	    
@@ -15058,17 +15048,49 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             	            }
             	            break;
             	        case 2 :
-            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5977:8: lv_operator_2_2= '-'
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5961:8: lv_operator_2_2= '<='
             	            {
-            	            lv_operator_2_2=(Token)match(input,75,FOLLOW_75_in_ruleAstExpressionAdditive12165); 
+            	            lv_operator_2_2=(Token)match(input,71,FOLLOW_71_in_ruleAstExpressionRelational12085); 
 
-            	                    newLeafNode(lv_operator_2_2, grammarAccess.getAstExpressionAdditiveAccess().getOperatorHyphenMinusKeyword_1_1_0_1());
+            	                    newLeafNode(lv_operator_2_2, grammarAccess.getAstExpressionRelationalAccess().getOperatorLessThanSignEqualsSignKeyword_1_1_0_1());
             	                
 
             	            	        if (current==null) {
-            	            	            current = createModelElement(grammarAccess.getAstExpressionAdditiveRule());
+            	            	            current = createModelElement(grammarAccess.getAstExpressionRelationalRule());
             	            	        }
             	                   		setWithLastConsumed(current, "operator", lv_operator_2_2, null);
+            	            	    
+
+            	            }
+            	            break;
+            	        case 3 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5973:8: lv_operator_2_3= '>'
+            	            {
+            	            lv_operator_2_3=(Token)match(input,42,FOLLOW_42_in_ruleAstExpressionRelational12114); 
+
+            	                    newLeafNode(lv_operator_2_3, grammarAccess.getAstExpressionRelationalAccess().getOperatorGreaterThanSignKeyword_1_1_0_2());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstExpressionRelationalRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_3, null);
+            	            	    
+
+            	            }
+            	            break;
+            	        case 4 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5985:8: lv_operator_2_4= '>='
+            	            {
+            	            lv_operator_2_4=(Token)match(input,72,FOLLOW_72_in_ruleAstExpressionRelational12143); 
+
+            	                    newLeafNode(lv_operator_2_4, grammarAccess.getAstExpressionRelationalAccess().getOperatorGreaterThanSignEqualsSignKeyword_1_1_0_3());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstExpressionRelationalRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_4, null);
             	            	    
 
             	            }
@@ -15082,29 +15104,29 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5992:2: ( (lv_right_3_0= ruleAstExpressionMultiplicative ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5993:1: (lv_right_3_0= ruleAstExpressionMultiplicative )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6000:2: ( (lv_right_3_0= ruleAstExpressionShift ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6001:1: (lv_right_3_0= ruleAstExpressionShift )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5993:1: (lv_right_3_0= ruleAstExpressionMultiplicative )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:5994:3: lv_right_3_0= ruleAstExpressionMultiplicative
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6001:1: (lv_right_3_0= ruleAstExpressionShift )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6002:3: lv_right_3_0= ruleAstExpressionShift
             	    {
             	     
-            	    	        newCompositeNode(grammarAccess.getAstExpressionAdditiveAccess().getRightAstExpressionMultiplicativeParserRuleCall_1_2_0()); 
+            	    	        newCompositeNode(grammarAccess.getAstExpressionRelationalAccess().getRightAstExpressionShiftParserRuleCall_1_2_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleAstExpressionMultiplicative_in_ruleAstExpressionAdditive12202);
-            	    lv_right_3_0=ruleAstExpressionMultiplicative();
+            	    pushFollow(FOLLOW_ruleAstExpressionShift_in_ruleAstExpressionRelational12180);
+            	    lv_right_3_0=ruleAstExpressionShift();
 
             	    state._fsp--;
 
 
             	    	        if (current==null) {
-            	    	            current = createModelElementForParent(grammarAccess.getAstExpressionAdditiveRule());
+            	    	            current = createModelElementForParent(grammarAccess.getAstExpressionRelationalRule());
             	    	        }
             	           		set(
             	           			current, 
             	           			"right",
             	            		lv_right_3_0, 
-            	            		"AstExpressionMultiplicative");
+            	            		"AstExpressionShift");
             	    	        afterParserOrEnumRuleCall();
             	    	    
 
@@ -15139,29 +15161,29 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleAstExpressionAdditive"
+    // $ANTLR end "ruleAstExpressionRelational"
 
 
-    // $ANTLR start "entryRuleAstExpressionMultiplicative"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6018:1: entryRuleAstExpressionMultiplicative returns [EObject current=null] : iv_ruleAstExpressionMultiplicative= ruleAstExpressionMultiplicative EOF ;
-    public final EObject entryRuleAstExpressionMultiplicative() throws RecognitionException {
+    // $ANTLR start "entryRuleAstExpressionShift"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6026:1: entryRuleAstExpressionShift returns [EObject current=null] : iv_ruleAstExpressionShift= ruleAstExpressionShift EOF ;
+    public final EObject entryRuleAstExpressionShift() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleAstExpressionMultiplicative = null;
+        EObject iv_ruleAstExpressionShift = null;
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6019:2: (iv_ruleAstExpressionMultiplicative= ruleAstExpressionMultiplicative EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6020:2: iv_ruleAstExpressionMultiplicative= ruleAstExpressionMultiplicative EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6027:2: (iv_ruleAstExpressionShift= ruleAstExpressionShift EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6028:2: iv_ruleAstExpressionShift= ruleAstExpressionShift EOF
             {
-             newCompositeNode(grammarAccess.getAstExpressionMultiplicativeRule()); 
-            pushFollow(FOLLOW_ruleAstExpressionMultiplicative_in_entryRuleAstExpressionMultiplicative12240);
-            iv_ruleAstExpressionMultiplicative=ruleAstExpressionMultiplicative();
+             newCompositeNode(grammarAccess.getAstExpressionShiftRule()); 
+            pushFollow(FOLLOW_ruleAstExpressionShift_in_entryRuleAstExpressionShift12218);
+            iv_ruleAstExpressionShift=ruleAstExpressionShift();
 
             state._fsp--;
 
-             current =iv_ruleAstExpressionMultiplicative; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionMultiplicative12250); 
+             current =iv_ruleAstExpressionShift; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionShift12228); 
 
             }
 
@@ -15175,19 +15197,18 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleAstExpressionMultiplicative"
+    // $ANTLR end "entryRuleAstExpressionShift"
 
 
-    // $ANTLR start "ruleAstExpressionMultiplicative"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6027:1: ruleAstExpressionMultiplicative returns [EObject current=null] : (this_AstExpressionExp_0= ruleAstExpressionExp ( () ( ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) ) ) ( (lv_right_3_0= ruleAstExpressionExp ) ) )* ) ;
-    public final EObject ruleAstExpressionMultiplicative() throws RecognitionException {
+    // $ANTLR start "ruleAstExpressionShift"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6035:1: ruleAstExpressionShift returns [EObject current=null] : (this_AstExpressionAdditive_0= ruleAstExpressionAdditive ( () ( ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) ) ) ( (lv_right_3_0= ruleAstExpressionAdditive ) ) )* ) ;
+    public final EObject ruleAstExpressionShift() throws RecognitionException {
         EObject current = null;
 
         Token lv_operator_2_1=null;
         Token lv_operator_2_2=null;
         Token lv_operator_2_3=null;
-        Token lv_operator_2_4=null;
-        EObject this_AstExpressionExp_0 = null;
+        EObject this_AstExpressionAdditive_0 = null;
 
         EObject lv_right_3_0 = null;
 
@@ -15195,77 +15216,72 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6030:28: ( (this_AstExpressionExp_0= ruleAstExpressionExp ( () ( ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) ) ) ( (lv_right_3_0= ruleAstExpressionExp ) ) )* ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6031:1: (this_AstExpressionExp_0= ruleAstExpressionExp ( () ( ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) ) ) ( (lv_right_3_0= ruleAstExpressionExp ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6038:28: ( (this_AstExpressionAdditive_0= ruleAstExpressionAdditive ( () ( ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) ) ) ( (lv_right_3_0= ruleAstExpressionAdditive ) ) )* ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6039:1: (this_AstExpressionAdditive_0= ruleAstExpressionAdditive ( () ( ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) ) ) ( (lv_right_3_0= ruleAstExpressionAdditive ) ) )* )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6031:1: (this_AstExpressionExp_0= ruleAstExpressionExp ( () ( ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) ) ) ( (lv_right_3_0= ruleAstExpressionExp ) ) )* )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6032:5: this_AstExpressionExp_0= ruleAstExpressionExp ( () ( ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) ) ) ( (lv_right_3_0= ruleAstExpressionExp ) ) )*
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6039:1: (this_AstExpressionAdditive_0= ruleAstExpressionAdditive ( () ( ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) ) ) ( (lv_right_3_0= ruleAstExpressionAdditive ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6040:5: this_AstExpressionAdditive_0= ruleAstExpressionAdditive ( () ( ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) ) ) ( (lv_right_3_0= ruleAstExpressionAdditive ) ) )*
             {
              
-                    newCompositeNode(grammarAccess.getAstExpressionMultiplicativeAccess().getAstExpressionExpParserRuleCall_0()); 
+                    newCompositeNode(grammarAccess.getAstExpressionShiftAccess().getAstExpressionAdditiveParserRuleCall_0()); 
                 
-            pushFollow(FOLLOW_ruleAstExpressionExp_in_ruleAstExpressionMultiplicative12297);
-            this_AstExpressionExp_0=ruleAstExpressionExp();
+            pushFollow(FOLLOW_ruleAstExpressionAdditive_in_ruleAstExpressionShift12275);
+            this_AstExpressionAdditive_0=ruleAstExpressionAdditive();
 
             state._fsp--;
 
              
-                    current = this_AstExpressionExp_0; 
+                    current = this_AstExpressionAdditive_0; 
                     afterParserOrEnumRuleCall();
                 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6040:1: ( () ( ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) ) ) ( (lv_right_3_0= ruleAstExpressionExp ) ) )*
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6048:1: ( () ( ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) ) ) ( (lv_right_3_0= ruleAstExpressionAdditive ) ) )*
             loop136:
             do {
                 int alt136=2;
                 int LA136_0 = input.LA(1);
 
-                if ( ((LA136_0>=76 && LA136_0<=79)) ) {
+                if ( ((LA136_0>=73 && LA136_0<=75)) ) {
                     alt136=1;
                 }
 
 
                 switch (alt136) {
             	case 1 :
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6040:2: () ( ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) ) ) ( (lv_right_3_0= ruleAstExpressionExp ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6048:2: () ( ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) ) ) ( (lv_right_3_0= ruleAstExpressionAdditive ) )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6040:2: ()
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6041:5: 
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6048:2: ()
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6049:5: 
             	    {
 
             	            current = forceCreateModelElementAndSet(
-            	                grammarAccess.getAstExpressionMultiplicativeAccess().getAstExpressionBinaryLeftAction_1_0(),
+            	                grammarAccess.getAstExpressionShiftAccess().getAstExpressionBinaryLeftAction_1_0(),
             	                current);
             	        
 
             	    }
 
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6046:2: ( ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6047:1: ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6054:2: ( ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6055:1: ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6047:1: ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6048:1: (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6055:1: ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6056:1: (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6048:1: (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' )
-            	    int alt135=4;
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6056:1: (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' )
+            	    int alt135=3;
             	    switch ( input.LA(1) ) {
-            	    case 76:
+            	    case 73:
             	        {
             	        alt135=1;
             	        }
             	        break;
-            	    case 77:
+            	    case 74:
             	        {
             	        alt135=2;
             	        }
             	        break;
-            	    case 78:
+            	    case 75:
             	        {
             	        alt135=3;
-            	        }
-            	        break;
-            	    case 79:
-            	        {
-            	        alt135=4;
             	        }
             	        break;
             	    default:
@@ -15277,15 +15293,15 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             	    switch (alt135) {
             	        case 1 :
-            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6049:3: lv_operator_2_1= '*'
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6057:3: lv_operator_2_1= '<<'
             	            {
-            	            lv_operator_2_1=(Token)match(input,76,FOLLOW_76_in_ruleAstExpressionMultiplicative12326); 
+            	            lv_operator_2_1=(Token)match(input,73,FOLLOW_73_in_ruleAstExpressionShift12304); 
 
-            	                    newLeafNode(lv_operator_2_1, grammarAccess.getAstExpressionMultiplicativeAccess().getOperatorAsteriskKeyword_1_1_0_0());
+            	                    newLeafNode(lv_operator_2_1, grammarAccess.getAstExpressionShiftAccess().getOperatorLessThanSignLessThanSignKeyword_1_1_0_0());
             	                
 
             	            	        if (current==null) {
-            	            	            current = createModelElement(grammarAccess.getAstExpressionMultiplicativeRule());
+            	            	            current = createModelElement(grammarAccess.getAstExpressionShiftRule());
             	            	        }
             	                   		setWithLastConsumed(current, "operator", lv_operator_2_1, null);
             	            	    
@@ -15293,15 +15309,15 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             	            }
             	            break;
             	        case 2 :
-            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6061:8: lv_operator_2_2= '/'
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6069:8: lv_operator_2_2= '>>'
             	            {
-            	            lv_operator_2_2=(Token)match(input,77,FOLLOW_77_in_ruleAstExpressionMultiplicative12355); 
+            	            lv_operator_2_2=(Token)match(input,74,FOLLOW_74_in_ruleAstExpressionShift12333); 
 
-            	                    newLeafNode(lv_operator_2_2, grammarAccess.getAstExpressionMultiplicativeAccess().getOperatorSolidusKeyword_1_1_0_1());
+            	                    newLeafNode(lv_operator_2_2, grammarAccess.getAstExpressionShiftAccess().getOperatorGreaterThanSignGreaterThanSignKeyword_1_1_0_1());
             	                
 
             	            	        if (current==null) {
-            	            	            current = createModelElement(grammarAccess.getAstExpressionMultiplicativeRule());
+            	            	            current = createModelElement(grammarAccess.getAstExpressionShiftRule());
             	            	        }
             	                   		setWithLastConsumed(current, "operator", lv_operator_2_2, null);
             	            	    
@@ -15309,37 +15325,21 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             	            }
             	            break;
             	        case 3 :
-            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6073:8: lv_operator_2_3= 'div'
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6081:8: lv_operator_2_3= '>>>'
             	            {
-            	            lv_operator_2_3=(Token)match(input,78,FOLLOW_78_in_ruleAstExpressionMultiplicative12384); 
+            	            lv_operator_2_3=(Token)match(input,75,FOLLOW_75_in_ruleAstExpressionShift12362); 
 
-            	                    newLeafNode(lv_operator_2_3, grammarAccess.getAstExpressionMultiplicativeAccess().getOperatorDivKeyword_1_1_0_2());
+            	                    newLeafNode(lv_operator_2_3, grammarAccess.getAstExpressionShiftAccess().getOperatorGreaterThanSignGreaterThanSignGreaterThanSignKeyword_1_1_0_2());
             	                
 
             	            	        if (current==null) {
-            	            	            current = createModelElement(grammarAccess.getAstExpressionMultiplicativeRule());
+            	            	            current = createModelElement(grammarAccess.getAstExpressionShiftRule());
             	            	        }
             	                   		setWithLastConsumed(current, "operator", lv_operator_2_3, null);
             	            	    
 
             	            }
             	            break;
-            	        case 4 :
-            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6085:8: lv_operator_2_4= 'mod'
-            	            {
-            	            lv_operator_2_4=(Token)match(input,79,FOLLOW_79_in_ruleAstExpressionMultiplicative12413); 
-
-            	                    newLeafNode(lv_operator_2_4, grammarAccess.getAstExpressionMultiplicativeAccess().getOperatorModKeyword_1_1_0_3());
-            	                
-
-            	            	        if (current==null) {
-            	            	            current = createModelElement(grammarAccess.getAstExpressionMultiplicativeRule());
-            	            	        }
-            	                   		setWithLastConsumed(current, "operator", lv_operator_2_4, null);
-            	            	    
-
-            	            }
-            	            break;
 
             	    }
 
@@ -15349,29 +15349,29 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6100:2: ( (lv_right_3_0= ruleAstExpressionExp ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6101:1: (lv_right_3_0= ruleAstExpressionExp )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6096:2: ( (lv_right_3_0= ruleAstExpressionAdditive ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6097:1: (lv_right_3_0= ruleAstExpressionAdditive )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6101:1: (lv_right_3_0= ruleAstExpressionExp )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6102:3: lv_right_3_0= ruleAstExpressionExp
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6097:1: (lv_right_3_0= ruleAstExpressionAdditive )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6098:3: lv_right_3_0= ruleAstExpressionAdditive
             	    {
             	     
-            	    	        newCompositeNode(grammarAccess.getAstExpressionMultiplicativeAccess().getRightAstExpressionExpParserRuleCall_1_2_0()); 
+            	    	        newCompositeNode(grammarAccess.getAstExpressionShiftAccess().getRightAstExpressionAdditiveParserRuleCall_1_2_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleAstExpressionExp_in_ruleAstExpressionMultiplicative12450);
-            	    lv_right_3_0=ruleAstExpressionExp();
+            	    pushFollow(FOLLOW_ruleAstExpressionAdditive_in_ruleAstExpressionShift12399);
+            	    lv_right_3_0=ruleAstExpressionAdditive();
 
             	    state._fsp--;
 
 
             	    	        if (current==null) {
-            	    	            current = createModelElementForParent(grammarAccess.getAstExpressionMultiplicativeRule());
+            	    	            current = createModelElementForParent(grammarAccess.getAstExpressionShiftRule());
             	    	        }
             	           		set(
             	           			current, 
             	           			"right",
             	            		lv_right_3_0, 
-            	            		"AstExpressionExp");
+            	            		"AstExpressionAdditive");
             	    	        afterParserOrEnumRuleCall();
             	    	    
 
@@ -15406,11 +15406,497 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
+    // $ANTLR end "ruleAstExpressionShift"
+
+
+    // $ANTLR start "entryRuleAstExpressionAdditive"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6122:1: entryRuleAstExpressionAdditive returns [EObject current=null] : iv_ruleAstExpressionAdditive= ruleAstExpressionAdditive EOF ;
+    public final EObject entryRuleAstExpressionAdditive() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstExpressionAdditive = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6123:2: (iv_ruleAstExpressionAdditive= ruleAstExpressionAdditive EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6124:2: iv_ruleAstExpressionAdditive= ruleAstExpressionAdditive EOF
+            {
+             newCompositeNode(grammarAccess.getAstExpressionAdditiveRule()); 
+            pushFollow(FOLLOW_ruleAstExpressionAdditive_in_entryRuleAstExpressionAdditive12437);
+            iv_ruleAstExpressionAdditive=ruleAstExpressionAdditive();
+
+            state._fsp--;
+
+             current =iv_ruleAstExpressionAdditive; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionAdditive12447); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstExpressionAdditive"
+
+
+    // $ANTLR start "ruleAstExpressionAdditive"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6131:1: ruleAstExpressionAdditive returns [EObject current=null] : (this_AstExpressionMultiplicative_0= ruleAstExpressionMultiplicative ( () ( ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) ) ) ( (lv_right_3_0= ruleAstExpressionMultiplicative ) ) )* ) ;
+    public final EObject ruleAstExpressionAdditive() throws RecognitionException {
+        EObject current = null;
+
+        Token lv_operator_2_1=null;
+        Token lv_operator_2_2=null;
+        EObject this_AstExpressionMultiplicative_0 = null;
+
+        EObject lv_right_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6134:28: ( (this_AstExpressionMultiplicative_0= ruleAstExpressionMultiplicative ( () ( ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) ) ) ( (lv_right_3_0= ruleAstExpressionMultiplicative ) ) )* ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6135:1: (this_AstExpressionMultiplicative_0= ruleAstExpressionMultiplicative ( () ( ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) ) ) ( (lv_right_3_0= ruleAstExpressionMultiplicative ) ) )* )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6135:1: (this_AstExpressionMultiplicative_0= ruleAstExpressionMultiplicative ( () ( ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) ) ) ( (lv_right_3_0= ruleAstExpressionMultiplicative ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6136:5: this_AstExpressionMultiplicative_0= ruleAstExpressionMultiplicative ( () ( ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) ) ) ( (lv_right_3_0= ruleAstExpressionMultiplicative ) ) )*
+            {
+             
+                    newCompositeNode(grammarAccess.getAstExpressionAdditiveAccess().getAstExpressionMultiplicativeParserRuleCall_0()); 
+                
+            pushFollow(FOLLOW_ruleAstExpressionMultiplicative_in_ruleAstExpressionAdditive12494);
+            this_AstExpressionMultiplicative_0=ruleAstExpressionMultiplicative();
+
+            state._fsp--;
+
+             
+                    current = this_AstExpressionMultiplicative_0; 
+                    afterParserOrEnumRuleCall();
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6144:1: ( () ( ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) ) ) ( (lv_right_3_0= ruleAstExpressionMultiplicative ) ) )*
+            loop138:
+            do {
+                int alt138=2;
+                int LA138_0 = input.LA(1);
+
+                if ( ((LA138_0>=76 && LA138_0<=77)) ) {
+                    alt138=1;
+                }
+
+
+                switch (alt138) {
+            	case 1 :
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6144:2: () ( ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) ) ) ( (lv_right_3_0= ruleAstExpressionMultiplicative ) )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6144:2: ()
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6145:5: 
+            	    {
+
+            	            current = forceCreateModelElementAndSet(
+            	                grammarAccess.getAstExpressionAdditiveAccess().getAstExpressionBinaryLeftAction_1_0(),
+            	                current);
+            	        
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6150:2: ( ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6151:1: ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6151:1: ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6152:1: (lv_operator_2_1= '+' | lv_operator_2_2= '-' )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6152:1: (lv_operator_2_1= '+' | lv_operator_2_2= '-' )
+            	    int alt137=2;
+            	    int LA137_0 = input.LA(1);
+
+            	    if ( (LA137_0==76) ) {
+            	        alt137=1;
+            	    }
+            	    else if ( (LA137_0==77) ) {
+            	        alt137=2;
+            	    }
+            	    else {
+            	        NoViableAltException nvae =
+            	            new NoViableAltException("", 137, 0, input);
+
+            	        throw nvae;
+            	    }
+            	    switch (alt137) {
+            	        case 1 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6153:3: lv_operator_2_1= '+'
+            	            {
+            	            lv_operator_2_1=(Token)match(input,76,FOLLOW_76_in_ruleAstExpressionAdditive12523); 
+
+            	                    newLeafNode(lv_operator_2_1, grammarAccess.getAstExpressionAdditiveAccess().getOperatorPlusSignKeyword_1_1_0_0());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstExpressionAdditiveRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_1, null);
+            	            	    
+
+            	            }
+            	            break;
+            	        case 2 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6165:8: lv_operator_2_2= '-'
+            	            {
+            	            lv_operator_2_2=(Token)match(input,77,FOLLOW_77_in_ruleAstExpressionAdditive12552); 
+
+            	                    newLeafNode(lv_operator_2_2, grammarAccess.getAstExpressionAdditiveAccess().getOperatorHyphenMinusKeyword_1_1_0_1());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstExpressionAdditiveRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_2, null);
+            	            	    
+
+            	            }
+            	            break;
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6180:2: ( (lv_right_3_0= ruleAstExpressionMultiplicative ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6181:1: (lv_right_3_0= ruleAstExpressionMultiplicative )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6181:1: (lv_right_3_0= ruleAstExpressionMultiplicative )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6182:3: lv_right_3_0= ruleAstExpressionMultiplicative
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getAstExpressionAdditiveAccess().getRightAstExpressionMultiplicativeParserRuleCall_1_2_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleAstExpressionMultiplicative_in_ruleAstExpressionAdditive12589);
+            	    lv_right_3_0=ruleAstExpressionMultiplicative();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getAstExpressionAdditiveRule());
+            	    	        }
+            	           		set(
+            	           			current, 
+            	           			"right",
+            	            		lv_right_3_0, 
+            	            		"AstExpressionMultiplicative");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop138;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAstExpressionAdditive"
+
+
+    // $ANTLR start "entryRuleAstExpressionMultiplicative"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6206:1: entryRuleAstExpressionMultiplicative returns [EObject current=null] : iv_ruleAstExpressionMultiplicative= ruleAstExpressionMultiplicative EOF ;
+    public final EObject entryRuleAstExpressionMultiplicative() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstExpressionMultiplicative = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6207:2: (iv_ruleAstExpressionMultiplicative= ruleAstExpressionMultiplicative EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6208:2: iv_ruleAstExpressionMultiplicative= ruleAstExpressionMultiplicative EOF
+            {
+             newCompositeNode(grammarAccess.getAstExpressionMultiplicativeRule()); 
+            pushFollow(FOLLOW_ruleAstExpressionMultiplicative_in_entryRuleAstExpressionMultiplicative12627);
+            iv_ruleAstExpressionMultiplicative=ruleAstExpressionMultiplicative();
+
+            state._fsp--;
+
+             current =iv_ruleAstExpressionMultiplicative; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionMultiplicative12637); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstExpressionMultiplicative"
+
+
+    // $ANTLR start "ruleAstExpressionMultiplicative"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6215:1: ruleAstExpressionMultiplicative returns [EObject current=null] : (this_AstExpressionExp_0= ruleAstExpressionExp ( () ( ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) ) ) ( (lv_right_3_0= ruleAstExpressionExp ) ) )* ) ;
+    public final EObject ruleAstExpressionMultiplicative() throws RecognitionException {
+        EObject current = null;
+
+        Token lv_operator_2_1=null;
+        Token lv_operator_2_2=null;
+        Token lv_operator_2_3=null;
+        Token lv_operator_2_4=null;
+        EObject this_AstExpressionExp_0 = null;
+
+        EObject lv_right_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6218:28: ( (this_AstExpressionExp_0= ruleAstExpressionExp ( () ( ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) ) ) ( (lv_right_3_0= ruleAstExpressionExp ) ) )* ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6219:1: (this_AstExpressionExp_0= ruleAstExpressionExp ( () ( ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) ) ) ( (lv_right_3_0= ruleAstExpressionExp ) ) )* )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6219:1: (this_AstExpressionExp_0= ruleAstExpressionExp ( () ( ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) ) ) ( (lv_right_3_0= ruleAstExpressionExp ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6220:5: this_AstExpressionExp_0= ruleAstExpressionExp ( () ( ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) ) ) ( (lv_right_3_0= ruleAstExpressionExp ) ) )*
+            {
+             
+                    newCompositeNode(grammarAccess.getAstExpressionMultiplicativeAccess().getAstExpressionExpParserRuleCall_0()); 
+                
+            pushFollow(FOLLOW_ruleAstExpressionExp_in_ruleAstExpressionMultiplicative12684);
+            this_AstExpressionExp_0=ruleAstExpressionExp();
+
+            state._fsp--;
+
+             
+                    current = this_AstExpressionExp_0; 
+                    afterParserOrEnumRuleCall();
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6228:1: ( () ( ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) ) ) ( (lv_right_3_0= ruleAstExpressionExp ) ) )*
+            loop140:
+            do {
+                int alt140=2;
+                int LA140_0 = input.LA(1);
+
+                if ( ((LA140_0>=78 && LA140_0<=81)) ) {
+                    alt140=1;
+                }
+
+
+                switch (alt140) {
+            	case 1 :
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6228:2: () ( ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) ) ) ( (lv_right_3_0= ruleAstExpressionExp ) )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6228:2: ()
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6229:5: 
+            	    {
+
+            	            current = forceCreateModelElementAndSet(
+            	                grammarAccess.getAstExpressionMultiplicativeAccess().getAstExpressionBinaryLeftAction_1_0(),
+            	                current);
+            	        
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6234:2: ( ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6235:1: ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6235:1: ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6236:1: (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6236:1: (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' )
+            	    int alt139=4;
+            	    switch ( input.LA(1) ) {
+            	    case 78:
+            	        {
+            	        alt139=1;
+            	        }
+            	        break;
+            	    case 79:
+            	        {
+            	        alt139=2;
+            	        }
+            	        break;
+            	    case 80:
+            	        {
+            	        alt139=3;
+            	        }
+            	        break;
+            	    case 81:
+            	        {
+            	        alt139=4;
+            	        }
+            	        break;
+            	    default:
+            	        NoViableAltException nvae =
+            	            new NoViableAltException("", 139, 0, input);
+
+            	        throw nvae;
+            	    }
+
+            	    switch (alt139) {
+            	        case 1 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6237:3: lv_operator_2_1= '*'
+            	            {
+            	            lv_operator_2_1=(Token)match(input,78,FOLLOW_78_in_ruleAstExpressionMultiplicative12713); 
+
+            	                    newLeafNode(lv_operator_2_1, grammarAccess.getAstExpressionMultiplicativeAccess().getOperatorAsteriskKeyword_1_1_0_0());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstExpressionMultiplicativeRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_1, null);
+            	            	    
+
+            	            }
+            	            break;
+            	        case 2 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6249:8: lv_operator_2_2= '/'
+            	            {
+            	            lv_operator_2_2=(Token)match(input,79,FOLLOW_79_in_ruleAstExpressionMultiplicative12742); 
+
+            	                    newLeafNode(lv_operator_2_2, grammarAccess.getAstExpressionMultiplicativeAccess().getOperatorSolidusKeyword_1_1_0_1());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstExpressionMultiplicativeRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_2, null);
+            	            	    
+
+            	            }
+            	            break;
+            	        case 3 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6261:8: lv_operator_2_3= 'div'
+            	            {
+            	            lv_operator_2_3=(Token)match(input,80,FOLLOW_80_in_ruleAstExpressionMultiplicative12771); 
+
+            	                    newLeafNode(lv_operator_2_3, grammarAccess.getAstExpressionMultiplicativeAccess().getOperatorDivKeyword_1_1_0_2());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstExpressionMultiplicativeRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_3, null);
+            	            	    
+
+            	            }
+            	            break;
+            	        case 4 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6273:8: lv_operator_2_4= 'mod'
+            	            {
+            	            lv_operator_2_4=(Token)match(input,81,FOLLOW_81_in_ruleAstExpressionMultiplicative12800); 
+
+            	                    newLeafNode(lv_operator_2_4, grammarAccess.getAstExpressionMultiplicativeAccess().getOperatorModKeyword_1_1_0_3());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstExpressionMultiplicativeRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_4, null);
+            	            	    
+
+            	            }
+            	            break;
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6288:2: ( (lv_right_3_0= ruleAstExpressionExp ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6289:1: (lv_right_3_0= ruleAstExpressionExp )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6289:1: (lv_right_3_0= ruleAstExpressionExp )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6290:3: lv_right_3_0= ruleAstExpressionExp
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getAstExpressionMultiplicativeAccess().getRightAstExpressionExpParserRuleCall_1_2_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleAstExpressionExp_in_ruleAstExpressionMultiplicative12837);
+            	    lv_right_3_0=ruleAstExpressionExp();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getAstExpressionMultiplicativeRule());
+            	    	        }
+            	           		set(
+            	           			current, 
+            	           			"right",
+            	            		lv_right_3_0, 
+            	            		"AstExpressionExp");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop140;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
     // $ANTLR end "ruleAstExpressionMultiplicative"
 
 
     // $ANTLR start "entryRuleAstExpressionExp"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6126:1: entryRuleAstExpressionExp returns [EObject current=null] : iv_ruleAstExpressionExp= ruleAstExpressionExp EOF ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6314:1: entryRuleAstExpressionExp returns [EObject current=null] : iv_ruleAstExpressionExp= ruleAstExpressionExp EOF ;
     public final EObject entryRuleAstExpressionExp() throws RecognitionException {
         EObject current = null;
 
@@ -15418,17 +15904,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6127:2: (iv_ruleAstExpressionExp= ruleAstExpressionExp EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6128:2: iv_ruleAstExpressionExp= ruleAstExpressionExp EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6315:2: (iv_ruleAstExpressionExp= ruleAstExpressionExp EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6316:2: iv_ruleAstExpressionExp= ruleAstExpressionExp EOF
             {
              newCompositeNode(grammarAccess.getAstExpressionExpRule()); 
-            pushFollow(FOLLOW_ruleAstExpressionExp_in_entryRuleAstExpressionExp12488);
+            pushFollow(FOLLOW_ruleAstExpressionExp_in_entryRuleAstExpressionExp12875);
             iv_ruleAstExpressionExp=ruleAstExpressionExp();
 
             state._fsp--;
 
              current =iv_ruleAstExpressionExp; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionExp12498); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionExp12885); 
 
             }
 
@@ -15446,7 +15932,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAstExpressionExp"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6135:1: ruleAstExpressionExp returns [EObject current=null] : (this_AstExpressionUnary_0= ruleAstExpressionUnary ( () ( (lv_operator_2_0= '**' ) ) ( (lv_right_3_0= ruleAstExpressionUnary ) ) )* ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6323:1: ruleAstExpressionExp returns [EObject current=null] : (this_AstExpressionUnary_0= ruleAstExpressionUnary ( () ( (lv_operator_2_0= '**' ) ) ( (lv_right_3_0= ruleAstExpressionUnary ) ) )* ) ;
     public final EObject ruleAstExpressionExp() throws RecognitionException {
         EObject current = null;
 
@@ -15459,16 +15945,16 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6138:28: ( (this_AstExpressionUnary_0= ruleAstExpressionUnary ( () ( (lv_operator_2_0= '**' ) ) ( (lv_right_3_0= ruleAstExpressionUnary ) ) )* ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6139:1: (this_AstExpressionUnary_0= ruleAstExpressionUnary ( () ( (lv_operator_2_0= '**' ) ) ( (lv_right_3_0= ruleAstExpressionUnary ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6326:28: ( (this_AstExpressionUnary_0= ruleAstExpressionUnary ( () ( (lv_operator_2_0= '**' ) ) ( (lv_right_3_0= ruleAstExpressionUnary ) ) )* ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6327:1: (this_AstExpressionUnary_0= ruleAstExpressionUnary ( () ( (lv_operator_2_0= '**' ) ) ( (lv_right_3_0= ruleAstExpressionUnary ) ) )* )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6139:1: (this_AstExpressionUnary_0= ruleAstExpressionUnary ( () ( (lv_operator_2_0= '**' ) ) ( (lv_right_3_0= ruleAstExpressionUnary ) ) )* )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6140:5: this_AstExpressionUnary_0= ruleAstExpressionUnary ( () ( (lv_operator_2_0= '**' ) ) ( (lv_right_3_0= ruleAstExpressionUnary ) ) )*
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6327:1: (this_AstExpressionUnary_0= ruleAstExpressionUnary ( () ( (lv_operator_2_0= '**' ) ) ( (lv_right_3_0= ruleAstExpressionUnary ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6328:5: this_AstExpressionUnary_0= ruleAstExpressionUnary ( () ( (lv_operator_2_0= '**' ) ) ( (lv_right_3_0= ruleAstExpressionUnary ) ) )*
             {
              
                     newCompositeNode(grammarAccess.getAstExpressionExpAccess().getAstExpressionUnaryParserRuleCall_0()); 
                 
-            pushFollow(FOLLOW_ruleAstExpressionUnary_in_ruleAstExpressionExp12545);
+            pushFollow(FOLLOW_ruleAstExpressionUnary_in_ruleAstExpressionExp12932);
             this_AstExpressionUnary_0=ruleAstExpressionUnary();
 
             state._fsp--;
@@ -15477,23 +15963,23 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     current = this_AstExpressionUnary_0; 
                     afterParserOrEnumRuleCall();
                 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6148:1: ( () ( (lv_operator_2_0= '**' ) ) ( (lv_right_3_0= ruleAstExpressionUnary ) ) )*
-            loop137:
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6336:1: ( () ( (lv_operator_2_0= '**' ) ) ( (lv_right_3_0= ruleAstExpressionUnary ) ) )*
+            loop141:
             do {
-                int alt137=2;
-                int LA137_0 = input.LA(1);
+                int alt141=2;
+                int LA141_0 = input.LA(1);
 
-                if ( (LA137_0==80) ) {
-                    alt137=1;
+                if ( (LA141_0==82) ) {
+                    alt141=1;
                 }
 
 
-                switch (alt137) {
+                switch (alt141) {
             	case 1 :
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6148:2: () ( (lv_operator_2_0= '**' ) ) ( (lv_right_3_0= ruleAstExpressionUnary ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6336:2: () ( (lv_operator_2_0= '**' ) ) ( (lv_right_3_0= ruleAstExpressionUnary ) )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6148:2: ()
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6149:5: 
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6336:2: ()
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6337:5: 
             	    {
 
             	            current = forceCreateModelElementAndSet(
@@ -15503,13 +15989,13 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6154:2: ( (lv_operator_2_0= '**' ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6155:1: (lv_operator_2_0= '**' )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6342:2: ( (lv_operator_2_0= '**' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6343:1: (lv_operator_2_0= '**' )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6155:1: (lv_operator_2_0= '**' )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6156:3: lv_operator_2_0= '**'
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6343:1: (lv_operator_2_0= '**' )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6344:3: lv_operator_2_0= '**'
             	    {
-            	    lv_operator_2_0=(Token)match(input,80,FOLLOW_80_in_ruleAstExpressionExp12572); 
+            	    lv_operator_2_0=(Token)match(input,82,FOLLOW_82_in_ruleAstExpressionExp12959); 
 
             	            newLeafNode(lv_operator_2_0, grammarAccess.getAstExpressionExpAccess().getOperatorAsteriskAsteriskKeyword_1_1_0());
             	        
@@ -15525,16 +16011,16 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6169:2: ( (lv_right_3_0= ruleAstExpressionUnary ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6170:1: (lv_right_3_0= ruleAstExpressionUnary )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6357:2: ( (lv_right_3_0= ruleAstExpressionUnary ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6358:1: (lv_right_3_0= ruleAstExpressionUnary )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6170:1: (lv_right_3_0= ruleAstExpressionUnary )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6171:3: lv_right_3_0= ruleAstExpressionUnary
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6358:1: (lv_right_3_0= ruleAstExpressionUnary )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6359:3: lv_right_3_0= ruleAstExpressionUnary
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getAstExpressionExpAccess().getRightAstExpressionUnaryParserRuleCall_1_2_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleAstExpressionUnary_in_ruleAstExpressionExp12606);
+            	    pushFollow(FOLLOW_ruleAstExpressionUnary_in_ruleAstExpressionExp12993);
             	    lv_right_3_0=ruleAstExpressionUnary();
 
             	    state._fsp--;
@@ -15561,7 +16047,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop137;
+            	    break loop141;
                 }
             } while (true);
 
@@ -15586,7 +16072,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAstExpressionUnary"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6195:1: entryRuleAstExpressionUnary returns [EObject current=null] : iv_ruleAstExpressionUnary= ruleAstExpressionUnary EOF ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6383:1: entryRuleAstExpressionUnary returns [EObject current=null] : iv_ruleAstExpressionUnary= ruleAstExpressionUnary EOF ;
     public final EObject entryRuleAstExpressionUnary() throws RecognitionException {
         EObject current = null;
 
@@ -15594,17 +16080,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6196:2: (iv_ruleAstExpressionUnary= ruleAstExpressionUnary EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6197:2: iv_ruleAstExpressionUnary= ruleAstExpressionUnary EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6384:2: (iv_ruleAstExpressionUnary= ruleAstExpressionUnary EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6385:2: iv_ruleAstExpressionUnary= ruleAstExpressionUnary EOF
             {
              newCompositeNode(grammarAccess.getAstExpressionUnaryRule()); 
-            pushFollow(FOLLOW_ruleAstExpressionUnary_in_entryRuleAstExpressionUnary12644);
+            pushFollow(FOLLOW_ruleAstExpressionUnary_in_entryRuleAstExpressionUnary13031);
             iv_ruleAstExpressionUnary=ruleAstExpressionUnary();
 
             state._fsp--;
 
              current =iv_ruleAstExpressionUnary; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionUnary12654); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionUnary13041); 
 
             }
 
@@ -15622,7 +16108,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAstExpressionUnary"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6204:1: ruleAstExpressionUnary returns [EObject current=null] : ( ( () ( ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) ) ) ( (lv_expression_2_0= ruleAstExpressionPostfix ) ) ) | this_AstExpressionPostfix_3= ruleAstExpressionPostfix ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6392:1: ruleAstExpressionUnary returns [EObject current=null] : ( ( () ( ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) ) ) ( (lv_expression_2_0= ruleAstExpressionPostfix ) ) ) | this_AstExpressionPostfix_3= ruleAstExpressionPostfix ) ;
     public final EObject ruleAstExpressionUnary() throws RecognitionException {
         EObject current = null;
 
@@ -15639,34 +16125,34 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6207:28: ( ( ( () ( ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) ) ) ( (lv_expression_2_0= ruleAstExpressionPostfix ) ) ) | this_AstExpressionPostfix_3= ruleAstExpressionPostfix ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6208:1: ( ( () ( ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) ) ) ( (lv_expression_2_0= ruleAstExpressionPostfix ) ) ) | this_AstExpressionPostfix_3= ruleAstExpressionPostfix )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6395:28: ( ( ( () ( ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) ) ) ( (lv_expression_2_0= ruleAstExpressionPostfix ) ) ) | this_AstExpressionPostfix_3= ruleAstExpressionPostfix ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6396:1: ( ( () ( ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) ) ) ( (lv_expression_2_0= ruleAstExpressionPostfix ) ) ) | this_AstExpressionPostfix_3= ruleAstExpressionPostfix )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6208:1: ( ( () ( ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) ) ) ( (lv_expression_2_0= ruleAstExpressionPostfix ) ) ) | this_AstExpressionPostfix_3= ruleAstExpressionPostfix )
-            int alt139=2;
-            int LA139_0 = input.LA(1);
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6396:1: ( ( () ( ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) ) ) ( (lv_expression_2_0= ruleAstExpressionPostfix ) ) ) | this_AstExpressionPostfix_3= ruleAstExpressionPostfix )
+            int alt143=2;
+            int LA143_0 = input.LA(1);
 
-            if ( (LA139_0==75||(LA139_0>=81 && LA139_0<=84)) ) {
-                alt139=1;
+            if ( (LA143_0==77||(LA143_0>=83 && LA143_0<=86)) ) {
+                alt143=1;
             }
-            else if ( ((LA139_0>=RULE_ID && LA139_0<=RULE_STRING)||LA139_0==21||LA139_0==24||LA139_0==50||LA139_0==56) ) {
-                alt139=2;
+            else if ( ((LA143_0>=RULE_ID && LA143_0<=RULE_STRING)||LA143_0==21||LA143_0==24||LA143_0==50||LA143_0==56||LA143_0==60) ) {
+                alt143=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 139, 0, input);
+                    new NoViableAltException("", 143, 0, input);
 
                 throw nvae;
             }
-            switch (alt139) {
+            switch (alt143) {
                 case 1 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6208:2: ( () ( ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) ) ) ( (lv_expression_2_0= ruleAstExpressionPostfix ) ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6396:2: ( () ( ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) ) ) ( (lv_expression_2_0= ruleAstExpressionPostfix ) ) )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6208:2: ( () ( ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) ) ) ( (lv_expression_2_0= ruleAstExpressionPostfix ) ) )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6208:3: () ( ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) ) ) ( (lv_expression_2_0= ruleAstExpressionPostfix ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6396:2: ( () ( ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) ) ) ( (lv_expression_2_0= ruleAstExpressionPostfix ) ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6396:3: () ( ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) ) ) ( (lv_expression_2_0= ruleAstExpressionPostfix ) )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6208:3: ()
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6209:5: 
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6396:3: ()
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6397:5: 
                     {
 
                             current = forceCreateModelElement(
@@ -15676,52 +16162,52 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6214:2: ( ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) ) )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6215:1: ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6402:2: ( ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6403:1: ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6215:1: ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6216:1: (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6403:1: ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6404:1: (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6216:1: (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' )
-                    int alt138=5;
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6404:1: (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' )
+                    int alt142=5;
                     switch ( input.LA(1) ) {
-                    case 81:
-                        {
-                        alt138=1;
-                        }
-                        break;
-                    case 75:
-                        {
-                        alt138=2;
-                        }
-                        break;
-                    case 82:
-                        {
-                        alt138=3;
-                        }
-                        break;
                     case 83:
                         {
-                        alt138=4;
+                        alt142=1;
+                        }
+                        break;
+                    case 77:
+                        {
+                        alt142=2;
                         }
                         break;
                     case 84:
                         {
-                        alt138=5;
+                        alt142=3;
+                        }
+                        break;
+                    case 85:
+                        {
+                        alt142=4;
+                        }
+                        break;
+                    case 86:
+                        {
+                        alt142=5;
                         }
                         break;
                     default:
                         NoViableAltException nvae =
-                            new NoViableAltException("", 138, 0, input);
+                            new NoViableAltException("", 142, 0, input);
 
                         throw nvae;
                     }
 
-                    switch (alt138) {
+                    switch (alt142) {
                         case 1 :
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6217:3: lv_unaryOperator_1_1= '~'
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6405:3: lv_unaryOperator_1_1= '~'
                             {
-                            lv_unaryOperator_1_1=(Token)match(input,81,FOLLOW_81_in_ruleAstExpressionUnary12709); 
+                            lv_unaryOperator_1_1=(Token)match(input,83,FOLLOW_83_in_ruleAstExpressionUnary13096); 
 
                                     newLeafNode(lv_unaryOperator_1_1, grammarAccess.getAstExpressionUnaryAccess().getUnaryOperatorTildeKeyword_0_1_0_0());
                                 
@@ -15735,9 +16221,9 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                             }
                             break;
                         case 2 :
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6229:8: lv_unaryOperator_1_2= '-'
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6417:8: lv_unaryOperator_1_2= '-'
                             {
-                            lv_unaryOperator_1_2=(Token)match(input,75,FOLLOW_75_in_ruleAstExpressionUnary12738); 
+                            lv_unaryOperator_1_2=(Token)match(input,77,FOLLOW_77_in_ruleAstExpressionUnary13125); 
 
                                     newLeafNode(lv_unaryOperator_1_2, grammarAccess.getAstExpressionUnaryAccess().getUnaryOperatorHyphenMinusKeyword_0_1_0_1());
                                 
@@ -15751,9 +16237,9 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                             }
                             break;
                         case 3 :
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6241:8: lv_unaryOperator_1_3= 'not'
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6429:8: lv_unaryOperator_1_3= 'not'
                             {
-                            lv_unaryOperator_1_3=(Token)match(input,82,FOLLOW_82_in_ruleAstExpressionUnary12767); 
+                            lv_unaryOperator_1_3=(Token)match(input,84,FOLLOW_84_in_ruleAstExpressionUnary13154); 
 
                                     newLeafNode(lv_unaryOperator_1_3, grammarAccess.getAstExpressionUnaryAccess().getUnaryOperatorNotKeyword_0_1_0_2());
                                 
@@ -15767,9 +16253,9 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                             }
                             break;
                         case 4 :
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6253:8: lv_unaryOperator_1_4= '#'
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6441:8: lv_unaryOperator_1_4= '#'
                             {
-                            lv_unaryOperator_1_4=(Token)match(input,83,FOLLOW_83_in_ruleAstExpressionUnary12796); 
+                            lv_unaryOperator_1_4=(Token)match(input,85,FOLLOW_85_in_ruleAstExpressionUnary13183); 
 
                                     newLeafNode(lv_unaryOperator_1_4, grammarAccess.getAstExpressionUnaryAccess().getUnaryOperatorNumberSignKeyword_0_1_0_3());
                                 
@@ -15783,9 +16269,9 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                             }
                             break;
                         case 5 :
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6265:8: lv_unaryOperator_1_5= 'old'
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6453:8: lv_unaryOperator_1_5= 'old'
                             {
-                            lv_unaryOperator_1_5=(Token)match(input,84,FOLLOW_84_in_ruleAstExpressionUnary12825); 
+                            lv_unaryOperator_1_5=(Token)match(input,86,FOLLOW_86_in_ruleAstExpressionUnary13212); 
 
                                     newLeafNode(lv_unaryOperator_1_5, grammarAccess.getAstExpressionUnaryAccess().getUnaryOperatorOldKeyword_0_1_0_4());
                                 
@@ -15807,16 +16293,16 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6280:2: ( (lv_expression_2_0= ruleAstExpressionPostfix ) )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6281:1: (lv_expression_2_0= ruleAstExpressionPostfix )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6468:2: ( (lv_expression_2_0= ruleAstExpressionPostfix ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6469:1: (lv_expression_2_0= ruleAstExpressionPostfix )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6281:1: (lv_expression_2_0= ruleAstExpressionPostfix )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6282:3: lv_expression_2_0= ruleAstExpressionPostfix
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6469:1: (lv_expression_2_0= ruleAstExpressionPostfix )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6470:3: lv_expression_2_0= ruleAstExpressionPostfix
                     {
                      
                     	        newCompositeNode(grammarAccess.getAstExpressionUnaryAccess().getExpressionAstExpressionPostfixParserRuleCall_0_2_0()); 
                     	    
-                    pushFollow(FOLLOW_ruleAstExpressionPostfix_in_ruleAstExpressionUnary12862);
+                    pushFollow(FOLLOW_ruleAstExpressionPostfix_in_ruleAstExpressionUnary13249);
                     lv_expression_2_0=ruleAstExpressionPostfix();
 
                     state._fsp--;
@@ -15845,12 +16331,12 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6300:5: this_AstExpressionPostfix_3= ruleAstExpressionPostfix
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6488:5: this_AstExpressionPostfix_3= ruleAstExpressionPostfix
                     {
                      
                             newCompositeNode(grammarAccess.getAstExpressionUnaryAccess().getAstExpressionPostfixParserRuleCall_1()); 
                         
-                    pushFollow(FOLLOW_ruleAstExpressionPostfix_in_ruleAstExpressionUnary12891);
+                    pushFollow(FOLLOW_ruleAstExpressionPostfix_in_ruleAstExpressionUnary13278);
                     this_AstExpressionPostfix_3=ruleAstExpressionPostfix();
 
                     state._fsp--;
@@ -15883,7 +16369,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAstExpressionPostfix"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6316:1: entryRuleAstExpressionPostfix returns [EObject current=null] : iv_ruleAstExpressionPostfix= ruleAstExpressionPostfix EOF ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6504:1: entryRuleAstExpressionPostfix returns [EObject current=null] : iv_ruleAstExpressionPostfix= ruleAstExpressionPostfix EOF ;
     public final EObject entryRuleAstExpressionPostfix() throws RecognitionException {
         EObject current = null;
 
@@ -15891,17 +16377,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6317:2: (iv_ruleAstExpressionPostfix= ruleAstExpressionPostfix EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6318:2: iv_ruleAstExpressionPostfix= ruleAstExpressionPostfix EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6505:2: (iv_ruleAstExpressionPostfix= ruleAstExpressionPostfix EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6506:2: iv_ruleAstExpressionPostfix= ruleAstExpressionPostfix EOF
             {
              newCompositeNode(grammarAccess.getAstExpressionPostfixRule()); 
-            pushFollow(FOLLOW_ruleAstExpressionPostfix_in_entryRuleAstExpressionPostfix12926);
+            pushFollow(FOLLOW_ruleAstExpressionPostfix_in_entryRuleAstExpressionPostfix13313);
             iv_ruleAstExpressionPostfix=ruleAstExpressionPostfix();
 
             state._fsp--;
 
              current =iv_ruleAstExpressionPostfix; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionPostfix12936); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionPostfix13323); 
 
             }
 
@@ -15919,45 +16405,52 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAstExpressionPostfix"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6325:1: ruleAstExpressionPostfix returns [EObject current=null] : (this_AstExpressionList_0= ruleAstExpressionList | this_AstExpressionSymbolReference_1= ruleAstExpressionSymbolReference | this_AstExpressionIf_2= ruleAstExpressionIf | this_AstExpressionLiteral_3= ruleAstExpressionLiteral | (otherlv_4= '(' this_AstExpression_5= ruleAstExpression otherlv_6= ')' ) ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6513:1: ruleAstExpressionPostfix returns [EObject current=null] : (this_AstExpressionList_0= ruleAstExpressionList | this_AstExpressionSymbolReference_1= ruleAstExpressionSymbolReference | this_AstExpressionIf_2= ruleAstExpressionIf | this_AstExpressionCase_3= ruleAstExpressionCase | this_AstExpressionLiteral_4= ruleAstExpressionLiteral | (otherlv_5= '(' this_AstExpression_6= ruleAstExpression otherlv_7= ')' ) ) ;
     public final EObject ruleAstExpressionPostfix() throws RecognitionException {
         EObject current = null;
 
-        Token otherlv_4=null;
-        Token otherlv_6=null;
+        Token otherlv_5=null;
+        Token otherlv_7=null;
         EObject this_AstExpressionList_0 = null;
 
         EObject this_AstExpressionSymbolReference_1 = null;
 
         EObject this_AstExpressionIf_2 = null;
 
-        EObject this_AstExpressionLiteral_3 = null;
+        EObject this_AstExpressionCase_3 = null;
 
-        EObject this_AstExpression_5 = null;
+        EObject this_AstExpressionLiteral_4 = null;
+
+        EObject this_AstExpression_6 = null;
 
 
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6328:28: ( (this_AstExpressionList_0= ruleAstExpressionList | this_AstExpressionSymbolReference_1= ruleAstExpressionSymbolReference | this_AstExpressionIf_2= ruleAstExpressionIf | this_AstExpressionLiteral_3= ruleAstExpressionLiteral | (otherlv_4= '(' this_AstExpression_5= ruleAstExpression otherlv_6= ')' ) ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6329:1: (this_AstExpressionList_0= ruleAstExpressionList | this_AstExpressionSymbolReference_1= ruleAstExpressionSymbolReference | this_AstExpressionIf_2= ruleAstExpressionIf | this_AstExpressionLiteral_3= ruleAstExpressionLiteral | (otherlv_4= '(' this_AstExpression_5= ruleAstExpression otherlv_6= ')' ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6516:28: ( (this_AstExpressionList_0= ruleAstExpressionList | this_AstExpressionSymbolReference_1= ruleAstExpressionSymbolReference | this_AstExpressionIf_2= ruleAstExpressionIf | this_AstExpressionCase_3= ruleAstExpressionCase | this_AstExpressionLiteral_4= ruleAstExpressionLiteral | (otherlv_5= '(' this_AstExpression_6= ruleAstExpression otherlv_7= ')' ) ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6517:1: (this_AstExpressionList_0= ruleAstExpressionList | this_AstExpressionSymbolReference_1= ruleAstExpressionSymbolReference | this_AstExpressionIf_2= ruleAstExpressionIf | this_AstExpressionCase_3= ruleAstExpressionCase | this_AstExpressionLiteral_4= ruleAstExpressionLiteral | (otherlv_5= '(' this_AstExpression_6= ruleAstExpression otherlv_7= ')' ) )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6329:1: (this_AstExpressionList_0= ruleAstExpressionList | this_AstExpressionSymbolReference_1= ruleAstExpressionSymbolReference | this_AstExpressionIf_2= ruleAstExpressionIf | this_AstExpressionLiteral_3= ruleAstExpressionLiteral | (otherlv_4= '(' this_AstExpression_5= ruleAstExpression otherlv_6= ')' ) )
-            int alt140=5;
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6517:1: (this_AstExpressionList_0= ruleAstExpressionList | this_AstExpressionSymbolReference_1= ruleAstExpressionSymbolReference | this_AstExpressionIf_2= ruleAstExpressionIf | this_AstExpressionCase_3= ruleAstExpressionCase | this_AstExpressionLiteral_4= ruleAstExpressionLiteral | (otherlv_5= '(' this_AstExpression_6= ruleAstExpression otherlv_7= ')' ) )
+            int alt144=6;
             switch ( input.LA(1) ) {
             case 50:
                 {
-                alt140=1;
+                alt144=1;
                 }
                 break;
             case RULE_ID:
                 {
-                alt140=2;
+                alt144=2;
                 }
                 break;
             case 56:
                 {
-                alt140=3;
+                alt144=3;
+                }
+                break;
+            case 60:
+                {
+                alt144=4;
                 }
                 break;
             case RULE_BOOL:
@@ -15967,29 +16460,29 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             case RULE_STRING:
             case 21:
                 {
-                alt140=4;
+                alt144=5;
                 }
                 break;
             case 24:
                 {
-                alt140=5;
+                alt144=6;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 140, 0, input);
+                    new NoViableAltException("", 144, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt140) {
+            switch (alt144) {
                 case 1 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6330:5: this_AstExpressionList_0= ruleAstExpressionList
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6518:5: this_AstExpressionList_0= ruleAstExpressionList
                     {
                      
                             newCompositeNode(grammarAccess.getAstExpressionPostfixAccess().getAstExpressionListParserRuleCall_0()); 
                         
-                    pushFollow(FOLLOW_ruleAstExpressionList_in_ruleAstExpressionPostfix12983);
+                    pushFollow(FOLLOW_ruleAstExpressionList_in_ruleAstExpressionPostfix13370);
                     this_AstExpressionList_0=ruleAstExpressionList();
 
                     state._fsp--;
@@ -16002,12 +16495,12 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6340:5: this_AstExpressionSymbolReference_1= ruleAstExpressionSymbolReference
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6528:5: this_AstExpressionSymbolReference_1= ruleAstExpressionSymbolReference
                     {
                      
                             newCompositeNode(grammarAccess.getAstExpressionPostfixAccess().getAstExpressionSymbolReferenceParserRuleCall_1()); 
                         
-                    pushFollow(FOLLOW_ruleAstExpressionSymbolReference_in_ruleAstExpressionPostfix13010);
+                    pushFollow(FOLLOW_ruleAstExpressionSymbolReference_in_ruleAstExpressionPostfix13397);
                     this_AstExpressionSymbolReference_1=ruleAstExpressionSymbolReference();
 
                     state._fsp--;
@@ -16020,12 +16513,12 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6350:5: this_AstExpressionIf_2= ruleAstExpressionIf
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6538:5: this_AstExpressionIf_2= ruleAstExpressionIf
                     {
                      
                             newCompositeNode(grammarAccess.getAstExpressionPostfixAccess().getAstExpressionIfParserRuleCall_2()); 
                         
-                    pushFollow(FOLLOW_ruleAstExpressionIf_in_ruleAstExpressionPostfix13037);
+                    pushFollow(FOLLOW_ruleAstExpressionIf_in_ruleAstExpressionPostfix13424);
                     this_AstExpressionIf_2=ruleAstExpressionIf();
 
                     state._fsp--;
@@ -16038,48 +16531,66 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6360:5: this_AstExpressionLiteral_3= ruleAstExpressionLiteral
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6548:5: this_AstExpressionCase_3= ruleAstExpressionCase
                     {
                      
-                            newCompositeNode(grammarAccess.getAstExpressionPostfixAccess().getAstExpressionLiteralParserRuleCall_3()); 
+                            newCompositeNode(grammarAccess.getAstExpressionPostfixAccess().getAstExpressionCaseParserRuleCall_3()); 
                         
-                    pushFollow(FOLLOW_ruleAstExpressionLiteral_in_ruleAstExpressionPostfix13064);
-                    this_AstExpressionLiteral_3=ruleAstExpressionLiteral();
+                    pushFollow(FOLLOW_ruleAstExpressionCase_in_ruleAstExpressionPostfix13451);
+                    this_AstExpressionCase_3=ruleAstExpressionCase();
 
                     state._fsp--;
 
                      
-                            current = this_AstExpressionLiteral_3; 
+                            current = this_AstExpressionCase_3; 
                             afterParserOrEnumRuleCall();
                         
 
                     }
                     break;
                 case 5 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6369:6: (otherlv_4= '(' this_AstExpression_5= ruleAstExpression otherlv_6= ')' )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6558:5: this_AstExpressionLiteral_4= ruleAstExpressionLiteral
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6369:6: (otherlv_4= '(' this_AstExpression_5= ruleAstExpression otherlv_6= ')' )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6369:8: otherlv_4= '(' this_AstExpression_5= ruleAstExpression otherlv_6= ')'
-                    {
-                    otherlv_4=(Token)match(input,24,FOLLOW_24_in_ruleAstExpressionPostfix13082); 
-
-                        	newLeafNode(otherlv_4, grammarAccess.getAstExpressionPostfixAccess().getLeftParenthesisKeyword_4_0());
-                        
                      
-                            newCompositeNode(grammarAccess.getAstExpressionPostfixAccess().getAstExpressionParserRuleCall_4_1()); 
+                            newCompositeNode(grammarAccess.getAstExpressionPostfixAccess().getAstExpressionLiteralParserRuleCall_4()); 
                         
-                    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstExpressionPostfix13104);
-                    this_AstExpression_5=ruleAstExpression();
+                    pushFollow(FOLLOW_ruleAstExpressionLiteral_in_ruleAstExpressionPostfix13478);
+                    this_AstExpressionLiteral_4=ruleAstExpressionLiteral();
 
                     state._fsp--;
 
                      
-                            current = this_AstExpression_5; 
+                            current = this_AstExpressionLiteral_4; 
                             afterParserOrEnumRuleCall();
                         
-                    otherlv_6=(Token)match(input,26,FOLLOW_26_in_ruleAstExpressionPostfix13115); 
 
-                        	newLeafNode(otherlv_6, grammarAccess.getAstExpressionPostfixAccess().getRightParenthesisKeyword_4_2());
+                    }
+                    break;
+                case 6 :
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6567:6: (otherlv_5= '(' this_AstExpression_6= ruleAstExpression otherlv_7= ')' )
+                    {
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6567:6: (otherlv_5= '(' this_AstExpression_6= ruleAstExpression otherlv_7= ')' )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6567:8: otherlv_5= '(' this_AstExpression_6= ruleAstExpression otherlv_7= ')'
+                    {
+                    otherlv_5=(Token)match(input,24,FOLLOW_24_in_ruleAstExpressionPostfix13496); 
+
+                        	newLeafNode(otherlv_5, grammarAccess.getAstExpressionPostfixAccess().getLeftParenthesisKeyword_5_0());
+                        
+                     
+                            newCompositeNode(grammarAccess.getAstExpressionPostfixAccess().getAstExpressionParserRuleCall_5_1()); 
+                        
+                    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstExpressionPostfix13518);
+                    this_AstExpression_6=ruleAstExpression();
+
+                    state._fsp--;
+
+                     
+                            current = this_AstExpression_6; 
+                            afterParserOrEnumRuleCall();
+                        
+                    otherlv_7=(Token)match(input,26,FOLLOW_26_in_ruleAstExpressionPostfix13529); 
+
+                        	newLeafNode(otherlv_7, grammarAccess.getAstExpressionPostfixAccess().getRightParenthesisKeyword_5_2());
                         
 
                     }
@@ -16108,7 +16619,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAstExpressionSymbolReference"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6394:1: entryRuleAstExpressionSymbolReference returns [EObject current=null] : iv_ruleAstExpressionSymbolReference= ruleAstExpressionSymbolReference EOF ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6592:1: entryRuleAstExpressionSymbolReference returns [EObject current=null] : iv_ruleAstExpressionSymbolReference= ruleAstExpressionSymbolReference EOF ;
     public final EObject entryRuleAstExpressionSymbolReference() throws RecognitionException {
         EObject current = null;
 
@@ -16116,17 +16627,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6395:2: (iv_ruleAstExpressionSymbolReference= ruleAstExpressionSymbolReference EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6396:2: iv_ruleAstExpressionSymbolReference= ruleAstExpressionSymbolReference EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6593:2: (iv_ruleAstExpressionSymbolReference= ruleAstExpressionSymbolReference EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6594:2: iv_ruleAstExpressionSymbolReference= ruleAstExpressionSymbolReference EOF
             {
              newCompositeNode(grammarAccess.getAstExpressionSymbolReferenceRule()); 
-            pushFollow(FOLLOW_ruleAstExpressionSymbolReference_in_entryRuleAstExpressionSymbolReference13152);
+            pushFollow(FOLLOW_ruleAstExpressionSymbolReference_in_entryRuleAstExpressionSymbolReference13566);
             iv_ruleAstExpressionSymbolReference=ruleAstExpressionSymbolReference();
 
             state._fsp--;
 
              current =iv_ruleAstExpressionSymbolReference; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionSymbolReference13162); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionSymbolReference13576); 
 
             }
 
@@ -16144,7 +16655,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAstExpressionSymbolReference"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6403:1: ruleAstExpressionSymbolReference returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '[' ( (lv_indexes_2_0= ruleAstExpression ) ) otherlv_3= ']' )* ( (lv_member_4_0= ruleAstMemberAccess ) )* (otherlv_5= '::' ( (lv_ctor_6_0= RULE_ID ) ) )? ( ( (lv_call_7_0= '(' ) ) ( ( (lv_parameters_8_0= ruleAstExpression ) ) (otherlv_9= ',' ( (lv_parameters_10_0= ruleAstExpression ) ) )* )? otherlv_11= ')' )? ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6601:1: ruleAstExpressionSymbolReference returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '[' ( (lv_indexes_2_0= ruleAstExpression ) ) otherlv_3= ']' )* ( (lv_member_4_0= ruleAstMemberAccess ) )* (otherlv_5= '::' ( (lv_ctor_6_0= RULE_ID ) ) )? ( ( (lv_call_7_0= '(' ) ) ( ( (lv_parameters_8_0= ruleAstExpression ) ) (otherlv_9= ',' ( (lv_parameters_10_0= ruleAstExpression ) ) )* )? otherlv_11= ')' )? ) ;
     public final EObject ruleAstExpressionSymbolReference() throws RecognitionException {
         EObject current = null;
 
@@ -16168,24 +16679,24 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6406:28: ( ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '[' ( (lv_indexes_2_0= ruleAstExpression ) ) otherlv_3= ']' )* ( (lv_member_4_0= ruleAstMemberAccess ) )* (otherlv_5= '::' ( (lv_ctor_6_0= RULE_ID ) ) )? ( ( (lv_call_7_0= '(' ) ) ( ( (lv_parameters_8_0= ruleAstExpression ) ) (otherlv_9= ',' ( (lv_parameters_10_0= ruleAstExpression ) ) )* )? otherlv_11= ')' )? ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6407:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '[' ( (lv_indexes_2_0= ruleAstExpression ) ) otherlv_3= ']' )* ( (lv_member_4_0= ruleAstMemberAccess ) )* (otherlv_5= '::' ( (lv_ctor_6_0= RULE_ID ) ) )? ( ( (lv_call_7_0= '(' ) ) ( ( (lv_parameters_8_0= ruleAstExpression ) ) (otherlv_9= ',' ( (lv_parameters_10_0= ruleAstExpression ) ) )* )? otherlv_11= ')' )? )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6604:28: ( ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '[' ( (lv_indexes_2_0= ruleAstExpression ) ) otherlv_3= ']' )* ( (lv_member_4_0= ruleAstMemberAccess ) )* (otherlv_5= '::' ( (lv_ctor_6_0= RULE_ID ) ) )? ( ( (lv_call_7_0= '(' ) ) ( ( (lv_parameters_8_0= ruleAstExpression ) ) (otherlv_9= ',' ( (lv_parameters_10_0= ruleAstExpression ) ) )* )? otherlv_11= ')' )? ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6605:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '[' ( (lv_indexes_2_0= ruleAstExpression ) ) otherlv_3= ']' )* ( (lv_member_4_0= ruleAstMemberAccess ) )* (otherlv_5= '::' ( (lv_ctor_6_0= RULE_ID ) ) )? ( ( (lv_call_7_0= '(' ) ) ( ( (lv_parameters_8_0= ruleAstExpression ) ) (otherlv_9= ',' ( (lv_parameters_10_0= ruleAstExpression ) ) )* )? otherlv_11= ')' )? )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6407:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '[' ( (lv_indexes_2_0= ruleAstExpression ) ) otherlv_3= ']' )* ( (lv_member_4_0= ruleAstMemberAccess ) )* (otherlv_5= '::' ( (lv_ctor_6_0= RULE_ID ) ) )? ( ( (lv_call_7_0= '(' ) ) ( ( (lv_parameters_8_0= ruleAstExpression ) ) (otherlv_9= ',' ( (lv_parameters_10_0= ruleAstExpression ) ) )* )? otherlv_11= ')' )? )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6407:2: ( (otherlv_0= RULE_ID ) ) (otherlv_1= '[' ( (lv_indexes_2_0= ruleAstExpression ) ) otherlv_3= ']' )* ( (lv_member_4_0= ruleAstMemberAccess ) )* (otherlv_5= '::' ( (lv_ctor_6_0= RULE_ID ) ) )? ( ( (lv_call_7_0= '(' ) ) ( ( (lv_parameters_8_0= ruleAstExpression ) ) (otherlv_9= ',' ( (lv_parameters_10_0= ruleAstExpression ) ) )* )? otherlv_11= ')' )?
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6605:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '[' ( (lv_indexes_2_0= ruleAstExpression ) ) otherlv_3= ']' )* ( (lv_member_4_0= ruleAstMemberAccess ) )* (otherlv_5= '::' ( (lv_ctor_6_0= RULE_ID ) ) )? ( ( (lv_call_7_0= '(' ) ) ( ( (lv_parameters_8_0= ruleAstExpression ) ) (otherlv_9= ',' ( (lv_parameters_10_0= ruleAstExpression ) ) )* )? otherlv_11= ')' )? )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6605:2: ( (otherlv_0= RULE_ID ) ) (otherlv_1= '[' ( (lv_indexes_2_0= ruleAstExpression ) ) otherlv_3= ']' )* ( (lv_member_4_0= ruleAstMemberAccess ) )* (otherlv_5= '::' ( (lv_ctor_6_0= RULE_ID ) ) )? ( ( (lv_call_7_0= '(' ) ) ( ( (lv_parameters_8_0= ruleAstExpression ) ) (otherlv_9= ',' ( (lv_parameters_10_0= ruleAstExpression ) ) )* )? otherlv_11= ')' )?
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6407:2: ( (otherlv_0= RULE_ID ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6408:1: (otherlv_0= RULE_ID )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6605:2: ( (otherlv_0= RULE_ID ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6606:1: (otherlv_0= RULE_ID )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6408:1: (otherlv_0= RULE_ID )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6409:3: otherlv_0= RULE_ID
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6606:1: (otherlv_0= RULE_ID )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6607:3: otherlv_0= RULE_ID
             {
 
             			if (current==null) {
             	            current = createModelElement(grammarAccess.getAstExpressionSymbolReferenceRule());
             	        }
                     
-            otherlv_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAstExpressionSymbolReference13207); 
+            otherlv_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAstExpressionSymbolReference13621); 
 
             		newLeafNode(otherlv_0, grammarAccess.getAstExpressionSymbolReferenceAccess().getSymbolAstVariableCrossReference_0_0()); 
             	
@@ -16195,35 +16706,35 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6420:2: (otherlv_1= '[' ( (lv_indexes_2_0= ruleAstExpression ) ) otherlv_3= ']' )*
-            loop141:
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6618:2: (otherlv_1= '[' ( (lv_indexes_2_0= ruleAstExpression ) ) otherlv_3= ']' )*
+            loop145:
             do {
-                int alt141=2;
-                int LA141_0 = input.LA(1);
+                int alt145=2;
+                int LA145_0 = input.LA(1);
 
-                if ( (LA141_0==50) ) {
-                    alt141=1;
+                if ( (LA145_0==50) ) {
+                    alt145=1;
                 }
 
 
-                switch (alt141) {
+                switch (alt145) {
             	case 1 :
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6420:4: otherlv_1= '[' ( (lv_indexes_2_0= ruleAstExpression ) ) otherlv_3= ']'
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6618:4: otherlv_1= '[' ( (lv_indexes_2_0= ruleAstExpression ) ) otherlv_3= ']'
             	    {
-            	    otherlv_1=(Token)match(input,50,FOLLOW_50_in_ruleAstExpressionSymbolReference13220); 
+            	    otherlv_1=(Token)match(input,50,FOLLOW_50_in_ruleAstExpressionSymbolReference13634); 
 
             	        	newLeafNode(otherlv_1, grammarAccess.getAstExpressionSymbolReferenceAccess().getLeftSquareBracketKeyword_1_0());
             	        
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6424:1: ( (lv_indexes_2_0= ruleAstExpression ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6425:1: (lv_indexes_2_0= ruleAstExpression )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6622:1: ( (lv_indexes_2_0= ruleAstExpression ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6623:1: (lv_indexes_2_0= ruleAstExpression )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6425:1: (lv_indexes_2_0= ruleAstExpression )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6426:3: lv_indexes_2_0= ruleAstExpression
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6623:1: (lv_indexes_2_0= ruleAstExpression )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6624:3: lv_indexes_2_0= ruleAstExpression
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getAstExpressionSymbolReferenceAccess().getIndexesAstExpressionParserRuleCall_1_1_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstExpressionSymbolReference13241);
+            	    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstExpressionSymbolReference13655);
             	    lv_indexes_2_0=ruleAstExpression();
 
             	    state._fsp--;
@@ -16245,7 +16756,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_3=(Token)match(input,51,FOLLOW_51_in_ruleAstExpressionSymbolReference13253); 
+            	    otherlv_3=(Token)match(input,51,FOLLOW_51_in_ruleAstExpressionSymbolReference13667); 
 
             	        	newLeafNode(otherlv_3, grammarAccess.getAstExpressionSymbolReferenceAccess().getRightSquareBracketKeyword_1_2());
             	        
@@ -16254,32 +16765,32 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop141;
+            	    break loop145;
                 }
             } while (true);
 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6446:3: ( (lv_member_4_0= ruleAstMemberAccess ) )*
-            loop142:
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6644:3: ( (lv_member_4_0= ruleAstMemberAccess ) )*
+            loop146:
             do {
-                int alt142=2;
-                int LA142_0 = input.LA(1);
+                int alt146=2;
+                int LA146_0 = input.LA(1);
 
-                if ( (LA142_0==21) ) {
-                    alt142=1;
+                if ( (LA146_0==21) ) {
+                    alt146=1;
                 }
 
 
-                switch (alt142) {
+                switch (alt146) {
             	case 1 :
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6447:1: (lv_member_4_0= ruleAstMemberAccess )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6645:1: (lv_member_4_0= ruleAstMemberAccess )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6447:1: (lv_member_4_0= ruleAstMemberAccess )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6448:3: lv_member_4_0= ruleAstMemberAccess
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6645:1: (lv_member_4_0= ruleAstMemberAccess )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6646:3: lv_member_4_0= ruleAstMemberAccess
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getAstExpressionSymbolReferenceAccess().getMemberAstMemberAccessParserRuleCall_2_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleAstMemberAccess_in_ruleAstExpressionSymbolReference13276);
+            	    pushFollow(FOLLOW_ruleAstMemberAccess_in_ruleAstExpressionSymbolReference13690);
             	    lv_member_4_0=ruleAstMemberAccess();
 
             	    state._fsp--;
@@ -16303,32 +16814,32 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop142;
+            	    break loop146;
                 }
             } while (true);
 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6464:3: (otherlv_5= '::' ( (lv_ctor_6_0= RULE_ID ) ) )?
-            int alt143=2;
-            int LA143_0 = input.LA(1);
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6662:3: (otherlv_5= '::' ( (lv_ctor_6_0= RULE_ID ) ) )?
+            int alt147=2;
+            int LA147_0 = input.LA(1);
 
-            if ( (LA143_0==85) ) {
-                alt143=1;
+            if ( (LA147_0==87) ) {
+                alt147=1;
             }
-            switch (alt143) {
+            switch (alt147) {
                 case 1 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6464:5: otherlv_5= '::' ( (lv_ctor_6_0= RULE_ID ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6662:5: otherlv_5= '::' ( (lv_ctor_6_0= RULE_ID ) )
                     {
-                    otherlv_5=(Token)match(input,85,FOLLOW_85_in_ruleAstExpressionSymbolReference13290); 
+                    otherlv_5=(Token)match(input,87,FOLLOW_87_in_ruleAstExpressionSymbolReference13704); 
 
                         	newLeafNode(otherlv_5, grammarAccess.getAstExpressionSymbolReferenceAccess().getColonColonKeyword_3_0());
                         
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6468:1: ( (lv_ctor_6_0= RULE_ID ) )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6469:1: (lv_ctor_6_0= RULE_ID )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6666:1: ( (lv_ctor_6_0= RULE_ID ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6667:1: (lv_ctor_6_0= RULE_ID )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6469:1: (lv_ctor_6_0= RULE_ID )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6470:3: lv_ctor_6_0= RULE_ID
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6667:1: (lv_ctor_6_0= RULE_ID )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6668:3: lv_ctor_6_0= RULE_ID
                     {
-                    lv_ctor_6_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAstExpressionSymbolReference13307); 
+                    lv_ctor_6_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAstExpressionSymbolReference13721); 
 
                     			newLeafNode(lv_ctor_6_0, grammarAccess.getAstExpressionSymbolReferenceAccess().getCtorIDTerminalRuleCall_3_1_0()); 
                     		
@@ -16354,24 +16865,24 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6486:4: ( ( (lv_call_7_0= '(' ) ) ( ( (lv_parameters_8_0= ruleAstExpression ) ) (otherlv_9= ',' ( (lv_parameters_10_0= ruleAstExpression ) ) )* )? otherlv_11= ')' )?
-            int alt146=2;
-            int LA146_0 = input.LA(1);
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6684:4: ( ( (lv_call_7_0= '(' ) ) ( ( (lv_parameters_8_0= ruleAstExpression ) ) (otherlv_9= ',' ( (lv_parameters_10_0= ruleAstExpression ) ) )* )? otherlv_11= ')' )?
+            int alt150=2;
+            int LA150_0 = input.LA(1);
 
-            if ( (LA146_0==24) ) {
-                alt146=1;
+            if ( (LA150_0==24) ) {
+                alt150=1;
             }
-            switch (alt146) {
+            switch (alt150) {
                 case 1 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6486:5: ( (lv_call_7_0= '(' ) ) ( ( (lv_parameters_8_0= ruleAstExpression ) ) (otherlv_9= ',' ( (lv_parameters_10_0= ruleAstExpression ) ) )* )? otherlv_11= ')'
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6684:5: ( (lv_call_7_0= '(' ) ) ( ( (lv_parameters_8_0= ruleAstExpression ) ) (otherlv_9= ',' ( (lv_parameters_10_0= ruleAstExpression ) ) )* )? otherlv_11= ')'
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6486:5: ( (lv_call_7_0= '(' ) )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6487:1: (lv_call_7_0= '(' )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6684:5: ( (lv_call_7_0= '(' ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6685:1: (lv_call_7_0= '(' )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6487:1: (lv_call_7_0= '(' )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6488:3: lv_call_7_0= '('
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6685:1: (lv_call_7_0= '(' )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6686:3: lv_call_7_0= '('
                     {
-                    lv_call_7_0=(Token)match(input,24,FOLLOW_24_in_ruleAstExpressionSymbolReference13333); 
+                    lv_call_7_0=(Token)match(input,24,FOLLOW_24_in_ruleAstExpressionSymbolReference13747); 
 
                             newLeafNode(lv_call_7_0, grammarAccess.getAstExpressionSymbolReferenceAccess().getCallLeftParenthesisKeyword_4_0_0());
                         
@@ -16387,27 +16898,27 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6501:2: ( ( (lv_parameters_8_0= ruleAstExpression ) ) (otherlv_9= ',' ( (lv_parameters_10_0= ruleAstExpression ) ) )* )?
-                    int alt145=2;
-                    int LA145_0 = input.LA(1);
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6699:2: ( ( (lv_parameters_8_0= ruleAstExpression ) ) (otherlv_9= ',' ( (lv_parameters_10_0= ruleAstExpression ) ) )* )?
+                    int alt149=2;
+                    int LA149_0 = input.LA(1);
 
-                    if ( ((LA145_0>=RULE_ID && LA145_0<=RULE_STRING)||LA145_0==21||LA145_0==24||LA145_0==50||LA145_0==56||LA145_0==75||(LA145_0>=81 && LA145_0<=84)) ) {
-                        alt145=1;
+                    if ( ((LA149_0>=RULE_ID && LA149_0<=RULE_STRING)||LA149_0==21||LA149_0==24||LA149_0==50||LA149_0==56||LA149_0==60||LA149_0==77||(LA149_0>=83 && LA149_0<=86)) ) {
+                        alt149=1;
                     }
-                    switch (alt145) {
+                    switch (alt149) {
                         case 1 :
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6501:3: ( (lv_parameters_8_0= ruleAstExpression ) ) (otherlv_9= ',' ( (lv_parameters_10_0= ruleAstExpression ) ) )*
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6699:3: ( (lv_parameters_8_0= ruleAstExpression ) ) (otherlv_9= ',' ( (lv_parameters_10_0= ruleAstExpression ) ) )*
                             {
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6501:3: ( (lv_parameters_8_0= ruleAstExpression ) )
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6502:1: (lv_parameters_8_0= ruleAstExpression )
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6699:3: ( (lv_parameters_8_0= ruleAstExpression ) )
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6700:1: (lv_parameters_8_0= ruleAstExpression )
                             {
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6502:1: (lv_parameters_8_0= ruleAstExpression )
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6503:3: lv_parameters_8_0= ruleAstExpression
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6700:1: (lv_parameters_8_0= ruleAstExpression )
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6701:3: lv_parameters_8_0= ruleAstExpression
                             {
                              
                             	        newCompositeNode(grammarAccess.getAstExpressionSymbolReferenceAccess().getParametersAstExpressionParserRuleCall_4_1_0_0()); 
                             	    
-                            pushFollow(FOLLOW_ruleAstExpression_in_ruleAstExpressionSymbolReference13368);
+                            pushFollow(FOLLOW_ruleAstExpression_in_ruleAstExpressionSymbolReference13782);
                             lv_parameters_8_0=ruleAstExpression();
 
                             state._fsp--;
@@ -16429,35 +16940,35 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6519:2: (otherlv_9= ',' ( (lv_parameters_10_0= ruleAstExpression ) ) )*
-                            loop144:
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6717:2: (otherlv_9= ',' ( (lv_parameters_10_0= ruleAstExpression ) ) )*
+                            loop148:
                             do {
-                                int alt144=2;
-                                int LA144_0 = input.LA(1);
+                                int alt148=2;
+                                int LA148_0 = input.LA(1);
 
-                                if ( (LA144_0==25) ) {
-                                    alt144=1;
+                                if ( (LA148_0==25) ) {
+                                    alt148=1;
                                 }
 
 
-                                switch (alt144) {
+                                switch (alt148) {
                             	case 1 :
-                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6519:4: otherlv_9= ',' ( (lv_parameters_10_0= ruleAstExpression ) )
+                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6717:4: otherlv_9= ',' ( (lv_parameters_10_0= ruleAstExpression ) )
                             	    {
-                            	    otherlv_9=(Token)match(input,25,FOLLOW_25_in_ruleAstExpressionSymbolReference13381); 
+                            	    otherlv_9=(Token)match(input,25,FOLLOW_25_in_ruleAstExpressionSymbolReference13795); 
 
                             	        	newLeafNode(otherlv_9, grammarAccess.getAstExpressionSymbolReferenceAccess().getCommaKeyword_4_1_1_0());
                             	        
-                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6523:1: ( (lv_parameters_10_0= ruleAstExpression ) )
-                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6524:1: (lv_parameters_10_0= ruleAstExpression )
+                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6721:1: ( (lv_parameters_10_0= ruleAstExpression ) )
+                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6722:1: (lv_parameters_10_0= ruleAstExpression )
                             	    {
-                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6524:1: (lv_parameters_10_0= ruleAstExpression )
-                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6525:3: lv_parameters_10_0= ruleAstExpression
+                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6722:1: (lv_parameters_10_0= ruleAstExpression )
+                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6723:3: lv_parameters_10_0= ruleAstExpression
                             	    {
                             	     
                             	    	        newCompositeNode(grammarAccess.getAstExpressionSymbolReferenceAccess().getParametersAstExpressionParserRuleCall_4_1_1_1_0()); 
                             	    	    
-                            	    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstExpressionSymbolReference13402);
+                            	    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstExpressionSymbolReference13816);
                             	    lv_parameters_10_0=ruleAstExpression();
 
                             	    state._fsp--;
@@ -16484,7 +16995,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                             	    break;
 
                             	default :
-                            	    break loop144;
+                            	    break loop148;
                                 }
                             } while (true);
 
@@ -16494,7 +17005,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_11=(Token)match(input,26,FOLLOW_26_in_ruleAstExpressionSymbolReference13418); 
+                    otherlv_11=(Token)match(input,26,FOLLOW_26_in_ruleAstExpressionSymbolReference13832); 
 
                         	newLeafNode(otherlv_11, grammarAccess.getAstExpressionSymbolReferenceAccess().getRightParenthesisKeyword_4_2());
                         
@@ -16525,7 +17036,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAstExpressionIf"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6553:1: entryRuleAstExpressionIf returns [EObject current=null] : iv_ruleAstExpressionIf= ruleAstExpressionIf EOF ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6751:1: entryRuleAstExpressionIf returns [EObject current=null] : iv_ruleAstExpressionIf= ruleAstExpressionIf EOF ;
     public final EObject entryRuleAstExpressionIf() throws RecognitionException {
         EObject current = null;
 
@@ -16533,17 +17044,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6554:2: (iv_ruleAstExpressionIf= ruleAstExpressionIf EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6555:2: iv_ruleAstExpressionIf= ruleAstExpressionIf EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6752:2: (iv_ruleAstExpressionIf= ruleAstExpressionIf EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6753:2: iv_ruleAstExpressionIf= ruleAstExpressionIf EOF
             {
              newCompositeNode(grammarAccess.getAstExpressionIfRule()); 
-            pushFollow(FOLLOW_ruleAstExpressionIf_in_entryRuleAstExpressionIf13456);
+            pushFollow(FOLLOW_ruleAstExpressionIf_in_entryRuleAstExpressionIf13870);
             iv_ruleAstExpressionIf=ruleAstExpressionIf();
 
             state._fsp--;
 
              current =iv_ruleAstExpressionIf; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionIf13466); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionIf13880); 
 
             }
 
@@ -16561,7 +17072,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAstExpressionIf"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6562:1: ruleAstExpressionIf returns [EObject current=null] : (otherlv_0= 'if' ( (lv_condition_1_0= ruleAstExpression ) ) otherlv_2= 'then' ( (lv_then_3_0= ruleAstExpression ) ) otherlv_4= 'else' ( (lv_else_5_0= ruleAstExpression ) ) otherlv_6= 'end' ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6760:1: ruleAstExpressionIf returns [EObject current=null] : (otherlv_0= 'if' ( (lv_condition_1_0= ruleAstExpression ) ) otherlv_2= 'then' ( (lv_then_3_0= ruleAstExpression ) ) otherlv_4= 'else' ( (lv_else_5_0= ruleAstExpression ) ) otherlv_6= 'end' ) ;
     public final EObject ruleAstExpressionIf() throws RecognitionException {
         EObject current = null;
 
@@ -16579,26 +17090,26 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6565:28: ( (otherlv_0= 'if' ( (lv_condition_1_0= ruleAstExpression ) ) otherlv_2= 'then' ( (lv_then_3_0= ruleAstExpression ) ) otherlv_4= 'else' ( (lv_else_5_0= ruleAstExpression ) ) otherlv_6= 'end' ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6566:1: (otherlv_0= 'if' ( (lv_condition_1_0= ruleAstExpression ) ) otherlv_2= 'then' ( (lv_then_3_0= ruleAstExpression ) ) otherlv_4= 'else' ( (lv_else_5_0= ruleAstExpression ) ) otherlv_6= 'end' )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6763:28: ( (otherlv_0= 'if' ( (lv_condition_1_0= ruleAstExpression ) ) otherlv_2= 'then' ( (lv_then_3_0= ruleAstExpression ) ) otherlv_4= 'else' ( (lv_else_5_0= ruleAstExpression ) ) otherlv_6= 'end' ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6764:1: (otherlv_0= 'if' ( (lv_condition_1_0= ruleAstExpression ) ) otherlv_2= 'then' ( (lv_then_3_0= ruleAstExpression ) ) otherlv_4= 'else' ( (lv_else_5_0= ruleAstExpression ) ) otherlv_6= 'end' )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6566:1: (otherlv_0= 'if' ( (lv_condition_1_0= ruleAstExpression ) ) otherlv_2= 'then' ( (lv_then_3_0= ruleAstExpression ) ) otherlv_4= 'else' ( (lv_else_5_0= ruleAstExpression ) ) otherlv_6= 'end' )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6566:3: otherlv_0= 'if' ( (lv_condition_1_0= ruleAstExpression ) ) otherlv_2= 'then' ( (lv_then_3_0= ruleAstExpression ) ) otherlv_4= 'else' ( (lv_else_5_0= ruleAstExpression ) ) otherlv_6= 'end'
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6764:1: (otherlv_0= 'if' ( (lv_condition_1_0= ruleAstExpression ) ) otherlv_2= 'then' ( (lv_then_3_0= ruleAstExpression ) ) otherlv_4= 'else' ( (lv_else_5_0= ruleAstExpression ) ) otherlv_6= 'end' )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6764:3: otherlv_0= 'if' ( (lv_condition_1_0= ruleAstExpression ) ) otherlv_2= 'then' ( (lv_then_3_0= ruleAstExpression ) ) otherlv_4= 'else' ( (lv_else_5_0= ruleAstExpression ) ) otherlv_6= 'end'
             {
-            otherlv_0=(Token)match(input,56,FOLLOW_56_in_ruleAstExpressionIf13503); 
+            otherlv_0=(Token)match(input,56,FOLLOW_56_in_ruleAstExpressionIf13917); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getAstExpressionIfAccess().getIfKeyword_0());
                 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6570:1: ( (lv_condition_1_0= ruleAstExpression ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6571:1: (lv_condition_1_0= ruleAstExpression )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6768:1: ( (lv_condition_1_0= ruleAstExpression ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6769:1: (lv_condition_1_0= ruleAstExpression )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6571:1: (lv_condition_1_0= ruleAstExpression )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6572:3: lv_condition_1_0= ruleAstExpression
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6769:1: (lv_condition_1_0= ruleAstExpression )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6770:3: lv_condition_1_0= ruleAstExpression
             {
              
             	        newCompositeNode(grammarAccess.getAstExpressionIfAccess().getConditionAstExpressionParserRuleCall_1_0()); 
             	    
-            pushFollow(FOLLOW_ruleAstExpression_in_ruleAstExpressionIf13524);
+            pushFollow(FOLLOW_ruleAstExpression_in_ruleAstExpressionIf13938);
             lv_condition_1_0=ruleAstExpression();
 
             state._fsp--;
@@ -16620,20 +17131,20 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,57,FOLLOW_57_in_ruleAstExpressionIf13536); 
+            otherlv_2=(Token)match(input,57,FOLLOW_57_in_ruleAstExpressionIf13950); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getAstExpressionIfAccess().getThenKeyword_2());
                 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6592:1: ( (lv_then_3_0= ruleAstExpression ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6593:1: (lv_then_3_0= ruleAstExpression )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6790:1: ( (lv_then_3_0= ruleAstExpression ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6791:1: (lv_then_3_0= ruleAstExpression )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6593:1: (lv_then_3_0= ruleAstExpression )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6594:3: lv_then_3_0= ruleAstExpression
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6791:1: (lv_then_3_0= ruleAstExpression )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6792:3: lv_then_3_0= ruleAstExpression
             {
              
             	        newCompositeNode(grammarAccess.getAstExpressionIfAccess().getThenAstExpressionParserRuleCall_3_0()); 
             	    
-            pushFollow(FOLLOW_ruleAstExpression_in_ruleAstExpressionIf13557);
+            pushFollow(FOLLOW_ruleAstExpression_in_ruleAstExpressionIf13971);
             lv_then_3_0=ruleAstExpression();
 
             state._fsp--;
@@ -16655,20 +17166,20 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_4=(Token)match(input,58,FOLLOW_58_in_ruleAstExpressionIf13569); 
+            otherlv_4=(Token)match(input,58,FOLLOW_58_in_ruleAstExpressionIf13983); 
 
                 	newLeafNode(otherlv_4, grammarAccess.getAstExpressionIfAccess().getElseKeyword_4());
                 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6614:1: ( (lv_else_5_0= ruleAstExpression ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6615:1: (lv_else_5_0= ruleAstExpression )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6812:1: ( (lv_else_5_0= ruleAstExpression ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6813:1: (lv_else_5_0= ruleAstExpression )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6615:1: (lv_else_5_0= ruleAstExpression )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6616:3: lv_else_5_0= ruleAstExpression
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6813:1: (lv_else_5_0= ruleAstExpression )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6814:3: lv_else_5_0= ruleAstExpression
             {
              
             	        newCompositeNode(grammarAccess.getAstExpressionIfAccess().getElseAstExpressionParserRuleCall_5_0()); 
             	    
-            pushFollow(FOLLOW_ruleAstExpression_in_ruleAstExpressionIf13590);
+            pushFollow(FOLLOW_ruleAstExpression_in_ruleAstExpressionIf14004);
             lv_else_5_0=ruleAstExpression();
 
             state._fsp--;
@@ -16690,7 +17201,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_6=(Token)match(input,18,FOLLOW_18_in_ruleAstExpressionIf13602); 
+            otherlv_6=(Token)match(input,18,FOLLOW_18_in_ruleAstExpressionIf14016); 
 
                 	newLeafNode(otherlv_6, grammarAccess.getAstExpressionIfAccess().getEndKeyword_6());
                 
@@ -16715,7 +17226,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAstExpressionList"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6644:1: entryRuleAstExpressionList returns [EObject current=null] : iv_ruleAstExpressionList= ruleAstExpressionList EOF ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6842:1: entryRuleAstExpressionList returns [EObject current=null] : iv_ruleAstExpressionList= ruleAstExpressionList EOF ;
     public final EObject entryRuleAstExpressionList() throws RecognitionException {
         EObject current = null;
 
@@ -16723,17 +17234,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6645:2: (iv_ruleAstExpressionList= ruleAstExpressionList EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6646:2: iv_ruleAstExpressionList= ruleAstExpressionList EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6843:2: (iv_ruleAstExpressionList= ruleAstExpressionList EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6844:2: iv_ruleAstExpressionList= ruleAstExpressionList EOF
             {
              newCompositeNode(grammarAccess.getAstExpressionListRule()); 
-            pushFollow(FOLLOW_ruleAstExpressionList_in_entryRuleAstExpressionList13638);
+            pushFollow(FOLLOW_ruleAstExpressionList_in_entryRuleAstExpressionList14052);
             iv_ruleAstExpressionList=ruleAstExpressionList();
 
             state._fsp--;
 
              current =iv_ruleAstExpressionList; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionList13648); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionList14062); 
 
             }
 
@@ -16751,7 +17262,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAstExpressionList"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6653:1: ruleAstExpressionList returns [EObject current=null] : (otherlv_0= '[' ( (lv_expressions_1_0= ruleAstExpression ) ) (otherlv_2= ',' ( (lv_expressions_3_0= ruleAstExpression ) ) )* (otherlv_4= ':' ( (lv_generators_5_0= ruleAstGenerator ) ) (otherlv_6= ',' ( (lv_generators_7_0= ruleAstGenerator ) ) )* )? otherlv_8= ']' ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6851:1: ruleAstExpressionList returns [EObject current=null] : (otherlv_0= '[' ( (lv_expressions_1_0= ruleAstExpression ) ) (otherlv_2= ',' ( (lv_expressions_3_0= ruleAstExpression ) ) )* (otherlv_4= ':' ( (lv_generators_5_0= ruleAstGenerator ) ) (otherlv_6= ',' ( (lv_generators_7_0= ruleAstGenerator ) ) )* )? otherlv_8= ']' ) ;
     public final EObject ruleAstExpressionList() throws RecognitionException {
         EObject current = null;
 
@@ -16772,26 +17283,26 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6656:28: ( (otherlv_0= '[' ( (lv_expressions_1_0= ruleAstExpression ) ) (otherlv_2= ',' ( (lv_expressions_3_0= ruleAstExpression ) ) )* (otherlv_4= ':' ( (lv_generators_5_0= ruleAstGenerator ) ) (otherlv_6= ',' ( (lv_generators_7_0= ruleAstGenerator ) ) )* )? otherlv_8= ']' ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6657:1: (otherlv_0= '[' ( (lv_expressions_1_0= ruleAstExpression ) ) (otherlv_2= ',' ( (lv_expressions_3_0= ruleAstExpression ) ) )* (otherlv_4= ':' ( (lv_generators_5_0= ruleAstGenerator ) ) (otherlv_6= ',' ( (lv_generators_7_0= ruleAstGenerator ) ) )* )? otherlv_8= ']' )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6854:28: ( (otherlv_0= '[' ( (lv_expressions_1_0= ruleAstExpression ) ) (otherlv_2= ',' ( (lv_expressions_3_0= ruleAstExpression ) ) )* (otherlv_4= ':' ( (lv_generators_5_0= ruleAstGenerator ) ) (otherlv_6= ',' ( (lv_generators_7_0= ruleAstGenerator ) ) )* )? otherlv_8= ']' ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6855:1: (otherlv_0= '[' ( (lv_expressions_1_0= ruleAstExpression ) ) (otherlv_2= ',' ( (lv_expressions_3_0= ruleAstExpression ) ) )* (otherlv_4= ':' ( (lv_generators_5_0= ruleAstGenerator ) ) (otherlv_6= ',' ( (lv_generators_7_0= ruleAstGenerator ) ) )* )? otherlv_8= ']' )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6657:1: (otherlv_0= '[' ( (lv_expressions_1_0= ruleAstExpression ) ) (otherlv_2= ',' ( (lv_expressions_3_0= ruleAstExpression ) ) )* (otherlv_4= ':' ( (lv_generators_5_0= ruleAstGenerator ) ) (otherlv_6= ',' ( (lv_generators_7_0= ruleAstGenerator ) ) )* )? otherlv_8= ']' )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6657:3: otherlv_0= '[' ( (lv_expressions_1_0= ruleAstExpression ) ) (otherlv_2= ',' ( (lv_expressions_3_0= ruleAstExpression ) ) )* (otherlv_4= ':' ( (lv_generators_5_0= ruleAstGenerator ) ) (otherlv_6= ',' ( (lv_generators_7_0= ruleAstGenerator ) ) )* )? otherlv_8= ']'
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6855:1: (otherlv_0= '[' ( (lv_expressions_1_0= ruleAstExpression ) ) (otherlv_2= ',' ( (lv_expressions_3_0= ruleAstExpression ) ) )* (otherlv_4= ':' ( (lv_generators_5_0= ruleAstGenerator ) ) (otherlv_6= ',' ( (lv_generators_7_0= ruleAstGenerator ) ) )* )? otherlv_8= ']' )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6855:3: otherlv_0= '[' ( (lv_expressions_1_0= ruleAstExpression ) ) (otherlv_2= ',' ( (lv_expressions_3_0= ruleAstExpression ) ) )* (otherlv_4= ':' ( (lv_generators_5_0= ruleAstGenerator ) ) (otherlv_6= ',' ( (lv_generators_7_0= ruleAstGenerator ) ) )* )? otherlv_8= ']'
             {
-            otherlv_0=(Token)match(input,50,FOLLOW_50_in_ruleAstExpressionList13685); 
+            otherlv_0=(Token)match(input,50,FOLLOW_50_in_ruleAstExpressionList14099); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getAstExpressionListAccess().getLeftSquareBracketKeyword_0());
                 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6661:1: ( (lv_expressions_1_0= ruleAstExpression ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6662:1: (lv_expressions_1_0= ruleAstExpression )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6859:1: ( (lv_expressions_1_0= ruleAstExpression ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6860:1: (lv_expressions_1_0= ruleAstExpression )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6662:1: (lv_expressions_1_0= ruleAstExpression )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6663:3: lv_expressions_1_0= ruleAstExpression
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6860:1: (lv_expressions_1_0= ruleAstExpression )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6861:3: lv_expressions_1_0= ruleAstExpression
             {
              
             	        newCompositeNode(grammarAccess.getAstExpressionListAccess().getExpressionsAstExpressionParserRuleCall_1_0()); 
             	    
-            pushFollow(FOLLOW_ruleAstExpression_in_ruleAstExpressionList13706);
+            pushFollow(FOLLOW_ruleAstExpression_in_ruleAstExpressionList14120);
             lv_expressions_1_0=ruleAstExpression();
 
             state._fsp--;
@@ -16813,35 +17324,35 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6679:2: (otherlv_2= ',' ( (lv_expressions_3_0= ruleAstExpression ) ) )*
-            loop147:
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6877:2: (otherlv_2= ',' ( (lv_expressions_3_0= ruleAstExpression ) ) )*
+            loop151:
             do {
-                int alt147=2;
-                int LA147_0 = input.LA(1);
+                int alt151=2;
+                int LA151_0 = input.LA(1);
 
-                if ( (LA147_0==25) ) {
-                    alt147=1;
+                if ( (LA151_0==25) ) {
+                    alt151=1;
                 }
 
 
-                switch (alt147) {
+                switch (alt151) {
             	case 1 :
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6679:4: otherlv_2= ',' ( (lv_expressions_3_0= ruleAstExpression ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6877:4: otherlv_2= ',' ( (lv_expressions_3_0= ruleAstExpression ) )
             	    {
-            	    otherlv_2=(Token)match(input,25,FOLLOW_25_in_ruleAstExpressionList13719); 
+            	    otherlv_2=(Token)match(input,25,FOLLOW_25_in_ruleAstExpressionList14133); 
 
             	        	newLeafNode(otherlv_2, grammarAccess.getAstExpressionListAccess().getCommaKeyword_2_0());
             	        
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6683:1: ( (lv_expressions_3_0= ruleAstExpression ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6684:1: (lv_expressions_3_0= ruleAstExpression )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6881:1: ( (lv_expressions_3_0= ruleAstExpression ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6882:1: (lv_expressions_3_0= ruleAstExpression )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6684:1: (lv_expressions_3_0= ruleAstExpression )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6685:3: lv_expressions_3_0= ruleAstExpression
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6882:1: (lv_expressions_3_0= ruleAstExpression )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6883:3: lv_expressions_3_0= ruleAstExpression
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getAstExpressionListAccess().getExpressionsAstExpressionParserRuleCall_2_1_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstExpressionList13740);
+            	    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstExpressionList14154);
             	    lv_expressions_3_0=ruleAstExpression();
 
             	    state._fsp--;
@@ -16868,35 +17379,35 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop147;
+            	    break loop151;
                 }
             } while (true);
 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6701:4: (otherlv_4= ':' ( (lv_generators_5_0= ruleAstGenerator ) ) (otherlv_6= ',' ( (lv_generators_7_0= ruleAstGenerator ) ) )* )?
-            int alt149=2;
-            int LA149_0 = input.LA(1);
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6899:4: (otherlv_4= ':' ( (lv_generators_5_0= ruleAstGenerator ) ) (otherlv_6= ',' ( (lv_generators_7_0= ruleAstGenerator ) ) )* )?
+            int alt153=2;
+            int LA153_0 = input.LA(1);
 
-            if ( (LA149_0==17) ) {
-                alt149=1;
+            if ( (LA153_0==17) ) {
+                alt153=1;
             }
-            switch (alt149) {
+            switch (alt153) {
                 case 1 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6701:6: otherlv_4= ':' ( (lv_generators_5_0= ruleAstGenerator ) ) (otherlv_6= ',' ( (lv_generators_7_0= ruleAstGenerator ) ) )*
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6899:6: otherlv_4= ':' ( (lv_generators_5_0= ruleAstGenerator ) ) (otherlv_6= ',' ( (lv_generators_7_0= ruleAstGenerator ) ) )*
                     {
-                    otherlv_4=(Token)match(input,17,FOLLOW_17_in_ruleAstExpressionList13755); 
+                    otherlv_4=(Token)match(input,17,FOLLOW_17_in_ruleAstExpressionList14169); 
 
                         	newLeafNode(otherlv_4, grammarAccess.getAstExpressionListAccess().getColonKeyword_3_0());
                         
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6705:1: ( (lv_generators_5_0= ruleAstGenerator ) )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6706:1: (lv_generators_5_0= ruleAstGenerator )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6903:1: ( (lv_generators_5_0= ruleAstGenerator ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6904:1: (lv_generators_5_0= ruleAstGenerator )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6706:1: (lv_generators_5_0= ruleAstGenerator )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6707:3: lv_generators_5_0= ruleAstGenerator
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6904:1: (lv_generators_5_0= ruleAstGenerator )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6905:3: lv_generators_5_0= ruleAstGenerator
                     {
                      
                     	        newCompositeNode(grammarAccess.getAstExpressionListAccess().getGeneratorsAstGeneratorParserRuleCall_3_1_0()); 
                     	    
-                    pushFollow(FOLLOW_ruleAstGenerator_in_ruleAstExpressionList13776);
+                    pushFollow(FOLLOW_ruleAstGenerator_in_ruleAstExpressionList14190);
                     lv_generators_5_0=ruleAstGenerator();
 
                     state._fsp--;
@@ -16918,35 +17429,35 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6723:2: (otherlv_6= ',' ( (lv_generators_7_0= ruleAstGenerator ) ) )*
-                    loop148:
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6921:2: (otherlv_6= ',' ( (lv_generators_7_0= ruleAstGenerator ) ) )*
+                    loop152:
                     do {
-                        int alt148=2;
-                        int LA148_0 = input.LA(1);
+                        int alt152=2;
+                        int LA152_0 = input.LA(1);
 
-                        if ( (LA148_0==25) ) {
-                            alt148=1;
+                        if ( (LA152_0==25) ) {
+                            alt152=1;
                         }
 
 
-                        switch (alt148) {
+                        switch (alt152) {
                     	case 1 :
-                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6723:4: otherlv_6= ',' ( (lv_generators_7_0= ruleAstGenerator ) )
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6921:4: otherlv_6= ',' ( (lv_generators_7_0= ruleAstGenerator ) )
                     	    {
-                    	    otherlv_6=(Token)match(input,25,FOLLOW_25_in_ruleAstExpressionList13789); 
+                    	    otherlv_6=(Token)match(input,25,FOLLOW_25_in_ruleAstExpressionList14203); 
 
                     	        	newLeafNode(otherlv_6, grammarAccess.getAstExpressionListAccess().getCommaKeyword_3_2_0());
                     	        
-                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6727:1: ( (lv_generators_7_0= ruleAstGenerator ) )
-                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6728:1: (lv_generators_7_0= ruleAstGenerator )
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6925:1: ( (lv_generators_7_0= ruleAstGenerator ) )
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6926:1: (lv_generators_7_0= ruleAstGenerator )
                     	    {
-                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6728:1: (lv_generators_7_0= ruleAstGenerator )
-                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6729:3: lv_generators_7_0= ruleAstGenerator
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6926:1: (lv_generators_7_0= ruleAstGenerator )
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6927:3: lv_generators_7_0= ruleAstGenerator
                     	    {
                     	     
                     	    	        newCompositeNode(grammarAccess.getAstExpressionListAccess().getGeneratorsAstGeneratorParserRuleCall_3_2_1_0()); 
                     	    	    
-                    	    pushFollow(FOLLOW_ruleAstGenerator_in_ruleAstExpressionList13810);
+                    	    pushFollow(FOLLOW_ruleAstGenerator_in_ruleAstExpressionList14224);
                     	    lv_generators_7_0=ruleAstGenerator();
 
                     	    state._fsp--;
@@ -16973,7 +17484,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop148;
+                    	    break loop152;
                         }
                     } while (true);
 
@@ -16983,7 +17494,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_8=(Token)match(input,51,FOLLOW_51_in_ruleAstExpressionList13826); 
+            otherlv_8=(Token)match(input,51,FOLLOW_51_in_ruleAstExpressionList14240); 
 
                 	newLeafNode(otherlv_8, grammarAccess.getAstExpressionListAccess().getRightSquareBracketKeyword_4());
                 
@@ -17008,7 +17519,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAstGenerator"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6757:1: entryRuleAstGenerator returns [EObject current=null] : iv_ruleAstGenerator= ruleAstGenerator EOF ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6955:1: entryRuleAstGenerator returns [EObject current=null] : iv_ruleAstGenerator= ruleAstGenerator EOF ;
     public final EObject entryRuleAstGenerator() throws RecognitionException {
         EObject current = null;
 
@@ -17016,17 +17527,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6758:2: (iv_ruleAstGenerator= ruleAstGenerator EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6759:2: iv_ruleAstGenerator= ruleAstGenerator EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6956:2: (iv_ruleAstGenerator= ruleAstGenerator EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6957:2: iv_ruleAstGenerator= ruleAstGenerator EOF
             {
              newCompositeNode(grammarAccess.getAstGeneratorRule()); 
-            pushFollow(FOLLOW_ruleAstGenerator_in_entryRuleAstGenerator13862);
+            pushFollow(FOLLOW_ruleAstGenerator_in_entryRuleAstGenerator14276);
             iv_ruleAstGenerator=ruleAstGenerator();
 
             state._fsp--;
 
              current =iv_ruleAstGenerator; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstGenerator13872); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstGenerator14286); 
 
             }
 
@@ -17044,7 +17555,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAstGenerator"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6766:1: ruleAstGenerator returns [EObject current=null] : (otherlv_0= 'for' ( (lv_variable_1_0= ruleAstVariableDeclaration ) ) otherlv_2= 'in' ( (lv_expression_3_0= ruleAstExpression ) ) ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6964:1: ruleAstGenerator returns [EObject current=null] : (otherlv_0= 'for' ( (lv_variable_1_0= ruleAstVariableDeclaration ) ) otherlv_2= 'in' ( (lv_expression_3_0= ruleAstExpression ) ) ) ;
     public final EObject ruleAstGenerator() throws RecognitionException {
         EObject current = null;
 
@@ -17058,26 +17569,26 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6769:28: ( (otherlv_0= 'for' ( (lv_variable_1_0= ruleAstVariableDeclaration ) ) otherlv_2= 'in' ( (lv_expression_3_0= ruleAstExpression ) ) ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6770:1: (otherlv_0= 'for' ( (lv_variable_1_0= ruleAstVariableDeclaration ) ) otherlv_2= 'in' ( (lv_expression_3_0= ruleAstExpression ) ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6967:28: ( (otherlv_0= 'for' ( (lv_variable_1_0= ruleAstVariableDeclaration ) ) otherlv_2= 'in' ( (lv_expression_3_0= ruleAstExpression ) ) ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6968:1: (otherlv_0= 'for' ( (lv_variable_1_0= ruleAstVariableDeclaration ) ) otherlv_2= 'in' ( (lv_expression_3_0= ruleAstExpression ) ) )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6770:1: (otherlv_0= 'for' ( (lv_variable_1_0= ruleAstVariableDeclaration ) ) otherlv_2= 'in' ( (lv_expression_3_0= ruleAstExpression ) ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6770:3: otherlv_0= 'for' ( (lv_variable_1_0= ruleAstVariableDeclaration ) ) otherlv_2= 'in' ( (lv_expression_3_0= ruleAstExpression ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6968:1: (otherlv_0= 'for' ( (lv_variable_1_0= ruleAstVariableDeclaration ) ) otherlv_2= 'in' ( (lv_expression_3_0= ruleAstExpression ) ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6968:3: otherlv_0= 'for' ( (lv_variable_1_0= ruleAstVariableDeclaration ) ) otherlv_2= 'in' ( (lv_expression_3_0= ruleAstExpression ) )
             {
-            otherlv_0=(Token)match(input,86,FOLLOW_86_in_ruleAstGenerator13909); 
+            otherlv_0=(Token)match(input,88,FOLLOW_88_in_ruleAstGenerator14323); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getAstGeneratorAccess().getForKeyword_0());
                 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6774:1: ( (lv_variable_1_0= ruleAstVariableDeclaration ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6775:1: (lv_variable_1_0= ruleAstVariableDeclaration )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6972:1: ( (lv_variable_1_0= ruleAstVariableDeclaration ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6973:1: (lv_variable_1_0= ruleAstVariableDeclaration )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6775:1: (lv_variable_1_0= ruleAstVariableDeclaration )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6776:3: lv_variable_1_0= ruleAstVariableDeclaration
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6973:1: (lv_variable_1_0= ruleAstVariableDeclaration )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6974:3: lv_variable_1_0= ruleAstVariableDeclaration
             {
              
             	        newCompositeNode(grammarAccess.getAstGeneratorAccess().getVariableAstVariableDeclarationParserRuleCall_1_0()); 
             	    
-            pushFollow(FOLLOW_ruleAstVariableDeclaration_in_ruleAstGenerator13930);
+            pushFollow(FOLLOW_ruleAstVariableDeclaration_in_ruleAstGenerator14344);
             lv_variable_1_0=ruleAstVariableDeclaration();
 
             state._fsp--;
@@ -17099,20 +17610,20 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,55,FOLLOW_55_in_ruleAstGenerator13942); 
+            otherlv_2=(Token)match(input,55,FOLLOW_55_in_ruleAstGenerator14356); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getAstGeneratorAccess().getInKeyword_2());
                 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6796:1: ( (lv_expression_3_0= ruleAstExpression ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6797:1: (lv_expression_3_0= ruleAstExpression )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6994:1: ( (lv_expression_3_0= ruleAstExpression ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6995:1: (lv_expression_3_0= ruleAstExpression )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6797:1: (lv_expression_3_0= ruleAstExpression )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6798:3: lv_expression_3_0= ruleAstExpression
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6995:1: (lv_expression_3_0= ruleAstExpression )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6996:3: lv_expression_3_0= ruleAstExpression
             {
              
             	        newCompositeNode(grammarAccess.getAstGeneratorAccess().getExpressionAstExpressionParserRuleCall_3_0()); 
             	    
-            pushFollow(FOLLOW_ruleAstExpression_in_ruleAstGenerator13963);
+            pushFollow(FOLLOW_ruleAstExpression_in_ruleAstGenerator14377);
             lv_expression_3_0=ruleAstExpression();
 
             state._fsp--;
@@ -17154,8 +17665,485 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleAstGenerator"
 
 
+    // $ANTLR start "entryRuleAstExpressionCase"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7020:1: entryRuleAstExpressionCase returns [EObject current=null] : iv_ruleAstExpressionCase= ruleAstExpressionCase EOF ;
+    public final EObject entryRuleAstExpressionCase() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstExpressionCase = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7021:2: (iv_ruleAstExpressionCase= ruleAstExpressionCase EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7022:2: iv_ruleAstExpressionCase= ruleAstExpressionCase EOF
+            {
+             newCompositeNode(grammarAccess.getAstExpressionCaseRule()); 
+            pushFollow(FOLLOW_ruleAstExpressionCase_in_entryRuleAstExpressionCase14413);
+            iv_ruleAstExpressionCase=ruleAstExpressionCase();
+
+            state._fsp--;
+
+             current =iv_ruleAstExpressionCase; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionCase14423); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstExpressionCase"
+
+
+    // $ANTLR start "ruleAstExpressionCase"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7029:1: ruleAstExpressionCase returns [EObject current=null] : (otherlv_0= 'case' ( (lv_variable_1_0= ruleAstExpressionSymbolReference ) ) otherlv_2= 'of' ( (lv_cases_3_0= ruleAstExpressionAlternative ) )+ otherlv_4= 'else' ( (lv_default_5_0= ruleAstExpression ) ) otherlv_6= 'end' ) ;
+    public final EObject ruleAstExpressionCase() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_0=null;
+        Token otherlv_2=null;
+        Token otherlv_4=null;
+        Token otherlv_6=null;
+        EObject lv_variable_1_0 = null;
+
+        EObject lv_cases_3_0 = null;
+
+        EObject lv_default_5_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7032:28: ( (otherlv_0= 'case' ( (lv_variable_1_0= ruleAstExpressionSymbolReference ) ) otherlv_2= 'of' ( (lv_cases_3_0= ruleAstExpressionAlternative ) )+ otherlv_4= 'else' ( (lv_default_5_0= ruleAstExpression ) ) otherlv_6= 'end' ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7033:1: (otherlv_0= 'case' ( (lv_variable_1_0= ruleAstExpressionSymbolReference ) ) otherlv_2= 'of' ( (lv_cases_3_0= ruleAstExpressionAlternative ) )+ otherlv_4= 'else' ( (lv_default_5_0= ruleAstExpression ) ) otherlv_6= 'end' )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7033:1: (otherlv_0= 'case' ( (lv_variable_1_0= ruleAstExpressionSymbolReference ) ) otherlv_2= 'of' ( (lv_cases_3_0= ruleAstExpressionAlternative ) )+ otherlv_4= 'else' ( (lv_default_5_0= ruleAstExpression ) ) otherlv_6= 'end' )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7033:3: otherlv_0= 'case' ( (lv_variable_1_0= ruleAstExpressionSymbolReference ) ) otherlv_2= 'of' ( (lv_cases_3_0= ruleAstExpressionAlternative ) )+ otherlv_4= 'else' ( (lv_default_5_0= ruleAstExpression ) ) otherlv_6= 'end'
+            {
+            otherlv_0=(Token)match(input,60,FOLLOW_60_in_ruleAstExpressionCase14460); 
+
+                	newLeafNode(otherlv_0, grammarAccess.getAstExpressionCaseAccess().getCaseKeyword_0());
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7037:1: ( (lv_variable_1_0= ruleAstExpressionSymbolReference ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7038:1: (lv_variable_1_0= ruleAstExpressionSymbolReference )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7038:1: (lv_variable_1_0= ruleAstExpressionSymbolReference )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7039:3: lv_variable_1_0= ruleAstExpressionSymbolReference
+            {
+             
+            	        newCompositeNode(grammarAccess.getAstExpressionCaseAccess().getVariableAstExpressionSymbolReferenceParserRuleCall_1_0()); 
+            	    
+            pushFollow(FOLLOW_ruleAstExpressionSymbolReference_in_ruleAstExpressionCase14481);
+            lv_variable_1_0=ruleAstExpressionSymbolReference();
+
+            state._fsp--;
+
+
+            	        if (current==null) {
+            	            current = createModelElementForParent(grammarAccess.getAstExpressionCaseRule());
+            	        }
+                   		set(
+                   			current, 
+                   			"variable",
+                    		lv_variable_1_0, 
+                    		"AstExpressionSymbolReference");
+            	        afterParserOrEnumRuleCall();
+            	    
+
+            }
+
+
+            }
+
+            otherlv_2=(Token)match(input,61,FOLLOW_61_in_ruleAstExpressionCase14493); 
+
+                	newLeafNode(otherlv_2, grammarAccess.getAstExpressionCaseAccess().getOfKeyword_2());
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7059:1: ( (lv_cases_3_0= ruleAstExpressionAlternative ) )+
+            int cnt154=0;
+            loop154:
+            do {
+                int alt154=2;
+                int LA154_0 = input.LA(1);
+
+                if ( (LA154_0==RULE_ID) ) {
+                    alt154=1;
+                }
+
+
+                switch (alt154) {
+            	case 1 :
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7060:1: (lv_cases_3_0= ruleAstExpressionAlternative )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7060:1: (lv_cases_3_0= ruleAstExpressionAlternative )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7061:3: lv_cases_3_0= ruleAstExpressionAlternative
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getAstExpressionCaseAccess().getCasesAstExpressionAlternativeParserRuleCall_3_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleAstExpressionAlternative_in_ruleAstExpressionCase14514);
+            	    lv_cases_3_0=ruleAstExpressionAlternative();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getAstExpressionCaseRule());
+            	    	        }
+            	           		add(
+            	           			current, 
+            	           			"cases",
+            	            		lv_cases_3_0, 
+            	            		"AstExpressionAlternative");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt154 >= 1 ) break loop154;
+                        EarlyExitException eee =
+                            new EarlyExitException(154, input);
+                        throw eee;
+                }
+                cnt154++;
+            } while (true);
+
+            otherlv_4=(Token)match(input,58,FOLLOW_58_in_ruleAstExpressionCase14527); 
+
+                	newLeafNode(otherlv_4, grammarAccess.getAstExpressionCaseAccess().getElseKeyword_4());
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7081:1: ( (lv_default_5_0= ruleAstExpression ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7082:1: (lv_default_5_0= ruleAstExpression )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7082:1: (lv_default_5_0= ruleAstExpression )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7083:3: lv_default_5_0= ruleAstExpression
+            {
+             
+            	        newCompositeNode(grammarAccess.getAstExpressionCaseAccess().getDefaultAstExpressionParserRuleCall_5_0()); 
+            	    
+            pushFollow(FOLLOW_ruleAstExpression_in_ruleAstExpressionCase14548);
+            lv_default_5_0=ruleAstExpression();
+
+            state._fsp--;
+
+
+            	        if (current==null) {
+            	            current = createModelElementForParent(grammarAccess.getAstExpressionCaseRule());
+            	        }
+                   		set(
+                   			current, 
+                   			"default",
+                    		lv_default_5_0, 
+                    		"AstExpression");
+            	        afterParserOrEnumRuleCall();
+            	    
+
+            }
+
+
+            }
+
+            otherlv_6=(Token)match(input,18,FOLLOW_18_in_ruleAstExpressionCase14560); 
+
+                	newLeafNode(otherlv_6, grammarAccess.getAstExpressionCaseAccess().getEndKeyword_6());
+                
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAstExpressionCase"
+
+
+    // $ANTLR start "entryRuleAstExpressionAlternative"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7111:1: entryRuleAstExpressionAlternative returns [EObject current=null] : iv_ruleAstExpressionAlternative= ruleAstExpressionAlternative EOF ;
+    public final EObject entryRuleAstExpressionAlternative() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstExpressionAlternative = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7112:2: (iv_ruleAstExpressionAlternative= ruleAstExpressionAlternative EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7113:2: iv_ruleAstExpressionAlternative= ruleAstExpressionAlternative EOF
+            {
+             newCompositeNode(grammarAccess.getAstExpressionAlternativeRule()); 
+            pushFollow(FOLLOW_ruleAstExpressionAlternative_in_entryRuleAstExpressionAlternative14596);
+            iv_ruleAstExpressionAlternative=ruleAstExpressionAlternative();
+
+            state._fsp--;
+
+             current =iv_ruleAstExpressionAlternative; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionAlternative14606); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstExpressionAlternative"
+
+
+    // $ANTLR start "ruleAstExpressionAlternative"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7120:1: ruleAstExpressionAlternative returns [EObject current=null] : ( ( (lv_pattern_0_0= ruleAstPattern ) ) (otherlv_1= 'guard' ( (lv_guards_2_0= ruleAstExpression ) ) (otherlv_3= ',' ( (lv_guards_4_0= ruleAstExpression ) ) )* )? otherlv_5= ':' ( (lv_expression_6_0= ruleAstExpression ) ) otherlv_7= 'end' ) ;
+    public final EObject ruleAstExpressionAlternative() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_1=null;
+        Token otherlv_3=null;
+        Token otherlv_5=null;
+        Token otherlv_7=null;
+        EObject lv_pattern_0_0 = null;
+
+        EObject lv_guards_2_0 = null;
+
+        EObject lv_guards_4_0 = null;
+
+        EObject lv_expression_6_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7123:28: ( ( ( (lv_pattern_0_0= ruleAstPattern ) ) (otherlv_1= 'guard' ( (lv_guards_2_0= ruleAstExpression ) ) (otherlv_3= ',' ( (lv_guards_4_0= ruleAstExpression ) ) )* )? otherlv_5= ':' ( (lv_expression_6_0= ruleAstExpression ) ) otherlv_7= 'end' ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7124:1: ( ( (lv_pattern_0_0= ruleAstPattern ) ) (otherlv_1= 'guard' ( (lv_guards_2_0= ruleAstExpression ) ) (otherlv_3= ',' ( (lv_guards_4_0= ruleAstExpression ) ) )* )? otherlv_5= ':' ( (lv_expression_6_0= ruleAstExpression ) ) otherlv_7= 'end' )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7124:1: ( ( (lv_pattern_0_0= ruleAstPattern ) ) (otherlv_1= 'guard' ( (lv_guards_2_0= ruleAstExpression ) ) (otherlv_3= ',' ( (lv_guards_4_0= ruleAstExpression ) ) )* )? otherlv_5= ':' ( (lv_expression_6_0= ruleAstExpression ) ) otherlv_7= 'end' )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7124:2: ( (lv_pattern_0_0= ruleAstPattern ) ) (otherlv_1= 'guard' ( (lv_guards_2_0= ruleAstExpression ) ) (otherlv_3= ',' ( (lv_guards_4_0= ruleAstExpression ) ) )* )? otherlv_5= ':' ( (lv_expression_6_0= ruleAstExpression ) ) otherlv_7= 'end'
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7124:2: ( (lv_pattern_0_0= ruleAstPattern ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7125:1: (lv_pattern_0_0= ruleAstPattern )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7125:1: (lv_pattern_0_0= ruleAstPattern )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7126:3: lv_pattern_0_0= ruleAstPattern
+            {
+             
+            	        newCompositeNode(grammarAccess.getAstExpressionAlternativeAccess().getPatternAstPatternParserRuleCall_0_0()); 
+            	    
+            pushFollow(FOLLOW_ruleAstPattern_in_ruleAstExpressionAlternative14652);
+            lv_pattern_0_0=ruleAstPattern();
+
+            state._fsp--;
+
+
+            	        if (current==null) {
+            	            current = createModelElementForParent(grammarAccess.getAstExpressionAlternativeRule());
+            	        }
+                   		set(
+                   			current, 
+                   			"pattern",
+                    		lv_pattern_0_0, 
+                    		"AstPattern");
+            	        afterParserOrEnumRuleCall();
+            	    
+
+            }
+
+
+            }
+
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7142:2: (otherlv_1= 'guard' ( (lv_guards_2_0= ruleAstExpression ) ) (otherlv_3= ',' ( (lv_guards_4_0= ruleAstExpression ) ) )* )?
+            int alt156=2;
+            int LA156_0 = input.LA(1);
+
+            if ( (LA156_0==47) ) {
+                alt156=1;
+            }
+            switch (alt156) {
+                case 1 :
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7142:4: otherlv_1= 'guard' ( (lv_guards_2_0= ruleAstExpression ) ) (otherlv_3= ',' ( (lv_guards_4_0= ruleAstExpression ) ) )*
+                    {
+                    otherlv_1=(Token)match(input,47,FOLLOW_47_in_ruleAstExpressionAlternative14665); 
+
+                        	newLeafNode(otherlv_1, grammarAccess.getAstExpressionAlternativeAccess().getGuardKeyword_1_0());
+                        
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7146:1: ( (lv_guards_2_0= ruleAstExpression ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7147:1: (lv_guards_2_0= ruleAstExpression )
+                    {
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7147:1: (lv_guards_2_0= ruleAstExpression )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7148:3: lv_guards_2_0= ruleAstExpression
+                    {
+                     
+                    	        newCompositeNode(grammarAccess.getAstExpressionAlternativeAccess().getGuardsAstExpressionParserRuleCall_1_1_0()); 
+                    	    
+                    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstExpressionAlternative14686);
+                    lv_guards_2_0=ruleAstExpression();
+
+                    state._fsp--;
+
+
+                    	        if (current==null) {
+                    	            current = createModelElementForParent(grammarAccess.getAstExpressionAlternativeRule());
+                    	        }
+                           		add(
+                           			current, 
+                           			"guards",
+                            		lv_guards_2_0, 
+                            		"AstExpression");
+                    	        afterParserOrEnumRuleCall();
+                    	    
+
+                    }
+
+
+                    }
+
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7164:2: (otherlv_3= ',' ( (lv_guards_4_0= ruleAstExpression ) ) )*
+                    loop155:
+                    do {
+                        int alt155=2;
+                        int LA155_0 = input.LA(1);
+
+                        if ( (LA155_0==25) ) {
+                            alt155=1;
+                        }
+
+
+                        switch (alt155) {
+                    	case 1 :
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7164:4: otherlv_3= ',' ( (lv_guards_4_0= ruleAstExpression ) )
+                    	    {
+                    	    otherlv_3=(Token)match(input,25,FOLLOW_25_in_ruleAstExpressionAlternative14699); 
+
+                    	        	newLeafNode(otherlv_3, grammarAccess.getAstExpressionAlternativeAccess().getCommaKeyword_1_2_0());
+                    	        
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7168:1: ( (lv_guards_4_0= ruleAstExpression ) )
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7169:1: (lv_guards_4_0= ruleAstExpression )
+                    	    {
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7169:1: (lv_guards_4_0= ruleAstExpression )
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7170:3: lv_guards_4_0= ruleAstExpression
+                    	    {
+                    	     
+                    	    	        newCompositeNode(grammarAccess.getAstExpressionAlternativeAccess().getGuardsAstExpressionParserRuleCall_1_2_1_0()); 
+                    	    	    
+                    	    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstExpressionAlternative14720);
+                    	    lv_guards_4_0=ruleAstExpression();
+
+                    	    state._fsp--;
+
+
+                    	    	        if (current==null) {
+                    	    	            current = createModelElementForParent(grammarAccess.getAstExpressionAlternativeRule());
+                    	    	        }
+                    	           		add(
+                    	           			current, 
+                    	           			"guards",
+                    	            		lv_guards_4_0, 
+                    	            		"AstExpression");
+                    	    	        afterParserOrEnumRuleCall();
+                    	    	    
+
+                    	    }
+
+
+                    	    }
+
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    break loop155;
+                        }
+                    } while (true);
+
+
+                    }
+                    break;
+
+            }
+
+            otherlv_5=(Token)match(input,17,FOLLOW_17_in_ruleAstExpressionAlternative14736); 
+
+                	newLeafNode(otherlv_5, grammarAccess.getAstExpressionAlternativeAccess().getColonKeyword_2());
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7190:1: ( (lv_expression_6_0= ruleAstExpression ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7191:1: (lv_expression_6_0= ruleAstExpression )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7191:1: (lv_expression_6_0= ruleAstExpression )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7192:3: lv_expression_6_0= ruleAstExpression
+            {
+             
+            	        newCompositeNode(grammarAccess.getAstExpressionAlternativeAccess().getExpressionAstExpressionParserRuleCall_3_0()); 
+            	    
+            pushFollow(FOLLOW_ruleAstExpression_in_ruleAstExpressionAlternative14757);
+            lv_expression_6_0=ruleAstExpression();
+
+            state._fsp--;
+
+
+            	        if (current==null) {
+            	            current = createModelElementForParent(grammarAccess.getAstExpressionAlternativeRule());
+            	        }
+                   		set(
+                   			current, 
+                   			"expression",
+                    		lv_expression_6_0, 
+                    		"AstExpression");
+            	        afterParserOrEnumRuleCall();
+            	    
+
+            }
+
+
+            }
+
+            otherlv_7=(Token)match(input,18,FOLLOW_18_in_ruleAstExpressionAlternative14769); 
+
+                	newLeafNode(otherlv_7, grammarAccess.getAstExpressionAlternativeAccess().getEndKeyword_4());
+                
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAstExpressionAlternative"
+
+
     // $ANTLR start "entryRuleAstExpressionLiteral"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6822:1: entryRuleAstExpressionLiteral returns [EObject current=null] : iv_ruleAstExpressionLiteral= ruleAstExpressionLiteral EOF ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7220:1: entryRuleAstExpressionLiteral returns [EObject current=null] : iv_ruleAstExpressionLiteral= ruleAstExpressionLiteral EOF ;
     public final EObject entryRuleAstExpressionLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -17163,17 +18151,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6823:2: (iv_ruleAstExpressionLiteral= ruleAstExpressionLiteral EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6824:2: iv_ruleAstExpressionLiteral= ruleAstExpressionLiteral EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7221:2: (iv_ruleAstExpressionLiteral= ruleAstExpressionLiteral EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7222:2: iv_ruleAstExpressionLiteral= ruleAstExpressionLiteral EOF
             {
              newCompositeNode(grammarAccess.getAstExpressionLiteralRule()); 
-            pushFollow(FOLLOW_ruleAstExpressionLiteral_in_entryRuleAstExpressionLiteral13999);
+            pushFollow(FOLLOW_ruleAstExpressionLiteral_in_entryRuleAstExpressionLiteral14805);
             iv_ruleAstExpressionLiteral=ruleAstExpressionLiteral();
 
             state._fsp--;
 
              current =iv_ruleAstExpressionLiteral; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionLiteral14009); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionLiteral14815); 
 
             }
 
@@ -17191,7 +18179,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAstExpressionLiteral"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6831:1: ruleAstExpressionLiteral returns [EObject current=null] : (this_AstExpressionBoolean_0= ruleAstExpressionBoolean | this_AstExpressionFloat_1= ruleAstExpressionFloat | this_AstExpressionInteger_2= ruleAstExpressionInteger | this_AstExpressionString_3= ruleAstExpressionString ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7229:1: ruleAstExpressionLiteral returns [EObject current=null] : (this_AstExpressionBoolean_0= ruleAstExpressionBoolean | this_AstExpressionFloat_1= ruleAstExpressionFloat | this_AstExpressionInteger_2= ruleAstExpressionInteger | this_AstExpressionString_3= ruleAstExpressionString ) ;
     public final EObject ruleAstExpressionLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -17207,30 +18195,30 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6834:28: ( (this_AstExpressionBoolean_0= ruleAstExpressionBoolean | this_AstExpressionFloat_1= ruleAstExpressionFloat | this_AstExpressionInteger_2= ruleAstExpressionInteger | this_AstExpressionString_3= ruleAstExpressionString ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6835:1: (this_AstExpressionBoolean_0= ruleAstExpressionBoolean | this_AstExpressionFloat_1= ruleAstExpressionFloat | this_AstExpressionInteger_2= ruleAstExpressionInteger | this_AstExpressionString_3= ruleAstExpressionString )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7232:28: ( (this_AstExpressionBoolean_0= ruleAstExpressionBoolean | this_AstExpressionFloat_1= ruleAstExpressionFloat | this_AstExpressionInteger_2= ruleAstExpressionInteger | this_AstExpressionString_3= ruleAstExpressionString ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7233:1: (this_AstExpressionBoolean_0= ruleAstExpressionBoolean | this_AstExpressionFloat_1= ruleAstExpressionFloat | this_AstExpressionInteger_2= ruleAstExpressionInteger | this_AstExpressionString_3= ruleAstExpressionString )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6835:1: (this_AstExpressionBoolean_0= ruleAstExpressionBoolean | this_AstExpressionFloat_1= ruleAstExpressionFloat | this_AstExpressionInteger_2= ruleAstExpressionInteger | this_AstExpressionString_3= ruleAstExpressionString )
-            int alt150=4;
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7233:1: (this_AstExpressionBoolean_0= ruleAstExpressionBoolean | this_AstExpressionFloat_1= ruleAstExpressionFloat | this_AstExpressionInteger_2= ruleAstExpressionInteger | this_AstExpressionString_3= ruleAstExpressionString )
+            int alt157=4;
             switch ( input.LA(1) ) {
             case RULE_BOOL:
                 {
-                alt150=1;
+                alt157=1;
                 }
                 break;
             case RULE_INT:
                 {
-                int LA150_2 = input.LA(2);
+                int LA157_2 = input.LA(2);
 
-                if ( (LA150_2==EOF||LA150_2==15||(LA150_2>=17 && LA150_2<=18)||(LA150_2>=25 && LA150_2<=28)||LA150_2==30||LA150_2==37||(LA150_2>=41 && LA150_2<=42)||(LA150_2>=47 && LA150_2<=48)||LA150_2==51||(LA150_2>=57 && LA150_2<=58)||(LA150_2>=60 && LA150_2<=80)) ) {
-                    alt150=3;
+                if ( (LA157_2==EOF||LA157_2==15||(LA157_2>=17 && LA157_2<=18)||(LA157_2>=25 && LA157_2<=28)||LA157_2==30||LA157_2==37||(LA157_2>=41 && LA157_2<=42)||(LA157_2>=47 && LA157_2<=48)||LA157_2==51||(LA157_2>=57 && LA157_2<=58)||(LA157_2>=62 && LA157_2<=82)) ) {
+                    alt157=3;
                 }
-                else if ( (LA150_2==21) ) {
-                    alt150=2;
+                else if ( (LA157_2==21) ) {
+                    alt157=2;
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 150, 2, input);
+                        new NoViableAltException("", 157, 2, input);
 
                     throw nvae;
                 }
@@ -17238,35 +18226,35 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                 break;
             case 21:
                 {
-                alt150=2;
+                alt157=2;
                 }
                 break;
             case RULE_EXP_INT:
             case RULE_HEX:
                 {
-                alt150=3;
+                alt157=3;
                 }
                 break;
             case RULE_STRING:
                 {
-                alt150=4;
+                alt157=4;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 150, 0, input);
+                    new NoViableAltException("", 157, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt150) {
+            switch (alt157) {
                 case 1 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6836:5: this_AstExpressionBoolean_0= ruleAstExpressionBoolean
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7234:5: this_AstExpressionBoolean_0= ruleAstExpressionBoolean
                     {
                      
                             newCompositeNode(grammarAccess.getAstExpressionLiteralAccess().getAstExpressionBooleanParserRuleCall_0()); 
                         
-                    pushFollow(FOLLOW_ruleAstExpressionBoolean_in_ruleAstExpressionLiteral14056);
+                    pushFollow(FOLLOW_ruleAstExpressionBoolean_in_ruleAstExpressionLiteral14862);
                     this_AstExpressionBoolean_0=ruleAstExpressionBoolean();
 
                     state._fsp--;
@@ -17279,12 +18267,12 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6846:5: this_AstExpressionFloat_1= ruleAstExpressionFloat
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7244:5: this_AstExpressionFloat_1= ruleAstExpressionFloat
                     {
                      
                             newCompositeNode(grammarAccess.getAstExpressionLiteralAccess().getAstExpressionFloatParserRuleCall_1()); 
                         
-                    pushFollow(FOLLOW_ruleAstExpressionFloat_in_ruleAstExpressionLiteral14083);
+                    pushFollow(FOLLOW_ruleAstExpressionFloat_in_ruleAstExpressionLiteral14889);
                     this_AstExpressionFloat_1=ruleAstExpressionFloat();
 
                     state._fsp--;
@@ -17297,12 +18285,12 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6856:5: this_AstExpressionInteger_2= ruleAstExpressionInteger
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7254:5: this_AstExpressionInteger_2= ruleAstExpressionInteger
                     {
                      
                             newCompositeNode(grammarAccess.getAstExpressionLiteralAccess().getAstExpressionIntegerParserRuleCall_2()); 
                         
-                    pushFollow(FOLLOW_ruleAstExpressionInteger_in_ruleAstExpressionLiteral14110);
+                    pushFollow(FOLLOW_ruleAstExpressionInteger_in_ruleAstExpressionLiteral14916);
                     this_AstExpressionInteger_2=ruleAstExpressionInteger();
 
                     state._fsp--;
@@ -17315,12 +18303,12 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6866:5: this_AstExpressionString_3= ruleAstExpressionString
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7264:5: this_AstExpressionString_3= ruleAstExpressionString
                     {
                      
                             newCompositeNode(grammarAccess.getAstExpressionLiteralAccess().getAstExpressionStringParserRuleCall_3()); 
                         
-                    pushFollow(FOLLOW_ruleAstExpressionString_in_ruleAstExpressionLiteral14137);
+                    pushFollow(FOLLOW_ruleAstExpressionString_in_ruleAstExpressionLiteral14943);
                     this_AstExpressionString_3=ruleAstExpressionString();
 
                     state._fsp--;
@@ -17353,7 +18341,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAstExpressionBoolean"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6882:1: entryRuleAstExpressionBoolean returns [EObject current=null] : iv_ruleAstExpressionBoolean= ruleAstExpressionBoolean EOF ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7280:1: entryRuleAstExpressionBoolean returns [EObject current=null] : iv_ruleAstExpressionBoolean= ruleAstExpressionBoolean EOF ;
     public final EObject entryRuleAstExpressionBoolean() throws RecognitionException {
         EObject current = null;
 
@@ -17361,17 +18349,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6883:2: (iv_ruleAstExpressionBoolean= ruleAstExpressionBoolean EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6884:2: iv_ruleAstExpressionBoolean= ruleAstExpressionBoolean EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7281:2: (iv_ruleAstExpressionBoolean= ruleAstExpressionBoolean EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7282:2: iv_ruleAstExpressionBoolean= ruleAstExpressionBoolean EOF
             {
              newCompositeNode(grammarAccess.getAstExpressionBooleanRule()); 
-            pushFollow(FOLLOW_ruleAstExpressionBoolean_in_entryRuleAstExpressionBoolean14172);
+            pushFollow(FOLLOW_ruleAstExpressionBoolean_in_entryRuleAstExpressionBoolean14978);
             iv_ruleAstExpressionBoolean=ruleAstExpressionBoolean();
 
             state._fsp--;
 
              current =iv_ruleAstExpressionBoolean; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionBoolean14182); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionBoolean14988); 
 
             }
 
@@ -17389,7 +18377,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAstExpressionBoolean"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6891:1: ruleAstExpressionBoolean returns [EObject current=null] : ( (lv_value_0_0= RULE_BOOL ) ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7289:1: ruleAstExpressionBoolean returns [EObject current=null] : ( (lv_value_0_0= RULE_BOOL ) ) ;
     public final EObject ruleAstExpressionBoolean() throws RecognitionException {
         EObject current = null;
 
@@ -17398,16 +18386,16 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6894:28: ( ( (lv_value_0_0= RULE_BOOL ) ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6895:1: ( (lv_value_0_0= RULE_BOOL ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7292:28: ( ( (lv_value_0_0= RULE_BOOL ) ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7293:1: ( (lv_value_0_0= RULE_BOOL ) )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6895:1: ( (lv_value_0_0= RULE_BOOL ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6896:1: (lv_value_0_0= RULE_BOOL )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7293:1: ( (lv_value_0_0= RULE_BOOL ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7294:1: (lv_value_0_0= RULE_BOOL )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6896:1: (lv_value_0_0= RULE_BOOL )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6897:3: lv_value_0_0= RULE_BOOL
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7294:1: (lv_value_0_0= RULE_BOOL )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7295:3: lv_value_0_0= RULE_BOOL
             {
-            lv_value_0_0=(Token)match(input,RULE_BOOL,FOLLOW_RULE_BOOL_in_ruleAstExpressionBoolean14223); 
+            lv_value_0_0=(Token)match(input,RULE_BOOL,FOLLOW_RULE_BOOL_in_ruleAstExpressionBoolean15029); 
 
             			newLeafNode(lv_value_0_0, grammarAccess.getAstExpressionBooleanAccess().getValueBOOLTerminalRuleCall_0()); 
             		
@@ -17445,7 +18433,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAstExpressionFloat"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6921:1: entryRuleAstExpressionFloat returns [EObject current=null] : iv_ruleAstExpressionFloat= ruleAstExpressionFloat EOF ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7319:1: entryRuleAstExpressionFloat returns [EObject current=null] : iv_ruleAstExpressionFloat= ruleAstExpressionFloat EOF ;
     public final EObject entryRuleAstExpressionFloat() throws RecognitionException {
         EObject current = null;
 
@@ -17453,17 +18441,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6922:2: (iv_ruleAstExpressionFloat= ruleAstExpressionFloat EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6923:2: iv_ruleAstExpressionFloat= ruleAstExpressionFloat EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7320:2: (iv_ruleAstExpressionFloat= ruleAstExpressionFloat EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7321:2: iv_ruleAstExpressionFloat= ruleAstExpressionFloat EOF
             {
              newCompositeNode(grammarAccess.getAstExpressionFloatRule()); 
-            pushFollow(FOLLOW_ruleAstExpressionFloat_in_entryRuleAstExpressionFloat14263);
+            pushFollow(FOLLOW_ruleAstExpressionFloat_in_entryRuleAstExpressionFloat15069);
             iv_ruleAstExpressionFloat=ruleAstExpressionFloat();
 
             state._fsp--;
 
              current =iv_ruleAstExpressionFloat; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionFloat14273); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionFloat15079); 
 
             }
 
@@ -17481,7 +18469,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAstExpressionFloat"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6930:1: ruleAstExpressionFloat returns [EObject current=null] : ( (lv_value_0_0= ruleREAL ) ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7328:1: ruleAstExpressionFloat returns [EObject current=null] : ( (lv_value_0_0= ruleREAL ) ) ;
     public final EObject ruleAstExpressionFloat() throws RecognitionException {
         EObject current = null;
 
@@ -17491,19 +18479,19 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6933:28: ( ( (lv_value_0_0= ruleREAL ) ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6934:1: ( (lv_value_0_0= ruleREAL ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7331:28: ( ( (lv_value_0_0= ruleREAL ) ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7332:1: ( (lv_value_0_0= ruleREAL ) )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6934:1: ( (lv_value_0_0= ruleREAL ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6935:1: (lv_value_0_0= ruleREAL )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7332:1: ( (lv_value_0_0= ruleREAL ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7333:1: (lv_value_0_0= ruleREAL )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6935:1: (lv_value_0_0= ruleREAL )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6936:3: lv_value_0_0= ruleREAL
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7333:1: (lv_value_0_0= ruleREAL )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7334:3: lv_value_0_0= ruleREAL
             {
              
             	        newCompositeNode(grammarAccess.getAstExpressionFloatAccess().getValueREALParserRuleCall_0()); 
             	    
-            pushFollow(FOLLOW_ruleREAL_in_ruleAstExpressionFloat14318);
+            pushFollow(FOLLOW_ruleREAL_in_ruleAstExpressionFloat15124);
             lv_value_0_0=ruleREAL();
 
             state._fsp--;
@@ -17543,7 +18531,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleREAL"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6960:1: entryRuleREAL returns [String current=null] : iv_ruleREAL= ruleREAL EOF ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7358:1: entryRuleREAL returns [String current=null] : iv_ruleREAL= ruleREAL EOF ;
     public final String entryRuleREAL() throws RecognitionException {
         String current = null;
 
@@ -17554,17 +18542,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
         	
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6964:2: (iv_ruleREAL= ruleREAL EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6965:2: iv_ruleREAL= ruleREAL EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7362:2: (iv_ruleREAL= ruleREAL EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7363:2: iv_ruleREAL= ruleREAL EOF
             {
              newCompositeNode(grammarAccess.getREALRule()); 
-            pushFollow(FOLLOW_ruleREAL_in_entryRuleREAL14360);
+            pushFollow(FOLLOW_ruleREAL_in_entryRuleREAL15166);
             iv_ruleREAL=ruleREAL();
 
             state._fsp--;
 
              current =iv_ruleREAL.getText(); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleREAL14371); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleREAL15177); 
 
             }
 
@@ -17585,7 +18573,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleREAL"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6975:1: ruleREAL returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (this_INT_0= RULE_INT kw= '.' (this_EXP_INT_2= RULE_EXP_INT | this_INT_3= RULE_INT ) ) | (kw= '.' (this_EXP_INT_5= RULE_EXP_INT | this_INT_6= RULE_INT ) ) ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7373:1: ruleREAL returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (this_INT_0= RULE_INT kw= '.' (this_EXP_INT_2= RULE_EXP_INT | this_INT_3= RULE_INT ) ) | (kw= '.' (this_EXP_INT_5= RULE_EXP_INT | this_INT_6= RULE_INT ) ) ) ;
     public final AntlrDatatypeRuleToken ruleREAL() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -17600,65 +18588,65 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6979:28: ( ( (this_INT_0= RULE_INT kw= '.' (this_EXP_INT_2= RULE_EXP_INT | this_INT_3= RULE_INT ) ) | (kw= '.' (this_EXP_INT_5= RULE_EXP_INT | this_INT_6= RULE_INT ) ) ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6980:1: ( (this_INT_0= RULE_INT kw= '.' (this_EXP_INT_2= RULE_EXP_INT | this_INT_3= RULE_INT ) ) | (kw= '.' (this_EXP_INT_5= RULE_EXP_INT | this_INT_6= RULE_INT ) ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7377:28: ( ( (this_INT_0= RULE_INT kw= '.' (this_EXP_INT_2= RULE_EXP_INT | this_INT_3= RULE_INT ) ) | (kw= '.' (this_EXP_INT_5= RULE_EXP_INT | this_INT_6= RULE_INT ) ) ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7378:1: ( (this_INT_0= RULE_INT kw= '.' (this_EXP_INT_2= RULE_EXP_INT | this_INT_3= RULE_INT ) ) | (kw= '.' (this_EXP_INT_5= RULE_EXP_INT | this_INT_6= RULE_INT ) ) )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6980:1: ( (this_INT_0= RULE_INT kw= '.' (this_EXP_INT_2= RULE_EXP_INT | this_INT_3= RULE_INT ) ) | (kw= '.' (this_EXP_INT_5= RULE_EXP_INT | this_INT_6= RULE_INT ) ) )
-            int alt153=2;
-            int LA153_0 = input.LA(1);
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7378:1: ( (this_INT_0= RULE_INT kw= '.' (this_EXP_INT_2= RULE_EXP_INT | this_INT_3= RULE_INT ) ) | (kw= '.' (this_EXP_INT_5= RULE_EXP_INT | this_INT_6= RULE_INT ) ) )
+            int alt160=2;
+            int LA160_0 = input.LA(1);
 
-            if ( (LA153_0==RULE_INT) ) {
-                alt153=1;
+            if ( (LA160_0==RULE_INT) ) {
+                alt160=1;
             }
-            else if ( (LA153_0==21) ) {
-                alt153=2;
+            else if ( (LA160_0==21) ) {
+                alt160=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 153, 0, input);
+                    new NoViableAltException("", 160, 0, input);
 
                 throw nvae;
             }
-            switch (alt153) {
+            switch (alt160) {
                 case 1 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6980:2: (this_INT_0= RULE_INT kw= '.' (this_EXP_INT_2= RULE_EXP_INT | this_INT_3= RULE_INT ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7378:2: (this_INT_0= RULE_INT kw= '.' (this_EXP_INT_2= RULE_EXP_INT | this_INT_3= RULE_INT ) )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6980:2: (this_INT_0= RULE_INT kw= '.' (this_EXP_INT_2= RULE_EXP_INT | this_INT_3= RULE_INT ) )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6980:7: this_INT_0= RULE_INT kw= '.' (this_EXP_INT_2= RULE_EXP_INT | this_INT_3= RULE_INT )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7378:2: (this_INT_0= RULE_INT kw= '.' (this_EXP_INT_2= RULE_EXP_INT | this_INT_3= RULE_INT ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7378:7: this_INT_0= RULE_INT kw= '.' (this_EXP_INT_2= RULE_EXP_INT | this_INT_3= RULE_INT )
                     {
-                    this_INT_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleREAL14416); 
+                    this_INT_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleREAL15222); 
 
                     		current.merge(this_INT_0);
                         
                      
                         newLeafNode(this_INT_0, grammarAccess.getREALAccess().getINTTerminalRuleCall_0_0()); 
                         
-                    kw=(Token)match(input,21,FOLLOW_21_in_ruleREAL14434); 
+                    kw=(Token)match(input,21,FOLLOW_21_in_ruleREAL15240); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getREALAccess().getFullStopKeyword_0_1()); 
                         
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6993:1: (this_EXP_INT_2= RULE_EXP_INT | this_INT_3= RULE_INT )
-                    int alt151=2;
-                    int LA151_0 = input.LA(1);
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7391:1: (this_EXP_INT_2= RULE_EXP_INT | this_INT_3= RULE_INT )
+                    int alt158=2;
+                    int LA158_0 = input.LA(1);
 
-                    if ( (LA151_0==RULE_EXP_INT) ) {
-                        alt151=1;
+                    if ( (LA158_0==RULE_EXP_INT) ) {
+                        alt158=1;
                     }
-                    else if ( (LA151_0==RULE_INT) ) {
-                        alt151=2;
+                    else if ( (LA158_0==RULE_INT) ) {
+                        alt158=2;
                     }
                     else {
                         NoViableAltException nvae =
-                            new NoViableAltException("", 151, 0, input);
+                            new NoViableAltException("", 158, 0, input);
 
                         throw nvae;
                     }
-                    switch (alt151) {
+                    switch (alt158) {
                         case 1 :
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:6993:6: this_EXP_INT_2= RULE_EXP_INT
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7391:6: this_EXP_INT_2= RULE_EXP_INT
                             {
-                            this_EXP_INT_2=(Token)match(input,RULE_EXP_INT,FOLLOW_RULE_EXP_INT_in_ruleREAL14450); 
+                            this_EXP_INT_2=(Token)match(input,RULE_EXP_INT,FOLLOW_RULE_EXP_INT_in_ruleREAL15256); 
 
                             		current.merge(this_EXP_INT_2);
                                 
@@ -17669,9 +18657,9 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                             }
                             break;
                         case 2 :
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7001:10: this_INT_3= RULE_INT
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7399:10: this_INT_3= RULE_INT
                             {
-                            this_INT_3=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleREAL14476); 
+                            this_INT_3=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleREAL15282); 
 
                             		current.merge(this_INT_3);
                                 
@@ -17691,37 +18679,37 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7009:6: (kw= '.' (this_EXP_INT_5= RULE_EXP_INT | this_INT_6= RULE_INT ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7407:6: (kw= '.' (this_EXP_INT_5= RULE_EXP_INT | this_INT_6= RULE_INT ) )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7009:6: (kw= '.' (this_EXP_INT_5= RULE_EXP_INT | this_INT_6= RULE_INT ) )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7010:2: kw= '.' (this_EXP_INT_5= RULE_EXP_INT | this_INT_6= RULE_INT )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7407:6: (kw= '.' (this_EXP_INT_5= RULE_EXP_INT | this_INT_6= RULE_INT ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7408:2: kw= '.' (this_EXP_INT_5= RULE_EXP_INT | this_INT_6= RULE_INT )
                     {
-                    kw=(Token)match(input,21,FOLLOW_21_in_ruleREAL14503); 
+                    kw=(Token)match(input,21,FOLLOW_21_in_ruleREAL15309); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getREALAccess().getFullStopKeyword_1_0()); 
                         
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7015:1: (this_EXP_INT_5= RULE_EXP_INT | this_INT_6= RULE_INT )
-                    int alt152=2;
-                    int LA152_0 = input.LA(1);
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7413:1: (this_EXP_INT_5= RULE_EXP_INT | this_INT_6= RULE_INT )
+                    int alt159=2;
+                    int LA159_0 = input.LA(1);
 
-                    if ( (LA152_0==RULE_EXP_INT) ) {
-                        alt152=1;
+                    if ( (LA159_0==RULE_EXP_INT) ) {
+                        alt159=1;
                     }
-                    else if ( (LA152_0==RULE_INT) ) {
-                        alt152=2;
+                    else if ( (LA159_0==RULE_INT) ) {
+                        alt159=2;
                     }
                     else {
                         NoViableAltException nvae =
-                            new NoViableAltException("", 152, 0, input);
+                            new NoViableAltException("", 159, 0, input);
 
                         throw nvae;
                     }
-                    switch (alt152) {
+                    switch (alt159) {
                         case 1 :
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7015:6: this_EXP_INT_5= RULE_EXP_INT
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7413:6: this_EXP_INT_5= RULE_EXP_INT
                             {
-                            this_EXP_INT_5=(Token)match(input,RULE_EXP_INT,FOLLOW_RULE_EXP_INT_in_ruleREAL14519); 
+                            this_EXP_INT_5=(Token)match(input,RULE_EXP_INT,FOLLOW_RULE_EXP_INT_in_ruleREAL15325); 
 
                             		current.merge(this_EXP_INT_5);
                                 
@@ -17732,9 +18720,9 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                             }
                             break;
                         case 2 :
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7023:10: this_INT_6= RULE_INT
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7421:10: this_INT_6= RULE_INT
                             {
-                            this_INT_6=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleREAL14545); 
+                            this_INT_6=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleREAL15351); 
 
                             		current.merge(this_INT_6);
                                 
@@ -17777,7 +18765,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAstExpressionInteger"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7041:1: entryRuleAstExpressionInteger returns [EObject current=null] : iv_ruleAstExpressionInteger= ruleAstExpressionInteger EOF ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7439:1: entryRuleAstExpressionInteger returns [EObject current=null] : iv_ruleAstExpressionInteger= ruleAstExpressionInteger EOF ;
     public final EObject entryRuleAstExpressionInteger() throws RecognitionException {
         EObject current = null;
 
@@ -17785,17 +18773,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7042:2: (iv_ruleAstExpressionInteger= ruleAstExpressionInteger EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7043:2: iv_ruleAstExpressionInteger= ruleAstExpressionInteger EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7440:2: (iv_ruleAstExpressionInteger= ruleAstExpressionInteger EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7441:2: iv_ruleAstExpressionInteger= ruleAstExpressionInteger EOF
             {
              newCompositeNode(grammarAccess.getAstExpressionIntegerRule()); 
-            pushFollow(FOLLOW_ruleAstExpressionInteger_in_entryRuleAstExpressionInteger14596);
+            pushFollow(FOLLOW_ruleAstExpressionInteger_in_entryRuleAstExpressionInteger15402);
             iv_ruleAstExpressionInteger=ruleAstExpressionInteger();
 
             state._fsp--;
 
              current =iv_ruleAstExpressionInteger; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionInteger14606); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionInteger15412); 
 
             }
 
@@ -17813,7 +18801,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAstExpressionInteger"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7050:1: ruleAstExpressionInteger returns [EObject current=null] : ( ( (lv_value_0_1= RULE_INT | lv_value_0_2= RULE_EXP_INT | lv_value_0_3= RULE_HEX ) ) ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7448:1: ruleAstExpressionInteger returns [EObject current=null] : ( ( (lv_value_0_1= RULE_INT | lv_value_0_2= RULE_EXP_INT | lv_value_0_3= RULE_HEX ) ) ) ;
     public final EObject ruleAstExpressionInteger() throws RecognitionException {
         EObject current = null;
 
@@ -17824,45 +18812,45 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7053:28: ( ( ( (lv_value_0_1= RULE_INT | lv_value_0_2= RULE_EXP_INT | lv_value_0_3= RULE_HEX ) ) ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7054:1: ( ( (lv_value_0_1= RULE_INT | lv_value_0_2= RULE_EXP_INT | lv_value_0_3= RULE_HEX ) ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7451:28: ( ( ( (lv_value_0_1= RULE_INT | lv_value_0_2= RULE_EXP_INT | lv_value_0_3= RULE_HEX ) ) ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7452:1: ( ( (lv_value_0_1= RULE_INT | lv_value_0_2= RULE_EXP_INT | lv_value_0_3= RULE_HEX ) ) )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7054:1: ( ( (lv_value_0_1= RULE_INT | lv_value_0_2= RULE_EXP_INT | lv_value_0_3= RULE_HEX ) ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7055:1: ( (lv_value_0_1= RULE_INT | lv_value_0_2= RULE_EXP_INT | lv_value_0_3= RULE_HEX ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7452:1: ( ( (lv_value_0_1= RULE_INT | lv_value_0_2= RULE_EXP_INT | lv_value_0_3= RULE_HEX ) ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7453:1: ( (lv_value_0_1= RULE_INT | lv_value_0_2= RULE_EXP_INT | lv_value_0_3= RULE_HEX ) )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7055:1: ( (lv_value_0_1= RULE_INT | lv_value_0_2= RULE_EXP_INT | lv_value_0_3= RULE_HEX ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7056:1: (lv_value_0_1= RULE_INT | lv_value_0_2= RULE_EXP_INT | lv_value_0_3= RULE_HEX )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7453:1: ( (lv_value_0_1= RULE_INT | lv_value_0_2= RULE_EXP_INT | lv_value_0_3= RULE_HEX ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7454:1: (lv_value_0_1= RULE_INT | lv_value_0_2= RULE_EXP_INT | lv_value_0_3= RULE_HEX )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7056:1: (lv_value_0_1= RULE_INT | lv_value_0_2= RULE_EXP_INT | lv_value_0_3= RULE_HEX )
-            int alt154=3;
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7454:1: (lv_value_0_1= RULE_INT | lv_value_0_2= RULE_EXP_INT | lv_value_0_3= RULE_HEX )
+            int alt161=3;
             switch ( input.LA(1) ) {
             case RULE_INT:
                 {
-                alt154=1;
+                alt161=1;
                 }
                 break;
             case RULE_EXP_INT:
                 {
-                alt154=2;
+                alt161=2;
                 }
                 break;
             case RULE_HEX:
                 {
-                alt154=3;
+                alt161=3;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 154, 0, input);
+                    new NoViableAltException("", 161, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt154) {
+            switch (alt161) {
                 case 1 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7057:3: lv_value_0_1= RULE_INT
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7455:3: lv_value_0_1= RULE_INT
                     {
-                    lv_value_0_1=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleAstExpressionInteger14649); 
+                    lv_value_0_1=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleAstExpressionInteger15455); 
 
                     			newLeafNode(lv_value_0_1, grammarAccess.getAstExpressionIntegerAccess().getValueINTTerminalRuleCall_0_0()); 
                     		
@@ -17880,9 +18868,9 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7072:8: lv_value_0_2= RULE_EXP_INT
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7470:8: lv_value_0_2= RULE_EXP_INT
                     {
-                    lv_value_0_2=(Token)match(input,RULE_EXP_INT,FOLLOW_RULE_EXP_INT_in_ruleAstExpressionInteger14669); 
+                    lv_value_0_2=(Token)match(input,RULE_EXP_INT,FOLLOW_RULE_EXP_INT_in_ruleAstExpressionInteger15475); 
 
                     			newLeafNode(lv_value_0_2, grammarAccess.getAstExpressionIntegerAccess().getValueEXP_INTTerminalRuleCall_0_1()); 
                     		
@@ -17900,9 +18888,9 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7087:8: lv_value_0_3= RULE_HEX
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7485:8: lv_value_0_3= RULE_HEX
                     {
-                    lv_value_0_3=(Token)match(input,RULE_HEX,FOLLOW_RULE_HEX_in_ruleAstExpressionInteger14689); 
+                    lv_value_0_3=(Token)match(input,RULE_HEX,FOLLOW_RULE_HEX_in_ruleAstExpressionInteger15495); 
 
                     			newLeafNode(lv_value_0_3, grammarAccess.getAstExpressionIntegerAccess().getValueHEXTerminalRuleCall_0_2()); 
                     		
@@ -17946,7 +18934,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAstExpressionString"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7113:1: entryRuleAstExpressionString returns [EObject current=null] : iv_ruleAstExpressionString= ruleAstExpressionString EOF ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7511:1: entryRuleAstExpressionString returns [EObject current=null] : iv_ruleAstExpressionString= ruleAstExpressionString EOF ;
     public final EObject entryRuleAstExpressionString() throws RecognitionException {
         EObject current = null;
 
@@ -17954,17 +18942,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7114:2: (iv_ruleAstExpressionString= ruleAstExpressionString EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7115:2: iv_ruleAstExpressionString= ruleAstExpressionString EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7512:2: (iv_ruleAstExpressionString= ruleAstExpressionString EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7513:2: iv_ruleAstExpressionString= ruleAstExpressionString EOF
             {
              newCompositeNode(grammarAccess.getAstExpressionStringRule()); 
-            pushFollow(FOLLOW_ruleAstExpressionString_in_entryRuleAstExpressionString14732);
+            pushFollow(FOLLOW_ruleAstExpressionString_in_entryRuleAstExpressionString15538);
             iv_ruleAstExpressionString=ruleAstExpressionString();
 
             state._fsp--;
 
              current =iv_ruleAstExpressionString; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionString14742); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstExpressionString15548); 
 
             }
 
@@ -17982,7 +18970,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAstExpressionString"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7122:1: ruleAstExpressionString returns [EObject current=null] : ( (lv_value_0_0= RULE_STRING ) ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7520:1: ruleAstExpressionString returns [EObject current=null] : ( (lv_value_0_0= RULE_STRING ) ) ;
     public final EObject ruleAstExpressionString() throws RecognitionException {
         EObject current = null;
 
@@ -17991,16 +18979,16 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7125:28: ( ( (lv_value_0_0= RULE_STRING ) ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7126:1: ( (lv_value_0_0= RULE_STRING ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7523:28: ( ( (lv_value_0_0= RULE_STRING ) ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7524:1: ( (lv_value_0_0= RULE_STRING ) )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7126:1: ( (lv_value_0_0= RULE_STRING ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7127:1: (lv_value_0_0= RULE_STRING )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7524:1: ( (lv_value_0_0= RULE_STRING ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7525:1: (lv_value_0_0= RULE_STRING )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7127:1: (lv_value_0_0= RULE_STRING )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7128:3: lv_value_0_0= RULE_STRING
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7525:1: (lv_value_0_0= RULE_STRING )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7526:3: lv_value_0_0= RULE_STRING
             {
-            lv_value_0_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleAstExpressionString14783); 
+            lv_value_0_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleAstExpressionString15589); 
 
             			newLeafNode(lv_value_0_0, grammarAccess.getAstExpressionStringAccess().getValueSTRINGTerminalRuleCall_0()); 
             		
@@ -18037,8 +19025,4161 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleAstExpressionString"
 
 
+    // $ANTLR start "entryRuleAstPattern"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7550:1: entryRuleAstPattern returns [EObject current=null] : iv_ruleAstPattern= ruleAstPattern EOF ;
+    public final EObject entryRuleAstPattern() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstPattern = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7551:2: (iv_ruleAstPattern= ruleAstPattern EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7552:2: iv_ruleAstPattern= ruleAstPattern EOF
+            {
+             newCompositeNode(grammarAccess.getAstPatternRule()); 
+            pushFollow(FOLLOW_ruleAstPattern_in_entryRuleAstPattern15629);
+            iv_ruleAstPattern=ruleAstPattern();
+
+            state._fsp--;
+
+             current =iv_ruleAstPattern; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstPattern15639); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstPattern"
+
+
+    // $ANTLR start "ruleAstPattern"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7559:1: ruleAstPattern returns [EObject current=null] : ( ( (lv_tag_0_0= RULE_ID ) ) otherlv_1= '(' ( (lv_subpatterns_2_0= ruleAstSubPattern ) ) (otherlv_3= ',' ( (lv_subpatterns_4_0= ruleAstSubPattern ) ) )? otherlv_5= ')' ) ;
+    public final EObject ruleAstPattern() throws RecognitionException {
+        EObject current = null;
+
+        Token lv_tag_0_0=null;
+        Token otherlv_1=null;
+        Token otherlv_3=null;
+        Token otherlv_5=null;
+        EObject lv_subpatterns_2_0 = null;
+
+        EObject lv_subpatterns_4_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7562:28: ( ( ( (lv_tag_0_0= RULE_ID ) ) otherlv_1= '(' ( (lv_subpatterns_2_0= ruleAstSubPattern ) ) (otherlv_3= ',' ( (lv_subpatterns_4_0= ruleAstSubPattern ) ) )? otherlv_5= ')' ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7563:1: ( ( (lv_tag_0_0= RULE_ID ) ) otherlv_1= '(' ( (lv_subpatterns_2_0= ruleAstSubPattern ) ) (otherlv_3= ',' ( (lv_subpatterns_4_0= ruleAstSubPattern ) ) )? otherlv_5= ')' )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7563:1: ( ( (lv_tag_0_0= RULE_ID ) ) otherlv_1= '(' ( (lv_subpatterns_2_0= ruleAstSubPattern ) ) (otherlv_3= ',' ( (lv_subpatterns_4_0= ruleAstSubPattern ) ) )? otherlv_5= ')' )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7563:2: ( (lv_tag_0_0= RULE_ID ) ) otherlv_1= '(' ( (lv_subpatterns_2_0= ruleAstSubPattern ) ) (otherlv_3= ',' ( (lv_subpatterns_4_0= ruleAstSubPattern ) ) )? otherlv_5= ')'
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7563:2: ( (lv_tag_0_0= RULE_ID ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7564:1: (lv_tag_0_0= RULE_ID )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7564:1: (lv_tag_0_0= RULE_ID )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7565:3: lv_tag_0_0= RULE_ID
+            {
+            lv_tag_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAstPattern15681); 
+
+            			newLeafNode(lv_tag_0_0, grammarAccess.getAstPatternAccess().getTagIDTerminalRuleCall_0_0()); 
+            		
+
+            	        if (current==null) {
+            	            current = createModelElement(grammarAccess.getAstPatternRule());
+            	        }
+                   		setWithLastConsumed(
+                   			current, 
+                   			"tag",
+                    		lv_tag_0_0, 
+                    		"ID");
+            	    
+
+            }
+
+
+            }
+
+            otherlv_1=(Token)match(input,24,FOLLOW_24_in_ruleAstPattern15698); 
+
+                	newLeafNode(otherlv_1, grammarAccess.getAstPatternAccess().getLeftParenthesisKeyword_1());
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7585:1: ( (lv_subpatterns_2_0= ruleAstSubPattern ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7586:1: (lv_subpatterns_2_0= ruleAstSubPattern )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7586:1: (lv_subpatterns_2_0= ruleAstSubPattern )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7587:3: lv_subpatterns_2_0= ruleAstSubPattern
+            {
+             
+            	        newCompositeNode(grammarAccess.getAstPatternAccess().getSubpatternsAstSubPatternParserRuleCall_2_0()); 
+            	    
+            pushFollow(FOLLOW_ruleAstSubPattern_in_ruleAstPattern15719);
+            lv_subpatterns_2_0=ruleAstSubPattern();
+
+            state._fsp--;
+
+
+            	        if (current==null) {
+            	            current = createModelElementForParent(grammarAccess.getAstPatternRule());
+            	        }
+                   		add(
+                   			current, 
+                   			"subpatterns",
+                    		lv_subpatterns_2_0, 
+                    		"AstSubPattern");
+            	        afterParserOrEnumRuleCall();
+            	    
+
+            }
+
+
+            }
+
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7603:2: (otherlv_3= ',' ( (lv_subpatterns_4_0= ruleAstSubPattern ) ) )?
+            int alt162=2;
+            int LA162_0 = input.LA(1);
+
+            if ( (LA162_0==25) ) {
+                alt162=1;
+            }
+            switch (alt162) {
+                case 1 :
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7603:4: otherlv_3= ',' ( (lv_subpatterns_4_0= ruleAstSubPattern ) )
+                    {
+                    otherlv_3=(Token)match(input,25,FOLLOW_25_in_ruleAstPattern15732); 
+
+                        	newLeafNode(otherlv_3, grammarAccess.getAstPatternAccess().getCommaKeyword_3_0());
+                        
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7607:1: ( (lv_subpatterns_4_0= ruleAstSubPattern ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7608:1: (lv_subpatterns_4_0= ruleAstSubPattern )
+                    {
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7608:1: (lv_subpatterns_4_0= ruleAstSubPattern )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7609:3: lv_subpatterns_4_0= ruleAstSubPattern
+                    {
+                     
+                    	        newCompositeNode(grammarAccess.getAstPatternAccess().getSubpatternsAstSubPatternParserRuleCall_3_1_0()); 
+                    	    
+                    pushFollow(FOLLOW_ruleAstSubPattern_in_ruleAstPattern15753);
+                    lv_subpatterns_4_0=ruleAstSubPattern();
+
+                    state._fsp--;
+
+
+                    	        if (current==null) {
+                    	            current = createModelElementForParent(grammarAccess.getAstPatternRule());
+                    	        }
+                           		add(
+                           			current, 
+                           			"subpatterns",
+                            		lv_subpatterns_4_0, 
+                            		"AstSubPattern");
+                    	        afterParserOrEnumRuleCall();
+                    	    
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+            otherlv_5=(Token)match(input,26,FOLLOW_26_in_ruleAstPattern15767); 
+
+                	newLeafNode(otherlv_5, grammarAccess.getAstPatternAccess().getRightParenthesisKeyword_4());
+                
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAstPattern"
+
+
+    // $ANTLR start "entryRuleAstSubPattern"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7637:1: entryRuleAstSubPattern returns [EObject current=null] : iv_ruleAstSubPattern= ruleAstSubPattern EOF ;
+    public final EObject entryRuleAstSubPattern() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstSubPattern = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7638:2: (iv_ruleAstSubPattern= ruleAstSubPattern EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7639:2: iv_ruleAstSubPattern= ruleAstSubPattern EOF
+            {
+             newCompositeNode(grammarAccess.getAstSubPatternRule()); 
+            pushFollow(FOLLOW_ruleAstSubPattern_in_entryRuleAstSubPattern15803);
+            iv_ruleAstSubPattern=ruleAstSubPattern();
+
+            state._fsp--;
+
+             current =iv_ruleAstSubPattern; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstSubPattern15813); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstSubPattern"
+
+
+    // $ANTLR start "ruleAstSubPattern"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7646:1: ruleAstSubPattern returns [EObject current=null] : ( ( ( (lv_label_0_0= RULE_ID ) ) otherlv_1= ':' )? ( ( (lv_dontcare_2_0= '_' ) ) | ( (lv_condition_3_0= ruleAstPatternExpression ) ) | ( (lv_variable_4_0= ruleAstToken ) ) | ( (lv_pattern_5_0= ruleAstPattern ) ) ) ) ;
+    public final EObject ruleAstSubPattern() throws RecognitionException {
+        EObject current = null;
+
+        Token lv_label_0_0=null;
+        Token otherlv_1=null;
+        Token lv_dontcare_2_0=null;
+        EObject lv_condition_3_0 = null;
+
+        EObject lv_variable_4_0 = null;
+
+        EObject lv_pattern_5_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7649:28: ( ( ( ( (lv_label_0_0= RULE_ID ) ) otherlv_1= ':' )? ( ( (lv_dontcare_2_0= '_' ) ) | ( (lv_condition_3_0= ruleAstPatternExpression ) ) | ( (lv_variable_4_0= ruleAstToken ) ) | ( (lv_pattern_5_0= ruleAstPattern ) ) ) ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7650:1: ( ( ( (lv_label_0_0= RULE_ID ) ) otherlv_1= ':' )? ( ( (lv_dontcare_2_0= '_' ) ) | ( (lv_condition_3_0= ruleAstPatternExpression ) ) | ( (lv_variable_4_0= ruleAstToken ) ) | ( (lv_pattern_5_0= ruleAstPattern ) ) ) )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7650:1: ( ( ( (lv_label_0_0= RULE_ID ) ) otherlv_1= ':' )? ( ( (lv_dontcare_2_0= '_' ) ) | ( (lv_condition_3_0= ruleAstPatternExpression ) ) | ( (lv_variable_4_0= ruleAstToken ) ) | ( (lv_pattern_5_0= ruleAstPattern ) ) ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7650:2: ( ( (lv_label_0_0= RULE_ID ) ) otherlv_1= ':' )? ( ( (lv_dontcare_2_0= '_' ) ) | ( (lv_condition_3_0= ruleAstPatternExpression ) ) | ( (lv_variable_4_0= ruleAstToken ) ) | ( (lv_pattern_5_0= ruleAstPattern ) ) )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7650:2: ( ( (lv_label_0_0= RULE_ID ) ) otherlv_1= ':' )?
+            int alt163=2;
+            int LA163_0 = input.LA(1);
+
+            if ( (LA163_0==RULE_ID) ) {
+                int LA163_1 = input.LA(2);
+
+                if ( (LA163_1==17) ) {
+                    alt163=1;
+                }
+            }
+            switch (alt163) {
+                case 1 :
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7650:3: ( (lv_label_0_0= RULE_ID ) ) otherlv_1= ':'
+                    {
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7650:3: ( (lv_label_0_0= RULE_ID ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7651:1: (lv_label_0_0= RULE_ID )
+                    {
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7651:1: (lv_label_0_0= RULE_ID )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7652:3: lv_label_0_0= RULE_ID
+                    {
+                    lv_label_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAstSubPattern15856); 
+
+                    			newLeafNode(lv_label_0_0, grammarAccess.getAstSubPatternAccess().getLabelIDTerminalRuleCall_0_0_0()); 
+                    		
+
+                    	        if (current==null) {
+                    	            current = createModelElement(grammarAccess.getAstSubPatternRule());
+                    	        }
+                           		setWithLastConsumed(
+                           			current, 
+                           			"label",
+                            		lv_label_0_0, 
+                            		"ID");
+                    	    
+
+                    }
+
+
+                    }
+
+                    otherlv_1=(Token)match(input,17,FOLLOW_17_in_ruleAstSubPattern15873); 
+
+                        	newLeafNode(otherlv_1, grammarAccess.getAstSubPatternAccess().getColonKeyword_0_1());
+                        
+
+                    }
+                    break;
+
+            }
+
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7672:3: ( ( (lv_dontcare_2_0= '_' ) ) | ( (lv_condition_3_0= ruleAstPatternExpression ) ) | ( (lv_variable_4_0= ruleAstToken ) ) | ( (lv_pattern_5_0= ruleAstPattern ) ) )
+            int alt164=4;
+            switch ( input.LA(1) ) {
+            case 89:
+                {
+                alt164=1;
+                }
+                break;
+            case RULE_BOOL:
+            case RULE_INT:
+            case RULE_EXP_INT:
+            case RULE_HEX:
+            case RULE_STRING:
+            case 56:
+            case 60:
+            case 77:
+            case 83:
+            case 84:
+            case 85:
+            case 86:
+            case 90:
+                {
+                alt164=2;
+                }
+                break;
+            case RULE_ID:
+                {
+                int LA164_3 = input.LA(2);
+
+                if ( (LA164_3==EOF||(LA164_3>=25 && LA164_3<=26)) ) {
+                    alt164=3;
+                }
+                else if ( (LA164_3==24) ) {
+                    alt164=4;
+                }
+                else {
+                    NoViableAltException nvae =
+                        new NoViableAltException("", 164, 3, input);
+
+                    throw nvae;
+                }
+                }
+                break;
+            default:
+                NoViableAltException nvae =
+                    new NoViableAltException("", 164, 0, input);
+
+                throw nvae;
+            }
+
+            switch (alt164) {
+                case 1 :
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7672:4: ( (lv_dontcare_2_0= '_' ) )
+                    {
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7672:4: ( (lv_dontcare_2_0= '_' ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7673:1: (lv_dontcare_2_0= '_' )
+                    {
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7673:1: (lv_dontcare_2_0= '_' )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7674:3: lv_dontcare_2_0= '_'
+                    {
+                    lv_dontcare_2_0=(Token)match(input,89,FOLLOW_89_in_ruleAstSubPattern15894); 
+
+                            newLeafNode(lv_dontcare_2_0, grammarAccess.getAstSubPatternAccess().getDontcare_Keyword_1_0_0());
+                        
+
+                    	        if (current==null) {
+                    	            current = createModelElement(grammarAccess.getAstSubPatternRule());
+                    	        }
+                           		setWithLastConsumed(current, "dontcare", true, "_");
+                    	    
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+                case 2 :
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7688:6: ( (lv_condition_3_0= ruleAstPatternExpression ) )
+                    {
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7688:6: ( (lv_condition_3_0= ruleAstPatternExpression ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7689:1: (lv_condition_3_0= ruleAstPatternExpression )
+                    {
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7689:1: (lv_condition_3_0= ruleAstPatternExpression )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7690:3: lv_condition_3_0= ruleAstPatternExpression
+                    {
+                     
+                    	        newCompositeNode(grammarAccess.getAstSubPatternAccess().getConditionAstPatternExpressionParserRuleCall_1_1_0()); 
+                    	    
+                    pushFollow(FOLLOW_ruleAstPatternExpression_in_ruleAstSubPattern15934);
+                    lv_condition_3_0=ruleAstPatternExpression();
+
+                    state._fsp--;
+
+
+                    	        if (current==null) {
+                    	            current = createModelElementForParent(grammarAccess.getAstSubPatternRule());
+                    	        }
+                           		set(
+                           			current, 
+                           			"condition",
+                            		lv_condition_3_0, 
+                            		"AstPatternExpression");
+                    	        afterParserOrEnumRuleCall();
+                    	    
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+                case 3 :
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7707:6: ( (lv_variable_4_0= ruleAstToken ) )
+                    {
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7707:6: ( (lv_variable_4_0= ruleAstToken ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7708:1: (lv_variable_4_0= ruleAstToken )
+                    {
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7708:1: (lv_variable_4_0= ruleAstToken )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7709:3: lv_variable_4_0= ruleAstToken
+                    {
+                     
+                    	        newCompositeNode(grammarAccess.getAstSubPatternAccess().getVariableAstTokenParserRuleCall_1_2_0()); 
+                    	    
+                    pushFollow(FOLLOW_ruleAstToken_in_ruleAstSubPattern15961);
+                    lv_variable_4_0=ruleAstToken();
+
+                    state._fsp--;
+
+
+                    	        if (current==null) {
+                    	            current = createModelElementForParent(grammarAccess.getAstSubPatternRule());
+                    	        }
+                           		set(
+                           			current, 
+                           			"variable",
+                            		lv_variable_4_0, 
+                            		"AstToken");
+                    	        afterParserOrEnumRuleCall();
+                    	    
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+                case 4 :
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7726:6: ( (lv_pattern_5_0= ruleAstPattern ) )
+                    {
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7726:6: ( (lv_pattern_5_0= ruleAstPattern ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7727:1: (lv_pattern_5_0= ruleAstPattern )
+                    {
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7727:1: (lv_pattern_5_0= ruleAstPattern )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7728:3: lv_pattern_5_0= ruleAstPattern
+                    {
+                     
+                    	        newCompositeNode(grammarAccess.getAstSubPatternAccess().getPatternAstPatternParserRuleCall_1_3_0()); 
+                    	    
+                    pushFollow(FOLLOW_ruleAstPattern_in_ruleAstSubPattern15988);
+                    lv_pattern_5_0=ruleAstPattern();
+
+                    state._fsp--;
+
+
+                    	        if (current==null) {
+                    	            current = createModelElementForParent(grammarAccess.getAstSubPatternRule());
+                    	        }
+                           		set(
+                           			current, 
+                           			"pattern",
+                            		lv_pattern_5_0, 
+                            		"AstPattern");
+                    	        afterParserOrEnumRuleCall();
+                    	    
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAstSubPattern"
+
+
+    // $ANTLR start "entryRuleAstPatternExpression"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7752:1: entryRuleAstPatternExpression returns [EObject current=null] : iv_ruleAstPatternExpression= ruleAstPatternExpression EOF ;
+    public final EObject entryRuleAstPatternExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstPatternExpression = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7753:2: (iv_ruleAstPatternExpression= ruleAstPatternExpression EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7754:2: iv_ruleAstPatternExpression= ruleAstPatternExpression EOF
+            {
+             newCompositeNode(grammarAccess.getAstPatternExpressionRule()); 
+            pushFollow(FOLLOW_ruleAstPatternExpression_in_entryRuleAstPatternExpression16025);
+            iv_ruleAstPatternExpression=ruleAstPatternExpression();
+
+            state._fsp--;
+
+             current =iv_ruleAstPatternExpression; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstPatternExpression16035); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstPatternExpression"
+
+
+    // $ANTLR start "ruleAstPatternExpression"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7761:1: ruleAstPatternExpression returns [EObject current=null] : (this_AstPatternExpressionAnd_0= ruleAstPatternExpressionAnd ( () ( ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) ) ) ( (lv_right_3_0= ruleAstExpressionAnd ) ) )* ) ;
+    public final EObject ruleAstPatternExpression() throws RecognitionException {
+        EObject current = null;
+
+        Token lv_operator_2_1=null;
+        Token lv_operator_2_2=null;
+        Token lv_operator_2_3=null;
+        EObject this_AstPatternExpressionAnd_0 = null;
+
+        EObject lv_right_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7764:28: ( (this_AstPatternExpressionAnd_0= ruleAstPatternExpressionAnd ( () ( ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) ) ) ( (lv_right_3_0= ruleAstExpressionAnd ) ) )* ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7765:1: (this_AstPatternExpressionAnd_0= ruleAstPatternExpressionAnd ( () ( ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) ) ) ( (lv_right_3_0= ruleAstExpressionAnd ) ) )* )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7765:1: (this_AstPatternExpressionAnd_0= ruleAstPatternExpressionAnd ( () ( ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) ) ) ( (lv_right_3_0= ruleAstExpressionAnd ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7766:5: this_AstPatternExpressionAnd_0= ruleAstPatternExpressionAnd ( () ( ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) ) ) ( (lv_right_3_0= ruleAstExpressionAnd ) ) )*
+            {
+             
+                    newCompositeNode(grammarAccess.getAstPatternExpressionAccess().getAstPatternExpressionAndParserRuleCall_0()); 
+                
+            pushFollow(FOLLOW_ruleAstPatternExpressionAnd_in_ruleAstPatternExpression16082);
+            this_AstPatternExpressionAnd_0=ruleAstPatternExpressionAnd();
+
+            state._fsp--;
+
+             
+                    current = this_AstPatternExpressionAnd_0; 
+                    afterParserOrEnumRuleCall();
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7774:1: ( () ( ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) ) ) ( (lv_right_3_0= ruleAstExpressionAnd ) ) )*
+            loop166:
+            do {
+                int alt166=2;
+                int LA166_0 = input.LA(1);
+
+                if ( ((LA166_0>=62 && LA166_0<=64)) ) {
+                    alt166=1;
+                }
+
+
+                switch (alt166) {
+            	case 1 :
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7774:2: () ( ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) ) ) ( (lv_right_3_0= ruleAstExpressionAnd ) )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7774:2: ()
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7775:5: 
+            	    {
+
+            	            current = forceCreateModelElementAndSet(
+            	                grammarAccess.getAstPatternExpressionAccess().getAstPatternExpressionBinaryLeftAction_1_0(),
+            	                current);
+            	        
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7780:2: ( ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7781:1: ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7781:1: ( (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7782:1: (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7782:1: (lv_operator_2_1= '||' | lv_operator_2_2= 'or' | lv_operator_2_3= '..' )
+            	    int alt165=3;
+            	    switch ( input.LA(1) ) {
+            	    case 62:
+            	        {
+            	        alt165=1;
+            	        }
+            	        break;
+            	    case 63:
+            	        {
+            	        alt165=2;
+            	        }
+            	        break;
+            	    case 64:
+            	        {
+            	        alt165=3;
+            	        }
+            	        break;
+            	    default:
+            	        NoViableAltException nvae =
+            	            new NoViableAltException("", 165, 0, input);
+
+            	        throw nvae;
+            	    }
+
+            	    switch (alt165) {
+            	        case 1 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7783:3: lv_operator_2_1= '||'
+            	            {
+            	            lv_operator_2_1=(Token)match(input,62,FOLLOW_62_in_ruleAstPatternExpression16111); 
+
+            	                    newLeafNode(lv_operator_2_1, grammarAccess.getAstPatternExpressionAccess().getOperatorVerticalLineVerticalLineKeyword_1_1_0_0());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstPatternExpressionRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_1, null);
+            	            	    
+
+            	            }
+            	            break;
+            	        case 2 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7795:8: lv_operator_2_2= 'or'
+            	            {
+            	            lv_operator_2_2=(Token)match(input,63,FOLLOW_63_in_ruleAstPatternExpression16140); 
+
+            	                    newLeafNode(lv_operator_2_2, grammarAccess.getAstPatternExpressionAccess().getOperatorOrKeyword_1_1_0_1());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstPatternExpressionRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_2, null);
+            	            	    
+
+            	            }
+            	            break;
+            	        case 3 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7807:8: lv_operator_2_3= '..'
+            	            {
+            	            lv_operator_2_3=(Token)match(input,64,FOLLOW_64_in_ruleAstPatternExpression16169); 
+
+            	                    newLeafNode(lv_operator_2_3, grammarAccess.getAstPatternExpressionAccess().getOperatorFullStopFullStopKeyword_1_1_0_2());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstPatternExpressionRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_3, null);
+            	            	    
+
+            	            }
+            	            break;
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7822:2: ( (lv_right_3_0= ruleAstExpressionAnd ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7823:1: (lv_right_3_0= ruleAstExpressionAnd )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7823:1: (lv_right_3_0= ruleAstExpressionAnd )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7824:3: lv_right_3_0= ruleAstExpressionAnd
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getAstPatternExpressionAccess().getRightAstExpressionAndParserRuleCall_1_2_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleAstExpressionAnd_in_ruleAstPatternExpression16206);
+            	    lv_right_3_0=ruleAstExpressionAnd();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getAstPatternExpressionRule());
+            	    	        }
+            	           		set(
+            	           			current, 
+            	           			"right",
+            	            		lv_right_3_0, 
+            	            		"AstExpressionAnd");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop166;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAstPatternExpression"
+
+
+    // $ANTLR start "entryRuleAstPatternExpressionAnd"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7848:1: entryRuleAstPatternExpressionAnd returns [EObject current=null] : iv_ruleAstPatternExpressionAnd= ruleAstPatternExpressionAnd EOF ;
+    public final EObject entryRuleAstPatternExpressionAnd() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstPatternExpressionAnd = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7849:2: (iv_ruleAstPatternExpressionAnd= ruleAstPatternExpressionAnd EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7850:2: iv_ruleAstPatternExpressionAnd= ruleAstPatternExpressionAnd EOF
+            {
+             newCompositeNode(grammarAccess.getAstPatternExpressionAndRule()); 
+            pushFollow(FOLLOW_ruleAstPatternExpressionAnd_in_entryRuleAstPatternExpressionAnd16244);
+            iv_ruleAstPatternExpressionAnd=ruleAstPatternExpressionAnd();
+
+            state._fsp--;
+
+             current =iv_ruleAstPatternExpressionAnd; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstPatternExpressionAnd16254); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstPatternExpressionAnd"
+
+
+    // $ANTLR start "ruleAstPatternExpressionAnd"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7857:1: ruleAstPatternExpressionAnd returns [EObject current=null] : (this_AstPatternExpressionBitor_0= ruleAstPatternExpressionBitor ( () ( ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionBitor ) ) )* ) ;
+    public final EObject ruleAstPatternExpressionAnd() throws RecognitionException {
+        EObject current = null;
+
+        Token lv_operator_2_1=null;
+        Token lv_operator_2_2=null;
+        EObject this_AstPatternExpressionBitor_0 = null;
+
+        EObject lv_right_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7860:28: ( (this_AstPatternExpressionBitor_0= ruleAstPatternExpressionBitor ( () ( ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionBitor ) ) )* ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7861:1: (this_AstPatternExpressionBitor_0= ruleAstPatternExpressionBitor ( () ( ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionBitor ) ) )* )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7861:1: (this_AstPatternExpressionBitor_0= ruleAstPatternExpressionBitor ( () ( ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionBitor ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7862:5: this_AstPatternExpressionBitor_0= ruleAstPatternExpressionBitor ( () ( ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionBitor ) ) )*
+            {
+             
+                    newCompositeNode(grammarAccess.getAstPatternExpressionAndAccess().getAstPatternExpressionBitorParserRuleCall_0()); 
+                
+            pushFollow(FOLLOW_ruleAstPatternExpressionBitor_in_ruleAstPatternExpressionAnd16301);
+            this_AstPatternExpressionBitor_0=ruleAstPatternExpressionBitor();
+
+            state._fsp--;
+
+             
+                    current = this_AstPatternExpressionBitor_0; 
+                    afterParserOrEnumRuleCall();
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7870:1: ( () ( ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionBitor ) ) )*
+            loop168:
+            do {
+                int alt168=2;
+                int LA168_0 = input.LA(1);
+
+                if ( ((LA168_0>=65 && LA168_0<=66)) ) {
+                    alt168=1;
+                }
+
+
+                switch (alt168) {
+            	case 1 :
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7870:2: () ( ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionBitor ) )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7870:2: ()
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7871:5: 
+            	    {
+
+            	            current = forceCreateModelElementAndSet(
+            	                grammarAccess.getAstPatternExpressionAndAccess().getAstPatternExpressionBinaryLeftAction_1_0(),
+            	                current);
+            	        
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7876:2: ( ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7877:1: ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7877:1: ( (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7878:1: (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7878:1: (lv_operator_2_1= '&&' | lv_operator_2_2= 'and' )
+            	    int alt167=2;
+            	    int LA167_0 = input.LA(1);
+
+            	    if ( (LA167_0==65) ) {
+            	        alt167=1;
+            	    }
+            	    else if ( (LA167_0==66) ) {
+            	        alt167=2;
+            	    }
+            	    else {
+            	        NoViableAltException nvae =
+            	            new NoViableAltException("", 167, 0, input);
+
+            	        throw nvae;
+            	    }
+            	    switch (alt167) {
+            	        case 1 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7879:3: lv_operator_2_1= '&&'
+            	            {
+            	            lv_operator_2_1=(Token)match(input,65,FOLLOW_65_in_ruleAstPatternExpressionAnd16330); 
+
+            	                    newLeafNode(lv_operator_2_1, grammarAccess.getAstPatternExpressionAndAccess().getOperatorAmpersandAmpersandKeyword_1_1_0_0());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstPatternExpressionAndRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_1, null);
+            	            	    
+
+            	            }
+            	            break;
+            	        case 2 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7891:8: lv_operator_2_2= 'and'
+            	            {
+            	            lv_operator_2_2=(Token)match(input,66,FOLLOW_66_in_ruleAstPatternExpressionAnd16359); 
+
+            	                    newLeafNode(lv_operator_2_2, grammarAccess.getAstPatternExpressionAndAccess().getOperatorAndKeyword_1_1_0_1());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstPatternExpressionAndRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_2, null);
+            	            	    
+
+            	            }
+            	            break;
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7906:2: ( (lv_right_3_0= ruleAstPatternExpressionBitor ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7907:1: (lv_right_3_0= ruleAstPatternExpressionBitor )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7907:1: (lv_right_3_0= ruleAstPatternExpressionBitor )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7908:3: lv_right_3_0= ruleAstPatternExpressionBitor
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getAstPatternExpressionAndAccess().getRightAstPatternExpressionBitorParserRuleCall_1_2_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleAstPatternExpressionBitor_in_ruleAstPatternExpressionAnd16396);
+            	    lv_right_3_0=ruleAstPatternExpressionBitor();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getAstPatternExpressionAndRule());
+            	    	        }
+            	           		set(
+            	           			current, 
+            	           			"right",
+            	            		lv_right_3_0, 
+            	            		"AstPatternExpressionBitor");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop168;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAstPatternExpressionAnd"
+
+
+    // $ANTLR start "entryRuleAstPatternExpressionBitor"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7932:1: entryRuleAstPatternExpressionBitor returns [EObject current=null] : iv_ruleAstPatternExpressionBitor= ruleAstPatternExpressionBitor EOF ;
+    public final EObject entryRuleAstPatternExpressionBitor() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstPatternExpressionBitor = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7933:2: (iv_ruleAstPatternExpressionBitor= ruleAstPatternExpressionBitor EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7934:2: iv_ruleAstPatternExpressionBitor= ruleAstPatternExpressionBitor EOF
+            {
+             newCompositeNode(grammarAccess.getAstPatternExpressionBitorRule()); 
+            pushFollow(FOLLOW_ruleAstPatternExpressionBitor_in_entryRuleAstPatternExpressionBitor16434);
+            iv_ruleAstPatternExpressionBitor=ruleAstPatternExpressionBitor();
+
+            state._fsp--;
+
+             current =iv_ruleAstPatternExpressionBitor; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstPatternExpressionBitor16444); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstPatternExpressionBitor"
+
+
+    // $ANTLR start "ruleAstPatternExpressionBitor"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7941:1: ruleAstPatternExpressionBitor returns [EObject current=null] : (this_AstPatternExpressionBitxor_0= ruleAstPatternExpressionBitxor ( () ( (lv_operator_2_0= '|' ) ) ( (lv_right_3_0= ruleAstPatternExpressionBitxor ) ) )* ) ;
+    public final EObject ruleAstPatternExpressionBitor() throws RecognitionException {
+        EObject current = null;
+
+        Token lv_operator_2_0=null;
+        EObject this_AstPatternExpressionBitxor_0 = null;
+
+        EObject lv_right_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7944:28: ( (this_AstPatternExpressionBitxor_0= ruleAstPatternExpressionBitxor ( () ( (lv_operator_2_0= '|' ) ) ( (lv_right_3_0= ruleAstPatternExpressionBitxor ) ) )* ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7945:1: (this_AstPatternExpressionBitxor_0= ruleAstPatternExpressionBitxor ( () ( (lv_operator_2_0= '|' ) ) ( (lv_right_3_0= ruleAstPatternExpressionBitxor ) ) )* )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7945:1: (this_AstPatternExpressionBitxor_0= ruleAstPatternExpressionBitxor ( () ( (lv_operator_2_0= '|' ) ) ( (lv_right_3_0= ruleAstPatternExpressionBitxor ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7946:5: this_AstPatternExpressionBitxor_0= ruleAstPatternExpressionBitxor ( () ( (lv_operator_2_0= '|' ) ) ( (lv_right_3_0= ruleAstPatternExpressionBitxor ) ) )*
+            {
+             
+                    newCompositeNode(grammarAccess.getAstPatternExpressionBitorAccess().getAstPatternExpressionBitxorParserRuleCall_0()); 
+                
+            pushFollow(FOLLOW_ruleAstPatternExpressionBitxor_in_ruleAstPatternExpressionBitor16491);
+            this_AstPatternExpressionBitxor_0=ruleAstPatternExpressionBitxor();
+
+            state._fsp--;
+
+             
+                    current = this_AstPatternExpressionBitxor_0; 
+                    afterParserOrEnumRuleCall();
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7954:1: ( () ( (lv_operator_2_0= '|' ) ) ( (lv_right_3_0= ruleAstPatternExpressionBitxor ) ) )*
+            loop169:
+            do {
+                int alt169=2;
+                int LA169_0 = input.LA(1);
+
+                if ( (LA169_0==37) ) {
+                    alt169=1;
+                }
+
+
+                switch (alt169) {
+            	case 1 :
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7954:2: () ( (lv_operator_2_0= '|' ) ) ( (lv_right_3_0= ruleAstPatternExpressionBitxor ) )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7954:2: ()
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7955:5: 
+            	    {
+
+            	            current = forceCreateModelElementAndSet(
+            	                grammarAccess.getAstPatternExpressionBitorAccess().getAstPatternExpressionBinaryLeftAction_1_0(),
+            	                current);
+            	        
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7960:2: ( (lv_operator_2_0= '|' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7961:1: (lv_operator_2_0= '|' )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7961:1: (lv_operator_2_0= '|' )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7962:3: lv_operator_2_0= '|'
+            	    {
+            	    lv_operator_2_0=(Token)match(input,37,FOLLOW_37_in_ruleAstPatternExpressionBitor16518); 
+
+            	            newLeafNode(lv_operator_2_0, grammarAccess.getAstPatternExpressionBitorAccess().getOperatorVerticalLineKeyword_1_1_0());
+            	        
+
+            	    	        if (current==null) {
+            	    	            current = createModelElement(grammarAccess.getAstPatternExpressionBitorRule());
+            	    	        }
+            	           		setWithLastConsumed(current, "operator", lv_operator_2_0, "|");
+            	    	    
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7975:2: ( (lv_right_3_0= ruleAstPatternExpressionBitxor ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7976:1: (lv_right_3_0= ruleAstPatternExpressionBitxor )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7976:1: (lv_right_3_0= ruleAstPatternExpressionBitxor )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7977:3: lv_right_3_0= ruleAstPatternExpressionBitxor
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getAstPatternExpressionBitorAccess().getRightAstPatternExpressionBitxorParserRuleCall_1_2_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleAstPatternExpressionBitxor_in_ruleAstPatternExpressionBitor16552);
+            	    lv_right_3_0=ruleAstPatternExpressionBitxor();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getAstPatternExpressionBitorRule());
+            	    	        }
+            	           		set(
+            	           			current, 
+            	           			"right",
+            	            		lv_right_3_0, 
+            	            		"AstPatternExpressionBitxor");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop169;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAstPatternExpressionBitor"
+
+
+    // $ANTLR start "entryRuleAstPatternExpressionBitxor"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8001:1: entryRuleAstPatternExpressionBitxor returns [EObject current=null] : iv_ruleAstPatternExpressionBitxor= ruleAstPatternExpressionBitxor EOF ;
+    public final EObject entryRuleAstPatternExpressionBitxor() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstPatternExpressionBitxor = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8002:2: (iv_ruleAstPatternExpressionBitxor= ruleAstPatternExpressionBitxor EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8003:2: iv_ruleAstPatternExpressionBitxor= ruleAstPatternExpressionBitxor EOF
+            {
+             newCompositeNode(grammarAccess.getAstPatternExpressionBitxorRule()); 
+            pushFollow(FOLLOW_ruleAstPatternExpressionBitxor_in_entryRuleAstPatternExpressionBitxor16590);
+            iv_ruleAstPatternExpressionBitxor=ruleAstPatternExpressionBitxor();
+
+            state._fsp--;
+
+             current =iv_ruleAstPatternExpressionBitxor; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstPatternExpressionBitxor16600); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstPatternExpressionBitxor"
+
+
+    // $ANTLR start "ruleAstPatternExpressionBitxor"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8010:1: ruleAstPatternExpressionBitxor returns [EObject current=null] : (this_AstPatternExpressionBitand_0= ruleAstPatternExpressionBitand ( () ( (lv_operator_2_0= '^' ) ) ( (lv_right_3_0= ruleAstPatternExpressionBitand ) ) )* ) ;
+    public final EObject ruleAstPatternExpressionBitxor() throws RecognitionException {
+        EObject current = null;
+
+        Token lv_operator_2_0=null;
+        EObject this_AstPatternExpressionBitand_0 = null;
+
+        EObject lv_right_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8013:28: ( (this_AstPatternExpressionBitand_0= ruleAstPatternExpressionBitand ( () ( (lv_operator_2_0= '^' ) ) ( (lv_right_3_0= ruleAstPatternExpressionBitand ) ) )* ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8014:1: (this_AstPatternExpressionBitand_0= ruleAstPatternExpressionBitand ( () ( (lv_operator_2_0= '^' ) ) ( (lv_right_3_0= ruleAstPatternExpressionBitand ) ) )* )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8014:1: (this_AstPatternExpressionBitand_0= ruleAstPatternExpressionBitand ( () ( (lv_operator_2_0= '^' ) ) ( (lv_right_3_0= ruleAstPatternExpressionBitand ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8015:5: this_AstPatternExpressionBitand_0= ruleAstPatternExpressionBitand ( () ( (lv_operator_2_0= '^' ) ) ( (lv_right_3_0= ruleAstPatternExpressionBitand ) ) )*
+            {
+             
+                    newCompositeNode(grammarAccess.getAstPatternExpressionBitxorAccess().getAstPatternExpressionBitandParserRuleCall_0()); 
+                
+            pushFollow(FOLLOW_ruleAstPatternExpressionBitand_in_ruleAstPatternExpressionBitxor16647);
+            this_AstPatternExpressionBitand_0=ruleAstPatternExpressionBitand();
+
+            state._fsp--;
+
+             
+                    current = this_AstPatternExpressionBitand_0; 
+                    afterParserOrEnumRuleCall();
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8023:1: ( () ( (lv_operator_2_0= '^' ) ) ( (lv_right_3_0= ruleAstPatternExpressionBitand ) ) )*
+            loop170:
+            do {
+                int alt170=2;
+                int LA170_0 = input.LA(1);
+
+                if ( (LA170_0==67) ) {
+                    alt170=1;
+                }
+
+
+                switch (alt170) {
+            	case 1 :
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8023:2: () ( (lv_operator_2_0= '^' ) ) ( (lv_right_3_0= ruleAstPatternExpressionBitand ) )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8023:2: ()
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8024:5: 
+            	    {
+
+            	            current = forceCreateModelElementAndSet(
+            	                grammarAccess.getAstPatternExpressionBitxorAccess().getAstPatternExpressionBinaryLeftAction_1_0(),
+            	                current);
+            	        
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8029:2: ( (lv_operator_2_0= '^' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8030:1: (lv_operator_2_0= '^' )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8030:1: (lv_operator_2_0= '^' )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8031:3: lv_operator_2_0= '^'
+            	    {
+            	    lv_operator_2_0=(Token)match(input,67,FOLLOW_67_in_ruleAstPatternExpressionBitxor16674); 
+
+            	            newLeafNode(lv_operator_2_0, grammarAccess.getAstPatternExpressionBitxorAccess().getOperatorCircumflexAccentKeyword_1_1_0());
+            	        
+
+            	    	        if (current==null) {
+            	    	            current = createModelElement(grammarAccess.getAstPatternExpressionBitxorRule());
+            	    	        }
+            	           		setWithLastConsumed(current, "operator", lv_operator_2_0, "^");
+            	    	    
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8044:2: ( (lv_right_3_0= ruleAstPatternExpressionBitand ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8045:1: (lv_right_3_0= ruleAstPatternExpressionBitand )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8045:1: (lv_right_3_0= ruleAstPatternExpressionBitand )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8046:3: lv_right_3_0= ruleAstPatternExpressionBitand
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getAstPatternExpressionBitxorAccess().getRightAstPatternExpressionBitandParserRuleCall_1_2_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleAstPatternExpressionBitand_in_ruleAstPatternExpressionBitxor16708);
+            	    lv_right_3_0=ruleAstPatternExpressionBitand();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getAstPatternExpressionBitxorRule());
+            	    	        }
+            	           		set(
+            	           			current, 
+            	           			"right",
+            	            		lv_right_3_0, 
+            	            		"AstPatternExpressionBitand");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop170;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAstPatternExpressionBitxor"
+
+
+    // $ANTLR start "entryRuleAstPatternExpressionBitand"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8070:1: entryRuleAstPatternExpressionBitand returns [EObject current=null] : iv_ruleAstPatternExpressionBitand= ruleAstPatternExpressionBitand EOF ;
+    public final EObject entryRuleAstPatternExpressionBitand() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstPatternExpressionBitand = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8071:2: (iv_ruleAstPatternExpressionBitand= ruleAstPatternExpressionBitand EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8072:2: iv_ruleAstPatternExpressionBitand= ruleAstPatternExpressionBitand EOF
+            {
+             newCompositeNode(grammarAccess.getAstPatternExpressionBitandRule()); 
+            pushFollow(FOLLOW_ruleAstPatternExpressionBitand_in_entryRuleAstPatternExpressionBitand16746);
+            iv_ruleAstPatternExpressionBitand=ruleAstPatternExpressionBitand();
+
+            state._fsp--;
+
+             current =iv_ruleAstPatternExpressionBitand; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstPatternExpressionBitand16756); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstPatternExpressionBitand"
+
+
+    // $ANTLR start "ruleAstPatternExpressionBitand"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8079:1: ruleAstPatternExpressionBitand returns [EObject current=null] : (this_AstPatternExpressionEq_0= ruleAstPatternExpressionEq ( () ( (lv_operator_2_0= '&' ) ) ( (lv_right_3_0= ruleAstPatternExpressionEq ) ) )* ) ;
+    public final EObject ruleAstPatternExpressionBitand() throws RecognitionException {
+        EObject current = null;
+
+        Token lv_operator_2_0=null;
+        EObject this_AstPatternExpressionEq_0 = null;
+
+        EObject lv_right_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8082:28: ( (this_AstPatternExpressionEq_0= ruleAstPatternExpressionEq ( () ( (lv_operator_2_0= '&' ) ) ( (lv_right_3_0= ruleAstPatternExpressionEq ) ) )* ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8083:1: (this_AstPatternExpressionEq_0= ruleAstPatternExpressionEq ( () ( (lv_operator_2_0= '&' ) ) ( (lv_right_3_0= ruleAstPatternExpressionEq ) ) )* )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8083:1: (this_AstPatternExpressionEq_0= ruleAstPatternExpressionEq ( () ( (lv_operator_2_0= '&' ) ) ( (lv_right_3_0= ruleAstPatternExpressionEq ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8084:5: this_AstPatternExpressionEq_0= ruleAstPatternExpressionEq ( () ( (lv_operator_2_0= '&' ) ) ( (lv_right_3_0= ruleAstPatternExpressionEq ) ) )*
+            {
+             
+                    newCompositeNode(grammarAccess.getAstPatternExpressionBitandAccess().getAstPatternExpressionEqParserRuleCall_0()); 
+                
+            pushFollow(FOLLOW_ruleAstPatternExpressionEq_in_ruleAstPatternExpressionBitand16803);
+            this_AstPatternExpressionEq_0=ruleAstPatternExpressionEq();
+
+            state._fsp--;
+
+             
+                    current = this_AstPatternExpressionEq_0; 
+                    afterParserOrEnumRuleCall();
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8092:1: ( () ( (lv_operator_2_0= '&' ) ) ( (lv_right_3_0= ruleAstPatternExpressionEq ) ) )*
+            loop171:
+            do {
+                int alt171=2;
+                int LA171_0 = input.LA(1);
+
+                if ( (LA171_0==68) ) {
+                    alt171=1;
+                }
+
+
+                switch (alt171) {
+            	case 1 :
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8092:2: () ( (lv_operator_2_0= '&' ) ) ( (lv_right_3_0= ruleAstPatternExpressionEq ) )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8092:2: ()
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8093:5: 
+            	    {
+
+            	            current = forceCreateModelElementAndSet(
+            	                grammarAccess.getAstPatternExpressionBitandAccess().getAstPatternExpressionBinaryLeftAction_1_0(),
+            	                current);
+            	        
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8098:2: ( (lv_operator_2_0= '&' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8099:1: (lv_operator_2_0= '&' )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8099:1: (lv_operator_2_0= '&' )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8100:3: lv_operator_2_0= '&'
+            	    {
+            	    lv_operator_2_0=(Token)match(input,68,FOLLOW_68_in_ruleAstPatternExpressionBitand16830); 
+
+            	            newLeafNode(lv_operator_2_0, grammarAccess.getAstPatternExpressionBitandAccess().getOperatorAmpersandKeyword_1_1_0());
+            	        
+
+            	    	        if (current==null) {
+            	    	            current = createModelElement(grammarAccess.getAstPatternExpressionBitandRule());
+            	    	        }
+            	           		setWithLastConsumed(current, "operator", lv_operator_2_0, "&");
+            	    	    
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8113:2: ( (lv_right_3_0= ruleAstPatternExpressionEq ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8114:1: (lv_right_3_0= ruleAstPatternExpressionEq )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8114:1: (lv_right_3_0= ruleAstPatternExpressionEq )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8115:3: lv_right_3_0= ruleAstPatternExpressionEq
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getAstPatternExpressionBitandAccess().getRightAstPatternExpressionEqParserRuleCall_1_2_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleAstPatternExpressionEq_in_ruleAstPatternExpressionBitand16864);
+            	    lv_right_3_0=ruleAstPatternExpressionEq();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getAstPatternExpressionBitandRule());
+            	    	        }
+            	           		set(
+            	           			current, 
+            	           			"right",
+            	            		lv_right_3_0, 
+            	            		"AstPatternExpressionEq");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop171;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAstPatternExpressionBitand"
+
+
+    // $ANTLR start "entryRuleAstPatternExpressionEq"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8139:1: entryRuleAstPatternExpressionEq returns [EObject current=null] : iv_ruleAstPatternExpressionEq= ruleAstPatternExpressionEq EOF ;
+    public final EObject entryRuleAstPatternExpressionEq() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstPatternExpressionEq = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8140:2: (iv_ruleAstPatternExpressionEq= ruleAstPatternExpressionEq EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8141:2: iv_ruleAstPatternExpressionEq= ruleAstPatternExpressionEq EOF
+            {
+             newCompositeNode(grammarAccess.getAstPatternExpressionEqRule()); 
+            pushFollow(FOLLOW_ruleAstPatternExpressionEq_in_entryRuleAstPatternExpressionEq16902);
+            iv_ruleAstPatternExpressionEq=ruleAstPatternExpressionEq();
+
+            state._fsp--;
+
+             current =iv_ruleAstPatternExpressionEq; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstPatternExpressionEq16912); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstPatternExpressionEq"
+
+
+    // $ANTLR start "ruleAstPatternExpressionEq"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8148:1: ruleAstPatternExpressionEq returns [EObject current=null] : (this_AstPatternExpressionRelational_0= ruleAstPatternExpressionRelational ( () ( ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionRelational ) ) )* ) ;
+    public final EObject ruleAstPatternExpressionEq() throws RecognitionException {
+        EObject current = null;
+
+        Token lv_operator_2_1=null;
+        Token lv_operator_2_2=null;
+        EObject this_AstPatternExpressionRelational_0 = null;
+
+        EObject lv_right_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8151:28: ( (this_AstPatternExpressionRelational_0= ruleAstPatternExpressionRelational ( () ( ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionRelational ) ) )* ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8152:1: (this_AstPatternExpressionRelational_0= ruleAstPatternExpressionRelational ( () ( ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionRelational ) ) )* )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8152:1: (this_AstPatternExpressionRelational_0= ruleAstPatternExpressionRelational ( () ( ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionRelational ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8153:5: this_AstPatternExpressionRelational_0= ruleAstPatternExpressionRelational ( () ( ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionRelational ) ) )*
+            {
+             
+                    newCompositeNode(grammarAccess.getAstPatternExpressionEqAccess().getAstPatternExpressionRelationalParserRuleCall_0()); 
+                
+            pushFollow(FOLLOW_ruleAstPatternExpressionRelational_in_ruleAstPatternExpressionEq16959);
+            this_AstPatternExpressionRelational_0=ruleAstPatternExpressionRelational();
+
+            state._fsp--;
+
+             
+                    current = this_AstPatternExpressionRelational_0; 
+                    afterParserOrEnumRuleCall();
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8161:1: ( () ( ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionRelational ) ) )*
+            loop173:
+            do {
+                int alt173=2;
+                int LA173_0 = input.LA(1);
+
+                if ( (LA173_0==30||LA173_0==69) ) {
+                    alt173=1;
+                }
+
+
+                switch (alt173) {
+            	case 1 :
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8161:2: () ( ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionRelational ) )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8161:2: ()
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8162:5: 
+            	    {
+
+            	            current = forceCreateModelElementAndSet(
+            	                grammarAccess.getAstPatternExpressionEqAccess().getAstPatternExpressionBinaryLeftAction_1_0(),
+            	                current);
+            	        
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8167:2: ( ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8168:1: ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8168:1: ( (lv_operator_2_1= '=' | lv_operator_2_2= '!=' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8169:1: (lv_operator_2_1= '=' | lv_operator_2_2= '!=' )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8169:1: (lv_operator_2_1= '=' | lv_operator_2_2= '!=' )
+            	    int alt172=2;
+            	    int LA172_0 = input.LA(1);
+
+            	    if ( (LA172_0==30) ) {
+            	        alt172=1;
+            	    }
+            	    else if ( (LA172_0==69) ) {
+            	        alt172=2;
+            	    }
+            	    else {
+            	        NoViableAltException nvae =
+            	            new NoViableAltException("", 172, 0, input);
+
+            	        throw nvae;
+            	    }
+            	    switch (alt172) {
+            	        case 1 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8170:3: lv_operator_2_1= '='
+            	            {
+            	            lv_operator_2_1=(Token)match(input,30,FOLLOW_30_in_ruleAstPatternExpressionEq16988); 
+
+            	                    newLeafNode(lv_operator_2_1, grammarAccess.getAstPatternExpressionEqAccess().getOperatorEqualsSignKeyword_1_1_0_0());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstPatternExpressionEqRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_1, null);
+            	            	    
+
+            	            }
+            	            break;
+            	        case 2 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8182:8: lv_operator_2_2= '!='
+            	            {
+            	            lv_operator_2_2=(Token)match(input,69,FOLLOW_69_in_ruleAstPatternExpressionEq17017); 
+
+            	                    newLeafNode(lv_operator_2_2, grammarAccess.getAstPatternExpressionEqAccess().getOperatorExclamationMarkEqualsSignKeyword_1_1_0_1());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstPatternExpressionEqRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_2, null);
+            	            	    
+
+            	            }
+            	            break;
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8197:2: ( (lv_right_3_0= ruleAstPatternExpressionRelational ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8198:1: (lv_right_3_0= ruleAstPatternExpressionRelational )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8198:1: (lv_right_3_0= ruleAstPatternExpressionRelational )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8199:3: lv_right_3_0= ruleAstPatternExpressionRelational
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getAstPatternExpressionEqAccess().getRightAstPatternExpressionRelationalParserRuleCall_1_2_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleAstPatternExpressionRelational_in_ruleAstPatternExpressionEq17054);
+            	    lv_right_3_0=ruleAstPatternExpressionRelational();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getAstPatternExpressionEqRule());
+            	    	        }
+            	           		set(
+            	           			current, 
+            	           			"right",
+            	            		lv_right_3_0, 
+            	            		"AstPatternExpressionRelational");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop173;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAstPatternExpressionEq"
+
+
+    // $ANTLR start "entryRuleAstPatternExpressionRelational"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8223:1: entryRuleAstPatternExpressionRelational returns [EObject current=null] : iv_ruleAstPatternExpressionRelational= ruleAstPatternExpressionRelational EOF ;
+    public final EObject entryRuleAstPatternExpressionRelational() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstPatternExpressionRelational = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8224:2: (iv_ruleAstPatternExpressionRelational= ruleAstPatternExpressionRelational EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8225:2: iv_ruleAstPatternExpressionRelational= ruleAstPatternExpressionRelational EOF
+            {
+             newCompositeNode(grammarAccess.getAstPatternExpressionRelationalRule()); 
+            pushFollow(FOLLOW_ruleAstPatternExpressionRelational_in_entryRuleAstPatternExpressionRelational17092);
+            iv_ruleAstPatternExpressionRelational=ruleAstPatternExpressionRelational();
+
+            state._fsp--;
+
+             current =iv_ruleAstPatternExpressionRelational; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstPatternExpressionRelational17102); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstPatternExpressionRelational"
+
+
+    // $ANTLR start "ruleAstPatternExpressionRelational"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8232:1: ruleAstPatternExpressionRelational returns [EObject current=null] : (this_AstPatternExpressionShift_0= ruleAstPatternExpressionShift ( () ( ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionShift ) ) )* ) ;
+    public final EObject ruleAstPatternExpressionRelational() throws RecognitionException {
+        EObject current = null;
+
+        Token lv_operator_2_1=null;
+        Token lv_operator_2_2=null;
+        Token lv_operator_2_3=null;
+        Token lv_operator_2_4=null;
+        EObject this_AstPatternExpressionShift_0 = null;
+
+        EObject lv_right_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8235:28: ( (this_AstPatternExpressionShift_0= ruleAstPatternExpressionShift ( () ( ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionShift ) ) )* ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8236:1: (this_AstPatternExpressionShift_0= ruleAstPatternExpressionShift ( () ( ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionShift ) ) )* )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8236:1: (this_AstPatternExpressionShift_0= ruleAstPatternExpressionShift ( () ( ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionShift ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8237:5: this_AstPatternExpressionShift_0= ruleAstPatternExpressionShift ( () ( ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionShift ) ) )*
+            {
+             
+                    newCompositeNode(grammarAccess.getAstPatternExpressionRelationalAccess().getAstPatternExpressionShiftParserRuleCall_0()); 
+                
+            pushFollow(FOLLOW_ruleAstPatternExpressionShift_in_ruleAstPatternExpressionRelational17149);
+            this_AstPatternExpressionShift_0=ruleAstPatternExpressionShift();
+
+            state._fsp--;
+
+             
+                    current = this_AstPatternExpressionShift_0; 
+                    afterParserOrEnumRuleCall();
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8245:1: ( () ( ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionShift ) ) )*
+            loop175:
+            do {
+                int alt175=2;
+                int LA175_0 = input.LA(1);
+
+                if ( (LA175_0==42||(LA175_0>=70 && LA175_0<=72)) ) {
+                    alt175=1;
+                }
+
+
+                switch (alt175) {
+            	case 1 :
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8245:2: () ( ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionShift ) )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8245:2: ()
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8246:5: 
+            	    {
+
+            	            current = forceCreateModelElementAndSet(
+            	                grammarAccess.getAstPatternExpressionRelationalAccess().getAstPatternExpressionBinaryLeftAction_1_0(),
+            	                current);
+            	        
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8251:2: ( ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8252:1: ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8252:1: ( (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8253:1: (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8253:1: (lv_operator_2_1= '<' | lv_operator_2_2= '<=' | lv_operator_2_3= '>' | lv_operator_2_4= '>=' )
+            	    int alt174=4;
+            	    switch ( input.LA(1) ) {
+            	    case 70:
+            	        {
+            	        alt174=1;
+            	        }
+            	        break;
+            	    case 71:
+            	        {
+            	        alt174=2;
+            	        }
+            	        break;
+            	    case 42:
+            	        {
+            	        alt174=3;
+            	        }
+            	        break;
+            	    case 72:
+            	        {
+            	        alt174=4;
+            	        }
+            	        break;
+            	    default:
+            	        NoViableAltException nvae =
+            	            new NoViableAltException("", 174, 0, input);
+
+            	        throw nvae;
+            	    }
+
+            	    switch (alt174) {
+            	        case 1 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8254:3: lv_operator_2_1= '<'
+            	            {
+            	            lv_operator_2_1=(Token)match(input,70,FOLLOW_70_in_ruleAstPatternExpressionRelational17178); 
+
+            	                    newLeafNode(lv_operator_2_1, grammarAccess.getAstPatternExpressionRelationalAccess().getOperatorLessThanSignKeyword_1_1_0_0());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstPatternExpressionRelationalRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_1, null);
+            	            	    
+
+            	            }
+            	            break;
+            	        case 2 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8266:8: lv_operator_2_2= '<='
+            	            {
+            	            lv_operator_2_2=(Token)match(input,71,FOLLOW_71_in_ruleAstPatternExpressionRelational17207); 
+
+            	                    newLeafNode(lv_operator_2_2, grammarAccess.getAstPatternExpressionRelationalAccess().getOperatorLessThanSignEqualsSignKeyword_1_1_0_1());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstPatternExpressionRelationalRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_2, null);
+            	            	    
+
+            	            }
+            	            break;
+            	        case 3 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8278:8: lv_operator_2_3= '>'
+            	            {
+            	            lv_operator_2_3=(Token)match(input,42,FOLLOW_42_in_ruleAstPatternExpressionRelational17236); 
+
+            	                    newLeafNode(lv_operator_2_3, grammarAccess.getAstPatternExpressionRelationalAccess().getOperatorGreaterThanSignKeyword_1_1_0_2());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstPatternExpressionRelationalRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_3, null);
+            	            	    
+
+            	            }
+            	            break;
+            	        case 4 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8290:8: lv_operator_2_4= '>='
+            	            {
+            	            lv_operator_2_4=(Token)match(input,72,FOLLOW_72_in_ruleAstPatternExpressionRelational17265); 
+
+            	                    newLeafNode(lv_operator_2_4, grammarAccess.getAstPatternExpressionRelationalAccess().getOperatorGreaterThanSignEqualsSignKeyword_1_1_0_3());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstPatternExpressionRelationalRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_4, null);
+            	            	    
+
+            	            }
+            	            break;
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8305:2: ( (lv_right_3_0= ruleAstPatternExpressionShift ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8306:1: (lv_right_3_0= ruleAstPatternExpressionShift )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8306:1: (lv_right_3_0= ruleAstPatternExpressionShift )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8307:3: lv_right_3_0= ruleAstPatternExpressionShift
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getAstPatternExpressionRelationalAccess().getRightAstPatternExpressionShiftParserRuleCall_1_2_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleAstPatternExpressionShift_in_ruleAstPatternExpressionRelational17302);
+            	    lv_right_3_0=ruleAstPatternExpressionShift();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getAstPatternExpressionRelationalRule());
+            	    	        }
+            	           		set(
+            	           			current, 
+            	           			"right",
+            	            		lv_right_3_0, 
+            	            		"AstPatternExpressionShift");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop175;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAstPatternExpressionRelational"
+
+
+    // $ANTLR start "entryRuleAstPatternExpressionShift"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8331:1: entryRuleAstPatternExpressionShift returns [EObject current=null] : iv_ruleAstPatternExpressionShift= ruleAstPatternExpressionShift EOF ;
+    public final EObject entryRuleAstPatternExpressionShift() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstPatternExpressionShift = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8332:2: (iv_ruleAstPatternExpressionShift= ruleAstPatternExpressionShift EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8333:2: iv_ruleAstPatternExpressionShift= ruleAstPatternExpressionShift EOF
+            {
+             newCompositeNode(grammarAccess.getAstPatternExpressionShiftRule()); 
+            pushFollow(FOLLOW_ruleAstPatternExpressionShift_in_entryRuleAstPatternExpressionShift17340);
+            iv_ruleAstPatternExpressionShift=ruleAstPatternExpressionShift();
+
+            state._fsp--;
+
+             current =iv_ruleAstPatternExpressionShift; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstPatternExpressionShift17350); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstPatternExpressionShift"
+
+
+    // $ANTLR start "ruleAstPatternExpressionShift"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8340:1: ruleAstPatternExpressionShift returns [EObject current=null] : (this_AstPatternExpressionAdditive_0= ruleAstPatternExpressionAdditive ( () ( ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionAdditive ) ) )* ) ;
+    public final EObject ruleAstPatternExpressionShift() throws RecognitionException {
+        EObject current = null;
+
+        Token lv_operator_2_1=null;
+        Token lv_operator_2_2=null;
+        Token lv_operator_2_3=null;
+        EObject this_AstPatternExpressionAdditive_0 = null;
+
+        EObject lv_right_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8343:28: ( (this_AstPatternExpressionAdditive_0= ruleAstPatternExpressionAdditive ( () ( ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionAdditive ) ) )* ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8344:1: (this_AstPatternExpressionAdditive_0= ruleAstPatternExpressionAdditive ( () ( ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionAdditive ) ) )* )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8344:1: (this_AstPatternExpressionAdditive_0= ruleAstPatternExpressionAdditive ( () ( ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionAdditive ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8345:5: this_AstPatternExpressionAdditive_0= ruleAstPatternExpressionAdditive ( () ( ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionAdditive ) ) )*
+            {
+             
+                    newCompositeNode(grammarAccess.getAstPatternExpressionShiftAccess().getAstPatternExpressionAdditiveParserRuleCall_0()); 
+                
+            pushFollow(FOLLOW_ruleAstPatternExpressionAdditive_in_ruleAstPatternExpressionShift17397);
+            this_AstPatternExpressionAdditive_0=ruleAstPatternExpressionAdditive();
+
+            state._fsp--;
+
+             
+                    current = this_AstPatternExpressionAdditive_0; 
+                    afterParserOrEnumRuleCall();
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8353:1: ( () ( ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionAdditive ) ) )*
+            loop177:
+            do {
+                int alt177=2;
+                int LA177_0 = input.LA(1);
+
+                if ( ((LA177_0>=73 && LA177_0<=75)) ) {
+                    alt177=1;
+                }
+
+
+                switch (alt177) {
+            	case 1 :
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8353:2: () ( ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionAdditive ) )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8353:2: ()
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8354:5: 
+            	    {
+
+            	            current = forceCreateModelElementAndSet(
+            	                grammarAccess.getAstPatternExpressionShiftAccess().getAstPatternExpressionBinaryLeftAction_1_0(),
+            	                current);
+            	        
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8359:2: ( ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8360:1: ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8360:1: ( (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8361:1: (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8361:1: (lv_operator_2_1= '<<' | lv_operator_2_2= '>>' | lv_operator_2_3= '>>>' )
+            	    int alt176=3;
+            	    switch ( input.LA(1) ) {
+            	    case 73:
+            	        {
+            	        alt176=1;
+            	        }
+            	        break;
+            	    case 74:
+            	        {
+            	        alt176=2;
+            	        }
+            	        break;
+            	    case 75:
+            	        {
+            	        alt176=3;
+            	        }
+            	        break;
+            	    default:
+            	        NoViableAltException nvae =
+            	            new NoViableAltException("", 176, 0, input);
+
+            	        throw nvae;
+            	    }
+
+            	    switch (alt176) {
+            	        case 1 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8362:3: lv_operator_2_1= '<<'
+            	            {
+            	            lv_operator_2_1=(Token)match(input,73,FOLLOW_73_in_ruleAstPatternExpressionShift17426); 
+
+            	                    newLeafNode(lv_operator_2_1, grammarAccess.getAstPatternExpressionShiftAccess().getOperatorLessThanSignLessThanSignKeyword_1_1_0_0());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstPatternExpressionShiftRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_1, null);
+            	            	    
+
+            	            }
+            	            break;
+            	        case 2 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8374:8: lv_operator_2_2= '>>'
+            	            {
+            	            lv_operator_2_2=(Token)match(input,74,FOLLOW_74_in_ruleAstPatternExpressionShift17455); 
+
+            	                    newLeafNode(lv_operator_2_2, grammarAccess.getAstPatternExpressionShiftAccess().getOperatorGreaterThanSignGreaterThanSignKeyword_1_1_0_1());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstPatternExpressionShiftRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_2, null);
+            	            	    
+
+            	            }
+            	            break;
+            	        case 3 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8386:8: lv_operator_2_3= '>>>'
+            	            {
+            	            lv_operator_2_3=(Token)match(input,75,FOLLOW_75_in_ruleAstPatternExpressionShift17484); 
+
+            	                    newLeafNode(lv_operator_2_3, grammarAccess.getAstPatternExpressionShiftAccess().getOperatorGreaterThanSignGreaterThanSignGreaterThanSignKeyword_1_1_0_2());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstPatternExpressionShiftRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_3, null);
+            	            	    
+
+            	            }
+            	            break;
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8401:2: ( (lv_right_3_0= ruleAstPatternExpressionAdditive ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8402:1: (lv_right_3_0= ruleAstPatternExpressionAdditive )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8402:1: (lv_right_3_0= ruleAstPatternExpressionAdditive )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8403:3: lv_right_3_0= ruleAstPatternExpressionAdditive
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getAstPatternExpressionShiftAccess().getRightAstPatternExpressionAdditiveParserRuleCall_1_2_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleAstPatternExpressionAdditive_in_ruleAstPatternExpressionShift17521);
+            	    lv_right_3_0=ruleAstPatternExpressionAdditive();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getAstPatternExpressionShiftRule());
+            	    	        }
+            	           		set(
+            	           			current, 
+            	           			"right",
+            	            		lv_right_3_0, 
+            	            		"AstPatternExpressionAdditive");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop177;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAstPatternExpressionShift"
+
+
+    // $ANTLR start "entryRuleAstPatternExpressionAdditive"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8427:1: entryRuleAstPatternExpressionAdditive returns [EObject current=null] : iv_ruleAstPatternExpressionAdditive= ruleAstPatternExpressionAdditive EOF ;
+    public final EObject entryRuleAstPatternExpressionAdditive() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstPatternExpressionAdditive = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8428:2: (iv_ruleAstPatternExpressionAdditive= ruleAstPatternExpressionAdditive EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8429:2: iv_ruleAstPatternExpressionAdditive= ruleAstPatternExpressionAdditive EOF
+            {
+             newCompositeNode(grammarAccess.getAstPatternExpressionAdditiveRule()); 
+            pushFollow(FOLLOW_ruleAstPatternExpressionAdditive_in_entryRuleAstPatternExpressionAdditive17559);
+            iv_ruleAstPatternExpressionAdditive=ruleAstPatternExpressionAdditive();
+
+            state._fsp--;
+
+             current =iv_ruleAstPatternExpressionAdditive; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstPatternExpressionAdditive17569); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstPatternExpressionAdditive"
+
+
+    // $ANTLR start "ruleAstPatternExpressionAdditive"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8436:1: ruleAstPatternExpressionAdditive returns [EObject current=null] : (this_AstPatternExpressionMultiplicative_0= ruleAstPatternExpressionMultiplicative ( () ( ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionMultiplicative ) ) )* ) ;
+    public final EObject ruleAstPatternExpressionAdditive() throws RecognitionException {
+        EObject current = null;
+
+        Token lv_operator_2_1=null;
+        Token lv_operator_2_2=null;
+        EObject this_AstPatternExpressionMultiplicative_0 = null;
+
+        EObject lv_right_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8439:28: ( (this_AstPatternExpressionMultiplicative_0= ruleAstPatternExpressionMultiplicative ( () ( ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionMultiplicative ) ) )* ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8440:1: (this_AstPatternExpressionMultiplicative_0= ruleAstPatternExpressionMultiplicative ( () ( ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionMultiplicative ) ) )* )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8440:1: (this_AstPatternExpressionMultiplicative_0= ruleAstPatternExpressionMultiplicative ( () ( ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionMultiplicative ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8441:5: this_AstPatternExpressionMultiplicative_0= ruleAstPatternExpressionMultiplicative ( () ( ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionMultiplicative ) ) )*
+            {
+             
+                    newCompositeNode(grammarAccess.getAstPatternExpressionAdditiveAccess().getAstPatternExpressionMultiplicativeParserRuleCall_0()); 
+                
+            pushFollow(FOLLOW_ruleAstPatternExpressionMultiplicative_in_ruleAstPatternExpressionAdditive17616);
+            this_AstPatternExpressionMultiplicative_0=ruleAstPatternExpressionMultiplicative();
+
+            state._fsp--;
+
+             
+                    current = this_AstPatternExpressionMultiplicative_0; 
+                    afterParserOrEnumRuleCall();
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8449:1: ( () ( ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionMultiplicative ) ) )*
+            loop179:
+            do {
+                int alt179=2;
+                int LA179_0 = input.LA(1);
+
+                if ( ((LA179_0>=76 && LA179_0<=77)) ) {
+                    alt179=1;
+                }
+
+
+                switch (alt179) {
+            	case 1 :
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8449:2: () ( ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionMultiplicative ) )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8449:2: ()
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8450:5: 
+            	    {
+
+            	            current = forceCreateModelElementAndSet(
+            	                grammarAccess.getAstPatternExpressionAdditiveAccess().getAstPatternExpressionBinaryLeftAction_1_0(),
+            	                current);
+            	        
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8455:2: ( ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8456:1: ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8456:1: ( (lv_operator_2_1= '+' | lv_operator_2_2= '-' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8457:1: (lv_operator_2_1= '+' | lv_operator_2_2= '-' )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8457:1: (lv_operator_2_1= '+' | lv_operator_2_2= '-' )
+            	    int alt178=2;
+            	    int LA178_0 = input.LA(1);
+
+            	    if ( (LA178_0==76) ) {
+            	        alt178=1;
+            	    }
+            	    else if ( (LA178_0==77) ) {
+            	        alt178=2;
+            	    }
+            	    else {
+            	        NoViableAltException nvae =
+            	            new NoViableAltException("", 178, 0, input);
+
+            	        throw nvae;
+            	    }
+            	    switch (alt178) {
+            	        case 1 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8458:3: lv_operator_2_1= '+'
+            	            {
+            	            lv_operator_2_1=(Token)match(input,76,FOLLOW_76_in_ruleAstPatternExpressionAdditive17645); 
+
+            	                    newLeafNode(lv_operator_2_1, grammarAccess.getAstPatternExpressionAdditiveAccess().getOperatorPlusSignKeyword_1_1_0_0());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstPatternExpressionAdditiveRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_1, null);
+            	            	    
+
+            	            }
+            	            break;
+            	        case 2 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8470:8: lv_operator_2_2= '-'
+            	            {
+            	            lv_operator_2_2=(Token)match(input,77,FOLLOW_77_in_ruleAstPatternExpressionAdditive17674); 
+
+            	                    newLeafNode(lv_operator_2_2, grammarAccess.getAstPatternExpressionAdditiveAccess().getOperatorHyphenMinusKeyword_1_1_0_1());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstPatternExpressionAdditiveRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_2, null);
+            	            	    
+
+            	            }
+            	            break;
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8485:2: ( (lv_right_3_0= ruleAstPatternExpressionMultiplicative ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8486:1: (lv_right_3_0= ruleAstPatternExpressionMultiplicative )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8486:1: (lv_right_3_0= ruleAstPatternExpressionMultiplicative )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8487:3: lv_right_3_0= ruleAstPatternExpressionMultiplicative
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getAstPatternExpressionAdditiveAccess().getRightAstPatternExpressionMultiplicativeParserRuleCall_1_2_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleAstPatternExpressionMultiplicative_in_ruleAstPatternExpressionAdditive17711);
+            	    lv_right_3_0=ruleAstPatternExpressionMultiplicative();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getAstPatternExpressionAdditiveRule());
+            	    	        }
+            	           		set(
+            	           			current, 
+            	           			"right",
+            	            		lv_right_3_0, 
+            	            		"AstPatternExpressionMultiplicative");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop179;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAstPatternExpressionAdditive"
+
+
+    // $ANTLR start "entryRuleAstPatternExpressionMultiplicative"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8511:1: entryRuleAstPatternExpressionMultiplicative returns [EObject current=null] : iv_ruleAstPatternExpressionMultiplicative= ruleAstPatternExpressionMultiplicative EOF ;
+    public final EObject entryRuleAstPatternExpressionMultiplicative() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstPatternExpressionMultiplicative = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8512:2: (iv_ruleAstPatternExpressionMultiplicative= ruleAstPatternExpressionMultiplicative EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8513:2: iv_ruleAstPatternExpressionMultiplicative= ruleAstPatternExpressionMultiplicative EOF
+            {
+             newCompositeNode(grammarAccess.getAstPatternExpressionMultiplicativeRule()); 
+            pushFollow(FOLLOW_ruleAstPatternExpressionMultiplicative_in_entryRuleAstPatternExpressionMultiplicative17749);
+            iv_ruleAstPatternExpressionMultiplicative=ruleAstPatternExpressionMultiplicative();
+
+            state._fsp--;
+
+             current =iv_ruleAstPatternExpressionMultiplicative; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstPatternExpressionMultiplicative17759); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstPatternExpressionMultiplicative"
+
+
+    // $ANTLR start "ruleAstPatternExpressionMultiplicative"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8520:1: ruleAstPatternExpressionMultiplicative returns [EObject current=null] : (this_AstPatternExpressionExp_0= ruleAstPatternExpressionExp ( () ( ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionExp ) ) )* ) ;
+    public final EObject ruleAstPatternExpressionMultiplicative() throws RecognitionException {
+        EObject current = null;
+
+        Token lv_operator_2_1=null;
+        Token lv_operator_2_2=null;
+        Token lv_operator_2_3=null;
+        Token lv_operator_2_4=null;
+        EObject this_AstPatternExpressionExp_0 = null;
+
+        EObject lv_right_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8523:28: ( (this_AstPatternExpressionExp_0= ruleAstPatternExpressionExp ( () ( ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionExp ) ) )* ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8524:1: (this_AstPatternExpressionExp_0= ruleAstPatternExpressionExp ( () ( ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionExp ) ) )* )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8524:1: (this_AstPatternExpressionExp_0= ruleAstPatternExpressionExp ( () ( ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionExp ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8525:5: this_AstPatternExpressionExp_0= ruleAstPatternExpressionExp ( () ( ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionExp ) ) )*
+            {
+             
+                    newCompositeNode(grammarAccess.getAstPatternExpressionMultiplicativeAccess().getAstPatternExpressionExpParserRuleCall_0()); 
+                
+            pushFollow(FOLLOW_ruleAstPatternExpressionExp_in_ruleAstPatternExpressionMultiplicative17806);
+            this_AstPatternExpressionExp_0=ruleAstPatternExpressionExp();
+
+            state._fsp--;
+
+             
+                    current = this_AstPatternExpressionExp_0; 
+                    afterParserOrEnumRuleCall();
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8533:1: ( () ( ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionExp ) ) )*
+            loop181:
+            do {
+                int alt181=2;
+                int LA181_0 = input.LA(1);
+
+                if ( ((LA181_0>=78 && LA181_0<=81)) ) {
+                    alt181=1;
+                }
+
+
+                switch (alt181) {
+            	case 1 :
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8533:2: () ( ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) ) ) ( (lv_right_3_0= ruleAstPatternExpressionExp ) )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8533:2: ()
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8534:5: 
+            	    {
+
+            	            current = forceCreateModelElementAndSet(
+            	                grammarAccess.getAstPatternExpressionMultiplicativeAccess().getAstPatternExpressionBinaryLeftAction_1_0(),
+            	                current);
+            	        
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8539:2: ( ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8540:1: ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8540:1: ( (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8541:1: (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8541:1: (lv_operator_2_1= '*' | lv_operator_2_2= '/' | lv_operator_2_3= 'div' | lv_operator_2_4= 'mod' )
+            	    int alt180=4;
+            	    switch ( input.LA(1) ) {
+            	    case 78:
+            	        {
+            	        alt180=1;
+            	        }
+            	        break;
+            	    case 79:
+            	        {
+            	        alt180=2;
+            	        }
+            	        break;
+            	    case 80:
+            	        {
+            	        alt180=3;
+            	        }
+            	        break;
+            	    case 81:
+            	        {
+            	        alt180=4;
+            	        }
+            	        break;
+            	    default:
+            	        NoViableAltException nvae =
+            	            new NoViableAltException("", 180, 0, input);
+
+            	        throw nvae;
+            	    }
+
+            	    switch (alt180) {
+            	        case 1 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8542:3: lv_operator_2_1= '*'
+            	            {
+            	            lv_operator_2_1=(Token)match(input,78,FOLLOW_78_in_ruleAstPatternExpressionMultiplicative17835); 
+
+            	                    newLeafNode(lv_operator_2_1, grammarAccess.getAstPatternExpressionMultiplicativeAccess().getOperatorAsteriskKeyword_1_1_0_0());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstPatternExpressionMultiplicativeRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_1, null);
+            	            	    
+
+            	            }
+            	            break;
+            	        case 2 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8554:8: lv_operator_2_2= '/'
+            	            {
+            	            lv_operator_2_2=(Token)match(input,79,FOLLOW_79_in_ruleAstPatternExpressionMultiplicative17864); 
+
+            	                    newLeafNode(lv_operator_2_2, grammarAccess.getAstPatternExpressionMultiplicativeAccess().getOperatorSolidusKeyword_1_1_0_1());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstPatternExpressionMultiplicativeRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_2, null);
+            	            	    
+
+            	            }
+            	            break;
+            	        case 3 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8566:8: lv_operator_2_3= 'div'
+            	            {
+            	            lv_operator_2_3=(Token)match(input,80,FOLLOW_80_in_ruleAstPatternExpressionMultiplicative17893); 
+
+            	                    newLeafNode(lv_operator_2_3, grammarAccess.getAstPatternExpressionMultiplicativeAccess().getOperatorDivKeyword_1_1_0_2());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstPatternExpressionMultiplicativeRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_3, null);
+            	            	    
+
+            	            }
+            	            break;
+            	        case 4 :
+            	            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8578:8: lv_operator_2_4= 'mod'
+            	            {
+            	            lv_operator_2_4=(Token)match(input,81,FOLLOW_81_in_ruleAstPatternExpressionMultiplicative17922); 
+
+            	                    newLeafNode(lv_operator_2_4, grammarAccess.getAstPatternExpressionMultiplicativeAccess().getOperatorModKeyword_1_1_0_3());
+            	                
+
+            	            	        if (current==null) {
+            	            	            current = createModelElement(grammarAccess.getAstPatternExpressionMultiplicativeRule());
+            	            	        }
+            	                   		setWithLastConsumed(current, "operator", lv_operator_2_4, null);
+            	            	    
+
+            	            }
+            	            break;
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8593:2: ( (lv_right_3_0= ruleAstPatternExpressionExp ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8594:1: (lv_right_3_0= ruleAstPatternExpressionExp )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8594:1: (lv_right_3_0= ruleAstPatternExpressionExp )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8595:3: lv_right_3_0= ruleAstPatternExpressionExp
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getAstPatternExpressionMultiplicativeAccess().getRightAstPatternExpressionExpParserRuleCall_1_2_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleAstPatternExpressionExp_in_ruleAstPatternExpressionMultiplicative17959);
+            	    lv_right_3_0=ruleAstPatternExpressionExp();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getAstPatternExpressionMultiplicativeRule());
+            	    	        }
+            	           		set(
+            	           			current, 
+            	           			"right",
+            	            		lv_right_3_0, 
+            	            		"AstPatternExpressionExp");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop181;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAstPatternExpressionMultiplicative"
+
+
+    // $ANTLR start "entryRuleAstPatternExpressionExp"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8619:1: entryRuleAstPatternExpressionExp returns [EObject current=null] : iv_ruleAstPatternExpressionExp= ruleAstPatternExpressionExp EOF ;
+    public final EObject entryRuleAstPatternExpressionExp() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstPatternExpressionExp = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8620:2: (iv_ruleAstPatternExpressionExp= ruleAstPatternExpressionExp EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8621:2: iv_ruleAstPatternExpressionExp= ruleAstPatternExpressionExp EOF
+            {
+             newCompositeNode(grammarAccess.getAstPatternExpressionExpRule()); 
+            pushFollow(FOLLOW_ruleAstPatternExpressionExp_in_entryRuleAstPatternExpressionExp17997);
+            iv_ruleAstPatternExpressionExp=ruleAstPatternExpressionExp();
+
+            state._fsp--;
+
+             current =iv_ruleAstPatternExpressionExp; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstPatternExpressionExp18007); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstPatternExpressionExp"
+
+
+    // $ANTLR start "ruleAstPatternExpressionExp"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8628:1: ruleAstPatternExpressionExp returns [EObject current=null] : (this_AstPatternExpressionUnary_0= ruleAstPatternExpressionUnary ( () ( (lv_operator_2_0= '**' ) ) ( (lv_right_3_0= ruleAstPatternExpressionUnary ) ) )* ) ;
+    public final EObject ruleAstPatternExpressionExp() throws RecognitionException {
+        EObject current = null;
+
+        Token lv_operator_2_0=null;
+        EObject this_AstPatternExpressionUnary_0 = null;
+
+        EObject lv_right_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8631:28: ( (this_AstPatternExpressionUnary_0= ruleAstPatternExpressionUnary ( () ( (lv_operator_2_0= '**' ) ) ( (lv_right_3_0= ruleAstPatternExpressionUnary ) ) )* ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8632:1: (this_AstPatternExpressionUnary_0= ruleAstPatternExpressionUnary ( () ( (lv_operator_2_0= '**' ) ) ( (lv_right_3_0= ruleAstPatternExpressionUnary ) ) )* )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8632:1: (this_AstPatternExpressionUnary_0= ruleAstPatternExpressionUnary ( () ( (lv_operator_2_0= '**' ) ) ( (lv_right_3_0= ruleAstPatternExpressionUnary ) ) )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8633:5: this_AstPatternExpressionUnary_0= ruleAstPatternExpressionUnary ( () ( (lv_operator_2_0= '**' ) ) ( (lv_right_3_0= ruleAstPatternExpressionUnary ) ) )*
+            {
+             
+                    newCompositeNode(grammarAccess.getAstPatternExpressionExpAccess().getAstPatternExpressionUnaryParserRuleCall_0()); 
+                
+            pushFollow(FOLLOW_ruleAstPatternExpressionUnary_in_ruleAstPatternExpressionExp18054);
+            this_AstPatternExpressionUnary_0=ruleAstPatternExpressionUnary();
+
+            state._fsp--;
+
+             
+                    current = this_AstPatternExpressionUnary_0; 
+                    afterParserOrEnumRuleCall();
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8641:1: ( () ( (lv_operator_2_0= '**' ) ) ( (lv_right_3_0= ruleAstPatternExpressionUnary ) ) )*
+            loop182:
+            do {
+                int alt182=2;
+                int LA182_0 = input.LA(1);
+
+                if ( (LA182_0==82) ) {
+                    alt182=1;
+                }
+
+
+                switch (alt182) {
+            	case 1 :
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8641:2: () ( (lv_operator_2_0= '**' ) ) ( (lv_right_3_0= ruleAstPatternExpressionUnary ) )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8641:2: ()
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8642:5: 
+            	    {
+
+            	            current = forceCreateModelElementAndSet(
+            	                grammarAccess.getAstPatternExpressionExpAccess().getAstPatternExpressionBinaryLeftAction_1_0(),
+            	                current);
+            	        
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8647:2: ( (lv_operator_2_0= '**' ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8648:1: (lv_operator_2_0= '**' )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8648:1: (lv_operator_2_0= '**' )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8649:3: lv_operator_2_0= '**'
+            	    {
+            	    lv_operator_2_0=(Token)match(input,82,FOLLOW_82_in_ruleAstPatternExpressionExp18081); 
+
+            	            newLeafNode(lv_operator_2_0, grammarAccess.getAstPatternExpressionExpAccess().getOperatorAsteriskAsteriskKeyword_1_1_0());
+            	        
+
+            	    	        if (current==null) {
+            	    	            current = createModelElement(grammarAccess.getAstPatternExpressionExpRule());
+            	    	        }
+            	           		setWithLastConsumed(current, "operator", lv_operator_2_0, "**");
+            	    	    
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8662:2: ( (lv_right_3_0= ruleAstPatternExpressionUnary ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8663:1: (lv_right_3_0= ruleAstPatternExpressionUnary )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8663:1: (lv_right_3_0= ruleAstPatternExpressionUnary )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8664:3: lv_right_3_0= ruleAstPatternExpressionUnary
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getAstPatternExpressionExpAccess().getRightAstPatternExpressionUnaryParserRuleCall_1_2_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleAstPatternExpressionUnary_in_ruleAstPatternExpressionExp18115);
+            	    lv_right_3_0=ruleAstPatternExpressionUnary();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getAstPatternExpressionExpRule());
+            	    	        }
+            	           		set(
+            	           			current, 
+            	           			"right",
+            	            		lv_right_3_0, 
+            	            		"AstPatternExpressionUnary");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop182;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAstPatternExpressionExp"
+
+
+    // $ANTLR start "entryRuleAstPatternExpressionUnary"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8688:1: entryRuleAstPatternExpressionUnary returns [EObject current=null] : iv_ruleAstPatternExpressionUnary= ruleAstPatternExpressionUnary EOF ;
+    public final EObject entryRuleAstPatternExpressionUnary() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstPatternExpressionUnary = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8689:2: (iv_ruleAstPatternExpressionUnary= ruleAstPatternExpressionUnary EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8690:2: iv_ruleAstPatternExpressionUnary= ruleAstPatternExpressionUnary EOF
+            {
+             newCompositeNode(grammarAccess.getAstPatternExpressionUnaryRule()); 
+            pushFollow(FOLLOW_ruleAstPatternExpressionUnary_in_entryRuleAstPatternExpressionUnary18153);
+            iv_ruleAstPatternExpressionUnary=ruleAstPatternExpressionUnary();
+
+            state._fsp--;
+
+             current =iv_ruleAstPatternExpressionUnary; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstPatternExpressionUnary18163); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstPatternExpressionUnary"
+
+
+    // $ANTLR start "ruleAstPatternExpressionUnary"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8697:1: ruleAstPatternExpressionUnary returns [EObject current=null] : ( ( () ( ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) ) ) ( (lv_expression_2_0= ruleAstPatternExpressionPostfix ) ) ) | this_AstPatternExpressionPostfix_3= ruleAstPatternExpressionPostfix ) ;
+    public final EObject ruleAstPatternExpressionUnary() throws RecognitionException {
+        EObject current = null;
+
+        Token lv_unaryOperator_1_1=null;
+        Token lv_unaryOperator_1_2=null;
+        Token lv_unaryOperator_1_3=null;
+        Token lv_unaryOperator_1_4=null;
+        Token lv_unaryOperator_1_5=null;
+        EObject lv_expression_2_0 = null;
+
+        EObject this_AstPatternExpressionPostfix_3 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8700:28: ( ( ( () ( ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) ) ) ( (lv_expression_2_0= ruleAstPatternExpressionPostfix ) ) ) | this_AstPatternExpressionPostfix_3= ruleAstPatternExpressionPostfix ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8701:1: ( ( () ( ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) ) ) ( (lv_expression_2_0= ruleAstPatternExpressionPostfix ) ) ) | this_AstPatternExpressionPostfix_3= ruleAstPatternExpressionPostfix )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8701:1: ( ( () ( ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) ) ) ( (lv_expression_2_0= ruleAstPatternExpressionPostfix ) ) ) | this_AstPatternExpressionPostfix_3= ruleAstPatternExpressionPostfix )
+            int alt184=2;
+            int LA184_0 = input.LA(1);
+
+            if ( (LA184_0==77||(LA184_0>=83 && LA184_0<=86)) ) {
+                alt184=1;
+            }
+            else if ( ((LA184_0>=RULE_BOOL && LA184_0<=RULE_STRING)||LA184_0==56||LA184_0==60||LA184_0==90) ) {
+                alt184=2;
+            }
+            else {
+                NoViableAltException nvae =
+                    new NoViableAltException("", 184, 0, input);
+
+                throw nvae;
+            }
+            switch (alt184) {
+                case 1 :
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8701:2: ( () ( ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) ) ) ( (lv_expression_2_0= ruleAstPatternExpressionPostfix ) ) )
+                    {
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8701:2: ( () ( ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) ) ) ( (lv_expression_2_0= ruleAstPatternExpressionPostfix ) ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8701:3: () ( ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) ) ) ( (lv_expression_2_0= ruleAstPatternExpressionPostfix ) )
+                    {
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8701:3: ()
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8702:5: 
+                    {
+
+                            current = forceCreateModelElement(
+                                grammarAccess.getAstPatternExpressionUnaryAccess().getAstPatternExpressionUnaryAction_0_0(),
+                                current);
+                        
+
+                    }
+
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8707:2: ( ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8708:1: ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) )
+                    {
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8708:1: ( (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8709:1: (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' )
+                    {
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8709:1: (lv_unaryOperator_1_1= '~' | lv_unaryOperator_1_2= '-' | lv_unaryOperator_1_3= 'not' | lv_unaryOperator_1_4= '#' | lv_unaryOperator_1_5= 'old' )
+                    int alt183=5;
+                    switch ( input.LA(1) ) {
+                    case 83:
+                        {
+                        alt183=1;
+                        }
+                        break;
+                    case 77:
+                        {
+                        alt183=2;
+                        }
+                        break;
+                    case 84:
+                        {
+                        alt183=3;
+                        }
+                        break;
+                    case 85:
+                        {
+                        alt183=4;
+                        }
+                        break;
+                    case 86:
+                        {
+                        alt183=5;
+                        }
+                        break;
+                    default:
+                        NoViableAltException nvae =
+                            new NoViableAltException("", 183, 0, input);
+
+                        throw nvae;
+                    }
+
+                    switch (alt183) {
+                        case 1 :
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8710:3: lv_unaryOperator_1_1= '~'
+                            {
+                            lv_unaryOperator_1_1=(Token)match(input,83,FOLLOW_83_in_ruleAstPatternExpressionUnary18218); 
+
+                                    newLeafNode(lv_unaryOperator_1_1, grammarAccess.getAstPatternExpressionUnaryAccess().getUnaryOperatorTildeKeyword_0_1_0_0());
+                                
+
+                            	        if (current==null) {
+                            	            current = createModelElement(grammarAccess.getAstPatternExpressionUnaryRule());
+                            	        }
+                                   		setWithLastConsumed(current, "unaryOperator", lv_unaryOperator_1_1, null);
+                            	    
+
+                            }
+                            break;
+                        case 2 :
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8722:8: lv_unaryOperator_1_2= '-'
+                            {
+                            lv_unaryOperator_1_2=(Token)match(input,77,FOLLOW_77_in_ruleAstPatternExpressionUnary18247); 
+
+                                    newLeafNode(lv_unaryOperator_1_2, grammarAccess.getAstPatternExpressionUnaryAccess().getUnaryOperatorHyphenMinusKeyword_0_1_0_1());
+                                
+
+                            	        if (current==null) {
+                            	            current = createModelElement(grammarAccess.getAstPatternExpressionUnaryRule());
+                            	        }
+                                   		setWithLastConsumed(current, "unaryOperator", lv_unaryOperator_1_2, null);
+                            	    
+
+                            }
+                            break;
+                        case 3 :
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8734:8: lv_unaryOperator_1_3= 'not'
+                            {
+                            lv_unaryOperator_1_3=(Token)match(input,84,FOLLOW_84_in_ruleAstPatternExpressionUnary18276); 
+
+                                    newLeafNode(lv_unaryOperator_1_3, grammarAccess.getAstPatternExpressionUnaryAccess().getUnaryOperatorNotKeyword_0_1_0_2());
+                                
+
+                            	        if (current==null) {
+                            	            current = createModelElement(grammarAccess.getAstPatternExpressionUnaryRule());
+                            	        }
+                                   		setWithLastConsumed(current, "unaryOperator", lv_unaryOperator_1_3, null);
+                            	    
+
+                            }
+                            break;
+                        case 4 :
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8746:8: lv_unaryOperator_1_4= '#'
+                            {
+                            lv_unaryOperator_1_4=(Token)match(input,85,FOLLOW_85_in_ruleAstPatternExpressionUnary18305); 
+
+                                    newLeafNode(lv_unaryOperator_1_4, grammarAccess.getAstPatternExpressionUnaryAccess().getUnaryOperatorNumberSignKeyword_0_1_0_3());
+                                
+
+                            	        if (current==null) {
+                            	            current = createModelElement(grammarAccess.getAstPatternExpressionUnaryRule());
+                            	        }
+                                   		setWithLastConsumed(current, "unaryOperator", lv_unaryOperator_1_4, null);
+                            	    
+
+                            }
+                            break;
+                        case 5 :
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8758:8: lv_unaryOperator_1_5= 'old'
+                            {
+                            lv_unaryOperator_1_5=(Token)match(input,86,FOLLOW_86_in_ruleAstPatternExpressionUnary18334); 
+
+                                    newLeafNode(lv_unaryOperator_1_5, grammarAccess.getAstPatternExpressionUnaryAccess().getUnaryOperatorOldKeyword_0_1_0_4());
+                                
+
+                            	        if (current==null) {
+                            	            current = createModelElement(grammarAccess.getAstPatternExpressionUnaryRule());
+                            	        }
+                                   		setWithLastConsumed(current, "unaryOperator", lv_unaryOperator_1_5, null);
+                            	    
+
+                            }
+                            break;
+
+                    }
+
+
+                    }
+
+
+                    }
+
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8773:2: ( (lv_expression_2_0= ruleAstPatternExpressionPostfix ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8774:1: (lv_expression_2_0= ruleAstPatternExpressionPostfix )
+                    {
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8774:1: (lv_expression_2_0= ruleAstPatternExpressionPostfix )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8775:3: lv_expression_2_0= ruleAstPatternExpressionPostfix
+                    {
+                     
+                    	        newCompositeNode(grammarAccess.getAstPatternExpressionUnaryAccess().getExpressionAstPatternExpressionPostfixParserRuleCall_0_2_0()); 
+                    	    
+                    pushFollow(FOLLOW_ruleAstPatternExpressionPostfix_in_ruleAstPatternExpressionUnary18371);
+                    lv_expression_2_0=ruleAstPatternExpressionPostfix();
+
+                    state._fsp--;
+
+
+                    	        if (current==null) {
+                    	            current = createModelElementForParent(grammarAccess.getAstPatternExpressionUnaryRule());
+                    	        }
+                           		set(
+                           			current, 
+                           			"expression",
+                            		lv_expression_2_0, 
+                            		"AstPatternExpressionPostfix");
+                    	        afterParserOrEnumRuleCall();
+                    	    
+
+                    }
+
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+                case 2 :
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8793:5: this_AstPatternExpressionPostfix_3= ruleAstPatternExpressionPostfix
+                    {
+                     
+                            newCompositeNode(grammarAccess.getAstPatternExpressionUnaryAccess().getAstPatternExpressionPostfixParserRuleCall_1()); 
+                        
+                    pushFollow(FOLLOW_ruleAstPatternExpressionPostfix_in_ruleAstPatternExpressionUnary18400);
+                    this_AstPatternExpressionPostfix_3=ruleAstPatternExpressionPostfix();
+
+                    state._fsp--;
+
+                     
+                            current = this_AstPatternExpressionPostfix_3; 
+                            afterParserOrEnumRuleCall();
+                        
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAstPatternExpressionUnary"
+
+
+    // $ANTLR start "entryRuleAstPatternExpressionPostfix"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8809:1: entryRuleAstPatternExpressionPostfix returns [EObject current=null] : iv_ruleAstPatternExpressionPostfix= ruleAstPatternExpressionPostfix EOF ;
+    public final EObject entryRuleAstPatternExpressionPostfix() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstPatternExpressionPostfix = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8810:2: (iv_ruleAstPatternExpressionPostfix= ruleAstPatternExpressionPostfix EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8811:2: iv_ruleAstPatternExpressionPostfix= ruleAstPatternExpressionPostfix EOF
+            {
+             newCompositeNode(grammarAccess.getAstPatternExpressionPostfixRule()); 
+            pushFollow(FOLLOW_ruleAstPatternExpressionPostfix_in_entryRuleAstPatternExpressionPostfix18435);
+            iv_ruleAstPatternExpressionPostfix=ruleAstPatternExpressionPostfix();
+
+            state._fsp--;
+
+             current =iv_ruleAstPatternExpressionPostfix; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstPatternExpressionPostfix18445); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstPatternExpressionPostfix"
+
+
+    // $ANTLR start "ruleAstPatternExpressionPostfix"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8818:1: ruleAstPatternExpressionPostfix returns [EObject current=null] : (this_AstPatternExpressionSymbolReference_0= ruleAstPatternExpressionSymbolReference | this_AstPatternExpressionIf_1= ruleAstPatternExpressionIf | this_AstExpressionCase_2= ruleAstExpressionCase | this_AstPatternExpressionLiteral_3= ruleAstPatternExpressionLiteral ) ;
+    public final EObject ruleAstPatternExpressionPostfix() throws RecognitionException {
+        EObject current = null;
+
+        EObject this_AstPatternExpressionSymbolReference_0 = null;
+
+        EObject this_AstPatternExpressionIf_1 = null;
+
+        EObject this_AstExpressionCase_2 = null;
+
+        EObject this_AstPatternExpressionLiteral_3 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8821:28: ( (this_AstPatternExpressionSymbolReference_0= ruleAstPatternExpressionSymbolReference | this_AstPatternExpressionIf_1= ruleAstPatternExpressionIf | this_AstExpressionCase_2= ruleAstExpressionCase | this_AstPatternExpressionLiteral_3= ruleAstPatternExpressionLiteral ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8822:1: (this_AstPatternExpressionSymbolReference_0= ruleAstPatternExpressionSymbolReference | this_AstPatternExpressionIf_1= ruleAstPatternExpressionIf | this_AstExpressionCase_2= ruleAstExpressionCase | this_AstPatternExpressionLiteral_3= ruleAstPatternExpressionLiteral )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8822:1: (this_AstPatternExpressionSymbolReference_0= ruleAstPatternExpressionSymbolReference | this_AstPatternExpressionIf_1= ruleAstPatternExpressionIf | this_AstExpressionCase_2= ruleAstExpressionCase | this_AstPatternExpressionLiteral_3= ruleAstPatternExpressionLiteral )
+            int alt185=4;
+            switch ( input.LA(1) ) {
+            case 90:
+                {
+                alt185=1;
+                }
+                break;
+            case 56:
+                {
+                alt185=2;
+                }
+                break;
+            case 60:
+                {
+                alt185=3;
+                }
+                break;
+            case RULE_BOOL:
+            case RULE_INT:
+            case RULE_EXP_INT:
+            case RULE_HEX:
+            case RULE_STRING:
+                {
+                alt185=4;
+                }
+                break;
+            default:
+                NoViableAltException nvae =
+                    new NoViableAltException("", 185, 0, input);
+
+                throw nvae;
+            }
+
+            switch (alt185) {
+                case 1 :
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8823:5: this_AstPatternExpressionSymbolReference_0= ruleAstPatternExpressionSymbolReference
+                    {
+                     
+                            newCompositeNode(grammarAccess.getAstPatternExpressionPostfixAccess().getAstPatternExpressionSymbolReferenceParserRuleCall_0()); 
+                        
+                    pushFollow(FOLLOW_ruleAstPatternExpressionSymbolReference_in_ruleAstPatternExpressionPostfix18492);
+                    this_AstPatternExpressionSymbolReference_0=ruleAstPatternExpressionSymbolReference();
+
+                    state._fsp--;
+
+                     
+                            current = this_AstPatternExpressionSymbolReference_0; 
+                            afterParserOrEnumRuleCall();
+                        
+
+                    }
+                    break;
+                case 2 :
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8833:5: this_AstPatternExpressionIf_1= ruleAstPatternExpressionIf
+                    {
+                     
+                            newCompositeNode(grammarAccess.getAstPatternExpressionPostfixAccess().getAstPatternExpressionIfParserRuleCall_1()); 
+                        
+                    pushFollow(FOLLOW_ruleAstPatternExpressionIf_in_ruleAstPatternExpressionPostfix18519);
+                    this_AstPatternExpressionIf_1=ruleAstPatternExpressionIf();
+
+                    state._fsp--;
+
+                     
+                            current = this_AstPatternExpressionIf_1; 
+                            afterParserOrEnumRuleCall();
+                        
+
+                    }
+                    break;
+                case 3 :
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8843:5: this_AstExpressionCase_2= ruleAstExpressionCase
+                    {
+                     
+                            newCompositeNode(grammarAccess.getAstPatternExpressionPostfixAccess().getAstExpressionCaseParserRuleCall_2()); 
+                        
+                    pushFollow(FOLLOW_ruleAstExpressionCase_in_ruleAstPatternExpressionPostfix18546);
+                    this_AstExpressionCase_2=ruleAstExpressionCase();
+
+                    state._fsp--;
+
+                     
+                            current = this_AstExpressionCase_2; 
+                            afterParserOrEnumRuleCall();
+                        
+
+                    }
+                    break;
+                case 4 :
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8853:5: this_AstPatternExpressionLiteral_3= ruleAstPatternExpressionLiteral
+                    {
+                     
+                            newCompositeNode(grammarAccess.getAstPatternExpressionPostfixAccess().getAstPatternExpressionLiteralParserRuleCall_3()); 
+                        
+                    pushFollow(FOLLOW_ruleAstPatternExpressionLiteral_in_ruleAstPatternExpressionPostfix18573);
+                    this_AstPatternExpressionLiteral_3=ruleAstPatternExpressionLiteral();
+
+                    state._fsp--;
+
+                     
+                            current = this_AstPatternExpressionLiteral_3; 
+                            afterParserOrEnumRuleCall();
+                        
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAstPatternExpressionPostfix"
+
+
+    // $ANTLR start "entryRuleAstPatternExpressionSymbolReference"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8869:1: entryRuleAstPatternExpressionSymbolReference returns [EObject current=null] : iv_ruleAstPatternExpressionSymbolReference= ruleAstPatternExpressionSymbolReference EOF ;
+    public final EObject entryRuleAstPatternExpressionSymbolReference() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstPatternExpressionSymbolReference = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8870:2: (iv_ruleAstPatternExpressionSymbolReference= ruleAstPatternExpressionSymbolReference EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8871:2: iv_ruleAstPatternExpressionSymbolReference= ruleAstPatternExpressionSymbolReference EOF
+            {
+             newCompositeNode(grammarAccess.getAstPatternExpressionSymbolReferenceRule()); 
+            pushFollow(FOLLOW_ruleAstPatternExpressionSymbolReference_in_entryRuleAstPatternExpressionSymbolReference18608);
+            iv_ruleAstPatternExpressionSymbolReference=ruleAstPatternExpressionSymbolReference();
+
+            state._fsp--;
+
+             current =iv_ruleAstPatternExpressionSymbolReference; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstPatternExpressionSymbolReference18618); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstPatternExpressionSymbolReference"
+
+
+    // $ANTLR start "ruleAstPatternExpressionSymbolReference"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8878:1: ruleAstPatternExpressionSymbolReference returns [EObject current=null] : (otherlv_0= '!' ( (otherlv_1= RULE_ID ) ) (otherlv_2= '[' ( (lv_indexes_3_0= ruleAstExpression ) ) otherlv_4= ']' )* ( (lv_member_5_0= ruleAstMemberAccess ) )* (otherlv_6= '::' ( (lv_ctor_7_0= RULE_ID ) ) )? ( ( (lv_call_8_0= '(' ) ) ( ( (lv_parameters_9_0= ruleAstExpression ) ) (otherlv_10= ',' ( (lv_parameters_11_0= ruleAstExpression ) ) )* )? otherlv_12= ')' )? ) ;
+    public final EObject ruleAstPatternExpressionSymbolReference() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_0=null;
+        Token otherlv_1=null;
+        Token otherlv_2=null;
+        Token otherlv_4=null;
+        Token otherlv_6=null;
+        Token lv_ctor_7_0=null;
+        Token lv_call_8_0=null;
+        Token otherlv_10=null;
+        Token otherlv_12=null;
+        EObject lv_indexes_3_0 = null;
+
+        EObject lv_member_5_0 = null;
+
+        EObject lv_parameters_9_0 = null;
+
+        EObject lv_parameters_11_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8881:28: ( (otherlv_0= '!' ( (otherlv_1= RULE_ID ) ) (otherlv_2= '[' ( (lv_indexes_3_0= ruleAstExpression ) ) otherlv_4= ']' )* ( (lv_member_5_0= ruleAstMemberAccess ) )* (otherlv_6= '::' ( (lv_ctor_7_0= RULE_ID ) ) )? ( ( (lv_call_8_0= '(' ) ) ( ( (lv_parameters_9_0= ruleAstExpression ) ) (otherlv_10= ',' ( (lv_parameters_11_0= ruleAstExpression ) ) )* )? otherlv_12= ')' )? ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8882:1: (otherlv_0= '!' ( (otherlv_1= RULE_ID ) ) (otherlv_2= '[' ( (lv_indexes_3_0= ruleAstExpression ) ) otherlv_4= ']' )* ( (lv_member_5_0= ruleAstMemberAccess ) )* (otherlv_6= '::' ( (lv_ctor_7_0= RULE_ID ) ) )? ( ( (lv_call_8_0= '(' ) ) ( ( (lv_parameters_9_0= ruleAstExpression ) ) (otherlv_10= ',' ( (lv_parameters_11_0= ruleAstExpression ) ) )* )? otherlv_12= ')' )? )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8882:1: (otherlv_0= '!' ( (otherlv_1= RULE_ID ) ) (otherlv_2= '[' ( (lv_indexes_3_0= ruleAstExpression ) ) otherlv_4= ']' )* ( (lv_member_5_0= ruleAstMemberAccess ) )* (otherlv_6= '::' ( (lv_ctor_7_0= RULE_ID ) ) )? ( ( (lv_call_8_0= '(' ) ) ( ( (lv_parameters_9_0= ruleAstExpression ) ) (otherlv_10= ',' ( (lv_parameters_11_0= ruleAstExpression ) ) )* )? otherlv_12= ')' )? )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8882:3: otherlv_0= '!' ( (otherlv_1= RULE_ID ) ) (otherlv_2= '[' ( (lv_indexes_3_0= ruleAstExpression ) ) otherlv_4= ']' )* ( (lv_member_5_0= ruleAstMemberAccess ) )* (otherlv_6= '::' ( (lv_ctor_7_0= RULE_ID ) ) )? ( ( (lv_call_8_0= '(' ) ) ( ( (lv_parameters_9_0= ruleAstExpression ) ) (otherlv_10= ',' ( (lv_parameters_11_0= ruleAstExpression ) ) )* )? otherlv_12= ')' )?
+            {
+            otherlv_0=(Token)match(input,90,FOLLOW_90_in_ruleAstPatternExpressionSymbolReference18655); 
+
+                	newLeafNode(otherlv_0, grammarAccess.getAstPatternExpressionSymbolReferenceAccess().getExclamationMarkKeyword_0());
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8886:1: ( (otherlv_1= RULE_ID ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8887:1: (otherlv_1= RULE_ID )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8887:1: (otherlv_1= RULE_ID )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8888:3: otherlv_1= RULE_ID
+            {
+
+            			if (current==null) {
+            	            current = createModelElement(grammarAccess.getAstPatternExpressionSymbolReferenceRule());
+            	        }
+                    
+            otherlv_1=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAstPatternExpressionSymbolReference18675); 
+
+            		newLeafNode(otherlv_1, grammarAccess.getAstPatternExpressionSymbolReferenceAccess().getSymbolAstVariableCrossReference_1_0()); 
+            	
+
+            }
+
+
+            }
+
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8899:2: (otherlv_2= '[' ( (lv_indexes_3_0= ruleAstExpression ) ) otherlv_4= ']' )*
+            loop186:
+            do {
+                int alt186=2;
+                int LA186_0 = input.LA(1);
+
+                if ( (LA186_0==50) ) {
+                    alt186=1;
+                }
+
+
+                switch (alt186) {
+            	case 1 :
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8899:4: otherlv_2= '[' ( (lv_indexes_3_0= ruleAstExpression ) ) otherlv_4= ']'
+            	    {
+            	    otherlv_2=(Token)match(input,50,FOLLOW_50_in_ruleAstPatternExpressionSymbolReference18688); 
+
+            	        	newLeafNode(otherlv_2, grammarAccess.getAstPatternExpressionSymbolReferenceAccess().getLeftSquareBracketKeyword_2_0());
+            	        
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8903:1: ( (lv_indexes_3_0= ruleAstExpression ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8904:1: (lv_indexes_3_0= ruleAstExpression )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8904:1: (lv_indexes_3_0= ruleAstExpression )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8905:3: lv_indexes_3_0= ruleAstExpression
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getAstPatternExpressionSymbolReferenceAccess().getIndexesAstExpressionParserRuleCall_2_1_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstPatternExpressionSymbolReference18709);
+            	    lv_indexes_3_0=ruleAstExpression();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getAstPatternExpressionSymbolReferenceRule());
+            	    	        }
+            	           		add(
+            	           			current, 
+            	           			"indexes",
+            	            		lv_indexes_3_0, 
+            	            		"AstExpression");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+
+            	    otherlv_4=(Token)match(input,51,FOLLOW_51_in_ruleAstPatternExpressionSymbolReference18721); 
+
+            	        	newLeafNode(otherlv_4, grammarAccess.getAstPatternExpressionSymbolReferenceAccess().getRightSquareBracketKeyword_2_2());
+            	        
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop186;
+                }
+            } while (true);
+
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8925:3: ( (lv_member_5_0= ruleAstMemberAccess ) )*
+            loop187:
+            do {
+                int alt187=2;
+                int LA187_0 = input.LA(1);
+
+                if ( (LA187_0==21) ) {
+                    alt187=1;
+                }
+
+
+                switch (alt187) {
+            	case 1 :
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8926:1: (lv_member_5_0= ruleAstMemberAccess )
+            	    {
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8926:1: (lv_member_5_0= ruleAstMemberAccess )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8927:3: lv_member_5_0= ruleAstMemberAccess
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getAstPatternExpressionSymbolReferenceAccess().getMemberAstMemberAccessParserRuleCall_3_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleAstMemberAccess_in_ruleAstPatternExpressionSymbolReference18744);
+            	    lv_member_5_0=ruleAstMemberAccess();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getAstPatternExpressionSymbolReferenceRule());
+            	    	        }
+            	           		add(
+            	           			current, 
+            	           			"member",
+            	            		lv_member_5_0, 
+            	            		"AstMemberAccess");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop187;
+                }
+            } while (true);
+
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8943:3: (otherlv_6= '::' ( (lv_ctor_7_0= RULE_ID ) ) )?
+            int alt188=2;
+            int LA188_0 = input.LA(1);
+
+            if ( (LA188_0==87) ) {
+                alt188=1;
+            }
+            switch (alt188) {
+                case 1 :
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8943:5: otherlv_6= '::' ( (lv_ctor_7_0= RULE_ID ) )
+                    {
+                    otherlv_6=(Token)match(input,87,FOLLOW_87_in_ruleAstPatternExpressionSymbolReference18758); 
+
+                        	newLeafNode(otherlv_6, grammarAccess.getAstPatternExpressionSymbolReferenceAccess().getColonColonKeyword_4_0());
+                        
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8947:1: ( (lv_ctor_7_0= RULE_ID ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8948:1: (lv_ctor_7_0= RULE_ID )
+                    {
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8948:1: (lv_ctor_7_0= RULE_ID )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8949:3: lv_ctor_7_0= RULE_ID
+                    {
+                    lv_ctor_7_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAstPatternExpressionSymbolReference18775); 
+
+                    			newLeafNode(lv_ctor_7_0, grammarAccess.getAstPatternExpressionSymbolReferenceAccess().getCtorIDTerminalRuleCall_4_1_0()); 
+                    		
+
+                    	        if (current==null) {
+                    	            current = createModelElement(grammarAccess.getAstPatternExpressionSymbolReferenceRule());
+                    	        }
+                           		setWithLastConsumed(
+                           			current, 
+                           			"ctor",
+                            		lv_ctor_7_0, 
+                            		"ID");
+                    	    
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8965:4: ( ( (lv_call_8_0= '(' ) ) ( ( (lv_parameters_9_0= ruleAstExpression ) ) (otherlv_10= ',' ( (lv_parameters_11_0= ruleAstExpression ) ) )* )? otherlv_12= ')' )?
+            int alt191=2;
+            int LA191_0 = input.LA(1);
+
+            if ( (LA191_0==24) ) {
+                alt191=1;
+            }
+            switch (alt191) {
+                case 1 :
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8965:5: ( (lv_call_8_0= '(' ) ) ( ( (lv_parameters_9_0= ruleAstExpression ) ) (otherlv_10= ',' ( (lv_parameters_11_0= ruleAstExpression ) ) )* )? otherlv_12= ')'
+                    {
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8965:5: ( (lv_call_8_0= '(' ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8966:1: (lv_call_8_0= '(' )
+                    {
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8966:1: (lv_call_8_0= '(' )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8967:3: lv_call_8_0= '('
+                    {
+                    lv_call_8_0=(Token)match(input,24,FOLLOW_24_in_ruleAstPatternExpressionSymbolReference18801); 
+
+                            newLeafNode(lv_call_8_0, grammarAccess.getAstPatternExpressionSymbolReferenceAccess().getCallLeftParenthesisKeyword_5_0_0());
+                        
+
+                    	        if (current==null) {
+                    	            current = createModelElement(grammarAccess.getAstPatternExpressionSymbolReferenceRule());
+                    	        }
+                           		setWithLastConsumed(current, "call", true, "(");
+                    	    
+
+                    }
+
+
+                    }
+
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8980:2: ( ( (lv_parameters_9_0= ruleAstExpression ) ) (otherlv_10= ',' ( (lv_parameters_11_0= ruleAstExpression ) ) )* )?
+                    int alt190=2;
+                    int LA190_0 = input.LA(1);
+
+                    if ( ((LA190_0>=RULE_ID && LA190_0<=RULE_STRING)||LA190_0==21||LA190_0==24||LA190_0==50||LA190_0==56||LA190_0==60||LA190_0==77||(LA190_0>=83 && LA190_0<=86)) ) {
+                        alt190=1;
+                    }
+                    switch (alt190) {
+                        case 1 :
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8980:3: ( (lv_parameters_9_0= ruleAstExpression ) ) (otherlv_10= ',' ( (lv_parameters_11_0= ruleAstExpression ) ) )*
+                            {
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8980:3: ( (lv_parameters_9_0= ruleAstExpression ) )
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8981:1: (lv_parameters_9_0= ruleAstExpression )
+                            {
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8981:1: (lv_parameters_9_0= ruleAstExpression )
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8982:3: lv_parameters_9_0= ruleAstExpression
+                            {
+                             
+                            	        newCompositeNode(grammarAccess.getAstPatternExpressionSymbolReferenceAccess().getParametersAstExpressionParserRuleCall_5_1_0_0()); 
+                            	    
+                            pushFollow(FOLLOW_ruleAstExpression_in_ruleAstPatternExpressionSymbolReference18836);
+                            lv_parameters_9_0=ruleAstExpression();
+
+                            state._fsp--;
+
+
+                            	        if (current==null) {
+                            	            current = createModelElementForParent(grammarAccess.getAstPatternExpressionSymbolReferenceRule());
+                            	        }
+                                   		add(
+                                   			current, 
+                                   			"parameters",
+                                    		lv_parameters_9_0, 
+                                    		"AstExpression");
+                            	        afterParserOrEnumRuleCall();
+                            	    
+
+                            }
+
+
+                            }
+
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8998:2: (otherlv_10= ',' ( (lv_parameters_11_0= ruleAstExpression ) ) )*
+                            loop189:
+                            do {
+                                int alt189=2;
+                                int LA189_0 = input.LA(1);
+
+                                if ( (LA189_0==25) ) {
+                                    alt189=1;
+                                }
+
+
+                                switch (alt189) {
+                            	case 1 :
+                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8998:4: otherlv_10= ',' ( (lv_parameters_11_0= ruleAstExpression ) )
+                            	    {
+                            	    otherlv_10=(Token)match(input,25,FOLLOW_25_in_ruleAstPatternExpressionSymbolReference18849); 
+
+                            	        	newLeafNode(otherlv_10, grammarAccess.getAstPatternExpressionSymbolReferenceAccess().getCommaKeyword_5_1_1_0());
+                            	        
+                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9002:1: ( (lv_parameters_11_0= ruleAstExpression ) )
+                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9003:1: (lv_parameters_11_0= ruleAstExpression )
+                            	    {
+                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9003:1: (lv_parameters_11_0= ruleAstExpression )
+                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9004:3: lv_parameters_11_0= ruleAstExpression
+                            	    {
+                            	     
+                            	    	        newCompositeNode(grammarAccess.getAstPatternExpressionSymbolReferenceAccess().getParametersAstExpressionParserRuleCall_5_1_1_1_0()); 
+                            	    	    
+                            	    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstPatternExpressionSymbolReference18870);
+                            	    lv_parameters_11_0=ruleAstExpression();
+
+                            	    state._fsp--;
+
+
+                            	    	        if (current==null) {
+                            	    	            current = createModelElementForParent(grammarAccess.getAstPatternExpressionSymbolReferenceRule());
+                            	    	        }
+                            	           		add(
+                            	           			current, 
+                            	           			"parameters",
+                            	            		lv_parameters_11_0, 
+                            	            		"AstExpression");
+                            	    	        afterParserOrEnumRuleCall();
+                            	    	    
+
+                            	    }
+
+
+                            	    }
+
+
+                            	    }
+                            	    break;
+
+                            	default :
+                            	    break loop189;
+                                }
+                            } while (true);
+
+
+                            }
+                            break;
+
+                    }
+
+                    otherlv_12=(Token)match(input,26,FOLLOW_26_in_ruleAstPatternExpressionSymbolReference18886); 
+
+                        	newLeafNode(otherlv_12, grammarAccess.getAstPatternExpressionSymbolReferenceAccess().getRightParenthesisKeyword_5_2());
+                        
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAstPatternExpressionSymbolReference"
+
+
+    // $ANTLR start "entryRuleAstPatternExpressionIf"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9032:1: entryRuleAstPatternExpressionIf returns [EObject current=null] : iv_ruleAstPatternExpressionIf= ruleAstPatternExpressionIf EOF ;
+    public final EObject entryRuleAstPatternExpressionIf() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstPatternExpressionIf = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9033:2: (iv_ruleAstPatternExpressionIf= ruleAstPatternExpressionIf EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9034:2: iv_ruleAstPatternExpressionIf= ruleAstPatternExpressionIf EOF
+            {
+             newCompositeNode(grammarAccess.getAstPatternExpressionIfRule()); 
+            pushFollow(FOLLOW_ruleAstPatternExpressionIf_in_entryRuleAstPatternExpressionIf18924);
+            iv_ruleAstPatternExpressionIf=ruleAstPatternExpressionIf();
+
+            state._fsp--;
+
+             current =iv_ruleAstPatternExpressionIf; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstPatternExpressionIf18934); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstPatternExpressionIf"
+
+
+    // $ANTLR start "ruleAstPatternExpressionIf"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9041:1: ruleAstPatternExpressionIf returns [EObject current=null] : (otherlv_0= 'if' ( (lv_condition_1_0= ruleAstExpression ) ) otherlv_2= 'then' ( (lv_then_3_0= ruleAstExpression ) ) otherlv_4= 'else' ( (lv_else_5_0= ruleAstExpression ) ) otherlv_6= 'end' ) ;
+    public final EObject ruleAstPatternExpressionIf() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_0=null;
+        Token otherlv_2=null;
+        Token otherlv_4=null;
+        Token otherlv_6=null;
+        EObject lv_condition_1_0 = null;
+
+        EObject lv_then_3_0 = null;
+
+        EObject lv_else_5_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9044:28: ( (otherlv_0= 'if' ( (lv_condition_1_0= ruleAstExpression ) ) otherlv_2= 'then' ( (lv_then_3_0= ruleAstExpression ) ) otherlv_4= 'else' ( (lv_else_5_0= ruleAstExpression ) ) otherlv_6= 'end' ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9045:1: (otherlv_0= 'if' ( (lv_condition_1_0= ruleAstExpression ) ) otherlv_2= 'then' ( (lv_then_3_0= ruleAstExpression ) ) otherlv_4= 'else' ( (lv_else_5_0= ruleAstExpression ) ) otherlv_6= 'end' )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9045:1: (otherlv_0= 'if' ( (lv_condition_1_0= ruleAstExpression ) ) otherlv_2= 'then' ( (lv_then_3_0= ruleAstExpression ) ) otherlv_4= 'else' ( (lv_else_5_0= ruleAstExpression ) ) otherlv_6= 'end' )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9045:3: otherlv_0= 'if' ( (lv_condition_1_0= ruleAstExpression ) ) otherlv_2= 'then' ( (lv_then_3_0= ruleAstExpression ) ) otherlv_4= 'else' ( (lv_else_5_0= ruleAstExpression ) ) otherlv_6= 'end'
+            {
+            otherlv_0=(Token)match(input,56,FOLLOW_56_in_ruleAstPatternExpressionIf18971); 
+
+                	newLeafNode(otherlv_0, grammarAccess.getAstPatternExpressionIfAccess().getIfKeyword_0());
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9049:1: ( (lv_condition_1_0= ruleAstExpression ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9050:1: (lv_condition_1_0= ruleAstExpression )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9050:1: (lv_condition_1_0= ruleAstExpression )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9051:3: lv_condition_1_0= ruleAstExpression
+            {
+             
+            	        newCompositeNode(grammarAccess.getAstPatternExpressionIfAccess().getConditionAstExpressionParserRuleCall_1_0()); 
+            	    
+            pushFollow(FOLLOW_ruleAstExpression_in_ruleAstPatternExpressionIf18992);
+            lv_condition_1_0=ruleAstExpression();
+
+            state._fsp--;
+
+
+            	        if (current==null) {
+            	            current = createModelElementForParent(grammarAccess.getAstPatternExpressionIfRule());
+            	        }
+                   		set(
+                   			current, 
+                   			"condition",
+                    		lv_condition_1_0, 
+                    		"AstExpression");
+            	        afterParserOrEnumRuleCall();
+            	    
+
+            }
+
+
+            }
+
+            otherlv_2=(Token)match(input,57,FOLLOW_57_in_ruleAstPatternExpressionIf19004); 
+
+                	newLeafNode(otherlv_2, grammarAccess.getAstPatternExpressionIfAccess().getThenKeyword_2());
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9071:1: ( (lv_then_3_0= ruleAstExpression ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9072:1: (lv_then_3_0= ruleAstExpression )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9072:1: (lv_then_3_0= ruleAstExpression )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9073:3: lv_then_3_0= ruleAstExpression
+            {
+             
+            	        newCompositeNode(grammarAccess.getAstPatternExpressionIfAccess().getThenAstExpressionParserRuleCall_3_0()); 
+            	    
+            pushFollow(FOLLOW_ruleAstExpression_in_ruleAstPatternExpressionIf19025);
+            lv_then_3_0=ruleAstExpression();
+
+            state._fsp--;
+
+
+            	        if (current==null) {
+            	            current = createModelElementForParent(grammarAccess.getAstPatternExpressionIfRule());
+            	        }
+                   		set(
+                   			current, 
+                   			"then",
+                    		lv_then_3_0, 
+                    		"AstExpression");
+            	        afterParserOrEnumRuleCall();
+            	    
+
+            }
+
+
+            }
+
+            otherlv_4=(Token)match(input,58,FOLLOW_58_in_ruleAstPatternExpressionIf19037); 
+
+                	newLeafNode(otherlv_4, grammarAccess.getAstPatternExpressionIfAccess().getElseKeyword_4());
+                
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9093:1: ( (lv_else_5_0= ruleAstExpression ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9094:1: (lv_else_5_0= ruleAstExpression )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9094:1: (lv_else_5_0= ruleAstExpression )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9095:3: lv_else_5_0= ruleAstExpression
+            {
+             
+            	        newCompositeNode(grammarAccess.getAstPatternExpressionIfAccess().getElseAstExpressionParserRuleCall_5_0()); 
+            	    
+            pushFollow(FOLLOW_ruleAstExpression_in_ruleAstPatternExpressionIf19058);
+            lv_else_5_0=ruleAstExpression();
+
+            state._fsp--;
+
+
+            	        if (current==null) {
+            	            current = createModelElementForParent(grammarAccess.getAstPatternExpressionIfRule());
+            	        }
+                   		set(
+                   			current, 
+                   			"else",
+                    		lv_else_5_0, 
+                    		"AstExpression");
+            	        afterParserOrEnumRuleCall();
+            	    
+
+            }
+
+
+            }
+
+            otherlv_6=(Token)match(input,18,FOLLOW_18_in_ruleAstPatternExpressionIf19070); 
+
+                	newLeafNode(otherlv_6, grammarAccess.getAstPatternExpressionIfAccess().getEndKeyword_6());
+                
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAstPatternExpressionIf"
+
+
+    // $ANTLR start "entryRuleAstPatternExpressionLiteral"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9123:1: entryRuleAstPatternExpressionLiteral returns [EObject current=null] : iv_ruleAstPatternExpressionLiteral= ruleAstPatternExpressionLiteral EOF ;
+    public final EObject entryRuleAstPatternExpressionLiteral() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAstPatternExpressionLiteral = null;
+
+
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9124:2: (iv_ruleAstPatternExpressionLiteral= ruleAstPatternExpressionLiteral EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9125:2: iv_ruleAstPatternExpressionLiteral= ruleAstPatternExpressionLiteral EOF
+            {
+             newCompositeNode(grammarAccess.getAstPatternExpressionLiteralRule()); 
+            pushFollow(FOLLOW_ruleAstPatternExpressionLiteral_in_entryRuleAstPatternExpressionLiteral19106);
+            iv_ruleAstPatternExpressionLiteral=ruleAstPatternExpressionLiteral();
+
+            state._fsp--;
+
+             current =iv_ruleAstPatternExpressionLiteral; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstPatternExpressionLiteral19116); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAstPatternExpressionLiteral"
+
+
+    // $ANTLR start "ruleAstPatternExpressionLiteral"
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9132:1: ruleAstPatternExpressionLiteral returns [EObject current=null] : (this_AstExpressionBoolean_0= ruleAstExpressionBoolean | this_AstExpressionInteger_1= ruleAstExpressionInteger | this_AstExpressionString_2= ruleAstExpressionString ) ;
+    public final EObject ruleAstPatternExpressionLiteral() throws RecognitionException {
+        EObject current = null;
+
+        EObject this_AstExpressionBoolean_0 = null;
+
+        EObject this_AstExpressionInteger_1 = null;
+
+        EObject this_AstExpressionString_2 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9135:28: ( (this_AstExpressionBoolean_0= ruleAstExpressionBoolean | this_AstExpressionInteger_1= ruleAstExpressionInteger | this_AstExpressionString_2= ruleAstExpressionString ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9136:1: (this_AstExpressionBoolean_0= ruleAstExpressionBoolean | this_AstExpressionInteger_1= ruleAstExpressionInteger | this_AstExpressionString_2= ruleAstExpressionString )
+            {
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9136:1: (this_AstExpressionBoolean_0= ruleAstExpressionBoolean | this_AstExpressionInteger_1= ruleAstExpressionInteger | this_AstExpressionString_2= ruleAstExpressionString )
+            int alt192=3;
+            switch ( input.LA(1) ) {
+            case RULE_BOOL:
+                {
+                alt192=1;
+                }
+                break;
+            case RULE_INT:
+            case RULE_EXP_INT:
+            case RULE_HEX:
+                {
+                alt192=2;
+                }
+                break;
+            case RULE_STRING:
+                {
+                alt192=3;
+                }
+                break;
+            default:
+                NoViableAltException nvae =
+                    new NoViableAltException("", 192, 0, input);
+
+                throw nvae;
+            }
+
+            switch (alt192) {
+                case 1 :
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9137:5: this_AstExpressionBoolean_0= ruleAstExpressionBoolean
+                    {
+                     
+                            newCompositeNode(grammarAccess.getAstPatternExpressionLiteralAccess().getAstExpressionBooleanParserRuleCall_0()); 
+                        
+                    pushFollow(FOLLOW_ruleAstExpressionBoolean_in_ruleAstPatternExpressionLiteral19163);
+                    this_AstExpressionBoolean_0=ruleAstExpressionBoolean();
+
+                    state._fsp--;
+
+                     
+                            current = this_AstExpressionBoolean_0; 
+                            afterParserOrEnumRuleCall();
+                        
+
+                    }
+                    break;
+                case 2 :
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9147:5: this_AstExpressionInteger_1= ruleAstExpressionInteger
+                    {
+                     
+                            newCompositeNode(grammarAccess.getAstPatternExpressionLiteralAccess().getAstExpressionIntegerParserRuleCall_1()); 
+                        
+                    pushFollow(FOLLOW_ruleAstExpressionInteger_in_ruleAstPatternExpressionLiteral19190);
+                    this_AstExpressionInteger_1=ruleAstExpressionInteger();
+
+                    state._fsp--;
+
+                     
+                            current = this_AstExpressionInteger_1; 
+                            afterParserOrEnumRuleCall();
+                        
+
+                    }
+                    break;
+                case 3 :
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9157:5: this_AstExpressionString_2= ruleAstExpressionString
+                    {
+                     
+                            newCompositeNode(grammarAccess.getAstPatternExpressionLiteralAccess().getAstExpressionStringParserRuleCall_2()); 
+                        
+                    pushFollow(FOLLOW_ruleAstExpressionString_in_ruleAstPatternExpressionLiteral19217);
+                    this_AstExpressionString_2=ruleAstExpressionString();
+
+                    state._fsp--;
+
+                     
+                            current = this_AstExpressionString_2; 
+                            afterParserOrEnumRuleCall();
+                        
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAstPatternExpressionLiteral"
+
+
     // $ANTLR start "entryRuleAstTypeBuiltIn"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7154:1: entryRuleAstTypeBuiltIn returns [String current=null] : iv_ruleAstTypeBuiltIn= ruleAstTypeBuiltIn EOF ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9175:1: entryRuleAstTypeBuiltIn returns [String current=null] : iv_ruleAstTypeBuiltIn= ruleAstTypeBuiltIn EOF ;
     public final String entryRuleAstTypeBuiltIn() throws RecognitionException {
         String current = null;
 
@@ -18046,17 +23187,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7155:2: (iv_ruleAstTypeBuiltIn= ruleAstTypeBuiltIn EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7156:2: iv_ruleAstTypeBuiltIn= ruleAstTypeBuiltIn EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9176:2: (iv_ruleAstTypeBuiltIn= ruleAstTypeBuiltIn EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9177:2: iv_ruleAstTypeBuiltIn= ruleAstTypeBuiltIn EOF
             {
              newCompositeNode(grammarAccess.getAstTypeBuiltInRule()); 
-            pushFollow(FOLLOW_ruleAstTypeBuiltIn_in_entryRuleAstTypeBuiltIn14826);
+            pushFollow(FOLLOW_ruleAstTypeBuiltIn_in_entryRuleAstTypeBuiltIn19255);
             iv_ruleAstTypeBuiltIn=ruleAstTypeBuiltIn();
 
             state._fsp--;
 
              current =iv_ruleAstTypeBuiltIn.getText(); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstTypeBuiltIn14837); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstTypeBuiltIn19266); 
 
             }
 
@@ -18074,7 +23215,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAstTypeBuiltIn"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7163:1: ruleAstTypeBuiltIn returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'int' | kw= 'uint' | kw= 'float' | kw= 'bool' | kw= 'List' | kw= 'string' | kw= 'byte' | kw= 'short' ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9184:1: ruleAstTypeBuiltIn returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'int' | kw= 'uint' | kw= 'float' | kw= 'bool' | kw= 'List' | kw= 'string' | kw= 'byte' | kw= 'short' ) ;
     public final AntlrDatatypeRuleToken ruleAstTypeBuiltIn() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -18083,64 +23224,64 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7166:28: ( (kw= 'int' | kw= 'uint' | kw= 'float' | kw= 'bool' | kw= 'List' | kw= 'string' | kw= 'byte' | kw= 'short' ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7167:1: (kw= 'int' | kw= 'uint' | kw= 'float' | kw= 'bool' | kw= 'List' | kw= 'string' | kw= 'byte' | kw= 'short' )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9187:28: ( (kw= 'int' | kw= 'uint' | kw= 'float' | kw= 'bool' | kw= 'List' | kw= 'string' | kw= 'byte' | kw= 'short' ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9188:1: (kw= 'int' | kw= 'uint' | kw= 'float' | kw= 'bool' | kw= 'List' | kw= 'string' | kw= 'byte' | kw= 'short' )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7167:1: (kw= 'int' | kw= 'uint' | kw= 'float' | kw= 'bool' | kw= 'List' | kw= 'string' | kw= 'byte' | kw= 'short' )
-            int alt155=8;
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9188:1: (kw= 'int' | kw= 'uint' | kw= 'float' | kw= 'bool' | kw= 'List' | kw= 'string' | kw= 'byte' | kw= 'short' )
+            int alt193=8;
             switch ( input.LA(1) ) {
-            case 87:
-                {
-                alt155=1;
-                }
-                break;
-            case 88:
-                {
-                alt155=2;
-                }
-                break;
-            case 89:
-                {
-                alt155=3;
-                }
-                break;
-            case 90:
-                {
-                alt155=4;
-                }
-                break;
             case 91:
                 {
-                alt155=5;
+                alt193=1;
                 }
                 break;
             case 92:
                 {
-                alt155=6;
+                alt193=2;
                 }
                 break;
             case 93:
                 {
-                alt155=7;
+                alt193=3;
                 }
                 break;
             case 94:
                 {
-                alt155=8;
+                alt193=4;
+                }
+                break;
+            case 95:
+                {
+                alt193=5;
+                }
+                break;
+            case 96:
+                {
+                alt193=6;
+                }
+                break;
+            case 97:
+                {
+                alt193=7;
+                }
+                break;
+            case 98:
+                {
+                alt193=8;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 155, 0, input);
+                    new NoViableAltException("", 193, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt155) {
+            switch (alt193) {
                 case 1 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7168:2: kw= 'int'
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9189:2: kw= 'int'
                     {
-                    kw=(Token)match(input,87,FOLLOW_87_in_ruleAstTypeBuiltIn14875); 
+                    kw=(Token)match(input,91,FOLLOW_91_in_ruleAstTypeBuiltIn19304); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getAstTypeBuiltInAccess().getIntKeyword_0()); 
@@ -18149,9 +23290,9 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7175:2: kw= 'uint'
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9196:2: kw= 'uint'
                     {
-                    kw=(Token)match(input,88,FOLLOW_88_in_ruleAstTypeBuiltIn14894); 
+                    kw=(Token)match(input,92,FOLLOW_92_in_ruleAstTypeBuiltIn19323); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getAstTypeBuiltInAccess().getUintKeyword_1()); 
@@ -18160,9 +23301,9 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7182:2: kw= 'float'
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9203:2: kw= 'float'
                     {
-                    kw=(Token)match(input,89,FOLLOW_89_in_ruleAstTypeBuiltIn14913); 
+                    kw=(Token)match(input,93,FOLLOW_93_in_ruleAstTypeBuiltIn19342); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getAstTypeBuiltInAccess().getFloatKeyword_2()); 
@@ -18171,9 +23312,9 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7189:2: kw= 'bool'
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9210:2: kw= 'bool'
                     {
-                    kw=(Token)match(input,90,FOLLOW_90_in_ruleAstTypeBuiltIn14932); 
+                    kw=(Token)match(input,94,FOLLOW_94_in_ruleAstTypeBuiltIn19361); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getAstTypeBuiltInAccess().getBoolKeyword_3()); 
@@ -18182,9 +23323,9 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7196:2: kw= 'List'
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9217:2: kw= 'List'
                     {
-                    kw=(Token)match(input,91,FOLLOW_91_in_ruleAstTypeBuiltIn14951); 
+                    kw=(Token)match(input,95,FOLLOW_95_in_ruleAstTypeBuiltIn19380); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getAstTypeBuiltInAccess().getListKeyword_4()); 
@@ -18193,9 +23334,9 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7203:2: kw= 'string'
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9224:2: kw= 'string'
                     {
-                    kw=(Token)match(input,92,FOLLOW_92_in_ruleAstTypeBuiltIn14970); 
+                    kw=(Token)match(input,96,FOLLOW_96_in_ruleAstTypeBuiltIn19399); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getAstTypeBuiltInAccess().getStringKeyword_5()); 
@@ -18204,9 +23345,9 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 7 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7210:2: kw= 'byte'
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9231:2: kw= 'byte'
                     {
-                    kw=(Token)match(input,93,FOLLOW_93_in_ruleAstTypeBuiltIn14989); 
+                    kw=(Token)match(input,97,FOLLOW_97_in_ruleAstTypeBuiltIn19418); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getAstTypeBuiltInAccess().getByteKeyword_6()); 
@@ -18215,9 +23356,9 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 8 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7217:2: kw= 'short'
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9238:2: kw= 'short'
                     {
-                    kw=(Token)match(input,94,FOLLOW_94_in_ruleAstTypeBuiltIn15008); 
+                    kw=(Token)match(input,98,FOLLOW_98_in_ruleAstTypeBuiltIn19437); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getAstTypeBuiltInAccess().getShortKeyword_7()); 
@@ -18246,7 +23387,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAstType"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7230:1: entryRuleAstType returns [EObject current=null] : iv_ruleAstType= ruleAstType EOF ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9251:1: entryRuleAstType returns [EObject current=null] : iv_ruleAstType= ruleAstType EOF ;
     public final EObject entryRuleAstType() throws RecognitionException {
         EObject current = null;
 
@@ -18254,17 +23395,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7231:2: (iv_ruleAstType= ruleAstType EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7232:2: iv_ruleAstType= ruleAstType EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9252:2: (iv_ruleAstType= ruleAstType EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9253:2: iv_ruleAstType= ruleAstType EOF
             {
              newCompositeNode(grammarAccess.getAstTypeRule()); 
-            pushFollow(FOLLOW_ruleAstType_in_entryRuleAstType15048);
+            pushFollow(FOLLOW_ruleAstType_in_entryRuleAstType19477);
             iv_ruleAstType=ruleAstType();
 
             state._fsp--;
 
              current =iv_ruleAstType; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstType15058); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstType19487); 
 
             }
 
@@ -18282,7 +23423,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAstType"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7239:1: ruleAstType returns [EObject current=null] : ( () ( ( ( (lv_builtin_1_0= ruleAstTypeBuiltIn ) ) ( (lv_typeParams_2_0= ruleAstTypeParameterList ) )? (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )* ) | ( ( (otherlv_6= RULE_ID ) ) ( (lv_typeParams_7_0= ruleAstTypeParameterList ) )? (otherlv_8= '[' ( (lv_dimensions_9_0= ruleAstExpression ) ) otherlv_10= ']' )* ) | (otherlv_11= '[' ( ( (lv_domain_12_0= ruleAstType ) ) (otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) ) )* )? otherlv_15= '-->' ( ( (lv_codomain_16_0= ruleAstType ) ) (otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) ) )* )? otherlv_19= ']' ) ) ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9260:1: ruleAstType returns [EObject current=null] : ( () ( ( ( (lv_builtin_1_0= ruleAstTypeBuiltIn ) ) ( (lv_typeParams_2_0= ruleAstTypeParameterList ) )? (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )* ) | ( ( (otherlv_6= RULE_ID ) ) ( (lv_typeParams_7_0= ruleAstTypeParameterList ) )? (otherlv_8= '[' ( (lv_dimensions_9_0= ruleAstExpression ) ) otherlv_10= ']' )* ) | (otherlv_11= '[' ( ( (lv_domain_12_0= ruleAstType ) ) (otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) ) )* )? otherlv_15= '-->' ( ( (lv_codomain_16_0= ruleAstType ) ) (otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) ) )* )? otherlv_19= ']' ) ) ) ;
     public final EObject ruleAstType() throws RecognitionException {
         EObject current = null;
 
@@ -18318,14 +23459,14 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7242:28: ( ( () ( ( ( (lv_builtin_1_0= ruleAstTypeBuiltIn ) ) ( (lv_typeParams_2_0= ruleAstTypeParameterList ) )? (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )* ) | ( ( (otherlv_6= RULE_ID ) ) ( (lv_typeParams_7_0= ruleAstTypeParameterList ) )? (otherlv_8= '[' ( (lv_dimensions_9_0= ruleAstExpression ) ) otherlv_10= ']' )* ) | (otherlv_11= '[' ( ( (lv_domain_12_0= ruleAstType ) ) (otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) ) )* )? otherlv_15= '-->' ( ( (lv_codomain_16_0= ruleAstType ) ) (otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) ) )* )? otherlv_19= ']' ) ) ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7243:1: ( () ( ( ( (lv_builtin_1_0= ruleAstTypeBuiltIn ) ) ( (lv_typeParams_2_0= ruleAstTypeParameterList ) )? (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )* ) | ( ( (otherlv_6= RULE_ID ) ) ( (lv_typeParams_7_0= ruleAstTypeParameterList ) )? (otherlv_8= '[' ( (lv_dimensions_9_0= ruleAstExpression ) ) otherlv_10= ']' )* ) | (otherlv_11= '[' ( ( (lv_domain_12_0= ruleAstType ) ) (otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) ) )* )? otherlv_15= '-->' ( ( (lv_codomain_16_0= ruleAstType ) ) (otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) ) )* )? otherlv_19= ']' ) ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9263:28: ( ( () ( ( ( (lv_builtin_1_0= ruleAstTypeBuiltIn ) ) ( (lv_typeParams_2_0= ruleAstTypeParameterList ) )? (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )* ) | ( ( (otherlv_6= RULE_ID ) ) ( (lv_typeParams_7_0= ruleAstTypeParameterList ) )? (otherlv_8= '[' ( (lv_dimensions_9_0= ruleAstExpression ) ) otherlv_10= ']' )* ) | (otherlv_11= '[' ( ( (lv_domain_12_0= ruleAstType ) ) (otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) ) )* )? otherlv_15= '-->' ( ( (lv_codomain_16_0= ruleAstType ) ) (otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) ) )* )? otherlv_19= ']' ) ) ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9264:1: ( () ( ( ( (lv_builtin_1_0= ruleAstTypeBuiltIn ) ) ( (lv_typeParams_2_0= ruleAstTypeParameterList ) )? (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )* ) | ( ( (otherlv_6= RULE_ID ) ) ( (lv_typeParams_7_0= ruleAstTypeParameterList ) )? (otherlv_8= '[' ( (lv_dimensions_9_0= ruleAstExpression ) ) otherlv_10= ']' )* ) | (otherlv_11= '[' ( ( (lv_domain_12_0= ruleAstType ) ) (otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) ) )* )? otherlv_15= '-->' ( ( (lv_codomain_16_0= ruleAstType ) ) (otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) ) )* )? otherlv_19= ']' ) ) )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7243:1: ( () ( ( ( (lv_builtin_1_0= ruleAstTypeBuiltIn ) ) ( (lv_typeParams_2_0= ruleAstTypeParameterList ) )? (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )* ) | ( ( (otherlv_6= RULE_ID ) ) ( (lv_typeParams_7_0= ruleAstTypeParameterList ) )? (otherlv_8= '[' ( (lv_dimensions_9_0= ruleAstExpression ) ) otherlv_10= ']' )* ) | (otherlv_11= '[' ( ( (lv_domain_12_0= ruleAstType ) ) (otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) ) )* )? otherlv_15= '-->' ( ( (lv_codomain_16_0= ruleAstType ) ) (otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) ) )* )? otherlv_19= ']' ) ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7243:2: () ( ( ( (lv_builtin_1_0= ruleAstTypeBuiltIn ) ) ( (lv_typeParams_2_0= ruleAstTypeParameterList ) )? (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )* ) | ( ( (otherlv_6= RULE_ID ) ) ( (lv_typeParams_7_0= ruleAstTypeParameterList ) )? (otherlv_8= '[' ( (lv_dimensions_9_0= ruleAstExpression ) ) otherlv_10= ']' )* ) | (otherlv_11= '[' ( ( (lv_domain_12_0= ruleAstType ) ) (otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) ) )* )? otherlv_15= '-->' ( ( (lv_codomain_16_0= ruleAstType ) ) (otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) ) )* )? otherlv_19= ']' ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9264:1: ( () ( ( ( (lv_builtin_1_0= ruleAstTypeBuiltIn ) ) ( (lv_typeParams_2_0= ruleAstTypeParameterList ) )? (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )* ) | ( ( (otherlv_6= RULE_ID ) ) ( (lv_typeParams_7_0= ruleAstTypeParameterList ) )? (otherlv_8= '[' ( (lv_dimensions_9_0= ruleAstExpression ) ) otherlv_10= ']' )* ) | (otherlv_11= '[' ( ( (lv_domain_12_0= ruleAstType ) ) (otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) ) )* )? otherlv_15= '-->' ( ( (lv_codomain_16_0= ruleAstType ) ) (otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) ) )* )? otherlv_19= ']' ) ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9264:2: () ( ( ( (lv_builtin_1_0= ruleAstTypeBuiltIn ) ) ( (lv_typeParams_2_0= ruleAstTypeParameterList ) )? (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )* ) | ( ( (otherlv_6= RULE_ID ) ) ( (lv_typeParams_7_0= ruleAstTypeParameterList ) )? (otherlv_8= '[' ( (lv_dimensions_9_0= ruleAstExpression ) ) otherlv_10= ']' )* ) | (otherlv_11= '[' ( ( (lv_domain_12_0= ruleAstType ) ) (otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) ) )* )? otherlv_15= '-->' ( ( (lv_codomain_16_0= ruleAstType ) ) (otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) ) )* )? otherlv_19= ']' ) )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7243:2: ()
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7244:5: 
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9264:2: ()
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9265:5: 
             {
 
                     current = forceCreateModelElement(
@@ -18335,55 +23476,55 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7249:2: ( ( ( (lv_builtin_1_0= ruleAstTypeBuiltIn ) ) ( (lv_typeParams_2_0= ruleAstTypeParameterList ) )? (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )* ) | ( ( (otherlv_6= RULE_ID ) ) ( (lv_typeParams_7_0= ruleAstTypeParameterList ) )? (otherlv_8= '[' ( (lv_dimensions_9_0= ruleAstExpression ) ) otherlv_10= ']' )* ) | (otherlv_11= '[' ( ( (lv_domain_12_0= ruleAstType ) ) (otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) ) )* )? otherlv_15= '-->' ( ( (lv_codomain_16_0= ruleAstType ) ) (otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) ) )* )? otherlv_19= ']' ) )
-            int alt164=3;
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9270:2: ( ( ( (lv_builtin_1_0= ruleAstTypeBuiltIn ) ) ( (lv_typeParams_2_0= ruleAstTypeParameterList ) )? (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )* ) | ( ( (otherlv_6= RULE_ID ) ) ( (lv_typeParams_7_0= ruleAstTypeParameterList ) )? (otherlv_8= '[' ( (lv_dimensions_9_0= ruleAstExpression ) ) otherlv_10= ']' )* ) | (otherlv_11= '[' ( ( (lv_domain_12_0= ruleAstType ) ) (otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) ) )* )? otherlv_15= '-->' ( ( (lv_codomain_16_0= ruleAstType ) ) (otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) ) )* )? otherlv_19= ']' ) )
+            int alt202=3;
             switch ( input.LA(1) ) {
-            case 87:
-            case 88:
-            case 89:
-            case 90:
             case 91:
             case 92:
             case 93:
             case 94:
+            case 95:
+            case 96:
+            case 97:
+            case 98:
                 {
-                alt164=1;
+                alt202=1;
                 }
                 break;
             case RULE_ID:
                 {
-                alt164=2;
+                alt202=2;
                 }
                 break;
             case 50:
                 {
-                alt164=3;
+                alt202=3;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 164, 0, input);
+                    new NoViableAltException("", 202, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt164) {
+            switch (alt202) {
                 case 1 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7249:3: ( ( (lv_builtin_1_0= ruleAstTypeBuiltIn ) ) ( (lv_typeParams_2_0= ruleAstTypeParameterList ) )? (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )* )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9270:3: ( ( (lv_builtin_1_0= ruleAstTypeBuiltIn ) ) ( (lv_typeParams_2_0= ruleAstTypeParameterList ) )? (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )* )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7249:3: ( ( (lv_builtin_1_0= ruleAstTypeBuiltIn ) ) ( (lv_typeParams_2_0= ruleAstTypeParameterList ) )? (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )* )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7249:4: ( (lv_builtin_1_0= ruleAstTypeBuiltIn ) ) ( (lv_typeParams_2_0= ruleAstTypeParameterList ) )? (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )*
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9270:3: ( ( (lv_builtin_1_0= ruleAstTypeBuiltIn ) ) ( (lv_typeParams_2_0= ruleAstTypeParameterList ) )? (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )* )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9270:4: ( (lv_builtin_1_0= ruleAstTypeBuiltIn ) ) ( (lv_typeParams_2_0= ruleAstTypeParameterList ) )? (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )*
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7249:4: ( (lv_builtin_1_0= ruleAstTypeBuiltIn ) )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7250:1: (lv_builtin_1_0= ruleAstTypeBuiltIn )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9270:4: ( (lv_builtin_1_0= ruleAstTypeBuiltIn ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9271:1: (lv_builtin_1_0= ruleAstTypeBuiltIn )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7250:1: (lv_builtin_1_0= ruleAstTypeBuiltIn )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7251:3: lv_builtin_1_0= ruleAstTypeBuiltIn
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9271:1: (lv_builtin_1_0= ruleAstTypeBuiltIn )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9272:3: lv_builtin_1_0= ruleAstTypeBuiltIn
                     {
                      
                     	        newCompositeNode(grammarAccess.getAstTypeAccess().getBuiltinAstTypeBuiltInParserRuleCall_1_0_0_0()); 
                     	    
-                    pushFollow(FOLLOW_ruleAstTypeBuiltIn_in_ruleAstType15115);
+                    pushFollow(FOLLOW_ruleAstTypeBuiltIn_in_ruleAstType19544);
                     lv_builtin_1_0=ruleAstTypeBuiltIn();
 
                     state._fsp--;
@@ -18405,24 +23546,24 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7267:2: ( (lv_typeParams_2_0= ruleAstTypeParameterList ) )?
-                    int alt156=2;
-                    int LA156_0 = input.LA(1);
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9288:2: ( (lv_typeParams_2_0= ruleAstTypeParameterList ) )?
+                    int alt194=2;
+                    int LA194_0 = input.LA(1);
 
-                    if ( (LA156_0==24) ) {
-                        alt156=1;
+                    if ( (LA194_0==24) ) {
+                        alt194=1;
                     }
-                    switch (alt156) {
+                    switch (alt194) {
                         case 1 :
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7268:1: (lv_typeParams_2_0= ruleAstTypeParameterList )
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9289:1: (lv_typeParams_2_0= ruleAstTypeParameterList )
                             {
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7268:1: (lv_typeParams_2_0= ruleAstTypeParameterList )
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7269:3: lv_typeParams_2_0= ruleAstTypeParameterList
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9289:1: (lv_typeParams_2_0= ruleAstTypeParameterList )
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9290:3: lv_typeParams_2_0= ruleAstTypeParameterList
                             {
                              
                             	        newCompositeNode(grammarAccess.getAstTypeAccess().getTypeParamsAstTypeParameterListParserRuleCall_1_0_1_0()); 
                             	    
-                            pushFollow(FOLLOW_ruleAstTypeParameterList_in_ruleAstType15136);
+                            pushFollow(FOLLOW_ruleAstTypeParameterList_in_ruleAstType19565);
                             lv_typeParams_2_0=ruleAstTypeParameterList();
 
                             state._fsp--;
@@ -18447,35 +23588,35 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7285:3: (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )*
-                    loop157:
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9306:3: (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )*
+                    loop195:
                     do {
-                        int alt157=2;
-                        int LA157_0 = input.LA(1);
+                        int alt195=2;
+                        int LA195_0 = input.LA(1);
 
-                        if ( (LA157_0==50) ) {
-                            alt157=1;
+                        if ( (LA195_0==50) ) {
+                            alt195=1;
                         }
 
 
-                        switch (alt157) {
+                        switch (alt195) {
                     	case 1 :
-                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7285:5: otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']'
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9306:5: otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']'
                     	    {
-                    	    otherlv_3=(Token)match(input,50,FOLLOW_50_in_ruleAstType15150); 
+                    	    otherlv_3=(Token)match(input,50,FOLLOW_50_in_ruleAstType19579); 
 
                     	        	newLeafNode(otherlv_3, grammarAccess.getAstTypeAccess().getLeftSquareBracketKeyword_1_0_2_0());
                     	        
-                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7289:1: ( (lv_dimensions_4_0= ruleAstExpression ) )
-                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7290:1: (lv_dimensions_4_0= ruleAstExpression )
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9310:1: ( (lv_dimensions_4_0= ruleAstExpression ) )
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9311:1: (lv_dimensions_4_0= ruleAstExpression )
                     	    {
-                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7290:1: (lv_dimensions_4_0= ruleAstExpression )
-                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7291:3: lv_dimensions_4_0= ruleAstExpression
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9311:1: (lv_dimensions_4_0= ruleAstExpression )
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9312:3: lv_dimensions_4_0= ruleAstExpression
                     	    {
                     	     
                     	    	        newCompositeNode(grammarAccess.getAstTypeAccess().getDimensionsAstExpressionParserRuleCall_1_0_2_1_0()); 
                     	    	    
-                    	    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstType15171);
+                    	    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstType19600);
                     	    lv_dimensions_4_0=ruleAstExpression();
 
                     	    state._fsp--;
@@ -18497,7 +23638,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
                     	    }
 
-                    	    otherlv_5=(Token)match(input,51,FOLLOW_51_in_ruleAstType15183); 
+                    	    otherlv_5=(Token)match(input,51,FOLLOW_51_in_ruleAstType19612); 
 
                     	        	newLeafNode(otherlv_5, grammarAccess.getAstTypeAccess().getRightSquareBracketKeyword_1_0_2_2());
                     	        
@@ -18506,7 +23647,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop157;
+                    	    break loop195;
                         }
                     } while (true);
 
@@ -18517,23 +23658,23 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7312:6: ( ( (otherlv_6= RULE_ID ) ) ( (lv_typeParams_7_0= ruleAstTypeParameterList ) )? (otherlv_8= '[' ( (lv_dimensions_9_0= ruleAstExpression ) ) otherlv_10= ']' )* )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9333:6: ( ( (otherlv_6= RULE_ID ) ) ( (lv_typeParams_7_0= ruleAstTypeParameterList ) )? (otherlv_8= '[' ( (lv_dimensions_9_0= ruleAstExpression ) ) otherlv_10= ']' )* )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7312:6: ( ( (otherlv_6= RULE_ID ) ) ( (lv_typeParams_7_0= ruleAstTypeParameterList ) )? (otherlv_8= '[' ( (lv_dimensions_9_0= ruleAstExpression ) ) otherlv_10= ']' )* )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7312:7: ( (otherlv_6= RULE_ID ) ) ( (lv_typeParams_7_0= ruleAstTypeParameterList ) )? (otherlv_8= '[' ( (lv_dimensions_9_0= ruleAstExpression ) ) otherlv_10= ']' )*
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9333:6: ( ( (otherlv_6= RULE_ID ) ) ( (lv_typeParams_7_0= ruleAstTypeParameterList ) )? (otherlv_8= '[' ( (lv_dimensions_9_0= ruleAstExpression ) ) otherlv_10= ']' )* )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9333:7: ( (otherlv_6= RULE_ID ) ) ( (lv_typeParams_7_0= ruleAstTypeParameterList ) )? (otherlv_8= '[' ( (lv_dimensions_9_0= ruleAstExpression ) ) otherlv_10= ']' )*
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7312:7: ( (otherlv_6= RULE_ID ) )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7313:1: (otherlv_6= RULE_ID )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9333:7: ( (otherlv_6= RULE_ID ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9334:1: (otherlv_6= RULE_ID )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7313:1: (otherlv_6= RULE_ID )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7314:3: otherlv_6= RULE_ID
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9334:1: (otherlv_6= RULE_ID )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9335:3: otherlv_6= RULE_ID
                     {
 
                     			if (current==null) {
                     	            current = createModelElement(grammarAccess.getAstTypeRule());
                     	        }
                             
-                    otherlv_6=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAstType15213); 
+                    otherlv_6=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAstType19642); 
 
                     		newLeafNode(otherlv_6, grammarAccess.getAstTypeAccess().getNameAstTypeUserCrossReference_1_1_0_0()); 
                     	
@@ -18543,24 +23684,24 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7325:2: ( (lv_typeParams_7_0= ruleAstTypeParameterList ) )?
-                    int alt158=2;
-                    int LA158_0 = input.LA(1);
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9346:2: ( (lv_typeParams_7_0= ruleAstTypeParameterList ) )?
+                    int alt196=2;
+                    int LA196_0 = input.LA(1);
 
-                    if ( (LA158_0==24) ) {
-                        alt158=1;
+                    if ( (LA196_0==24) ) {
+                        alt196=1;
                     }
-                    switch (alt158) {
+                    switch (alt196) {
                         case 1 :
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7326:1: (lv_typeParams_7_0= ruleAstTypeParameterList )
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9347:1: (lv_typeParams_7_0= ruleAstTypeParameterList )
                             {
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7326:1: (lv_typeParams_7_0= ruleAstTypeParameterList )
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7327:3: lv_typeParams_7_0= ruleAstTypeParameterList
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9347:1: (lv_typeParams_7_0= ruleAstTypeParameterList )
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9348:3: lv_typeParams_7_0= ruleAstTypeParameterList
                             {
                              
                             	        newCompositeNode(grammarAccess.getAstTypeAccess().getTypeParamsAstTypeParameterListParserRuleCall_1_1_1_0()); 
                             	    
-                            pushFollow(FOLLOW_ruleAstTypeParameterList_in_ruleAstType15234);
+                            pushFollow(FOLLOW_ruleAstTypeParameterList_in_ruleAstType19663);
                             lv_typeParams_7_0=ruleAstTypeParameterList();
 
                             state._fsp--;
@@ -18585,35 +23726,35 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7343:3: (otherlv_8= '[' ( (lv_dimensions_9_0= ruleAstExpression ) ) otherlv_10= ']' )*
-                    loop159:
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9364:3: (otherlv_8= '[' ( (lv_dimensions_9_0= ruleAstExpression ) ) otherlv_10= ']' )*
+                    loop197:
                     do {
-                        int alt159=2;
-                        int LA159_0 = input.LA(1);
+                        int alt197=2;
+                        int LA197_0 = input.LA(1);
 
-                        if ( (LA159_0==50) ) {
-                            alt159=1;
+                        if ( (LA197_0==50) ) {
+                            alt197=1;
                         }
 
 
-                        switch (alt159) {
+                        switch (alt197) {
                     	case 1 :
-                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7343:5: otherlv_8= '[' ( (lv_dimensions_9_0= ruleAstExpression ) ) otherlv_10= ']'
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9364:5: otherlv_8= '[' ( (lv_dimensions_9_0= ruleAstExpression ) ) otherlv_10= ']'
                     	    {
-                    	    otherlv_8=(Token)match(input,50,FOLLOW_50_in_ruleAstType15248); 
+                    	    otherlv_8=(Token)match(input,50,FOLLOW_50_in_ruleAstType19677); 
 
                     	        	newLeafNode(otherlv_8, grammarAccess.getAstTypeAccess().getLeftSquareBracketKeyword_1_1_2_0());
                     	        
-                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7347:1: ( (lv_dimensions_9_0= ruleAstExpression ) )
-                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7348:1: (lv_dimensions_9_0= ruleAstExpression )
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9368:1: ( (lv_dimensions_9_0= ruleAstExpression ) )
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9369:1: (lv_dimensions_9_0= ruleAstExpression )
                     	    {
-                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7348:1: (lv_dimensions_9_0= ruleAstExpression )
-                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7349:3: lv_dimensions_9_0= ruleAstExpression
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9369:1: (lv_dimensions_9_0= ruleAstExpression )
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9370:3: lv_dimensions_9_0= ruleAstExpression
                     	    {
                     	     
                     	    	        newCompositeNode(grammarAccess.getAstTypeAccess().getDimensionsAstExpressionParserRuleCall_1_1_2_1_0()); 
                     	    	    
-                    	    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstType15269);
+                    	    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstType19698);
                     	    lv_dimensions_9_0=ruleAstExpression();
 
                     	    state._fsp--;
@@ -18635,7 +23776,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
                     	    }
 
-                    	    otherlv_10=(Token)match(input,51,FOLLOW_51_in_ruleAstType15281); 
+                    	    otherlv_10=(Token)match(input,51,FOLLOW_51_in_ruleAstType19710); 
 
                     	        	newLeafNode(otherlv_10, grammarAccess.getAstTypeAccess().getRightSquareBracketKeyword_1_1_2_2());
                     	        
@@ -18644,7 +23785,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop159;
+                    	    break loop197;
                         }
                     } while (true);
 
@@ -18655,36 +23796,36 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7370:6: (otherlv_11= '[' ( ( (lv_domain_12_0= ruleAstType ) ) (otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) ) )* )? otherlv_15= '-->' ( ( (lv_codomain_16_0= ruleAstType ) ) (otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) ) )* )? otherlv_19= ']' )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9391:6: (otherlv_11= '[' ( ( (lv_domain_12_0= ruleAstType ) ) (otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) ) )* )? otherlv_15= '-->' ( ( (lv_codomain_16_0= ruleAstType ) ) (otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) ) )* )? otherlv_19= ']' )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7370:6: (otherlv_11= '[' ( ( (lv_domain_12_0= ruleAstType ) ) (otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) ) )* )? otherlv_15= '-->' ( ( (lv_codomain_16_0= ruleAstType ) ) (otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) ) )* )? otherlv_19= ']' )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7370:8: otherlv_11= '[' ( ( (lv_domain_12_0= ruleAstType ) ) (otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) ) )* )? otherlv_15= '-->' ( ( (lv_codomain_16_0= ruleAstType ) ) (otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) ) )* )? otherlv_19= ']'
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9391:6: (otherlv_11= '[' ( ( (lv_domain_12_0= ruleAstType ) ) (otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) ) )* )? otherlv_15= '-->' ( ( (lv_codomain_16_0= ruleAstType ) ) (otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) ) )* )? otherlv_19= ']' )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9391:8: otherlv_11= '[' ( ( (lv_domain_12_0= ruleAstType ) ) (otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) ) )* )? otherlv_15= '-->' ( ( (lv_codomain_16_0= ruleAstType ) ) (otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) ) )* )? otherlv_19= ']'
                     {
-                    otherlv_11=(Token)match(input,50,FOLLOW_50_in_ruleAstType15303); 
+                    otherlv_11=(Token)match(input,50,FOLLOW_50_in_ruleAstType19732); 
 
                         	newLeafNode(otherlv_11, grammarAccess.getAstTypeAccess().getLeftSquareBracketKeyword_1_2_0());
                         
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7374:1: ( ( (lv_domain_12_0= ruleAstType ) ) (otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) ) )* )?
-                    int alt161=2;
-                    int LA161_0 = input.LA(1);
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9395:1: ( ( (lv_domain_12_0= ruleAstType ) ) (otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) ) )* )?
+                    int alt199=2;
+                    int LA199_0 = input.LA(1);
 
-                    if ( (LA161_0==RULE_ID||LA161_0==50||(LA161_0>=87 && LA161_0<=94)) ) {
-                        alt161=1;
+                    if ( (LA199_0==RULE_ID||LA199_0==50||(LA199_0>=91 && LA199_0<=98)) ) {
+                        alt199=1;
                     }
-                    switch (alt161) {
+                    switch (alt199) {
                         case 1 :
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7374:2: ( (lv_domain_12_0= ruleAstType ) ) (otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) ) )*
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9395:2: ( (lv_domain_12_0= ruleAstType ) ) (otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) ) )*
                             {
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7374:2: ( (lv_domain_12_0= ruleAstType ) )
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7375:1: (lv_domain_12_0= ruleAstType )
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9395:2: ( (lv_domain_12_0= ruleAstType ) )
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9396:1: (lv_domain_12_0= ruleAstType )
                             {
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7375:1: (lv_domain_12_0= ruleAstType )
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7376:3: lv_domain_12_0= ruleAstType
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9396:1: (lv_domain_12_0= ruleAstType )
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9397:3: lv_domain_12_0= ruleAstType
                             {
                              
                             	        newCompositeNode(grammarAccess.getAstTypeAccess().getDomainAstTypeParserRuleCall_1_2_1_0_0()); 
                             	    
-                            pushFollow(FOLLOW_ruleAstType_in_ruleAstType15325);
+                            pushFollow(FOLLOW_ruleAstType_in_ruleAstType19754);
                             lv_domain_12_0=ruleAstType();
 
                             state._fsp--;
@@ -18706,35 +23847,35 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7392:2: (otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) ) )*
-                            loop160:
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9413:2: (otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) ) )*
+                            loop198:
                             do {
-                                int alt160=2;
-                                int LA160_0 = input.LA(1);
+                                int alt198=2;
+                                int LA198_0 = input.LA(1);
 
-                                if ( (LA160_0==25) ) {
-                                    alt160=1;
+                                if ( (LA198_0==25) ) {
+                                    alt198=1;
                                 }
 
 
-                                switch (alt160) {
+                                switch (alt198) {
                             	case 1 :
-                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7392:4: otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) )
+                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9413:4: otherlv_13= ',' ( (lv_domain_14_0= ruleAstType ) )
                             	    {
-                            	    otherlv_13=(Token)match(input,25,FOLLOW_25_in_ruleAstType15338); 
+                            	    otherlv_13=(Token)match(input,25,FOLLOW_25_in_ruleAstType19767); 
 
                             	        	newLeafNode(otherlv_13, grammarAccess.getAstTypeAccess().getCommaKeyword_1_2_1_1_0());
                             	        
-                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7396:1: ( (lv_domain_14_0= ruleAstType ) )
-                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7397:1: (lv_domain_14_0= ruleAstType )
+                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9417:1: ( (lv_domain_14_0= ruleAstType ) )
+                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9418:1: (lv_domain_14_0= ruleAstType )
                             	    {
-                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7397:1: (lv_domain_14_0= ruleAstType )
-                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7398:3: lv_domain_14_0= ruleAstType
+                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9418:1: (lv_domain_14_0= ruleAstType )
+                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9419:3: lv_domain_14_0= ruleAstType
                             	    {
                             	     
                             	    	        newCompositeNode(grammarAccess.getAstTypeAccess().getDomainAstTypeParserRuleCall_1_2_1_1_1_0()); 
                             	    	    
-                            	    pushFollow(FOLLOW_ruleAstType_in_ruleAstType15359);
+                            	    pushFollow(FOLLOW_ruleAstType_in_ruleAstType19788);
                             	    lv_domain_14_0=ruleAstType();
 
                             	    state._fsp--;
@@ -18761,7 +23902,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                             	    break;
 
                             	default :
-                            	    break loop160;
+                            	    break loop198;
                                 }
                             } while (true);
 
@@ -18771,31 +23912,31 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_15=(Token)match(input,32,FOLLOW_32_in_ruleAstType15375); 
+                    otherlv_15=(Token)match(input,32,FOLLOW_32_in_ruleAstType19804); 
 
                         	newLeafNode(otherlv_15, grammarAccess.getAstTypeAccess().getHyphenMinusHyphenMinusGreaterThanSignKeyword_1_2_2());
                         
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7418:1: ( ( (lv_codomain_16_0= ruleAstType ) ) (otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) ) )* )?
-                    int alt163=2;
-                    int LA163_0 = input.LA(1);
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9439:1: ( ( (lv_codomain_16_0= ruleAstType ) ) (otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) ) )* )?
+                    int alt201=2;
+                    int LA201_0 = input.LA(1);
 
-                    if ( (LA163_0==RULE_ID||LA163_0==50||(LA163_0>=87 && LA163_0<=94)) ) {
-                        alt163=1;
+                    if ( (LA201_0==RULE_ID||LA201_0==50||(LA201_0>=91 && LA201_0<=98)) ) {
+                        alt201=1;
                     }
-                    switch (alt163) {
+                    switch (alt201) {
                         case 1 :
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7418:2: ( (lv_codomain_16_0= ruleAstType ) ) (otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) ) )*
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9439:2: ( (lv_codomain_16_0= ruleAstType ) ) (otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) ) )*
                             {
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7418:2: ( (lv_codomain_16_0= ruleAstType ) )
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7419:1: (lv_codomain_16_0= ruleAstType )
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9439:2: ( (lv_codomain_16_0= ruleAstType ) )
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9440:1: (lv_codomain_16_0= ruleAstType )
                             {
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7419:1: (lv_codomain_16_0= ruleAstType )
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7420:3: lv_codomain_16_0= ruleAstType
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9440:1: (lv_codomain_16_0= ruleAstType )
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9441:3: lv_codomain_16_0= ruleAstType
                             {
                              
                             	        newCompositeNode(grammarAccess.getAstTypeAccess().getCodomainAstTypeParserRuleCall_1_2_3_0_0()); 
                             	    
-                            pushFollow(FOLLOW_ruleAstType_in_ruleAstType15397);
+                            pushFollow(FOLLOW_ruleAstType_in_ruleAstType19826);
                             lv_codomain_16_0=ruleAstType();
 
                             state._fsp--;
@@ -18817,35 +23958,35 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7436:2: (otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) ) )*
-                            loop162:
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9457:2: (otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) ) )*
+                            loop200:
                             do {
-                                int alt162=2;
-                                int LA162_0 = input.LA(1);
+                                int alt200=2;
+                                int LA200_0 = input.LA(1);
 
-                                if ( (LA162_0==25) ) {
-                                    alt162=1;
+                                if ( (LA200_0==25) ) {
+                                    alt200=1;
                                 }
 
 
-                                switch (alt162) {
+                                switch (alt200) {
                             	case 1 :
-                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7436:4: otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) )
+                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9457:4: otherlv_17= ',' ( (lv_domain_18_0= ruleAstType ) )
                             	    {
-                            	    otherlv_17=(Token)match(input,25,FOLLOW_25_in_ruleAstType15410); 
+                            	    otherlv_17=(Token)match(input,25,FOLLOW_25_in_ruleAstType19839); 
 
                             	        	newLeafNode(otherlv_17, grammarAccess.getAstTypeAccess().getCommaKeyword_1_2_3_1_0());
                             	        
-                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7440:1: ( (lv_domain_18_0= ruleAstType ) )
-                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7441:1: (lv_domain_18_0= ruleAstType )
+                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9461:1: ( (lv_domain_18_0= ruleAstType ) )
+                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9462:1: (lv_domain_18_0= ruleAstType )
                             	    {
-                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7441:1: (lv_domain_18_0= ruleAstType )
-                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7442:3: lv_domain_18_0= ruleAstType
+                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9462:1: (lv_domain_18_0= ruleAstType )
+                            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9463:3: lv_domain_18_0= ruleAstType
                             	    {
                             	     
                             	    	        newCompositeNode(grammarAccess.getAstTypeAccess().getDomainAstTypeParserRuleCall_1_2_3_1_1_0()); 
                             	    	    
-                            	    pushFollow(FOLLOW_ruleAstType_in_ruleAstType15431);
+                            	    pushFollow(FOLLOW_ruleAstType_in_ruleAstType19860);
                             	    lv_domain_18_0=ruleAstType();
 
                             	    state._fsp--;
@@ -18872,7 +24013,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                             	    break;
 
                             	default :
-                            	    break loop162;
+                            	    break loop200;
                                 }
                             } while (true);
 
@@ -18882,7 +24023,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_19=(Token)match(input,51,FOLLOW_51_in_ruleAstType15447); 
+                    otherlv_19=(Token)match(input,51,FOLLOW_51_in_ruleAstType19876); 
 
                         	newLeafNode(otherlv_19, grammarAccess.getAstTypeAccess().getRightSquareBracketKeyword_1_2_4());
                         
@@ -18916,7 +24057,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAstTypeParameterList"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7470:1: entryRuleAstTypeParameterList returns [EObject current=null] : iv_ruleAstTypeParameterList= ruleAstTypeParameterList EOF ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9491:1: entryRuleAstTypeParameterList returns [EObject current=null] : iv_ruleAstTypeParameterList= ruleAstTypeParameterList EOF ;
     public final EObject entryRuleAstTypeParameterList() throws RecognitionException {
         EObject current = null;
 
@@ -18924,17 +24065,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7471:2: (iv_ruleAstTypeParameterList= ruleAstTypeParameterList EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7472:2: iv_ruleAstTypeParameterList= ruleAstTypeParameterList EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9492:2: (iv_ruleAstTypeParameterList= ruleAstTypeParameterList EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9493:2: iv_ruleAstTypeParameterList= ruleAstTypeParameterList EOF
             {
              newCompositeNode(grammarAccess.getAstTypeParameterListRule()); 
-            pushFollow(FOLLOW_ruleAstTypeParameterList_in_entryRuleAstTypeParameterList15485);
+            pushFollow(FOLLOW_ruleAstTypeParameterList_in_entryRuleAstTypeParameterList19914);
             iv_ruleAstTypeParameterList=ruleAstTypeParameterList();
 
             state._fsp--;
 
              current =iv_ruleAstTypeParameterList; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstTypeParameterList15495); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstTypeParameterList19924); 
 
             }
 
@@ -18952,7 +24093,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAstTypeParameterList"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7479:1: ruleAstTypeParameterList returns [EObject current=null] : (otherlv_0= '(' ( (lv_params_1_0= ruleAstTypeParam ) ) (otherlv_2= ',' ( (lv_params_3_0= ruleAstTypeParam ) ) )* otherlv_4= ')' ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9500:1: ruleAstTypeParameterList returns [EObject current=null] : (otherlv_0= '(' ( (lv_params_1_0= ruleAstTypeParam ) ) (otherlv_2= ',' ( (lv_params_3_0= ruleAstTypeParam ) ) )* otherlv_4= ')' ) ;
     public final EObject ruleAstTypeParameterList() throws RecognitionException {
         EObject current = null;
 
@@ -18967,26 +24108,26 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7482:28: ( (otherlv_0= '(' ( (lv_params_1_0= ruleAstTypeParam ) ) (otherlv_2= ',' ( (lv_params_3_0= ruleAstTypeParam ) ) )* otherlv_4= ')' ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7483:1: (otherlv_0= '(' ( (lv_params_1_0= ruleAstTypeParam ) ) (otherlv_2= ',' ( (lv_params_3_0= ruleAstTypeParam ) ) )* otherlv_4= ')' )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9503:28: ( (otherlv_0= '(' ( (lv_params_1_0= ruleAstTypeParam ) ) (otherlv_2= ',' ( (lv_params_3_0= ruleAstTypeParam ) ) )* otherlv_4= ')' ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9504:1: (otherlv_0= '(' ( (lv_params_1_0= ruleAstTypeParam ) ) (otherlv_2= ',' ( (lv_params_3_0= ruleAstTypeParam ) ) )* otherlv_4= ')' )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7483:1: (otherlv_0= '(' ( (lv_params_1_0= ruleAstTypeParam ) ) (otherlv_2= ',' ( (lv_params_3_0= ruleAstTypeParam ) ) )* otherlv_4= ')' )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7483:3: otherlv_0= '(' ( (lv_params_1_0= ruleAstTypeParam ) ) (otherlv_2= ',' ( (lv_params_3_0= ruleAstTypeParam ) ) )* otherlv_4= ')'
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9504:1: (otherlv_0= '(' ( (lv_params_1_0= ruleAstTypeParam ) ) (otherlv_2= ',' ( (lv_params_3_0= ruleAstTypeParam ) ) )* otherlv_4= ')' )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9504:3: otherlv_0= '(' ( (lv_params_1_0= ruleAstTypeParam ) ) (otherlv_2= ',' ( (lv_params_3_0= ruleAstTypeParam ) ) )* otherlv_4= ')'
             {
-            otherlv_0=(Token)match(input,24,FOLLOW_24_in_ruleAstTypeParameterList15532); 
+            otherlv_0=(Token)match(input,24,FOLLOW_24_in_ruleAstTypeParameterList19961); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getAstTypeParameterListAccess().getLeftParenthesisKeyword_0());
                 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7487:1: ( (lv_params_1_0= ruleAstTypeParam ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7488:1: (lv_params_1_0= ruleAstTypeParam )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9508:1: ( (lv_params_1_0= ruleAstTypeParam ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9509:1: (lv_params_1_0= ruleAstTypeParam )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7488:1: (lv_params_1_0= ruleAstTypeParam )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7489:3: lv_params_1_0= ruleAstTypeParam
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9509:1: (lv_params_1_0= ruleAstTypeParam )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9510:3: lv_params_1_0= ruleAstTypeParam
             {
              
             	        newCompositeNode(grammarAccess.getAstTypeParameterListAccess().getParamsAstTypeParamParserRuleCall_1_0()); 
             	    
-            pushFollow(FOLLOW_ruleAstTypeParam_in_ruleAstTypeParameterList15553);
+            pushFollow(FOLLOW_ruleAstTypeParam_in_ruleAstTypeParameterList19982);
             lv_params_1_0=ruleAstTypeParam();
 
             state._fsp--;
@@ -19008,35 +24149,35 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7505:2: (otherlv_2= ',' ( (lv_params_3_0= ruleAstTypeParam ) ) )*
-            loop165:
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9526:2: (otherlv_2= ',' ( (lv_params_3_0= ruleAstTypeParam ) ) )*
+            loop203:
             do {
-                int alt165=2;
-                int LA165_0 = input.LA(1);
+                int alt203=2;
+                int LA203_0 = input.LA(1);
 
-                if ( (LA165_0==25) ) {
-                    alt165=1;
+                if ( (LA203_0==25) ) {
+                    alt203=1;
                 }
 
 
-                switch (alt165) {
+                switch (alt203) {
             	case 1 :
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7505:4: otherlv_2= ',' ( (lv_params_3_0= ruleAstTypeParam ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9526:4: otherlv_2= ',' ( (lv_params_3_0= ruleAstTypeParam ) )
             	    {
-            	    otherlv_2=(Token)match(input,25,FOLLOW_25_in_ruleAstTypeParameterList15566); 
+            	    otherlv_2=(Token)match(input,25,FOLLOW_25_in_ruleAstTypeParameterList19995); 
 
             	        	newLeafNode(otherlv_2, grammarAccess.getAstTypeParameterListAccess().getCommaKeyword_2_0());
             	        
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7509:1: ( (lv_params_3_0= ruleAstTypeParam ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7510:1: (lv_params_3_0= ruleAstTypeParam )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9530:1: ( (lv_params_3_0= ruleAstTypeParam ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9531:1: (lv_params_3_0= ruleAstTypeParam )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7510:1: (lv_params_3_0= ruleAstTypeParam )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7511:3: lv_params_3_0= ruleAstTypeParam
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9531:1: (lv_params_3_0= ruleAstTypeParam )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9532:3: lv_params_3_0= ruleAstTypeParam
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getAstTypeParameterListAccess().getParamsAstTypeParamParserRuleCall_2_1_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleAstTypeParam_in_ruleAstTypeParameterList15587);
+            	    pushFollow(FOLLOW_ruleAstTypeParam_in_ruleAstTypeParameterList20016);
             	    lv_params_3_0=ruleAstTypeParam();
 
             	    state._fsp--;
@@ -19063,11 +24204,11 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop165;
+            	    break loop203;
                 }
             } while (true);
 
-            otherlv_4=(Token)match(input,26,FOLLOW_26_in_ruleAstTypeParameterList15601); 
+            otherlv_4=(Token)match(input,26,FOLLOW_26_in_ruleAstTypeParameterList20030); 
 
                 	newLeafNode(otherlv_4, grammarAccess.getAstTypeParameterListAccess().getRightParenthesisKeyword_3());
                 
@@ -19092,7 +24233,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAstTypeParam"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7539:1: entryRuleAstTypeParam returns [EObject current=null] : iv_ruleAstTypeParam= ruleAstTypeParam EOF ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9560:1: entryRuleAstTypeParam returns [EObject current=null] : iv_ruleAstTypeParam= ruleAstTypeParam EOF ;
     public final EObject entryRuleAstTypeParam() throws RecognitionException {
         EObject current = null;
 
@@ -19100,17 +24241,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7540:2: (iv_ruleAstTypeParam= ruleAstTypeParam EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7541:2: iv_ruleAstTypeParam= ruleAstTypeParam EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9561:2: (iv_ruleAstTypeParam= ruleAstTypeParam EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9562:2: iv_ruleAstTypeParam= ruleAstTypeParam EOF
             {
              newCompositeNode(grammarAccess.getAstTypeParamRule()); 
-            pushFollow(FOLLOW_ruleAstTypeParam_in_entryRuleAstTypeParam15637);
+            pushFollow(FOLLOW_ruleAstTypeParam_in_entryRuleAstTypeParam20066);
             iv_ruleAstTypeParam=ruleAstTypeParam();
 
             state._fsp--;
 
              current =iv_ruleAstTypeParam; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstTypeParam15647); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstTypeParam20076); 
 
             }
 
@@ -19128,7 +24269,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAstTypeParam"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7548:1: ruleAstTypeParam returns [EObject current=null] : ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= '=' ( (lv_value_2_0= ruleAstExpression ) ) ) | ( ( ( (lv_name_3_1= RULE_ID | lv_name_3_2= 'type' ) ) ) otherlv_4= ':' ( (lv_type_5_0= ruleAstType ) ) ) ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9569:1: ruleAstTypeParam returns [EObject current=null] : ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= '=' ( (lv_value_2_0= ruleAstExpression ) ) ) | ( ( ( (lv_name_3_1= RULE_ID | lv_name_3_2= 'type' ) ) ) otherlv_4= ':' ( (lv_type_5_0= ruleAstType ) ) ) ) ;
     public final EObject ruleAstTypeParam() throws RecognitionException {
         EObject current = null;
 
@@ -19145,52 +24286,52 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7551:28: ( ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= '=' ( (lv_value_2_0= ruleAstExpression ) ) ) | ( ( ( (lv_name_3_1= RULE_ID | lv_name_3_2= 'type' ) ) ) otherlv_4= ':' ( (lv_type_5_0= ruleAstType ) ) ) ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7552:1: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= '=' ( (lv_value_2_0= ruleAstExpression ) ) ) | ( ( ( (lv_name_3_1= RULE_ID | lv_name_3_2= 'type' ) ) ) otherlv_4= ':' ( (lv_type_5_0= ruleAstType ) ) ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9572:28: ( ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= '=' ( (lv_value_2_0= ruleAstExpression ) ) ) | ( ( ( (lv_name_3_1= RULE_ID | lv_name_3_2= 'type' ) ) ) otherlv_4= ':' ( (lv_type_5_0= ruleAstType ) ) ) ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9573:1: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= '=' ( (lv_value_2_0= ruleAstExpression ) ) ) | ( ( ( (lv_name_3_1= RULE_ID | lv_name_3_2= 'type' ) ) ) otherlv_4= ':' ( (lv_type_5_0= ruleAstType ) ) ) )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7552:1: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= '=' ( (lv_value_2_0= ruleAstExpression ) ) ) | ( ( ( (lv_name_3_1= RULE_ID | lv_name_3_2= 'type' ) ) ) otherlv_4= ':' ( (lv_type_5_0= ruleAstType ) ) ) )
-            int alt167=2;
-            int LA167_0 = input.LA(1);
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9573:1: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= '=' ( (lv_value_2_0= ruleAstExpression ) ) ) | ( ( ( (lv_name_3_1= RULE_ID | lv_name_3_2= 'type' ) ) ) otherlv_4= ':' ( (lv_type_5_0= ruleAstType ) ) ) )
+            int alt205=2;
+            int LA205_0 = input.LA(1);
 
-            if ( (LA167_0==RULE_ID) ) {
-                int LA167_1 = input.LA(2);
+            if ( (LA205_0==RULE_ID) ) {
+                int LA205_1 = input.LA(2);
 
-                if ( (LA167_1==17) ) {
-                    alt167=2;
+                if ( (LA205_1==30) ) {
+                    alt205=1;
                 }
-                else if ( (LA167_1==30) ) {
-                    alt167=1;
+                else if ( (LA205_1==17) ) {
+                    alt205=2;
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 167, 1, input);
+                        new NoViableAltException("", 205, 1, input);
 
                     throw nvae;
                 }
             }
-            else if ( (LA167_0==36) ) {
-                alt167=2;
+            else if ( (LA205_0==36) ) {
+                alt205=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 167, 0, input);
+                    new NoViableAltException("", 205, 0, input);
 
                 throw nvae;
             }
-            switch (alt167) {
+            switch (alt205) {
                 case 1 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7552:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= '=' ( (lv_value_2_0= ruleAstExpression ) ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9573:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= '=' ( (lv_value_2_0= ruleAstExpression ) ) )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7552:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= '=' ( (lv_value_2_0= ruleAstExpression ) ) )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7552:3: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= '=' ( (lv_value_2_0= ruleAstExpression ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9573:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= '=' ( (lv_value_2_0= ruleAstExpression ) ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9573:3: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= '=' ( (lv_value_2_0= ruleAstExpression ) )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7552:3: ( (lv_name_0_0= RULE_ID ) )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7553:1: (lv_name_0_0= RULE_ID )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9573:3: ( (lv_name_0_0= RULE_ID ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9574:1: (lv_name_0_0= RULE_ID )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7553:1: (lv_name_0_0= RULE_ID )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7554:3: lv_name_0_0= RULE_ID
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9574:1: (lv_name_0_0= RULE_ID )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9575:3: lv_name_0_0= RULE_ID
                     {
-                    lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAstTypeParam15690); 
+                    lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAstTypeParam20119); 
 
                     			newLeafNode(lv_name_0_0, grammarAccess.getAstTypeParamAccess().getNameIDTerminalRuleCall_0_0_0()); 
                     		
@@ -19210,20 +24351,20 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_1=(Token)match(input,30,FOLLOW_30_in_ruleAstTypeParam15707); 
+                    otherlv_1=(Token)match(input,30,FOLLOW_30_in_ruleAstTypeParam20136); 
 
                         	newLeafNode(otherlv_1, grammarAccess.getAstTypeParamAccess().getEqualsSignKeyword_0_1());
                         
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7574:1: ( (lv_value_2_0= ruleAstExpression ) )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7575:1: (lv_value_2_0= ruleAstExpression )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9595:1: ( (lv_value_2_0= ruleAstExpression ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9596:1: (lv_value_2_0= ruleAstExpression )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7575:1: (lv_value_2_0= ruleAstExpression )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7576:3: lv_value_2_0= ruleAstExpression
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9596:1: (lv_value_2_0= ruleAstExpression )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9597:3: lv_value_2_0= ruleAstExpression
                     {
                      
                     	        newCompositeNode(grammarAccess.getAstTypeParamAccess().getValueAstExpressionParserRuleCall_0_2_0()); 
                     	    
-                    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstTypeParam15728);
+                    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstTypeParam20157);
                     lv_value_2_0=ruleAstExpression();
 
                     state._fsp--;
@@ -19252,38 +24393,38 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7593:6: ( ( ( (lv_name_3_1= RULE_ID | lv_name_3_2= 'type' ) ) ) otherlv_4= ':' ( (lv_type_5_0= ruleAstType ) ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9614:6: ( ( ( (lv_name_3_1= RULE_ID | lv_name_3_2= 'type' ) ) ) otherlv_4= ':' ( (lv_type_5_0= ruleAstType ) ) )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7593:6: ( ( ( (lv_name_3_1= RULE_ID | lv_name_3_2= 'type' ) ) ) otherlv_4= ':' ( (lv_type_5_0= ruleAstType ) ) )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7593:7: ( ( (lv_name_3_1= RULE_ID | lv_name_3_2= 'type' ) ) ) otherlv_4= ':' ( (lv_type_5_0= ruleAstType ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9614:6: ( ( ( (lv_name_3_1= RULE_ID | lv_name_3_2= 'type' ) ) ) otherlv_4= ':' ( (lv_type_5_0= ruleAstType ) ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9614:7: ( ( (lv_name_3_1= RULE_ID | lv_name_3_2= 'type' ) ) ) otherlv_4= ':' ( (lv_type_5_0= ruleAstType ) )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7593:7: ( ( (lv_name_3_1= RULE_ID | lv_name_3_2= 'type' ) ) )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7594:1: ( (lv_name_3_1= RULE_ID | lv_name_3_2= 'type' ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9614:7: ( ( (lv_name_3_1= RULE_ID | lv_name_3_2= 'type' ) ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9615:1: ( (lv_name_3_1= RULE_ID | lv_name_3_2= 'type' ) )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7594:1: ( (lv_name_3_1= RULE_ID | lv_name_3_2= 'type' ) )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7595:1: (lv_name_3_1= RULE_ID | lv_name_3_2= 'type' )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9615:1: ( (lv_name_3_1= RULE_ID | lv_name_3_2= 'type' ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9616:1: (lv_name_3_1= RULE_ID | lv_name_3_2= 'type' )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7595:1: (lv_name_3_1= RULE_ID | lv_name_3_2= 'type' )
-                    int alt166=2;
-                    int LA166_0 = input.LA(1);
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9616:1: (lv_name_3_1= RULE_ID | lv_name_3_2= 'type' )
+                    int alt204=2;
+                    int LA204_0 = input.LA(1);
 
-                    if ( (LA166_0==RULE_ID) ) {
-                        alt166=1;
+                    if ( (LA204_0==RULE_ID) ) {
+                        alt204=1;
                     }
-                    else if ( (LA166_0==36) ) {
-                        alt166=2;
+                    else if ( (LA204_0==36) ) {
+                        alt204=2;
                     }
                     else {
                         NoViableAltException nvae =
-                            new NoViableAltException("", 166, 0, input);
+                            new NoViableAltException("", 204, 0, input);
 
                         throw nvae;
                     }
-                    switch (alt166) {
+                    switch (alt204) {
                         case 1 :
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7596:3: lv_name_3_1= RULE_ID
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9617:3: lv_name_3_1= RULE_ID
                             {
-                            lv_name_3_1=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAstTypeParam15755); 
+                            lv_name_3_1=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAstTypeParam20184); 
 
                             			newLeafNode(lv_name_3_1, grammarAccess.getAstTypeParamAccess().getNameIDTerminalRuleCall_1_0_0_0()); 
                             		
@@ -19301,9 +24442,9 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                             }
                             break;
                         case 2 :
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7611:8: lv_name_3_2= 'type'
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9632:8: lv_name_3_2= 'type'
                             {
-                            lv_name_3_2=(Token)match(input,36,FOLLOW_36_in_ruleAstTypeParam15776); 
+                            lv_name_3_2=(Token)match(input,36,FOLLOW_36_in_ruleAstTypeParam20205); 
 
                                     newLeafNode(lv_name_3_2, grammarAccess.getAstTypeParamAccess().getNameTypeKeyword_1_0_0_1());
                                 
@@ -19325,20 +24466,20 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_4=(Token)match(input,17,FOLLOW_17_in_ruleAstTypeParam15804); 
+                    otherlv_4=(Token)match(input,17,FOLLOW_17_in_ruleAstTypeParam20233); 
 
                         	newLeafNode(otherlv_4, grammarAccess.getAstTypeParamAccess().getColonKeyword_1_1());
                         
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7630:1: ( (lv_type_5_0= ruleAstType ) )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7631:1: (lv_type_5_0= ruleAstType )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9651:1: ( (lv_type_5_0= ruleAstType ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9652:1: (lv_type_5_0= ruleAstType )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7631:1: (lv_type_5_0= ruleAstType )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7632:3: lv_type_5_0= ruleAstType
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9652:1: (lv_type_5_0= ruleAstType )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9653:3: lv_type_5_0= ruleAstType
                     {
                      
                     	        newCompositeNode(grammarAccess.getAstTypeParamAccess().getTypeAstTypeParserRuleCall_1_2_0()); 
                     	    
-                    pushFollow(FOLLOW_ruleAstType_in_ruleAstTypeParam15825);
+                    pushFollow(FOLLOW_ruleAstType_in_ruleAstTypeParam20254);
                     lv_type_5_0=ruleAstType();
 
                     state._fsp--;
@@ -19387,7 +24528,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAstVariableDeclaration"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7656:1: entryRuleAstVariableDeclaration returns [EObject current=null] : iv_ruleAstVariableDeclaration= ruleAstVariableDeclaration EOF ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9677:1: entryRuleAstVariableDeclaration returns [EObject current=null] : iv_ruleAstVariableDeclaration= ruleAstVariableDeclaration EOF ;
     public final EObject entryRuleAstVariableDeclaration() throws RecognitionException {
         EObject current = null;
 
@@ -19395,17 +24536,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7657:2: (iv_ruleAstVariableDeclaration= ruleAstVariableDeclaration EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7658:2: iv_ruleAstVariableDeclaration= ruleAstVariableDeclaration EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9678:2: (iv_ruleAstVariableDeclaration= ruleAstVariableDeclaration EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9679:2: iv_ruleAstVariableDeclaration= ruleAstVariableDeclaration EOF
             {
              newCompositeNode(grammarAccess.getAstVariableDeclarationRule()); 
-            pushFollow(FOLLOW_ruleAstVariableDeclaration_in_entryRuleAstVariableDeclaration15862);
+            pushFollow(FOLLOW_ruleAstVariableDeclaration_in_entryRuleAstVariableDeclaration20291);
             iv_ruleAstVariableDeclaration=ruleAstVariableDeclaration();
 
             state._fsp--;
 
              current =iv_ruleAstVariableDeclaration; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstVariableDeclaration15872); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstVariableDeclaration20301); 
 
             }
 
@@ -19423,7 +24564,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAstVariableDeclaration"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7665:1: ruleAstVariableDeclaration returns [EObject current=null] : ( ( (lv_annotations_0_0= ruleAstAnnotation ) )* ( (lv_type_1_0= ruleAstType ) ) ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )* ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9686:1: ruleAstVariableDeclaration returns [EObject current=null] : ( ( (lv_annotations_0_0= ruleAstAnnotation ) )* ( (lv_type_1_0= ruleAstType ) ) ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )* ) ;
     public final EObject ruleAstVariableDeclaration() throws RecognitionException {
         EObject current = null;
 
@@ -19440,34 +24581,34 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7668:28: ( ( ( (lv_annotations_0_0= ruleAstAnnotation ) )* ( (lv_type_1_0= ruleAstType ) ) ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )* ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7669:1: ( ( (lv_annotations_0_0= ruleAstAnnotation ) )* ( (lv_type_1_0= ruleAstType ) ) ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9689:28: ( ( ( (lv_annotations_0_0= ruleAstAnnotation ) )* ( (lv_type_1_0= ruleAstType ) ) ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )* ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9690:1: ( ( (lv_annotations_0_0= ruleAstAnnotation ) )* ( (lv_type_1_0= ruleAstType ) ) ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )* )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7669:1: ( ( (lv_annotations_0_0= ruleAstAnnotation ) )* ( (lv_type_1_0= ruleAstType ) ) ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )* )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7669:2: ( (lv_annotations_0_0= ruleAstAnnotation ) )* ( (lv_type_1_0= ruleAstType ) ) ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )*
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9690:1: ( ( (lv_annotations_0_0= ruleAstAnnotation ) )* ( (lv_type_1_0= ruleAstType ) ) ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9690:2: ( (lv_annotations_0_0= ruleAstAnnotation ) )* ( (lv_type_1_0= ruleAstType ) ) ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )*
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7669:2: ( (lv_annotations_0_0= ruleAstAnnotation ) )*
-            loop168:
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9690:2: ( (lv_annotations_0_0= ruleAstAnnotation ) )*
+            loop206:
             do {
-                int alt168=2;
-                int LA168_0 = input.LA(1);
+                int alt206=2;
+                int LA206_0 = input.LA(1);
 
-                if ( (LA168_0==95) ) {
-                    alt168=1;
+                if ( (LA206_0==99) ) {
+                    alt206=1;
                 }
 
 
-                switch (alt168) {
+                switch (alt206) {
             	case 1 :
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7670:1: (lv_annotations_0_0= ruleAstAnnotation )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9691:1: (lv_annotations_0_0= ruleAstAnnotation )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7670:1: (lv_annotations_0_0= ruleAstAnnotation )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7671:3: lv_annotations_0_0= ruleAstAnnotation
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9691:1: (lv_annotations_0_0= ruleAstAnnotation )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9692:3: lv_annotations_0_0= ruleAstAnnotation
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getAstVariableDeclarationAccess().getAnnotationsAstAnnotationParserRuleCall_0_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleAstAnnotation_in_ruleAstVariableDeclaration15918);
+            	    pushFollow(FOLLOW_ruleAstAnnotation_in_ruleAstVariableDeclaration20347);
             	    lv_annotations_0_0=ruleAstAnnotation();
 
             	    state._fsp--;
@@ -19491,20 +24632,20 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop168;
+            	    break loop206;
                 }
             } while (true);
 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7687:3: ( (lv_type_1_0= ruleAstType ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7688:1: (lv_type_1_0= ruleAstType )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9708:3: ( (lv_type_1_0= ruleAstType ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9709:1: (lv_type_1_0= ruleAstType )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7688:1: (lv_type_1_0= ruleAstType )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7689:3: lv_type_1_0= ruleAstType
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9709:1: (lv_type_1_0= ruleAstType )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9710:3: lv_type_1_0= ruleAstType
             {
              
             	        newCompositeNode(grammarAccess.getAstVariableDeclarationAccess().getTypeAstTypeParserRuleCall_1_0()); 
             	    
-            pushFollow(FOLLOW_ruleAstType_in_ruleAstVariableDeclaration15940);
+            pushFollow(FOLLOW_ruleAstType_in_ruleAstVariableDeclaration20369);
             lv_type_1_0=ruleAstType();
 
             state._fsp--;
@@ -19526,13 +24667,13 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7705:2: ( (lv_name_2_0= RULE_ID ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7706:1: (lv_name_2_0= RULE_ID )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9726:2: ( (lv_name_2_0= RULE_ID ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9727:1: (lv_name_2_0= RULE_ID )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7706:1: (lv_name_2_0= RULE_ID )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7707:3: lv_name_2_0= RULE_ID
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9727:1: (lv_name_2_0= RULE_ID )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9728:3: lv_name_2_0= RULE_ID
             {
-            lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAstVariableDeclaration15957); 
+            lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAstVariableDeclaration20386); 
 
             			newLeafNode(lv_name_2_0, grammarAccess.getAstVariableDeclarationAccess().getNameIDTerminalRuleCall_2_0()); 
             		
@@ -19552,35 +24693,35 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7723:2: (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )*
-            loop169:
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9744:2: (otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']' )*
+            loop207:
             do {
-                int alt169=2;
-                int LA169_0 = input.LA(1);
+                int alt207=2;
+                int LA207_0 = input.LA(1);
 
-                if ( (LA169_0==50) ) {
-                    alt169=1;
+                if ( (LA207_0==50) ) {
+                    alt207=1;
                 }
 
 
-                switch (alt169) {
+                switch (alt207) {
             	case 1 :
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7723:4: otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']'
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9744:4: otherlv_3= '[' ( (lv_dimensions_4_0= ruleAstExpression ) ) otherlv_5= ']'
             	    {
-            	    otherlv_3=(Token)match(input,50,FOLLOW_50_in_ruleAstVariableDeclaration15975); 
+            	    otherlv_3=(Token)match(input,50,FOLLOW_50_in_ruleAstVariableDeclaration20404); 
 
             	        	newLeafNode(otherlv_3, grammarAccess.getAstVariableDeclarationAccess().getLeftSquareBracketKeyword_3_0());
             	        
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7727:1: ( (lv_dimensions_4_0= ruleAstExpression ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7728:1: (lv_dimensions_4_0= ruleAstExpression )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9748:1: ( (lv_dimensions_4_0= ruleAstExpression ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9749:1: (lv_dimensions_4_0= ruleAstExpression )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7728:1: (lv_dimensions_4_0= ruleAstExpression )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7729:3: lv_dimensions_4_0= ruleAstExpression
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9749:1: (lv_dimensions_4_0= ruleAstExpression )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9750:3: lv_dimensions_4_0= ruleAstExpression
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getAstVariableDeclarationAccess().getDimensionsAstExpressionParserRuleCall_3_1_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstVariableDeclaration15996);
+            	    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstVariableDeclaration20425);
             	    lv_dimensions_4_0=ruleAstExpression();
 
             	    state._fsp--;
@@ -19602,7 +24743,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_5=(Token)match(input,51,FOLLOW_51_in_ruleAstVariableDeclaration16008); 
+            	    otherlv_5=(Token)match(input,51,FOLLOW_51_in_ruleAstVariableDeclaration20437); 
 
             	        	newLeafNode(otherlv_5, grammarAccess.getAstVariableDeclarationAccess().getRightSquareBracketKeyword_3_2());
             	        
@@ -19611,7 +24752,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop169;
+            	    break loop207;
                 }
             } while (true);
 
@@ -19636,7 +24777,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAstValuedVariableDeclaration"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7757:1: entryRuleAstValuedVariableDeclaration returns [EObject current=null] : iv_ruleAstValuedVariableDeclaration= ruleAstValuedVariableDeclaration EOF ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9778:1: entryRuleAstValuedVariableDeclaration returns [EObject current=null] : iv_ruleAstValuedVariableDeclaration= ruleAstValuedVariableDeclaration EOF ;
     public final EObject entryRuleAstValuedVariableDeclaration() throws RecognitionException {
         EObject current = null;
 
@@ -19644,17 +24785,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7758:2: (iv_ruleAstValuedVariableDeclaration= ruleAstValuedVariableDeclaration EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7759:2: iv_ruleAstValuedVariableDeclaration= ruleAstValuedVariableDeclaration EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9779:2: (iv_ruleAstValuedVariableDeclaration= ruleAstValuedVariableDeclaration EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9780:2: iv_ruleAstValuedVariableDeclaration= ruleAstValuedVariableDeclaration EOF
             {
              newCompositeNode(grammarAccess.getAstValuedVariableDeclarationRule()); 
-            pushFollow(FOLLOW_ruleAstValuedVariableDeclaration_in_entryRuleAstValuedVariableDeclaration16046);
+            pushFollow(FOLLOW_ruleAstValuedVariableDeclaration_in_entryRuleAstValuedVariableDeclaration20475);
             iv_ruleAstValuedVariableDeclaration=ruleAstValuedVariableDeclaration();
 
             state._fsp--;
 
              current =iv_ruleAstValuedVariableDeclaration; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstValuedVariableDeclaration16056); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstValuedVariableDeclaration20485); 
 
             }
 
@@ -19672,7 +24813,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAstValuedVariableDeclaration"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7766:1: ruleAstValuedVariableDeclaration returns [EObject current=null] : (this_AstVariableDeclaration_0= ruleAstVariableDeclaration ( ( ( (lv_constant_1_0= '=' ) ) | otherlv_2= ':=' ) ( (lv_value_3_0= ruleAstExpression ) ) )? ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9787:1: ruleAstValuedVariableDeclaration returns [EObject current=null] : (this_AstVariableDeclaration_0= ruleAstVariableDeclaration ( ( ( (lv_constant_1_0= '=' ) ) | otherlv_2= ':=' ) ( (lv_value_3_0= ruleAstExpression ) ) )? ) ;
     public final EObject ruleAstValuedVariableDeclaration() throws RecognitionException {
         EObject current = null;
 
@@ -19686,16 +24827,16 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7769:28: ( (this_AstVariableDeclaration_0= ruleAstVariableDeclaration ( ( ( (lv_constant_1_0= '=' ) ) | otherlv_2= ':=' ) ( (lv_value_3_0= ruleAstExpression ) ) )? ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7770:1: (this_AstVariableDeclaration_0= ruleAstVariableDeclaration ( ( ( (lv_constant_1_0= '=' ) ) | otherlv_2= ':=' ) ( (lv_value_3_0= ruleAstExpression ) ) )? )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9790:28: ( (this_AstVariableDeclaration_0= ruleAstVariableDeclaration ( ( ( (lv_constant_1_0= '=' ) ) | otherlv_2= ':=' ) ( (lv_value_3_0= ruleAstExpression ) ) )? ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9791:1: (this_AstVariableDeclaration_0= ruleAstVariableDeclaration ( ( ( (lv_constant_1_0= '=' ) ) | otherlv_2= ':=' ) ( (lv_value_3_0= ruleAstExpression ) ) )? )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7770:1: (this_AstVariableDeclaration_0= ruleAstVariableDeclaration ( ( ( (lv_constant_1_0= '=' ) ) | otherlv_2= ':=' ) ( (lv_value_3_0= ruleAstExpression ) ) )? )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7771:5: this_AstVariableDeclaration_0= ruleAstVariableDeclaration ( ( ( (lv_constant_1_0= '=' ) ) | otherlv_2= ':=' ) ( (lv_value_3_0= ruleAstExpression ) ) )?
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9791:1: (this_AstVariableDeclaration_0= ruleAstVariableDeclaration ( ( ( (lv_constant_1_0= '=' ) ) | otherlv_2= ':=' ) ( (lv_value_3_0= ruleAstExpression ) ) )? )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9792:5: this_AstVariableDeclaration_0= ruleAstVariableDeclaration ( ( ( (lv_constant_1_0= '=' ) ) | otherlv_2= ':=' ) ( (lv_value_3_0= ruleAstExpression ) ) )?
             {
              
                     newCompositeNode(grammarAccess.getAstValuedVariableDeclarationAccess().getAstVariableDeclarationParserRuleCall_0()); 
                 
-            pushFollow(FOLLOW_ruleAstVariableDeclaration_in_ruleAstValuedVariableDeclaration16103);
+            pushFollow(FOLLOW_ruleAstVariableDeclaration_in_ruleAstValuedVariableDeclaration20532);
             this_AstVariableDeclaration_0=ruleAstVariableDeclaration();
 
             state._fsp--;
@@ -19704,44 +24845,44 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     current = this_AstVariableDeclaration_0; 
                     afterParserOrEnumRuleCall();
                 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7779:1: ( ( ( (lv_constant_1_0= '=' ) ) | otherlv_2= ':=' ) ( (lv_value_3_0= ruleAstExpression ) ) )?
-            int alt171=2;
-            int LA171_0 = input.LA(1);
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9800:1: ( ( ( (lv_constant_1_0= '=' ) ) | otherlv_2= ':=' ) ( (lv_value_3_0= ruleAstExpression ) ) )?
+            int alt209=2;
+            int LA209_0 = input.LA(1);
 
-            if ( (LA171_0==30||LA171_0==53) ) {
-                alt171=1;
+            if ( (LA209_0==30||LA209_0==53) ) {
+                alt209=1;
             }
-            switch (alt171) {
+            switch (alt209) {
                 case 1 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7779:2: ( ( (lv_constant_1_0= '=' ) ) | otherlv_2= ':=' ) ( (lv_value_3_0= ruleAstExpression ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9800:2: ( ( (lv_constant_1_0= '=' ) ) | otherlv_2= ':=' ) ( (lv_value_3_0= ruleAstExpression ) )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7779:2: ( ( (lv_constant_1_0= '=' ) ) | otherlv_2= ':=' )
-                    int alt170=2;
-                    int LA170_0 = input.LA(1);
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9800:2: ( ( (lv_constant_1_0= '=' ) ) | otherlv_2= ':=' )
+                    int alt208=2;
+                    int LA208_0 = input.LA(1);
 
-                    if ( (LA170_0==30) ) {
-                        alt170=1;
+                    if ( (LA208_0==30) ) {
+                        alt208=1;
                     }
-                    else if ( (LA170_0==53) ) {
-                        alt170=2;
+                    else if ( (LA208_0==53) ) {
+                        alt208=2;
                     }
                     else {
                         NoViableAltException nvae =
-                            new NoViableAltException("", 170, 0, input);
+                            new NoViableAltException("", 208, 0, input);
 
                         throw nvae;
                     }
-                    switch (alt170) {
+                    switch (alt208) {
                         case 1 :
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7779:3: ( (lv_constant_1_0= '=' ) )
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9800:3: ( (lv_constant_1_0= '=' ) )
                             {
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7779:3: ( (lv_constant_1_0= '=' ) )
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7780:1: (lv_constant_1_0= '=' )
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9800:3: ( (lv_constant_1_0= '=' ) )
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9801:1: (lv_constant_1_0= '=' )
                             {
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7780:1: (lv_constant_1_0= '=' )
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7781:3: lv_constant_1_0= '='
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9801:1: (lv_constant_1_0= '=' )
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9802:3: lv_constant_1_0= '='
                             {
-                            lv_constant_1_0=(Token)match(input,30,FOLLOW_30_in_ruleAstValuedVariableDeclaration16122); 
+                            lv_constant_1_0=(Token)match(input,30,FOLLOW_30_in_ruleAstValuedVariableDeclaration20551); 
 
                                     newLeafNode(lv_constant_1_0, grammarAccess.getAstValuedVariableDeclarationAccess().getConstantEqualsSignKeyword_1_0_0_0());
                                 
@@ -19761,9 +24902,9 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                             }
                             break;
                         case 2 :
-                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7795:7: otherlv_2= ':='
+                            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9816:7: otherlv_2= ':='
                             {
-                            otherlv_2=(Token)match(input,53,FOLLOW_53_in_ruleAstValuedVariableDeclaration16153); 
+                            otherlv_2=(Token)match(input,53,FOLLOW_53_in_ruleAstValuedVariableDeclaration20582); 
 
                                 	newLeafNode(otherlv_2, grammarAccess.getAstValuedVariableDeclarationAccess().getColonEqualsSignKeyword_1_0_1());
                                 
@@ -19773,16 +24914,16 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7799:2: ( (lv_value_3_0= ruleAstExpression ) )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7800:1: (lv_value_3_0= ruleAstExpression )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9820:2: ( (lv_value_3_0= ruleAstExpression ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9821:1: (lv_value_3_0= ruleAstExpression )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7800:1: (lv_value_3_0= ruleAstExpression )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7801:3: lv_value_3_0= ruleAstExpression
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9821:1: (lv_value_3_0= ruleAstExpression )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9822:3: lv_value_3_0= ruleAstExpression
                     {
                      
                     	        newCompositeNode(grammarAccess.getAstValuedVariableDeclarationAccess().getValueAstExpressionParserRuleCall_1_1_0()); 
                     	    
-                    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstValuedVariableDeclaration16175);
+                    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstValuedVariableDeclaration20604);
                     lv_value_3_0=ruleAstExpression();
 
                     state._fsp--;
@@ -19831,7 +24972,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAstMemberAccess"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7825:1: entryRuleAstMemberAccess returns [EObject current=null] : iv_ruleAstMemberAccess= ruleAstMemberAccess EOF ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9846:1: entryRuleAstMemberAccess returns [EObject current=null] : iv_ruleAstMemberAccess= ruleAstMemberAccess EOF ;
     public final EObject entryRuleAstMemberAccess() throws RecognitionException {
         EObject current = null;
 
@@ -19839,17 +24980,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7826:2: (iv_ruleAstMemberAccess= ruleAstMemberAccess EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7827:2: iv_ruleAstMemberAccess= ruleAstMemberAccess EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9847:2: (iv_ruleAstMemberAccess= ruleAstMemberAccess EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9848:2: iv_ruleAstMemberAccess= ruleAstMemberAccess EOF
             {
              newCompositeNode(grammarAccess.getAstMemberAccessRule()); 
-            pushFollow(FOLLOW_ruleAstMemberAccess_in_entryRuleAstMemberAccess16213);
+            pushFollow(FOLLOW_ruleAstMemberAccess_in_entryRuleAstMemberAccess20642);
             iv_ruleAstMemberAccess=ruleAstMemberAccess();
 
             state._fsp--;
 
              current =iv_ruleAstMemberAccess; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstMemberAccess16223); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstMemberAccess20652); 
 
             }
 
@@ -19867,7 +25008,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAstMemberAccess"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7834:1: ruleAstMemberAccess returns [EObject current=null] : (otherlv_0= '.' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '[' ( (lv_memberIndex_3_0= ruleAstExpression ) ) otherlv_4= ']' )* ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9855:1: ruleAstMemberAccess returns [EObject current=null] : (otherlv_0= '.' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '[' ( (lv_memberIndex_3_0= ruleAstExpression ) ) otherlv_4= ']' )* ) ;
     public final EObject ruleAstMemberAccess() throws RecognitionException {
         EObject current = null;
 
@@ -19881,23 +25022,23 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7837:28: ( (otherlv_0= '.' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '[' ( (lv_memberIndex_3_0= ruleAstExpression ) ) otherlv_4= ']' )* ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7838:1: (otherlv_0= '.' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '[' ( (lv_memberIndex_3_0= ruleAstExpression ) ) otherlv_4= ']' )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9858:28: ( (otherlv_0= '.' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '[' ( (lv_memberIndex_3_0= ruleAstExpression ) ) otherlv_4= ']' )* ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9859:1: (otherlv_0= '.' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '[' ( (lv_memberIndex_3_0= ruleAstExpression ) ) otherlv_4= ']' )* )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7838:1: (otherlv_0= '.' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '[' ( (lv_memberIndex_3_0= ruleAstExpression ) ) otherlv_4= ']' )* )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7838:3: otherlv_0= '.' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '[' ( (lv_memberIndex_3_0= ruleAstExpression ) ) otherlv_4= ']' )*
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9859:1: (otherlv_0= '.' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '[' ( (lv_memberIndex_3_0= ruleAstExpression ) ) otherlv_4= ']' )* )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9859:3: otherlv_0= '.' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '[' ( (lv_memberIndex_3_0= ruleAstExpression ) ) otherlv_4= ']' )*
             {
-            otherlv_0=(Token)match(input,21,FOLLOW_21_in_ruleAstMemberAccess16260); 
+            otherlv_0=(Token)match(input,21,FOLLOW_21_in_ruleAstMemberAccess20689); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getAstMemberAccessAccess().getFullStopKeyword_0());
                 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7842:1: ( (lv_name_1_0= RULE_ID ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7843:1: (lv_name_1_0= RULE_ID )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9863:1: ( (lv_name_1_0= RULE_ID ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9864:1: (lv_name_1_0= RULE_ID )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7843:1: (lv_name_1_0= RULE_ID )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7844:3: lv_name_1_0= RULE_ID
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9864:1: (lv_name_1_0= RULE_ID )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9865:3: lv_name_1_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAstMemberAccess16277); 
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAstMemberAccess20706); 
 
             			newLeafNode(lv_name_1_0, grammarAccess.getAstMemberAccessAccess().getNameIDTerminalRuleCall_1_0()); 
             		
@@ -19917,35 +25058,35 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7860:2: (otherlv_2= '[' ( (lv_memberIndex_3_0= ruleAstExpression ) ) otherlv_4= ']' )*
-            loop172:
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9881:2: (otherlv_2= '[' ( (lv_memberIndex_3_0= ruleAstExpression ) ) otherlv_4= ']' )*
+            loop210:
             do {
-                int alt172=2;
-                int LA172_0 = input.LA(1);
+                int alt210=2;
+                int LA210_0 = input.LA(1);
 
-                if ( (LA172_0==50) ) {
-                    alt172=1;
+                if ( (LA210_0==50) ) {
+                    alt210=1;
                 }
 
 
-                switch (alt172) {
+                switch (alt210) {
             	case 1 :
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7860:4: otherlv_2= '[' ( (lv_memberIndex_3_0= ruleAstExpression ) ) otherlv_4= ']'
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9881:4: otherlv_2= '[' ( (lv_memberIndex_3_0= ruleAstExpression ) ) otherlv_4= ']'
             	    {
-            	    otherlv_2=(Token)match(input,50,FOLLOW_50_in_ruleAstMemberAccess16295); 
+            	    otherlv_2=(Token)match(input,50,FOLLOW_50_in_ruleAstMemberAccess20724); 
 
             	        	newLeafNode(otherlv_2, grammarAccess.getAstMemberAccessAccess().getLeftSquareBracketKeyword_2_0());
             	        
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7864:1: ( (lv_memberIndex_3_0= ruleAstExpression ) )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7865:1: (lv_memberIndex_3_0= ruleAstExpression )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9885:1: ( (lv_memberIndex_3_0= ruleAstExpression ) )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9886:1: (lv_memberIndex_3_0= ruleAstExpression )
             	    {
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7865:1: (lv_memberIndex_3_0= ruleAstExpression )
-            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7866:3: lv_memberIndex_3_0= ruleAstExpression
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9886:1: (lv_memberIndex_3_0= ruleAstExpression )
+            	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9887:3: lv_memberIndex_3_0= ruleAstExpression
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getAstMemberAccessAccess().getMemberIndexAstExpressionParserRuleCall_2_1_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstMemberAccess16316);
+            	    pushFollow(FOLLOW_ruleAstExpression_in_ruleAstMemberAccess20745);
             	    lv_memberIndex_3_0=ruleAstExpression();
 
             	    state._fsp--;
@@ -19967,7 +25108,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_4=(Token)match(input,51,FOLLOW_51_in_ruleAstMemberAccess16328); 
+            	    otherlv_4=(Token)match(input,51,FOLLOW_51_in_ruleAstMemberAccess20757); 
 
             	        	newLeafNode(otherlv_4, grammarAccess.getAstMemberAccessAccess().getRightSquareBracketKeyword_2_2());
             	        
@@ -19976,7 +25117,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop172;
+            	    break loop210;
                 }
             } while (true);
 
@@ -20001,7 +25142,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAstAnnotation"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7894:1: entryRuleAstAnnotation returns [EObject current=null] : iv_ruleAstAnnotation= ruleAstAnnotation EOF ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9915:1: entryRuleAstAnnotation returns [EObject current=null] : iv_ruleAstAnnotation= ruleAstAnnotation EOF ;
     public final EObject entryRuleAstAnnotation() throws RecognitionException {
         EObject current = null;
 
@@ -20009,17 +25150,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7895:2: (iv_ruleAstAnnotation= ruleAstAnnotation EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7896:2: iv_ruleAstAnnotation= ruleAstAnnotation EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9916:2: (iv_ruleAstAnnotation= ruleAstAnnotation EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9917:2: iv_ruleAstAnnotation= ruleAstAnnotation EOF
             {
              newCompositeNode(grammarAccess.getAstAnnotationRule()); 
-            pushFollow(FOLLOW_ruleAstAnnotation_in_entryRuleAstAnnotation16366);
+            pushFollow(FOLLOW_ruleAstAnnotation_in_entryRuleAstAnnotation20795);
             iv_ruleAstAnnotation=ruleAstAnnotation();
 
             state._fsp--;
 
              current =iv_ruleAstAnnotation; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstAnnotation16376); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstAnnotation20805); 
 
             }
 
@@ -20037,7 +25178,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAstAnnotation"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7903:1: ruleAstAnnotation returns [EObject current=null] : (otherlv_0= '@' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( (lv_arguments_3_0= ruleAstAnnotationArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleAstAnnotationArgument ) ) )* otherlv_6= ')' )? ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9924:1: ruleAstAnnotation returns [EObject current=null] : (otherlv_0= '@' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( (lv_arguments_3_0= ruleAstAnnotationArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleAstAnnotationArgument ) ) )* otherlv_6= ')' )? ) ;
     public final EObject ruleAstAnnotation() throws RecognitionException {
         EObject current = null;
 
@@ -20054,23 +25195,23 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7906:28: ( (otherlv_0= '@' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( (lv_arguments_3_0= ruleAstAnnotationArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleAstAnnotationArgument ) ) )* otherlv_6= ')' )? ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7907:1: (otherlv_0= '@' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( (lv_arguments_3_0= ruleAstAnnotationArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleAstAnnotationArgument ) ) )* otherlv_6= ')' )? )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9927:28: ( (otherlv_0= '@' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( (lv_arguments_3_0= ruleAstAnnotationArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleAstAnnotationArgument ) ) )* otherlv_6= ')' )? ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9928:1: (otherlv_0= '@' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( (lv_arguments_3_0= ruleAstAnnotationArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleAstAnnotationArgument ) ) )* otherlv_6= ')' )? )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7907:1: (otherlv_0= '@' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( (lv_arguments_3_0= ruleAstAnnotationArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleAstAnnotationArgument ) ) )* otherlv_6= ')' )? )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7907:3: otherlv_0= '@' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( (lv_arguments_3_0= ruleAstAnnotationArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleAstAnnotationArgument ) ) )* otherlv_6= ')' )?
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9928:1: (otherlv_0= '@' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( (lv_arguments_3_0= ruleAstAnnotationArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleAstAnnotationArgument ) ) )* otherlv_6= ')' )? )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9928:3: otherlv_0= '@' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( (lv_arguments_3_0= ruleAstAnnotationArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleAstAnnotationArgument ) ) )* otherlv_6= ')' )?
             {
-            otherlv_0=(Token)match(input,95,FOLLOW_95_in_ruleAstAnnotation16413); 
+            otherlv_0=(Token)match(input,99,FOLLOW_99_in_ruleAstAnnotation20842); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getAstAnnotationAccess().getCommercialAtKeyword_0());
                 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7911:1: ( (lv_name_1_0= RULE_ID ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7912:1: (lv_name_1_0= RULE_ID )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9932:1: ( (lv_name_1_0= RULE_ID ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9933:1: (lv_name_1_0= RULE_ID )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7912:1: (lv_name_1_0= RULE_ID )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7913:3: lv_name_1_0= RULE_ID
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9933:1: (lv_name_1_0= RULE_ID )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9934:3: lv_name_1_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAstAnnotation16430); 
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAstAnnotation20859); 
 
             			newLeafNode(lv_name_1_0, grammarAccess.getAstAnnotationAccess().getNameIDTerminalRuleCall_1_0()); 
             		
@@ -20090,31 +25231,31 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7929:2: (otherlv_2= '(' ( (lv_arguments_3_0= ruleAstAnnotationArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleAstAnnotationArgument ) ) )* otherlv_6= ')' )?
-            int alt174=2;
-            int LA174_0 = input.LA(1);
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9950:2: (otherlv_2= '(' ( (lv_arguments_3_0= ruleAstAnnotationArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleAstAnnotationArgument ) ) )* otherlv_6= ')' )?
+            int alt212=2;
+            int LA212_0 = input.LA(1);
 
-            if ( (LA174_0==24) ) {
-                alt174=1;
+            if ( (LA212_0==24) ) {
+                alt212=1;
             }
-            switch (alt174) {
+            switch (alt212) {
                 case 1 :
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7929:4: otherlv_2= '(' ( (lv_arguments_3_0= ruleAstAnnotationArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleAstAnnotationArgument ) ) )* otherlv_6= ')'
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9950:4: otherlv_2= '(' ( (lv_arguments_3_0= ruleAstAnnotationArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleAstAnnotationArgument ) ) )* otherlv_6= ')'
                     {
-                    otherlv_2=(Token)match(input,24,FOLLOW_24_in_ruleAstAnnotation16448); 
+                    otherlv_2=(Token)match(input,24,FOLLOW_24_in_ruleAstAnnotation20877); 
 
                         	newLeafNode(otherlv_2, grammarAccess.getAstAnnotationAccess().getLeftParenthesisKeyword_2_0());
                         
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7933:1: ( (lv_arguments_3_0= ruleAstAnnotationArgument ) )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7934:1: (lv_arguments_3_0= ruleAstAnnotationArgument )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9954:1: ( (lv_arguments_3_0= ruleAstAnnotationArgument ) )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9955:1: (lv_arguments_3_0= ruleAstAnnotationArgument )
                     {
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7934:1: (lv_arguments_3_0= ruleAstAnnotationArgument )
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7935:3: lv_arguments_3_0= ruleAstAnnotationArgument
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9955:1: (lv_arguments_3_0= ruleAstAnnotationArgument )
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9956:3: lv_arguments_3_0= ruleAstAnnotationArgument
                     {
                      
                     	        newCompositeNode(grammarAccess.getAstAnnotationAccess().getArgumentsAstAnnotationArgumentParserRuleCall_2_1_0()); 
                     	    
-                    pushFollow(FOLLOW_ruleAstAnnotationArgument_in_ruleAstAnnotation16469);
+                    pushFollow(FOLLOW_ruleAstAnnotationArgument_in_ruleAstAnnotation20898);
                     lv_arguments_3_0=ruleAstAnnotationArgument();
 
                     state._fsp--;
@@ -20136,35 +25277,35 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7951:2: (otherlv_4= ',' ( (lv_arguments_5_0= ruleAstAnnotationArgument ) ) )*
-                    loop173:
+                    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9972:2: (otherlv_4= ',' ( (lv_arguments_5_0= ruleAstAnnotationArgument ) ) )*
+                    loop211:
                     do {
-                        int alt173=2;
-                        int LA173_0 = input.LA(1);
+                        int alt211=2;
+                        int LA211_0 = input.LA(1);
 
-                        if ( (LA173_0==25) ) {
-                            alt173=1;
+                        if ( (LA211_0==25) ) {
+                            alt211=1;
                         }
 
 
-                        switch (alt173) {
+                        switch (alt211) {
                     	case 1 :
-                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7951:4: otherlv_4= ',' ( (lv_arguments_5_0= ruleAstAnnotationArgument ) )
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9972:4: otherlv_4= ',' ( (lv_arguments_5_0= ruleAstAnnotationArgument ) )
                     	    {
-                    	    otherlv_4=(Token)match(input,25,FOLLOW_25_in_ruleAstAnnotation16482); 
+                    	    otherlv_4=(Token)match(input,25,FOLLOW_25_in_ruleAstAnnotation20911); 
 
                     	        	newLeafNode(otherlv_4, grammarAccess.getAstAnnotationAccess().getCommaKeyword_2_2_0());
                     	        
-                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7955:1: ( (lv_arguments_5_0= ruleAstAnnotationArgument ) )
-                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7956:1: (lv_arguments_5_0= ruleAstAnnotationArgument )
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9976:1: ( (lv_arguments_5_0= ruleAstAnnotationArgument ) )
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9977:1: (lv_arguments_5_0= ruleAstAnnotationArgument )
                     	    {
-                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7956:1: (lv_arguments_5_0= ruleAstAnnotationArgument )
-                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7957:3: lv_arguments_5_0= ruleAstAnnotationArgument
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9977:1: (lv_arguments_5_0= ruleAstAnnotationArgument )
+                    	    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:9978:3: lv_arguments_5_0= ruleAstAnnotationArgument
                     	    {
                     	     
                     	    	        newCompositeNode(grammarAccess.getAstAnnotationAccess().getArgumentsAstAnnotationArgumentParserRuleCall_2_2_1_0()); 
                     	    	    
-                    	    pushFollow(FOLLOW_ruleAstAnnotationArgument_in_ruleAstAnnotation16503);
+                    	    pushFollow(FOLLOW_ruleAstAnnotationArgument_in_ruleAstAnnotation20932);
                     	    lv_arguments_5_0=ruleAstAnnotationArgument();
 
                     	    state._fsp--;
@@ -20191,11 +25332,11 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop173;
+                    	    break loop211;
                         }
                     } while (true);
 
-                    otherlv_6=(Token)match(input,26,FOLLOW_26_in_ruleAstAnnotation16517); 
+                    otherlv_6=(Token)match(input,26,FOLLOW_26_in_ruleAstAnnotation20946); 
 
                         	newLeafNode(otherlv_6, grammarAccess.getAstAnnotationAccess().getRightParenthesisKeyword_2_3());
                         
@@ -20226,7 +25367,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAstAnnotationArgument"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7985:1: entryRuleAstAnnotationArgument returns [EObject current=null] : iv_ruleAstAnnotationArgument= ruleAstAnnotationArgument EOF ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:10006:1: entryRuleAstAnnotationArgument returns [EObject current=null] : iv_ruleAstAnnotationArgument= ruleAstAnnotationArgument EOF ;
     public final EObject entryRuleAstAnnotationArgument() throws RecognitionException {
         EObject current = null;
 
@@ -20234,17 +25375,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7986:2: (iv_ruleAstAnnotationArgument= ruleAstAnnotationArgument EOF )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7987:2: iv_ruleAstAnnotationArgument= ruleAstAnnotationArgument EOF
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:10007:2: (iv_ruleAstAnnotationArgument= ruleAstAnnotationArgument EOF )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:10008:2: iv_ruleAstAnnotationArgument= ruleAstAnnotationArgument EOF
             {
              newCompositeNode(grammarAccess.getAstAnnotationArgumentRule()); 
-            pushFollow(FOLLOW_ruleAstAnnotationArgument_in_entryRuleAstAnnotationArgument16555);
+            pushFollow(FOLLOW_ruleAstAnnotationArgument_in_entryRuleAstAnnotationArgument20984);
             iv_ruleAstAnnotationArgument=ruleAstAnnotationArgument();
 
             state._fsp--;
 
              current =iv_ruleAstAnnotationArgument; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAstAnnotationArgument16565); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAstAnnotationArgument20994); 
 
             }
 
@@ -20262,7 +25403,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAstAnnotationArgument"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7994:1: ruleAstAnnotationArgument returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= '=' ( (lv_value_2_0= RULE_STRING ) ) ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:10015:1: ruleAstAnnotationArgument returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= '=' ( (lv_value_2_0= RULE_STRING ) ) ) ;
     public final EObject ruleAstAnnotationArgument() throws RecognitionException {
         EObject current = null;
 
@@ -20273,19 +25414,19 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7997:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= '=' ( (lv_value_2_0= RULE_STRING ) ) ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7998:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= '=' ( (lv_value_2_0= RULE_STRING ) ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:10018:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= '=' ( (lv_value_2_0= RULE_STRING ) ) ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:10019:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= '=' ( (lv_value_2_0= RULE_STRING ) ) )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7998:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= '=' ( (lv_value_2_0= RULE_STRING ) ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7998:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= '=' ( (lv_value_2_0= RULE_STRING ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:10019:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= '=' ( (lv_value_2_0= RULE_STRING ) ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:10019:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= '=' ( (lv_value_2_0= RULE_STRING ) )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7998:2: ( (lv_name_0_0= RULE_ID ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7999:1: (lv_name_0_0= RULE_ID )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:10019:2: ( (lv_name_0_0= RULE_ID ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:10020:1: (lv_name_0_0= RULE_ID )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7999:1: (lv_name_0_0= RULE_ID )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8000:3: lv_name_0_0= RULE_ID
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:10020:1: (lv_name_0_0= RULE_ID )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:10021:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAstAnnotationArgument16607); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAstAnnotationArgument21036); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getAstAnnotationArgumentAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -20305,17 +25446,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,30,FOLLOW_30_in_ruleAstAnnotationArgument16624); 
+            otherlv_1=(Token)match(input,30,FOLLOW_30_in_ruleAstAnnotationArgument21053); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getAstAnnotationArgumentAccess().getEqualsSignKeyword_1());
                 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8020:1: ( (lv_value_2_0= RULE_STRING ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8021:1: (lv_value_2_0= RULE_STRING )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:10041:1: ( (lv_value_2_0= RULE_STRING ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:10042:1: (lv_value_2_0= RULE_STRING )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8021:1: (lv_value_2_0= RULE_STRING )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:8022:3: lv_value_2_0= RULE_STRING
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:10042:1: (lv_value_2_0= RULE_STRING )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:10043:3: lv_value_2_0= RULE_STRING
             {
-            lv_value_2_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleAstAnnotationArgument16641); 
+            lv_value_2_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleAstAnnotationArgument21070); 
 
             			newLeafNode(lv_value_2_0, grammarAccess.getAstAnnotationArgumentAccess().getValueSTRINGTerminalRuleCall_2_0()); 
             		
@@ -20369,28 +25510,28 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
     static final String DFA4_minS =
         "\1\4\1\uffff\1\4\3\uffff\2\4\1\36\1\11\1\31\2\4\1\36\1\11\1\31";
     static final String DFA4_maxS =
-        "\1\137\1\uffff\1\4\3\uffff\1\137\1\4\1\36\1\11\1\32\1\4\1\137\1"+
+        "\1\143\1\uffff\1\4\3\uffff\1\143\1\4\1\36\1\11\1\32\1\4\1\143\1"+
         "\36\1\11\1\32";
     static final String DFA4_acceptS =
         "\1\uffff\1\4\1\uffff\1\1\1\2\1\3\12\uffff";
     static final String DFA4_specialS =
         "\20\uffff}>";
     static final String[] DFA4_transitionS = {
-            "\1\4\15\uffff\1\1\20\uffff\1\5\3\uffff\1\3\12\uffff\1\4\44\uffff"+
+            "\1\4\15\uffff\1\1\20\uffff\1\5\3\uffff\1\3\12\uffff\1\4\50\uffff"+
             "\10\4\1\2",
             "",
             "\1\6",
             "",
             "",
             "",
-            "\1\4\23\uffff\1\7\12\uffff\1\5\3\uffff\1\3\12\uffff\1\4\44"+
+            "\1\4\23\uffff\1\7\12\uffff\1\5\3\uffff\1\3\12\uffff\1\4\50"+
             "\uffff\10\4\1\2",
             "\1\10",
             "\1\11",
             "\1\12",
             "\1\13\1\14",
             "\1\15",
-            "\1\4\36\uffff\1\5\3\uffff\1\3\12\uffff\1\4\44\uffff\10\4\1"+
+            "\1\4\36\uffff\1\5\3\uffff\1\3\12\uffff\1\4\50\uffff\10\4\1"+
             "\2",
             "\1\16",
             "\1\17",
@@ -20438,27 +25579,27 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
         "\1\43\2\4\3\uffff\1\30\1\4\1\47\1\36\1\11\1\31\1\4\1\43\1\36\1\11"+
         "\1\31";
     static final String DFA3_maxS =
-        "\2\137\1\4\3\uffff\1\137\1\4\1\50\1\36\1\11\1\32\1\4\1\137\1\36"+
+        "\2\143\1\4\3\uffff\1\143\1\4\1\50\1\36\1\11\1\32\1\4\1\143\1\36"+
         "\1\11\1\32";
     static final String DFA3_acceptS =
         "\3\uffff\1\1\1\2\1\3\13\uffff";
     static final String DFA3_specialS =
         "\21\uffff}>";
     static final String[] DFA3_transitionS = {
-            "\1\1\73\uffff\1\2",
-            "\1\3\42\uffff\1\4\1\5\11\uffff\1\3\44\uffff\11\3",
+            "\1\1\77\uffff\1\2",
+            "\1\3\42\uffff\1\4\1\5\11\uffff\1\3\50\uffff\11\3",
             "\1\6",
             "",
             "",
             "",
-            "\1\7\12\uffff\1\10\73\uffff\1\2",
+            "\1\7\12\uffff\1\10\77\uffff\1\2",
             "\1\11",
             "\1\4\1\5",
             "\1\12",
             "\1\13",
             "\1\14\1\15",
             "\1\16",
-            "\1\10\73\uffff\1\2",
+            "\1\10\77\uffff\1\2",
             "\1\17",
             "\1\20",
             "\1\14\1\15"
@@ -20505,8 +25646,8 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
         "\1\4\1\uffff\1\4\2\uffff\1\4\4\uffff\1\4\1\uffff\1\4\1\46\1\36\1"+
         "\11\1\31\2\4\1\36\1\11\1\31";
     static final String DFA7_maxS =
-        "\1\137\1\uffff\1\4\2\uffff\1\137\4\uffff\1\137\1\uffff\1\4\1\50"+
-        "\1\36\1\11\1\32\1\4\1\137\1\36\1\11\1\32";
+        "\1\143\1\uffff\1\4\2\uffff\1\143\4\uffff\1\143\1\uffff\1\4\1\50"+
+        "\1\36\1\11\1\32\1\4\1\143\1\36\1\11\1\32";
     static final String DFA7_acceptS =
         "\1\uffff\1\10\1\uffff\1\1\1\2\1\uffff\1\4\1\5\1\6\1\7\1\uffff\1"+
         "\3\12\uffff";
@@ -20514,18 +25655,18 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
         "\26\uffff}>";
     static final String[] DFA7_transitionS = {
             "\1\4\15\uffff\1\1\1\11\1\7\2\uffff\1\10\13\uffff\1\5\1\6\1\uffff"+
-            "\1\10\1\3\12\uffff\1\4\44\uffff\10\4\1\2",
+            "\1\10\1\3\12\uffff\1\4\50\uffff\10\4\1\2",
             "",
             "\1\12",
             "",
             "",
-            "\1\13\41\uffff\1\10\2\13\11\uffff\1\13\44\uffff\11\13",
+            "\1\13\41\uffff\1\10\2\13\11\uffff\1\13\50\uffff\11\13",
             "",
             "",
             "",
             "",
             "\1\4\16\uffff\1\11\3\uffff\1\10\1\14\12\uffff\1\15\2\uffff"+
-            "\1\10\1\3\12\uffff\1\4\44\uffff\10\4\1\2",
+            "\1\10\1\3\12\uffff\1\4\50\uffff\10\4\1\2",
             "",
             "\1\16",
             "\1\10\2\13",
@@ -20534,7 +25675,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             "\1\21\1\22",
             "\1\23",
             "\1\4\16\uffff\1\11\3\uffff\1\10\13\uffff\1\15\2\uffff\1\10"+
-            "\1\3\12\uffff\1\4\44\uffff\10\4\1\2",
+            "\1\3\12\uffff\1\4\50\uffff\10\4\1\2",
             "\1\24",
             "\1\25",
             "\1\21\1\22"
@@ -20581,27 +25722,27 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
         "\1\43\2\4\3\uffff\1\30\1\4\1\47\1\36\1\11\1\31\1\4\1\43\1\36\1\11"+
         "\1\31";
     static final String DFA6_maxS =
-        "\2\137\1\4\3\uffff\1\137\1\4\1\50\1\36\1\11\1\32\1\4\1\137\1\36"+
+        "\2\143\1\4\3\uffff\1\143\1\4\1\50\1\36\1\11\1\32\1\4\1\143\1\36"+
         "\1\11\1\32";
     static final String DFA6_acceptS =
         "\3\uffff\1\2\1\1\1\3\13\uffff";
     static final String DFA6_specialS =
         "\21\uffff}>";
     static final String[] DFA6_transitionS = {
-            "\1\1\73\uffff\1\2",
-            "\1\4\42\uffff\1\3\1\5\11\uffff\1\4\44\uffff\11\4",
+            "\1\1\77\uffff\1\2",
+            "\1\4\42\uffff\1\3\1\5\11\uffff\1\4\50\uffff\11\4",
             "\1\6",
             "",
             "",
             "",
-            "\1\7\12\uffff\1\10\73\uffff\1\2",
+            "\1\7\12\uffff\1\10\77\uffff\1\2",
             "\1\11",
             "\1\3\1\5",
             "\1\12",
             "\1\13",
             "\1\14\1\15",
             "\1\16",
-            "\1\10\73\uffff\1\2",
+            "\1\10\77\uffff\1\2",
             "\1\17",
             "\1\20",
             "\1\14\1\15"
@@ -20648,15 +25789,15 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
         "\1\4\1\uffff\1\4\2\uffff\1\4\5\uffff\2\4\1\56\1\4\1\21\1\36\1\11"+
         "\1\31\2\4\1\36\1\11\1\31";
     static final String DFA45_maxS =
-        "\1\137\1\uffff\1\4\2\uffff\1\62\5\uffff\1\137\1\4\1\61\1\4\1\25"+
-        "\1\36\1\11\1\32\1\4\1\137\1\36\1\11\1\32";
+        "\1\143\1\uffff\1\4\2\uffff\1\62\5\uffff\1\143\1\4\1\61\1\4\1\25"+
+        "\1\36\1\11\1\32\1\4\1\143\1\36\1\11\1\32";
     static final String DFA45_acceptS =
         "\1\uffff\1\10\1\uffff\1\1\1\2\1\uffff\1\3\1\4\1\5\1\6\1\7\15\uffff";
     static final String DFA45_specialS =
         "\30\uffff}>";
     static final String[] DFA45_transitionS = {
             "\1\5\15\uffff\1\1\24\uffff\1\3\1\4\2\uffff\1\12\1\11\1\uffff"+
-            "\1\6\2\uffff\1\7\1\10\44\uffff\10\10\1\2",
+            "\1\6\2\uffff\1\7\1\10\50\uffff\10\10\1\2",
             "",
             "\1\13",
             "",
@@ -20668,7 +25809,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             "",
             "",
             "\1\5\23\uffff\1\16\16\uffff\1\3\1\4\5\uffff\1\6\2\uffff\1\7"+
-            "\1\10\44\uffff\10\10\1\2",
+            "\1\10\50\uffff\10\10\1\2",
             "\1\17",
             "\1\6\2\uffff\1\7",
             "\1\20",
@@ -20677,7 +25818,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             "\1\22",
             "\1\23\1\24",
             "\1\25",
-            "\1\5\42\uffff\1\3\1\4\5\uffff\1\6\2\uffff\1\7\1\10\44\uffff"+
+            "\1\5\42\uffff\1\3\1\4\5\uffff\1\6\2\uffff\1\7\1\10\50\uffff"+
             "\10\10\1\2",
             "\1\26",
             "\1\27",
@@ -20727,40 +25868,40 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_EOF_in_entryRuleAstPackage204 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_14_in_ruleAstPackage250 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_ruleAstPackage271 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_ruleAstPackage283 = new BitSet(new long[]{0x0000004800910002L,0x0000000080000000L});
-    public static final BitSet FOLLOW_ruleAstEntity_in_ruleAstPackage305 = new BitSet(new long[]{0x0000004800910002L,0x0000000080000000L});
-    public static final BitSet FOLLOW_ruleImport_in_ruleAstPackage332 = new BitSet(new long[]{0x0000004800910002L,0x0000000080000000L});
-    public static final BitSet FOLLOW_ruleAstUnit_in_ruleAstPackage359 = new BitSet(new long[]{0x0000004800910002L,0x0000000080000000L});
+    public static final BitSet FOLLOW_15_in_ruleAstPackage283 = new BitSet(new long[]{0x0000004800910002L,0x0000000800000000L});
+    public static final BitSet FOLLOW_ruleAstEntity_in_ruleAstPackage305 = new BitSet(new long[]{0x0000004800910002L,0x0000000800000000L});
+    public static final BitSet FOLLOW_ruleImport_in_ruleAstPackage332 = new BitSet(new long[]{0x0000004800910002L,0x0000000800000000L});
+    public static final BitSet FOLLOW_ruleAstUnit_in_ruleAstPackage359 = new BitSet(new long[]{0x0000004800910002L,0x0000000800000000L});
     public static final BitSet FOLLOW_ruleAstUnit_in_entryRuleAstUnit397 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstUnit407 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_16_in_ruleAstUnit453 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_ruleAstUnit474 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_17_in_ruleAstUnit486 = new BitSet(new long[]{0x0004008800040010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstFunction_in_ruleAstUnit508 = new BitSet(new long[]{0x0004008800040010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstConstantVariable_in_ruleAstUnit535 = new BitSet(new long[]{0x0004008800040010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstExternalVariable_in_ruleAstUnit564 = new BitSet(new long[]{0x0004008800040010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstExternalFunction_in_ruleAstUnit583 = new BitSet(new long[]{0x0004008800040010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstExternalProcedure_in_ruleAstUnit602 = new BitSet(new long[]{0x0004008800040010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_17_in_ruleAstUnit486 = new BitSet(new long[]{0x0004008800040010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstFunction_in_ruleAstUnit508 = new BitSet(new long[]{0x0004008800040010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstConstantVariable_in_ruleAstUnit535 = new BitSet(new long[]{0x0004008800040010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstExternalVariable_in_ruleAstUnit564 = new BitSet(new long[]{0x0004008800040010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstExternalFunction_in_ruleAstUnit583 = new BitSet(new long[]{0x0004008800040010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstExternalProcedure_in_ruleAstUnit602 = new BitSet(new long[]{0x0004008800040010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_18_in_ruleAstUnit619 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstNamespace_in_entryRuleAstNamespace655 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstNamespace665 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstAnnotation_in_ruleAstNamespace711 = new BitSet(new long[]{0x0000000000080000L,0x0000000080000000L});
+    public static final BitSet FOLLOW_ruleAstAnnotation_in_ruleAstNamespace711 = new BitSet(new long[]{0x0000000000080000L,0x0000000800000000L});
     public static final BitSet FOLLOW_19_in_ruleAstNamespace724 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_ruleAstNamespace745 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_17_in_ruleAstNamespace757 = new BitSet(new long[]{0x000400D8009C0010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstFunction_in_ruleAstNamespace779 = new BitSet(new long[]{0x000400D8009C0010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstConstantVariable_in_ruleAstNamespace806 = new BitSet(new long[]{0x000400D8009C0010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstExternalVariable_in_ruleAstNamespace835 = new BitSet(new long[]{0x000400D8009C0010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstExternalFunction_in_ruleAstNamespace854 = new BitSet(new long[]{0x000400D8009C0010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstExternalProcedure_in_ruleAstNamespace873 = new BitSet(new long[]{0x000400D8009C0010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstTypeDefinition_in_ruleAstNamespace903 = new BitSet(new long[]{0x000400D8009C0010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleImport_in_ruleAstNamespace930 = new BitSet(new long[]{0x000400D8009C0010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstEntity_in_ruleAstNamespace957 = new BitSet(new long[]{0x000400D8009C0010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstNamespace_in_ruleAstNamespace984 = new BitSet(new long[]{0x000400D8009C0010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_17_in_ruleAstNamespace757 = new BitSet(new long[]{0x000400D8009C0010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstFunction_in_ruleAstNamespace779 = new BitSet(new long[]{0x000400D8009C0010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstConstantVariable_in_ruleAstNamespace806 = new BitSet(new long[]{0x000400D8009C0010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstExternalVariable_in_ruleAstNamespace835 = new BitSet(new long[]{0x000400D8009C0010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstExternalFunction_in_ruleAstNamespace854 = new BitSet(new long[]{0x000400D8009C0010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstExternalProcedure_in_ruleAstNamespace873 = new BitSet(new long[]{0x000400D8009C0010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstTypeDefinition_in_ruleAstNamespace903 = new BitSet(new long[]{0x000400D8009C0010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleImport_in_ruleAstNamespace930 = new BitSet(new long[]{0x000400D8009C0010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstEntity_in_ruleAstNamespace957 = new BitSet(new long[]{0x000400D8009C0010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstNamespace_in_ruleAstNamespace984 = new BitSet(new long[]{0x000400D8009C0010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_18_in_ruleAstNamespace998 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstEntity_in_entryRuleAstEntity1034 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstEntity1044 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstAnnotation_in_ruleAstEntity1090 = new BitSet(new long[]{0x0000004800800000L,0x0000000080000000L});
+    public static final BitSet FOLLOW_ruleAstAnnotation_in_ruleAstEntity1090 = new BitSet(new long[]{0x0000004800800000L,0x0000000800000000L});
     public static final BitSet FOLLOW_ruleAstAbstractActor_in_ruleAstEntity1112 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstAbstractActor_in_entryRuleAstAbstractActor1148 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstAbstractActor1158 = new BitSet(new long[]{0x0000000000000002L});
@@ -20785,24 +25926,24 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_EOF_in_entryRuleAstNetwork1673 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_23_in_ruleAstNetwork1719 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleAstNetwork1736 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24_in_ruleAstNetwork1753 = new BitSet(new long[]{0x0004000004000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_24_in_ruleAstNetwork1753 = new BitSet(new long[]{0x0004000004000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstParameter_in_ruleAstNetwork1775 = new BitSet(new long[]{0x0000000006000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstNetwork1788 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_25_in_ruleAstNetwork1788 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstParameter_in_ruleAstNetwork1809 = new BitSet(new long[]{0x0000000006000000L});
-    public static final BitSet FOLLOW_26_in_ruleAstNetwork1825 = new BitSet(new long[]{0x0004000008000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_26_in_ruleAstNetwork1825 = new BitSet(new long[]{0x0004000008000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstPort_in_ruleAstNetwork1847 = new BitSet(new long[]{0x000000000A000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstNetwork1860 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_25_in_ruleAstNetwork1860 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstPort_in_ruleAstNetwork1881 = new BitSet(new long[]{0x000000000A000000L});
-    public static final BitSet FOLLOW_27_in_ruleAstNetwork1897 = new BitSet(new long[]{0x0004000000020010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_27_in_ruleAstNetwork1897 = new BitSet(new long[]{0x0004000000020010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstPort_in_ruleAstNetwork1919 = new BitSet(new long[]{0x0000000002020000L});
-    public static final BitSet FOLLOW_25_in_ruleAstNetwork1932 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_25_in_ruleAstNetwork1932 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstPort_in_ruleAstNetwork1953 = new BitSet(new long[]{0x0000000002020000L});
     public static final BitSet FOLLOW_17_in_ruleAstNetwork1969 = new BitSet(new long[]{0x0000000030000000L});
-    public static final BitSet FOLLOW_28_in_ruleAstNetwork1982 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_28_in_ruleAstNetwork1982 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstValuedVariableDeclaration_in_ruleAstNetwork2003 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_ruleAstNetwork2015 = new BitSet(new long[]{0x0004000020000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_15_in_ruleAstNetwork2015 = new BitSet(new long[]{0x0004000020000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstValuedVariableDeclaration_in_ruleAstNetwork2037 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_ruleAstNetwork2049 = new BitSet(new long[]{0x0004000020000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_15_in_ruleAstNetwork2049 = new BitSet(new long[]{0x0004000020000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_29_in_ruleAstNetwork2065 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_ruleAstActorDeclaration_in_ruleAstNetwork2086 = new BitSet(new long[]{0x0000000080000010L});
     public static final BitSet FOLLOW_ruleAstStructure_in_ruleAstNetwork2108 = new BitSet(new long[]{0x0000000000040000L});
@@ -20821,7 +25962,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleAstAssignParameter_in_entryRuleAstAssignParameter2380 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstAssignParameter2390 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleAstAssignParameter2432 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_30_in_ruleAstAssignParameter2449 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
+    public static final BitSet FOLLOW_30_in_ruleAstAssignParameter2449 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
     public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstAssignParameter2470 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstStructure_in_entryRuleAstStructure2506 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstStructure2516 = new BitSet(new long[]{0x0000000000000002L});
@@ -20846,27 +25987,27 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleAstConnectionAttribute_in_entryRuleAstConnectionAttribute2960 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstConnectionAttribute2970 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleAstConnectionAttribute3012 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_30_in_ruleAstConnectionAttribute3029 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
+    public static final BitSet FOLLOW_30_in_ruleAstConnectionAttribute3029 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
     public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstConnectionAttribute3050 = new BitSet(new long[]{0x0000000000008000L});
     public static final BitSet FOLLOW_15_in_ruleAstConnectionAttribute3062 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstConstantVariable_in_entryRuleAstConstantVariable3098 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstConstantVariable3108 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstVariableDeclaration_in_ruleAstConstantVariable3155 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_30_in_ruleAstConstantVariable3172 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
+    public static final BitSet FOLLOW_30_in_ruleAstConstantVariable3172 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
     public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstConstantVariable3206 = new BitSet(new long[]{0x0000000000008000L});
     public static final BitSet FOLLOW_15_in_ruleAstConstantVariable3218 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstExternalVariable_in_entryRuleAstExternalVariable3254 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstExternalVariable3264 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_35_in_ruleAstExternalVariable3301 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_35_in_ruleAstExternalVariable3301 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstVariableDeclaration_in_ruleAstExternalVariable3323 = new BitSet(new long[]{0x0000000000008000L});
     public static final BitSet FOLLOW_15_in_ruleAstExternalVariable3334 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstTypeDefinition_in_entryRuleAstTypeDefinition3370 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstTypeDefinition3380 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_36_in_ruleAstTypeDefinition3423 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleAstTypeDefinition3453 = new BitSet(new long[]{0x0000000001020000L});
-    public static final BitSet FOLLOW_24_in_ruleAstTypeDefinition3471 = new BitSet(new long[]{0x0004001004000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_24_in_ruleAstTypeDefinition3471 = new BitSet(new long[]{0x0004001004000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstTypeDefinitionParameter_in_ruleAstTypeDefinition3493 = new BitSet(new long[]{0x0000000006000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstTypeDefinition3506 = new BitSet(new long[]{0x0004001000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_25_in_ruleAstTypeDefinition3506 = new BitSet(new long[]{0x0004001000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstTypeDefinitionParameter_in_ruleAstTypeDefinition3527 = new BitSet(new long[]{0x0000000006000000L});
     public static final BitSet FOLLOW_26_in_ruleAstTypeDefinition3543 = new BitSet(new long[]{0x0000000000020000L});
     public static final BitSet FOLLOW_17_in_ruleAstTypeDefinition3557 = new BitSet(new long[]{0x0000000001000010L});
@@ -20886,114 +26027,114 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleAstTaggedTuple_in_entryRuleAstTaggedTuple3936 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstTaggedTuple3946 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleAstTaggedTuple3988 = new BitSet(new long[]{0x0000000001000002L});
-    public static final BitSet FOLLOW_24_in_ruleAstTaggedTuple4006 = new BitSet(new long[]{0x0004000004000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_24_in_ruleAstTaggedTuple4006 = new BitSet(new long[]{0x0004000004000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstValuedVariableDeclaration_in_ruleAstTaggedTuple4028 = new BitSet(new long[]{0x0000000006000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstTaggedTuple4041 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_25_in_ruleAstTaggedTuple4041 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstValuedVariableDeclaration_in_ruleAstTaggedTuple4062 = new BitSet(new long[]{0x0000000006000000L});
     public static final BitSet FOLLOW_26_in_ruleAstTaggedTuple4078 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstTuple_in_entryRuleAstTuple4116 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstTuple4126 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_ruleAstTuple4173 = new BitSet(new long[]{0x0004000004000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_24_in_ruleAstTuple4173 = new BitSet(new long[]{0x0004000004000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstValuedVariableDeclaration_in_ruleAstTuple4195 = new BitSet(new long[]{0x0000000006000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstTuple4208 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_25_in_ruleAstTuple4208 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstValuedVariableDeclaration_in_ruleAstTuple4229 = new BitSet(new long[]{0x0000000006000000L});
     public static final BitSet FOLLOW_26_in_ruleAstTuple4245 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstActor_in_entryRuleAstActor4282 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstActor4292 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_38_in_ruleAstActor4338 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleAstActor4355 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24_in_ruleAstActor4372 = new BitSet(new long[]{0x0004000004000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_24_in_ruleAstActor4372 = new BitSet(new long[]{0x0004000004000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstParameter_in_ruleAstActor4394 = new BitSet(new long[]{0x0000000006000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstActor4407 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_25_in_ruleAstActor4407 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstParameter_in_ruleAstActor4428 = new BitSet(new long[]{0x0000000006000000L});
-    public static final BitSet FOLLOW_26_in_ruleAstActor4444 = new BitSet(new long[]{0x0004000008000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_26_in_ruleAstActor4444 = new BitSet(new long[]{0x0004000008000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstPort_in_ruleAstActor4466 = new BitSet(new long[]{0x000000000A000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstActor4479 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_25_in_ruleAstActor4479 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstPort_in_ruleAstActor4500 = new BitSet(new long[]{0x000000000A000000L});
-    public static final BitSet FOLLOW_27_in_ruleAstActor4516 = new BitSet(new long[]{0x0004000000020010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_27_in_ruleAstActor4516 = new BitSet(new long[]{0x0004000000020010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstPort_in_ruleAstActor4538 = new BitSet(new long[]{0x0000000002020000L});
-    public static final BitSet FOLLOW_25_in_ruleAstActor4551 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_25_in_ruleAstActor4551 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstPort_in_ruleAstActor4572 = new BitSet(new long[]{0x0000000002020000L});
-    public static final BitSet FOLLOW_17_in_ruleAstActor4588 = new BitSet(new long[]{0x0006598000040010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstFunction_in_ruleAstActor4610 = new BitSet(new long[]{0x0006598000040010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstProcedure_in_ruleAstActor4637 = new BitSet(new long[]{0x0006598000040010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstAction_in_ruleAstActor4664 = new BitSet(new long[]{0x0006598000040010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstInitialize_in_ruleAstActor4691 = new BitSet(new long[]{0x0006598000040010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstStateVariable_in_ruleAstActor4718 = new BitSet(new long[]{0x0006598000040010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstSchedule_in_ruleAstActor4745 = new BitSet(new long[]{0x0006598000040010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstPriority_in_ruleAstActor4772 = new BitSet(new long[]{0x0006598000040010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_17_in_ruleAstActor4588 = new BitSet(new long[]{0x0006598000040010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstFunction_in_ruleAstActor4610 = new BitSet(new long[]{0x0006598000040010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstProcedure_in_ruleAstActor4637 = new BitSet(new long[]{0x0006598000040010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstAction_in_ruleAstActor4664 = new BitSet(new long[]{0x0006598000040010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstInitialize_in_ruleAstActor4691 = new BitSet(new long[]{0x0006598000040010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstStateVariable_in_ruleAstActor4718 = new BitSet(new long[]{0x0006598000040010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstSchedule_in_ruleAstActor4745 = new BitSet(new long[]{0x0006598000040010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstPriority_in_ruleAstActor4772 = new BitSet(new long[]{0x0006598000040010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_18_in_ruleAstActor4786 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstPort_in_entryRuleAstPort4822 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstPort4832 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstAnnotation_in_ruleAstPort4878 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_ruleAstAnnotation_in_ruleAstPort4878 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstType_in_ruleAstPort4900 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleAstPort4917 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstFunction_in_entryRuleAstFunction4958 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstFunction4968 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstAnnotation_in_ruleAstFunction5023 = new BitSet(new long[]{0x0000008000000000L,0x0000000080000000L});
+    public static final BitSet FOLLOW_ruleAstAnnotation_in_ruleAstFunction5023 = new BitSet(new long[]{0x0000008000000000L,0x0000000800000000L});
     public static final BitSet FOLLOW_39_in_ruleAstFunction5036 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleAstFunction5053 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24_in_ruleAstFunction5070 = new BitSet(new long[]{0x0004000004000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_24_in_ruleAstFunction5070 = new BitSet(new long[]{0x0004000004000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstVariableDeclaration_in_ruleAstFunction5092 = new BitSet(new long[]{0x0000000006000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstFunction5105 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_25_in_ruleAstFunction5105 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstVariableDeclaration_in_ruleAstFunction5126 = new BitSet(new long[]{0x0000000006000000L});
     public static final BitSet FOLLOW_26_in_ruleAstFunction5142 = new BitSet(new long[]{0x0000000100000000L});
-    public static final BitSet FOLLOW_32_in_ruleAstFunction5154 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_32_in_ruleAstFunction5154 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstType_in_ruleAstFunction5175 = new BitSet(new long[]{0x0000000010020000L});
-    public static final BitSet FOLLOW_28_in_ruleAstFunction5188 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_28_in_ruleAstFunction5188 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstValuedVariableDeclaration_in_ruleAstFunction5209 = new BitSet(new long[]{0x0000000002020000L});
-    public static final BitSet FOLLOW_25_in_ruleAstFunction5222 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_25_in_ruleAstFunction5222 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstValuedVariableDeclaration_in_ruleAstFunction5243 = new BitSet(new long[]{0x0000000002020000L});
-    public static final BitSet FOLLOW_17_in_ruleAstFunction5259 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
+    public static final BitSet FOLLOW_17_in_ruleAstFunction5259 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
     public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstFunction5280 = new BitSet(new long[]{0x0000000000040000L});
     public static final BitSet FOLLOW_18_in_ruleAstFunction5292 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstExternalFunction_in_entryRuleAstExternalFunction5328 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstExternalFunction5338 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstAnnotation_in_ruleAstExternalFunction5393 = new BitSet(new long[]{0x0000000800000000L,0x0000000080000000L});
+    public static final BitSet FOLLOW_ruleAstAnnotation_in_ruleAstExternalFunction5393 = new BitSet(new long[]{0x0000000800000000L,0x0000000800000000L});
     public static final BitSet FOLLOW_35_in_ruleAstExternalFunction5406 = new BitSet(new long[]{0x0000008000000000L});
     public static final BitSet FOLLOW_39_in_ruleAstExternalFunction5418 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleAstExternalFunction5435 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24_in_ruleAstExternalFunction5452 = new BitSet(new long[]{0x0004000004000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_24_in_ruleAstExternalFunction5452 = new BitSet(new long[]{0x0004000004000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstVariableDeclaration_in_ruleAstExternalFunction5474 = new BitSet(new long[]{0x0000000006000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstExternalFunction5487 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_25_in_ruleAstExternalFunction5487 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstVariableDeclaration_in_ruleAstExternalFunction5508 = new BitSet(new long[]{0x0000000006000000L});
     public static final BitSet FOLLOW_26_in_ruleAstExternalFunction5524 = new BitSet(new long[]{0x0000000100000000L});
-    public static final BitSet FOLLOW_32_in_ruleAstExternalFunction5536 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_32_in_ruleAstExternalFunction5536 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstType_in_ruleAstExternalFunction5557 = new BitSet(new long[]{0x0000000000008000L});
     public static final BitSet FOLLOW_15_in_ruleAstExternalFunction5569 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstProcedure_in_entryRuleAstProcedure5605 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstProcedure5615 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstAnnotation_in_ruleAstProcedure5661 = new BitSet(new long[]{0x0000010000000000L,0x0000000080000000L});
+    public static final BitSet FOLLOW_ruleAstAnnotation_in_ruleAstProcedure5661 = new BitSet(new long[]{0x0000010000000000L,0x0000000800000000L});
     public static final BitSet FOLLOW_40_in_ruleAstProcedure5674 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleAstProcedure5691 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24_in_ruleAstProcedure5708 = new BitSet(new long[]{0x0004000004000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_24_in_ruleAstProcedure5708 = new BitSet(new long[]{0x0004000004000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstVariableDeclaration_in_ruleAstProcedure5730 = new BitSet(new long[]{0x0000000006000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstProcedure5743 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_25_in_ruleAstProcedure5743 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstVariableDeclaration_in_ruleAstProcedure5764 = new BitSet(new long[]{0x0000000006000000L});
     public static final BitSet FOLLOW_26_in_ruleAstProcedure5780 = new BitSet(new long[]{0x0000020010000000L});
-    public static final BitSet FOLLOW_28_in_ruleAstProcedure5793 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_28_in_ruleAstProcedure5793 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstValuedVariableDeclaration_in_ruleAstProcedure5814 = new BitSet(new long[]{0x0000020002000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstProcedure5827 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_25_in_ruleAstProcedure5827 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstValuedVariableDeclaration_in_ruleAstProcedure5848 = new BitSet(new long[]{0x0000020002000000L});
-    public static final BitSet FOLLOW_41_in_ruleAstProcedure5864 = new BitSet(new long[]{0x0940020000040010L});
-    public static final BitSet FOLLOW_ruleAstStatement_in_ruleAstProcedure5885 = new BitSet(new long[]{0x0940020000040010L});
+    public static final BitSet FOLLOW_41_in_ruleAstProcedure5864 = new BitSet(new long[]{0x1940020000040010L});
+    public static final BitSet FOLLOW_ruleAstStatement_in_ruleAstProcedure5885 = new BitSet(new long[]{0x1940020000040010L});
     public static final BitSet FOLLOW_18_in_ruleAstProcedure5898 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstExternalProcedure_in_entryRuleAstExternalProcedure5934 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstExternalProcedure5944 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstAnnotation_in_ruleAstExternalProcedure5999 = new BitSet(new long[]{0x0000000800000000L,0x0000000080000000L});
+    public static final BitSet FOLLOW_ruleAstAnnotation_in_ruleAstExternalProcedure5999 = new BitSet(new long[]{0x0000000800000000L,0x0000000800000000L});
     public static final BitSet FOLLOW_35_in_ruleAstExternalProcedure6012 = new BitSet(new long[]{0x0000010000000000L});
     public static final BitSet FOLLOW_40_in_ruleAstExternalProcedure6024 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleAstExternalProcedure6041 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24_in_ruleAstExternalProcedure6058 = new BitSet(new long[]{0x0004000004000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_24_in_ruleAstExternalProcedure6058 = new BitSet(new long[]{0x0004000004000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstVariableDeclaration_in_ruleAstExternalProcedure6080 = new BitSet(new long[]{0x0000000006000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstExternalProcedure6093 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_25_in_ruleAstExternalProcedure6093 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstVariableDeclaration_in_ruleAstExternalProcedure6114 = new BitSet(new long[]{0x0000000006000000L});
     public static final BitSet FOLLOW_26_in_ruleAstExternalProcedure6130 = new BitSet(new long[]{0x0000000000008000L});
     public static final BitSet FOLLOW_15_in_ruleAstExternalProcedure6142 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstParameter_in_entryRuleAstParameter6178 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstParameter6188 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstVariableDeclaration_in_ruleAstParameter6235 = new BitSet(new long[]{0x0000000040000002L});
-    public static final BitSet FOLLOW_30_in_ruleAstParameter6247 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
+    public static final BitSet FOLLOW_30_in_ruleAstParameter6247 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
     public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstParameter6268 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstStateVariable_in_entryRuleAstStateVariable6306 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstStateVariable6316 = new BitSet(new long[]{0x0000000000000002L});
@@ -21009,17 +26150,17 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_35_in_ruleAstExternalActor6596 = new BitSet(new long[]{0x0000004000000000L});
     public static final BitSet FOLLOW_38_in_ruleAstExternalActor6608 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleAstExternalActor6625 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24_in_ruleAstExternalActor6642 = new BitSet(new long[]{0x0004000004000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_24_in_ruleAstExternalActor6642 = new BitSet(new long[]{0x0004000004000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstParameter_in_ruleAstExternalActor6664 = new BitSet(new long[]{0x0000000006000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstExternalActor6677 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_25_in_ruleAstExternalActor6677 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstParameter_in_ruleAstExternalActor6698 = new BitSet(new long[]{0x0000000006000000L});
-    public static final BitSet FOLLOW_26_in_ruleAstExternalActor6714 = new BitSet(new long[]{0x0004000008000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_26_in_ruleAstExternalActor6714 = new BitSet(new long[]{0x0004000008000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstPort_in_ruleAstExternalActor6736 = new BitSet(new long[]{0x000000000A000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstExternalActor6749 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_25_in_ruleAstExternalActor6749 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstPort_in_ruleAstExternalActor6770 = new BitSet(new long[]{0x000000000A000000L});
-    public static final BitSet FOLLOW_27_in_ruleAstExternalActor6786 = new BitSet(new long[]{0x0004000000008010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_27_in_ruleAstExternalActor6786 = new BitSet(new long[]{0x0004000000008010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstPort_in_ruleAstExternalActor6808 = new BitSet(new long[]{0x0000000002008000L});
-    public static final BitSet FOLLOW_25_in_ruleAstExternalActor6821 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_25_in_ruleAstExternalActor6821 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstPort_in_ruleAstExternalActor6842 = new BitSet(new long[]{0x0000000002008000L});
     public static final BitSet FOLLOW_15_in_ruleAstExternalActor6858 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstInequality_in_entryRuleAstInequality6894 = new BitSet(new long[]{0x0000000000000000L});
@@ -21054,7 +26195,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_15_in_ruleAstTransition7501 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstAction_in_entryRuleAstAction7539 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstAction7549 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstAnnotation_in_ruleAstAction7604 = new BitSet(new long[]{0x0000400000000010L,0x0000000080000000L});
+    public static final BitSet FOLLOW_ruleAstAnnotation_in_ruleAstAction7604 = new BitSet(new long[]{0x0000400000000010L,0x0000000800000000L});
     public static final BitSet FOLLOW_ruleAstTag_in_ruleAstAction7627 = new BitSet(new long[]{0x0000000000020000L});
     public static final BitSet FOLLOW_17_in_ruleAstAction7639 = new BitSet(new long[]{0x0000400000000000L});
     public static final BitSet FOLLOW_46_in_ruleAstAction7653 = new BitSet(new long[]{0x0004000008000010L});
@@ -21065,20 +26206,20 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleAstOutputPattern_in_ruleAstAction7747 = new BitSet(new long[]{0x0001800012040000L});
     public static final BitSet FOLLOW_25_in_ruleAstAction7760 = new BitSet(new long[]{0x0004000000000010L});
     public static final BitSet FOLLOW_ruleAstOutputPattern_in_ruleAstAction7781 = new BitSet(new long[]{0x0001800012040000L});
-    public static final BitSet FOLLOW_47_in_ruleAstAction7798 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
+    public static final BitSet FOLLOW_47_in_ruleAstAction7798 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
     public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstAction7819 = new BitSet(new long[]{0x0001000012040000L});
-    public static final BitSet FOLLOW_25_in_ruleAstAction7832 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
+    public static final BitSet FOLLOW_25_in_ruleAstAction7832 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
     public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstAction7853 = new BitSet(new long[]{0x0001000012040000L});
-    public static final BitSet FOLLOW_28_in_ruleAstAction7870 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_28_in_ruleAstAction7870 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstValuedVariableDeclaration_in_ruleAstAction7891 = new BitSet(new long[]{0x0001000002040000L});
-    public static final BitSet FOLLOW_25_in_ruleAstAction7904 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_25_in_ruleAstAction7904 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstValuedVariableDeclaration_in_ruleAstAction7925 = new BitSet(new long[]{0x0001000002040000L});
-    public static final BitSet FOLLOW_48_in_ruleAstAction7942 = new BitSet(new long[]{0x0940020000040010L});
-    public static final BitSet FOLLOW_ruleAstStatement_in_ruleAstAction7963 = new BitSet(new long[]{0x0940020000040010L});
+    public static final BitSet FOLLOW_48_in_ruleAstAction7942 = new BitSet(new long[]{0x1940020000040010L});
+    public static final BitSet FOLLOW_ruleAstStatement_in_ruleAstAction7963 = new BitSet(new long[]{0x1940020000040010L});
     public static final BitSet FOLLOW_18_in_ruleAstAction7978 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstInitialize_in_entryRuleAstInitialize8014 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstInitialize8024 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstAnnotation_in_ruleAstInitialize8079 = new BitSet(new long[]{0x0002000000000010L,0x0000000080000000L});
+    public static final BitSet FOLLOW_ruleAstAnnotation_in_ruleAstInitialize8079 = new BitSet(new long[]{0x0002000000000010L,0x0000000800000000L});
     public static final BitSet FOLLOW_ruleAstTag_in_ruleAstInitialize8102 = new BitSet(new long[]{0x0000000000020000L});
     public static final BitSet FOLLOW_17_in_ruleAstInitialize8114 = new BitSet(new long[]{0x0002000000000000L});
     public static final BitSet FOLLOW_49_in_ruleAstInitialize8128 = new BitSet(new long[]{0x0000000008000000L});
@@ -21086,16 +26227,16 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleAstOutputPattern_in_ruleAstInitialize8162 = new BitSet(new long[]{0x0001800012040000L});
     public static final BitSet FOLLOW_25_in_ruleAstInitialize8175 = new BitSet(new long[]{0x0004000000000010L});
     public static final BitSet FOLLOW_ruleAstOutputPattern_in_ruleAstInitialize8196 = new BitSet(new long[]{0x0001800012040000L});
-    public static final BitSet FOLLOW_47_in_ruleAstInitialize8213 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
+    public static final BitSet FOLLOW_47_in_ruleAstInitialize8213 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
     public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstInitialize8234 = new BitSet(new long[]{0x0001000012040000L});
-    public static final BitSet FOLLOW_25_in_ruleAstInitialize8247 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
+    public static final BitSet FOLLOW_25_in_ruleAstInitialize8247 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
     public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstInitialize8268 = new BitSet(new long[]{0x0001000012040000L});
-    public static final BitSet FOLLOW_28_in_ruleAstInitialize8285 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_28_in_ruleAstInitialize8285 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstValuedVariableDeclaration_in_ruleAstInitialize8306 = new BitSet(new long[]{0x0001000002040000L});
-    public static final BitSet FOLLOW_25_in_ruleAstInitialize8319 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_25_in_ruleAstInitialize8319 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstValuedVariableDeclaration_in_ruleAstInitialize8340 = new BitSet(new long[]{0x0001000002040000L});
-    public static final BitSet FOLLOW_48_in_ruleAstInitialize8357 = new BitSet(new long[]{0x0940020000040010L});
-    public static final BitSet FOLLOW_ruleAstStatement_in_ruleAstInitialize8378 = new BitSet(new long[]{0x0940020000040010L});
+    public static final BitSet FOLLOW_48_in_ruleAstInitialize8357 = new BitSet(new long[]{0x1940020000040010L});
+    public static final BitSet FOLLOW_ruleAstStatement_in_ruleAstInitialize8378 = new BitSet(new long[]{0x1940020000040010L});
     public static final BitSet FOLLOW_18_in_ruleAstInitialize8393 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstInputPattern_in_entryRuleAstInputPattern8429 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstInputPattern8439 = new BitSet(new long[]{0x0000000000000002L});
@@ -21106,7 +26247,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_25_in_ruleAstInputPattern8545 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_ruleAstToken_in_ruleAstInputPattern8566 = new BitSet(new long[]{0x0008000002000000L});
     public static final BitSet FOLLOW_51_in_ruleAstInputPattern8580 = new BitSet(new long[]{0x0010000000000002L});
-    public static final BitSet FOLLOW_52_in_ruleAstInputPattern8593 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
+    public static final BitSet FOLLOW_52_in_ruleAstInputPattern8593 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
     public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstInputPattern8614 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstToken_in_entryRuleAstToken8652 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstToken8662 = new BitSet(new long[]{0x0000000000000002L});
@@ -21115,320 +26256,486 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_EOF_in_entryRuleAstOutputPattern8753 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleAstOutputPattern8799 = new BitSet(new long[]{0x0000000000020000L});
     public static final BitSet FOLLOW_17_in_ruleAstOutputPattern8811 = new BitSet(new long[]{0x0004000000000000L});
-    public static final BitSet FOLLOW_50_in_ruleAstOutputPattern8825 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
+    public static final BitSet FOLLOW_50_in_ruleAstOutputPattern8825 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
     public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstOutputPattern8846 = new BitSet(new long[]{0x0008000002000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstOutputPattern8859 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
+    public static final BitSet FOLLOW_25_in_ruleAstOutputPattern8859 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
     public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstOutputPattern8880 = new BitSet(new long[]{0x0008000002000000L});
     public static final BitSet FOLLOW_51_in_ruleAstOutputPattern8894 = new BitSet(new long[]{0x0010000000000002L});
-    public static final BitSet FOLLOW_52_in_ruleAstOutputPattern8907 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
+    public static final BitSet FOLLOW_52_in_ruleAstOutputPattern8907 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
     public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstOutputPattern8928 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstStatementAssign_in_entryRuleAstStatementAssign8966 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstStatementAssign8976 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleAstStatementAssign9021 = new BitSet(new long[]{0x0024000000200000L});
-    public static final BitSet FOLLOW_50_in_ruleAstStatementAssign9034 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
+    public static final BitSet FOLLOW_50_in_ruleAstStatementAssign9034 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
     public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstStatementAssign9055 = new BitSet(new long[]{0x0008000000000000L});
     public static final BitSet FOLLOW_51_in_ruleAstStatementAssign9067 = new BitSet(new long[]{0x0024000000200000L});
     public static final BitSet FOLLOW_ruleAstMemberAccess_in_ruleAstStatementAssign9090 = new BitSet(new long[]{0x0020000000200000L});
-    public static final BitSet FOLLOW_53_in_ruleAstStatementAssign9103 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
+    public static final BitSet FOLLOW_53_in_ruleAstStatementAssign9103 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
     public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstStatementAssign9124 = new BitSet(new long[]{0x0000000000008000L});
     public static final BitSet FOLLOW_15_in_ruleAstStatementAssign9136 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstStatementCall_in_entryRuleAstStatementCall9172 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstStatementCall9182 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleAstStatementCall9227 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24_in_ruleAstStatementCall9239 = new BitSet(new long[]{0x01040000052003F0L,0x00000000001E0800L});
+    public static final BitSet FOLLOW_24_in_ruleAstStatementCall9239 = new BitSet(new long[]{0x11040000052003F0L,0x0000000000782000L});
     public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstStatementCall9261 = new BitSet(new long[]{0x0000000006000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstStatementCall9274 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
+    public static final BitSet FOLLOW_25_in_ruleAstStatementCall9274 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
     public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstStatementCall9295 = new BitSet(new long[]{0x0000000006000000L});
     public static final BitSet FOLLOW_26_in_ruleAstStatementCall9311 = new BitSet(new long[]{0x0000000000008000L});
     public static final BitSet FOLLOW_15_in_ruleAstStatementCall9323 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstStatementForeach_in_entryRuleAstStatementForeach9359 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstStatementForeach9369 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_54_in_ruleAstStatementForeach9406 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_54_in_ruleAstStatementForeach9406 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstForeachGenerator_in_ruleAstStatementForeach9427 = new BitSet(new long[]{0x0001000012000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstStatementForeach9440 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_25_in_ruleAstStatementForeach9440 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstForeachGenerator_in_ruleAstStatementForeach9461 = new BitSet(new long[]{0x0001000012000000L});
-    public static final BitSet FOLLOW_28_in_ruleAstStatementForeach9476 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_28_in_ruleAstStatementForeach9476 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstValuedVariableDeclaration_in_ruleAstStatementForeach9497 = new BitSet(new long[]{0x0001000002000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstStatementForeach9510 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_25_in_ruleAstStatementForeach9510 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstValuedVariableDeclaration_in_ruleAstStatementForeach9531 = new BitSet(new long[]{0x0001000002000000L});
-    public static final BitSet FOLLOW_48_in_ruleAstStatementForeach9547 = new BitSet(new long[]{0x0940020000040010L});
-    public static final BitSet FOLLOW_ruleAstStatement_in_ruleAstStatementForeach9568 = new BitSet(new long[]{0x0940020000040010L});
+    public static final BitSet FOLLOW_48_in_ruleAstStatementForeach9547 = new BitSet(new long[]{0x1940020000040010L});
+    public static final BitSet FOLLOW_ruleAstStatement_in_ruleAstStatementForeach9568 = new BitSet(new long[]{0x1940020000040010L});
     public static final BitSet FOLLOW_18_in_ruleAstStatementForeach9581 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstForeachGenerator_in_entryRuleAstForeachGenerator9617 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstForeachGenerator9627 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstVariableDeclaration_in_ruleAstForeachGenerator9673 = new BitSet(new long[]{0x0080000000000000L});
-    public static final BitSet FOLLOW_55_in_ruleAstForeachGenerator9685 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
+    public static final BitSet FOLLOW_55_in_ruleAstForeachGenerator9685 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
     public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstForeachGenerator9706 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstStatementBlock_in_entryRuleAstStatementBlock9742 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstStatementBlock9752 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_41_in_ruleAstStatementBlock9798 = new BitSet(new long[]{0x0940020010040010L});
-    public static final BitSet FOLLOW_28_in_ruleAstStatementBlock9811 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_41_in_ruleAstStatementBlock9798 = new BitSet(new long[]{0x1940020010040010L});
+    public static final BitSet FOLLOW_28_in_ruleAstStatementBlock9811 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstValuedVariableDeclaration_in_ruleAstStatementBlock9832 = new BitSet(new long[]{0x0001000002000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstStatementBlock9845 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
+    public static final BitSet FOLLOW_25_in_ruleAstStatementBlock9845 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
     public static final BitSet FOLLOW_ruleAstValuedVariableDeclaration_in_ruleAstStatementBlock9866 = new BitSet(new long[]{0x0001000002000000L});
-    public static final BitSet FOLLOW_48_in_ruleAstStatementBlock9880 = new BitSet(new long[]{0x0940020000040010L});
-    public static final BitSet FOLLOW_ruleAstStatement_in_ruleAstStatementBlock9903 = new BitSet(new long[]{0x0940020000040010L});
+    public static final BitSet FOLLOW_48_in_ruleAstStatementBlock9880 = new BitSet(new long[]{0x1940020000040010L});
+    public static final BitSet FOLLOW_ruleAstStatement_in_ruleAstStatementBlock9903 = new BitSet(new long[]{0x1940020000040010L});
     public static final BitSet FOLLOW_18_in_ruleAstStatementBlock9916 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstStatementIf_in_entryRuleAstStatementIf9952 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstStatementIf9962 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_56_in_ruleAstStatementIf9999 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
+    public static final BitSet FOLLOW_56_in_ruleAstStatementIf9999 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
     public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstStatementIf10020 = new BitSet(new long[]{0x0200000000000000L});
-    public static final BitSet FOLLOW_57_in_ruleAstStatementIf10032 = new BitSet(new long[]{0x0D40020000040010L});
-    public static final BitSet FOLLOW_ruleAstStatement_in_ruleAstStatementIf10053 = new BitSet(new long[]{0x0D40020000040010L});
-    public static final BitSet FOLLOW_58_in_ruleAstStatementIf10067 = new BitSet(new long[]{0x0940020000040010L});
-    public static final BitSet FOLLOW_ruleAstStatement_in_ruleAstStatementIf10088 = new BitSet(new long[]{0x0940020000040010L});
+    public static final BitSet FOLLOW_57_in_ruleAstStatementIf10032 = new BitSet(new long[]{0x1D40020000040010L});
+    public static final BitSet FOLLOW_ruleAstStatement_in_ruleAstStatementIf10053 = new BitSet(new long[]{0x1D40020000040010L});
+    public static final BitSet FOLLOW_58_in_ruleAstStatementIf10067 = new BitSet(new long[]{0x1940020000040010L});
+    public static final BitSet FOLLOW_ruleAstStatement_in_ruleAstStatementIf10088 = new BitSet(new long[]{0x1940020000040010L});
     public static final BitSet FOLLOW_18_in_ruleAstStatementIf10103 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAstStatementWhile_in_entryRuleAstStatementWhile10139 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAstStatementWhile10149 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_59_in_ruleAstStatementWhile10186 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
+    public static final BitSet FOLLOW_59_in_ruleAstStatementWhile10186 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
     public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstStatementWhile10207 = new BitSet(new long[]{0x0001000000000000L});
-    public static final BitSet FOLLOW_48_in_ruleAstStatementWhile10219 = new BitSet(new long[]{0x0940020000040010L});
-    public static final BitSet FOLLOW_ruleAstStatement_in_ruleAstStatementWhile10240 = new BitSet(new long[]{0x0940020000040010L});
+    public static final BitSet FOLLOW_48_in_ruleAstStatementWhile10219 = new BitSet(new long[]{0x1940020000040010L});
+    public static final BitSet FOLLOW_ruleAstStatement_in_ruleAstStatementWhile10240 = new BitSet(new long[]{0x1940020000040010L});
     public static final BitSet FOLLOW_18_in_ruleAstStatementWhile10253 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstStatement_in_entryRuleAstStatement10289 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstStatement10299 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstStatementAssign_in_ruleAstStatement10346 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstStatementCall_in_ruleAstStatement10373 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstStatementForeach_in_ruleAstStatement10400 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstStatementIf_in_ruleAstStatement10427 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstStatementWhile_in_ruleAstStatement10454 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstStatementBlock_in_ruleAstStatement10481 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpression_in_entryRuleAstExpression10516 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpression10526 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionAnd_in_ruleAstExpression10573 = new BitSet(new long[]{0x7000000000000002L});
-    public static final BitSet FOLLOW_60_in_ruleAstExpression10602 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_61_in_ruleAstExpression10631 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_62_in_ruleAstExpression10660 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpressionAnd_in_ruleAstExpression10697 = new BitSet(new long[]{0x7000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionAnd_in_entryRuleAstExpressionAnd10735 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionAnd10745 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionBitor_in_ruleAstExpressionAnd10792 = new BitSet(new long[]{0x8000000000000002L,0x0000000000000001L});
-    public static final BitSet FOLLOW_63_in_ruleAstExpressionAnd10821 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_64_in_ruleAstExpressionAnd10850 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpressionBitor_in_ruleAstExpressionAnd10887 = new BitSet(new long[]{0x8000000000000002L,0x0000000000000001L});
-    public static final BitSet FOLLOW_ruleAstExpressionBitor_in_entryRuleAstExpressionBitor10925 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionBitor10935 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionBitxor_in_ruleAstExpressionBitor10982 = new BitSet(new long[]{0x0000002000000002L});
-    public static final BitSet FOLLOW_37_in_ruleAstExpressionBitor11009 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpressionBitxor_in_ruleAstExpressionBitor11043 = new BitSet(new long[]{0x0000002000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionBitxor_in_entryRuleAstExpressionBitxor11081 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionBitxor11091 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionBitand_in_ruleAstExpressionBitxor11138 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000002L});
-    public static final BitSet FOLLOW_65_in_ruleAstExpressionBitxor11165 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpressionBitand_in_ruleAstExpressionBitxor11199 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionBitand_in_entryRuleAstExpressionBitand11237 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionBitand11247 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionEq_in_ruleAstExpressionBitand11294 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000004L});
-    public static final BitSet FOLLOW_66_in_ruleAstExpressionBitand11321 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpressionEq_in_ruleAstExpressionBitand11355 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000004L});
-    public static final BitSet FOLLOW_ruleAstExpressionEq_in_entryRuleAstExpressionEq11393 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionEq11403 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionRelational_in_ruleAstExpressionEq11450 = new BitSet(new long[]{0x0000000040000002L,0x0000000000000008L});
-    public static final BitSet FOLLOW_30_in_ruleAstExpressionEq11479 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_67_in_ruleAstExpressionEq11508 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpressionRelational_in_ruleAstExpressionEq11545 = new BitSet(new long[]{0x0000000040000002L,0x0000000000000008L});
-    public static final BitSet FOLLOW_ruleAstExpressionRelational_in_entryRuleAstExpressionRelational11583 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionRelational11593 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionShift_in_ruleAstExpressionRelational11640 = new BitSet(new long[]{0x0000040000000002L,0x0000000000000070L});
-    public static final BitSet FOLLOW_68_in_ruleAstExpressionRelational11669 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_69_in_ruleAstExpressionRelational11698 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_42_in_ruleAstExpressionRelational11727 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_70_in_ruleAstExpressionRelational11756 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpressionShift_in_ruleAstExpressionRelational11793 = new BitSet(new long[]{0x0000040000000002L,0x0000000000000070L});
-    public static final BitSet FOLLOW_ruleAstExpressionShift_in_entryRuleAstExpressionShift11831 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionShift11841 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionAdditive_in_ruleAstExpressionShift11888 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000380L});
-    public static final BitSet FOLLOW_71_in_ruleAstExpressionShift11917 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_72_in_ruleAstExpressionShift11946 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_73_in_ruleAstExpressionShift11975 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpressionAdditive_in_ruleAstExpressionShift12012 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000380L});
-    public static final BitSet FOLLOW_ruleAstExpressionAdditive_in_entryRuleAstExpressionAdditive12050 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionAdditive12060 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionMultiplicative_in_ruleAstExpressionAdditive12107 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000C00L});
-    public static final BitSet FOLLOW_74_in_ruleAstExpressionAdditive12136 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_75_in_ruleAstExpressionAdditive12165 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpressionMultiplicative_in_ruleAstExpressionAdditive12202 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000C00L});
-    public static final BitSet FOLLOW_ruleAstExpressionMultiplicative_in_entryRuleAstExpressionMultiplicative12240 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionMultiplicative12250 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionExp_in_ruleAstExpressionMultiplicative12297 = new BitSet(new long[]{0x0000000000000002L,0x000000000000F000L});
-    public static final BitSet FOLLOW_76_in_ruleAstExpressionMultiplicative12326 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_77_in_ruleAstExpressionMultiplicative12355 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_78_in_ruleAstExpressionMultiplicative12384 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_79_in_ruleAstExpressionMultiplicative12413 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpressionExp_in_ruleAstExpressionMultiplicative12450 = new BitSet(new long[]{0x0000000000000002L,0x000000000000F000L});
-    public static final BitSet FOLLOW_ruleAstExpressionExp_in_entryRuleAstExpressionExp12488 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionExp12498 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionUnary_in_ruleAstExpressionExp12545 = new BitSet(new long[]{0x0000000000000002L,0x0000000000010000L});
-    public static final BitSet FOLLOW_80_in_ruleAstExpressionExp12572 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpressionUnary_in_ruleAstExpressionExp12606 = new BitSet(new long[]{0x0000000000000002L,0x0000000000010000L});
-    public static final BitSet FOLLOW_ruleAstExpressionUnary_in_entryRuleAstExpressionUnary12644 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionUnary12654 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_81_in_ruleAstExpressionUnary12709 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_75_in_ruleAstExpressionUnary12738 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_82_in_ruleAstExpressionUnary12767 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_83_in_ruleAstExpressionUnary12796 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_84_in_ruleAstExpressionUnary12825 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpressionPostfix_in_ruleAstExpressionUnary12862 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionPostfix_in_ruleAstExpressionUnary12891 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionPostfix_in_entryRuleAstExpressionPostfix12926 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionPostfix12936 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionList_in_ruleAstExpressionPostfix12983 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionSymbolReference_in_ruleAstExpressionPostfix13010 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionIf_in_ruleAstExpressionPostfix13037 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionLiteral_in_ruleAstExpressionPostfix13064 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_ruleAstExpressionPostfix13082 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstExpressionPostfix13104 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_ruleAstExpressionPostfix13115 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionSymbolReference_in_entryRuleAstExpressionSymbolReference13152 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionSymbolReference13162 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleAstExpressionSymbolReference13207 = new BitSet(new long[]{0x0004000001200002L,0x0000000000200000L});
-    public static final BitSet FOLLOW_50_in_ruleAstExpressionSymbolReference13220 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstExpressionSymbolReference13241 = new BitSet(new long[]{0x0008000000000000L});
-    public static final BitSet FOLLOW_51_in_ruleAstExpressionSymbolReference13253 = new BitSet(new long[]{0x0004000001200002L,0x0000000000200000L});
-    public static final BitSet FOLLOW_ruleAstMemberAccess_in_ruleAstExpressionSymbolReference13276 = new BitSet(new long[]{0x0000000001200002L,0x0000000000200000L});
-    public static final BitSet FOLLOW_85_in_ruleAstExpressionSymbolReference13290 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleAstExpressionSymbolReference13307 = new BitSet(new long[]{0x0000000001000002L});
-    public static final BitSet FOLLOW_24_in_ruleAstExpressionSymbolReference13333 = new BitSet(new long[]{0x01040000052003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstExpressionSymbolReference13368 = new BitSet(new long[]{0x0000000006000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstExpressionSymbolReference13381 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstExpressionSymbolReference13402 = new BitSet(new long[]{0x0000000006000000L});
-    public static final BitSet FOLLOW_26_in_ruleAstExpressionSymbolReference13418 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionIf_in_entryRuleAstExpressionIf13456 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionIf13466 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_56_in_ruleAstExpressionIf13503 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstExpressionIf13524 = new BitSet(new long[]{0x0200000000000000L});
-    public static final BitSet FOLLOW_57_in_ruleAstExpressionIf13536 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstExpressionIf13557 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_58_in_ruleAstExpressionIf13569 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstExpressionIf13590 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_18_in_ruleAstExpressionIf13602 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionList_in_entryRuleAstExpressionList13638 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionList13648 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_50_in_ruleAstExpressionList13685 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstExpressionList13706 = new BitSet(new long[]{0x0008000002020000L});
-    public static final BitSet FOLLOW_25_in_ruleAstExpressionList13719 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstExpressionList13740 = new BitSet(new long[]{0x0008000002020000L});
-    public static final BitSet FOLLOW_17_in_ruleAstExpressionList13755 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
-    public static final BitSet FOLLOW_ruleAstGenerator_in_ruleAstExpressionList13776 = new BitSet(new long[]{0x0008000002000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstExpressionList13789 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
-    public static final BitSet FOLLOW_ruleAstGenerator_in_ruleAstExpressionList13810 = new BitSet(new long[]{0x0008000002000000L});
-    public static final BitSet FOLLOW_51_in_ruleAstExpressionList13826 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstGenerator_in_entryRuleAstGenerator13862 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstGenerator13872 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_86_in_ruleAstGenerator13909 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstVariableDeclaration_in_ruleAstGenerator13930 = new BitSet(new long[]{0x0080000000000000L});
-    public static final BitSet FOLLOW_55_in_ruleAstGenerator13942 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstGenerator13963 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionLiteral_in_entryRuleAstExpressionLiteral13999 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionLiteral14009 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionBoolean_in_ruleAstExpressionLiteral14056 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionFloat_in_ruleAstExpressionLiteral14083 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionInteger_in_ruleAstExpressionLiteral14110 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionString_in_ruleAstExpressionLiteral14137 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionBoolean_in_entryRuleAstExpressionBoolean14172 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionBoolean14182 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_BOOL_in_ruleAstExpressionBoolean14223 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionFloat_in_entryRuleAstExpressionFloat14263 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionFloat14273 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleREAL_in_ruleAstExpressionFloat14318 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleREAL_in_entryRuleREAL14360 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleREAL14371 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_ruleREAL14416 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_21_in_ruleREAL14434 = new BitSet(new long[]{0x00000000000000C0L});
-    public static final BitSet FOLLOW_RULE_EXP_INT_in_ruleREAL14450 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_ruleREAL14476 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_21_in_ruleREAL14503 = new BitSet(new long[]{0x00000000000000C0L});
-    public static final BitSet FOLLOW_RULE_EXP_INT_in_ruleREAL14519 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_ruleREAL14545 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionInteger_in_entryRuleAstExpressionInteger14596 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionInteger14606 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_ruleAstExpressionInteger14649 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_EXP_INT_in_ruleAstExpressionInteger14669 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_HEX_in_ruleAstExpressionInteger14689 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstExpressionString_in_entryRuleAstExpressionString14732 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionString14742 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleAstExpressionString14783 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstTypeBuiltIn_in_entryRuleAstTypeBuiltIn14826 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstTypeBuiltIn14837 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_87_in_ruleAstTypeBuiltIn14875 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_88_in_ruleAstTypeBuiltIn14894 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_89_in_ruleAstTypeBuiltIn14913 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_90_in_ruleAstTypeBuiltIn14932 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_91_in_ruleAstTypeBuiltIn14951 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_92_in_ruleAstTypeBuiltIn14970 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_93_in_ruleAstTypeBuiltIn14989 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_94_in_ruleAstTypeBuiltIn15008 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstType_in_entryRuleAstType15048 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstType15058 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstTypeBuiltIn_in_ruleAstType15115 = new BitSet(new long[]{0x0004000001000002L});
-    public static final BitSet FOLLOW_ruleAstTypeParameterList_in_ruleAstType15136 = new BitSet(new long[]{0x0004000000000002L});
-    public static final BitSet FOLLOW_50_in_ruleAstType15150 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstType15171 = new BitSet(new long[]{0x0008000000000000L});
-    public static final BitSet FOLLOW_51_in_ruleAstType15183 = new BitSet(new long[]{0x0004000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleAstType15213 = new BitSet(new long[]{0x0004000001000002L});
-    public static final BitSet FOLLOW_ruleAstTypeParameterList_in_ruleAstType15234 = new BitSet(new long[]{0x0004000000000002L});
-    public static final BitSet FOLLOW_50_in_ruleAstType15248 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstType15269 = new BitSet(new long[]{0x0008000000000000L});
-    public static final BitSet FOLLOW_51_in_ruleAstType15281 = new BitSet(new long[]{0x0004000000000002L});
-    public static final BitSet FOLLOW_50_in_ruleAstType15303 = new BitSet(new long[]{0x0004000100000010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstType_in_ruleAstType15325 = new BitSet(new long[]{0x0000000102000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstType15338 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstType_in_ruleAstType15359 = new BitSet(new long[]{0x0000000102000000L});
-    public static final BitSet FOLLOW_32_in_ruleAstType15375 = new BitSet(new long[]{0x000C000000000010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstType_in_ruleAstType15397 = new BitSet(new long[]{0x0008000002000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstType15410 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstType_in_ruleAstType15431 = new BitSet(new long[]{0x0008000002000000L});
-    public static final BitSet FOLLOW_51_in_ruleAstType15447 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstTypeParameterList_in_entryRuleAstTypeParameterList15485 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstTypeParameterList15495 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_ruleAstTypeParameterList15532 = new BitSet(new long[]{0x0000001000000010L});
-    public static final BitSet FOLLOW_ruleAstTypeParam_in_ruleAstTypeParameterList15553 = new BitSet(new long[]{0x0000000006000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstTypeParameterList15566 = new BitSet(new long[]{0x0000001000000010L});
-    public static final BitSet FOLLOW_ruleAstTypeParam_in_ruleAstTypeParameterList15587 = new BitSet(new long[]{0x0000000006000000L});
-    public static final BitSet FOLLOW_26_in_ruleAstTypeParameterList15601 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstTypeParam_in_entryRuleAstTypeParam15637 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstTypeParam15647 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleAstTypeParam15690 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_30_in_ruleAstTypeParam15707 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstTypeParam15728 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleAstTypeParam15755 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_36_in_ruleAstTypeParam15776 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_17_in_ruleAstTypeParam15804 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstType_in_ruleAstTypeParam15825 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstVariableDeclaration_in_entryRuleAstVariableDeclaration15862 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstVariableDeclaration15872 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstAnnotation_in_ruleAstVariableDeclaration15918 = new BitSet(new long[]{0x0004000000000010L,0x00000000FF800000L});
-    public static final BitSet FOLLOW_ruleAstType_in_ruleAstVariableDeclaration15940 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleAstVariableDeclaration15957 = new BitSet(new long[]{0x0004000000000002L});
-    public static final BitSet FOLLOW_50_in_ruleAstVariableDeclaration15975 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstVariableDeclaration15996 = new BitSet(new long[]{0x0008000000000000L});
-    public static final BitSet FOLLOW_51_in_ruleAstVariableDeclaration16008 = new BitSet(new long[]{0x0004000000000002L});
-    public static final BitSet FOLLOW_ruleAstValuedVariableDeclaration_in_entryRuleAstValuedVariableDeclaration16046 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstValuedVariableDeclaration16056 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstVariableDeclaration_in_ruleAstValuedVariableDeclaration16103 = new BitSet(new long[]{0x0020000040000002L});
-    public static final BitSet FOLLOW_30_in_ruleAstValuedVariableDeclaration16122 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_53_in_ruleAstValuedVariableDeclaration16153 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstValuedVariableDeclaration16175 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstMemberAccess_in_entryRuleAstMemberAccess16213 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstMemberAccess16223 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_21_in_ruleAstMemberAccess16260 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleAstMemberAccess16277 = new BitSet(new long[]{0x0004000000000002L});
-    public static final BitSet FOLLOW_50_in_ruleAstMemberAccess16295 = new BitSet(new long[]{0x01040000012003F0L,0x00000000001E0800L});
-    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstMemberAccess16316 = new BitSet(new long[]{0x0008000000000000L});
-    public static final BitSet FOLLOW_51_in_ruleAstMemberAccess16328 = new BitSet(new long[]{0x0004000000000002L});
-    public static final BitSet FOLLOW_ruleAstAnnotation_in_entryRuleAstAnnotation16366 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstAnnotation16376 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_95_in_ruleAstAnnotation16413 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleAstAnnotation16430 = new BitSet(new long[]{0x0000000001000002L});
-    public static final BitSet FOLLOW_24_in_ruleAstAnnotation16448 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleAstAnnotationArgument_in_ruleAstAnnotation16469 = new BitSet(new long[]{0x0000000006000000L});
-    public static final BitSet FOLLOW_25_in_ruleAstAnnotation16482 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleAstAnnotationArgument_in_ruleAstAnnotation16503 = new BitSet(new long[]{0x0000000006000000L});
-    public static final BitSet FOLLOW_26_in_ruleAstAnnotation16517 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAstAnnotationArgument_in_entryRuleAstAnnotationArgument16555 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAstAnnotationArgument16565 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleAstAnnotationArgument16607 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_30_in_ruleAstAnnotationArgument16624 = new BitSet(new long[]{0x0000000000000200L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleAstAnnotationArgument16641 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstStatementCase_in_entryRuleAstStatementCase10289 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstStatementCase10299 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_60_in_ruleAstStatementCase10336 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleAstExpressionSymbolReference_in_ruleAstStatementCase10357 = new BitSet(new long[]{0x2000000000000000L});
+    public static final BitSet FOLLOW_61_in_ruleAstStatementCase10369 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleAstStatementAlternative_in_ruleAstStatementCase10390 = new BitSet(new long[]{0x0000000000040010L});
+    public static final BitSet FOLLOW_18_in_ruleAstStatementCase10403 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstStatementAlternative_in_entryRuleAstStatementAlternative10439 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstStatementAlternative10449 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPattern_in_ruleAstStatementAlternative10495 = new BitSet(new long[]{0x0001800000000000L});
+    public static final BitSet FOLLOW_47_in_ruleAstStatementAlternative10508 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstStatementAlternative10529 = new BitSet(new long[]{0x0001000002000000L});
+    public static final BitSet FOLLOW_25_in_ruleAstStatementAlternative10542 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstStatementAlternative10563 = new BitSet(new long[]{0x0001000002000000L});
+    public static final BitSet FOLLOW_48_in_ruleAstStatementAlternative10579 = new BitSet(new long[]{0x1940020000040010L});
+    public static final BitSet FOLLOW_ruleAstStatement_in_ruleAstStatementAlternative10600 = new BitSet(new long[]{0x1940020000040010L});
+    public static final BitSet FOLLOW_18_in_ruleAstStatementAlternative10613 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstStatement_in_entryRuleAstStatement10649 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstStatement10659 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstStatementAssign_in_ruleAstStatement10706 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstStatementCall_in_ruleAstStatement10733 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstStatementForeach_in_ruleAstStatement10760 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstStatementIf_in_ruleAstStatement10787 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstStatementWhile_in_ruleAstStatement10814 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstStatementBlock_in_ruleAstStatement10841 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstStatementCase_in_ruleAstStatement10868 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_entryRuleAstExpression10903 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpression10913 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionAnd_in_ruleAstExpression10960 = new BitSet(new long[]{0xC000000000000002L,0x0000000000000001L});
+    public static final BitSet FOLLOW_62_in_ruleAstExpression10989 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_63_in_ruleAstExpression11018 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_64_in_ruleAstExpression11047 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpressionAnd_in_ruleAstExpression11084 = new BitSet(new long[]{0xC000000000000002L,0x0000000000000001L});
+    public static final BitSet FOLLOW_ruleAstExpressionAnd_in_entryRuleAstExpressionAnd11122 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionAnd11132 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionBitor_in_ruleAstExpressionAnd11179 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000006L});
+    public static final BitSet FOLLOW_65_in_ruleAstExpressionAnd11208 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_66_in_ruleAstExpressionAnd11237 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpressionBitor_in_ruleAstExpressionAnd11274 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000006L});
+    public static final BitSet FOLLOW_ruleAstExpressionBitor_in_entryRuleAstExpressionBitor11312 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionBitor11322 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionBitxor_in_ruleAstExpressionBitor11369 = new BitSet(new long[]{0x0000002000000002L});
+    public static final BitSet FOLLOW_37_in_ruleAstExpressionBitor11396 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpressionBitxor_in_ruleAstExpressionBitor11430 = new BitSet(new long[]{0x0000002000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionBitxor_in_entryRuleAstExpressionBitxor11468 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionBitxor11478 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionBitand_in_ruleAstExpressionBitxor11525 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000008L});
+    public static final BitSet FOLLOW_67_in_ruleAstExpressionBitxor11552 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpressionBitand_in_ruleAstExpressionBitxor11586 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000008L});
+    public static final BitSet FOLLOW_ruleAstExpressionBitand_in_entryRuleAstExpressionBitand11624 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionBitand11634 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionEq_in_ruleAstExpressionBitand11681 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000010L});
+    public static final BitSet FOLLOW_68_in_ruleAstExpressionBitand11708 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpressionEq_in_ruleAstExpressionBitand11742 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleAstExpressionEq_in_entryRuleAstExpressionEq11780 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionEq11790 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionRelational_in_ruleAstExpressionEq11837 = new BitSet(new long[]{0x0000000040000002L,0x0000000000000020L});
+    public static final BitSet FOLLOW_30_in_ruleAstExpressionEq11866 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_69_in_ruleAstExpressionEq11895 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpressionRelational_in_ruleAstExpressionEq11932 = new BitSet(new long[]{0x0000000040000002L,0x0000000000000020L});
+    public static final BitSet FOLLOW_ruleAstExpressionRelational_in_entryRuleAstExpressionRelational11970 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionRelational11980 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionShift_in_ruleAstExpressionRelational12027 = new BitSet(new long[]{0x0000040000000002L,0x00000000000001C0L});
+    public static final BitSet FOLLOW_70_in_ruleAstExpressionRelational12056 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_71_in_ruleAstExpressionRelational12085 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_42_in_ruleAstExpressionRelational12114 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_72_in_ruleAstExpressionRelational12143 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpressionShift_in_ruleAstExpressionRelational12180 = new BitSet(new long[]{0x0000040000000002L,0x00000000000001C0L});
+    public static final BitSet FOLLOW_ruleAstExpressionShift_in_entryRuleAstExpressionShift12218 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionShift12228 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionAdditive_in_ruleAstExpressionShift12275 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000E00L});
+    public static final BitSet FOLLOW_73_in_ruleAstExpressionShift12304 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_74_in_ruleAstExpressionShift12333 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_75_in_ruleAstExpressionShift12362 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpressionAdditive_in_ruleAstExpressionShift12399 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000E00L});
+    public static final BitSet FOLLOW_ruleAstExpressionAdditive_in_entryRuleAstExpressionAdditive12437 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionAdditive12447 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionMultiplicative_in_ruleAstExpressionAdditive12494 = new BitSet(new long[]{0x0000000000000002L,0x0000000000003000L});
+    public static final BitSet FOLLOW_76_in_ruleAstExpressionAdditive12523 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_77_in_ruleAstExpressionAdditive12552 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpressionMultiplicative_in_ruleAstExpressionAdditive12589 = new BitSet(new long[]{0x0000000000000002L,0x0000000000003000L});
+    public static final BitSet FOLLOW_ruleAstExpressionMultiplicative_in_entryRuleAstExpressionMultiplicative12627 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionMultiplicative12637 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionExp_in_ruleAstExpressionMultiplicative12684 = new BitSet(new long[]{0x0000000000000002L,0x000000000003C000L});
+    public static final BitSet FOLLOW_78_in_ruleAstExpressionMultiplicative12713 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_79_in_ruleAstExpressionMultiplicative12742 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_80_in_ruleAstExpressionMultiplicative12771 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_81_in_ruleAstExpressionMultiplicative12800 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpressionExp_in_ruleAstExpressionMultiplicative12837 = new BitSet(new long[]{0x0000000000000002L,0x000000000003C000L});
+    public static final BitSet FOLLOW_ruleAstExpressionExp_in_entryRuleAstExpressionExp12875 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionExp12885 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionUnary_in_ruleAstExpressionExp12932 = new BitSet(new long[]{0x0000000000000002L,0x0000000000040000L});
+    public static final BitSet FOLLOW_82_in_ruleAstExpressionExp12959 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpressionUnary_in_ruleAstExpressionExp12993 = new BitSet(new long[]{0x0000000000000002L,0x0000000000040000L});
+    public static final BitSet FOLLOW_ruleAstExpressionUnary_in_entryRuleAstExpressionUnary13031 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionUnary13041 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_83_in_ruleAstExpressionUnary13096 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_77_in_ruleAstExpressionUnary13125 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_84_in_ruleAstExpressionUnary13154 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_85_in_ruleAstExpressionUnary13183 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_86_in_ruleAstExpressionUnary13212 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpressionPostfix_in_ruleAstExpressionUnary13249 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionPostfix_in_ruleAstExpressionUnary13278 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionPostfix_in_entryRuleAstExpressionPostfix13313 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionPostfix13323 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionList_in_ruleAstExpressionPostfix13370 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionSymbolReference_in_ruleAstExpressionPostfix13397 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionIf_in_ruleAstExpressionPostfix13424 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionCase_in_ruleAstExpressionPostfix13451 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionLiteral_in_ruleAstExpressionPostfix13478 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_24_in_ruleAstExpressionPostfix13496 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstExpressionPostfix13518 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_26_in_ruleAstExpressionPostfix13529 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionSymbolReference_in_entryRuleAstExpressionSymbolReference13566 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionSymbolReference13576 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAstExpressionSymbolReference13621 = new BitSet(new long[]{0x0004000001200002L,0x0000000000800000L});
+    public static final BitSet FOLLOW_50_in_ruleAstExpressionSymbolReference13634 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstExpressionSymbolReference13655 = new BitSet(new long[]{0x0008000000000000L});
+    public static final BitSet FOLLOW_51_in_ruleAstExpressionSymbolReference13667 = new BitSet(new long[]{0x0004000001200002L,0x0000000000800000L});
+    public static final BitSet FOLLOW_ruleAstMemberAccess_in_ruleAstExpressionSymbolReference13690 = new BitSet(new long[]{0x0000000001200002L,0x0000000000800000L});
+    public static final BitSet FOLLOW_87_in_ruleAstExpressionSymbolReference13704 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAstExpressionSymbolReference13721 = new BitSet(new long[]{0x0000000001000002L});
+    public static final BitSet FOLLOW_24_in_ruleAstExpressionSymbolReference13747 = new BitSet(new long[]{0x11040000052003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstExpressionSymbolReference13782 = new BitSet(new long[]{0x0000000006000000L});
+    public static final BitSet FOLLOW_25_in_ruleAstExpressionSymbolReference13795 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstExpressionSymbolReference13816 = new BitSet(new long[]{0x0000000006000000L});
+    public static final BitSet FOLLOW_26_in_ruleAstExpressionSymbolReference13832 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionIf_in_entryRuleAstExpressionIf13870 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionIf13880 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_56_in_ruleAstExpressionIf13917 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstExpressionIf13938 = new BitSet(new long[]{0x0200000000000000L});
+    public static final BitSet FOLLOW_57_in_ruleAstExpressionIf13950 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstExpressionIf13971 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_58_in_ruleAstExpressionIf13983 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstExpressionIf14004 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_18_in_ruleAstExpressionIf14016 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionList_in_entryRuleAstExpressionList14052 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionList14062 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_50_in_ruleAstExpressionList14099 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstExpressionList14120 = new BitSet(new long[]{0x0008000002020000L});
+    public static final BitSet FOLLOW_25_in_ruleAstExpressionList14133 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstExpressionList14154 = new BitSet(new long[]{0x0008000002020000L});
+    public static final BitSet FOLLOW_17_in_ruleAstExpressionList14169 = new BitSet(new long[]{0x0000000000000000L,0x0000000001000000L});
+    public static final BitSet FOLLOW_ruleAstGenerator_in_ruleAstExpressionList14190 = new BitSet(new long[]{0x0008000002000000L});
+    public static final BitSet FOLLOW_25_in_ruleAstExpressionList14203 = new BitSet(new long[]{0x0000000000000000L,0x0000000001000000L});
+    public static final BitSet FOLLOW_ruleAstGenerator_in_ruleAstExpressionList14224 = new BitSet(new long[]{0x0008000002000000L});
+    public static final BitSet FOLLOW_51_in_ruleAstExpressionList14240 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstGenerator_in_entryRuleAstGenerator14276 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstGenerator14286 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_88_in_ruleAstGenerator14323 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstVariableDeclaration_in_ruleAstGenerator14344 = new BitSet(new long[]{0x0080000000000000L});
+    public static final BitSet FOLLOW_55_in_ruleAstGenerator14356 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstGenerator14377 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionCase_in_entryRuleAstExpressionCase14413 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionCase14423 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_60_in_ruleAstExpressionCase14460 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleAstExpressionSymbolReference_in_ruleAstExpressionCase14481 = new BitSet(new long[]{0x2000000000000000L});
+    public static final BitSet FOLLOW_61_in_ruleAstExpressionCase14493 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleAstExpressionAlternative_in_ruleAstExpressionCase14514 = new BitSet(new long[]{0x0400000000000010L});
+    public static final BitSet FOLLOW_58_in_ruleAstExpressionCase14527 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstExpressionCase14548 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_18_in_ruleAstExpressionCase14560 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionAlternative_in_entryRuleAstExpressionAlternative14596 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionAlternative14606 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPattern_in_ruleAstExpressionAlternative14652 = new BitSet(new long[]{0x0000800000020000L});
+    public static final BitSet FOLLOW_47_in_ruleAstExpressionAlternative14665 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstExpressionAlternative14686 = new BitSet(new long[]{0x0000000002020000L});
+    public static final BitSet FOLLOW_25_in_ruleAstExpressionAlternative14699 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstExpressionAlternative14720 = new BitSet(new long[]{0x0000000002020000L});
+    public static final BitSet FOLLOW_17_in_ruleAstExpressionAlternative14736 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstExpressionAlternative14757 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_18_in_ruleAstExpressionAlternative14769 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionLiteral_in_entryRuleAstExpressionLiteral14805 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionLiteral14815 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionBoolean_in_ruleAstExpressionLiteral14862 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionFloat_in_ruleAstExpressionLiteral14889 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionInteger_in_ruleAstExpressionLiteral14916 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionString_in_ruleAstExpressionLiteral14943 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionBoolean_in_entryRuleAstExpressionBoolean14978 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionBoolean14988 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_BOOL_in_ruleAstExpressionBoolean15029 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionFloat_in_entryRuleAstExpressionFloat15069 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionFloat15079 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleREAL_in_ruleAstExpressionFloat15124 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleREAL_in_entryRuleREAL15166 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleREAL15177 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_ruleREAL15222 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_21_in_ruleREAL15240 = new BitSet(new long[]{0x00000000000000C0L});
+    public static final BitSet FOLLOW_RULE_EXP_INT_in_ruleREAL15256 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_ruleREAL15282 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_21_in_ruleREAL15309 = new BitSet(new long[]{0x00000000000000C0L});
+    public static final BitSet FOLLOW_RULE_EXP_INT_in_ruleREAL15325 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_ruleREAL15351 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionInteger_in_entryRuleAstExpressionInteger15402 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionInteger15412 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_ruleAstExpressionInteger15455 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_EXP_INT_in_ruleAstExpressionInteger15475 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_HEX_in_ruleAstExpressionInteger15495 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionString_in_entryRuleAstExpressionString15538 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstExpressionString15548 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_ruleAstExpressionString15589 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPattern_in_entryRuleAstPattern15629 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstPattern15639 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAstPattern15681 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_24_in_ruleAstPattern15698 = new BitSet(new long[]{0x11000000002003F0L,0x0000000006782000L});
+    public static final BitSet FOLLOW_ruleAstSubPattern_in_ruleAstPattern15719 = new BitSet(new long[]{0x0000000006000000L});
+    public static final BitSet FOLLOW_25_in_ruleAstPattern15732 = new BitSet(new long[]{0x11000000002003F0L,0x0000000006782000L});
+    public static final BitSet FOLLOW_ruleAstSubPattern_in_ruleAstPattern15753 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_26_in_ruleAstPattern15767 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstSubPattern_in_entryRuleAstSubPattern15803 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstSubPattern15813 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAstSubPattern15856 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_17_in_ruleAstSubPattern15873 = new BitSet(new long[]{0x11000000002003F0L,0x0000000006782000L});
+    public static final BitSet FOLLOW_89_in_ruleAstSubPattern15894 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPatternExpression_in_ruleAstSubPattern15934 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstToken_in_ruleAstSubPattern15961 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPattern_in_ruleAstSubPattern15988 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPatternExpression_in_entryRuleAstPatternExpression16025 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstPatternExpression16035 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionAnd_in_ruleAstPatternExpression16082 = new BitSet(new long[]{0xC000000000000002L,0x0000000000000001L});
+    public static final BitSet FOLLOW_62_in_ruleAstPatternExpression16111 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_63_in_ruleAstPatternExpression16140 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_64_in_ruleAstPatternExpression16169 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpressionAnd_in_ruleAstPatternExpression16206 = new BitSet(new long[]{0xC000000000000002L,0x0000000000000001L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionAnd_in_entryRuleAstPatternExpressionAnd16244 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstPatternExpressionAnd16254 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionBitor_in_ruleAstPatternExpressionAnd16301 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000006L});
+    public static final BitSet FOLLOW_65_in_ruleAstPatternExpressionAnd16330 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_66_in_ruleAstPatternExpressionAnd16359 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionBitor_in_ruleAstPatternExpressionAnd16396 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000006L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionBitor_in_entryRuleAstPatternExpressionBitor16434 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstPatternExpressionBitor16444 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionBitxor_in_ruleAstPatternExpressionBitor16491 = new BitSet(new long[]{0x0000002000000002L});
+    public static final BitSet FOLLOW_37_in_ruleAstPatternExpressionBitor16518 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionBitxor_in_ruleAstPatternExpressionBitor16552 = new BitSet(new long[]{0x0000002000000002L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionBitxor_in_entryRuleAstPatternExpressionBitxor16590 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstPatternExpressionBitxor16600 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionBitand_in_ruleAstPatternExpressionBitxor16647 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000008L});
+    public static final BitSet FOLLOW_67_in_ruleAstPatternExpressionBitxor16674 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionBitand_in_ruleAstPatternExpressionBitxor16708 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000008L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionBitand_in_entryRuleAstPatternExpressionBitand16746 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstPatternExpressionBitand16756 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionEq_in_ruleAstPatternExpressionBitand16803 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000010L});
+    public static final BitSet FOLLOW_68_in_ruleAstPatternExpressionBitand16830 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionEq_in_ruleAstPatternExpressionBitand16864 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionEq_in_entryRuleAstPatternExpressionEq16902 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstPatternExpressionEq16912 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionRelational_in_ruleAstPatternExpressionEq16959 = new BitSet(new long[]{0x0000000040000002L,0x0000000000000020L});
+    public static final BitSet FOLLOW_30_in_ruleAstPatternExpressionEq16988 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_69_in_ruleAstPatternExpressionEq17017 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionRelational_in_ruleAstPatternExpressionEq17054 = new BitSet(new long[]{0x0000000040000002L,0x0000000000000020L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionRelational_in_entryRuleAstPatternExpressionRelational17092 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstPatternExpressionRelational17102 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionShift_in_ruleAstPatternExpressionRelational17149 = new BitSet(new long[]{0x0000040000000002L,0x00000000000001C0L});
+    public static final BitSet FOLLOW_70_in_ruleAstPatternExpressionRelational17178 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_71_in_ruleAstPatternExpressionRelational17207 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_42_in_ruleAstPatternExpressionRelational17236 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_72_in_ruleAstPatternExpressionRelational17265 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionShift_in_ruleAstPatternExpressionRelational17302 = new BitSet(new long[]{0x0000040000000002L,0x00000000000001C0L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionShift_in_entryRuleAstPatternExpressionShift17340 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstPatternExpressionShift17350 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionAdditive_in_ruleAstPatternExpressionShift17397 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000E00L});
+    public static final BitSet FOLLOW_73_in_ruleAstPatternExpressionShift17426 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_74_in_ruleAstPatternExpressionShift17455 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_75_in_ruleAstPatternExpressionShift17484 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionAdditive_in_ruleAstPatternExpressionShift17521 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000E00L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionAdditive_in_entryRuleAstPatternExpressionAdditive17559 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstPatternExpressionAdditive17569 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionMultiplicative_in_ruleAstPatternExpressionAdditive17616 = new BitSet(new long[]{0x0000000000000002L,0x0000000000003000L});
+    public static final BitSet FOLLOW_76_in_ruleAstPatternExpressionAdditive17645 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_77_in_ruleAstPatternExpressionAdditive17674 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionMultiplicative_in_ruleAstPatternExpressionAdditive17711 = new BitSet(new long[]{0x0000000000000002L,0x0000000000003000L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionMultiplicative_in_entryRuleAstPatternExpressionMultiplicative17749 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstPatternExpressionMultiplicative17759 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionExp_in_ruleAstPatternExpressionMultiplicative17806 = new BitSet(new long[]{0x0000000000000002L,0x000000000003C000L});
+    public static final BitSet FOLLOW_78_in_ruleAstPatternExpressionMultiplicative17835 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_79_in_ruleAstPatternExpressionMultiplicative17864 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_80_in_ruleAstPatternExpressionMultiplicative17893 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_81_in_ruleAstPatternExpressionMultiplicative17922 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionExp_in_ruleAstPatternExpressionMultiplicative17959 = new BitSet(new long[]{0x0000000000000002L,0x000000000003C000L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionExp_in_entryRuleAstPatternExpressionExp17997 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstPatternExpressionExp18007 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionUnary_in_ruleAstPatternExpressionExp18054 = new BitSet(new long[]{0x0000000000000002L,0x0000000000040000L});
+    public static final BitSet FOLLOW_82_in_ruleAstPatternExpressionExp18081 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionUnary_in_ruleAstPatternExpressionExp18115 = new BitSet(new long[]{0x0000000000000002L,0x0000000000040000L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionUnary_in_entryRuleAstPatternExpressionUnary18153 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstPatternExpressionUnary18163 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_83_in_ruleAstPatternExpressionUnary18218 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_77_in_ruleAstPatternExpressionUnary18247 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_84_in_ruleAstPatternExpressionUnary18276 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_85_in_ruleAstPatternExpressionUnary18305 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_86_in_ruleAstPatternExpressionUnary18334 = new BitSet(new long[]{0x11000000002003E0L,0x0000000004782000L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionPostfix_in_ruleAstPatternExpressionUnary18371 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionPostfix_in_ruleAstPatternExpressionUnary18400 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionPostfix_in_entryRuleAstPatternExpressionPostfix18435 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstPatternExpressionPostfix18445 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionSymbolReference_in_ruleAstPatternExpressionPostfix18492 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionIf_in_ruleAstPatternExpressionPostfix18519 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionCase_in_ruleAstPatternExpressionPostfix18546 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionLiteral_in_ruleAstPatternExpressionPostfix18573 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionSymbolReference_in_entryRuleAstPatternExpressionSymbolReference18608 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstPatternExpressionSymbolReference18618 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_90_in_ruleAstPatternExpressionSymbolReference18655 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAstPatternExpressionSymbolReference18675 = new BitSet(new long[]{0x0004000001200002L,0x0000000000800000L});
+    public static final BitSet FOLLOW_50_in_ruleAstPatternExpressionSymbolReference18688 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstPatternExpressionSymbolReference18709 = new BitSet(new long[]{0x0008000000000000L});
+    public static final BitSet FOLLOW_51_in_ruleAstPatternExpressionSymbolReference18721 = new BitSet(new long[]{0x0004000001200002L,0x0000000000800000L});
+    public static final BitSet FOLLOW_ruleAstMemberAccess_in_ruleAstPatternExpressionSymbolReference18744 = new BitSet(new long[]{0x0000000001200002L,0x0000000000800000L});
+    public static final BitSet FOLLOW_87_in_ruleAstPatternExpressionSymbolReference18758 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAstPatternExpressionSymbolReference18775 = new BitSet(new long[]{0x0000000001000002L});
+    public static final BitSet FOLLOW_24_in_ruleAstPatternExpressionSymbolReference18801 = new BitSet(new long[]{0x11040000052003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstPatternExpressionSymbolReference18836 = new BitSet(new long[]{0x0000000006000000L});
+    public static final BitSet FOLLOW_25_in_ruleAstPatternExpressionSymbolReference18849 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstPatternExpressionSymbolReference18870 = new BitSet(new long[]{0x0000000006000000L});
+    public static final BitSet FOLLOW_26_in_ruleAstPatternExpressionSymbolReference18886 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionIf_in_entryRuleAstPatternExpressionIf18924 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstPatternExpressionIf18934 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_56_in_ruleAstPatternExpressionIf18971 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstPatternExpressionIf18992 = new BitSet(new long[]{0x0200000000000000L});
+    public static final BitSet FOLLOW_57_in_ruleAstPatternExpressionIf19004 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstPatternExpressionIf19025 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_58_in_ruleAstPatternExpressionIf19037 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstPatternExpressionIf19058 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_18_in_ruleAstPatternExpressionIf19070 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstPatternExpressionLiteral_in_entryRuleAstPatternExpressionLiteral19106 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstPatternExpressionLiteral19116 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionBoolean_in_ruleAstPatternExpressionLiteral19163 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionInteger_in_ruleAstPatternExpressionLiteral19190 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstExpressionString_in_ruleAstPatternExpressionLiteral19217 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstTypeBuiltIn_in_entryRuleAstTypeBuiltIn19255 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstTypeBuiltIn19266 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_91_in_ruleAstTypeBuiltIn19304 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_92_in_ruleAstTypeBuiltIn19323 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_93_in_ruleAstTypeBuiltIn19342 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_94_in_ruleAstTypeBuiltIn19361 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_95_in_ruleAstTypeBuiltIn19380 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_96_in_ruleAstTypeBuiltIn19399 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_97_in_ruleAstTypeBuiltIn19418 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_98_in_ruleAstTypeBuiltIn19437 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstType_in_entryRuleAstType19477 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstType19487 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstTypeBuiltIn_in_ruleAstType19544 = new BitSet(new long[]{0x0004000001000002L});
+    public static final BitSet FOLLOW_ruleAstTypeParameterList_in_ruleAstType19565 = new BitSet(new long[]{0x0004000000000002L});
+    public static final BitSet FOLLOW_50_in_ruleAstType19579 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstType19600 = new BitSet(new long[]{0x0008000000000000L});
+    public static final BitSet FOLLOW_51_in_ruleAstType19612 = new BitSet(new long[]{0x0004000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAstType19642 = new BitSet(new long[]{0x0004000001000002L});
+    public static final BitSet FOLLOW_ruleAstTypeParameterList_in_ruleAstType19663 = new BitSet(new long[]{0x0004000000000002L});
+    public static final BitSet FOLLOW_50_in_ruleAstType19677 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstType19698 = new BitSet(new long[]{0x0008000000000000L});
+    public static final BitSet FOLLOW_51_in_ruleAstType19710 = new BitSet(new long[]{0x0004000000000002L});
+    public static final BitSet FOLLOW_50_in_ruleAstType19732 = new BitSet(new long[]{0x0004000100000010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstType_in_ruleAstType19754 = new BitSet(new long[]{0x0000000102000000L});
+    public static final BitSet FOLLOW_25_in_ruleAstType19767 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstType_in_ruleAstType19788 = new BitSet(new long[]{0x0000000102000000L});
+    public static final BitSet FOLLOW_32_in_ruleAstType19804 = new BitSet(new long[]{0x000C000000000010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstType_in_ruleAstType19826 = new BitSet(new long[]{0x0008000002000000L});
+    public static final BitSet FOLLOW_25_in_ruleAstType19839 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstType_in_ruleAstType19860 = new BitSet(new long[]{0x0008000002000000L});
+    public static final BitSet FOLLOW_51_in_ruleAstType19876 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstTypeParameterList_in_entryRuleAstTypeParameterList19914 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstTypeParameterList19924 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_24_in_ruleAstTypeParameterList19961 = new BitSet(new long[]{0x0000001000000010L});
+    public static final BitSet FOLLOW_ruleAstTypeParam_in_ruleAstTypeParameterList19982 = new BitSet(new long[]{0x0000000006000000L});
+    public static final BitSet FOLLOW_25_in_ruleAstTypeParameterList19995 = new BitSet(new long[]{0x0000001000000010L});
+    public static final BitSet FOLLOW_ruleAstTypeParam_in_ruleAstTypeParameterList20016 = new BitSet(new long[]{0x0000000006000000L});
+    public static final BitSet FOLLOW_26_in_ruleAstTypeParameterList20030 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstTypeParam_in_entryRuleAstTypeParam20066 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstTypeParam20076 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAstTypeParam20119 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_30_in_ruleAstTypeParam20136 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstTypeParam20157 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAstTypeParam20184 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_36_in_ruleAstTypeParam20205 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_17_in_ruleAstTypeParam20233 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstType_in_ruleAstTypeParam20254 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstVariableDeclaration_in_entryRuleAstVariableDeclaration20291 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstVariableDeclaration20301 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstAnnotation_in_ruleAstVariableDeclaration20347 = new BitSet(new long[]{0x0004000000000010L,0x0000000FF8000000L});
+    public static final BitSet FOLLOW_ruleAstType_in_ruleAstVariableDeclaration20369 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAstVariableDeclaration20386 = new BitSet(new long[]{0x0004000000000002L});
+    public static final BitSet FOLLOW_50_in_ruleAstVariableDeclaration20404 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstVariableDeclaration20425 = new BitSet(new long[]{0x0008000000000000L});
+    public static final BitSet FOLLOW_51_in_ruleAstVariableDeclaration20437 = new BitSet(new long[]{0x0004000000000002L});
+    public static final BitSet FOLLOW_ruleAstValuedVariableDeclaration_in_entryRuleAstValuedVariableDeclaration20475 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstValuedVariableDeclaration20485 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstVariableDeclaration_in_ruleAstValuedVariableDeclaration20532 = new BitSet(new long[]{0x0020000040000002L});
+    public static final BitSet FOLLOW_30_in_ruleAstValuedVariableDeclaration20551 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_53_in_ruleAstValuedVariableDeclaration20582 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstValuedVariableDeclaration20604 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstMemberAccess_in_entryRuleAstMemberAccess20642 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstMemberAccess20652 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_21_in_ruleAstMemberAccess20689 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAstMemberAccess20706 = new BitSet(new long[]{0x0004000000000002L});
+    public static final BitSet FOLLOW_50_in_ruleAstMemberAccess20724 = new BitSet(new long[]{0x11040000012003F0L,0x0000000000782000L});
+    public static final BitSet FOLLOW_ruleAstExpression_in_ruleAstMemberAccess20745 = new BitSet(new long[]{0x0008000000000000L});
+    public static final BitSet FOLLOW_51_in_ruleAstMemberAccess20757 = new BitSet(new long[]{0x0004000000000002L});
+    public static final BitSet FOLLOW_ruleAstAnnotation_in_entryRuleAstAnnotation20795 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstAnnotation20805 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_99_in_ruleAstAnnotation20842 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAstAnnotation20859 = new BitSet(new long[]{0x0000000001000002L});
+    public static final BitSet FOLLOW_24_in_ruleAstAnnotation20877 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleAstAnnotationArgument_in_ruleAstAnnotation20898 = new BitSet(new long[]{0x0000000006000000L});
+    public static final BitSet FOLLOW_25_in_ruleAstAnnotation20911 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleAstAnnotationArgument_in_ruleAstAnnotation20932 = new BitSet(new long[]{0x0000000006000000L});
+    public static final BitSet FOLLOW_26_in_ruleAstAnnotation20946 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAstAnnotationArgument_in_entryRuleAstAnnotationArgument20984 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAstAnnotationArgument20994 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAstAnnotationArgument21036 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_30_in_ruleAstAnnotationArgument21053 = new BitSet(new long[]{0x0000000000000200L});
+    public static final BitSet FOLLOW_RULE_STRING_in_ruleAstAnnotationArgument21070 = new BitSet(new long[]{0x0000000000000002L});
 
 }

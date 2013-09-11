@@ -53,6 +53,7 @@ import org.caltoopia.ir.Assign;
 import org.caltoopia.ir.BinaryExpression;
 import org.caltoopia.ir.Block;
 import org.caltoopia.ir.BooleanLiteral;
+import org.caltoopia.ir.CaseStatement;
 import org.caltoopia.ir.Connection;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
@@ -75,8 +76,10 @@ import org.caltoopia.ir.Node;
 import org.caltoopia.ir.Point2PointConnection;
 import org.caltoopia.ir.FromSource;
 import org.caltoopia.ir.ProcExpression;
+import org.caltoopia.ir.StmtAlternative;
 import org.caltoopia.ir.TaggedExpression;
 import org.caltoopia.ir.TaggedTuple;
+import org.caltoopia.ir.TaggedTupleFieldExpression;
 import org.caltoopia.ir.ToSink;
 import org.caltoopia.ir.Port;
 import org.caltoopia.ir.PortInstance;
@@ -960,6 +963,59 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 		
 		return s;
 	}
+	
+	@Override
+	public Stream caseCaseStatement(CaseStatement caze) {
+		s.printlnInc("<Stmt kind=\"Case\" "
+					+ " id=\"" + caze.getId() + "\">");
+		
+		for (StmtAlternative alt : caze.getAlternatives()) {
+			doSwitch(alt);
+		}		
+		
+		s.printlnDec("</Case>");
+		
+		return s;
+	}
+	
+	@Override
+	public Stream caseStmtAlternative(StmtAlternative alt) {
+		s.printlnInc("<Alternative kind=\"Stmt\" "
+					+ " id=\"" + alt.getId() + "\""
+					+ " outer-scope=\"" + alt.getOuter().getId() 
+					+ "\">"); 		
+
+		for (Declaration decl : alt.getDeclarations()) {
+			doSwitch(decl);
+		}
+
+		for (Guard guard : alt.getGuards()) {
+			doSwitch(guard);
+		} 		
+		
+		for (Statement stmt : alt.getStatement()) {
+			doSwitch(stmt);
+		} 
+		
+		s.printlnDec("</Alternative>");
+		
+		return s;
+	}
+	
+	@Override 
+	public Stream caseTaggedTupleFieldExpression(TaggedTupleFieldExpression e) {
+		s.printlnInc("<Expression kind=\"TaggedTupleField\"" 
+					+ " id=\"" + e.getId() + "\""
+					+ " context-scope=\"" + e.getContext().getId() + "\""
+					+ " tag=\"" + e.getTag() + "\""
+					+ " label=\"" + e.getLabel() + "\">");
+		doSwitch(e.getType());
+		
+		s.printlnDec("</Expression>");		
+		
+		return s;
+	}
+	
 	
 	@Override
 	public Stream caseReturnValue(ReturnValue returnValue) {

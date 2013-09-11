@@ -99,6 +99,10 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 			case IrPackage.FOR_EACH: return createForEach();
 			case IrPackage.IF_STATEMENT: return createIfStatement();
 			case IrPackage.BLOCK: return createBlock();
+			case IrPackage.CASE_STATEMENT: return createCaseStatement();
+			case IrPackage.STMT_ALTERNATIVE: return createStmtAlternative();
+			case IrPackage.PATTERN: return createPattern();
+			case IrPackage.SUB_PATTERN: return createSubPattern();
 			case IrPackage.PORT_ACCESS: return createPortAccess();
 			case IrPackage.PORT_WRITE: return createPortWrite();
 			case IrPackage.PORT_READ: return createPortRead();
@@ -120,6 +124,7 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 			case IrPackage.TYPE_STRING: return createTypeString();
 			case IrPackage.TYPE_TUPLE: return createTypeTuple();
 			case IrPackage.TAGGED_TUPLE: return createTaggedTuple();
+			case IrPackage.TAGGED_TUPLE_FIELD_EXPRESSION: return createTaggedTupleFieldExpression();
 			case IrPackage.TYPE_UNDEF: return createTypeUndef();
 			case IrPackage.TYPE_ACTOR: return createTypeActor();
 			case IrPackage.TYPE_USER: return createTypeUser();
@@ -572,6 +577,46 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public CaseStatement createCaseStatement() {
+		CaseStatementImpl caseStatement = new CaseStatementImpl();
+		return caseStatement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StmtAlternative createStmtAlternative() {
+		StmtAlternativeImpl stmtAlternative = new StmtAlternativeImpl();
+		return stmtAlternative;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Pattern createPattern() {
+		PatternImpl pattern = new PatternImpl();
+		return pattern;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubPattern createSubPattern() {
+		SubPatternImpl subPattern = new SubPatternImpl();
+		return subPattern;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public PortAccess createPortAccess() {
 		PortAccessImpl portAccess = new PortAccessImpl();
 		return portAccess;
@@ -775,6 +820,16 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 	public TaggedTuple createTaggedTuple() {
 		TaggedTupleImpl taggedTuple = new TaggedTupleImpl();
 		return taggedTuple;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TaggedTupleFieldExpression createTaggedTupleFieldExpression() {
+		TaggedTupleFieldExpressionImpl taggedTupleFieldExpression = new TaggedTupleFieldExpressionImpl();
+		return taggedTupleFieldExpression;
 	}
 
 	/**

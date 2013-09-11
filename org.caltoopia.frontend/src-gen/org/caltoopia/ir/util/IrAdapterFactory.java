@@ -240,6 +240,22 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 				return createBlockAdapter();
 			}
 			@Override
+			public Adapter caseCaseStatement(CaseStatement object) {
+				return createCaseStatementAdapter();
+			}
+			@Override
+			public Adapter caseStmtAlternative(StmtAlternative object) {
+				return createStmtAlternativeAdapter();
+			}
+			@Override
+			public Adapter casePattern(Pattern object) {
+				return createPatternAdapter();
+			}
+			@Override
+			public Adapter caseSubPattern(SubPattern object) {
+				return createSubPatternAdapter();
+			}
+			@Override
 			public Adapter casePortAccess(PortAccess object) {
 				return createPortAccessAdapter();
 			}
@@ -322,6 +338,10 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseTaggedTuple(TaggedTuple object) {
 				return createTaggedTupleAdapter();
+			}
+			@Override
+			public Adapter caseTaggedTupleFieldExpression(TaggedTupleFieldExpression object) {
+				return createTaggedTupleFieldExpressionAdapter();
 			}
 			@Override
 			public Adapter caseTypeUndef(TypeUndef object) {
@@ -994,6 +1014,62 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.CaseStatement <em>Case Statement</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.caltoopia.ir.CaseStatement
+	 * @generated
+	 */
+	public Adapter createCaseStatementAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.StmtAlternative <em>Stmt Alternative</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.caltoopia.ir.StmtAlternative
+	 * @generated
+	 */
+	public Adapter createStmtAlternativeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.Pattern <em>Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.caltoopia.ir.Pattern
+	 * @generated
+	 */
+	public Adapter createPatternAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.SubPattern <em>Sub Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.caltoopia.ir.SubPattern
+	 * @generated
+	 */
+	public Adapter createSubPatternAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.PortAccess <em>Port Access</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -1284,6 +1360,20 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTaggedTupleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.TaggedTupleFieldExpression <em>Tagged Tuple Field Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.caltoopia.ir.TaggedTupleFieldExpression
+	 * @generated
+	 */
+	public Adapter createTaggedTupleFieldExpressionAdapter() {
 		return null;
 	}
 

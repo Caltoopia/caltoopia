@@ -37,6 +37,12 @@ import org.caltoopia.frontend.cal.AstActorVariableReference;
 import org.caltoopia.frontend.cal.AstAssignParameter;
 import org.caltoopia.frontend.cal.AstConnection;
 import org.caltoopia.frontend.cal.AstConnectionAttribute;
+import org.caltoopia.frontend.cal.AstExpressionAlternative;
+import org.caltoopia.frontend.cal.AstExpressionCase;
+import org.caltoopia.frontend.cal.AstPattern;
+import org.caltoopia.frontend.cal.AstStatementAlternative;
+import org.caltoopia.frontend.cal.AstStatementCase;
+import org.caltoopia.frontend.cal.AstSubPattern;
 import org.caltoopia.frontend.cal.AstTaggedTuple;
 import org.caltoopia.frontend.cal.AstEntity;
 import org.caltoopia.frontend.cal.AstExpression;
@@ -330,6 +336,30 @@ public class VoidSwitch extends CalSwitch<Void> {
 	}
 	
 	@Override
+	public Void caseAstExpressionCase(AstExpressionCase exprCase) { 
+		doSwitch(exprCase.getVariable());
+		
+		for (AstExpressionAlternative alt : exprCase.getCases()) {
+			doSwitch(alt);
+		}
+		
+		return null;	
+	}
+	
+	@Override 
+	public Void caseAstExpressionAlternative(AstExpressionAlternative exprAlt) {
+		doSwitch(exprAlt.getPattern());
+
+		for (AstExpression guard : exprAlt.getGuards()) {
+			doSwitch(guard);
+		}
+		
+		doSwitch(exprAlt.getExpression());
+		
+		return null;
+	}
+	
+	@Override
 	public Void caseAstFunction(AstFunction function) {
 		doSwitch(function.getType());
 		for (AstVariable parameter : function.getParameters()) {
@@ -488,6 +518,47 @@ public class VoidSwitch extends CalSwitch<Void> {
 		}
 		return null;	
 	}
+	
+	@Override
+	public Void caseAstStatementCase(AstStatementCase stmtCase) { 
+		doSwitch(stmtCase.getExpression());
+
+		for (AstStatementAlternative alt : stmtCase.getCases()) {
+			doSwitch(alt);
+		}
+		
+		return null;	
+	}
+	
+	@Override 
+	public Void caseAstStatementAlternative(AstStatementAlternative stmtAlt) {
+		doSwitch(stmtAlt.getPattern());
+
+		for (AstExpression guard : stmtAlt.getGuards()) {
+			doSwitch(guard);
+		}
+		
+		for (AstStatement stmt : stmtAlt.getStatements()) {
+			doSwitch(stmt);
+		}
+		
+		return null;
+	}
+	
+	@Override 
+	public Void caseAstPattern(AstPattern pattern) {
+		for (AstSubPattern subPattern : pattern.getSubpatterns()) {
+			doSwitch(subPattern);
+		}
+		
+		return null;		
+	}
+	
+	@Override 
+	public Void caseAstSubPattern(AstSubPattern pattern) {		
+		return null;		
+	}
+	
 	
 	@Override
 	public Void caseAstType(AstType type) {

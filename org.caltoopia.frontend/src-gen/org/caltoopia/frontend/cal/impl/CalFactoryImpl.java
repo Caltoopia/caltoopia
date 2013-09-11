@@ -104,17 +104,26 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
       case CalPackage.AST_STATEMENT_BLOCK: return createAstStatementBlock();
       case CalPackage.AST_STATEMENT_IF: return createAstStatementIf();
       case CalPackage.AST_STATEMENT_WHILE: return createAstStatementWhile();
+      case CalPackage.AST_STATEMENT_CASE: return createAstStatementCase();
+      case CalPackage.AST_STATEMENT_ALTERNATIVE: return createAstStatementAlternative();
       case CalPackage.AST_STATEMENT: return createAstStatement();
       case CalPackage.AST_EXPRESSION: return createAstExpression();
       case CalPackage.AST_EXPRESSION_SYMBOL_REFERENCE: return createAstExpressionSymbolReference();
       case CalPackage.AST_EXPRESSION_IF: return createAstExpressionIf();
       case CalPackage.AST_EXPRESSION_LIST: return createAstExpressionList();
       case CalPackage.AST_GENERATOR: return createAstGenerator();
+      case CalPackage.AST_EXPRESSION_CASE: return createAstExpressionCase();
+      case CalPackage.AST_EXPRESSION_ALTERNATIVE: return createAstExpressionAlternative();
       case CalPackage.AST_EXPRESSION_LITERAL: return createAstExpressionLiteral();
       case CalPackage.AST_EXPRESSION_BOOLEAN: return createAstExpressionBoolean();
       case CalPackage.AST_EXPRESSION_FLOAT: return createAstExpressionFloat();
       case CalPackage.AST_EXPRESSION_INTEGER: return createAstExpressionInteger();
       case CalPackage.AST_EXPRESSION_STRING: return createAstExpressionString();
+      case CalPackage.AST_PATTERN: return createAstPattern();
+      case CalPackage.AST_SUB_PATTERN: return createAstSubPattern();
+      case CalPackage.AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE: return createAstPatternExpressionSymbolReference();
+      case CalPackage.AST_PATTERN_EXPRESSION_IF: return createAstPatternExpressionIf();
+      case CalPackage.AST_PATTERN_EXPRESSION_LITERAL: return createAstPatternExpressionLiteral();
       case CalPackage.AST_TYPE: return createAstType();
       case CalPackage.AST_TYPE_PARAMETER_LIST: return createAstTypeParameterList();
       case CalPackage.AST_TYPE_PARAM: return createAstTypeParam();
@@ -126,6 +135,8 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
       case CalPackage.AST_INITIALIZE: return createAstInitialize();
       case CalPackage.AST_EXPRESSION_BINARY: return createAstExpressionBinary();
       case CalPackage.AST_EXPRESSION_UNARY: return createAstExpressionUnary();
+      case CalPackage.AST_PATTERN_EXPRESSION_BINARY: return createAstPatternExpressionBinary();
+      case CalPackage.AST_PATTERN_EXPRESSION_UNARY: return createAstPatternExpressionUnary();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -576,6 +587,28 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public AstStatementCase createAstStatementCase()
+  {
+    AstStatementCaseImpl astStatementCase = new AstStatementCaseImpl();
+    return astStatementCase;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AstStatementAlternative createAstStatementAlternative()
+  {
+    AstStatementAlternativeImpl astStatementAlternative = new AstStatementAlternativeImpl();
+    return astStatementAlternative;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public AstStatement createAstStatement()
   {
     AstStatementImpl astStatement = new AstStatementImpl();
@@ -642,6 +675,28 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public AstExpressionCase createAstExpressionCase()
+  {
+    AstExpressionCaseImpl astExpressionCase = new AstExpressionCaseImpl();
+    return astExpressionCase;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AstExpressionAlternative createAstExpressionAlternative()
+  {
+    AstExpressionAlternativeImpl astExpressionAlternative = new AstExpressionAlternativeImpl();
+    return astExpressionAlternative;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public AstExpressionLiteral createAstExpressionLiteral()
   {
     AstExpressionLiteralImpl astExpressionLiteral = new AstExpressionLiteralImpl();
@@ -690,6 +745,61 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
   {
     AstExpressionStringImpl astExpressionString = new AstExpressionStringImpl();
     return astExpressionString;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AstPattern createAstPattern()
+  {
+    AstPatternImpl astPattern = new AstPatternImpl();
+    return astPattern;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AstSubPattern createAstSubPattern()
+  {
+    AstSubPatternImpl astSubPattern = new AstSubPatternImpl();
+    return astSubPattern;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AstPatternExpressionSymbolReference createAstPatternExpressionSymbolReference()
+  {
+    AstPatternExpressionSymbolReferenceImpl astPatternExpressionSymbolReference = new AstPatternExpressionSymbolReferenceImpl();
+    return astPatternExpressionSymbolReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AstPatternExpressionIf createAstPatternExpressionIf()
+  {
+    AstPatternExpressionIfImpl astPatternExpressionIf = new AstPatternExpressionIfImpl();
+    return astPatternExpressionIf;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AstPatternExpressionLiteral createAstPatternExpressionLiteral()
+  {
+    AstPatternExpressionLiteralImpl astPatternExpressionLiteral = new AstPatternExpressionLiteralImpl();
+    return astPatternExpressionLiteral;
   }
 
   /**
@@ -811,6 +921,28 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
   {
     AstExpressionUnaryImpl astExpressionUnary = new AstExpressionUnaryImpl();
     return astExpressionUnary;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AstPatternExpressionBinary createAstPatternExpressionBinary()
+  {
+    AstPatternExpressionBinaryImpl astPatternExpressionBinary = new AstPatternExpressionBinaryImpl();
+    return astPatternExpressionBinary;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AstPatternExpressionUnary createAstPatternExpressionUnary()
+  {
+    AstPatternExpressionUnaryImpl astPatternExpressionUnary = new AstPatternExpressionUnaryImpl();
+    return astPatternExpressionUnary;
   }
 
   /**

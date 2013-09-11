@@ -155,7 +155,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getDeclaration()
 	 * @generated
 	 */
-	int DECLARATION = 47;
+	int DECLARATION = 51;
 
 	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' reference list.
@@ -1147,7 +1147,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getVariable()
 	 * @generated
 	 */
-	int VARIABLE = 49;
+	int VARIABLE = 53;
 
 	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' reference list.
@@ -3269,6 +3269,235 @@ public interface IrPackage extends EPackage {
 	int BLOCK_FEATURE_COUNT = SCOPE_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.caltoopia.ir.impl.CaseStatementImpl <em>Case Statement</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.caltoopia.ir.impl.CaseStatementImpl
+	 * @see org.caltoopia.ir.impl.IrPackageImpl#getCaseStatement()
+	 * @generated
+	 */
+	int CASE_STATEMENT = 43;
+
+	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CASE_STATEMENT__ANNOTATIONS = STATEMENT__ANNOTATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CASE_STATEMENT__ID = STATEMENT__ID;
+
+	/**
+	 * The feature id for the '<em><b>Alternatives</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CASE_STATEMENT__ALTERNATIVES = STATEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Expression</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CASE_STATEMENT__EXPRESSION = STATEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Case Statement</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CASE_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.caltoopia.ir.impl.StmtAlternativeImpl <em>Stmt Alternative</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.caltoopia.ir.impl.StmtAlternativeImpl
+	 * @see org.caltoopia.ir.impl.IrPackageImpl#getStmtAlternative()
+	 * @generated
+	 */
+	int STMT_ALTERNATIVE = 44;
+
+	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STMT_ALTERNATIVE__ANNOTATIONS = SCOPE__ANNOTATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STMT_ALTERNATIVE__ID = SCOPE__ID;
+
+	/**
+	 * The feature id for the '<em><b>Declarations</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STMT_ALTERNATIVE__DECLARATIONS = SCOPE__DECLARATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Outer</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STMT_ALTERNATIVE__OUTER = SCOPE__OUTER;
+
+	/**
+	 * The feature id for the '<em><b>Pattern</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STMT_ALTERNATIVE__PATTERN = SCOPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Guards</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STMT_ALTERNATIVE__GUARDS = SCOPE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Statement</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STMT_ALTERNATIVE__STATEMENT = SCOPE_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Stmt Alternative</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STMT_ALTERNATIVE_FEATURE_COUNT = SCOPE_FEATURE_COUNT + 3;
+
+	/**
+	 * The meta object id for the '{@link org.caltoopia.ir.impl.PatternImpl <em>Pattern</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.caltoopia.ir.impl.PatternImpl
+	 * @see org.caltoopia.ir.impl.IrPackageImpl#getPattern()
+	 * @generated
+	 */
+	int PATTERN = 45;
+
+	/**
+	 * The feature id for the '<em><b>Tag</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PATTERN__TAG = 0;
+
+	/**
+	 * The feature id for the '<em><b>Sub Patterns</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PATTERN__SUB_PATTERNS = 1;
+
+	/**
+	 * The number of structural features of the '<em>Pattern</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PATTERN_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link org.caltoopia.ir.impl.SubPatternImpl <em>Sub Pattern</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.caltoopia.ir.impl.SubPatternImpl
+	 * @see org.caltoopia.ir.impl.IrPackageImpl#getSubPattern()
+	 * @generated
+	 */
+	int SUB_PATTERN = 46;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUB_PATTERN__LABEL = 0;
+
+	/**
+	 * The feature id for the '<em><b>Condition</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUB_PATTERN__CONDITION = 1;
+
+	/**
+	 * The feature id for the '<em><b>Binding</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUB_PATTERN__BINDING = 2;
+
+	/**
+	 * The feature id for the '<em><b>Pattern</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUB_PATTERN__PATTERN = 3;
+
+	/**
+	 * The number of structural features of the '<em>Sub Pattern</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUB_PATTERN_FEATURE_COUNT = 4;
+
+	/**
 	 * The meta object id for the '{@link org.caltoopia.ir.impl.PortAccessImpl <em>Port Access</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3276,7 +3505,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getPortAccess()
 	 * @generated
 	 */
-	int PORT_ACCESS = 43;
+	int PORT_ACCESS = 47;
 
 	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' reference list.
@@ -3331,7 +3560,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getPortWrite()
 	 * @generated
 	 */
-	int PORT_WRITE = 44;
+	int PORT_WRITE = 48;
 
 	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' reference list.
@@ -3422,7 +3651,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getPortRead()
 	 * @generated
 	 */
-	int PORT_READ = 45;
+	int PORT_READ = 49;
 
 	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' reference list.
@@ -3486,7 +3715,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getPortPeek()
 	 * @generated
 	 */
-	int PORT_PEEK = 46;
+	int PORT_PEEK = 50;
 
 	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' reference list.
@@ -3559,7 +3788,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getForwardDeclaration()
 	 * @generated
 	 */
-	int FORWARD_DECLARATION = 48;
+	int FORWARD_DECLARATION = 52;
 
 	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' reference list.
@@ -3659,7 +3888,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getLambdaExpression()
 	 * @generated
 	 */
-	int LAMBDA_EXPRESSION = 50;
+	int LAMBDA_EXPRESSION = 54;
 
 	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' reference list.
@@ -3750,7 +3979,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getProcExpression()
 	 * @generated
 	 */
-	int PROC_EXPRESSION = 51;
+	int PROC_EXPRESSION = 55;
 
 	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' reference list.
@@ -3850,7 +4079,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getIfExpression()
 	 * @generated
 	 */
-	int IF_EXPRESSION = 52;
+	int IF_EXPRESSION = 56;
 
 	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' reference list.
@@ -3932,7 +4161,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getGuard()
 	 * @generated
 	 */
-	int GUARD = 53;
+	int GUARD = 57;
 
 	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' reference list.
@@ -4032,7 +4261,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getType()
 	 * @generated
 	 */
-	int TYPE = 54;
+	int TYPE = 58;
 
 	/**
 	 * The number of structural features of the '<em>Type</em>' class.
@@ -4051,7 +4280,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeBool()
 	 * @generated
 	 */
-	int TYPE_BOOL = 55;
+	int TYPE_BOOL = 59;
 
 	/**
 	 * The number of structural features of the '<em>Type Bool</em>' class.
@@ -4070,7 +4299,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeExternal()
 	 * @generated
 	 */
-	int TYPE_EXTERNAL = 56;
+	int TYPE_EXTERNAL = 60;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4116,7 +4345,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeInt()
 	 * @generated
 	 */
-	int TYPE_INT = 57;
+	int TYPE_INT = 61;
 
 	/**
 	 * The feature id for the '<em><b>Size</b></em>' reference.
@@ -4144,7 +4373,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeList()
 	 * @generated
 	 */
-	int TYPE_LIST = 58;
+	int TYPE_LIST = 62;
 
 	/**
 	 * The feature id for the '<em><b>Size</b></em>' reference.
@@ -4181,7 +4410,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeFloat()
 	 * @generated
 	 */
-	int TYPE_FLOAT = 59;
+	int TYPE_FLOAT = 63;
 
 	/**
 	 * The number of structural features of the '<em>Type Float</em>' class.
@@ -4200,7 +4429,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeUint()
 	 * @generated
 	 */
-	int TYPE_UINT = 60;
+	int TYPE_UINT = 64;
 
 	/**
 	 * The feature id for the '<em><b>Size</b></em>' reference.
@@ -4228,7 +4457,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeString()
 	 * @generated
 	 */
-	int TYPE_STRING = 61;
+	int TYPE_STRING = 65;
 
 	/**
 	 * The number of structural features of the '<em>Type String</em>' class.
@@ -4247,7 +4476,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeTuple()
 	 * @generated
 	 */
-	int TYPE_TUPLE = 62;
+	int TYPE_TUPLE = 66;
 
 	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' reference list.
@@ -4293,7 +4522,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTaggedTuple()
 	 * @generated
 	 */
-	int TAGGED_TUPLE = 63;
+	int TAGGED_TUPLE = 67;
 
 	/**
 	 * The feature id for the '<em><b>Fields</b></em>' reference list.
@@ -4323,6 +4552,88 @@ public interface IrPackage extends EPackage {
 	int TAGGED_TUPLE_FEATURE_COUNT = 2;
 
 	/**
+	 * The meta object id for the '{@link org.caltoopia.ir.impl.TaggedTupleFieldExpressionImpl <em>Tagged Tuple Field Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.caltoopia.ir.impl.TaggedTupleFieldExpressionImpl
+	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTaggedTupleFieldExpression()
+	 * @generated
+	 */
+	int TAGGED_TUPLE_FIELD_EXPRESSION = 68;
+
+	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAGGED_TUPLE_FIELD_EXPRESSION__ANNOTATIONS = EXPRESSION__ANNOTATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAGGED_TUPLE_FIELD_EXPRESSION__ID = EXPRESSION__ID;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAGGED_TUPLE_FIELD_EXPRESSION__TYPE = EXPRESSION__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAGGED_TUPLE_FIELD_EXPRESSION__CONTEXT = EXPRESSION__CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Tuple Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAGGED_TUPLE_FIELD_EXPRESSION__TUPLE_TYPE = EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Tag</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAGGED_TUPLE_FIELD_EXPRESSION__TAG = EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAGGED_TUPLE_FIELD_EXPRESSION__LABEL = EXPRESSION_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Tagged Tuple Field Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAGGED_TUPLE_FIELD_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
+
+	/**
 	 * The meta object id for the '{@link org.caltoopia.ir.impl.TypeUndefImpl <em>Type Undef</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4330,7 +4641,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeUndef()
 	 * @generated
 	 */
-	int TYPE_UNDEF = 64;
+	int TYPE_UNDEF = 69;
 
 	/**
 	 * The number of structural features of the '<em>Type Undef</em>' class.
@@ -4349,7 +4660,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeActor()
 	 * @generated
 	 */
-	int TYPE_ACTOR = 65;
+	int TYPE_ACTOR = 70;
 
 	/**
 	 * The feature id for the '<em><b>Namespace</b></em>' attribute list.
@@ -4386,7 +4697,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeUser()
 	 * @generated
 	 */
-	int TYPE_USER = 66;
+	int TYPE_USER = 71;
 
 	/**
 	 * The feature id for the '<em><b>Declaration</b></em>' reference.
@@ -4414,7 +4725,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeLambda()
 	 * @generated
 	 */
-	int TYPE_LAMBDA = 67;
+	int TYPE_LAMBDA = 72;
 
 	/**
 	 * The feature id for the '<em><b>Input Types</b></em>' reference list.
@@ -4451,7 +4762,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeProc()
 	 * @generated
 	 */
-	int TYPE_PROC = 68;
+	int TYPE_PROC = 73;
 
 	/**
 	 * The feature id for the '<em><b>Input Types</b></em>' reference list.
@@ -4488,7 +4799,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeVariable()
 	 * @generated
 	 */
-	int TYPE_VARIABLE = 69;
+	int TYPE_VARIABLE = 74;
 
 	/**
 	 * The feature id for the '<em><b>Declaration</b></em>' reference.
@@ -4516,7 +4827,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeDeclaration()
 	 * @generated
 	 */
-	int TYPE_DECLARATION = 70;
+	int TYPE_DECLARATION = 75;
 
 	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' reference list.
@@ -4625,7 +4936,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeVariableDeclaration()
 	 * @generated
 	 */
-	int TYPE_VARIABLE_DECLARATION = 71;
+	int TYPE_VARIABLE_DECLARATION = 76;
 
 	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' reference list.
@@ -4707,7 +5018,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getSchedule()
 	 * @generated
 	 */
-	int SCHEDULE = 72;
+	int SCHEDULE = 77;
 
 	/**
 	 * The feature id for the '<em><b>States</b></em>' reference list.
@@ -4762,7 +5073,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getState()
 	 * @generated
 	 */
-	int STATE = 73;
+	int STATE = 78;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4808,7 +5119,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getAnnotation()
 	 * @generated
 	 */
-	int ANNOTATION = 74;
+	int ANNOTATION = 79;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4845,7 +5156,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getAnnotationArgument()
 	 * @generated
 	 */
-	int ANNOTATION_ARGUMENT = 75;
+	int ANNOTATION_ARGUMENT = 80;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -6219,6 +6530,167 @@ public interface IrPackage extends EPackage {
 	EReference getBlock_Statements();
 
 	/**
+	 * Returns the meta object for class '{@link org.caltoopia.ir.CaseStatement <em>Case Statement</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Case Statement</em>'.
+	 * @see org.caltoopia.ir.CaseStatement
+	 * @generated
+	 */
+	EClass getCaseStatement();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.caltoopia.ir.CaseStatement#getAlternatives <em>Alternatives</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Alternatives</em>'.
+	 * @see org.caltoopia.ir.CaseStatement#getAlternatives()
+	 * @see #getCaseStatement()
+	 * @generated
+	 */
+	EReference getCaseStatement_Alternatives();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.caltoopia.ir.CaseStatement#getExpression <em>Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Expression</em>'.
+	 * @see org.caltoopia.ir.CaseStatement#getExpression()
+	 * @see #getCaseStatement()
+	 * @generated
+	 */
+	EReference getCaseStatement_Expression();
+
+	/**
+	 * Returns the meta object for class '{@link org.caltoopia.ir.StmtAlternative <em>Stmt Alternative</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Stmt Alternative</em>'.
+	 * @see org.caltoopia.ir.StmtAlternative
+	 * @generated
+	 */
+	EClass getStmtAlternative();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.caltoopia.ir.StmtAlternative#getPattern <em>Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Pattern</em>'.
+	 * @see org.caltoopia.ir.StmtAlternative#getPattern()
+	 * @see #getStmtAlternative()
+	 * @generated
+	 */
+	EReference getStmtAlternative_Pattern();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.caltoopia.ir.StmtAlternative#getGuards <em>Guards</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Guards</em>'.
+	 * @see org.caltoopia.ir.StmtAlternative#getGuards()
+	 * @see #getStmtAlternative()
+	 * @generated
+	 */
+	EReference getStmtAlternative_Guards();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.caltoopia.ir.StmtAlternative#getStatement <em>Statement</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Statement</em>'.
+	 * @see org.caltoopia.ir.StmtAlternative#getStatement()
+	 * @see #getStmtAlternative()
+	 * @generated
+	 */
+	EReference getStmtAlternative_Statement();
+
+	/**
+	 * Returns the meta object for class '{@link org.caltoopia.ir.Pattern <em>Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Pattern</em>'.
+	 * @see org.caltoopia.ir.Pattern
+	 * @generated
+	 */
+	EClass getPattern();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.caltoopia.ir.Pattern#getTag <em>Tag</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Tag</em>'.
+	 * @see org.caltoopia.ir.Pattern#getTag()
+	 * @see #getPattern()
+	 * @generated
+	 */
+	EAttribute getPattern_Tag();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.caltoopia.ir.Pattern#getSubPatterns <em>Sub Patterns</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Sub Patterns</em>'.
+	 * @see org.caltoopia.ir.Pattern#getSubPatterns()
+	 * @see #getPattern()
+	 * @generated
+	 */
+	EReference getPattern_SubPatterns();
+
+	/**
+	 * Returns the meta object for class '{@link org.caltoopia.ir.SubPattern <em>Sub Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Sub Pattern</em>'.
+	 * @see org.caltoopia.ir.SubPattern
+	 * @generated
+	 */
+	EClass getSubPattern();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.caltoopia.ir.SubPattern#getLabel <em>Label</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Label</em>'.
+	 * @see org.caltoopia.ir.SubPattern#getLabel()
+	 * @see #getSubPattern()
+	 * @generated
+	 */
+	EAttribute getSubPattern_Label();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.caltoopia.ir.SubPattern#getCondition <em>Condition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Condition</em>'.
+	 * @see org.caltoopia.ir.SubPattern#getCondition()
+	 * @see #getSubPattern()
+	 * @generated
+	 */
+	EReference getSubPattern_Condition();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.caltoopia.ir.SubPattern#getBinding <em>Binding</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Binding</em>'.
+	 * @see org.caltoopia.ir.SubPattern#getBinding()
+	 * @see #getSubPattern()
+	 * @generated
+	 */
+	EReference getSubPattern_Binding();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.caltoopia.ir.SubPattern#getPattern <em>Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Pattern</em>'.
+	 * @see org.caltoopia.ir.SubPattern#getPattern()
+	 * @see #getSubPattern()
+	 * @generated
+	 */
+	EReference getSubPattern_Pattern();
+
+	/**
 	 * Returns the meta object for class '{@link org.caltoopia.ir.PortAccess <em>Port Access</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6801,6 +7273,49 @@ public interface IrPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getTaggedTuple_Tag();
+
+	/**
+	 * Returns the meta object for class '{@link org.caltoopia.ir.TaggedTupleFieldExpression <em>Tagged Tuple Field Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Tagged Tuple Field Expression</em>'.
+	 * @see org.caltoopia.ir.TaggedTupleFieldExpression
+	 * @generated
+	 */
+	EClass getTaggedTupleFieldExpression();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.caltoopia.ir.TaggedTupleFieldExpression#getTupleType <em>Tuple Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Tuple Type</em>'.
+	 * @see org.caltoopia.ir.TaggedTupleFieldExpression#getTupleType()
+	 * @see #getTaggedTupleFieldExpression()
+	 * @generated
+	 */
+	EReference getTaggedTupleFieldExpression_TupleType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.caltoopia.ir.TaggedTupleFieldExpression#getTag <em>Tag</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Tag</em>'.
+	 * @see org.caltoopia.ir.TaggedTupleFieldExpression#getTag()
+	 * @see #getTaggedTupleFieldExpression()
+	 * @generated
+	 */
+	EAttribute getTaggedTupleFieldExpression_Tag();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.caltoopia.ir.TaggedTupleFieldExpression#getLabel <em>Label</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Label</em>'.
+	 * @see org.caltoopia.ir.TaggedTupleFieldExpression#getLabel()
+	 * @see #getTaggedTupleFieldExpression()
+	 * @generated
+	 */
+	EAttribute getTaggedTupleFieldExpression_Label();
 
 	/**
 	 * Returns the meta object for class '{@link org.caltoopia.ir.TypeUndef <em>Type Undef</em>}'.
@@ -8281,6 +8796,134 @@ public interface IrPackage extends EPackage {
 		EReference BLOCK__STATEMENTS = eINSTANCE.getBlock_Statements();
 
 		/**
+		 * The meta object literal for the '{@link org.caltoopia.ir.impl.CaseStatementImpl <em>Case Statement</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.caltoopia.ir.impl.CaseStatementImpl
+		 * @see org.caltoopia.ir.impl.IrPackageImpl#getCaseStatement()
+		 * @generated
+		 */
+		EClass CASE_STATEMENT = eINSTANCE.getCaseStatement();
+
+		/**
+		 * The meta object literal for the '<em><b>Alternatives</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CASE_STATEMENT__ALTERNATIVES = eINSTANCE.getCaseStatement_Alternatives();
+
+		/**
+		 * The meta object literal for the '<em><b>Expression</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CASE_STATEMENT__EXPRESSION = eINSTANCE.getCaseStatement_Expression();
+
+		/**
+		 * The meta object literal for the '{@link org.caltoopia.ir.impl.StmtAlternativeImpl <em>Stmt Alternative</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.caltoopia.ir.impl.StmtAlternativeImpl
+		 * @see org.caltoopia.ir.impl.IrPackageImpl#getStmtAlternative()
+		 * @generated
+		 */
+		EClass STMT_ALTERNATIVE = eINSTANCE.getStmtAlternative();
+
+		/**
+		 * The meta object literal for the '<em><b>Pattern</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference STMT_ALTERNATIVE__PATTERN = eINSTANCE.getStmtAlternative_Pattern();
+
+		/**
+		 * The meta object literal for the '<em><b>Guards</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference STMT_ALTERNATIVE__GUARDS = eINSTANCE.getStmtAlternative_Guards();
+
+		/**
+		 * The meta object literal for the '<em><b>Statement</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference STMT_ALTERNATIVE__STATEMENT = eINSTANCE.getStmtAlternative_Statement();
+
+		/**
+		 * The meta object literal for the '{@link org.caltoopia.ir.impl.PatternImpl <em>Pattern</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.caltoopia.ir.impl.PatternImpl
+		 * @see org.caltoopia.ir.impl.IrPackageImpl#getPattern()
+		 * @generated
+		 */
+		EClass PATTERN = eINSTANCE.getPattern();
+
+		/**
+		 * The meta object literal for the '<em><b>Tag</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PATTERN__TAG = eINSTANCE.getPattern_Tag();
+
+		/**
+		 * The meta object literal for the '<em><b>Sub Patterns</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PATTERN__SUB_PATTERNS = eINSTANCE.getPattern_SubPatterns();
+
+		/**
+		 * The meta object literal for the '{@link org.caltoopia.ir.impl.SubPatternImpl <em>Sub Pattern</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.caltoopia.ir.impl.SubPatternImpl
+		 * @see org.caltoopia.ir.impl.IrPackageImpl#getSubPattern()
+		 * @generated
+		 */
+		EClass SUB_PATTERN = eINSTANCE.getSubPattern();
+
+		/**
+		 * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SUB_PATTERN__LABEL = eINSTANCE.getSubPattern_Label();
+
+		/**
+		 * The meta object literal for the '<em><b>Condition</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SUB_PATTERN__CONDITION = eINSTANCE.getSubPattern_Condition();
+
+		/**
+		 * The meta object literal for the '<em><b>Binding</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SUB_PATTERN__BINDING = eINSTANCE.getSubPattern_Binding();
+
+		/**
+		 * The meta object literal for the '<em><b>Pattern</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SUB_PATTERN__PATTERN = eINSTANCE.getSubPattern_Pattern();
+
+		/**
 		 * The meta object literal for the '{@link org.caltoopia.ir.impl.PortAccessImpl <em>Port Access</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -8761,6 +9404,40 @@ public interface IrPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TAGGED_TUPLE__TAG = eINSTANCE.getTaggedTuple_Tag();
+
+		/**
+		 * The meta object literal for the '{@link org.caltoopia.ir.impl.TaggedTupleFieldExpressionImpl <em>Tagged Tuple Field Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.caltoopia.ir.impl.TaggedTupleFieldExpressionImpl
+		 * @see org.caltoopia.ir.impl.IrPackageImpl#getTaggedTupleFieldExpression()
+		 * @generated
+		 */
+		EClass TAGGED_TUPLE_FIELD_EXPRESSION = eINSTANCE.getTaggedTupleFieldExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Tuple Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TAGGED_TUPLE_FIELD_EXPRESSION__TUPLE_TYPE = eINSTANCE.getTaggedTupleFieldExpression_TupleType();
+
+		/**
+		 * The meta object literal for the '<em><b>Tag</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TAGGED_TUPLE_FIELD_EXPRESSION__TAG = eINSTANCE.getTaggedTupleFieldExpression_Tag();
+
+		/**
+		 * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TAGGED_TUPLE_FIELD_EXPRESSION__LABEL = eINSTANCE.getTaggedTupleFieldExpression_Label();
 
 		/**
 		 * The meta object literal for the '{@link org.caltoopia.ir.impl.TypeUndefImpl <em>Type Undef</em>}' class.

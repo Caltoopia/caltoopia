@@ -12,6 +12,7 @@ import org.caltoopia.ir.Assign;
 import org.caltoopia.ir.BinaryExpression;
 import org.caltoopia.ir.Block;
 import org.caltoopia.ir.BooleanLiteral;
+import org.caltoopia.ir.CaseStatement;
 import org.caltoopia.ir.Connection;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
@@ -36,6 +37,7 @@ import org.caltoopia.ir.Member;
 import org.caltoopia.ir.Namespace;
 import org.caltoopia.ir.Network;
 import org.caltoopia.ir.Node;
+import org.caltoopia.ir.Pattern;
 import org.caltoopia.ir.Point2PointConnection;
 import org.caltoopia.ir.Port;
 import org.caltoopia.ir.PortAccess;
@@ -50,9 +52,12 @@ import org.caltoopia.ir.Schedule;
 import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.State;
 import org.caltoopia.ir.Statement;
+import org.caltoopia.ir.StmtAlternative;
 import org.caltoopia.ir.StringLiteral;
+import org.caltoopia.ir.SubPattern;
 import org.caltoopia.ir.TaggedExpression;
 import org.caltoopia.ir.TaggedTuple;
+import org.caltoopia.ir.TaggedTupleFieldExpression;
 import org.caltoopia.ir.ToSink;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
@@ -401,6 +406,34 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass caseStatementEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass stmtAlternativeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass patternEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass subPatternEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass portAccessEClass = null;
 
 	/**
@@ -542,6 +575,13 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * @generated
 	 */
 	private EClass taggedTupleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass taggedTupleFieldExpressionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1827,6 +1867,141 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getCaseStatement() {
+		return caseStatementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCaseStatement_Alternatives() {
+		return (EReference)caseStatementEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCaseStatement_Expression() {
+		return (EReference)caseStatementEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getStmtAlternative() {
+		return stmtAlternativeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getStmtAlternative_Pattern() {
+		return (EReference)stmtAlternativeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getStmtAlternative_Guards() {
+		return (EReference)stmtAlternativeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getStmtAlternative_Statement() {
+		return (EReference)stmtAlternativeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPattern() {
+		return patternEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPattern_Tag() {
+		return (EAttribute)patternEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPattern_SubPatterns() {
+		return (EReference)patternEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getSubPattern() {
+		return subPatternEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSubPattern_Label() {
+		return (EAttribute)subPatternEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSubPattern_Condition() {
+		return (EReference)subPatternEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSubPattern_Binding() {
+		return (EReference)subPatternEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSubPattern_Pattern() {
+		return (EReference)subPatternEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getPortAccess() {
 		return portAccessEClass;
 	}
@@ -2315,6 +2490,42 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 */
 	public EAttribute getTaggedTuple_Tag() {
 		return (EAttribute)taggedTupleEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTaggedTupleFieldExpression() {
+		return taggedTupleFieldExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTaggedTupleFieldExpression_TupleType() {
+		return (EReference)taggedTupleFieldExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTaggedTupleFieldExpression_Tag() {
+		return (EAttribute)taggedTupleFieldExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTaggedTupleFieldExpression_Label() {
+		return (EAttribute)taggedTupleFieldExpressionEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2820,6 +3031,25 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		blockEClass = createEClass(BLOCK);
 		createEReference(blockEClass, BLOCK__STATEMENTS);
 
+		caseStatementEClass = createEClass(CASE_STATEMENT);
+		createEReference(caseStatementEClass, CASE_STATEMENT__ALTERNATIVES);
+		createEReference(caseStatementEClass, CASE_STATEMENT__EXPRESSION);
+
+		stmtAlternativeEClass = createEClass(STMT_ALTERNATIVE);
+		createEReference(stmtAlternativeEClass, STMT_ALTERNATIVE__PATTERN);
+		createEReference(stmtAlternativeEClass, STMT_ALTERNATIVE__GUARDS);
+		createEReference(stmtAlternativeEClass, STMT_ALTERNATIVE__STATEMENT);
+
+		patternEClass = createEClass(PATTERN);
+		createEAttribute(patternEClass, PATTERN__TAG);
+		createEReference(patternEClass, PATTERN__SUB_PATTERNS);
+
+		subPatternEClass = createEClass(SUB_PATTERN);
+		createEAttribute(subPatternEClass, SUB_PATTERN__LABEL);
+		createEReference(subPatternEClass, SUB_PATTERN__CONDITION);
+		createEReference(subPatternEClass, SUB_PATTERN__BINDING);
+		createEReference(subPatternEClass, SUB_PATTERN__PATTERN);
+
 		portAccessEClass = createEClass(PORT_ACCESS);
 		createEReference(portAccessEClass, PORT_ACCESS__PORT);
 		createEReference(portAccessEClass, PORT_ACCESS__REPEAT);
@@ -2895,6 +3125,11 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		taggedTupleEClass = createEClass(TAGGED_TUPLE);
 		createEReference(taggedTupleEClass, TAGGED_TUPLE__FIELDS);
 		createEAttribute(taggedTupleEClass, TAGGED_TUPLE__TAG);
+
+		taggedTupleFieldExpressionEClass = createEClass(TAGGED_TUPLE_FIELD_EXPRESSION);
+		createEReference(taggedTupleFieldExpressionEClass, TAGGED_TUPLE_FIELD_EXPRESSION__TUPLE_TYPE);
+		createEAttribute(taggedTupleFieldExpressionEClass, TAGGED_TUPLE_FIELD_EXPRESSION__TAG);
+		createEAttribute(taggedTupleFieldExpressionEClass, TAGGED_TUPLE_FIELD_EXPRESSION__LABEL);
 
 		typeUndefEClass = createEClass(TYPE_UNDEF);
 
@@ -3013,6 +3248,8 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		ifStatementEClass.getESuperTypes().add(this.getStatement());
 		blockEClass.getESuperTypes().add(this.getScope());
 		blockEClass.getESuperTypes().add(this.getStatement());
+		caseStatementEClass.getESuperTypes().add(this.getStatement());
+		stmtAlternativeEClass.getESuperTypes().add(this.getScope());
 		portAccessEClass.getESuperTypes().add(this.getNode());
 		portWriteEClass.getESuperTypes().add(this.getBlock());
 		portWriteEClass.getESuperTypes().add(this.getPortAccess());
@@ -3036,6 +3273,7 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		typeStringEClass.getESuperTypes().add(this.getType());
 		typeTupleEClass.getESuperTypes().add(this.getType());
 		typeTupleEClass.getESuperTypes().add(this.getNode());
+		taggedTupleFieldExpressionEClass.getESuperTypes().add(this.getExpression());
 		typeUndefEClass.getESuperTypes().add(this.getType());
 		typeActorEClass.getESuperTypes().add(this.getType());
 		typeUserEClass.getESuperTypes().add(this.getType());
@@ -3215,6 +3453,25 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		initEClass(blockEClass, Block.class, "Block", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBlock_Statements(), this.getStatement(), null, "statements", null, 0, -1, Block.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(caseStatementEClass, CaseStatement.class, "CaseStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getCaseStatement_Alternatives(), this.getStmtAlternative(), null, "alternatives", null, 0, -1, CaseStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCaseStatement_Expression(), this.getExpression(), null, "expression", null, 0, 1, CaseStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(stmtAlternativeEClass, StmtAlternative.class, "StmtAlternative", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getStmtAlternative_Pattern(), this.getPattern(), null, "pattern", null, 0, 1, StmtAlternative.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getStmtAlternative_Guards(), this.getGuard(), null, "guards", null, 0, -1, StmtAlternative.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getStmtAlternative_Statement(), this.getStatement(), null, "statement", null, 0, -1, StmtAlternative.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(patternEClass, Pattern.class, "Pattern", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPattern_Tag(), ecorePackage.getEString(), "tag", null, 0, 1, Pattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPattern_SubPatterns(), this.getSubPattern(), null, "subPatterns", null, 0, -1, Pattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(subPatternEClass, SubPattern.class, "SubPattern", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getSubPattern_Label(), ecorePackage.getEString(), "label", null, 0, 1, SubPattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSubPattern_Condition(), this.getExpression(), null, "condition", null, 0, 1, SubPattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSubPattern_Binding(), this.getVariable(), null, "binding", null, 0, 1, SubPattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSubPattern_Pattern(), this.getPattern(), null, "pattern", null, 0, 1, SubPattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(portAccessEClass, PortAccess.class, "PortAccess", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPortAccess_Port(), this.getPort(), null, "port", null, 0, 1, PortAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPortAccess_Repeat(), this.getExpression(), null, "repeat", null, 0, 1, PortAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3290,6 +3547,11 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		initEClass(taggedTupleEClass, TaggedTuple.class, "TaggedTuple", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTaggedTuple_Fields(), this.getVariable(), null, "fields", null, 0, -1, TaggedTuple.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTaggedTuple_Tag(), ecorePackage.getEString(), "Tag", null, 0, 1, TaggedTuple.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(taggedTupleFieldExpressionEClass, TaggedTupleFieldExpression.class, "TaggedTupleFieldExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTaggedTupleFieldExpression_TupleType(), this.getTypeTuple(), null, "tupleType", null, 0, 1, TaggedTupleFieldExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTaggedTupleFieldExpression_Tag(), ecorePackage.getEString(), "tag", null, 0, 1, TaggedTupleFieldExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTaggedTupleFieldExpression_Label(), ecorePackage.getEString(), "label", null, 0, 1, TaggedTupleFieldExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typeUndefEClass, TypeUndef.class, "TypeUndef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

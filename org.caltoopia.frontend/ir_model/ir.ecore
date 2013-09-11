@@ -200,6 +200,29 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
         eType="#//Statement"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CaseStatement" eSuperTypes="#//Statement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="alternatives" upperBound="-1"
+        eType="#//StmtAlternative"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//Expression"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StmtAlternative" eSuperTypes="#//Scope">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pattern" eType="#//Pattern"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="guards" upperBound="-1"
+        eType="#//Guard"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="statement" upperBound="-1"
+        eType="#//Statement"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Pattern">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tag" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subPatterns" upperBound="-1"
+        eType="#//SubPattern"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SubPattern">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//Expression"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="binding" eType="#//Variable"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pattern" eType="#//Pattern"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PortAccess" eSuperTypes="#//Node">
     <eStructuralFeatures xsi:type="ecore:EReference" name="port" eType="#//Port"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="repeat" eType="#//Expression"/>
@@ -284,6 +307,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="fields" upperBound="-1"
         eType="#//Variable"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="Tag" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TaggedTupleFieldExpression" eSuperTypes="#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tupleType" eType="#//TypeTuple"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tag" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeUndef" eSuperTypes="#//Type"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeActor" eSuperTypes="#//Type">

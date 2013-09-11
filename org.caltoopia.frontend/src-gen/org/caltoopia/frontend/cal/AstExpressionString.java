@@ -19,7 +19,7 @@ package org.caltoopia.frontend.cal;
  * @model
  * @generated
  */
-public interface AstExpressionString extends AstExpressionLiteral
+public interface AstExpressionString extends AstExpressionLiteral, AstPatternExpressionLiteral
 {
   /**
    * Returns the value of the '<em><b>Value</b></em>' attribute.

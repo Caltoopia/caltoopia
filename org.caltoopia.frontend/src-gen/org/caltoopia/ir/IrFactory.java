@@ -409,6 +409,42 @@ public interface IrFactory extends EFactory {
 	Block createBlock();
 
 	/**
+	 * Returns a new object of class '<em>Case Statement</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Case Statement</em>'.
+	 * @generated
+	 */
+	CaseStatement createCaseStatement();
+
+	/**
+	 * Returns a new object of class '<em>Stmt Alternative</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Stmt Alternative</em>'.
+	 * @generated
+	 */
+	StmtAlternative createStmtAlternative();
+
+	/**
+	 * Returns a new object of class '<em>Pattern</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Pattern</em>'.
+	 * @generated
+	 */
+	Pattern createPattern();
+
+	/**
+	 * Returns a new object of class '<em>Sub Pattern</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Sub Pattern</em>'.
+	 * @generated
+	 */
+	SubPattern createSubPattern();
+
+	/**
 	 * Returns a new object of class '<em>Port Access</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -596,6 +632,15 @@ public interface IrFactory extends EFactory {
 	 * @generated
 	 */
 	TaggedTuple createTaggedTuple();
+
+	/**
+	 * Returns a new object of class '<em>Tagged Tuple Field Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Tagged Tuple Field Expression</em>'.
+	 * @generated
+	 */
+	TaggedTupleFieldExpression createTaggedTupleFieldExpression();
 
 	/**
 	 * Returns a new object of class '<em>Type Undef</em>'.

@@ -40,6 +40,12 @@ import org.caltoopia.frontend.cal.AstActorVariableReference;
 import org.caltoopia.frontend.cal.AstAssignParameter;
 import org.caltoopia.frontend.cal.AstConnection;
 import org.caltoopia.frontend.cal.AstConnectionAttribute;
+import org.caltoopia.frontend.cal.AstExpressionAlternative;
+import org.caltoopia.frontend.cal.AstExpressionCase;
+import org.caltoopia.frontend.cal.AstPattern;
+import org.caltoopia.frontend.cal.AstStatementAlternative;
+import org.caltoopia.frontend.cal.AstStatementCase;
+import org.caltoopia.frontend.cal.AstSubPattern;
 import org.caltoopia.frontend.cal.AstTaggedTuple;
 import org.caltoopia.frontend.cal.AstEntity;
 import org.caltoopia.frontend.cal.AstExpression;
@@ -408,7 +414,40 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 		}		
 		return false;
 	}
+	
+	@Override
+	public Boolean caseAstExpressionCase(AstExpressionCase exprCase) { 
+		if (doSwitch(exprCase.getVariable())) {
+			return true;
+		}
 
+		for (AstExpressionAlternative alt : exprCase.getCases()) {
+			if (doSwitch(alt)) {
+				return true;
+			}
+		}
+		
+		return false;	
+	}
+	
+	@Override 
+	public Boolean caseAstExpressionAlternative(AstExpressionAlternative exprAlt) {
+		if (doSwitch(exprAlt.getPattern())) {
+			return true;
+		}
+
+		for (AstExpression guard : exprAlt.getGuards()) {
+			if (doSwitch(guard)) {
+				return true;
+			}
+		}
+		
+		if (doSwitch(exprAlt.getExpression())) {
+			return true;
+		}
+		
+		return false;
+	}	
 
 	@Override
 	public Boolean caseAstFunction(AstFunction function) {
@@ -615,6 +654,58 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 		return false;	
 	}
 	
+	@Override
+	public Boolean caseAstStatementCase(AstStatementCase stmtCase) { 
+		if (doSwitch(stmtCase.getExpression())) {
+			return true;
+		}
+
+		for (AstStatementAlternative alt : stmtCase.getCases()) {
+			if (doSwitch(alt)) {
+				return true;
+			}
+		}
+		
+		return false;	
+	}
+	
+	@Override 
+	public Boolean caseAstStatementAlternative(AstStatementAlternative stmtAlt) {
+		if (doSwitch(stmtAlt.getPattern())) {
+			return true;
+		}
+
+		for (AstExpression guard : stmtAlt.getGuards()) {
+			if (doSwitch(guard)) {
+				return true;
+			}
+		}
+		
+		for (AstStatement stmt : stmtAlt.getStatements()) {
+			if (doSwitch(stmt)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	@Override 
+	public Boolean caseAstPattern(AstPattern pattern) {
+		for (AstSubPattern subPattern : pattern.getSubpatterns()) {
+			if (doSwitch(subPattern)) {
+				return true;
+			}
+		}
+		
+		return false;		
+	}
+	
+	@Override 
+	public Boolean caseAstSubPattern(AstSubPattern pattern) {
+		
+		return false;		
+	}
 	
 	@Override
 	public Boolean caseAstType(AstType type) {

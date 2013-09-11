@@ -35,6 +35,7 @@
  */
 
 package org.caltoopia.types;
+import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -44,6 +45,7 @@ import org.caltoopia.frontend.cal.AstActor;
 import org.caltoopia.frontend.cal.AstExpression;
 import org.caltoopia.frontend.cal.AstExpressionBinary;
 import org.caltoopia.frontend.cal.AstExpressionBoolean;
+import org.caltoopia.frontend.cal.AstExpressionCase;
 import org.caltoopia.frontend.cal.AstExpressionSymbolReference;
 import org.caltoopia.frontend.cal.AstExpressionFloat;
 import org.caltoopia.frontend.cal.AstExpressionIf;
@@ -54,8 +56,11 @@ import org.caltoopia.frontend.cal.AstExpressionUnary;
 import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstInputPattern;
 import org.caltoopia.frontend.cal.AstMemberAccess;
+import org.caltoopia.frontend.cal.AstPattern;
 import org.caltoopia.frontend.cal.AstPort;
 import org.caltoopia.frontend.cal.AstStatementAssign;
+import org.caltoopia.frontend.cal.AstStatementCase;
+import org.caltoopia.frontend.cal.AstSubPattern;
 import org.caltoopia.frontend.cal.AstTaggedTuple;
 import org.caltoopia.frontend.cal.AstType;
 import org.caltoopia.frontend.cal.AstTypeDefinitionParameter;
@@ -459,6 +464,25 @@ public class TypeConverter extends CalSwitch<Type> {
 		}
 	}
 	
+	private static class PatternBreadcrumb {
+		public String tag; 
+		public String label;
+		public int pos; 
+		
+		public PatternBreadcrumb(AstSubPattern subPattern) {
+			AstPattern pattern = (AstPattern) subPattern.eContainer();
+			this.tag = pattern.getTag();
+			
+			if (subPattern.getLabel() != null) {
+				this.label = subPattern.getLabel();
+				this.pos = -1;
+			} else {
+				this.label = null;
+				this.pos = pattern.getSubpatterns().indexOf(subPattern);
+			}	
+		}
+	}
+	
 	public static Type getTypeOfAstVariable(AstVariable v, List<AstExpression> indexes, List<AstMemberAccess> member, Scope context, boolean approximate) throws TypeException {
 		Type type = null;
 		
@@ -494,7 +518,50 @@ public class TypeConverter extends CalSwitch<Type> {
 				} else {
 					type = TypeConverter.convert(context, port.getType(), approximate);
 				}
-			} else {
+			} else if (v.eContainer() instanceof AstSubPattern) {
+				AstSubPattern subPattern = (AstSubPattern) v.eContainer();
+				AstPattern pattern = (AstPattern) subPattern.eContainer();
+				EObject o = pattern.eContainer();
+				List<PatternBreadcrumb> breadcrumbs = new ArrayList<PatternBreadcrumb>();
+				breadcrumbs.add(new PatternBreadcrumb(subPattern));
+				while (o != null) {
+					if (o instanceof AstStatementCase) {
+						type = getTypeOfAstVariable(((AstStatementCase) o).getExpression().getSymbol(), indexes, member, context, approximate);
+						o = null;
+					} else if (o instanceof AstExpressionCase) {
+						type = getTypeOfAstVariable(((AstExpressionCase) o).getVariable().getSymbol(), indexes, member, context, approximate);
+						o = null;
+					} else {
+						if (o instanceof AstSubPattern) 
+							breadcrumbs.add(0, new PatternBreadcrumb((AstSubPattern) o));
+						o = o.eContainer();
+					}
+				}
+								
+				for (PatternBreadcrumb bc  : breadcrumbs) {				
+					TaggedTuple tuple = null;					
+					TypeDeclaration typeDeclaration = ((TypeDeclaration) ((TypeUser) type).getDeclaration());
+					type = typeDeclaration.getType();
+					
+					for (TaggedTuple tt : ((TypeTuple) type).getTaggedTuples()) {
+						if (tt.getTag().equals(bc.tag))
+							tuple = tt;	
+					}
+
+					if (tuple == null) 
+						throw new TypeException("Unknown tag for type '" + typeDeclaration.getName() + "'");					
+					
+					if (bc.label != null) {
+						for (Variable field : tuple.getFields()) {
+							if (bc.label.equals(field.getName()))
+								type = field.getType();
+						}
+					} else {					
+						type = tuple.getFields().get(bc.pos).getType();
+					}					
+				}
+
+		    } else {
 				type = TypeConverter.convert(context, v.getType(), approximate);
 			}
 		

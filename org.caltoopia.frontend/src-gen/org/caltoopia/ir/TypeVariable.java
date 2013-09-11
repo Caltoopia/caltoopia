@@ -20,7 +20,6 @@ package org.caltoopia.ir;
  * @generated
  */
 public interface TypeVariable extends Type {
-
 	/**
 	 * Returns the value of the '<em><b>Declaration</b></em>' reference.
 	 * <!-- begin-user-doc -->
