@@ -58,8 +58,10 @@ import org.caltoopia.frontend.cal.AstMemberAccess;
 import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstNamespace;
 import org.caltoopia.frontend.cal.AstOutputPattern;
+import org.caltoopia.frontend.cal.AstPattern;
 import org.caltoopia.frontend.cal.AstPort;
 import org.caltoopia.frontend.cal.AstProcedure;
+import org.caltoopia.frontend.cal.AstSubPattern;
 import org.caltoopia.frontend.cal.AstType;
 import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstVariable;
@@ -68,6 +70,11 @@ import org.caltoopia.ir.Annotation;
 import org.caltoopia.ir.AnnotationArgument;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.ForwardDeclaration;
+import org.caltoopia.ir.Guard;
+import org.caltoopia.ir.Pattern;
+import org.caltoopia.ir.StmtAlternative;
+import org.caltoopia.ir.SubPattern;
+import org.caltoopia.ir.TaggedTuple;
 import org.caltoopia.ir.TaggedTupleFieldExpression;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeDeclarationImport;
@@ -671,6 +678,56 @@ public class Util {
 
 		return null;
 	}
+	
+	public static void doPattern(Scope scope, TypeUser tu, AstPattern astPattern, Expression expr) { 
+		TaggedTuple tt = null;
+		TypeDeclaration typedef = (TypeDeclaration) tu.getDeclaration();            
+ 
+		for (TaggedTuple tmp :  ((TypeTuple) typedef.getType()).getTaggedTuples()) {
+			if (tmp.getTag().equals(astPattern.getTag())) {
+				tt = tmp;
+			}
+		}
+		assert(tt != null);
+				
+		for (AstSubPattern astSubPattern : astPattern.getSubpatterns()) {
+			int pos = astPattern.getSubpatterns().indexOf(astSubPattern);
+			String label;
+			if (astSubPattern.getLabel() != null) {
+				label = astSubPattern.getLabel();
+			} else {
+				label = tt.getFields().get(pos).getName();
+			}
+			
+			if (astSubPattern.getCondition() != null) {
+				Type t1 = tt.getFields().get(pos).getType();
+				Expression memberValue = Util.createTaggedTupleFieldExpression(scope, expr, tu, astPattern.getTag(), label);
+				Variable tmp = Util.createTmpVariable(scope, t1, memberValue);
+				
+				Expression e = CreateIrExpression.convert(null, astSubPattern.getCondition());
+				VariableExpression varExpr = Util.createVariableExpression(scope, tmp);
+				Expression condition = Util.createBinaryExpression(scope, varExpr, "=", e, TypeSystem.createTypeBool());
+				
+				final Guard guard =  IrFactory.eINSTANCE.createGuard();
+				guard.setId(Util.getDefinitionId());
+				guard.setOuter(scope);
+				guard.setContext(scope);
+				guard.setBody(condition);
+				((StmtAlternative) scope).getGuards().add(guard);
+			} else if (astSubPattern.getVariable() != null) {
+				Expression value = Util.createTaggedTupleFieldExpression(scope, expr, tu, astPattern.getTag(), label);
+				Util.createVariable(scope, astSubPattern.getVariable(), tt.getFields().get(pos).getType(), value);
+			} else if (astSubPattern.getPattern() != null) {
+				Type t1 = tt.getFields().get(pos).getType();
+				Expression value = Util.createTaggedTupleFieldExpression(scope, expr, tu, astPattern.getTag(), label);
+				Variable tmp = Util.createTmpVariable(scope, t1, value);
+				VariableExpression varExpr = Util.createVariableExpression(scope, tmp);
+				doPattern(scope, (TypeUser) t1, astSubPattern.getPattern(), varExpr);					
+			}		
+		}
+		
+	}
+	
 		
 	public static String packQualifiedName(List<String> ns, String... s) {
 		String ret = packQualifiedName(ns);
@@ -846,10 +903,11 @@ public class Util {
 		return s;
 	}
 
-	public static Expression createTaggedTupleFieldExpression(Scope context, TypeUser type, String tag, String label) {
+	public static Expression createTaggedTupleFieldExpression(Scope context, Expression value, TypeUser type, String tag, String label) {
 		TaggedTupleFieldExpression field = IrFactory.eINSTANCE.createTaggedTupleFieldExpression();
 		field.setId(Util.getDefinitionId());
 		field.setContext(context);
+		field.setValue(value);
 		field.setType(type);
 		field.setTag(tag);
 		field.setLabel(label);		

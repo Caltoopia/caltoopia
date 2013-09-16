@@ -431,7 +431,7 @@ AstGenerator:
 	'for' variable=AstVariableDeclaration 'in' expression = AstExpression;
 
 AstExpressionCase:
-	'case' variable = AstExpressionSymbolReference 'of'
+	'case' expression = AstExpressionSymbolReference 'of'
 		(cases += AstExpressionAlternative)+
 		'else' default = AstExpression 
 	'end';

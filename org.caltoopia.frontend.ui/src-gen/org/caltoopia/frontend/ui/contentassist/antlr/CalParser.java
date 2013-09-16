@@ -537,7 +537,7 @@ public class CalParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAstExpressionListAccess().getGeneratorsAssignment_3_2_1(), "rule__AstExpressionList__GeneratorsAssignment_3_2_1");
 					put(grammarAccess.getAstGeneratorAccess().getVariableAssignment_1(), "rule__AstGenerator__VariableAssignment_1");
 					put(grammarAccess.getAstGeneratorAccess().getExpressionAssignment_3(), "rule__AstGenerator__ExpressionAssignment_3");
-					put(grammarAccess.getAstExpressionCaseAccess().getVariableAssignment_1(), "rule__AstExpressionCase__VariableAssignment_1");
+					put(grammarAccess.getAstExpressionCaseAccess().getExpressionAssignment_1(), "rule__AstExpressionCase__ExpressionAssignment_1");
 					put(grammarAccess.getAstExpressionCaseAccess().getCasesAssignment_3(), "rule__AstExpressionCase__CasesAssignment_3");
 					put(grammarAccess.getAstExpressionCaseAccess().getDefaultAssignment_5(), "rule__AstExpressionCase__DefaultAssignment_5");
 					put(grammarAccess.getAstExpressionAlternativeAccess().getPatternAssignment_0(), "rule__AstExpressionAlternative__PatternAssignment_0");

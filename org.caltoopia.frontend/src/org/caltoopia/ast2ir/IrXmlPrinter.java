@@ -53,9 +53,11 @@ import org.caltoopia.ir.Assign;
 import org.caltoopia.ir.BinaryExpression;
 import org.caltoopia.ir.Block;
 import org.caltoopia.ir.BooleanLiteral;
+import org.caltoopia.ir.CaseExpression;
 import org.caltoopia.ir.CaseStatement;
 import org.caltoopia.ir.Connection;
 import org.caltoopia.ir.Declaration;
+import org.caltoopia.ir.ExprAlternative;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.ExternalActor;
 import org.caltoopia.ir.FloatLiteral;
@@ -674,6 +676,45 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 	}
 	
 	@Override
+	public Stream caseCaseExpression(CaseExpression caze) {
+		s.printlnInc("<Expr kind=\"Case\" "
+					+ " id=\"" + caze.getId() + "\">");
+		
+		for (ExprAlternative alt : caze.getAlternatives()) {
+			doSwitch(alt);
+		}		
+		
+		doSwitch(caze.getDefault());
+		
+		s.printlnDec("</Expr>");
+		
+		return s;
+	}
+
+	@Override
+	public Stream caseExprAlternative(ExprAlternative alt) {
+		s.printlnInc("<Alternative kind=\"Expr\" "
+					+ " id=\"" + alt.getId() + "\""
+					+ " outer-scope=\"" + alt.getOuter().getId() 
+					+ "\">"); 		
+
+		for (Declaration decl : alt.getDeclarations()) {
+			doSwitch(decl);
+		}
+
+		for (Guard guard : alt.getGuards()) {
+			doSwitch(guard);
+		} 		
+		
+		doSwitch(alt.getExpression());
+		
+		s.printlnDec("</Alternative>");
+		
+		return s;
+	}
+	
+	
+	@Override
 	public Stream caseVariableExpression(VariableExpression var) {
 		if (var.getIndex().isEmpty() && var.getMember().isEmpty() && var.getAnnotations().isEmpty() && var.getType()==null) {
 			s.println("<Expr kind=\"Var\"" 
@@ -973,7 +1014,7 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 			doSwitch(alt);
 		}		
 		
-		s.printlnDec("</Case>");
+		s.printlnDec("</Stmt>");
 		
 		return s;
 	}
@@ -1010,7 +1051,7 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 					+ " tag=\"" + e.getTag() + "\""
 					+ " label=\"" + e.getLabel() + "\">");
 		doSwitch(e.getType());
-		
+		doSwitch(e.getValue());
 		s.printlnDec("</Expression>");		
 		
 		return s;

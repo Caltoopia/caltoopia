@@ -90,7 +90,7 @@ public class IrBuilder implements IXtextBuilderParticipant {
 							new Ast2Ir().run(namespace, resourceDescription.getURI().toPlatformString(false), context.getBuiltProject().getLocation().toString());
 						} catch (Exception e) {
 							System.err.println("Compilation failed: " + e.getMessage());	
-							new Ast2Ir().run(namespace, resourceDescription.getURI().toPlatformString(false), context.getBuiltProject().getLocation().toString());
+							new Ast2Ir().run(namespace, resourceDescription.getURI().toPlatformString(false), context.getBuiltProject().getLocation().toString()); //REMOVE-only there to debug
 						}
 					}
 				}				

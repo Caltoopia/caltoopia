@@ -365,8 +365,8 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 	@Override
 	public Boolean caseAstExpressionIf(AstExpressionIf expression) {
 		if (doSwitch(expression.getCondition())
-				|| doSwitch(expression.getThen())
-				|| doSwitch(expression.getElse())) {
+			|| doSwitch(expression.getThen())
+			|| doSwitch(expression.getElse())) {
 			return true;
 		}
 
@@ -417,7 +417,7 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 	
 	@Override
 	public Boolean caseAstExpressionCase(AstExpressionCase exprCase) { 
-		if (doSwitch(exprCase.getVariable())) {
+		if (doSwitch(exprCase.getExpression())) {
 			return true;
 		}
 
@@ -599,6 +599,7 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 		if (doSwitch(generator.getExpression())) {
 			return true;
 		}
+		
 		return false;
 	}
 
@@ -733,6 +734,7 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 				return true;
 			}
 		}
+		
 		return false;
 	}
 

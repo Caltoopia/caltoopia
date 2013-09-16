@@ -43,6 +43,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.caltoopia.frontend.cal.AstAction;
 import org.caltoopia.frontend.cal.AstActor;
 import org.caltoopia.frontend.cal.AstExpression;
+import org.caltoopia.frontend.cal.AstExpressionAlternative;
 import org.caltoopia.frontend.cal.AstExpressionBinary;
 import org.caltoopia.frontend.cal.AstExpressionBoolean;
 import org.caltoopia.frontend.cal.AstExpressionCase;
@@ -336,6 +337,23 @@ public class TypeConverter extends CalSwitch<Type> {
 	}
 	
 	@Override 
+	public Type caseAstExpressionCase(AstExpressionCase e) {
+		Type t1 = doSwitch(e.getDefault());
+		
+		for (AstExpressionAlternative t : e.getCases()) {
+			Type t2 = doSwitch(t.getExpression());
+			try {
+				t1 = TypeSystem.LUB(t1, t2);			
+			} catch (TypeException x) {
+				error("Type error:" + x.getMessage(), e, CalPackage.eINSTANCE.getAstExpressionCase_Cases(), -1);				
+				return TypeSystem.createTypeUndef();
+			}
+		}
+		
+		return t1;
+	}
+	
+	@Override 
 	public Type caseAstType(AstType astType) {
 	
 		if (astType.getDimensions().size() > 0) {
@@ -529,7 +547,7 @@ public class TypeConverter extends CalSwitch<Type> {
 						type = getTypeOfAstVariable(((AstStatementCase) o).getExpression().getSymbol(), indexes, member, context, approximate);
 						o = null;
 					} else if (o instanceof AstExpressionCase) {
-						type = getTypeOfAstVariable(((AstExpressionCase) o).getVariable().getSymbol(), indexes, member, context, approximate);
+						type = getTypeOfAstVariable(((AstExpressionCase) o).getExpression().getSymbol(), indexes, member, context, approximate);
 						o = null;
 					} else {
 						if (o instanceof AstSubPattern) 

@@ -248,14 +248,6 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 				return createStmtAlternativeAdapter();
 			}
 			@Override
-			public Adapter casePattern(Pattern object) {
-				return createPatternAdapter();
-			}
-			@Override
-			public Adapter caseSubPattern(SubPattern object) {
-				return createSubPatternAdapter();
-			}
-			@Override
 			public Adapter casePortAccess(PortAccess object) {
 				return createPortAccessAdapter();
 			}
@@ -294,6 +286,14 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseIfExpression(IfExpression object) {
 				return createIfExpressionAdapter();
+			}
+			@Override
+			public Adapter caseCaseExpression(CaseExpression object) {
+				return createCaseExpressionAdapter();
+			}
+			@Override
+			public Adapter caseExprAlternative(ExprAlternative object) {
+				return createExprAlternativeAdapter();
 			}
 			@Override
 			public Adapter caseGuard(Guard object) {
@@ -1042,34 +1042,6 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.Pattern <em>Pattern</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.caltoopia.ir.Pattern
-	 * @generated
-	 */
-	public Adapter createPatternAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.SubPattern <em>Sub Pattern</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.caltoopia.ir.SubPattern
-	 * @generated
-	 */
-	public Adapter createSubPatternAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.PortAccess <em>Port Access</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -1206,6 +1178,34 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createIfExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.CaseExpression <em>Case Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.caltoopia.ir.CaseExpression
+	 * @generated
+	 */
+	public Adapter createCaseExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.ExprAlternative <em>Expr Alternative</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.caltoopia.ir.ExprAlternative
+	 * @generated
+	 */
+	public Adapter createExprAlternativeAdapter() {
 		return null;
 	}
 

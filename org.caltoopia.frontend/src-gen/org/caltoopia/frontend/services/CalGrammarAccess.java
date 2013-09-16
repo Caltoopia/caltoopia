@@ -126,20 +126,19 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//	externals+=(AstExternalVariable | AstExternalFunction | AstExternalProcedure))* "end";
 		public ParserRule getRule() { return rule; }
 
-		//{AstNamespace} "unit" name=QualifiedName ":" (functions+=AstFunction | variables+=AstConstantVariable |
-		//externals+=(AstExternalVariable | AstExternalFunction | AstExternalProcedure))* "end"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//{AstNamespace}
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Action getAstNamespaceAction_0() { return cAstNamespaceAction_0; }
 
-		//"unit"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Keyword getUnitKeyword_1() { return cUnitKeyword_1; }
 
-		//name=QualifiedName
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 
-		//QualifiedName
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public RuleCall getNameQualifiedNameParserRuleCall_2_0() { return cNameQualifiedNameParserRuleCall_2_0; }
 
 		//":"
@@ -1783,16 +1782,16 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//"procedure"
 		public Keyword getProcedureKeyword_1() { return cProcedureKeyword_1; }
 
-		//name=ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 
-		//"("
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Keyword getLeftParenthesisKeyword_3() { return cLeftParenthesisKeyword_3; }
 
-		//(parameters+=AstVariableDeclaration ("," parameters+=AstVariableDeclaration)*)?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Group getGroup_4() { return cGroup_4; }
 
 		//parameters+=AstVariableDeclaration
@@ -2442,58 +2441,58 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//variables+=AstValuedVariableDeclaration)*)? ("do" statements+=AstStatement*)? "end"
 		public Group getGroup() { return cGroup; }
 
-		//{AstAction}
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Action getAstActionAction_0() { return cAstActionAction_0; }
 
-		//annotations+=AstAnnotation*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Assignment getAnnotationsAssignment_1() { return cAnnotationsAssignment_1; }
 
-		//AstAnnotation
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public RuleCall getAnnotationsAstAnnotationParserRuleCall_1_0() { return cAnnotationsAstAnnotationParserRuleCall_1_0; }
 
-		//(tag=AstTag ":")?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Group getGroup_2() { return cGroup_2; }
 
-		//tag=AstTag
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Assignment getTagAssignment_2_0() { return cTagAssignment_2_0; }
 
-		//AstTag
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public RuleCall getTagAstTagParserRuleCall_2_0_0() { return cTagAstTagParserRuleCall_2_0_0; }
 
-		//":"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Keyword getColonKeyword_2_1() { return cColonKeyword_2_1; }
 
-		//"action"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Keyword getActionKeyword_3() { return cActionKeyword_3; }
 
-		//(inputs+=AstInputPattern ("," inputs+=AstInputPattern)*)?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Group getGroup_4() { return cGroup_4; }
 
-		//inputs+=AstInputPattern
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Assignment getInputsAssignment_4_0() { return cInputsAssignment_4_0; }
 
-		//AstInputPattern
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public RuleCall getInputsAstInputPatternParserRuleCall_4_0_0() { return cInputsAstInputPatternParserRuleCall_4_0_0; }
 
-		//("," inputs+=AstInputPattern)*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Group getGroup_4_1() { return cGroup_4_1; }
 
-		//","
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Keyword getCommaKeyword_4_1_0() { return cCommaKeyword_4_1_0; }
 
-		//inputs+=AstInputPattern
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Assignment getInputsAssignment_4_1_1() { return cInputsAssignment_4_1_1; }
 
-		//AstInputPattern
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public RuleCall getInputsAstInputPatternParserRuleCall_4_1_1_0() { return cInputsAstInputPatternParserRuleCall_4_1_1_0; }
 
-		//"==>"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Keyword getEqualsSignEqualsSignGreaterThanSignKeyword_5() { return cEqualsSignEqualsSignGreaterThanSignKeyword_5; }
 
-		//(outputs+=AstOutputPattern ("," outputs+=AstOutputPattern)*)?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Group getGroup_6() { return cGroup_6; }
 
-		//outputs+=AstOutputPattern
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Assignment getOutputsAssignment_6_0() { return cOutputsAssignment_6_0; }
 
 		//AstOutputPattern
@@ -3519,31 +3518,31 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//AstExpressionAnd
 		public RuleCall getAstExpressionAndParserRuleCall_0() { return cAstExpressionAndParserRuleCall_0; }
 
-		//({AstExpressionBinary.left=current} operator=("||" | "or" | "..") right=AstExpressionAnd)*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Group getGroup_1() { return cGroup_1; }
 
-		//{AstExpressionBinary.left=current}
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Action getAstExpressionBinaryLeftAction_1_0() { return cAstExpressionBinaryLeftAction_1_0; }
 
-		//operator=("||" | "or" | "..")
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
 
-		//"||" | "or" | ".."
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Alternatives getOperatorAlternatives_1_1_0() { return cOperatorAlternatives_1_1_0; }
 
-		//"||"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Keyword getOperatorVerticalLineVerticalLineKeyword_1_1_0_0() { return cOperatorVerticalLineVerticalLineKeyword_1_1_0_0; }
 
-		//"or"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Keyword getOperatorOrKeyword_1_1_0_1() { return cOperatorOrKeyword_1_1_0_1; }
 
-		//".."
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Keyword getOperatorFullStopFullStopKeyword_1_1_0_2() { return cOperatorFullStopFullStopKeyword_1_1_0_2; }
 
-		//right=AstExpressionAnd
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
 
-		//AstExpressionAnd
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public RuleCall getRightAstExpressionAndParserRuleCall_1_2_0() { return cRightAstExpressionAndParserRuleCall_1_2_0; }
 	}
 
@@ -3560,20 +3559,19 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cRightAstExpressionBitorParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
 		
-		//AstExpressionAnd returns AstExpression:
-		//	AstExpressionBitor ({AstExpressionBinary.left=current} operator=("&&" | "and") right=AstExpressionBitor)*;
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//AstExpressionBitor ({AstExpressionBinary.left=current} operator=("&&" | "and") right=AstExpressionBitor)*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//AstExpressionBitor
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public RuleCall getAstExpressionBitorParserRuleCall_0() { return cAstExpressionBitorParserRuleCall_0; }
 
-		//({AstExpressionBinary.left=current} operator=("&&" | "and") right=AstExpressionBitor)*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Group getGroup_1() { return cGroup_1; }
 
-		//{AstExpressionBinary.left=current}
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Action getAstExpressionBinaryLeftAction_1_0() { return cAstExpressionBinaryLeftAction_1_0; }
 
 		//operator=("&&" | "and")
@@ -4413,8 +4411,8 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstExpressionCase");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cCaseKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cVariableAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cVariableAstExpressionSymbolReferenceParserRuleCall_1_0 = (RuleCall)cVariableAssignment_1.eContents().get(0);
+		private final Assignment cExpressionAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cExpressionAstExpressionSymbolReferenceParserRuleCall_1_0 = (RuleCall)cExpressionAssignment_1.eContents().get(0);
 		private final Keyword cOfKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cCasesAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cCasesAstExpressionAlternativeParserRuleCall_3_0 = (RuleCall)cCasesAssignment_3.eContents().get(0);
@@ -4424,20 +4422,21 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cEndKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//AstExpressionCase:
-		//	"case" variable=AstExpressionSymbolReference "of" cases+=AstExpressionAlternative+ "else" default=AstExpression "end";
+		//	"case" expression=AstExpressionSymbolReference "of" cases+=AstExpressionAlternative+ "else" default=AstExpression
+		//	"end";
 		public ParserRule getRule() { return rule; }
 
-		//"case" variable=AstExpressionSymbolReference "of" cases+=AstExpressionAlternative+ "else" default=AstExpression "end"
+		//"case" expression=AstExpressionSymbolReference "of" cases+=AstExpressionAlternative+ "else" default=AstExpression "end"
 		public Group getGroup() { return cGroup; }
 
 		//"case"
 		public Keyword getCaseKeyword_0() { return cCaseKeyword_0; }
 
-		//variable=AstExpressionSymbolReference
-		public Assignment getVariableAssignment_1() { return cVariableAssignment_1; }
+		//expression=AstExpressionSymbolReference
+		public Assignment getExpressionAssignment_1() { return cExpressionAssignment_1; }
 
 		//AstExpressionSymbolReference
-		public RuleCall getVariableAstExpressionSymbolReferenceParserRuleCall_1_0() { return cVariableAstExpressionSymbolReferenceParserRuleCall_1_0; }
+		public RuleCall getExpressionAstExpressionSymbolReferenceParserRuleCall_1_0() { return cExpressionAstExpressionSymbolReferenceParserRuleCall_1_0; }
 
 		//"of"
 		public Keyword getOfKeyword_2() { return cOfKeyword_2; }
@@ -4525,7 +4524,7 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//AstExpression
 		public RuleCall getExpressionAstExpressionParserRuleCall_3_0() { return cExpressionAstExpressionParserRuleCall_3_0; }
 
-		//"end"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Keyword getEndKeyword_4() { return cEndKeyword_4; }
 	}
 
@@ -5193,10 +5192,10 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//">>>"
 		public Keyword getOperatorGreaterThanSignGreaterThanSignGreaterThanSignKeyword_1_1_0_2() { return cOperatorGreaterThanSignGreaterThanSignGreaterThanSignKeyword_1_1_0_2; }
 
-		//right=AstPatternExpressionAdditive
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
 
-		//AstPatternExpressionAdditive
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public RuleCall getRightAstPatternExpressionAdditiveParserRuleCall_1_2_0() { return cRightAstPatternExpressionAdditiveParserRuleCall_1_2_0; }
 	}
 
@@ -5213,28 +5212,25 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cRightAstPatternExpressionMultiplicativeParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
 		
-		//AstPatternExpressionAdditive returns AstExpression:
-		//	AstPatternExpressionMultiplicative ({AstPatternExpressionBinary.left=current} operator=("+" | "-")
-		//	right=AstPatternExpressionMultiplicative)*;
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//AstPatternExpressionMultiplicative ({AstPatternExpressionBinary.left=current} operator=("+" | "-")
-		//right=AstPatternExpressionMultiplicative)*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//AstPatternExpressionMultiplicative
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public RuleCall getAstPatternExpressionMultiplicativeParserRuleCall_0() { return cAstPatternExpressionMultiplicativeParserRuleCall_0; }
 
-		//({AstPatternExpressionBinary.left=current} operator=("+" | "-") right=AstPatternExpressionMultiplicative)*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Group getGroup_1() { return cGroup_1; }
 
-		//{AstPatternExpressionBinary.left=current}
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Action getAstPatternExpressionBinaryLeftAction_1_0() { return cAstPatternExpressionBinaryLeftAction_1_0; }
 
-		//operator=("+" | "-")
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
 
-		//"+" | "-"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Alternatives getOperatorAlternatives_1_1_0() { return cOperatorAlternatives_1_1_0; }
 
 		//"+"
@@ -7155,7 +7151,8 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AstExpressionCase:
-	//	"case" variable=AstExpressionSymbolReference "of" cases+=AstExpressionAlternative+ "else" default=AstExpression "end";
+	//	"case" expression=AstExpressionSymbolReference "of" cases+=AstExpressionAlternative+ "else" default=AstExpression
+	//	"end";
 	public AstExpressionCaseElements getAstExpressionCaseAccess() {
 		return (pAstExpressionCase != null) ? pAstExpressionCase : (pAstExpressionCase = new AstExpressionCaseElements());
 	}

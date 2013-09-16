@@ -12,7 +12,7 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.caltoopia.frontend.cal.AstExpressionCase#getVariable <em>Variable</em>}</li>
+ *   <li>{@link org.caltoopia.frontend.cal.AstExpressionCase#getExpression <em>Expression</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.AstExpressionCase#getCases <em>Cases</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.AstExpressionCase#getDefault <em>Default</em>}</li>
  * </ul>
@@ -25,30 +25,30 @@ import org.eclipse.emf.common.util.EList;
 public interface AstExpressionCase extends AstExpression
 {
   /**
-   * Returns the value of the '<em><b>Variable</b></em>' containment reference.
+   * Returns the value of the '<em><b>Expression</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Variable</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Expression</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Variable</em>' containment reference.
-   * @see #setVariable(AstExpressionSymbolReference)
-   * @see org.caltoopia.frontend.cal.CalPackage#getAstExpressionCase_Variable()
+   * @return the value of the '<em>Expression</em>' containment reference.
+   * @see #setExpression(AstExpressionSymbolReference)
+   * @see org.caltoopia.frontend.cal.CalPackage#getAstExpressionCase_Expression()
    * @model containment="true"
    * @generated
    */
-  AstExpressionSymbolReference getVariable();
+  AstExpressionSymbolReference getExpression();
 
   /**
-   * Sets the value of the '{@link org.caltoopia.frontend.cal.AstExpressionCase#getVariable <em>Variable</em>}' containment reference.
+   * Sets the value of the '{@link org.caltoopia.frontend.cal.AstExpressionCase#getExpression <em>Expression</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Variable</em>' containment reference.
-   * @see #getVariable()
+   * @param value the new value of the '<em>Expression</em>' containment reference.
+   * @see #getExpression()
    * @generated
    */
-  void setVariable(AstExpressionSymbolReference value);
+  void setExpression(AstExpressionSymbolReference value);
 
   /**
    * Returns the value of the '<em><b>Cases</b></em>' containment reference list.

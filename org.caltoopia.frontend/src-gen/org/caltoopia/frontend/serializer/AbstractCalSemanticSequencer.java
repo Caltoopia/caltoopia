@@ -1179,7 +1179,7 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (variable=AstExpressionSymbolReference cases+=AstExpressionAlternative+ default=AstExpression)
+	 *     (expression=AstExpressionSymbolReference cases+=AstExpressionAlternative+ default=AstExpression)
 	 */
 	protected void sequence_AstExpressionCase(EObject context, AstExpressionCase semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

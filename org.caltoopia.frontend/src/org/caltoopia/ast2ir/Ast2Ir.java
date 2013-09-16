@@ -1185,7 +1185,8 @@ public class Ast2Ir extends CalSwitch<EObject> {
 				alt.setId(Util.getDefinitionId());
 				alt.setOuter(scopeStack.peek());
 				scopeStack.push(alt);
-				doPattern(tu, a.getPattern());
+				
+				Util.doPattern(scopeStack.peek(), tu, a.getPattern(), condition);
 
 				for (AstExpression g : a.getGuards()) {
 					final Guard guard =  IrFactory.eINSTANCE.createGuard();
@@ -1195,7 +1196,6 @@ public class Ast2Ir extends CalSwitch<EObject> {
 					guard.setBody(CreateIrExpression.convert(scopeStack.peek(), g));
 				}
 				
-				//alt.setPattern(pattern);
 				caseStatement.getAlternatives().add(alt);
 				scopeStack.pop();
 			}
@@ -1204,59 +1204,6 @@ public class Ast2Ir extends CalSwitch<EObject> {
 		}
 				
 		return caseStatement;
-	}
-		
-	private Pattern doPattern(TypeUser tu, AstPattern astPattern) { 
-		Pattern pattern = IrFactory.eINSTANCE.createPattern();
-		pattern.setTag(astPattern.getTag());
-		TaggedTuple tt = null;
-		TypeDeclaration typedef = (TypeDeclaration) tu.getDeclaration();            
- 
-		for (TaggedTuple tmp :  ((TypeTuple) typedef.getType()).getTaggedTuples()) {
-			if (tmp.getTag().equals(astPattern.getTag())) {
-				tt = tmp;
-			}
-		}
-		assert(tt != null);
-				
-		for (AstSubPattern astSubPattern : astPattern.getSubpatterns()) {
-			SubPattern sp = IrFactory.eINSTANCE.createSubPattern();
-			int pos = astPattern.getSubpatterns().indexOf(astSubPattern);
-			String label;
-			if (astSubPattern.getLabel() != null) {
-				label = astSubPattern.getLabel();
-			} else {
-				label = tt.getFields().get(pos).getName();
-			}
-			sp.setLabel(label);
-			
-			if (astSubPattern.getCondition() != null) {
-				Type t1 = tt.getFields().get(pos).getType();
-				Expression memberValue = Util.createTaggedTupleFieldExpression(scopeStack.peek(), tu, astPattern.getTag(), label);
-				Variable tmp = Util.createTmpVariable(scopeStack.peek(), t1, memberValue);
-				
-				Expression e = CreateIrExpression.convert(null, astSubPattern.getCondition());
-				VariableExpression varExpr = Util.createVariableExpression(scopeStack.peek(), tmp);
-				Expression condition = Util.createBinaryExpression(scopeStack.peek(), varExpr, "=", e, TypeSystem.createTypeBool());
-				
-				final Guard guard =  IrFactory.eINSTANCE.createGuard();
-				guard.setId(Util.getDefinitionId());
-				guard.setOuter(scopeStack.peek());
-				guard.setContext(scopeStack.peek());
-				guard.setBody(condition);
-				((StmtAlternative) scopeStack.peek()).getGuards().add(guard);
-			} else if (astSubPattern.getVariable() != null) {
-				Expression value = Util.createTaggedTupleFieldExpression(scopeStack.peek(), tu, astPattern.getTag(), label);
-				Variable var = Util.createVariable(scopeStack.peek(), astSubPattern.getVariable(), tt.getFields().get(pos).getType(), value);
-				sp.setBinding(var);
-			} else if (astSubPattern.getPattern() != null) {
-				Type t1 = tt.getFields().get(pos).getType();
-				sp.setPattern(doPattern((TypeUser) t1, astSubPattern.getPattern()));					
-			}		
-			pattern.getSubPatterns().add(sp);			
-		}
-		
-		return pattern;		
 	}
 	
 	private void doAnnotations(List<AstAnnotation> annotations, Node irNode) {

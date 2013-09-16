@@ -2230,13 +2230,13 @@ public interface CalPackage extends EPackage
   int AST_EXPRESSION_CASE = 48;
 
   /**
-   * The feature id for the '<em><b>Variable</b></em>' containment reference.
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int AST_EXPRESSION_CASE__VARIABLE = AST_EXPRESSION_FEATURE_COUNT + 0;
+  int AST_EXPRESSION_CASE__EXPRESSION = AST_EXPRESSION_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Cases</b></em>' containment reference list.
@@ -5147,15 +5147,15 @@ public interface CalPackage extends EPackage
   EClass getAstExpressionCase();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.caltoopia.frontend.cal.AstExpressionCase#getVariable <em>Variable</em>}'.
+   * Returns the meta object for the containment reference '{@link org.caltoopia.frontend.cal.AstExpressionCase#getExpression <em>Expression</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Variable</em>'.
-   * @see org.caltoopia.frontend.cal.AstExpressionCase#getVariable()
+   * @return the meta object for the containment reference '<em>Expression</em>'.
+   * @see org.caltoopia.frontend.cal.AstExpressionCase#getExpression()
    * @see #getAstExpressionCase()
    * @generated
    */
-  EReference getAstExpressionCase_Variable();
+  EReference getAstExpressionCase_Expression();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.caltoopia.frontend.cal.AstExpressionCase#getCases <em>Cases</em>}'.
@@ -7473,12 +7473,12 @@ public interface CalPackage extends EPackage
     EClass AST_EXPRESSION_CASE = eINSTANCE.getAstExpressionCase();
 
     /**
-     * The meta object literal for the '<em><b>Variable</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference AST_EXPRESSION_CASE__VARIABLE = eINSTANCE.getAstExpressionCase_Variable();
+    EReference AST_EXPRESSION_CASE__EXPRESSION = eINSTANCE.getAstExpressionCase_Expression();
 
     /**
      * The meta object literal for the '<em><b>Cases</b></em>' containment reference list feature.

@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.caltoopia.frontend.cal.impl.AstExpressionCaseImpl#getVariable <em>Variable</em>}</li>
+ *   <li>{@link org.caltoopia.frontend.cal.impl.AstExpressionCaseImpl#getExpression <em>Expression</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstExpressionCaseImpl#getCases <em>Cases</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstExpressionCaseImpl#getDefault <em>Default</em>}</li>
  * </ul>
@@ -41,14 +41,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class AstExpressionCaseImpl extends AstExpressionImpl implements AstExpressionCase
 {
   /**
-   * The cached value of the '{@link #getVariable() <em>Variable</em>}' containment reference.
+   * The cached value of the '{@link #getExpression() <em>Expression</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getVariable()
+   * @see #getExpression()
    * @generated
    * @ordered
    */
-  protected AstExpressionSymbolReference variable;
+  protected AstExpressionSymbolReference expression;
 
   /**
    * The cached value of the '{@link #getCases() <em>Cases</em>}' containment reference list.
@@ -96,9 +96,9 @@ public class AstExpressionCaseImpl extends AstExpressionImpl implements AstExpre
    * <!-- end-user-doc -->
    * @generated
    */
-  public AstExpressionSymbolReference getVariable()
+  public AstExpressionSymbolReference getExpression()
   {
-    return variable;
+    return expression;
   }
 
   /**
@@ -106,13 +106,13 @@ public class AstExpressionCaseImpl extends AstExpressionImpl implements AstExpre
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetVariable(AstExpressionSymbolReference newVariable, NotificationChain msgs)
+  public NotificationChain basicSetExpression(AstExpressionSymbolReference newExpression, NotificationChain msgs)
   {
-    AstExpressionSymbolReference oldVariable = variable;
-    variable = newVariable;
+    AstExpressionSymbolReference oldExpression = expression;
+    expression = newExpression;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CalPackage.AST_EXPRESSION_CASE__VARIABLE, oldVariable, newVariable);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CalPackage.AST_EXPRESSION_CASE__EXPRESSION, oldExpression, newExpression);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -123,20 +123,20 @@ public class AstExpressionCaseImpl extends AstExpressionImpl implements AstExpre
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setVariable(AstExpressionSymbolReference newVariable)
+  public void setExpression(AstExpressionSymbolReference newExpression)
   {
-    if (newVariable != variable)
+    if (newExpression != expression)
     {
       NotificationChain msgs = null;
-      if (variable != null)
-        msgs = ((InternalEObject)variable).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CalPackage.AST_EXPRESSION_CASE__VARIABLE, null, msgs);
-      if (newVariable != null)
-        msgs = ((InternalEObject)newVariable).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CalPackage.AST_EXPRESSION_CASE__VARIABLE, null, msgs);
-      msgs = basicSetVariable(newVariable, msgs);
+      if (expression != null)
+        msgs = ((InternalEObject)expression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CalPackage.AST_EXPRESSION_CASE__EXPRESSION, null, msgs);
+      if (newExpression != null)
+        msgs = ((InternalEObject)newExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CalPackage.AST_EXPRESSION_CASE__EXPRESSION, null, msgs);
+      msgs = basicSetExpression(newExpression, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CalPackage.AST_EXPRESSION_CASE__VARIABLE, newVariable, newVariable));
+      eNotify(new ENotificationImpl(this, Notification.SET, CalPackage.AST_EXPRESSION_CASE__EXPRESSION, newExpression, newExpression));
   }
 
   /**
@@ -211,8 +211,8 @@ public class AstExpressionCaseImpl extends AstExpressionImpl implements AstExpre
   {
     switch (featureID)
     {
-      case CalPackage.AST_EXPRESSION_CASE__VARIABLE:
-        return basicSetVariable(null, msgs);
+      case CalPackage.AST_EXPRESSION_CASE__EXPRESSION:
+        return basicSetExpression(null, msgs);
       case CalPackage.AST_EXPRESSION_CASE__CASES:
         return ((InternalEList<?>)getCases()).basicRemove(otherEnd, msgs);
       case CalPackage.AST_EXPRESSION_CASE__DEFAULT:
@@ -231,8 +231,8 @@ public class AstExpressionCaseImpl extends AstExpressionImpl implements AstExpre
   {
     switch (featureID)
     {
-      case CalPackage.AST_EXPRESSION_CASE__VARIABLE:
-        return getVariable();
+      case CalPackage.AST_EXPRESSION_CASE__EXPRESSION:
+        return getExpression();
       case CalPackage.AST_EXPRESSION_CASE__CASES:
         return getCases();
       case CalPackage.AST_EXPRESSION_CASE__DEFAULT:
@@ -252,8 +252,8 @@ public class AstExpressionCaseImpl extends AstExpressionImpl implements AstExpre
   {
     switch (featureID)
     {
-      case CalPackage.AST_EXPRESSION_CASE__VARIABLE:
-        setVariable((AstExpressionSymbolReference)newValue);
+      case CalPackage.AST_EXPRESSION_CASE__EXPRESSION:
+        setExpression((AstExpressionSymbolReference)newValue);
         return;
       case CalPackage.AST_EXPRESSION_CASE__CASES:
         getCases().clear();
@@ -276,8 +276,8 @@ public class AstExpressionCaseImpl extends AstExpressionImpl implements AstExpre
   {
     switch (featureID)
     {
-      case CalPackage.AST_EXPRESSION_CASE__VARIABLE:
-        setVariable((AstExpressionSymbolReference)null);
+      case CalPackage.AST_EXPRESSION_CASE__EXPRESSION:
+        setExpression((AstExpressionSymbolReference)null);
         return;
       case CalPackage.AST_EXPRESSION_CASE__CASES:
         getCases().clear();
@@ -299,8 +299,8 @@ public class AstExpressionCaseImpl extends AstExpressionImpl implements AstExpre
   {
     switch (featureID)
     {
-      case CalPackage.AST_EXPRESSION_CASE__VARIABLE:
-        return variable != null;
+      case CalPackage.AST_EXPRESSION_CASE__EXPRESSION:
+        return expression != null;
       case CalPackage.AST_EXPRESSION_CASE__CASES:
         return cases != null && !cases.isEmpty();
       case CalPackage.AST_EXPRESSION_CASE__DEFAULT:

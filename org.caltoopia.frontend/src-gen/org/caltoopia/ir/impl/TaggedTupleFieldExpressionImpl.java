@@ -2,6 +2,7 @@
  */
 package org.caltoopia.ir.impl;
 
+import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.IrPackage;
 import org.caltoopia.ir.TaggedTupleFieldExpression;
 import org.caltoopia.ir.TypeTuple;
@@ -23,6 +24,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link org.caltoopia.ir.impl.TaggedTupleFieldExpressionImpl#getTupleType <em>Tuple Type</em>}</li>
  *   <li>{@link org.caltoopia.ir.impl.TaggedTupleFieldExpressionImpl#getTag <em>Tag</em>}</li>
  *   <li>{@link org.caltoopia.ir.impl.TaggedTupleFieldExpressionImpl#getLabel <em>Label</em>}</li>
+ *   <li>{@link org.caltoopia.ir.impl.TaggedTupleFieldExpressionImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
@@ -78,6 +80,16 @@ public class TaggedTupleFieldExpressionImpl extends ExpressionImpl implements Ta
 	 * @ordered
 	 */
 	protected String label = LABEL_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getValue() <em>Value</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValue()
+	 * @generated
+	 * @ordered
+	 */
+	protected Expression value;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -183,6 +195,44 @@ public class TaggedTupleFieldExpressionImpl extends ExpressionImpl implements Ta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Expression getValue() {
+		if (value != null && value.eIsProxy()) {
+			InternalEObject oldValue = (InternalEObject)value;
+			value = (Expression)eResolveProxy(oldValue);
+			if (value != oldValue) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.TAGGED_TUPLE_FIELD_EXPRESSION__VALUE, oldValue, value));
+			}
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Expression basicGetValue() {
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setValue(Expression newValue) {
+		Expression oldValue = value;
+		value = newValue;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.TAGGED_TUPLE_FIELD_EXPRESSION__VALUE, oldValue, value));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -193,6 +243,9 @@ public class TaggedTupleFieldExpressionImpl extends ExpressionImpl implements Ta
 				return getTag();
 			case IrPackage.TAGGED_TUPLE_FIELD_EXPRESSION__LABEL:
 				return getLabel();
+			case IrPackage.TAGGED_TUPLE_FIELD_EXPRESSION__VALUE:
+				if (resolve) return getValue();
+				return basicGetValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -213,6 +266,9 @@ public class TaggedTupleFieldExpressionImpl extends ExpressionImpl implements Ta
 				return;
 			case IrPackage.TAGGED_TUPLE_FIELD_EXPRESSION__LABEL:
 				setLabel((String)newValue);
+				return;
+			case IrPackage.TAGGED_TUPLE_FIELD_EXPRESSION__VALUE:
+				setValue((Expression)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -235,6 +291,9 @@ public class TaggedTupleFieldExpressionImpl extends ExpressionImpl implements Ta
 			case IrPackage.TAGGED_TUPLE_FIELD_EXPRESSION__LABEL:
 				setLabel(LABEL_EDEFAULT);
 				return;
+			case IrPackage.TAGGED_TUPLE_FIELD_EXPRESSION__VALUE:
+				setValue((Expression)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -253,6 +312,8 @@ public class TaggedTupleFieldExpressionImpl extends ExpressionImpl implements Ta
 				return TAG_EDEFAULT == null ? tag != null : !TAG_EDEFAULT.equals(tag);
 			case IrPackage.TAGGED_TUPLE_FIELD_EXPRESSION__LABEL:
 				return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
+			case IrPackage.TAGGED_TUPLE_FIELD_EXPRESSION__VALUE:
+				return value != null;
 		}
 		return super.eIsSet(featureID);
 	}

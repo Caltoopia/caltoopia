@@ -427,24 +427,6 @@ public interface IrFactory extends EFactory {
 	StmtAlternative createStmtAlternative();
 
 	/**
-	 * Returns a new object of class '<em>Pattern</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Pattern</em>'.
-	 * @generated
-	 */
-	Pattern createPattern();
-
-	/**
-	 * Returns a new object of class '<em>Sub Pattern</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Sub Pattern</em>'.
-	 * @generated
-	 */
-	SubPattern createSubPattern();
-
-	/**
 	 * Returns a new object of class '<em>Port Access</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -533,6 +515,24 @@ public interface IrFactory extends EFactory {
 	 * @generated
 	 */
 	IfExpression createIfExpression();
+
+	/**
+	 * Returns a new object of class '<em>Case Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Case Expression</em>'.
+	 * @generated
+	 */
+	CaseExpression createCaseExpression();
+
+	/**
+	 * Returns a new object of class '<em>Expr Alternative</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Expr Alternative</em>'.
+	 * @generated
+	 */
+	ExprAlternative createExprAlternative();
 
 	/**
 	 * Returns a new object of class '<em>Guard</em>'.

@@ -17702,7 +17702,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAstExpressionCase"
-    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7029:1: ruleAstExpressionCase returns [EObject current=null] : (otherlv_0= 'case' ( (lv_variable_1_0= ruleAstExpressionSymbolReference ) ) otherlv_2= 'of' ( (lv_cases_3_0= ruleAstExpressionAlternative ) )+ otherlv_4= 'else' ( (lv_default_5_0= ruleAstExpression ) ) otherlv_6= 'end' ) ;
+    // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7029:1: ruleAstExpressionCase returns [EObject current=null] : (otherlv_0= 'case' ( (lv_expression_1_0= ruleAstExpressionSymbolReference ) ) otherlv_2= 'of' ( (lv_cases_3_0= ruleAstExpressionAlternative ) )+ otherlv_4= 'else' ( (lv_default_5_0= ruleAstExpression ) ) otherlv_6= 'end' ) ;
     public final EObject ruleAstExpressionCase() throws RecognitionException {
         EObject current = null;
 
@@ -17710,7 +17710,7 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
         Token otherlv_2=null;
         Token otherlv_4=null;
         Token otherlv_6=null;
-        EObject lv_variable_1_0 = null;
+        EObject lv_expression_1_0 = null;
 
         EObject lv_cases_3_0 = null;
 
@@ -17720,27 +17720,27 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7032:28: ( (otherlv_0= 'case' ( (lv_variable_1_0= ruleAstExpressionSymbolReference ) ) otherlv_2= 'of' ( (lv_cases_3_0= ruleAstExpressionAlternative ) )+ otherlv_4= 'else' ( (lv_default_5_0= ruleAstExpression ) ) otherlv_6= 'end' ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7033:1: (otherlv_0= 'case' ( (lv_variable_1_0= ruleAstExpressionSymbolReference ) ) otherlv_2= 'of' ( (lv_cases_3_0= ruleAstExpressionAlternative ) )+ otherlv_4= 'else' ( (lv_default_5_0= ruleAstExpression ) ) otherlv_6= 'end' )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7032:28: ( (otherlv_0= 'case' ( (lv_expression_1_0= ruleAstExpressionSymbolReference ) ) otherlv_2= 'of' ( (lv_cases_3_0= ruleAstExpressionAlternative ) )+ otherlv_4= 'else' ( (lv_default_5_0= ruleAstExpression ) ) otherlv_6= 'end' ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7033:1: (otherlv_0= 'case' ( (lv_expression_1_0= ruleAstExpressionSymbolReference ) ) otherlv_2= 'of' ( (lv_cases_3_0= ruleAstExpressionAlternative ) )+ otherlv_4= 'else' ( (lv_default_5_0= ruleAstExpression ) ) otherlv_6= 'end' )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7033:1: (otherlv_0= 'case' ( (lv_variable_1_0= ruleAstExpressionSymbolReference ) ) otherlv_2= 'of' ( (lv_cases_3_0= ruleAstExpressionAlternative ) )+ otherlv_4= 'else' ( (lv_default_5_0= ruleAstExpression ) ) otherlv_6= 'end' )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7033:3: otherlv_0= 'case' ( (lv_variable_1_0= ruleAstExpressionSymbolReference ) ) otherlv_2= 'of' ( (lv_cases_3_0= ruleAstExpressionAlternative ) )+ otherlv_4= 'else' ( (lv_default_5_0= ruleAstExpression ) ) otherlv_6= 'end'
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7033:1: (otherlv_0= 'case' ( (lv_expression_1_0= ruleAstExpressionSymbolReference ) ) otherlv_2= 'of' ( (lv_cases_3_0= ruleAstExpressionAlternative ) )+ otherlv_4= 'else' ( (lv_default_5_0= ruleAstExpression ) ) otherlv_6= 'end' )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7033:3: otherlv_0= 'case' ( (lv_expression_1_0= ruleAstExpressionSymbolReference ) ) otherlv_2= 'of' ( (lv_cases_3_0= ruleAstExpressionAlternative ) )+ otherlv_4= 'else' ( (lv_default_5_0= ruleAstExpression ) ) otherlv_6= 'end'
             {
             otherlv_0=(Token)match(input,60,FOLLOW_60_in_ruleAstExpressionCase14460); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getAstExpressionCaseAccess().getCaseKeyword_0());
                 
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7037:1: ( (lv_variable_1_0= ruleAstExpressionSymbolReference ) )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7038:1: (lv_variable_1_0= ruleAstExpressionSymbolReference )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7037:1: ( (lv_expression_1_0= ruleAstExpressionSymbolReference ) )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7038:1: (lv_expression_1_0= ruleAstExpressionSymbolReference )
             {
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7038:1: (lv_variable_1_0= ruleAstExpressionSymbolReference )
-            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7039:3: lv_variable_1_0= ruleAstExpressionSymbolReference
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7038:1: (lv_expression_1_0= ruleAstExpressionSymbolReference )
+            // ../org.caltoopia.frontend/src-gen/org/caltoopia/frontend/parser/antlr/internal/InternalCal.g:7039:3: lv_expression_1_0= ruleAstExpressionSymbolReference
             {
              
-            	        newCompositeNode(grammarAccess.getAstExpressionCaseAccess().getVariableAstExpressionSymbolReferenceParserRuleCall_1_0()); 
+            	        newCompositeNode(grammarAccess.getAstExpressionCaseAccess().getExpressionAstExpressionSymbolReferenceParserRuleCall_1_0()); 
             	    
             pushFollow(FOLLOW_ruleAstExpressionSymbolReference_in_ruleAstExpressionCase14481);
-            lv_variable_1_0=ruleAstExpressionSymbolReference();
+            lv_expression_1_0=ruleAstExpressionSymbolReference();
 
             state._fsp--;
 
@@ -17750,8 +17750,8 @@ public class InternalCalParser extends AbstractInternalAntlrParser {
             	        }
                    		set(
                    			current, 
-                   			"variable",
-                    		lv_variable_1_0, 
+                   			"expression",
+                    		lv_expression_1_0, 
                     		"AstExpressionSymbolReference");
             	        afterParserOrEnumRuleCall();
             	    

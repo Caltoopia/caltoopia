@@ -332,12 +332,13 @@ public class VoidSwitch extends CalSwitch<Void> {
 		for (AstExpression index: mv.getMemberIndex()) {
 			doSwitch(index);
 		}		
+		
 		return null;
 	}
 	
 	@Override
 	public Void caseAstExpressionCase(AstExpressionCase exprCase) { 
-		doSwitch(exprCase.getVariable());
+		doSwitch(exprCase.getExpression());
 		
 		for (AstExpressionAlternative alt : exprCase.getCases()) {
 			doSwitch(alt);

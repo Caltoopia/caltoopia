@@ -323,9 +323,9 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 		} catch (Exception e) {
 			String s1 = LHS != null ? typePrinter.doSwitch(LHS) : "<type fail>";
 			String s2 = RHS != null ? typePrinter.doSwitch(RHS) : "<type fail>";
-			error("Type error in assignment: LHS=" + s1 + " & RHS=" + s2 + " -- " + e.getMessage(),
-					assign,
-					CalPackage.eINSTANCE.getAstStatementAssign_Target(), -1);
+//			error("Type error in assignment: LHS=" + s1 + " & RHS=" + s2 + " -- " + e.getMessage(),
+//					assign,
+//					CalPackage.eINSTANCE.getAstStatementAssign_Target(), -1);
 			return;
 		} 	
 	}

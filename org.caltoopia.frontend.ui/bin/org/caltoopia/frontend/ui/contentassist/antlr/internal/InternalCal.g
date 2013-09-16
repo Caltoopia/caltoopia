@@ -21895,9 +21895,9 @@ rule__AstExpressionCase__Group__1__Impl
     }
 :
 (
-{ before(grammarAccess.getAstExpressionCaseAccess().getVariableAssignment_1()); }
-(rule__AstExpressionCase__VariableAssignment_1)
-{ after(grammarAccess.getAstExpressionCaseAccess().getVariableAssignment_1()); }
+{ before(grammarAccess.getAstExpressionCaseAccess().getExpressionAssignment_1()); }
+(rule__AstExpressionCase__ExpressionAssignment_1)
+{ after(grammarAccess.getAstExpressionCaseAccess().getExpressionAssignment_1()); }
 )
 
 ;
@@ -31047,14 +31047,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__AstExpressionCase__VariableAssignment_1
+rule__AstExpressionCase__ExpressionAssignment_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getAstExpressionCaseAccess().getVariableAstExpressionSymbolReferenceParserRuleCall_1_0()); }
-	ruleAstExpressionSymbolReference{ after(grammarAccess.getAstExpressionCaseAccess().getVariableAstExpressionSymbolReferenceParserRuleCall_1_0()); }
+{ before(grammarAccess.getAstExpressionCaseAccess().getExpressionAstExpressionSymbolReferenceParserRuleCall_1_0()); }
+	ruleAstExpressionSymbolReference{ after(grammarAccess.getAstExpressionCaseAccess().getExpressionAstExpressionSymbolReferenceParserRuleCall_1_0()); }
 )
 
 ;

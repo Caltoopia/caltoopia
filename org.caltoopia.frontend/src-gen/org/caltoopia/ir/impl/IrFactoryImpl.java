@@ -101,8 +101,6 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 			case IrPackage.BLOCK: return createBlock();
 			case IrPackage.CASE_STATEMENT: return createCaseStatement();
 			case IrPackage.STMT_ALTERNATIVE: return createStmtAlternative();
-			case IrPackage.PATTERN: return createPattern();
-			case IrPackage.SUB_PATTERN: return createSubPattern();
 			case IrPackage.PORT_ACCESS: return createPortAccess();
 			case IrPackage.PORT_WRITE: return createPortWrite();
 			case IrPackage.PORT_READ: return createPortRead();
@@ -113,6 +111,8 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 			case IrPackage.LAMBDA_EXPRESSION: return createLambdaExpression();
 			case IrPackage.PROC_EXPRESSION: return createProcExpression();
 			case IrPackage.IF_EXPRESSION: return createIfExpression();
+			case IrPackage.CASE_EXPRESSION: return createCaseExpression();
+			case IrPackage.EXPR_ALTERNATIVE: return createExprAlternative();
 			case IrPackage.GUARD: return createGuard();
 			case IrPackage.TYPE: return createType();
 			case IrPackage.TYPE_BOOL: return createTypeBool();
@@ -597,26 +597,6 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Pattern createPattern() {
-		PatternImpl pattern = new PatternImpl();
-		return pattern;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SubPattern createSubPattern() {
-		SubPatternImpl subPattern = new SubPatternImpl();
-		return subPattern;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public PortAccess createPortAccess() {
 		PortAccessImpl portAccess = new PortAccessImpl();
 		return portAccess;
@@ -710,6 +690,26 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 	public IfExpression createIfExpression() {
 		IfExpressionImpl ifExpression = new IfExpressionImpl();
 		return ifExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CaseExpression createCaseExpression() {
+		CaseExpressionImpl caseExpression = new CaseExpressionImpl();
+		return caseExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ExprAlternative createExprAlternative() {
+		ExprAlternativeImpl exprAlternative = new ExprAlternativeImpl();
+		return exprAlternative;
 	}
 
 	/**

@@ -2372,7 +2372,7 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAstExpressionCase_Variable()
+  public EReference getAstExpressionCase_Expression()
   {
     return (EReference)astExpressionCaseEClass.getEStructuralFeatures().get(0);
   }
@@ -3405,7 +3405,7 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     createEReference(astGeneratorEClass, AST_GENERATOR__EXPRESSION);
 
     astExpressionCaseEClass = createEClass(AST_EXPRESSION_CASE);
-    createEReference(astExpressionCaseEClass, AST_EXPRESSION_CASE__VARIABLE);
+    createEReference(astExpressionCaseEClass, AST_EXPRESSION_CASE__EXPRESSION);
     createEReference(astExpressionCaseEClass, AST_EXPRESSION_CASE__CASES);
     createEReference(astExpressionCaseEClass, AST_EXPRESSION_CASE__DEFAULT);
 
@@ -3798,7 +3798,7 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     initEReference(getAstGenerator_Expression(), this.getAstExpression(), null, "expression", null, 0, 1, AstGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(astExpressionCaseEClass, AstExpressionCase.class, "AstExpressionCase", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAstExpressionCase_Variable(), this.getAstExpressionSymbolReference(), null, "variable", null, 0, 1, AstExpressionCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAstExpressionCase_Expression(), this.getAstExpressionSymbolReference(), null, "expression", null, 0, 1, AstExpressionCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstExpressionCase_Cases(), this.getAstExpressionAlternative(), null, "cases", null, 0, -1, AstExpressionCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstExpressionCase_Default(), this.getAstExpression(), null, "default", null, 0, 1, AstExpressionCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

@@ -28,7 +28,6 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.caltoopia.ir.impl.StmtAlternativeImpl#getPattern <em>Pattern</em>}</li>
  *   <li>{@link org.caltoopia.ir.impl.StmtAlternativeImpl#getGuards <em>Guards</em>}</li>
  *   <li>{@link org.caltoopia.ir.impl.StmtAlternativeImpl#getStatement <em>Statement</em>}</li>
  * </ul>
@@ -37,16 +36,6 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * @generated
  */
 public class StmtAlternativeImpl extends ScopeImpl implements StmtAlternative {
-	/**
-	 * The cached value of the '{@link #getPattern() <em>Pattern</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPattern()
-	 * @generated
-	 * @ordered
-	 */
-	protected Pattern pattern;
-
 	/**
 	 * The cached value of the '{@link #getGuards() <em>Guards</em>}' reference list.
 	 * <!-- begin-user-doc -->
@@ -91,44 +80,6 @@ public class StmtAlternativeImpl extends ScopeImpl implements StmtAlternative {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Pattern getPattern() {
-		if (pattern != null && pattern.eIsProxy()) {
-			InternalEObject oldPattern = (InternalEObject)pattern;
-			pattern = (Pattern)eResolveProxy(oldPattern);
-			if (pattern != oldPattern) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.STMT_ALTERNATIVE__PATTERN, oldPattern, pattern));
-			}
-		}
-		return pattern;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Pattern basicGetPattern() {
-		return pattern;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPattern(Pattern newPattern) {
-		Pattern oldPattern = pattern;
-		pattern = newPattern;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.STMT_ALTERNATIVE__PATTERN, oldPattern, pattern));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<Guard> getGuards() {
 		if (guards == null) {
 			guards = new EObjectResolvingEList<Guard>(Guard.class, this, IrPackage.STMT_ALTERNATIVE__GUARDS);
@@ -156,9 +107,6 @@ public class StmtAlternativeImpl extends ScopeImpl implements StmtAlternative {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case IrPackage.STMT_ALTERNATIVE__PATTERN:
-				if (resolve) return getPattern();
-				return basicGetPattern();
 			case IrPackage.STMT_ALTERNATIVE__GUARDS:
 				return getGuards();
 			case IrPackage.STMT_ALTERNATIVE__STATEMENT:
@@ -176,9 +124,6 @@ public class StmtAlternativeImpl extends ScopeImpl implements StmtAlternative {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case IrPackage.STMT_ALTERNATIVE__PATTERN:
-				setPattern((Pattern)newValue);
-				return;
 			case IrPackage.STMT_ALTERNATIVE__GUARDS:
 				getGuards().clear();
 				getGuards().addAll((Collection<? extends Guard>)newValue);
@@ -199,9 +144,6 @@ public class StmtAlternativeImpl extends ScopeImpl implements StmtAlternative {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case IrPackage.STMT_ALTERNATIVE__PATTERN:
-				setPattern((Pattern)null);
-				return;
 			case IrPackage.STMT_ALTERNATIVE__GUARDS:
 				getGuards().clear();
 				return;
@@ -220,8 +162,6 @@ public class StmtAlternativeImpl extends ScopeImpl implements StmtAlternative {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case IrPackage.STMT_ALTERNATIVE__PATTERN:
-				return pattern != null;
 			case IrPackage.STMT_ALTERNATIVE__GUARDS:
 				return guards != null && !guards.isEmpty();
 			case IrPackage.STMT_ALTERNATIVE__STATEMENT:

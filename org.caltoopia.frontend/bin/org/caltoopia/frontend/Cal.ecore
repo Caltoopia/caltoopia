@@ -304,7 +304,7 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AstExpressionCase" eSuperTypes="#//AstExpression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="variable" eType="#//AstExpressionSymbolReference"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//AstExpressionSymbolReference"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cases" upperBound="-1"
         eType="#//AstExpressionAlternative" containment="true"/>

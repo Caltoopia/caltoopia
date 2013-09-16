@@ -12,7 +12,6 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.caltoopia.ir.StmtAlternative#getPattern <em>Pattern</em>}</li>
  *   <li>{@link org.caltoopia.ir.StmtAlternative#getGuards <em>Guards</em>}</li>
  *   <li>{@link org.caltoopia.ir.StmtAlternative#getStatement <em>Statement</em>}</li>
  * </ul>
@@ -23,32 +22,6 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface StmtAlternative extends Scope {
-	/**
-	 * Returns the value of the '<em><b>Pattern</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Pattern</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Pattern</em>' reference.
-	 * @see #setPattern(Pattern)
-	 * @see org.caltoopia.ir.IrPackage#getStmtAlternative_Pattern()
-	 * @model
-	 * @generated
-	 */
-	Pattern getPattern();
-
-	/**
-	 * Sets the value of the '{@link org.caltoopia.ir.StmtAlternative#getPattern <em>Pattern</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Pattern</em>' reference.
-	 * @see #getPattern()
-	 * @generated
-	 */
-	void setPattern(Pattern value);
-
 	/**
 	 * Returns the value of the '<em><b>Guards</b></em>' reference list.
 	 * The list contents are of type {@link org.caltoopia.ir.Guard}.

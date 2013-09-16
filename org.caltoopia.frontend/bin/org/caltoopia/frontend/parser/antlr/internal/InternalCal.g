@@ -7037,16 +7037,16 @@ ruleAstExpressionCase returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstExpressionCaseAccess().getVariableAstExpressionSymbolReferenceParserRuleCall_1_0()); 
+	        newCompositeNode(grammarAccess.getAstExpressionCaseAccess().getExpressionAstExpressionSymbolReferenceParserRuleCall_1_0()); 
 	    }
-		lv_variable_1_0=ruleAstExpressionSymbolReference		{
+		lv_expression_1_0=ruleAstExpressionSymbolReference		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstExpressionCaseRule());
 	        }
        		set(
        			$current, 
-       			"variable",
-        		lv_variable_1_0, 
+       			"expression",
+        		lv_expression_1_0, 
         		"AstExpressionSymbolReference");
 	        afterParserOrEnumRuleCall();
 	    }

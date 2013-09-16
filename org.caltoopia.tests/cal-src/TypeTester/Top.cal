@@ -65,14 +65,13 @@ import System.io.dprint1;
 	      	A(a:A(x, y)) guard x > y do i :=  x; end	      	
 	      end
 	    
-//	      i := case v of 
-//	             A(a:A(x, _)) guard x > 1: x end
-//	             A(a:A(x, _)) guard x = 0: 0 end
-//	           else
-//	             0 
-//	           end;
+	      i := case v of 
+	             A(a:A(x, _)) guard x > 1: 1 end
+	             A(a:A(x, _)) guard x = 0: 3.1 end
+	           else
+	             0 
+	           end;
 	           
-//	      i := if i > 1 then 1 else 0 end;     
 	   end
 	end
 

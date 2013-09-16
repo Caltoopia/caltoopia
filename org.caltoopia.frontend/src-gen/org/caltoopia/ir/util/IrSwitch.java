@@ -429,18 +429,6 @@ public class IrSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case IrPackage.PATTERN: {
-				Pattern pattern = (Pattern)theEObject;
-				T result = casePattern(pattern);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case IrPackage.SUB_PATTERN: {
-				SubPattern subPattern = (SubPattern)theEObject;
-				T result = caseSubPattern(subPattern);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case IrPackage.PORT_ACCESS: {
 				PortAccess portAccess = (PortAccess)theEObject;
 				T result = casePortAccess(portAccess);
@@ -524,6 +512,22 @@ public class IrSwitch<T> extends Switch<T> {
 				T result = caseIfExpression(ifExpression);
 				if (result == null) result = caseExpression(ifExpression);
 				if (result == null) result = caseNode(ifExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case IrPackage.CASE_EXPRESSION: {
+				CaseExpression caseExpression = (CaseExpression)theEObject;
+				T result = caseCaseExpression(caseExpression);
+				if (result == null) result = caseExpression(caseExpression);
+				if (result == null) result = caseNode(caseExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case IrPackage.EXPR_ALTERNATIVE: {
+				ExprAlternative exprAlternative = (ExprAlternative)theEObject;
+				T result = caseExprAlternative(exprAlternative);
+				if (result == null) result = caseScope(exprAlternative);
+				if (result == null) result = caseNode(exprAlternative);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1378,36 +1382,6 @@ public class IrSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Pattern</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Pattern</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T casePattern(Pattern object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Sub Pattern</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Sub Pattern</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseSubPattern(SubPattern object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Port Access</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1554,6 +1528,36 @@ public class IrSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseIfExpression(IfExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Case Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Case Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCaseExpression(CaseExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Expr Alternative</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Expr Alternative</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseExprAlternative(ExprAlternative object) {
 		return null;
 	}
 
