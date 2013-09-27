@@ -455,7 +455,6 @@ public class CalSwitch<T> extends Switch<T>
         AstExpressionBoolean astExpressionBoolean = (AstExpressionBoolean)theEObject;
         T result = caseAstExpressionBoolean(astExpressionBoolean);
         if (result == null) result = caseAstExpressionLiteral(astExpressionBoolean);
-        if (result == null) result = caseAstPatternExpressionLiteral(astExpressionBoolean);
         if (result == null) result = caseAstExpression(astExpressionBoolean);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -474,7 +473,6 @@ public class CalSwitch<T> extends Switch<T>
         AstExpressionInteger astExpressionInteger = (AstExpressionInteger)theEObject;
         T result = caseAstExpressionInteger(astExpressionInteger);
         if (result == null) result = caseAstExpressionLiteral(astExpressionInteger);
-        if (result == null) result = caseAstPatternExpressionLiteral(astExpressionInteger);
         if (result == null) result = caseAstExpression(astExpressionInteger);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -484,7 +482,6 @@ public class CalSwitch<T> extends Switch<T>
         AstExpressionString astExpressionString = (AstExpressionString)theEObject;
         T result = caseAstExpressionString(astExpressionString);
         if (result == null) result = caseAstExpressionLiteral(astExpressionString);
-        if (result == null) result = caseAstPatternExpressionLiteral(astExpressionString);
         if (result == null) result = caseAstExpression(astExpressionString);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -503,27 +500,10 @@ public class CalSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CalPackage.AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE:
-      {
-        AstPatternExpressionSymbolReference astPatternExpressionSymbolReference = (AstPatternExpressionSymbolReference)theEObject;
-        T result = caseAstPatternExpressionSymbolReference(astPatternExpressionSymbolReference);
-        if (result == null) result = caseAstExpression(astPatternExpressionSymbolReference);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case CalPackage.AST_PATTERN_EXPRESSION_IF:
       {
         AstPatternExpressionIf astPatternExpressionIf = (AstPatternExpressionIf)theEObject;
         T result = caseAstPatternExpressionIf(astPatternExpressionIf);
-        if (result == null) result = caseAstExpression(astPatternExpressionIf);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CalPackage.AST_PATTERN_EXPRESSION_LITERAL:
-      {
-        AstPatternExpressionLiteral astPatternExpressionLiteral = (AstPatternExpressionLiteral)theEObject;
-        T result = caseAstPatternExpressionLiteral(astPatternExpressionLiteral);
-        if (result == null) result = caseAstExpression(astPatternExpressionLiteral);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -607,22 +587,6 @@ public class CalSwitch<T> extends Switch<T>
         AstExpressionUnary astExpressionUnary = (AstExpressionUnary)theEObject;
         T result = caseAstExpressionUnary(astExpressionUnary);
         if (result == null) result = caseAstExpression(astExpressionUnary);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CalPackage.AST_PATTERN_EXPRESSION_BINARY:
-      {
-        AstPatternExpressionBinary astPatternExpressionBinary = (AstPatternExpressionBinary)theEObject;
-        T result = caseAstPatternExpressionBinary(astPatternExpressionBinary);
-        if (result == null) result = caseAstExpression(astPatternExpressionBinary);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CalPackage.AST_PATTERN_EXPRESSION_UNARY:
-      {
-        AstPatternExpressionUnary astPatternExpressionUnary = (AstPatternExpressionUnary)theEObject;
-        T result = caseAstPatternExpressionUnary(astPatternExpressionUnary);
-        if (result == null) result = caseAstExpression(astPatternExpressionUnary);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -1543,22 +1507,6 @@ public class CalSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Ast Pattern Expression Symbol Reference</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Ast Pattern Expression Symbol Reference</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseAstPatternExpressionSymbolReference(AstPatternExpressionSymbolReference object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Ast Pattern Expression If</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1570,22 +1518,6 @@ public class CalSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAstPatternExpressionIf(AstPatternExpressionIf object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Ast Pattern Expression Literal</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Ast Pattern Expression Literal</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseAstPatternExpressionLiteral(AstPatternExpressionLiteral object)
   {
     return null;
   }
@@ -1762,38 +1694,6 @@ public class CalSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAstExpressionUnary(AstExpressionUnary object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Ast Pattern Expression Binary</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Ast Pattern Expression Binary</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseAstPatternExpressionBinary(AstPatternExpressionBinary object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Ast Pattern Expression Unary</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Ast Pattern Expression Unary</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseAstPatternExpressionUnary(AstPatternExpressionUnary object)
   {
     return null;
   }

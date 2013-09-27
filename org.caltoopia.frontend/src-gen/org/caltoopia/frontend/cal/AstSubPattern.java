@@ -15,7 +15,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.caltoopia.frontend.cal.AstSubPattern#getLabel <em>Label</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.AstSubPattern#isDontcare <em>Dontcare</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.AstSubPattern#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.caltoopia.frontend.cal.AstSubPattern#getVariable <em>Variable</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.AstSubPattern#getPattern <em>Pattern</em>}</li>
  * </ul>
  * </p>
@@ -103,32 +102,6 @@ public interface AstSubPattern extends EObject
    * @generated
    */
   void setCondition(AstExpression value);
-
-  /**
-   * Returns the value of the '<em><b>Variable</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Variable</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Variable</em>' containment reference.
-   * @see #setVariable(AstVariable)
-   * @see org.caltoopia.frontend.cal.CalPackage#getAstSubPattern_Variable()
-   * @model containment="true"
-   * @generated
-   */
-  AstVariable getVariable();
-
-  /**
-   * Sets the value of the '{@link org.caltoopia.frontend.cal.AstSubPattern#getVariable <em>Variable</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Variable</em>' containment reference.
-   * @see #getVariable()
-   * @generated
-   */
-  void setVariable(AstVariable value);
 
   /**
    * Returns the value of the '<em><b>Pattern</b></em>' containment reference.

@@ -2,38 +2,42 @@
  */
 package org.caltoopia.ir.impl;
 
-import java.util.Collection;
-
+import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.IrPackage;
-import org.caltoopia.ir.Pattern;
-import org.caltoopia.ir.SubPattern;
+import org.caltoopia.ir.TagOf;
 
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Pattern</b></em>'.
+ * An implementation of the model object '<em><b>Tag Of</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.caltoopia.ir.impl.PatternImpl#getTag <em>Tag</em>}</li>
- *   <li>{@link org.caltoopia.ir.impl.PatternImpl#getSubPatterns <em>Sub Patterns</em>}</li>
+ *   <li>{@link org.caltoopia.ir.impl.TagOfImpl#getExpression <em>Expression</em>}</li>
+ *   <li>{@link org.caltoopia.ir.impl.TagOfImpl#getTag <em>Tag</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class PatternImpl extends EObjectImpl implements Pattern {
+public class TagOfImpl extends ExpressionImpl implements TagOf {
+	/**
+	 * The cached value of the '{@link #getExpression() <em>Expression</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExpression()
+	 * @generated
+	 * @ordered
+	 */
+	protected Expression expression;
+
 	/**
 	 * The default value of the '{@link #getTag() <em>Tag</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -55,21 +59,11 @@ public class PatternImpl extends EObjectImpl implements Pattern {
 	protected String tag = TAG_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getSubPatterns() <em>Sub Patterns</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSubPatterns()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<SubPattern> subPatterns;
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected PatternImpl() {
+	protected TagOfImpl() {
 		super();
 	}
 
@@ -80,7 +74,45 @@ public class PatternImpl extends EObjectImpl implements Pattern {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return IrPackage.Literals.PATTERN;
+		return IrPackage.Literals.TAG_OF;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Expression getExpression() {
+		if (expression != null && expression.eIsProxy()) {
+			InternalEObject oldExpression = (InternalEObject)expression;
+			expression = (Expression)eResolveProxy(oldExpression);
+			if (expression != oldExpression) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.TAG_OF__EXPRESSION, oldExpression, expression));
+			}
+		}
+		return expression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Expression basicGetExpression() {
+		return expression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setExpression(Expression newExpression) {
+		Expression oldExpression = expression;
+		expression = newExpression;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.TAG_OF__EXPRESSION, oldExpression, expression));
 	}
 
 	/**
@@ -101,19 +133,7 @@ public class PatternImpl extends EObjectImpl implements Pattern {
 		String oldTag = tag;
 		tag = newTag;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.PATTERN__TAG, oldTag, tag));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<SubPattern> getSubPatterns() {
-		if (subPatterns == null) {
-			subPatterns = new EObjectResolvingEList<SubPattern>(SubPattern.class, this, IrPackage.PATTERN__SUB_PATTERNS);
-		}
-		return subPatterns;
+			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.TAG_OF__TAG, oldTag, tag));
 	}
 
 	/**
@@ -124,10 +144,11 @@ public class PatternImpl extends EObjectImpl implements Pattern {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case IrPackage.PATTERN__TAG:
+			case IrPackage.TAG_OF__EXPRESSION:
+				if (resolve) return getExpression();
+				return basicGetExpression();
+			case IrPackage.TAG_OF__TAG:
 				return getTag();
-			case IrPackage.PATTERN__SUB_PATTERNS:
-				return getSubPatterns();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -137,16 +158,14 @@ public class PatternImpl extends EObjectImpl implements Pattern {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case IrPackage.PATTERN__TAG:
-				setTag((String)newValue);
+			case IrPackage.TAG_OF__EXPRESSION:
+				setExpression((Expression)newValue);
 				return;
-			case IrPackage.PATTERN__SUB_PATTERNS:
-				getSubPatterns().clear();
-				getSubPatterns().addAll((Collection<? extends SubPattern>)newValue);
+			case IrPackage.TAG_OF__TAG:
+				setTag((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -160,11 +179,11 @@ public class PatternImpl extends EObjectImpl implements Pattern {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case IrPackage.PATTERN__TAG:
-				setTag(TAG_EDEFAULT);
+			case IrPackage.TAG_OF__EXPRESSION:
+				setExpression((Expression)null);
 				return;
-			case IrPackage.PATTERN__SUB_PATTERNS:
-				getSubPatterns().clear();
+			case IrPackage.TAG_OF__TAG:
+				setTag(TAG_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -178,10 +197,10 @@ public class PatternImpl extends EObjectImpl implements Pattern {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case IrPackage.PATTERN__TAG:
+			case IrPackage.TAG_OF__EXPRESSION:
+				return expression != null;
+			case IrPackage.TAG_OF__TAG:
 				return TAG_EDEFAULT == null ? tag != null : !TAG_EDEFAULT.equals(tag);
-			case IrPackage.PATTERN__SUB_PATTERNS:
-				return subPatterns != null && !subPatterns.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -202,4 +221,4 @@ public class PatternImpl extends EObjectImpl implements Pattern {
 		return result.toString();
 	}
 
-} //PatternImpl
+} //TagOfImpl

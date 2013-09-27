@@ -5,7 +5,6 @@ package org.caltoopia.frontend.cal.impl;
 import org.caltoopia.frontend.cal.AstExpression;
 import org.caltoopia.frontend.cal.AstPattern;
 import org.caltoopia.frontend.cal.AstSubPattern;
-import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.cal.CalPackage;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -27,7 +26,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstSubPatternImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstSubPatternImpl#isDontcare <em>Dontcare</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstSubPatternImpl#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.caltoopia.frontend.cal.impl.AstSubPatternImpl#getVariable <em>Variable</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstSubPatternImpl#getPattern <em>Pattern</em>}</li>
  * </ul>
  * </p>
@@ -85,16 +83,6 @@ public class AstSubPatternImpl extends MinimalEObjectImpl.Container implements A
    * @ordered
    */
   protected AstExpression condition;
-
-  /**
-   * The cached value of the '{@link #getVariable() <em>Variable</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getVariable()
-   * @generated
-   * @ordered
-   */
-  protected AstVariable variable;
 
   /**
    * The cached value of the '{@link #getPattern() <em>Pattern</em>}' containment reference.
@@ -226,54 +214,6 @@ public class AstSubPatternImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
-  public AstVariable getVariable()
-  {
-    return variable;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetVariable(AstVariable newVariable, NotificationChain msgs)
-  {
-    AstVariable oldVariable = variable;
-    variable = newVariable;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CalPackage.AST_SUB_PATTERN__VARIABLE, oldVariable, newVariable);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setVariable(AstVariable newVariable)
-  {
-    if (newVariable != variable)
-    {
-      NotificationChain msgs = null;
-      if (variable != null)
-        msgs = ((InternalEObject)variable).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CalPackage.AST_SUB_PATTERN__VARIABLE, null, msgs);
-      if (newVariable != null)
-        msgs = ((InternalEObject)newVariable).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CalPackage.AST_SUB_PATTERN__VARIABLE, null, msgs);
-      msgs = basicSetVariable(newVariable, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CalPackage.AST_SUB_PATTERN__VARIABLE, newVariable, newVariable));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public AstPattern getPattern()
   {
     return pattern;
@@ -329,8 +269,6 @@ public class AstSubPatternImpl extends MinimalEObjectImpl.Container implements A
     {
       case CalPackage.AST_SUB_PATTERN__CONDITION:
         return basicSetCondition(null, msgs);
-      case CalPackage.AST_SUB_PATTERN__VARIABLE:
-        return basicSetVariable(null, msgs);
       case CalPackage.AST_SUB_PATTERN__PATTERN:
         return basicSetPattern(null, msgs);
     }
@@ -353,8 +291,6 @@ public class AstSubPatternImpl extends MinimalEObjectImpl.Container implements A
         return isDontcare();
       case CalPackage.AST_SUB_PATTERN__CONDITION:
         return getCondition();
-      case CalPackage.AST_SUB_PATTERN__VARIABLE:
-        return getVariable();
       case CalPackage.AST_SUB_PATTERN__PATTERN:
         return getPattern();
     }
@@ -379,9 +315,6 @@ public class AstSubPatternImpl extends MinimalEObjectImpl.Container implements A
         return;
       case CalPackage.AST_SUB_PATTERN__CONDITION:
         setCondition((AstExpression)newValue);
-        return;
-      case CalPackage.AST_SUB_PATTERN__VARIABLE:
-        setVariable((AstVariable)newValue);
         return;
       case CalPackage.AST_SUB_PATTERN__PATTERN:
         setPattern((AstPattern)newValue);
@@ -409,9 +342,6 @@ public class AstSubPatternImpl extends MinimalEObjectImpl.Container implements A
       case CalPackage.AST_SUB_PATTERN__CONDITION:
         setCondition((AstExpression)null);
         return;
-      case CalPackage.AST_SUB_PATTERN__VARIABLE:
-        setVariable((AstVariable)null);
-        return;
       case CalPackage.AST_SUB_PATTERN__PATTERN:
         setPattern((AstPattern)null);
         return;
@@ -435,8 +365,6 @@ public class AstSubPatternImpl extends MinimalEObjectImpl.Container implements A
         return dontcare != DONTCARE_EDEFAULT;
       case CalPackage.AST_SUB_PATTERN__CONDITION:
         return condition != null;
-      case CalPackage.AST_SUB_PATTERN__VARIABLE:
-        return variable != null;
       case CalPackage.AST_SUB_PATTERN__PATTERN:
         return pattern != null;
     }

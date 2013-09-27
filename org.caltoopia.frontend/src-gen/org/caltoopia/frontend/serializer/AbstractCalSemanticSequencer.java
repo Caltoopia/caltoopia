@@ -35,10 +35,7 @@ import org.caltoopia.frontend.cal.AstNamespace;
 import org.caltoopia.frontend.cal.AstNetwork;
 import org.caltoopia.frontend.cal.AstOutputPattern;
 import org.caltoopia.frontend.cal.AstPattern;
-import org.caltoopia.frontend.cal.AstPatternExpressionBinary;
 import org.caltoopia.frontend.cal.AstPatternExpressionIf;
-import org.caltoopia.frontend.cal.AstPatternExpressionSymbolReference;
-import org.caltoopia.frontend.cal.AstPatternExpressionUnary;
 import org.caltoopia.frontend.cal.AstPort;
 import org.caltoopia.frontend.cal.AstPriority;
 import org.caltoopia.frontend.cal.AstProcedure;
@@ -210,31 +207,7 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 				   context == grammarAccess.getAstExpressionShiftAccess().getAstExpressionBinaryLeftAction_1_0() ||
 				   context == grammarAccess.getAstExpressionUnaryRule() ||
 				   context == grammarAccess.getAstExpressionAccess().getAstExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionRule() ||
-				   context == grammarAccess.getAstPatternExpressionAdditiveRule() ||
-				   context == grammarAccess.getAstPatternExpressionAdditiveAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionAndRule() ||
-				   context == grammarAccess.getAstPatternExpressionAndAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionBitandRule() ||
-				   context == grammarAccess.getAstPatternExpressionBitandAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionBitorRule() ||
-				   context == grammarAccess.getAstPatternExpressionBitorAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionBitxorRule() ||
-				   context == grammarAccess.getAstPatternExpressionBitxorAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionEqRule() ||
-				   context == grammarAccess.getAstPatternExpressionEqAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionExpRule() ||
-				   context == grammarAccess.getAstPatternExpressionExpAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionLiteralRule() ||
-				   context == grammarAccess.getAstPatternExpressionMultiplicativeRule() ||
-				   context == grammarAccess.getAstPatternExpressionMultiplicativeAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionPostfixRule() ||
-				   context == grammarAccess.getAstPatternExpressionRelationalRule() ||
-				   context == grammarAccess.getAstPatternExpressionRelationalAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionShiftRule() ||
-				   context == grammarAccess.getAstPatternExpressionShiftAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionUnaryRule() ||
-				   context == grammarAccess.getAstPatternExpressionAccess().getAstPatternExpressionBinaryLeftAction_1_0()) {
+				   context == grammarAccess.getAstPatternExpressionRule()) {
 					sequence_AstExpressionBoolean(context, (AstExpressionBoolean) semanticObject); 
 					return; 
 				}
@@ -264,31 +237,7 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 				   context == grammarAccess.getAstExpressionShiftRule() ||
 				   context == grammarAccess.getAstExpressionShiftAccess().getAstExpressionBinaryLeftAction_1_0() ||
 				   context == grammarAccess.getAstExpressionUnaryRule() ||
-				   context == grammarAccess.getAstExpressionAccess().getAstExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionRule() ||
-				   context == grammarAccess.getAstPatternExpressionAdditiveRule() ||
-				   context == grammarAccess.getAstPatternExpressionAdditiveAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionAndRule() ||
-				   context == grammarAccess.getAstPatternExpressionAndAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionBitandRule() ||
-				   context == grammarAccess.getAstPatternExpressionBitandAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionBitorRule() ||
-				   context == grammarAccess.getAstPatternExpressionBitorAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionBitxorRule() ||
-				   context == grammarAccess.getAstPatternExpressionBitxorAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionEqRule() ||
-				   context == grammarAccess.getAstPatternExpressionEqAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionExpRule() ||
-				   context == grammarAccess.getAstPatternExpressionExpAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionMultiplicativeRule() ||
-				   context == grammarAccess.getAstPatternExpressionMultiplicativeAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionPostfixRule() ||
-				   context == grammarAccess.getAstPatternExpressionRelationalRule() ||
-				   context == grammarAccess.getAstPatternExpressionRelationalAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionShiftRule() ||
-				   context == grammarAccess.getAstPatternExpressionShiftAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionUnaryRule() ||
-				   context == grammarAccess.getAstPatternExpressionAccess().getAstPatternExpressionBinaryLeftAction_1_0()) {
+				   context == grammarAccess.getAstExpressionAccess().getAstExpressionBinaryLeftAction_1_0()) {
 					sequence_AstExpressionCase(context, (AstExpressionCase) semanticObject); 
 					return; 
 				}
@@ -381,31 +330,7 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 				   context == grammarAccess.getAstExpressionShiftAccess().getAstExpressionBinaryLeftAction_1_0() ||
 				   context == grammarAccess.getAstExpressionUnaryRule() ||
 				   context == grammarAccess.getAstExpressionAccess().getAstExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionRule() ||
-				   context == grammarAccess.getAstPatternExpressionAdditiveRule() ||
-				   context == grammarAccess.getAstPatternExpressionAdditiveAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionAndRule() ||
-				   context == grammarAccess.getAstPatternExpressionAndAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionBitandRule() ||
-				   context == grammarAccess.getAstPatternExpressionBitandAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionBitorRule() ||
-				   context == grammarAccess.getAstPatternExpressionBitorAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionBitxorRule() ||
-				   context == grammarAccess.getAstPatternExpressionBitxorAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionEqRule() ||
-				   context == grammarAccess.getAstPatternExpressionEqAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionExpRule() ||
-				   context == grammarAccess.getAstPatternExpressionExpAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionLiteralRule() ||
-				   context == grammarAccess.getAstPatternExpressionMultiplicativeRule() ||
-				   context == grammarAccess.getAstPatternExpressionMultiplicativeAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionPostfixRule() ||
-				   context == grammarAccess.getAstPatternExpressionRelationalRule() ||
-				   context == grammarAccess.getAstPatternExpressionRelationalAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionShiftRule() ||
-				   context == grammarAccess.getAstPatternExpressionShiftAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionUnaryRule() ||
-				   context == grammarAccess.getAstPatternExpressionAccess().getAstPatternExpressionBinaryLeftAction_1_0()) {
+				   context == grammarAccess.getAstPatternExpressionRule()) {
 					sequence_AstExpressionInteger(context, (AstExpressionInteger) semanticObject); 
 					return; 
 				}
@@ -467,31 +392,7 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 				   context == grammarAccess.getAstExpressionStringRule() ||
 				   context == grammarAccess.getAstExpressionUnaryRule() ||
 				   context == grammarAccess.getAstExpressionAccess().getAstExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionRule() ||
-				   context == grammarAccess.getAstPatternExpressionAdditiveRule() ||
-				   context == grammarAccess.getAstPatternExpressionAdditiveAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionAndRule() ||
-				   context == grammarAccess.getAstPatternExpressionAndAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionBitandRule() ||
-				   context == grammarAccess.getAstPatternExpressionBitandAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionBitorRule() ||
-				   context == grammarAccess.getAstPatternExpressionBitorAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionBitxorRule() ||
-				   context == grammarAccess.getAstPatternExpressionBitxorAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionEqRule() ||
-				   context == grammarAccess.getAstPatternExpressionEqAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionExpRule() ||
-				   context == grammarAccess.getAstPatternExpressionExpAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionLiteralRule() ||
-				   context == grammarAccess.getAstPatternExpressionMultiplicativeRule() ||
-				   context == grammarAccess.getAstPatternExpressionMultiplicativeAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionPostfixRule() ||
-				   context == grammarAccess.getAstPatternExpressionRelationalRule() ||
-				   context == grammarAccess.getAstPatternExpressionRelationalAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionShiftRule() ||
-				   context == grammarAccess.getAstPatternExpressionShiftAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionUnaryRule() ||
-				   context == grammarAccess.getAstPatternExpressionAccess().getAstPatternExpressionBinaryLeftAction_1_0()) {
+				   context == grammarAccess.getAstPatternExpressionRule()) {
 					sequence_AstExpressionString(context, (AstExpressionString) semanticObject); 
 					return; 
 				}
@@ -521,7 +422,8 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 				   context == grammarAccess.getAstExpressionShiftAccess().getAstExpressionBinaryLeftAction_1_0() ||
 				   context == grammarAccess.getAstExpressionSymbolReferenceRule() ||
 				   context == grammarAccess.getAstExpressionUnaryRule() ||
-				   context == grammarAccess.getAstExpressionAccess().getAstExpressionBinaryLeftAction_1_0()) {
+				   context == grammarAccess.getAstExpressionAccess().getAstExpressionBinaryLeftAction_1_0() ||
+				   context == grammarAccess.getAstPatternExpressionRule()) {
 					sequence_AstExpressionSymbolReference(context, (AstExpressionSymbolReference) semanticObject); 
 					return; 
 				}
@@ -645,148 +547,9 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 					return; 
 				}
 				else break;
-			case CalPackage.AST_PATTERN_EXPRESSION_BINARY:
-				if(context == grammarAccess.getAstPatternExpressionAndRule() ||
-				   context == grammarAccess.getAstPatternExpressionAndAccess().getAstPatternExpressionBinaryLeftAction_1_0()) {
-					sequence_AstPatternExpressionAdditive_AstPatternExpressionAnd_AstPatternExpressionBitand_AstPatternExpressionBitor_AstPatternExpressionBitxor_AstPatternExpressionEq_AstPatternExpressionExp_AstPatternExpressionMultiplicative_AstPatternExpressionRelational_AstPatternExpressionShift(context, (AstPatternExpressionBinary) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getAstPatternExpressionBitorRule() ||
-				   context == grammarAccess.getAstPatternExpressionBitorAccess().getAstPatternExpressionBinaryLeftAction_1_0()) {
-					sequence_AstPatternExpressionAdditive_AstPatternExpressionBitand_AstPatternExpressionBitor_AstPatternExpressionBitxor_AstPatternExpressionEq_AstPatternExpressionExp_AstPatternExpressionMultiplicative_AstPatternExpressionRelational_AstPatternExpressionShift(context, (AstPatternExpressionBinary) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getAstPatternExpressionBitxorRule() ||
-				   context == grammarAccess.getAstPatternExpressionBitxorAccess().getAstPatternExpressionBinaryLeftAction_1_0()) {
-					sequence_AstPatternExpressionAdditive_AstPatternExpressionBitand_AstPatternExpressionBitxor_AstPatternExpressionEq_AstPatternExpressionExp_AstPatternExpressionMultiplicative_AstPatternExpressionRelational_AstPatternExpressionShift(context, (AstPatternExpressionBinary) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getAstPatternExpressionBitandRule() ||
-				   context == grammarAccess.getAstPatternExpressionBitandAccess().getAstPatternExpressionBinaryLeftAction_1_0()) {
-					sequence_AstPatternExpressionAdditive_AstPatternExpressionBitand_AstPatternExpressionEq_AstPatternExpressionExp_AstPatternExpressionMultiplicative_AstPatternExpressionRelational_AstPatternExpressionShift(context, (AstPatternExpressionBinary) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getAstPatternExpressionEqRule() ||
-				   context == grammarAccess.getAstPatternExpressionEqAccess().getAstPatternExpressionBinaryLeftAction_1_0()) {
-					sequence_AstPatternExpressionAdditive_AstPatternExpressionEq_AstPatternExpressionExp_AstPatternExpressionMultiplicative_AstPatternExpressionRelational_AstPatternExpressionShift(context, (AstPatternExpressionBinary) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getAstPatternExpressionAdditiveRule() ||
-				   context == grammarAccess.getAstPatternExpressionAdditiveAccess().getAstPatternExpressionBinaryLeftAction_1_0()) {
-					sequence_AstPatternExpressionAdditive_AstPatternExpressionExp_AstPatternExpressionMultiplicative(context, (AstPatternExpressionBinary) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getAstPatternExpressionRelationalRule() ||
-				   context == grammarAccess.getAstPatternExpressionRelationalAccess().getAstPatternExpressionBinaryLeftAction_1_0()) {
-					sequence_AstPatternExpressionAdditive_AstPatternExpressionExp_AstPatternExpressionMultiplicative_AstPatternExpressionRelational_AstPatternExpressionShift(context, (AstPatternExpressionBinary) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getAstPatternExpressionShiftRule() ||
-				   context == grammarAccess.getAstPatternExpressionShiftAccess().getAstPatternExpressionBinaryLeftAction_1_0()) {
-					sequence_AstPatternExpressionAdditive_AstPatternExpressionExp_AstPatternExpressionMultiplicative_AstPatternExpressionShift(context, (AstPatternExpressionBinary) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getAstPatternExpressionExpRule() ||
-				   context == grammarAccess.getAstPatternExpressionExpAccess().getAstPatternExpressionBinaryLeftAction_1_0()) {
-					sequence_AstPatternExpressionExp(context, (AstPatternExpressionBinary) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getAstPatternExpressionMultiplicativeRule() ||
-				   context == grammarAccess.getAstPatternExpressionMultiplicativeAccess().getAstPatternExpressionBinaryLeftAction_1_0()) {
-					sequence_AstPatternExpressionExp_AstPatternExpressionMultiplicative(context, (AstPatternExpressionBinary) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getAstPatternExpressionRule() ||
-				   context == grammarAccess.getAstPatternExpressionAccess().getAstPatternExpressionBinaryLeftAction_1_0()) {
-					sequence_AstPatternExpression_AstPatternExpressionAdditive_AstPatternExpressionAnd_AstPatternExpressionBitand_AstPatternExpressionBitor_AstPatternExpressionBitxor_AstPatternExpressionEq_AstPatternExpressionExp_AstPatternExpressionMultiplicative_AstPatternExpressionRelational_AstPatternExpressionShift(context, (AstPatternExpressionBinary) semanticObject); 
-					return; 
-				}
-				else break;
 			case CalPackage.AST_PATTERN_EXPRESSION_IF:
-				if(context == grammarAccess.getAstPatternExpressionRule() ||
-				   context == grammarAccess.getAstPatternExpressionAdditiveRule() ||
-				   context == grammarAccess.getAstPatternExpressionAdditiveAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionAndRule() ||
-				   context == grammarAccess.getAstPatternExpressionAndAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionBitandRule() ||
-				   context == grammarAccess.getAstPatternExpressionBitandAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionBitorRule() ||
-				   context == grammarAccess.getAstPatternExpressionBitorAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionBitxorRule() ||
-				   context == grammarAccess.getAstPatternExpressionBitxorAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionEqRule() ||
-				   context == grammarAccess.getAstPatternExpressionEqAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionExpRule() ||
-				   context == grammarAccess.getAstPatternExpressionExpAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionIfRule() ||
-				   context == grammarAccess.getAstPatternExpressionMultiplicativeRule() ||
-				   context == grammarAccess.getAstPatternExpressionMultiplicativeAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionPostfixRule() ||
-				   context == grammarAccess.getAstPatternExpressionRelationalRule() ||
-				   context == grammarAccess.getAstPatternExpressionRelationalAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionShiftRule() ||
-				   context == grammarAccess.getAstPatternExpressionShiftAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionUnaryRule() ||
-				   context == grammarAccess.getAstPatternExpressionAccess().getAstPatternExpressionBinaryLeftAction_1_0()) {
+				if(context == grammarAccess.getAstPatternExpressionIfRule()) {
 					sequence_AstPatternExpressionIf(context, (AstPatternExpressionIf) semanticObject); 
-					return; 
-				}
-				else break;
-			case CalPackage.AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE:
-				if(context == grammarAccess.getAstPatternExpressionRule() ||
-				   context == grammarAccess.getAstPatternExpressionAdditiveRule() ||
-				   context == grammarAccess.getAstPatternExpressionAdditiveAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionAndRule() ||
-				   context == grammarAccess.getAstPatternExpressionAndAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionBitandRule() ||
-				   context == grammarAccess.getAstPatternExpressionBitandAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionBitorRule() ||
-				   context == grammarAccess.getAstPatternExpressionBitorAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionBitxorRule() ||
-				   context == grammarAccess.getAstPatternExpressionBitxorAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionEqRule() ||
-				   context == grammarAccess.getAstPatternExpressionEqAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionExpRule() ||
-				   context == grammarAccess.getAstPatternExpressionExpAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionMultiplicativeRule() ||
-				   context == grammarAccess.getAstPatternExpressionMultiplicativeAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionPostfixRule() ||
-				   context == grammarAccess.getAstPatternExpressionRelationalRule() ||
-				   context == grammarAccess.getAstPatternExpressionRelationalAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionShiftRule() ||
-				   context == grammarAccess.getAstPatternExpressionShiftAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionSymbolReferenceRule() ||
-				   context == grammarAccess.getAstPatternExpressionUnaryRule() ||
-				   context == grammarAccess.getAstPatternExpressionAccess().getAstPatternExpressionBinaryLeftAction_1_0()) {
-					sequence_AstPatternExpressionSymbolReference(context, (AstPatternExpressionSymbolReference) semanticObject); 
-					return; 
-				}
-				else break;
-			case CalPackage.AST_PATTERN_EXPRESSION_UNARY:
-				if(context == grammarAccess.getAstPatternExpressionRule() ||
-				   context == grammarAccess.getAstPatternExpressionAdditiveRule() ||
-				   context == grammarAccess.getAstPatternExpressionAdditiveAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionAndRule() ||
-				   context == grammarAccess.getAstPatternExpressionAndAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionBitandRule() ||
-				   context == grammarAccess.getAstPatternExpressionBitandAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionBitorRule() ||
-				   context == grammarAccess.getAstPatternExpressionBitorAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionBitxorRule() ||
-				   context == grammarAccess.getAstPatternExpressionBitxorAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionEqRule() ||
-				   context == grammarAccess.getAstPatternExpressionEqAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionExpRule() ||
-				   context == grammarAccess.getAstPatternExpressionExpAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionMultiplicativeRule() ||
-				   context == grammarAccess.getAstPatternExpressionMultiplicativeAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionRelationalRule() ||
-				   context == grammarAccess.getAstPatternExpressionRelationalAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionShiftRule() ||
-				   context == grammarAccess.getAstPatternExpressionShiftAccess().getAstPatternExpressionBinaryLeftAction_1_0() ||
-				   context == grammarAccess.getAstPatternExpressionUnaryRule() ||
-				   context == grammarAccess.getAstPatternExpressionAccess().getAstPatternExpressionBinaryLeftAction_1_0()) {
-					sequence_AstPatternExpressionUnary(context, (AstPatternExpressionUnary) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1415,7 +1178,7 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (port=[AstPort|ID]? tokens+=AstToken tokens+=AstToken* repeat=AstExpression?)
+	 *     (port=[AstPort|ID]? tokens+=AstPattern tokens+=AstPattern* repeat=AstExpression?)
 	 */
 	protected void sequence_AstInputPattern(EObject context, AstInputPattern semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1526,260 +1289,6 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         (
-	 *             left=AstPatternExpressionMultiplicative_AstPatternExpressionBinary_1_0 
-	 *             (operator='*' | operator='/' | operator='div' | operator='mod') 
-	 *             right=AstPatternExpressionExp
-	 *         ) | 
-	 *         (left=AstPatternExpressionExp_AstPatternExpressionBinary_1_0 operator='**' right=AstPatternExpressionUnary) | 
-	 *         (left=AstPatternExpressionAdditive_AstPatternExpressionBinary_1_0 (operator='+' | operator='-') right=AstPatternExpressionMultiplicative) | 
-	 *         (
-	 *             left=AstPatternExpressionShift_AstPatternExpressionBinary_1_0 
-	 *             (operator='<<' | operator='>>' | operator='>>>') 
-	 *             right=AstPatternExpressionAdditive
-	 *         ) | 
-	 *         (
-	 *             left=AstPatternExpressionRelational_AstPatternExpressionBinary_1_0 
-	 *             (operator='<' | operator='<=' | operator='>' | operator='>=') 
-	 *             right=AstPatternExpressionShift
-	 *         ) | 
-	 *         (left=AstPatternExpressionEq_AstPatternExpressionBinary_1_0 (operator='=' | operator='!=') right=AstPatternExpressionRelational) | 
-	 *         (left=AstPatternExpressionBitand_AstPatternExpressionBinary_1_0 operator='&' right=AstPatternExpressionEq) | 
-	 *         (left=AstPatternExpressionBitxor_AstPatternExpressionBinary_1_0 operator='^' right=AstPatternExpressionBitand) | 
-	 *         (left=AstPatternExpressionBitor_AstPatternExpressionBinary_1_0 operator='|' right=AstPatternExpressionBitxor) | 
-	 *         (left=AstPatternExpressionAnd_AstPatternExpressionBinary_1_0 (operator='&&' | operator='and') right=AstPatternExpressionBitor)
-	 *     )
-	 */
-	protected void sequence_AstPatternExpressionAdditive_AstPatternExpressionAnd_AstPatternExpressionBitand_AstPatternExpressionBitor_AstPatternExpressionBitxor_AstPatternExpressionEq_AstPatternExpressionExp_AstPatternExpressionMultiplicative_AstPatternExpressionRelational_AstPatternExpressionShift(EObject context, AstPatternExpressionBinary semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (
-	 *             left=AstPatternExpressionMultiplicative_AstPatternExpressionBinary_1_0 
-	 *             (operator='*' | operator='/' | operator='div' | operator='mod') 
-	 *             right=AstPatternExpressionExp
-	 *         ) | 
-	 *         (left=AstPatternExpressionExp_AstPatternExpressionBinary_1_0 operator='**' right=AstPatternExpressionUnary) | 
-	 *         (left=AstPatternExpressionAdditive_AstPatternExpressionBinary_1_0 (operator='+' | operator='-') right=AstPatternExpressionMultiplicative) | 
-	 *         (
-	 *             left=AstPatternExpressionShift_AstPatternExpressionBinary_1_0 
-	 *             (operator='<<' | operator='>>' | operator='>>>') 
-	 *             right=AstPatternExpressionAdditive
-	 *         ) | 
-	 *         (
-	 *             left=AstPatternExpressionRelational_AstPatternExpressionBinary_1_0 
-	 *             (operator='<' | operator='<=' | operator='>' | operator='>=') 
-	 *             right=AstPatternExpressionShift
-	 *         ) | 
-	 *         (left=AstPatternExpressionEq_AstPatternExpressionBinary_1_0 (operator='=' | operator='!=') right=AstPatternExpressionRelational) | 
-	 *         (left=AstPatternExpressionBitand_AstPatternExpressionBinary_1_0 operator='&' right=AstPatternExpressionEq) | 
-	 *         (left=AstPatternExpressionBitxor_AstPatternExpressionBinary_1_0 operator='^' right=AstPatternExpressionBitand) | 
-	 *         (left=AstPatternExpressionBitor_AstPatternExpressionBinary_1_0 operator='|' right=AstPatternExpressionBitxor)
-	 *     )
-	 */
-	protected void sequence_AstPatternExpressionAdditive_AstPatternExpressionBitand_AstPatternExpressionBitor_AstPatternExpressionBitxor_AstPatternExpressionEq_AstPatternExpressionExp_AstPatternExpressionMultiplicative_AstPatternExpressionRelational_AstPatternExpressionShift(EObject context, AstPatternExpressionBinary semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (
-	 *             left=AstPatternExpressionMultiplicative_AstPatternExpressionBinary_1_0 
-	 *             (operator='*' | operator='/' | operator='div' | operator='mod') 
-	 *             right=AstPatternExpressionExp
-	 *         ) | 
-	 *         (left=AstPatternExpressionExp_AstPatternExpressionBinary_1_0 operator='**' right=AstPatternExpressionUnary) | 
-	 *         (left=AstPatternExpressionAdditive_AstPatternExpressionBinary_1_0 (operator='+' | operator='-') right=AstPatternExpressionMultiplicative) | 
-	 *         (
-	 *             left=AstPatternExpressionShift_AstPatternExpressionBinary_1_0 
-	 *             (operator='<<' | operator='>>' | operator='>>>') 
-	 *             right=AstPatternExpressionAdditive
-	 *         ) | 
-	 *         (
-	 *             left=AstPatternExpressionRelational_AstPatternExpressionBinary_1_0 
-	 *             (operator='<' | operator='<=' | operator='>' | operator='>=') 
-	 *             right=AstPatternExpressionShift
-	 *         ) | 
-	 *         (left=AstPatternExpressionEq_AstPatternExpressionBinary_1_0 (operator='=' | operator='!=') right=AstPatternExpressionRelational) | 
-	 *         (left=AstPatternExpressionBitand_AstPatternExpressionBinary_1_0 operator='&' right=AstPatternExpressionEq) | 
-	 *         (left=AstPatternExpressionBitxor_AstPatternExpressionBinary_1_0 operator='^' right=AstPatternExpressionBitand)
-	 *     )
-	 */
-	protected void sequence_AstPatternExpressionAdditive_AstPatternExpressionBitand_AstPatternExpressionBitxor_AstPatternExpressionEq_AstPatternExpressionExp_AstPatternExpressionMultiplicative_AstPatternExpressionRelational_AstPatternExpressionShift(EObject context, AstPatternExpressionBinary semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (
-	 *             left=AstPatternExpressionMultiplicative_AstPatternExpressionBinary_1_0 
-	 *             (operator='*' | operator='/' | operator='div' | operator='mod') 
-	 *             right=AstPatternExpressionExp
-	 *         ) | 
-	 *         (left=AstPatternExpressionExp_AstPatternExpressionBinary_1_0 operator='**' right=AstPatternExpressionUnary) | 
-	 *         (left=AstPatternExpressionAdditive_AstPatternExpressionBinary_1_0 (operator='+' | operator='-') right=AstPatternExpressionMultiplicative) | 
-	 *         (
-	 *             left=AstPatternExpressionShift_AstPatternExpressionBinary_1_0 
-	 *             (operator='<<' | operator='>>' | operator='>>>') 
-	 *             right=AstPatternExpressionAdditive
-	 *         ) | 
-	 *         (
-	 *             left=AstPatternExpressionRelational_AstPatternExpressionBinary_1_0 
-	 *             (operator='<' | operator='<=' | operator='>' | operator='>=') 
-	 *             right=AstPatternExpressionShift
-	 *         ) | 
-	 *         (left=AstPatternExpressionEq_AstPatternExpressionBinary_1_0 (operator='=' | operator='!=') right=AstPatternExpressionRelational) | 
-	 *         (left=AstPatternExpressionBitand_AstPatternExpressionBinary_1_0 operator='&' right=AstPatternExpressionEq)
-	 *     )
-	 */
-	protected void sequence_AstPatternExpressionAdditive_AstPatternExpressionBitand_AstPatternExpressionEq_AstPatternExpressionExp_AstPatternExpressionMultiplicative_AstPatternExpressionRelational_AstPatternExpressionShift(EObject context, AstPatternExpressionBinary semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (
-	 *             left=AstPatternExpressionMultiplicative_AstPatternExpressionBinary_1_0 
-	 *             (operator='*' | operator='/' | operator='div' | operator='mod') 
-	 *             right=AstPatternExpressionExp
-	 *         ) | 
-	 *         (left=AstPatternExpressionExp_AstPatternExpressionBinary_1_0 operator='**' right=AstPatternExpressionUnary) | 
-	 *         (left=AstPatternExpressionAdditive_AstPatternExpressionBinary_1_0 (operator='+' | operator='-') right=AstPatternExpressionMultiplicative) | 
-	 *         (
-	 *             left=AstPatternExpressionShift_AstPatternExpressionBinary_1_0 
-	 *             (operator='<<' | operator='>>' | operator='>>>') 
-	 *             right=AstPatternExpressionAdditive
-	 *         ) | 
-	 *         (
-	 *             left=AstPatternExpressionRelational_AstPatternExpressionBinary_1_0 
-	 *             (operator='<' | operator='<=' | operator='>' | operator='>=') 
-	 *             right=AstPatternExpressionShift
-	 *         ) | 
-	 *         (left=AstPatternExpressionEq_AstPatternExpressionBinary_1_0 (operator='=' | operator='!=') right=AstPatternExpressionRelational)
-	 *     )
-	 */
-	protected void sequence_AstPatternExpressionAdditive_AstPatternExpressionEq_AstPatternExpressionExp_AstPatternExpressionMultiplicative_AstPatternExpressionRelational_AstPatternExpressionShift(EObject context, AstPatternExpressionBinary semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (
-	 *             left=AstPatternExpressionMultiplicative_AstPatternExpressionBinary_1_0 
-	 *             (operator='*' | operator='/' | operator='div' | operator='mod') 
-	 *             right=AstPatternExpressionExp
-	 *         ) | 
-	 *         (left=AstPatternExpressionExp_AstPatternExpressionBinary_1_0 operator='**' right=AstPatternExpressionUnary) | 
-	 *         (left=AstPatternExpressionAdditive_AstPatternExpressionBinary_1_0 (operator='+' | operator='-') right=AstPatternExpressionMultiplicative)
-	 *     )
-	 */
-	protected void sequence_AstPatternExpressionAdditive_AstPatternExpressionExp_AstPatternExpressionMultiplicative(EObject context, AstPatternExpressionBinary semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (
-	 *             left=AstPatternExpressionMultiplicative_AstPatternExpressionBinary_1_0 
-	 *             (operator='*' | operator='/' | operator='div' | operator='mod') 
-	 *             right=AstPatternExpressionExp
-	 *         ) | 
-	 *         (left=AstPatternExpressionExp_AstPatternExpressionBinary_1_0 operator='**' right=AstPatternExpressionUnary) | 
-	 *         (left=AstPatternExpressionAdditive_AstPatternExpressionBinary_1_0 (operator='+' | operator='-') right=AstPatternExpressionMultiplicative) | 
-	 *         (
-	 *             left=AstPatternExpressionShift_AstPatternExpressionBinary_1_0 
-	 *             (operator='<<' | operator='>>' | operator='>>>') 
-	 *             right=AstPatternExpressionAdditive
-	 *         ) | 
-	 *         (
-	 *             left=AstPatternExpressionRelational_AstPatternExpressionBinary_1_0 
-	 *             (operator='<' | operator='<=' | operator='>' | operator='>=') 
-	 *             right=AstPatternExpressionShift
-	 *         )
-	 *     )
-	 */
-	protected void sequence_AstPatternExpressionAdditive_AstPatternExpressionExp_AstPatternExpressionMultiplicative_AstPatternExpressionRelational_AstPatternExpressionShift(EObject context, AstPatternExpressionBinary semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (
-	 *             left=AstPatternExpressionMultiplicative_AstPatternExpressionBinary_1_0 
-	 *             (operator='*' | operator='/' | operator='div' | operator='mod') 
-	 *             right=AstPatternExpressionExp
-	 *         ) | 
-	 *         (left=AstPatternExpressionExp_AstPatternExpressionBinary_1_0 operator='**' right=AstPatternExpressionUnary) | 
-	 *         (left=AstPatternExpressionAdditive_AstPatternExpressionBinary_1_0 (operator='+' | operator='-') right=AstPatternExpressionMultiplicative) | 
-	 *         (
-	 *             left=AstPatternExpressionShift_AstPatternExpressionBinary_1_0 
-	 *             (operator='<<' | operator='>>' | operator='>>>') 
-	 *             right=AstPatternExpressionAdditive
-	 *         )
-	 *     )
-	 */
-	protected void sequence_AstPatternExpressionAdditive_AstPatternExpressionExp_AstPatternExpressionMultiplicative_AstPatternExpressionShift(EObject context, AstPatternExpressionBinary semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (left=AstPatternExpressionExp_AstPatternExpressionBinary_1_0 operator='**' right=AstPatternExpressionUnary)
-	 */
-	protected void sequence_AstPatternExpressionExp(EObject context, AstPatternExpressionBinary semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, CalPackage.Literals.AST_PATTERN_EXPRESSION_BINARY__LEFT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CalPackage.Literals.AST_PATTERN_EXPRESSION_BINARY__LEFT));
-			if(transientValues.isValueTransient(semanticObject, CalPackage.Literals.AST_PATTERN_EXPRESSION_BINARY__OPERATOR) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CalPackage.Literals.AST_PATTERN_EXPRESSION_BINARY__OPERATOR));
-			if(transientValues.isValueTransient(semanticObject, CalPackage.Literals.AST_PATTERN_EXPRESSION_BINARY__RIGHT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CalPackage.Literals.AST_PATTERN_EXPRESSION_BINARY__RIGHT));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getAstPatternExpressionExpAccess().getAstPatternExpressionBinaryLeftAction_1_0(), semanticObject.getLeft());
-		feeder.accept(grammarAccess.getAstPatternExpressionExpAccess().getOperatorAsteriskAsteriskKeyword_1_1_0(), semanticObject.getOperator());
-		feeder.accept(grammarAccess.getAstPatternExpressionExpAccess().getRightAstPatternExpressionUnaryParserRuleCall_1_2_0(), semanticObject.getRight());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (
-	 *             left=AstPatternExpressionMultiplicative_AstPatternExpressionBinary_1_0 
-	 *             (operator='*' | operator='/' | operator='div' | operator='mod') 
-	 *             right=AstPatternExpressionExp
-	 *         ) | 
-	 *         (left=AstPatternExpressionExp_AstPatternExpressionBinary_1_0 operator='**' right=AstPatternExpressionUnary)
-	 *     )
-	 */
-	protected void sequence_AstPatternExpressionExp_AstPatternExpressionMultiplicative(EObject context, AstPatternExpressionBinary semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (condition=AstExpression then=AstExpression else=AstExpression)
 	 */
 	protected void sequence_AstPatternExpressionIf(EObject context, AstPatternExpressionIf semanticObject) {
@@ -1802,67 +1311,7 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         symbol=[AstVariable|ID] 
-	 *         indexes+=AstExpression* 
-	 *         member+=AstMemberAccess* 
-	 *         ctor=ID? 
-	 *         (call?='(' (parameters+=AstExpression parameters+=AstExpression*)?)?
-	 *     )
-	 */
-	protected void sequence_AstPatternExpressionSymbolReference(EObject context, AstPatternExpressionSymbolReference semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (unaryOperator='~' | unaryOperator='-' | unaryOperator='not' | unaryOperator='#' | unaryOperator='old') 
-	 *         expression=AstPatternExpressionPostfix
-	 *     )
-	 */
-	protected void sequence_AstPatternExpressionUnary(EObject context, AstPatternExpressionUnary semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (
-	 *             left=AstPatternExpressionMultiplicative_AstPatternExpressionBinary_1_0 
-	 *             (operator='*' | operator='/' | operator='div' | operator='mod') 
-	 *             right=AstPatternExpressionExp
-	 *         ) | 
-	 *         (left=AstPatternExpressionExp_AstPatternExpressionBinary_1_0 operator='**' right=AstPatternExpressionUnary) | 
-	 *         (left=AstPatternExpressionAdditive_AstPatternExpressionBinary_1_0 (operator='+' | operator='-') right=AstPatternExpressionMultiplicative) | 
-	 *         (
-	 *             left=AstPatternExpressionShift_AstPatternExpressionBinary_1_0 
-	 *             (operator='<<' | operator='>>' | operator='>>>') 
-	 *             right=AstPatternExpressionAdditive
-	 *         ) | 
-	 *         (
-	 *             left=AstPatternExpressionRelational_AstPatternExpressionBinary_1_0 
-	 *             (operator='<' | operator='<=' | operator='>' | operator='>=') 
-	 *             right=AstPatternExpressionShift
-	 *         ) | 
-	 *         (left=AstPatternExpressionEq_AstPatternExpressionBinary_1_0 (operator='=' | operator='!=') right=AstPatternExpressionRelational) | 
-	 *         (left=AstPatternExpressionBitand_AstPatternExpressionBinary_1_0 operator='&' right=AstPatternExpressionEq) | 
-	 *         (left=AstPatternExpressionBitxor_AstPatternExpressionBinary_1_0 operator='^' right=AstPatternExpressionBitand) | 
-	 *         (left=AstPatternExpressionBitor_AstPatternExpressionBinary_1_0 operator='|' right=AstPatternExpressionBitxor) | 
-	 *         (left=AstPatternExpressionAnd_AstPatternExpressionBinary_1_0 (operator='&&' | operator='and') right=AstPatternExpressionBitor) | 
-	 *         (left=AstPatternExpression_AstPatternExpressionBinary_1_0 (operator='||' | operator='or' | operator='..') right=AstExpressionAnd)
-	 *     )
-	 */
-	protected void sequence_AstPatternExpression_AstPatternExpressionAdditive_AstPatternExpressionAnd_AstPatternExpressionBitand_AstPatternExpressionBitor_AstPatternExpressionBitxor_AstPatternExpressionEq_AstPatternExpressionExp_AstPatternExpressionMultiplicative_AstPatternExpressionRelational_AstPatternExpressionShift(EObject context, AstPatternExpressionBinary semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (tag=ID subpatterns+=AstSubPattern subpatterns+=AstSubPattern?)
+	 *     (variable=AstToken | (tag=ID (subpatterns+=AstSubPattern subpatterns+=AstSubPattern?)?))
 	 */
 	protected void sequence_AstPattern(EObject context, AstPattern semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -2015,7 +1464,7 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (label=ID? (dontcare?='_' | condition=AstPatternExpression | variable=AstToken | pattern=AstPattern))
+	 *     (label=ID? (dontcare?='_' | condition=AstExpression | pattern=AstPattern))
 	 */
 	protected void sequence_AstSubPattern(EObject context, AstSubPattern semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -2131,7 +1580,7 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	 *     (
 	 *         (builtin=AstTypeBuiltIn typeParams=AstTypeParameterList? dimensions+=AstExpression*) | 
 	 *         (name=[AstTypeUser|ID] typeParams=AstTypeParameterList? dimensions+=AstExpression*) | 
-	 *         ((domain+=AstType domain+=AstType*)? (codomain+=AstType domain+=AstType*)?)
+	 *         ((domain+=AstType domain+=AstType*)? codomain=AstType?)
 	 *     )
 	 */
 	protected void sequence_AstType(EObject context, AstType semanticObject) {

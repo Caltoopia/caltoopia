@@ -126,19 +126,20 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//	externals+=(AstExternalVariable | AstExternalFunction | AstExternalProcedure))* "end";
 		public ParserRule getRule() { return rule; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//{AstNamespace} "unit" name=QualifiedName ":" (functions+=AstFunction | variables+=AstConstantVariable |
+		//externals+=(AstExternalVariable | AstExternalFunction | AstExternalProcedure))* "end"
 		public Group getGroup() { return cGroup; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//{AstNamespace}
 		public Action getAstNamespaceAction_0() { return cAstNamespaceAction_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//"unit"
 		public Keyword getUnitKeyword_1() { return cUnitKeyword_1; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//name=QualifiedName
 		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//QualifiedName
 		public RuleCall getNameQualifiedNameParserRuleCall_2_0() { return cNameQualifiedNameParserRuleCall_2_0; }
 
 		//":"
@@ -1782,16 +1783,16 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//"procedure"
 		public Keyword getProcedureKeyword_1() { return cProcedureKeyword_1; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//name=ID
 		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//ID
 		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//"("
 		public Keyword getLeftParenthesisKeyword_3() { return cLeftParenthesisKeyword_3; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//(parameters+=AstVariableDeclaration ("," parameters+=AstVariableDeclaration)*)?
 		public Group getGroup_4() { return cGroup_4; }
 
 		//parameters+=AstVariableDeclaration
@@ -2441,58 +2442,58 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//variables+=AstValuedVariableDeclaration)*)? ("do" statements+=AstStatement*)? "end"
 		public Group getGroup() { return cGroup; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//{AstAction}
 		public Action getAstActionAction_0() { return cAstActionAction_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//annotations+=AstAnnotation*
 		public Assignment getAnnotationsAssignment_1() { return cAnnotationsAssignment_1; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//AstAnnotation
 		public RuleCall getAnnotationsAstAnnotationParserRuleCall_1_0() { return cAnnotationsAstAnnotationParserRuleCall_1_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//(tag=AstTag ":")?
 		public Group getGroup_2() { return cGroup_2; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//tag=AstTag
 		public Assignment getTagAssignment_2_0() { return cTagAssignment_2_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//AstTag
 		public RuleCall getTagAstTagParserRuleCall_2_0_0() { return cTagAstTagParserRuleCall_2_0_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//":"
 		public Keyword getColonKeyword_2_1() { return cColonKeyword_2_1; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//"action"
 		public Keyword getActionKeyword_3() { return cActionKeyword_3; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//(inputs+=AstInputPattern ("," inputs+=AstInputPattern)*)?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//inputs+=AstInputPattern
 		public Assignment getInputsAssignment_4_0() { return cInputsAssignment_4_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//AstInputPattern
 		public RuleCall getInputsAstInputPatternParserRuleCall_4_0_0() { return cInputsAstInputPatternParserRuleCall_4_0_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//("," inputs+=AstInputPattern)*
 		public Group getGroup_4_1() { return cGroup_4_1; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//","
 		public Keyword getCommaKeyword_4_1_0() { return cCommaKeyword_4_1_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//inputs+=AstInputPattern
 		public Assignment getInputsAssignment_4_1_1() { return cInputsAssignment_4_1_1; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//AstInputPattern
 		public RuleCall getInputsAstInputPatternParserRuleCall_4_1_1_0() { return cInputsAstInputPatternParserRuleCall_4_1_1_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//"==>"
 		public Keyword getEqualsSignEqualsSignGreaterThanSignKeyword_5() { return cEqualsSignEqualsSignGreaterThanSignKeyword_5; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//(outputs+=AstOutputPattern ("," outputs+=AstOutputPattern)*)?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//outputs+=AstOutputPattern
 		public Assignment getOutputsAssignment_6_0() { return cOutputsAssignment_6_0; }
 
 		//AstOutputPattern
@@ -2750,11 +2751,11 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
 		private final Keyword cLeftSquareBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cTokensAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cTokensAstTokenParserRuleCall_2_0 = (RuleCall)cTokensAssignment_2.eContents().get(0);
+		private final RuleCall cTokensAstPatternParserRuleCall_2_0 = (RuleCall)cTokensAssignment_2.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cCommaKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Assignment cTokensAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cTokensAstTokenParserRuleCall_3_1_0 = (RuleCall)cTokensAssignment_3_1.eContents().get(0);
+		private final RuleCall cTokensAstPatternParserRuleCall_3_1_0 = (RuleCall)cTokensAssignment_3_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
 		private final Keyword cRepeatKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
@@ -2762,10 +2763,10 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRepeatAstExpressionParserRuleCall_5_1_0 = (RuleCall)cRepeatAssignment_5_1.eContents().get(0);
 		
 		//AstInputPattern:
-		//	(port=[AstPort] ":")? "[" tokens+=AstToken ("," tokens+=AstToken)* "]" ("repeat" repeat=AstExpression)?;
+		//	(port=[AstPort] ":")? "[" tokens+=AstPattern ("," tokens+=AstPattern)* "]" ("repeat" repeat=AstExpression)?;
 		public ParserRule getRule() { return rule; }
 
-		//(port=[AstPort] ":")? "[" tokens+=AstToken ("," tokens+=AstToken)* "]" ("repeat" repeat=AstExpression)?
+		//(port=[AstPort] ":")? "[" tokens+=AstPattern ("," tokens+=AstPattern)* "]" ("repeat" repeat=AstExpression)?
 		public Group getGroup() { return cGroup; }
 
 		//(port=[AstPort] ":")?
@@ -2786,23 +2787,23 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_1() { return cLeftSquareBracketKeyword_1; }
 
-		//tokens+=AstToken
+		//tokens+=AstPattern
 		public Assignment getTokensAssignment_2() { return cTokensAssignment_2; }
 
-		//AstToken
-		public RuleCall getTokensAstTokenParserRuleCall_2_0() { return cTokensAstTokenParserRuleCall_2_0; }
+		//AstPattern
+		public RuleCall getTokensAstPatternParserRuleCall_2_0() { return cTokensAstPatternParserRuleCall_2_0; }
 
-		//("," tokens+=AstToken)*
+		//("," tokens+=AstPattern)*
 		public Group getGroup_3() { return cGroup_3; }
 
 		//","
 		public Keyword getCommaKeyword_3_0() { return cCommaKeyword_3_0; }
 
-		//tokens+=AstToken
+		//tokens+=AstPattern
 		public Assignment getTokensAssignment_3_1() { return cTokensAssignment_3_1; }
 
-		//AstToken
-		public RuleCall getTokensAstTokenParserRuleCall_3_1_0() { return cTokensAstTokenParserRuleCall_3_1_0; }
+		//AstPattern
+		public RuleCall getTokensAstPatternParserRuleCall_3_1_0() { return cTokensAstPatternParserRuleCall_3_1_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_4() { return cRightSquareBracketKeyword_4; }
@@ -3518,31 +3519,31 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//AstExpressionAnd
 		public RuleCall getAstExpressionAndParserRuleCall_0() { return cAstExpressionAndParserRuleCall_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//({AstExpressionBinary.left=current} operator=("||" | "or" | "..") right=AstExpressionAnd)*
 		public Group getGroup_1() { return cGroup_1; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//{AstExpressionBinary.left=current}
 		public Action getAstExpressionBinaryLeftAction_1_0() { return cAstExpressionBinaryLeftAction_1_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//operator=("||" | "or" | "..")
 		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//"||" | "or" | ".."
 		public Alternatives getOperatorAlternatives_1_1_0() { return cOperatorAlternatives_1_1_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//"||"
 		public Keyword getOperatorVerticalLineVerticalLineKeyword_1_1_0_0() { return cOperatorVerticalLineVerticalLineKeyword_1_1_0_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//"or"
 		public Keyword getOperatorOrKeyword_1_1_0_1() { return cOperatorOrKeyword_1_1_0_1; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//".."
 		public Keyword getOperatorFullStopFullStopKeyword_1_1_0_2() { return cOperatorFullStopFullStopKeyword_1_1_0_2; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//right=AstExpressionAnd
 		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//AstExpressionAnd
 		public RuleCall getRightAstExpressionAndParserRuleCall_1_2_0() { return cRightAstExpressionAndParserRuleCall_1_2_0; }
 	}
 
@@ -3559,19 +3560,20 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cRightAstExpressionBitorParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
 		
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//AstExpressionAnd returns AstExpression:
+		//	AstExpressionBitor ({AstExpressionBinary.left=current} operator=("&&" | "and") right=AstExpressionBitor)*;
 		public ParserRule getRule() { return rule; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//AstExpressionBitor ({AstExpressionBinary.left=current} operator=("&&" | "and") right=AstExpressionBitor)*
 		public Group getGroup() { return cGroup; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//AstExpressionBitor
 		public RuleCall getAstExpressionBitorParserRuleCall_0() { return cAstExpressionBitorParserRuleCall_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//({AstExpressionBinary.left=current} operator=("&&" | "and") right=AstExpressionBitor)*
 		public Group getGroup_1() { return cGroup_1; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//{AstExpressionBinary.left=current}
 		public Action getAstExpressionBinaryLeftAction_1_0() { return cAstExpressionBinaryLeftAction_1_0; }
 
 		//operator=("&&" | "and")
@@ -4524,7 +4526,7 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//AstExpression
 		public RuleCall getExpressionAstExpressionParserRuleCall_3_0() { return cExpressionAstExpressionParserRuleCall_3_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
+		//"end"
 		public Keyword getEndKeyword_4() { return cEndKeyword_4; }
 	}
 
@@ -4693,57 +4695,73 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class AstPatternElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstPattern");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cTagAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cTagIDTerminalRuleCall_0_0 = (RuleCall)cTagAssignment_0.eContents().get(0);
-		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cSubpatternsAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cSubpatternsAstSubPatternParserRuleCall_2_0 = (RuleCall)cSubpatternsAssignment_2.eContents().get(0);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cCommaKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cSubpatternsAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cSubpatternsAstSubPatternParserRuleCall_3_1_0 = (RuleCall)cSubpatternsAssignment_3_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Assignment cVariableAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
+		private final RuleCall cVariableAstTokenParserRuleCall_0_0 = (RuleCall)cVariableAssignment_0.eContents().get(0);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final Assignment cTagAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
+		private final RuleCall cTagIDTerminalRuleCall_1_0_0 = (RuleCall)cTagAssignment_1_0.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Group cGroup_1_2 = (Group)cGroup_1.eContents().get(2);
+		private final Assignment cSubpatternsAssignment_1_2_0 = (Assignment)cGroup_1_2.eContents().get(0);
+		private final RuleCall cSubpatternsAstSubPatternParserRuleCall_1_2_0_0 = (RuleCall)cSubpatternsAssignment_1_2_0.eContents().get(0);
+		private final Group cGroup_1_2_1 = (Group)cGroup_1_2.eContents().get(1);
+		private final Keyword cCommaKeyword_1_2_1_0 = (Keyword)cGroup_1_2_1.eContents().get(0);
+		private final Assignment cSubpatternsAssignment_1_2_1_1 = (Assignment)cGroup_1_2_1.eContents().get(1);
+		private final RuleCall cSubpatternsAstSubPatternParserRuleCall_1_2_1_1_0 = (RuleCall)cSubpatternsAssignment_1_2_1_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_1_3 = (Keyword)cGroup_1.eContents().get(3);
 		
 		/////////////////////////////////////////////////////////////////////////////////
 		//// patterns
 		/////////////////////////////////////////////////////////////////////////////////
 		//AstPattern:
-		//	tag=ID "(" subpatterns+=AstSubPattern ("," subpatterns+=AstSubPattern)? ")";
+		//	variable=AstToken | tag=ID "(" (subpatterns+=AstSubPattern ("," subpatterns+=AstSubPattern)?)? ")";
 		public ParserRule getRule() { return rule; }
 
-		//tag=ID "(" subpatterns+=AstSubPattern ("," subpatterns+=AstSubPattern)? ")"
-		public Group getGroup() { return cGroup; }
+		//variable=AstToken | tag=ID "(" (subpatterns+=AstSubPattern ("," subpatterns+=AstSubPattern)?)? ")"
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//variable=AstToken
+		public Assignment getVariableAssignment_0() { return cVariableAssignment_0; }
+
+		//AstToken
+		public RuleCall getVariableAstTokenParserRuleCall_0_0() { return cVariableAstTokenParserRuleCall_0_0; }
+
+		//tag=ID "(" (subpatterns+=AstSubPattern ("," subpatterns+=AstSubPattern)?)? ")"
+		public Group getGroup_1() { return cGroup_1; }
 
 		//tag=ID
-		public Assignment getTagAssignment_0() { return cTagAssignment_0; }
+		public Assignment getTagAssignment_1_0() { return cTagAssignment_1_0; }
 
 		//ID
-		public RuleCall getTagIDTerminalRuleCall_0_0() { return cTagIDTerminalRuleCall_0_0; }
+		public RuleCall getTagIDTerminalRuleCall_1_0_0() { return cTagIDTerminalRuleCall_1_0_0; }
 
 		//"("
-		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		public Keyword getLeftParenthesisKeyword_1_1() { return cLeftParenthesisKeyword_1_1; }
+
+		//(subpatterns+=AstSubPattern ("," subpatterns+=AstSubPattern)?)?
+		public Group getGroup_1_2() { return cGroup_1_2; }
 
 		//subpatterns+=AstSubPattern
-		public Assignment getSubpatternsAssignment_2() { return cSubpatternsAssignment_2; }
+		public Assignment getSubpatternsAssignment_1_2_0() { return cSubpatternsAssignment_1_2_0; }
 
 		//AstSubPattern
-		public RuleCall getSubpatternsAstSubPatternParserRuleCall_2_0() { return cSubpatternsAstSubPatternParserRuleCall_2_0; }
+		public RuleCall getSubpatternsAstSubPatternParserRuleCall_1_2_0_0() { return cSubpatternsAstSubPatternParserRuleCall_1_2_0_0; }
 
 		//("," subpatterns+=AstSubPattern)?
-		public Group getGroup_3() { return cGroup_3; }
+		public Group getGroup_1_2_1() { return cGroup_1_2_1; }
 
 		//","
-		public Keyword getCommaKeyword_3_0() { return cCommaKeyword_3_0; }
+		public Keyword getCommaKeyword_1_2_1_0() { return cCommaKeyword_1_2_1_0; }
 
 		//subpatterns+=AstSubPattern
-		public Assignment getSubpatternsAssignment_3_1() { return cSubpatternsAssignment_3_1; }
+		public Assignment getSubpatternsAssignment_1_2_1_1() { return cSubpatternsAssignment_1_2_1_1; }
 
 		//AstSubPattern
-		public RuleCall getSubpatternsAstSubPatternParserRuleCall_3_1_0() { return cSubpatternsAstSubPatternParserRuleCall_3_1_0; }
+		public RuleCall getSubpatternsAstSubPatternParserRuleCall_1_2_1_1_0() { return cSubpatternsAstSubPatternParserRuleCall_1_2_1_1_0; }
 
 		//")"
-		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
+		public Keyword getRightParenthesisKeyword_1_3() { return cRightParenthesisKeyword_1_3; }
 	}
 
 	public class AstSubPatternElements extends AbstractParserRuleElementFinder {
@@ -4756,18 +4774,18 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
 		private final Assignment cDontcareAssignment_1_0 = (Assignment)cAlternatives_1.eContents().get(0);
 		private final Keyword cDontcare_Keyword_1_0_0 = (Keyword)cDontcareAssignment_1_0.eContents().get(0);
-		private final Assignment cConditionAssignment_1_1 = (Assignment)cAlternatives_1.eContents().get(1);
-		private final RuleCall cConditionAstPatternExpressionParserRuleCall_1_1_0 = (RuleCall)cConditionAssignment_1_1.eContents().get(0);
-		private final Assignment cVariableAssignment_1_2 = (Assignment)cAlternatives_1.eContents().get(2);
-		private final RuleCall cVariableAstTokenParserRuleCall_1_2_0 = (RuleCall)cVariableAssignment_1_2.eContents().get(0);
-		private final Assignment cPatternAssignment_1_3 = (Assignment)cAlternatives_1.eContents().get(3);
-		private final RuleCall cPatternAstPatternParserRuleCall_1_3_0 = (RuleCall)cPatternAssignment_1_3.eContents().get(0);
+		private final Group cGroup_1_1 = (Group)cAlternatives_1.eContents().get(1);
+		private final Keyword cExclamationMarkKeyword_1_1_0 = (Keyword)cGroup_1_1.eContents().get(0);
+		private final Assignment cConditionAssignment_1_1_1 = (Assignment)cGroup_1_1.eContents().get(1);
+		private final RuleCall cConditionAstExpressionParserRuleCall_1_1_1_0 = (RuleCall)cConditionAssignment_1_1_1.eContents().get(0);
+		private final Assignment cPatternAssignment_1_2 = (Assignment)cAlternatives_1.eContents().get(2);
+		private final RuleCall cPatternAstPatternParserRuleCall_1_2_0 = (RuleCall)cPatternAssignment_1_2.eContents().get(0);
 		
 		//AstSubPattern:
-		//	(label=ID ":")? (dontcare?="_" | condition=AstPatternExpression | variable=AstToken | pattern=AstPattern);
+		//	(label=ID ":")? (dontcare?="_" | "!" condition=AstExpression | pattern=AstPattern);
 		public ParserRule getRule() { return rule; }
 
-		//(label=ID ":")? (dontcare?="_" | condition=AstPatternExpression | variable=AstToken | pattern=AstPattern)
+		//(label=ID ":")? (dontcare?="_" | "!" condition=AstExpression | pattern=AstPattern)
 		public Group getGroup() { return cGroup; }
 
 		//(label=ID ":")?
@@ -4782,7 +4800,7 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//":"
 		public Keyword getColonKeyword_0_1() { return cColonKeyword_0_1; }
 
-		//dontcare?="_" | condition=AstPatternExpression | variable=AstToken | pattern=AstPattern
+		//dontcare?="_" | "!" condition=AstExpression | pattern=AstPattern
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
 		//dontcare?="_"
@@ -4791,765 +4809,91 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//"_"
 		public Keyword getDontcare_Keyword_1_0_0() { return cDontcare_Keyword_1_0_0; }
 
-		//condition=AstPatternExpression
-		public Assignment getConditionAssignment_1_1() { return cConditionAssignment_1_1; }
+		//"!" condition=AstExpression
+		public Group getGroup_1_1() { return cGroup_1_1; }
 
-		//AstPatternExpression
-		public RuleCall getConditionAstPatternExpressionParserRuleCall_1_1_0() { return cConditionAstPatternExpressionParserRuleCall_1_1_0; }
+		//"!"
+		public Keyword getExclamationMarkKeyword_1_1_0() { return cExclamationMarkKeyword_1_1_0; }
 
-		//variable=AstToken
-		public Assignment getVariableAssignment_1_2() { return cVariableAssignment_1_2; }
+		//condition=AstExpression
+		public Assignment getConditionAssignment_1_1_1() { return cConditionAssignment_1_1_1; }
 
-		//AstToken
-		public RuleCall getVariableAstTokenParserRuleCall_1_2_0() { return cVariableAstTokenParserRuleCall_1_2_0; }
+		//AstExpression
+		public RuleCall getConditionAstExpressionParserRuleCall_1_1_1_0() { return cConditionAstExpressionParserRuleCall_1_1_1_0; }
 
 		//pattern=AstPattern
-		public Assignment getPatternAssignment_1_3() { return cPatternAssignment_1_3; }
+		public Assignment getPatternAssignment_1_2() { return cPatternAssignment_1_2; }
 
 		//AstPattern
-		public RuleCall getPatternAstPatternParserRuleCall_1_3_0() { return cPatternAstPatternParserRuleCall_1_3_0; }
+		public RuleCall getPatternAstPatternParserRuleCall_1_2_0() { return cPatternAstPatternParserRuleCall_1_2_0; }
 	}
 
 	public class AstPatternExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstPatternExpression");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cAstPatternExpressionAndParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cAstPatternExpressionBinaryLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Assignment cOperatorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final Alternatives cOperatorAlternatives_1_1_0 = (Alternatives)cOperatorAssignment_1_1.eContents().get(0);
-		private final Keyword cOperatorVerticalLineVerticalLineKeyword_1_1_0_0 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(0);
-		private final Keyword cOperatorOrKeyword_1_1_0_1 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(1);
-		private final Keyword cOperatorFullStopFullStopKeyword_1_1_0_2 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(2);
-		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cRightAstExpressionAndParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cAstExpressionBooleanParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cAstExpressionIntegerParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cAstExpressionStringParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final Group cGroup_3 = (Group)cAlternatives.eContents().get(3);
+		private final Keyword cExclamationMarkKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final RuleCall cAstExpressionSymbolReferenceParserRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
 		
 		/////////////////////////////////////////////////////////////////////////////////
 		//// pattern expressions
 		/////////////////////////////////////////////////////////////////////////////////
+		////AstPatternExpression returns AstExpression:
+		////	AstPatternExpressionAnd ({AstPatternExpressionBinary.left=current} operator=('||' | 'or' | '..') right=AstExpressionAnd)*;
+		////AstPatternExpressionAnd returns AstExpression:
+		////	AstPatternExpressionBitor ({AstPatternExpressionBinary.left=current} operator=('&&' | 'and') right=AstPatternExpressionBitor)*;
+		////AstPatternExpressionBitor returns AstExpression:
+		////	AstPatternExpressionBitxor ({AstPatternExpressionBinary.left=current} operator='|' right=AstPatternExpressionBitxor)*;
+		////AstPatternExpressionBitxor returns AstExpression:
+		////	AstPatternExpressionBitand ({AstPatternExpressionBinary.left=current} operator='^' right=AstPatternExpressionBitand)*;
+		////AstPatternExpressionBitand returns AstExpression:
+		////	AstPatternExpressionEq ({AstPatternExpressionBinary.left=current} operator='&' right=AstPatternExpressionEq)*;
+		////AstPatternExpressionEq returns AstExpression:
+		////	AstPatternExpressionRelational ({AstPatternExpressionBinary.left=current} operator=('=' | '!=') right=AstPatternExpressionRelational)*;
+		////AstPatternExpressionRelational returns AstExpression:
+		////	AstPatternExpressionShift ({AstPatternExpressionBinary.left=current} operator=('<' | '<=' | '>' | '>=') right=AstPatternExpressionShift)*;
+		////AstPatternExpressionShift returns AstExpression:
+		////	AstPatternExpressionAdditive ({AstPatternExpressionBinary.left=current} operator=('<<' | '>>' | '>>>') right=AstPatternExpressionAdditive)*;
+		////AstPatternExpressionAdditive returns AstExpression:
+		////	AstPatternExpressionMultiplicative ({AstPatternExpressionBinary.left=current} operator=('+' | '-') right=AstPatternExpressionMultiplicative)*;
+		////AstPatternExpressionMultiplicative returns AstExpression:
+		////	AstPatternExpressionExp ({AstPatternExpressionBinary.left=current} operator=('*' | '/' | 'div' | 'mod' ) right=AstPatternExpressionExp)*;
+		////AstPatternExpressionExp returns AstExpression:
+		////	AstPatternExpressionUnary ({AstPatternExpressionBinary.left=current} operator='**' right=AstPatternExpressionUnary)*;	
+		////AstPatternExpressionUnary returns AstExpression:
+		////	{AstPatternExpressionUnary} unaryOperator=('~' | '-' | 'not' | '#' | 'old') expression=AstPatternExpressionPostfix
+		////	| AstPatternExpressionPostfix;
+		////AstPatternExpressionPostfix returns AstExpression:
+		////	AstPatternExpressionSymbolReference 
+		////	| AstPatternExpressionIf
+		////	| AstExpressionCase
 		//AstPatternExpression returns AstExpression:
-		//	AstPatternExpressionAnd ({AstPatternExpressionBinary.left=current} operator=("||" | "or" | "..")
-		//	right=AstExpressionAnd)*;
+		//	AstExpressionBoolean | AstExpressionInteger | AstExpressionString | "!" AstExpressionSymbolReference;
 		public ParserRule getRule() { return rule; }
 
-		//AstPatternExpressionAnd ({AstPatternExpressionBinary.left=current} operator=("||" | "or" | "..")
-		//right=AstExpressionAnd)*
-		public Group getGroup() { return cGroup; }
-
-		//AstPatternExpressionAnd
-		public RuleCall getAstPatternExpressionAndParserRuleCall_0() { return cAstPatternExpressionAndParserRuleCall_0; }
-
-		//({AstPatternExpressionBinary.left=current} operator=("||" | "or" | "..") right=AstExpressionAnd)*
-		public Group getGroup_1() { return cGroup_1; }
-
-		//{AstPatternExpressionBinary.left=current}
-		public Action getAstPatternExpressionBinaryLeftAction_1_0() { return cAstPatternExpressionBinaryLeftAction_1_0; }
-
-		//operator=("||" | "or" | "..")
-		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
-
-		//"||" | "or" | ".."
-		public Alternatives getOperatorAlternatives_1_1_0() { return cOperatorAlternatives_1_1_0; }
-
-		//"||"
-		public Keyword getOperatorVerticalLineVerticalLineKeyword_1_1_0_0() { return cOperatorVerticalLineVerticalLineKeyword_1_1_0_0; }
-
-		//"or"
-		public Keyword getOperatorOrKeyword_1_1_0_1() { return cOperatorOrKeyword_1_1_0_1; }
-
-		//".."
-		public Keyword getOperatorFullStopFullStopKeyword_1_1_0_2() { return cOperatorFullStopFullStopKeyword_1_1_0_2; }
-
-		//right=AstExpressionAnd
-		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
-
-		//AstExpressionAnd
-		public RuleCall getRightAstExpressionAndParserRuleCall_1_2_0() { return cRightAstExpressionAndParserRuleCall_1_2_0; }
-	}
-
-	public class AstPatternExpressionAndElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstPatternExpressionAnd");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cAstPatternExpressionBitorParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cAstPatternExpressionBinaryLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Assignment cOperatorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final Alternatives cOperatorAlternatives_1_1_0 = (Alternatives)cOperatorAssignment_1_1.eContents().get(0);
-		private final Keyword cOperatorAmpersandAmpersandKeyword_1_1_0_0 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(0);
-		private final Keyword cOperatorAndKeyword_1_1_0_1 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(1);
-		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cRightAstPatternExpressionBitorParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
-		
-		//AstPatternExpressionAnd returns AstExpression:
-		//	AstPatternExpressionBitor ({AstPatternExpressionBinary.left=current} operator=("&&" | "and")
-		//	right=AstPatternExpressionBitor)*;
-		public ParserRule getRule() { return rule; }
-
-		//AstPatternExpressionBitor ({AstPatternExpressionBinary.left=current} operator=("&&" | "and")
-		//right=AstPatternExpressionBitor)*
-		public Group getGroup() { return cGroup; }
-
-		//AstPatternExpressionBitor
-		public RuleCall getAstPatternExpressionBitorParserRuleCall_0() { return cAstPatternExpressionBitorParserRuleCall_0; }
-
-		//({AstPatternExpressionBinary.left=current} operator=("&&" | "and") right=AstPatternExpressionBitor)*
-		public Group getGroup_1() { return cGroup_1; }
-
-		//{AstPatternExpressionBinary.left=current}
-		public Action getAstPatternExpressionBinaryLeftAction_1_0() { return cAstPatternExpressionBinaryLeftAction_1_0; }
-
-		//operator=("&&" | "and")
-		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
-
-		//"&&" | "and"
-		public Alternatives getOperatorAlternatives_1_1_0() { return cOperatorAlternatives_1_1_0; }
-
-		//"&&"
-		public Keyword getOperatorAmpersandAmpersandKeyword_1_1_0_0() { return cOperatorAmpersandAmpersandKeyword_1_1_0_0; }
-
-		//"and"
-		public Keyword getOperatorAndKeyword_1_1_0_1() { return cOperatorAndKeyword_1_1_0_1; }
-
-		//right=AstPatternExpressionBitor
-		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
-
-		//AstPatternExpressionBitor
-		public RuleCall getRightAstPatternExpressionBitorParserRuleCall_1_2_0() { return cRightAstPatternExpressionBitorParserRuleCall_1_2_0; }
-	}
-
-	public class AstPatternExpressionBitorElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstPatternExpressionBitor");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cAstPatternExpressionBitxorParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cAstPatternExpressionBinaryLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Assignment cOperatorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final Keyword cOperatorVerticalLineKeyword_1_1_0 = (Keyword)cOperatorAssignment_1_1.eContents().get(0);
-		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cRightAstPatternExpressionBitxorParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
-		
-		//AstPatternExpressionBitor returns AstExpression:
-		//	AstPatternExpressionBitxor ({AstPatternExpressionBinary.left=current} operator="|" right=AstPatternExpressionBitxor)*;
-		public ParserRule getRule() { return rule; }
-
-		//AstPatternExpressionBitxor ({AstPatternExpressionBinary.left=current} operator="|" right=AstPatternExpressionBitxor)*
-		public Group getGroup() { return cGroup; }
-
-		//AstPatternExpressionBitxor
-		public RuleCall getAstPatternExpressionBitxorParserRuleCall_0() { return cAstPatternExpressionBitxorParserRuleCall_0; }
-
-		//({AstPatternExpressionBinary.left=current} operator="|" right=AstPatternExpressionBitxor)*
-		public Group getGroup_1() { return cGroup_1; }
-
-		//{AstPatternExpressionBinary.left=current}
-		public Action getAstPatternExpressionBinaryLeftAction_1_0() { return cAstPatternExpressionBinaryLeftAction_1_0; }
-
-		//operator="|"
-		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
-
-		//"|"
-		public Keyword getOperatorVerticalLineKeyword_1_1_0() { return cOperatorVerticalLineKeyword_1_1_0; }
-
-		//right=AstPatternExpressionBitxor
-		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
-
-		//AstPatternExpressionBitxor
-		public RuleCall getRightAstPatternExpressionBitxorParserRuleCall_1_2_0() { return cRightAstPatternExpressionBitxorParserRuleCall_1_2_0; }
-	}
-
-	public class AstPatternExpressionBitxorElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstPatternExpressionBitxor");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cAstPatternExpressionBitandParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cAstPatternExpressionBinaryLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Assignment cOperatorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final Keyword cOperatorCircumflexAccentKeyword_1_1_0 = (Keyword)cOperatorAssignment_1_1.eContents().get(0);
-		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cRightAstPatternExpressionBitandParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
-		
-		//AstPatternExpressionBitxor returns AstExpression:
-		//	AstPatternExpressionBitand ({AstPatternExpressionBinary.left=current} operator="^" right=AstPatternExpressionBitand)*;
-		public ParserRule getRule() { return rule; }
-
-		//AstPatternExpressionBitand ({AstPatternExpressionBinary.left=current} operator="^" right=AstPatternExpressionBitand)*
-		public Group getGroup() { return cGroup; }
-
-		//AstPatternExpressionBitand
-		public RuleCall getAstPatternExpressionBitandParserRuleCall_0() { return cAstPatternExpressionBitandParserRuleCall_0; }
-
-		//({AstPatternExpressionBinary.left=current} operator="^" right=AstPatternExpressionBitand)*
-		public Group getGroup_1() { return cGroup_1; }
-
-		//{AstPatternExpressionBinary.left=current}
-		public Action getAstPatternExpressionBinaryLeftAction_1_0() { return cAstPatternExpressionBinaryLeftAction_1_0; }
-
-		//operator="^"
-		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
-
-		//"^"
-		public Keyword getOperatorCircumflexAccentKeyword_1_1_0() { return cOperatorCircumflexAccentKeyword_1_1_0; }
-
-		//right=AstPatternExpressionBitand
-		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
-
-		//AstPatternExpressionBitand
-		public RuleCall getRightAstPatternExpressionBitandParserRuleCall_1_2_0() { return cRightAstPatternExpressionBitandParserRuleCall_1_2_0; }
-	}
-
-	public class AstPatternExpressionBitandElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstPatternExpressionBitand");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cAstPatternExpressionEqParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cAstPatternExpressionBinaryLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Assignment cOperatorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final Keyword cOperatorAmpersandKeyword_1_1_0 = (Keyword)cOperatorAssignment_1_1.eContents().get(0);
-		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cRightAstPatternExpressionEqParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
-		
-		//AstPatternExpressionBitand returns AstExpression:
-		//	AstPatternExpressionEq ({AstPatternExpressionBinary.left=current} operator="&" right=AstPatternExpressionEq)*;
-		public ParserRule getRule() { return rule; }
-
-		//AstPatternExpressionEq ({AstPatternExpressionBinary.left=current} operator="&" right=AstPatternExpressionEq)*
-		public Group getGroup() { return cGroup; }
-
-		//AstPatternExpressionEq
-		public RuleCall getAstPatternExpressionEqParserRuleCall_0() { return cAstPatternExpressionEqParserRuleCall_0; }
-
-		//({AstPatternExpressionBinary.left=current} operator="&" right=AstPatternExpressionEq)*
-		public Group getGroup_1() { return cGroup_1; }
-
-		//{AstPatternExpressionBinary.left=current}
-		public Action getAstPatternExpressionBinaryLeftAction_1_0() { return cAstPatternExpressionBinaryLeftAction_1_0; }
-
-		//operator="&"
-		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
-
-		//"&"
-		public Keyword getOperatorAmpersandKeyword_1_1_0() { return cOperatorAmpersandKeyword_1_1_0; }
-
-		//right=AstPatternExpressionEq
-		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
-
-		//AstPatternExpressionEq
-		public RuleCall getRightAstPatternExpressionEqParserRuleCall_1_2_0() { return cRightAstPatternExpressionEqParserRuleCall_1_2_0; }
-	}
-
-	public class AstPatternExpressionEqElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstPatternExpressionEq");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cAstPatternExpressionRelationalParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cAstPatternExpressionBinaryLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Assignment cOperatorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final Alternatives cOperatorAlternatives_1_1_0 = (Alternatives)cOperatorAssignment_1_1.eContents().get(0);
-		private final Keyword cOperatorEqualsSignKeyword_1_1_0_0 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(0);
-		private final Keyword cOperatorExclamationMarkEqualsSignKeyword_1_1_0_1 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(1);
-		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cRightAstPatternExpressionRelationalParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
-		
-		//AstPatternExpressionEq returns AstExpression:
-		//	AstPatternExpressionRelational ({AstPatternExpressionBinary.left=current} operator=("=" | "!=")
-		//	right=AstPatternExpressionRelational)*;
-		public ParserRule getRule() { return rule; }
-
-		//AstPatternExpressionRelational ({AstPatternExpressionBinary.left=current} operator=("=" | "!=")
-		//right=AstPatternExpressionRelational)*
-		public Group getGroup() { return cGroup; }
-
-		//AstPatternExpressionRelational
-		public RuleCall getAstPatternExpressionRelationalParserRuleCall_0() { return cAstPatternExpressionRelationalParserRuleCall_0; }
-
-		//({AstPatternExpressionBinary.left=current} operator=("=" | "!=") right=AstPatternExpressionRelational)*
-		public Group getGroup_1() { return cGroup_1; }
-
-		//{AstPatternExpressionBinary.left=current}
-		public Action getAstPatternExpressionBinaryLeftAction_1_0() { return cAstPatternExpressionBinaryLeftAction_1_0; }
-
-		//operator=("=" | "!=")
-		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
-
-		//"=" | "!="
-		public Alternatives getOperatorAlternatives_1_1_0() { return cOperatorAlternatives_1_1_0; }
-
-		//"="
-		public Keyword getOperatorEqualsSignKeyword_1_1_0_0() { return cOperatorEqualsSignKeyword_1_1_0_0; }
-
-		//"!="
-		public Keyword getOperatorExclamationMarkEqualsSignKeyword_1_1_0_1() { return cOperatorExclamationMarkEqualsSignKeyword_1_1_0_1; }
-
-		//right=AstPatternExpressionRelational
-		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
-
-		//AstPatternExpressionRelational
-		public RuleCall getRightAstPatternExpressionRelationalParserRuleCall_1_2_0() { return cRightAstPatternExpressionRelationalParserRuleCall_1_2_0; }
-	}
-
-	public class AstPatternExpressionRelationalElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstPatternExpressionRelational");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cAstPatternExpressionShiftParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cAstPatternExpressionBinaryLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Assignment cOperatorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final Alternatives cOperatorAlternatives_1_1_0 = (Alternatives)cOperatorAssignment_1_1.eContents().get(0);
-		private final Keyword cOperatorLessThanSignKeyword_1_1_0_0 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(0);
-		private final Keyword cOperatorLessThanSignEqualsSignKeyword_1_1_0_1 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(1);
-		private final Keyword cOperatorGreaterThanSignKeyword_1_1_0_2 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(2);
-		private final Keyword cOperatorGreaterThanSignEqualsSignKeyword_1_1_0_3 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(3);
-		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cRightAstPatternExpressionShiftParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
-		
-		//AstPatternExpressionRelational returns AstExpression:
-		//	AstPatternExpressionShift ({AstPatternExpressionBinary.left=current} operator=("<" | "<=" | ">" | ">=")
-		//	right=AstPatternExpressionShift)*;
-		public ParserRule getRule() { return rule; }
-
-		//AstPatternExpressionShift ({AstPatternExpressionBinary.left=current} operator=("<" | "<=" | ">" | ">=")
-		//right=AstPatternExpressionShift)*
-		public Group getGroup() { return cGroup; }
-
-		//AstPatternExpressionShift
-		public RuleCall getAstPatternExpressionShiftParserRuleCall_0() { return cAstPatternExpressionShiftParserRuleCall_0; }
-
-		//({AstPatternExpressionBinary.left=current} operator=("<" | "<=" | ">" | ">=") right=AstPatternExpressionShift)*
-		public Group getGroup_1() { return cGroup_1; }
-
-		//{AstPatternExpressionBinary.left=current}
-		public Action getAstPatternExpressionBinaryLeftAction_1_0() { return cAstPatternExpressionBinaryLeftAction_1_0; }
-
-		//operator=("<" | "<=" | ">" | ">=")
-		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
-
-		//"<" | "<=" | ">" | ">="
-		public Alternatives getOperatorAlternatives_1_1_0() { return cOperatorAlternatives_1_1_0; }
-
-		//"<"
-		public Keyword getOperatorLessThanSignKeyword_1_1_0_0() { return cOperatorLessThanSignKeyword_1_1_0_0; }
-
-		//"<="
-		public Keyword getOperatorLessThanSignEqualsSignKeyword_1_1_0_1() { return cOperatorLessThanSignEqualsSignKeyword_1_1_0_1; }
-
-		//">"
-		public Keyword getOperatorGreaterThanSignKeyword_1_1_0_2() { return cOperatorGreaterThanSignKeyword_1_1_0_2; }
-
-		//">="
-		public Keyword getOperatorGreaterThanSignEqualsSignKeyword_1_1_0_3() { return cOperatorGreaterThanSignEqualsSignKeyword_1_1_0_3; }
-
-		//right=AstPatternExpressionShift
-		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
-
-		//AstPatternExpressionShift
-		public RuleCall getRightAstPatternExpressionShiftParserRuleCall_1_2_0() { return cRightAstPatternExpressionShiftParserRuleCall_1_2_0; }
-	}
-
-	public class AstPatternExpressionShiftElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstPatternExpressionShift");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cAstPatternExpressionAdditiveParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cAstPatternExpressionBinaryLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Assignment cOperatorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final Alternatives cOperatorAlternatives_1_1_0 = (Alternatives)cOperatorAssignment_1_1.eContents().get(0);
-		private final Keyword cOperatorLessThanSignLessThanSignKeyword_1_1_0_0 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(0);
-		private final Keyword cOperatorGreaterThanSignGreaterThanSignKeyword_1_1_0_1 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(1);
-		private final Keyword cOperatorGreaterThanSignGreaterThanSignGreaterThanSignKeyword_1_1_0_2 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(2);
-		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cRightAstPatternExpressionAdditiveParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
-		
-		//AstPatternExpressionShift returns AstExpression:
-		//	AstPatternExpressionAdditive ({AstPatternExpressionBinary.left=current} operator=("<<" | ">>" | ">>>")
-		//	right=AstPatternExpressionAdditive)*;
-		public ParserRule getRule() { return rule; }
-
-		//AstPatternExpressionAdditive ({AstPatternExpressionBinary.left=current} operator=("<<" | ">>" | ">>>")
-		//right=AstPatternExpressionAdditive)*
-		public Group getGroup() { return cGroup; }
-
-		//AstPatternExpressionAdditive
-		public RuleCall getAstPatternExpressionAdditiveParserRuleCall_0() { return cAstPatternExpressionAdditiveParserRuleCall_0; }
-
-		//({AstPatternExpressionBinary.left=current} operator=("<<" | ">>" | ">>>") right=AstPatternExpressionAdditive)*
-		public Group getGroup_1() { return cGroup_1; }
-
-		//{AstPatternExpressionBinary.left=current}
-		public Action getAstPatternExpressionBinaryLeftAction_1_0() { return cAstPatternExpressionBinaryLeftAction_1_0; }
-
-		//operator=("<<" | ">>" | ">>>")
-		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
-
-		//"<<" | ">>" | ">>>"
-		public Alternatives getOperatorAlternatives_1_1_0() { return cOperatorAlternatives_1_1_0; }
-
-		//"<<"
-		public Keyword getOperatorLessThanSignLessThanSignKeyword_1_1_0_0() { return cOperatorLessThanSignLessThanSignKeyword_1_1_0_0; }
-
-		//">>"
-		public Keyword getOperatorGreaterThanSignGreaterThanSignKeyword_1_1_0_1() { return cOperatorGreaterThanSignGreaterThanSignKeyword_1_1_0_1; }
-
-		//">>>"
-		public Keyword getOperatorGreaterThanSignGreaterThanSignGreaterThanSignKeyword_1_1_0_2() { return cOperatorGreaterThanSignGreaterThanSignGreaterThanSignKeyword_1_1_0_2; }
-
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
-		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
-
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
-		public RuleCall getRightAstPatternExpressionAdditiveParserRuleCall_1_2_0() { return cRightAstPatternExpressionAdditiveParserRuleCall_1_2_0; }
-	}
-
-	public class AstPatternExpressionAdditiveElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstPatternExpressionAdditive");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cAstPatternExpressionMultiplicativeParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cAstPatternExpressionBinaryLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Assignment cOperatorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final Alternatives cOperatorAlternatives_1_1_0 = (Alternatives)cOperatorAssignment_1_1.eContents().get(0);
-		private final Keyword cOperatorPlusSignKeyword_1_1_0_0 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(0);
-		private final Keyword cOperatorHyphenMinusKeyword_1_1_0_1 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(1);
-		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cRightAstPatternExpressionMultiplicativeParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
-		
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
-		public ParserRule getRule() { return rule; }
-
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
-		public Group getGroup() { return cGroup; }
-
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
-		public RuleCall getAstPatternExpressionMultiplicativeParserRuleCall_0() { return cAstPatternExpressionMultiplicativeParserRuleCall_0; }
-
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
-		public Group getGroup_1() { return cGroup_1; }
-
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
-		public Action getAstPatternExpressionBinaryLeftAction_1_0() { return cAstPatternExpressionBinaryLeftAction_1_0; }
-
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
-		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
-
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
-		public Alternatives getOperatorAlternatives_1_1_0() { return cOperatorAlternatives_1_1_0; }
-
-		//"+"
-		public Keyword getOperatorPlusSignKeyword_1_1_0_0() { return cOperatorPlusSignKeyword_1_1_0_0; }
-
-		//"-"
-		public Keyword getOperatorHyphenMinusKeyword_1_1_0_1() { return cOperatorHyphenMinusKeyword_1_1_0_1; }
-
-		//right=AstPatternExpressionMultiplicative
-		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
-
-		//AstPatternExpressionMultiplicative
-		public RuleCall getRightAstPatternExpressionMultiplicativeParserRuleCall_1_2_0() { return cRightAstPatternExpressionMultiplicativeParserRuleCall_1_2_0; }
-	}
-
-	public class AstPatternExpressionMultiplicativeElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstPatternExpressionMultiplicative");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cAstPatternExpressionExpParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cAstPatternExpressionBinaryLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Assignment cOperatorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final Alternatives cOperatorAlternatives_1_1_0 = (Alternatives)cOperatorAssignment_1_1.eContents().get(0);
-		private final Keyword cOperatorAsteriskKeyword_1_1_0_0 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(0);
-		private final Keyword cOperatorSolidusKeyword_1_1_0_1 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(1);
-		private final Keyword cOperatorDivKeyword_1_1_0_2 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(2);
-		private final Keyword cOperatorModKeyword_1_1_0_3 = (Keyword)cOperatorAlternatives_1_1_0.eContents().get(3);
-		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cRightAstPatternExpressionExpParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
-		
-		//AstPatternExpressionMultiplicative returns AstExpression:
-		//	AstPatternExpressionExp ({AstPatternExpressionBinary.left=current} operator=("*" | "/" | "div" | "mod")
-		//	right=AstPatternExpressionExp)*;
-		public ParserRule getRule() { return rule; }
-
-		//AstPatternExpressionExp ({AstPatternExpressionBinary.left=current} operator=("*" | "/" | "div" | "mod")
-		//right=AstPatternExpressionExp)*
-		public Group getGroup() { return cGroup; }
-
-		//AstPatternExpressionExp
-		public RuleCall getAstPatternExpressionExpParserRuleCall_0() { return cAstPatternExpressionExpParserRuleCall_0; }
-
-		//({AstPatternExpressionBinary.left=current} operator=("*" | "/" | "div" | "mod") right=AstPatternExpressionExp)*
-		public Group getGroup_1() { return cGroup_1; }
-
-		//{AstPatternExpressionBinary.left=current}
-		public Action getAstPatternExpressionBinaryLeftAction_1_0() { return cAstPatternExpressionBinaryLeftAction_1_0; }
-
-		//operator=("*" | "/" | "div" | "mod")
-		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
-
-		//"*" | "/" | "div" | "mod"
-		public Alternatives getOperatorAlternatives_1_1_0() { return cOperatorAlternatives_1_1_0; }
-
-		//"*"
-		public Keyword getOperatorAsteriskKeyword_1_1_0_0() { return cOperatorAsteriskKeyword_1_1_0_0; }
-
-		//"/"
-		public Keyword getOperatorSolidusKeyword_1_1_0_1() { return cOperatorSolidusKeyword_1_1_0_1; }
-
-		//"div"
-		public Keyword getOperatorDivKeyword_1_1_0_2() { return cOperatorDivKeyword_1_1_0_2; }
-
-		//"mod"
-		public Keyword getOperatorModKeyword_1_1_0_3() { return cOperatorModKeyword_1_1_0_3; }
-
-		//right=AstPatternExpressionExp
-		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
-
-		//AstPatternExpressionExp
-		public RuleCall getRightAstPatternExpressionExpParserRuleCall_1_2_0() { return cRightAstPatternExpressionExpParserRuleCall_1_2_0; }
-	}
-
-	public class AstPatternExpressionExpElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstPatternExpressionExp");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cAstPatternExpressionUnaryParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cAstPatternExpressionBinaryLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Assignment cOperatorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final Keyword cOperatorAsteriskAsteriskKeyword_1_1_0 = (Keyword)cOperatorAssignment_1_1.eContents().get(0);
-		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cRightAstPatternExpressionUnaryParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
-		
-		//AstPatternExpressionExp returns AstExpression:
-		//	AstPatternExpressionUnary ({AstPatternExpressionBinary.left=current} operator="**" right=AstPatternExpressionUnary)*;
-		public ParserRule getRule() { return rule; }
-
-		//AstPatternExpressionUnary ({AstPatternExpressionBinary.left=current} operator="**" right=AstPatternExpressionUnary)*
-		public Group getGroup() { return cGroup; }
-
-		//AstPatternExpressionUnary
-		public RuleCall getAstPatternExpressionUnaryParserRuleCall_0() { return cAstPatternExpressionUnaryParserRuleCall_0; }
-
-		//({AstPatternExpressionBinary.left=current} operator="**" right=AstPatternExpressionUnary)*
-		public Group getGroup_1() { return cGroup_1; }
-
-		//{AstPatternExpressionBinary.left=current}
-		public Action getAstPatternExpressionBinaryLeftAction_1_0() { return cAstPatternExpressionBinaryLeftAction_1_0; }
-
-		//operator="**"
-		public Assignment getOperatorAssignment_1_1() { return cOperatorAssignment_1_1; }
-
-		//"**"
-		public Keyword getOperatorAsteriskAsteriskKeyword_1_1_0() { return cOperatorAsteriskAsteriskKeyword_1_1_0; }
-
-		//right=AstPatternExpressionUnary
-		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
-
-		//AstPatternExpressionUnary
-		public RuleCall getRightAstPatternExpressionUnaryParserRuleCall_1_2_0() { return cRightAstPatternExpressionUnaryParserRuleCall_1_2_0; }
-	}
-
-	public class AstPatternExpressionUnaryElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstPatternExpressionUnary");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Action cAstPatternExpressionUnaryAction_0_0 = (Action)cGroup_0.eContents().get(0);
-		private final Assignment cUnaryOperatorAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
-		private final Alternatives cUnaryOperatorAlternatives_0_1_0 = (Alternatives)cUnaryOperatorAssignment_0_1.eContents().get(0);
-		private final Keyword cUnaryOperatorTildeKeyword_0_1_0_0 = (Keyword)cUnaryOperatorAlternatives_0_1_0.eContents().get(0);
-		private final Keyword cUnaryOperatorHyphenMinusKeyword_0_1_0_1 = (Keyword)cUnaryOperatorAlternatives_0_1_0.eContents().get(1);
-		private final Keyword cUnaryOperatorNotKeyword_0_1_0_2 = (Keyword)cUnaryOperatorAlternatives_0_1_0.eContents().get(2);
-		private final Keyword cUnaryOperatorNumberSignKeyword_0_1_0_3 = (Keyword)cUnaryOperatorAlternatives_0_1_0.eContents().get(3);
-		private final Keyword cUnaryOperatorOldKeyword_0_1_0_4 = (Keyword)cUnaryOperatorAlternatives_0_1_0.eContents().get(4);
-		private final Assignment cExpressionAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
-		private final RuleCall cExpressionAstPatternExpressionPostfixParserRuleCall_0_2_0 = (RuleCall)cExpressionAssignment_0_2.eContents().get(0);
-		private final RuleCall cAstPatternExpressionPostfixParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		
-		//AstPatternExpressionUnary returns AstExpression:
-		//	{AstPatternExpressionUnary} unaryOperator=("~" | "-" | "not" | "#" | "old") expression=AstPatternExpressionPostfix |
-		//	AstPatternExpressionPostfix;
-		public ParserRule getRule() { return rule; }
-
-		//{AstPatternExpressionUnary} unaryOperator=("~" | "-" | "not" | "#" | "old") expression=AstPatternExpressionPostfix |
-		//AstPatternExpressionPostfix
+		//AstExpressionBoolean | AstExpressionInteger | AstExpressionString | "!" AstExpressionSymbolReference
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//{AstPatternExpressionUnary} unaryOperator=("~" | "-" | "not" | "#" | "old") expression=AstPatternExpressionPostfix
-		public Group getGroup_0() { return cGroup_0; }
+		//AstExpressionBoolean
+		public RuleCall getAstExpressionBooleanParserRuleCall_0() { return cAstExpressionBooleanParserRuleCall_0; }
 
-		//{AstPatternExpressionUnary}
-		public Action getAstPatternExpressionUnaryAction_0_0() { return cAstPatternExpressionUnaryAction_0_0; }
+		//AstExpressionInteger
+		public RuleCall getAstExpressionIntegerParserRuleCall_1() { return cAstExpressionIntegerParserRuleCall_1; }
 
-		//unaryOperator=("~" | "-" | "not" | "#" | "old")
-		public Assignment getUnaryOperatorAssignment_0_1() { return cUnaryOperatorAssignment_0_1; }
+		//AstExpressionString
+		public RuleCall getAstExpressionStringParserRuleCall_2() { return cAstExpressionStringParserRuleCall_2; }
 
-		//"~" | "-" | "not" | "#" | "old"
-		public Alternatives getUnaryOperatorAlternatives_0_1_0() { return cUnaryOperatorAlternatives_0_1_0; }
-
-		//"~"
-		public Keyword getUnaryOperatorTildeKeyword_0_1_0_0() { return cUnaryOperatorTildeKeyword_0_1_0_0; }
-
-		//"-"
-		public Keyword getUnaryOperatorHyphenMinusKeyword_0_1_0_1() { return cUnaryOperatorHyphenMinusKeyword_0_1_0_1; }
-
-		//"not"
-		public Keyword getUnaryOperatorNotKeyword_0_1_0_2() { return cUnaryOperatorNotKeyword_0_1_0_2; }
-
-		//"#"
-		public Keyword getUnaryOperatorNumberSignKeyword_0_1_0_3() { return cUnaryOperatorNumberSignKeyword_0_1_0_3; }
-
-		//"old"
-		public Keyword getUnaryOperatorOldKeyword_0_1_0_4() { return cUnaryOperatorOldKeyword_0_1_0_4; }
-
-		//expression=AstPatternExpressionPostfix
-		public Assignment getExpressionAssignment_0_2() { return cExpressionAssignment_0_2; }
-
-		//AstPatternExpressionPostfix
-		public RuleCall getExpressionAstPatternExpressionPostfixParserRuleCall_0_2_0() { return cExpressionAstPatternExpressionPostfixParserRuleCall_0_2_0; }
-
-		//AstPatternExpressionPostfix
-		public RuleCall getAstPatternExpressionPostfixParserRuleCall_1() { return cAstPatternExpressionPostfixParserRuleCall_1; }
-	}
-
-	public class AstPatternExpressionPostfixElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstPatternExpressionPostfix");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cAstPatternExpressionSymbolReferenceParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cAstPatternExpressionIfParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cAstExpressionCaseParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cAstPatternExpressionLiteralParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		
-		//AstPatternExpressionPostfix returns AstExpression:
-		//	AstPatternExpressionSymbolReference | AstPatternExpressionIf | AstExpressionCase | AstPatternExpressionLiteral;
-		public ParserRule getRule() { return rule; }
-
-		//AstPatternExpressionSymbolReference | AstPatternExpressionIf | AstExpressionCase | AstPatternExpressionLiteral
-		public Alternatives getAlternatives() { return cAlternatives; }
-
-		//AstPatternExpressionSymbolReference
-		public RuleCall getAstPatternExpressionSymbolReferenceParserRuleCall_0() { return cAstPatternExpressionSymbolReferenceParserRuleCall_0; }
-
-		//AstPatternExpressionIf
-		public RuleCall getAstPatternExpressionIfParserRuleCall_1() { return cAstPatternExpressionIfParserRuleCall_1; }
-
-		//AstExpressionCase
-		public RuleCall getAstExpressionCaseParserRuleCall_2() { return cAstExpressionCaseParserRuleCall_2; }
-
-		//AstPatternExpressionLiteral
-		public RuleCall getAstPatternExpressionLiteralParserRuleCall_3() { return cAstPatternExpressionLiteralParserRuleCall_3; }
-	}
-
-	public class AstPatternExpressionSymbolReferenceElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstPatternExpressionSymbolReference");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cExclamationMarkKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cSymbolAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final CrossReference cSymbolAstVariableCrossReference_1_0 = (CrossReference)cSymbolAssignment_1.eContents().get(0);
-		private final RuleCall cSymbolAstVariableIDTerminalRuleCall_1_0_1 = (RuleCall)cSymbolAstVariableCrossReference_1_0.eContents().get(1);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cLeftSquareBracketKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cIndexesAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cIndexesAstExpressionParserRuleCall_2_1_0 = (RuleCall)cIndexesAssignment_2_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
-		private final Assignment cMemberAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cMemberAstMemberAccessParserRuleCall_3_0 = (RuleCall)cMemberAssignment_3.eContents().get(0);
-		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cColonColonKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cCtorAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cCtorIDTerminalRuleCall_4_1_0 = (RuleCall)cCtorAssignment_4_1.eContents().get(0);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Assignment cCallAssignment_5_0 = (Assignment)cGroup_5.eContents().get(0);
-		private final Keyword cCallLeftParenthesisKeyword_5_0_0 = (Keyword)cCallAssignment_5_0.eContents().get(0);
-		private final Group cGroup_5_1 = (Group)cGroup_5.eContents().get(1);
-		private final Assignment cParametersAssignment_5_1_0 = (Assignment)cGroup_5_1.eContents().get(0);
-		private final RuleCall cParametersAstExpressionParserRuleCall_5_1_0_0 = (RuleCall)cParametersAssignment_5_1_0.eContents().get(0);
-		private final Group cGroup_5_1_1 = (Group)cGroup_5_1.eContents().get(1);
-		private final Keyword cCommaKeyword_5_1_1_0 = (Keyword)cGroup_5_1_1.eContents().get(0);
-		private final Assignment cParametersAssignment_5_1_1_1 = (Assignment)cGroup_5_1_1.eContents().get(1);
-		private final RuleCall cParametersAstExpressionParserRuleCall_5_1_1_1_0 = (RuleCall)cParametersAssignment_5_1_1_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
-		
-		//AstPatternExpressionSymbolReference:
-		//	"!" symbol=[AstVariable] ("[" indexes+=AstExpression "]")* member+=AstMemberAccess* ("::" ctor=ID)? (call?="("
-		//	(parameters+=AstExpression ("," parameters+=AstExpression)*)? ")")?;
-		public ParserRule getRule() { return rule; }
-
-		//"!" symbol=[AstVariable] ("[" indexes+=AstExpression "]")* member+=AstMemberAccess* ("::" ctor=ID)? (call?="("
-		//(parameters+=AstExpression ("," parameters+=AstExpression)*)? ")")?
-		public Group getGroup() { return cGroup; }
+		//"!" AstExpressionSymbolReference
+		public Group getGroup_3() { return cGroup_3; }
 
 		//"!"
-		public Keyword getExclamationMarkKeyword_0() { return cExclamationMarkKeyword_0; }
+		public Keyword getExclamationMarkKeyword_3_0() { return cExclamationMarkKeyword_3_0; }
 
-		//symbol=[AstVariable]
-		public Assignment getSymbolAssignment_1() { return cSymbolAssignment_1; }
-
-		//[AstVariable]
-		public CrossReference getSymbolAstVariableCrossReference_1_0() { return cSymbolAstVariableCrossReference_1_0; }
-
-		//ID
-		public RuleCall getSymbolAstVariableIDTerminalRuleCall_1_0_1() { return cSymbolAstVariableIDTerminalRuleCall_1_0_1; }
-
-		//("[" indexes+=AstExpression "]")*
-		public Group getGroup_2() { return cGroup_2; }
-
-		//"["
-		public Keyword getLeftSquareBracketKeyword_2_0() { return cLeftSquareBracketKeyword_2_0; }
-
-		//indexes+=AstExpression
-		public Assignment getIndexesAssignment_2_1() { return cIndexesAssignment_2_1; }
-
-		//AstExpression
-		public RuleCall getIndexesAstExpressionParserRuleCall_2_1_0() { return cIndexesAstExpressionParserRuleCall_2_1_0; }
-
-		//"]"
-		public Keyword getRightSquareBracketKeyword_2_2() { return cRightSquareBracketKeyword_2_2; }
-
-		//member+=AstMemberAccess*
-		public Assignment getMemberAssignment_3() { return cMemberAssignment_3; }
-
-		//AstMemberAccess
-		public RuleCall getMemberAstMemberAccessParserRuleCall_3_0() { return cMemberAstMemberAccessParserRuleCall_3_0; }
-
-		//("::" ctor=ID)?
-		public Group getGroup_4() { return cGroup_4; }
-
-		//"::"
-		public Keyword getColonColonKeyword_4_0() { return cColonColonKeyword_4_0; }
-
-		//ctor=ID
-		public Assignment getCtorAssignment_4_1() { return cCtorAssignment_4_1; }
-
-		//ID
-		public RuleCall getCtorIDTerminalRuleCall_4_1_0() { return cCtorIDTerminalRuleCall_4_1_0; }
-
-		//(call?="(" (parameters+=AstExpression ("," parameters+=AstExpression)*)? ")")?
-		public Group getGroup_5() { return cGroup_5; }
-
-		//call?="("
-		public Assignment getCallAssignment_5_0() { return cCallAssignment_5_0; }
-
-		//"("
-		public Keyword getCallLeftParenthesisKeyword_5_0_0() { return cCallLeftParenthesisKeyword_5_0_0; }
-
-		//(parameters+=AstExpression ("," parameters+=AstExpression)*)?
-		public Group getGroup_5_1() { return cGroup_5_1; }
-
-		//parameters+=AstExpression
-		public Assignment getParametersAssignment_5_1_0() { return cParametersAssignment_5_1_0; }
-
-		//AstExpression
-		public RuleCall getParametersAstExpressionParserRuleCall_5_1_0_0() { return cParametersAstExpressionParserRuleCall_5_1_0_0; }
-
-		//("," parameters+=AstExpression)*
-		public Group getGroup_5_1_1() { return cGroup_5_1_1; }
-
-		//","
-		public Keyword getCommaKeyword_5_1_1_0() { return cCommaKeyword_5_1_1_0; }
-
-		//parameters+=AstExpression
-		public Assignment getParametersAssignment_5_1_1_1() { return cParametersAssignment_5_1_1_1; }
-
-		//AstExpression
-		public RuleCall getParametersAstExpressionParserRuleCall_5_1_1_1_0() { return cParametersAstExpressionParserRuleCall_5_1_1_1_0; }
-
-		//")"
-		public Keyword getRightParenthesisKeyword_5_2() { return cRightParenthesisKeyword_5_2; }
+		//AstExpressionSymbolReference
+		public RuleCall getAstExpressionSymbolReferenceParserRuleCall_3_1() { return cAstExpressionSymbolReferenceParserRuleCall_3_1; }
 	}
 
 	public class AstPatternExpressionIfElements extends AbstractParserRuleElementFinder {
@@ -5604,39 +4948,19 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getEndKeyword_6() { return cEndKeyword_6; }
 	}
 
-	public class AstPatternExpressionLiteralElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstPatternExpressionLiteral");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cAstExpressionBooleanParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cAstExpressionIntegerParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cAstExpressionStringParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		
-		/////////////////////////////////////////////////////////////////////////////////
-		//// literal expressions
-		/////////////////////////////////////////////////////////////////////////////////
-		//AstPatternExpressionLiteral:
-		//	AstExpressionBoolean | AstExpressionInteger | AstExpressionString;
-		public ParserRule getRule() { return rule; }
-
-		//AstExpressionBoolean | AstExpressionInteger | AstExpressionString
-		public Alternatives getAlternatives() { return cAlternatives; }
-
-		//AstExpressionBoolean
-		public RuleCall getAstExpressionBooleanParserRuleCall_0() { return cAstExpressionBooleanParserRuleCall_0; }
-
-		//AstExpressionInteger
-		public RuleCall getAstExpressionIntegerParserRuleCall_1() { return cAstExpressionIntegerParserRuleCall_1; }
-
-		//AstExpressionString
-		public RuleCall getAstExpressionStringParserRuleCall_2() { return cAstExpressionStringParserRuleCall_2; }
-	}
-
 	public class AstTypeUserElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstTypeUser");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cAstTypeUserAction_0 = (Action)cGroup.eContents().get(0);
 		private final RuleCall cIDTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		
+		/////////////////////////////////////////////////////////////////////////////////
+		//// literal expressions
+		/////////////////////////////////////////////////////////////////////////////////
+		////AstPatternExpressionLiteral:
+		////	AstExpressionBoolean
+		////	| AstExpressionInteger
+		////	| AstExpressionString;
 		/////////////////////////////////////////////////////////////////////////////////
 		//// type and variable declarations
 		/////////////////////////////////////////////////////////////////////////////////
@@ -5735,24 +5059,19 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cDomainAssignment_1_2_1_1_1 = (Assignment)cGroup_1_2_1_1.eContents().get(1);
 		private final RuleCall cDomainAstTypeParserRuleCall_1_2_1_1_1_0 = (RuleCall)cDomainAssignment_1_2_1_1_1.eContents().get(0);
 		private final Keyword cHyphenMinusHyphenMinusGreaterThanSignKeyword_1_2_2 = (Keyword)cGroup_1_2.eContents().get(2);
-		private final Group cGroup_1_2_3 = (Group)cGroup_1_2.eContents().get(3);
-		private final Assignment cCodomainAssignment_1_2_3_0 = (Assignment)cGroup_1_2_3.eContents().get(0);
-		private final RuleCall cCodomainAstTypeParserRuleCall_1_2_3_0_0 = (RuleCall)cCodomainAssignment_1_2_3_0.eContents().get(0);
-		private final Group cGroup_1_2_3_1 = (Group)cGroup_1_2_3.eContents().get(1);
-		private final Keyword cCommaKeyword_1_2_3_1_0 = (Keyword)cGroup_1_2_3_1.eContents().get(0);
-		private final Assignment cDomainAssignment_1_2_3_1_1 = (Assignment)cGroup_1_2_3_1.eContents().get(1);
-		private final RuleCall cDomainAstTypeParserRuleCall_1_2_3_1_1_0 = (RuleCall)cDomainAssignment_1_2_3_1_1.eContents().get(0);
+		private final Assignment cCodomainAssignment_1_2_3 = (Assignment)cGroup_1_2.eContents().get(3);
+		private final RuleCall cCodomainAstTypeParserRuleCall_1_2_3_0 = (RuleCall)cCodomainAssignment_1_2_3.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_1_2_4 = (Keyword)cGroup_1_2.eContents().get(4);
 		
 		//AstType:
 		//	{AstType} (builtin=AstTypeBuiltIn typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* |
 		//	name=[AstTypeUser] typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* | "[" (domain+=AstType (","
-		//	domain+=AstType)*)? "-->" (codomain+=AstType ("," domain+=AstType)*)? "]");
+		//	domain+=AstType)*)? "-->" codomain=AstType? "]");
 		public ParserRule getRule() { return rule; }
 
 		//{AstType} (builtin=AstTypeBuiltIn typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* |
 		//name=[AstTypeUser] typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* | "[" (domain+=AstType (","
-		//domain+=AstType)*)? "-->" (codomain+=AstType ("," domain+=AstType)*)? "]")
+		//domain+=AstType)*)? "-->" codomain=AstType? "]")
 		public Group getGroup() { return cGroup; }
 
 		//{AstType}
@@ -5760,7 +5079,7 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 
 		//builtin=AstTypeBuiltIn typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* | name=[AstTypeUser]
 		//typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* | "[" (domain+=AstType ("," domain+=AstType)*)?
-		//"-->" (codomain+=AstType ("," domain+=AstType)*)? "]"
+		//"-->" codomain=AstType? "]"
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
 		//builtin=AstTypeBuiltIn typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")*
@@ -5826,7 +5145,7 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//"]"
 		public Keyword getRightSquareBracketKeyword_1_1_2_2() { return cRightSquareBracketKeyword_1_1_2_2; }
 
-		//"[" (domain+=AstType ("," domain+=AstType)*)? "-->" (codomain+=AstType ("," domain+=AstType)*)? "]"
+		//"[" (domain+=AstType ("," domain+=AstType)*)? "-->" codomain=AstType? "]"
 		public Group getGroup_1_2() { return cGroup_1_2; }
 
 		//"["
@@ -5856,26 +5175,11 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//"-->"
 		public Keyword getHyphenMinusHyphenMinusGreaterThanSignKeyword_1_2_2() { return cHyphenMinusHyphenMinusGreaterThanSignKeyword_1_2_2; }
 
-		//(codomain+=AstType ("," domain+=AstType)*)?
-		public Group getGroup_1_2_3() { return cGroup_1_2_3; }
-
-		//codomain+=AstType
-		public Assignment getCodomainAssignment_1_2_3_0() { return cCodomainAssignment_1_2_3_0; }
+		//codomain=AstType?
+		public Assignment getCodomainAssignment_1_2_3() { return cCodomainAssignment_1_2_3; }
 
 		//AstType
-		public RuleCall getCodomainAstTypeParserRuleCall_1_2_3_0_0() { return cCodomainAstTypeParserRuleCall_1_2_3_0_0; }
-
-		//("," domain+=AstType)*
-		public Group getGroup_1_2_3_1() { return cGroup_1_2_3_1; }
-
-		//","
-		public Keyword getCommaKeyword_1_2_3_1_0() { return cCommaKeyword_1_2_3_1_0; }
-
-		//domain+=AstType
-		public Assignment getDomainAssignment_1_2_3_1_1() { return cDomainAssignment_1_2_3_1_1; }
-
-		//AstType
-		public RuleCall getDomainAstTypeParserRuleCall_1_2_3_1_1_0() { return cDomainAstTypeParserRuleCall_1_2_3_1_1_0; }
+		public RuleCall getCodomainAstTypeParserRuleCall_1_2_3_0() { return cCodomainAstTypeParserRuleCall_1_2_3_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_1_2_4() { return cRightSquareBracketKeyword_1_2_4; }
@@ -6320,21 +5624,7 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	private AstPatternElements pAstPattern;
 	private AstSubPatternElements pAstSubPattern;
 	private AstPatternExpressionElements pAstPatternExpression;
-	private AstPatternExpressionAndElements pAstPatternExpressionAnd;
-	private AstPatternExpressionBitorElements pAstPatternExpressionBitor;
-	private AstPatternExpressionBitxorElements pAstPatternExpressionBitxor;
-	private AstPatternExpressionBitandElements pAstPatternExpressionBitand;
-	private AstPatternExpressionEqElements pAstPatternExpressionEq;
-	private AstPatternExpressionRelationalElements pAstPatternExpressionRelational;
-	private AstPatternExpressionShiftElements pAstPatternExpressionShift;
-	private AstPatternExpressionAdditiveElements pAstPatternExpressionAdditive;
-	private AstPatternExpressionMultiplicativeElements pAstPatternExpressionMultiplicative;
-	private AstPatternExpressionExpElements pAstPatternExpressionExp;
-	private AstPatternExpressionUnaryElements pAstPatternExpressionUnary;
-	private AstPatternExpressionPostfixElements pAstPatternExpressionPostfix;
-	private AstPatternExpressionSymbolReferenceElements pAstPatternExpressionSymbolReference;
 	private AstPatternExpressionIfElements pAstPatternExpressionIf;
-	private AstPatternExpressionLiteralElements pAstPatternExpressionLiteral;
 	private AstTypeUserElements pAstTypeUser;
 	private AstTypeBuiltInElements pAstTypeBuiltIn;
 	private AstTypeElements pAstType;
@@ -6835,7 +6125,7 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AstInputPattern:
-	//	(port=[AstPort] ":")? "[" tokens+=AstToken ("," tokens+=AstToken)* "]" ("repeat" repeat=AstExpression)?;
+	//	(port=[AstPort] ":")? "[" tokens+=AstPattern ("," tokens+=AstPattern)* "]" ("repeat" repeat=AstExpression)?;
 	public AstInputPatternElements getAstInputPatternAccess() {
 		return (pAstInputPattern != null) ? pAstInputPattern : (pAstInputPattern = new AstInputPatternElements());
 	}
@@ -7275,7 +6565,7 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	//// patterns
 	/////////////////////////////////////////////////////////////////////////////////
 	//AstPattern:
-	//	tag=ID "(" subpatterns+=AstSubPattern ("," subpatterns+=AstSubPattern)? ")";
+	//	variable=AstToken | tag=ID "(" (subpatterns+=AstSubPattern ("," subpatterns+=AstSubPattern)?)? ")";
 	public AstPatternElements getAstPatternAccess() {
 		return (pAstPattern != null) ? pAstPattern : (pAstPattern = new AstPatternElements());
 	}
@@ -7285,7 +6575,7 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AstSubPattern:
-	//	(label=ID ":")? (dontcare?="_" | condition=AstPatternExpression | variable=AstToken | pattern=AstPattern);
+	//	(label=ID ":")? (dontcare?="_" | "!" condition=AstExpression | pattern=AstPattern);
 	public AstSubPatternElements getAstSubPatternAccess() {
 		return (pAstSubPattern != null) ? pAstSubPattern : (pAstSubPattern = new AstSubPatternElements());
 	}
@@ -7297,153 +6587,43 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	/////////////////////////////////////////////////////////////////////////////////
 	//// pattern expressions
 	/////////////////////////////////////////////////////////////////////////////////
+	////AstPatternExpression returns AstExpression:
+	////	AstPatternExpressionAnd ({AstPatternExpressionBinary.left=current} operator=('||' | 'or' | '..') right=AstExpressionAnd)*;
+	////AstPatternExpressionAnd returns AstExpression:
+	////	AstPatternExpressionBitor ({AstPatternExpressionBinary.left=current} operator=('&&' | 'and') right=AstPatternExpressionBitor)*;
+	////AstPatternExpressionBitor returns AstExpression:
+	////	AstPatternExpressionBitxor ({AstPatternExpressionBinary.left=current} operator='|' right=AstPatternExpressionBitxor)*;
+	////AstPatternExpressionBitxor returns AstExpression:
+	////	AstPatternExpressionBitand ({AstPatternExpressionBinary.left=current} operator='^' right=AstPatternExpressionBitand)*;
+	////AstPatternExpressionBitand returns AstExpression:
+	////	AstPatternExpressionEq ({AstPatternExpressionBinary.left=current} operator='&' right=AstPatternExpressionEq)*;
+	////AstPatternExpressionEq returns AstExpression:
+	////	AstPatternExpressionRelational ({AstPatternExpressionBinary.left=current} operator=('=' | '!=') right=AstPatternExpressionRelational)*;
+	////AstPatternExpressionRelational returns AstExpression:
+	////	AstPatternExpressionShift ({AstPatternExpressionBinary.left=current} operator=('<' | '<=' | '>' | '>=') right=AstPatternExpressionShift)*;
+	////AstPatternExpressionShift returns AstExpression:
+	////	AstPatternExpressionAdditive ({AstPatternExpressionBinary.left=current} operator=('<<' | '>>' | '>>>') right=AstPatternExpressionAdditive)*;
+	////AstPatternExpressionAdditive returns AstExpression:
+	////	AstPatternExpressionMultiplicative ({AstPatternExpressionBinary.left=current} operator=('+' | '-') right=AstPatternExpressionMultiplicative)*;
+	////AstPatternExpressionMultiplicative returns AstExpression:
+	////	AstPatternExpressionExp ({AstPatternExpressionBinary.left=current} operator=('*' | '/' | 'div' | 'mod' ) right=AstPatternExpressionExp)*;
+	////AstPatternExpressionExp returns AstExpression:
+	////	AstPatternExpressionUnary ({AstPatternExpressionBinary.left=current} operator='**' right=AstPatternExpressionUnary)*;	
+	////AstPatternExpressionUnary returns AstExpression:
+	////	{AstPatternExpressionUnary} unaryOperator=('~' | '-' | 'not' | '#' | 'old') expression=AstPatternExpressionPostfix
+	////	| AstPatternExpressionPostfix;
+	////AstPatternExpressionPostfix returns AstExpression:
+	////	AstPatternExpressionSymbolReference 
+	////	| AstPatternExpressionIf
+	////	| AstExpressionCase
 	//AstPatternExpression returns AstExpression:
-	//	AstPatternExpressionAnd ({AstPatternExpressionBinary.left=current} operator=("||" | "or" | "..")
-	//	right=AstExpressionAnd)*;
+	//	AstExpressionBoolean | AstExpressionInteger | AstExpressionString | "!" AstExpressionSymbolReference;
 	public AstPatternExpressionElements getAstPatternExpressionAccess() {
 		return (pAstPatternExpression != null) ? pAstPatternExpression : (pAstPatternExpression = new AstPatternExpressionElements());
 	}
 	
 	public ParserRule getAstPatternExpressionRule() {
 		return getAstPatternExpressionAccess().getRule();
-	}
-
-	//AstPatternExpressionAnd returns AstExpression:
-	//	AstPatternExpressionBitor ({AstPatternExpressionBinary.left=current} operator=("&&" | "and")
-	//	right=AstPatternExpressionBitor)*;
-	public AstPatternExpressionAndElements getAstPatternExpressionAndAccess() {
-		return (pAstPatternExpressionAnd != null) ? pAstPatternExpressionAnd : (pAstPatternExpressionAnd = new AstPatternExpressionAndElements());
-	}
-	
-	public ParserRule getAstPatternExpressionAndRule() {
-		return getAstPatternExpressionAndAccess().getRule();
-	}
-
-	//AstPatternExpressionBitor returns AstExpression:
-	//	AstPatternExpressionBitxor ({AstPatternExpressionBinary.left=current} operator="|" right=AstPatternExpressionBitxor)*;
-	public AstPatternExpressionBitorElements getAstPatternExpressionBitorAccess() {
-		return (pAstPatternExpressionBitor != null) ? pAstPatternExpressionBitor : (pAstPatternExpressionBitor = new AstPatternExpressionBitorElements());
-	}
-	
-	public ParserRule getAstPatternExpressionBitorRule() {
-		return getAstPatternExpressionBitorAccess().getRule();
-	}
-
-	//AstPatternExpressionBitxor returns AstExpression:
-	//	AstPatternExpressionBitand ({AstPatternExpressionBinary.left=current} operator="^" right=AstPatternExpressionBitand)*;
-	public AstPatternExpressionBitxorElements getAstPatternExpressionBitxorAccess() {
-		return (pAstPatternExpressionBitxor != null) ? pAstPatternExpressionBitxor : (pAstPatternExpressionBitxor = new AstPatternExpressionBitxorElements());
-	}
-	
-	public ParserRule getAstPatternExpressionBitxorRule() {
-		return getAstPatternExpressionBitxorAccess().getRule();
-	}
-
-	//AstPatternExpressionBitand returns AstExpression:
-	//	AstPatternExpressionEq ({AstPatternExpressionBinary.left=current} operator="&" right=AstPatternExpressionEq)*;
-	public AstPatternExpressionBitandElements getAstPatternExpressionBitandAccess() {
-		return (pAstPatternExpressionBitand != null) ? pAstPatternExpressionBitand : (pAstPatternExpressionBitand = new AstPatternExpressionBitandElements());
-	}
-	
-	public ParserRule getAstPatternExpressionBitandRule() {
-		return getAstPatternExpressionBitandAccess().getRule();
-	}
-
-	//AstPatternExpressionEq returns AstExpression:
-	//	AstPatternExpressionRelational ({AstPatternExpressionBinary.left=current} operator=("=" | "!=")
-	//	right=AstPatternExpressionRelational)*;
-	public AstPatternExpressionEqElements getAstPatternExpressionEqAccess() {
-		return (pAstPatternExpressionEq != null) ? pAstPatternExpressionEq : (pAstPatternExpressionEq = new AstPatternExpressionEqElements());
-	}
-	
-	public ParserRule getAstPatternExpressionEqRule() {
-		return getAstPatternExpressionEqAccess().getRule();
-	}
-
-	//AstPatternExpressionRelational returns AstExpression:
-	//	AstPatternExpressionShift ({AstPatternExpressionBinary.left=current} operator=("<" | "<=" | ">" | ">=")
-	//	right=AstPatternExpressionShift)*;
-	public AstPatternExpressionRelationalElements getAstPatternExpressionRelationalAccess() {
-		return (pAstPatternExpressionRelational != null) ? pAstPatternExpressionRelational : (pAstPatternExpressionRelational = new AstPatternExpressionRelationalElements());
-	}
-	
-	public ParserRule getAstPatternExpressionRelationalRule() {
-		return getAstPatternExpressionRelationalAccess().getRule();
-	}
-
-	//AstPatternExpressionShift returns AstExpression:
-	//	AstPatternExpressionAdditive ({AstPatternExpressionBinary.left=current} operator=("<<" | ">>" | ">>>")
-	//	right=AstPatternExpressionAdditive)*;
-	public AstPatternExpressionShiftElements getAstPatternExpressionShiftAccess() {
-		return (pAstPatternExpressionShift != null) ? pAstPatternExpressionShift : (pAstPatternExpressionShift = new AstPatternExpressionShiftElements());
-	}
-	
-	public ParserRule getAstPatternExpressionShiftRule() {
-		return getAstPatternExpressionShiftAccess().getRule();
-	}
-
-	//AstPatternExpressionAdditive returns AstExpression:
-	//	AstPatternExpressionMultiplicative ({AstPatternExpressionBinary.left=current} operator=("+" | "-")
-	//	right=AstPatternExpressionMultiplicative)*;
-	public AstPatternExpressionAdditiveElements getAstPatternExpressionAdditiveAccess() {
-		return (pAstPatternExpressionAdditive != null) ? pAstPatternExpressionAdditive : (pAstPatternExpressionAdditive = new AstPatternExpressionAdditiveElements());
-	}
-	
-	public ParserRule getAstPatternExpressionAdditiveRule() {
-		return getAstPatternExpressionAdditiveAccess().getRule();
-	}
-
-	//AstPatternExpressionMultiplicative returns AstExpression:
-	//	AstPatternExpressionExp ({AstPatternExpressionBinary.left=current} operator=("*" | "/" | "div" | "mod")
-	//	right=AstPatternExpressionExp)*;
-	public AstPatternExpressionMultiplicativeElements getAstPatternExpressionMultiplicativeAccess() {
-		return (pAstPatternExpressionMultiplicative != null) ? pAstPatternExpressionMultiplicative : (pAstPatternExpressionMultiplicative = new AstPatternExpressionMultiplicativeElements());
-	}
-	
-	public ParserRule getAstPatternExpressionMultiplicativeRule() {
-		return getAstPatternExpressionMultiplicativeAccess().getRule();
-	}
-
-	//AstPatternExpressionExp returns AstExpression:
-	//	AstPatternExpressionUnary ({AstPatternExpressionBinary.left=current} operator="**" right=AstPatternExpressionUnary)*;
-	public AstPatternExpressionExpElements getAstPatternExpressionExpAccess() {
-		return (pAstPatternExpressionExp != null) ? pAstPatternExpressionExp : (pAstPatternExpressionExp = new AstPatternExpressionExpElements());
-	}
-	
-	public ParserRule getAstPatternExpressionExpRule() {
-		return getAstPatternExpressionExpAccess().getRule();
-	}
-
-	//AstPatternExpressionUnary returns AstExpression:
-	//	{AstPatternExpressionUnary} unaryOperator=("~" | "-" | "not" | "#" | "old") expression=AstPatternExpressionPostfix |
-	//	AstPatternExpressionPostfix;
-	public AstPatternExpressionUnaryElements getAstPatternExpressionUnaryAccess() {
-		return (pAstPatternExpressionUnary != null) ? pAstPatternExpressionUnary : (pAstPatternExpressionUnary = new AstPatternExpressionUnaryElements());
-	}
-	
-	public ParserRule getAstPatternExpressionUnaryRule() {
-		return getAstPatternExpressionUnaryAccess().getRule();
-	}
-
-	//AstPatternExpressionPostfix returns AstExpression:
-	//	AstPatternExpressionSymbolReference | AstPatternExpressionIf | AstExpressionCase | AstPatternExpressionLiteral;
-	public AstPatternExpressionPostfixElements getAstPatternExpressionPostfixAccess() {
-		return (pAstPatternExpressionPostfix != null) ? pAstPatternExpressionPostfix : (pAstPatternExpressionPostfix = new AstPatternExpressionPostfixElements());
-	}
-	
-	public ParserRule getAstPatternExpressionPostfixRule() {
-		return getAstPatternExpressionPostfixAccess().getRule();
-	}
-
-	//AstPatternExpressionSymbolReference:
-	//	"!" symbol=[AstVariable] ("[" indexes+=AstExpression "]")* member+=AstMemberAccess* ("::" ctor=ID)? (call?="("
-	//	(parameters+=AstExpression ("," parameters+=AstExpression)*)? ")")?;
-	public AstPatternExpressionSymbolReferenceElements getAstPatternExpressionSymbolReferenceAccess() {
-		return (pAstPatternExpressionSymbolReference != null) ? pAstPatternExpressionSymbolReference : (pAstPatternExpressionSymbolReference = new AstPatternExpressionSymbolReferenceElements());
-	}
-	
-	public ParserRule getAstPatternExpressionSymbolReferenceRule() {
-		return getAstPatternExpressionSymbolReferenceAccess().getRule();
 	}
 
 	//AstPatternExpressionIf:
@@ -7459,16 +6639,10 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	/////////////////////////////////////////////////////////////////////////////////
 	//// literal expressions
 	/////////////////////////////////////////////////////////////////////////////////
-	//AstPatternExpressionLiteral:
-	//	AstExpressionBoolean | AstExpressionInteger | AstExpressionString;
-	public AstPatternExpressionLiteralElements getAstPatternExpressionLiteralAccess() {
-		return (pAstPatternExpressionLiteral != null) ? pAstPatternExpressionLiteral : (pAstPatternExpressionLiteral = new AstPatternExpressionLiteralElements());
-	}
-	
-	public ParserRule getAstPatternExpressionLiteralRule() {
-		return getAstPatternExpressionLiteralAccess().getRule();
-	}
-
+	////AstPatternExpressionLiteral:
+	////	AstExpressionBoolean
+	////	| AstExpressionInteger
+	////	| AstExpressionString;
 	/////////////////////////////////////////////////////////////////////////////////
 	//// type and variable declarations
 	/////////////////////////////////////////////////////////////////////////////////
@@ -7496,7 +6670,7 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	//AstType:
 	//	{AstType} (builtin=AstTypeBuiltIn typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* |
 	//	name=[AstTypeUser] typeParams=AstTypeParameterList? ("[" dimensions+=AstExpression "]")* | "[" (domain+=AstType (","
-	//	domain+=AstType)*)? "-->" (codomain+=AstType ("," domain+=AstType)*)? "]");
+	//	domain+=AstType)*)? "-->" codomain=AstType? "]");
 	public AstTypeElements getAstTypeAccess() {
 		return (pAstType != null) ? pAstType : (pAstType = new AstTypeElements());
 	}

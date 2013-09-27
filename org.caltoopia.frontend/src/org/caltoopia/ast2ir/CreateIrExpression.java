@@ -57,15 +57,12 @@ import org.caltoopia.frontend.cal.AstGenerator;
 import org.caltoopia.frontend.cal.AstInputPattern;
 import org.caltoopia.frontend.cal.AstMemberAccess;
 import org.caltoopia.frontend.cal.AstPort;
-import org.caltoopia.frontend.cal.AstStatementAlternative;
-import org.caltoopia.frontend.cal.AstStatementCase;
 import org.caltoopia.frontend.cal.AstType;
 import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.cal.util.CalSwitch;
 import org.caltoopia.ir.BinaryExpression;
 import org.caltoopia.ir.CaseExpression;
-import org.caltoopia.ir.CaseStatement;
 import org.caltoopia.ir.ExprAlternative;
 import org.caltoopia.ir.Guard;
 import org.caltoopia.ir.IfExpression;
@@ -77,7 +74,6 @@ import org.caltoopia.ir.IrFactory;
 import org.caltoopia.ir.ListExpression;
 import org.caltoopia.ir.Member;
 import org.caltoopia.ir.Scope;
-import org.caltoopia.ir.StmtAlternative;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeConstructorCall;
 import org.caltoopia.ir.TypeLambda;
@@ -180,7 +176,6 @@ public class CreateIrExpression extends CalSwitch<Expression> {
 		result.setOperand1(e1);
 		result.setOperand2(e2);
 		result.setOperator(e.getOperator());
-
 		
 		return result;
 	}
@@ -242,7 +237,7 @@ public class CreateIrExpression extends CalSwitch<Expression> {
 			return result;			
 		}
 	}
-
+		
 	@Override
 	public Expression caseAstExpressionUnary(AstExpressionUnary e) {
 		UnaryExpression result = IrFactory.eINSTANCE.createUnaryExpression();
@@ -298,20 +293,16 @@ public class CreateIrExpression extends CalSwitch<Expression> {
 			} else {
 				astType = v.getType();
 			}
-			Type t = TypeConverter.convert(null, astType, true);
-			if (t instanceof TypeLambda) {
-				t = ((TypeLambda) t).getOutputType();
-			}
-			assert(t instanceof TypeUser);
-			TypeUser tu = (TypeUser) t;
 			
+			if (astType.getCodomain() != null) 
+				astType = astType.getCodomain();
 			
 			for (AstExpressionAlternative a : e.getCases()) {
 				ExprAlternative alt = IrFactory.eINSTANCE.createExprAlternative();
 				alt.setId(Util.getDefinitionId());
 				alt.setOuter(currentScope);
 			
-				Util.doPattern(alt, tu, a.getPattern(), condition);
+				Util.doPattern(alt, astType, a.getPattern(), condition, null);
 				
 				for (AstExpression g : a.getGuards()) {
 					final Guard guard =  IrFactory.eINSTANCE.createGuard();

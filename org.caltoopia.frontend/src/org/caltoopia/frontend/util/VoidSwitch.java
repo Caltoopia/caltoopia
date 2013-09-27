@@ -387,7 +387,7 @@ public class VoidSwitch extends CalSwitch<Void> {
 	public Void caseAstInputPattern(AstInputPattern input) {
 		doSwitch(input.getPort());
 
-		for (AstVariable token : input.getTokens()) {
+		for (AstPattern token : input.getTokens()) {
 			doSwitch(token);
 		}
 
@@ -573,9 +573,9 @@ public class VoidSwitch extends CalSwitch<Void> {
 			doSwitch(t);
 		}	
 		
-		for(AstType t : type.getCodomain()) {
-			doSwitch(t);
-		}		
+		if (type.getCodomain() != null) {
+			doSwitch(type.getCodomain()); 
+		}
 		
 		if (type.getTypeParams() != null) {
 			for (AstTypeParam p: type.getTypeParams().getParams()) {

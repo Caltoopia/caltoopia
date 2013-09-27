@@ -62,18 +62,21 @@ import org.caltoopia.frontend.cal.AstPattern;
 import org.caltoopia.frontend.cal.AstPort;
 import org.caltoopia.frontend.cal.AstProcedure;
 import org.caltoopia.frontend.cal.AstSubPattern;
+import org.caltoopia.frontend.cal.AstTaggedTuple;
 import org.caltoopia.frontend.cal.AstType;
 import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.cli.ActorDirectory;
+import org.caltoopia.ir.Action;
 import org.caltoopia.ir.Annotation;
 import org.caltoopia.ir.AnnotationArgument;
+import org.caltoopia.ir.ExprAlternative;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.ForwardDeclaration;
 import org.caltoopia.ir.Guard;
-import org.caltoopia.ir.Pattern;
+import org.caltoopia.ir.IfExpression;
 import org.caltoopia.ir.StmtAlternative;
-import org.caltoopia.ir.SubPattern;
+import org.caltoopia.ir.TagOf;
 import org.caltoopia.ir.TaggedTuple;
 import org.caltoopia.ir.TaggedTupleFieldExpression;
 import org.caltoopia.ir.TypeDeclaration;
@@ -363,6 +366,15 @@ public class Util {
 	
 	public static Port createInputPort(Scope scope, AstInputPattern pattern, boolean approximate) {
 		Port port = IrFactory.eINSTANCE.createPort();
+		AstPort astPort = getAstPort(pattern);
+		port.setName(astPort.getName());
+		Type type = TypeConverter.convert(scope, astPort.getType(), approximate);
+		port.setType(type);
+		
+		return port;
+	}
+	
+	public static AstPort getAstPort(AstInputPattern pattern) {
 		AstPort astPort = null;
 		if (pattern.getPort() != null) {
 			astPort = pattern.getPort();
@@ -378,11 +390,7 @@ public class Util {
 			}
 		}
 		assert(astPort != null);
-		port.setName(astPort.getName());
-		Type type = TypeConverter.convert(scope, astPort.getType(), approximate);
-		port.setType(type);
-		
-		return port;
+		return astPort;
 	}
 	
 	public static Port createOutputPort(Scope scope, AstOutputPattern pattern, boolean approximate) {
@@ -462,6 +470,15 @@ public class Util {
 		lit.setId(Util.getDefinitionId());
 		lit.setValue(e.isValue());
 		lit.setType(TypeSystem.createTypeBool());
+		return lit;
+	}
+	
+	private static Expression createFalseLiteral() {
+		BooleanLiteral lit = IrFactory.eINSTANCE.createBooleanLiteral();
+		lit.setId(Util.getDefinitionId());
+		lit.setValue(false);
+		lit.setType(TypeSystem.createTypeBool());
+
 		return lit;
 	}
 
@@ -679,56 +696,157 @@ public class Util {
 		return null;
 	}
 	
-	public static void doPattern(Scope scope, TypeUser tu, AstPattern astPattern, Expression expr) { 
-		TaggedTuple tt = null;
-		TypeDeclaration typedef = (TypeDeclaration) tu.getDeclaration();            
- 
-		for (TaggedTuple tmp :  ((TypeTuple) typedef.getType()).getTaggedTuples()) {
-			if (tmp.getTag().equals(astPattern.getTag())) {
-				tt = tmp;
-			}
-		}
-		assert(tt != null);
+//	public static void doPattern(Scope scope, Type type, AstPattern astPattern, Expression expr) { 
+//			
+//		if (astPattern.getVariable() != null) {					
+//			Util.createVariable(scope, astPattern.getVariable(), type, expr);
+//		} else {		
+//			TypeUser tu = (TypeUser) type;
+//
+//			TaggedTuple tt = null;
+//			TypeDeclaration typedef = (TypeDeclaration) tu.getDeclaration();            
+//	 
+//			for (TaggedTuple tmp :  ((TypeTuple) typedef.getType()).getTaggedTuples()) {
+//				if (tmp.getTag().equals(astPattern.getTag())) {
+//					tt = tmp;
+//				}
+//			}
+//			assert(tt != null);
+//			
+//			for (AstSubPattern astSubPattern : astPattern.getSubpatterns()) {
+//				int pos = astPattern.getSubpatterns().indexOf(astSubPattern);
+//				String label;
+//				if (astSubPattern.getLabel() != null) {
+//					label = astSubPattern.getLabel();
+//				} else {
+//					label = tt.getFields().get(pos).getName();
+//				}
+//				
+//				if (astSubPattern.getCondition() != null) {
+//					Type t1 = tt.getFields().get(pos).getType();
+//					Expression memberValue = Util.createTaggedTupleFieldExpression(scope, expr, tu, astPattern.getTag(), label);
+//					Variable tmp = Util.createTmpVariable(scope, t1, memberValue);
+//					
+//					Expression e = CreateIrExpression.convert(scope, astSubPattern.getCondition());
+//					VariableExpression varExpr = Util.createVariableExpression(scope, tmp);
+//					Expression condition = Util.createBinaryExpression(scope, varExpr, "=", e, TypeSystem.createTypeBool());
+//					
+//					final Guard guard =  IrFactory.eINSTANCE.createGuard();
+//					guard.setId(Util.getDefinitionId());
+//					guard.setOuter(scope);
+//					guard.setContext(scope);
+//					guard.setBody(condition);
+//					if (scope instanceof StmtAlternative) 
+//						((StmtAlternative) scope).getGuards().add(guard);
+//					else 
+//						((ExprAlternative) scope).getGuards().add(guard);
+//				} else if (astSubPattern.getPattern() != null) {
+//					Type t1 = tt.getFields().get(pos).getType();
+//					Expression value = Util.createTaggedTupleFieldExpression(scope, expr, tu, astPattern.getTag(), label);
+//					Variable tmp = Util.createTmpVariable(scope, t1, value);
+//					VariableExpression varExpr = Util.createVariableExpression(scope, tmp);
+//					doPattern(scope, t1, astSubPattern.getPattern(), varExpr);					
+//				}		
+//			}
+//		}		
+//	}
+
+		
+
+	public static Expression doPattern(Scope scope, AstType astType, AstPattern astPattern, Expression expr, Expression repeat) { 
 				
-		for (AstSubPattern astSubPattern : astPattern.getSubpatterns()) {
-			int pos = astPattern.getSubpatterns().indexOf(astSubPattern);
-			String label;
-			if (astSubPattern.getLabel() != null) {
-				label = astSubPattern.getLabel();
-			} else {
-				label = tt.getFields().get(pos).getName();
+		if (astPattern.getVariable() != null) {
+			Type type = TypeConverter.convert(scope, astType, false);
+			if (repeat != null) 
+				type = TypeSystem.createTypeList(repeat, type);
+			Util.createVariable(scope, astPattern.getVariable(), type, expr);
+			return null;
+		} else {		
+			TagOf tagOf = IrFactory.eINSTANCE.createTagOf();
+			tagOf.setExpression(expr);
+			tagOf.setTag(astPattern.getTag());
+			tagOf.setId(Util.getDefinitionId());
+			tagOf.setContext(scope);									
+			
+			AstTypeUser astTypeUser = astType.getName();
+			AstTaggedTuple tt = null;
+			
+			for (AstTaggedTuple tmp :  astTypeUser.getTuples()) {
+				if (tmp.getName().equals(astPattern.getTag())) {
+					tt = tmp;
+				}
+			}
+			assert(tt != null);
+			
+			List<Expression> guards = new ArrayList<Expression>();
+			
+			for (AstSubPattern astSubPattern : astPattern.getSubpatterns()) {
+				int pos = astPattern.getSubpatterns().indexOf(astSubPattern);
+				String label;
+				if (astSubPattern.getLabel() != null) {
+					label = astSubPattern.getLabel();
+				} else {
+					label = tt.getFields().get(pos).getName();
+				}
+				
+				if (astSubPattern.getCondition() != null) {
+					AstType astFieldType = tt.getFields().get(pos).getType();
+					Type fieldType = TypeConverter.convert(scope, astFieldType, false);
+					if (repeat != null) 
+						fieldType = TypeSystem.createTypeList(repeat, fieldType);
+							
+					TypeUser tu = (TypeUser) TypeConverter.convert(scope, astType, false);
+					Expression memberValue = Util.createTaggedTupleFieldExpression(scope, expr, tu, astPattern.getTag(), label);
+					Variable tmp = Util.createTmpVariable(scope, fieldType, memberValue);
+					
+					Expression e = CreateIrExpression.convert(scope, astSubPattern.getCondition());
+					VariableExpression varExpr = Util.createVariableExpression(scope, tmp);
+					Expression condition = Util.createBinaryExpression(scope, varExpr, "=", e, TypeSystem.createTypeBool());
+					
+					guards.add(condition);
+					
+				} else if (astSubPattern.getPattern() != null) {
+					AstType astFieldType = tt.getFields().get(pos).getType();
+					Type fieldType = TypeConverter.convert(scope, astFieldType, false);
+					if (repeat != null) 
+						fieldType = TypeSystem.createTypeList(repeat, fieldType);
+					TypeUser tu = (TypeUser) TypeConverter.convert(scope, astType, false);
+					Expression value = Util.createTaggedTupleFieldExpression(scope, expr, tu, astPattern.getTag(), label);
+					Variable tmp = Util.createTmpVariable(scope, fieldType, value);
+					VariableExpression varExpr = Util.createVariableExpression(scope, tmp);			
+				
+					Expression e = doPattern(scope, tt.getFields().get(pos).getType(), astSubPattern.getPattern(), varExpr, repeat);
+					if (e != null)
+						guards.add(e);					
+				}		
 			}
 			
-			if (astSubPattern.getCondition() != null) {
-				Type t1 = tt.getFields().get(pos).getType();
-				Expression memberValue = Util.createTaggedTupleFieldExpression(scope, expr, tu, astPattern.getTag(), label);
-				Variable tmp = Util.createTmpVariable(scope, t1, memberValue);
-				
-				Expression e = CreateIrExpression.convert(null, astSubPattern.getCondition());
-				VariableExpression varExpr = Util.createVariableExpression(scope, tmp);
-				Expression condition = Util.createBinaryExpression(scope, varExpr, "=", e, TypeSystem.createTypeBool());
-				
-				final Guard guard =  IrFactory.eINSTANCE.createGuard();
-				guard.setId(Util.getDefinitionId());
-				guard.setOuter(scope);
-				guard.setContext(scope);
-				guard.setBody(condition);
-				((StmtAlternative) scope).getGuards().add(guard);
-			} else if (astSubPattern.getVariable() != null) {
-				Expression value = Util.createTaggedTupleFieldExpression(scope, expr, tu, astPattern.getTag(), label);
-				Util.createVariable(scope, astSubPattern.getVariable(), tt.getFields().get(pos).getType(), value);
-			} else if (astSubPattern.getPattern() != null) {
-				Type t1 = tt.getFields().get(pos).getType();
-				Expression value = Util.createTaggedTupleFieldExpression(scope, expr, tu, astPattern.getTag(), label);
-				Variable tmp = Util.createTmpVariable(scope, t1, value);
-				VariableExpression varExpr = Util.createVariableExpression(scope, tmp);
-				doPattern(scope, (TypeUser) t1, astSubPattern.getPattern(), varExpr);					
-			}		
-		}
-		
-	}
+			if (guards.size() == 0) {
+				return tagOf; 
+			} else {
+				IfExpression result = IrFactory.eINSTANCE.createIfExpression();
+				result.setId(Util.getDefinitionId());		
+				result.setContext(scope);
 	
-		
+				result.setCondition(tagOf);
+				result.setThenExpression(Util.createAndExpression(scope, guards));
+				result.setElseExpression(Util.createFalseLiteral());
+				
+				return result ;
+			}
+		}
+	}			
+
+	private static Expression createAndExpression(Scope scope, List<Expression> expressions) {
+		if (expressions.size() == 1) {
+			return expressions.get(0);
+		} else {
+			return createBinaryExpression(scope, expressions.get(0), "and", 
+					createAndExpression(scope, expressions.subList(1, expressions.size() - 1)), 
+					TypeSystem.createTypeBool());
+		}			
+	}
+
 	public static String packQualifiedName(List<String> ns, String... s) {
 		String ret = packQualifiedName(ns);
 		

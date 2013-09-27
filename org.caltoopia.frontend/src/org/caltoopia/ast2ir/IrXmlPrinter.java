@@ -42,7 +42,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Action;
 import org.caltoopia.ir.Actor;
@@ -79,6 +78,7 @@ import org.caltoopia.ir.Point2PointConnection;
 import org.caltoopia.ir.FromSource;
 import org.caltoopia.ir.ProcExpression;
 import org.caltoopia.ir.StmtAlternative;
+import org.caltoopia.ir.TagOf;
 import org.caltoopia.ir.TaggedExpression;
 import org.caltoopia.ir.TaggedTuple;
 import org.caltoopia.ir.TaggedTupleFieldExpression;
@@ -1034,7 +1034,7 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 			doSwitch(guard);
 		} 		
 		
-		for (Statement stmt : alt.getStatement()) {
+		for (Statement stmt : alt.getStatements()) {
 			doSwitch(stmt);
 		} 
 		
@@ -1057,6 +1057,17 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 		return s;
 	}
 	
+	@Override 
+	public Stream caseTagOf(TagOf e) {
+		s.printlnInc("<Expression kind=\"TagOf\"" 
+				+ " id=\"" + e.getId() + "\""
+				+ " context-scope=\"" + e.getContext().getId() + "\""
+				+ " tag=\"" + e.getTag() + "\">");
+		doSwitch(e.getExpression());
+		s.printlnDec("</Expression>");	
+		
+		return s;
+	}
 	
 	@Override
 	public Stream caseReturnValue(ReturnValue returnValue) {

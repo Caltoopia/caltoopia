@@ -5,12 +5,10 @@ package org.caltoopia.ir.impl;
 import java.util.Collection;
 
 import org.caltoopia.ir.CaseExpression;
-import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.ExprAlternative;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.IrPackage;
 
-import org.caltoopia.ir.Scope;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.EList;

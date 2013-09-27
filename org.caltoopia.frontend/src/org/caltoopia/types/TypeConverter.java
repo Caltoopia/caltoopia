@@ -505,8 +505,8 @@ public class TypeConverter extends CalSwitch<Type> {
 		Type type = null;
 		
 		try {
-			if (v.eContainer() instanceof AstInputPattern) {
-				AstInputPattern pattern = (AstInputPattern) v.eContainer();
+			if (v.eContainer() instanceof AstPattern && v.eContainer().eContainer() instanceof AstInputPattern) {
+				AstInputPattern pattern = (AstInputPattern) v.eContainer().eContainer();
 				AstPort port = null;
 				if (pattern.getPort() != null) {
 					port = pattern.getPort();
@@ -536,18 +536,50 @@ public class TypeConverter extends CalSwitch<Type> {
 				} else {
 					type = TypeConverter.convert(context, port.getType(), approximate);
 				}
-			} else if (v.eContainer() instanceof AstSubPattern) {
-				AstSubPattern subPattern = (AstSubPattern) v.eContainer();
-				AstPattern pattern = (AstPattern) subPattern.eContainer();
+			} else 
+				
+				if (v.eContainer() instanceof AstPattern) {
+				AstPattern pattern = (AstPattern) v.eContainer();
 				EObject o = pattern.eContainer();
 				List<PatternBreadcrumb> breadcrumbs = new ArrayList<PatternBreadcrumb>();
-				breadcrumbs.add(new PatternBreadcrumb(subPattern));
 				while (o != null) {
 					if (o instanceof AstStatementCase) {
 						type = getTypeOfAstVariable(((AstStatementCase) o).getExpression().getSymbol(), indexes, member, context, approximate);
 						o = null;
 					} else if (o instanceof AstExpressionCase) {
 						type = getTypeOfAstVariable(((AstExpressionCase) o).getExpression().getSymbol(), indexes, member, context, approximate);
+						o = null;
+					} else if (o instanceof AstInputPattern) {	
+						AstInputPattern inputPattern = (AstInputPattern) o;
+						AstPort port = null;
+						if (inputPattern.getPort() != null) {
+							port = inputPattern.getPort();
+						} else {
+							AstAction action = (AstAction) inputPattern.eContainer();
+							List<AstInputPattern> inputs = action.getInputs();
+							AstActor actor = (AstActor) action.eContainer();
+							List<AstPort> ports = actor.getInputs();
+							for (int i = 0; i < inputs.size(); i++) {
+								if (inputs.get(i) == inputPattern) {
+									port = ports.get(i);
+								}
+							}
+						}
+						if (port == null || port.getType() == null) 
+							throw new TypeException("Unknown type of port");
+										
+						if (inputPattern.getRepeat() != null) {
+							Expression sz = null; 
+							try {
+								sz = CreateIrExpression.convert(context, inputPattern.getRepeat());
+							} catch (Exception x) {
+								sz = CreateIrExpression.NotEvaluatedExpression;
+							}
+							Type elementType = TypeConverter.convert(context, port.getType(), approximate);
+							type = TypeSystem.createTypeList(sz, elementType); 
+						} else {
+							type = TypeConverter.convert(context, port.getType(), approximate);
+						}
 						o = null;
 					} else {
 						if (o instanceof AstSubPattern) 

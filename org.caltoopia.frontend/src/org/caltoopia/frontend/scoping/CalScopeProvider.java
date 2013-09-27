@@ -61,6 +61,7 @@ import org.caltoopia.frontend.cal.AstType;
 import org.caltoopia.frontend.cal.AstTypeDefinitionParameter;
 import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstVariable;
+import org.caltoopia.frontend.util.Util;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.scoping.IScope;
@@ -118,8 +119,10 @@ public class CalScopeProvider extends AbstractDeclarativeScopeProvider {
 
 	public IScope scope_AstVariable(AstAction action,	EReference reference) {		
 		List<AstVariable> elements = new ArrayList<AstVariable>();
-		for (AstInputPattern pattern : action.getInputs()) {
-			elements.addAll(pattern.getTokens());
+		for (AstInputPattern inputPattern : action.getInputs()) {
+			for (AstPattern pattern : inputPattern.getTokens()) {
+				Util.doPattern(elements, pattern);
+			}
 		}
 		elements.addAll(action.getVariables());
 		
@@ -222,26 +225,16 @@ public class CalScopeProvider extends AbstractDeclarativeScopeProvider {
  
 	public IScope scope_AstVariable(AstStatementAlternative alternative, EReference reference) {		
 		List<AstVariable> variables = new ArrayList<AstVariable>();
-		doPattern(variables, alternative.getPattern());
+		Util.doPattern(variables, alternative.getPattern());
 		
 		return Scopes.scopeFor(variables, getScope(alternative.eContainer(), reference));
 	}
 	
 	public IScope scope_AstVariable(AstExpressionAlternative alternative, EReference reference) {		
 		List<AstVariable> variables = new ArrayList<AstVariable>();
-		doPattern(variables, alternative.getPattern());
+		Util.doPattern(variables, alternative.getPattern());
 		
 		return Scopes.scopeFor(variables, getScope(alternative.eContainer(), reference));
-	}
-	
-	private void doPattern(List<AstVariable> variables, AstPattern pattern) {
-		for (AstSubPattern subPattern : pattern.getSubpatterns()) {			
-			if (subPattern.getVariable() != null) {
-				variables.add(subPattern.getVariable());
-			} else if (subPattern.getPattern() != null) {
-				doPattern(variables, subPattern.getPattern());
-			}
-		}
 	}
     
 }

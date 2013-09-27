@@ -643,6 +643,15 @@ public interface IrFactory extends EFactory {
 	TaggedTupleFieldExpression createTaggedTupleFieldExpression();
 
 	/**
+	 * Returns a new object of class '<em>Tag Of</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Tag Of</em>'.
+	 * @generated
+	 */
+	TagOf createTagOf();
+
+	/**
 	 * Returns a new object of class '<em>Type Undef</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

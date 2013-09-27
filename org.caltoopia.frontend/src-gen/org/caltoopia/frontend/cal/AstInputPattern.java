@@ -54,7 +54,7 @@ public interface AstInputPattern extends EObject
 
   /**
    * Returns the value of the '<em><b>Tokens</b></em>' containment reference list.
-   * The list contents are of type {@link org.caltoopia.frontend.cal.AstVariable}.
+   * The list contents are of type {@link org.caltoopia.frontend.cal.AstPattern}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Tokens</em>' containment reference list isn't clear,
@@ -66,7 +66,7 @@ public interface AstInputPattern extends EObject
    * @model containment="true"
    * @generated
    */
-  EList<AstVariable> getTokens();
+  EList<AstPattern> getTokens();
 
   /**
    * Returns the value of the '<em><b>Repeat</b></em>' containment reference.

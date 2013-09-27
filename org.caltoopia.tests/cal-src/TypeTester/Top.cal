@@ -7,7 +7,7 @@ import System.io.dprint1;
 	type T3 : (int i, int j) end
 	type T4(type Tx, int x) : A(Tx a, int(size=x+sz) i, T3 x) end
 	type T5 : ONE | TWO | THREE | FOUR end
-	type T6 : A(T1 a) | B (T2 b) end
+	type T6 : A(T1 a) | B (T2 b) | C(int i) end
 	type MyList(type myType, int mySize) : (List(type: myType, size=mySize) L) end		
 	type MyMatrix(type myType, int mySize) : (List(type: List(type: myType, size=mySize), size=mySize) d1) end			
 				
@@ -28,94 +28,126 @@ import System.io.dprint1;
 	function F1(int i) --> int: i end
 	int i1 = F1(1);
 	
-	actor Main(int max) T1 In1, T1 In2 ==> T1 Out:
-		
-		int xxx = max;
-		T1 t = T1(1, 3.14);
-		int i1 = F1(1);
-		
-		int intCounter := 0;
-		float floatCounter := 0.0;
-		
-		action In1:[a], In2:[b] ==> Out:[T1(a.i + b.i, a.f + b.f)]
-		guard 
-			intCounter < max
-		var 
-		   int x1
-		do 
-			intCounter := intCounter + 1;	
-	
- 			case a of
-			  A(1, y) do intCounter := intCounter + y; end
-			  A(x, y) guard x > 2 do x1 := x; end
-			  A(i:2, f:x) do end  
-			  A(_, j) do end	
-			end						
-			
-		end 
-	end
-	
-	actor XXX() ==>:
+//	actor Main(int max) T1 In1, T1 In2 ==> T1 Out:
+//		
+//		int xxx = max;
+//		T1 t = T1(1, 3.14);
+//		int i1 = F1(1);
+//		T5 x5 = T5::ONE;
+//		
+//		int intCounter := 0;
+//		float floatCounter := 0.0;
+//		
+//		action In1:[a], In2:[b] ==> Out:[T1(a.i + b.i, a.f + b.f)]
+//		guard 
+//			intCounter < max
+//		var 
+//		   int x1
+//		do 
+//			intCounter := intCounter + 1;	
+//	
+// 			case a of
+//			  A(x, y) do intCounter := intCounter + y; end
+//			  A(!1, y) do x1 := y;  end	
+//			  A(x, y) guard x > 2 do x1 := x + y; end
+//			  A(i:!2, f:x) do end  
+//			  A(_, j) do end	
+//			end						
+//			
+//			case x5 of
+//			  ONE() do x1 := x1 + 1; end
+//			  TWO() do x1 := x1 + 2; end
+//			end
+//		end 
+//	end
+ 
+	actor XX2X() ==>:
 	   T6 v;
 	   int i := 1;
 	   
 	   action ==>  do	   
 	      case v of
-	      	A(a) do i := i + 1; end
+	      	A(!1) do i := i + 1; end     
+	        A(a) do i := i + 1; end
 	      	A(a:A(x, y)) guard x > y do i :=  x; end	      	
 	      end
 	    
-	      i := case v of 
-	             A(a:A(x, _)) guard x > 1: 1 end
-	             A(a:A(x, _)) guard x = 0: 3.1 end
-	           else
-	             0 
-	           end;
-	           
-	   end
+//	      i := case v of 
+// 	             A(a:A(x, _)) guard x > 1: 1 end
+//	             A(A(x, _)) guard x = 0: 3.1 end
+//	             C(!i) : 3.2 end
+//	             C(!1+i) : 3.3 end
+//	           else
+//	             0 
+//	           end;
+	          
+	   end 
 	end
 
-	actor Delay(T1 init) T1 In ==> T1 Out:
+//	actor Delay(T1 init) T1 In ==> T1 Out:
+//	
+//	  	a1 : action ==> Out:[init] end
+//
+//		a2 : action In:[a] ==> Out:[a] 
+//		var
+//			int i = a.i
+//		do
+//			a.i := i * 2;			
+//		end
+//				
+//		
+//		schedule fsm s0:
+//			s0 (a1) --> s1;
+//			s1 (a2) --> s1;
+//		end
+//	end
+//
+//	actor Sink() T1 In ==>:
+//	
+//	  	action In:[a] ==> 
+//	  	do	  		
+//			dprint1("a.i=%i", a.i);		
+//			dprint1(", a.f=%f\\n", a.f);		
+//	  	end
+//	
+//	end
+//	
+	actor Sink2() T2 In ==>:
 	
-	  	a1 : action ==> Out:[init] end
-
-		a2 : action In:[a] ==> Out:[a] 
-		var
-			int i = a.i
-		do
-			a.i := i * 2;			
-		end
-		
-		schedule fsm s0:
-			s0 (a1) --> s1;
-			s1 (a2) --> s1;
-		end
-	end
-
-	actor Sink() T1 In ==>:
-	
-	  	action In:[a] ==> 
+	  	action In:[A(a1, a2), a] ==> 
+	  	guard a1 > 3
 	  	do	  		
-			dprint1("a.i=%i", a.i);		
-			dprint1(", a.f=%f\\n", a.f);		
+			dprint1("a.i=%i", a1);	  
+			dprint1(", a.f=%f\\n", a2);	
+	  	end
+
+	  	action In:[B(!1, b2), C] ==> 
+	  	do	  		
+			dprint1(", b.f=%f\\n", b2);		
+	  	end
+
+	  	action In:[B(b1, b2), C()] ==> 
+	  	do	  		
+			dprint1("b.i=%i", b1);		
+			dprint1(", b.f=%f\\n", b2);		
 	  	end
 	
-	end
-		
-	network Test1() ==> :
-	
-		entities
-			main = Main(max=10);
-			delay1 = Delay(init=T1::A(0, 0));
-			delay2 = Delay(init=T1(1, 1));
-			sink = Sink();
-
-		structure
-			main.Out --> delay2.In;
-			delay2.Out --> delay1.In;
-			delay2.Out --> main.In2;
-			delay1.Out --> main.In1;
-			main.Out --> sink.In;  	
-	end
+	end  
+//		
+//	network Test1() ==> :
+//	
+//		entities
+//			main = Main(max=10);
+//			delay1 = Delay(init=T1::A(0, 0));
+//			delay2 = Delay(init=T1(1, 1));
+//			sink = Sink();
+//
+//		structure
+//			main.Out --> delay2.In;
+//			delay2.Out --> delay1.In;
+//			delay2.Out --> main.In2;
+//			delay1.Out --> main.In1;
+//			main.Out --> sink.In;  	
+//	end 
 
 end

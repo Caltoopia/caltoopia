@@ -105,14 +105,14 @@ public class AstTypeImpl extends MinimalEObjectImpl.Container implements AstType
   protected EList<AstType> domain;
 
   /**
-   * The cached value of the '{@link #getCodomain() <em>Codomain</em>}' containment reference list.
+   * The cached value of the '{@link #getCodomain() <em>Codomain</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getCodomain()
    * @generated
    * @ordered
    */
-  protected EList<AstType> codomain;
+  protected AstType codomain;
 
   /**
    * <!-- begin-user-doc -->
@@ -282,13 +282,47 @@ public class AstTypeImpl extends MinimalEObjectImpl.Container implements AstType
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<AstType> getCodomain()
+  public AstType getCodomain()
   {
-    if (codomain == null)
-    {
-      codomain = new EObjectContainmentEList<AstType>(AstType.class, this, CalPackage.AST_TYPE__CODOMAIN);
-    }
     return codomain;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetCodomain(AstType newCodomain, NotificationChain msgs)
+  {
+    AstType oldCodomain = codomain;
+    codomain = newCodomain;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CalPackage.AST_TYPE__CODOMAIN, oldCodomain, newCodomain);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setCodomain(AstType newCodomain)
+  {
+    if (newCodomain != codomain)
+    {
+      NotificationChain msgs = null;
+      if (codomain != null)
+        msgs = ((InternalEObject)codomain).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CalPackage.AST_TYPE__CODOMAIN, null, msgs);
+      if (newCodomain != null)
+        msgs = ((InternalEObject)newCodomain).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CalPackage.AST_TYPE__CODOMAIN, null, msgs);
+      msgs = basicSetCodomain(newCodomain, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CalPackage.AST_TYPE__CODOMAIN, newCodomain, newCodomain));
   }
 
   /**
@@ -308,7 +342,7 @@ public class AstTypeImpl extends MinimalEObjectImpl.Container implements AstType
       case CalPackage.AST_TYPE__DOMAIN:
         return ((InternalEList<?>)getDomain()).basicRemove(otherEnd, msgs);
       case CalPackage.AST_TYPE__CODOMAIN:
-        return ((InternalEList<?>)getCodomain()).basicRemove(otherEnd, msgs);
+        return basicSetCodomain(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -369,8 +403,7 @@ public class AstTypeImpl extends MinimalEObjectImpl.Container implements AstType
         getDomain().addAll((Collection<? extends AstType>)newValue);
         return;
       case CalPackage.AST_TYPE__CODOMAIN:
-        getCodomain().clear();
-        getCodomain().addAll((Collection<? extends AstType>)newValue);
+        setCodomain((AstType)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -402,7 +435,7 @@ public class AstTypeImpl extends MinimalEObjectImpl.Container implements AstType
         getDomain().clear();
         return;
       case CalPackage.AST_TYPE__CODOMAIN:
-        getCodomain().clear();
+        setCodomain((AstType)null);
         return;
     }
     super.eUnset(featureID);
@@ -429,7 +462,7 @@ public class AstTypeImpl extends MinimalEObjectImpl.Container implements AstType
       case CalPackage.AST_TYPE__DOMAIN:
         return domain != null && !domain.isEmpty();
       case CalPackage.AST_TYPE__CODOMAIN:
-        return codomain != null && !codomain.isEmpty();
+        return codomain != null;
     }
     return super.eIsSet(featureID);
   }

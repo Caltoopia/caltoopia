@@ -2,6 +2,7 @@
  */
 package org.caltoopia.frontend.cal;
 
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +22,7 @@ package org.caltoopia.frontend.cal;
  * @model
  * @generated
  */
-public interface AstPatternExpressionIf extends AstExpression
+public interface AstPatternExpressionIf extends EObject
 {
   /**
    * Returns the value of the '<em><b>Condition</b></em>' containment reference.

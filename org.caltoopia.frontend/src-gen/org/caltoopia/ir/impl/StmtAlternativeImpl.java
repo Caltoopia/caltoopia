@@ -6,18 +6,12 @@ import java.util.Collection;
 
 import org.caltoopia.ir.Guard;
 import org.caltoopia.ir.IrPackage;
-import org.caltoopia.ir.Pattern;
 import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.StmtAlternative;
-
-import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
@@ -29,7 +23,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.caltoopia.ir.impl.StmtAlternativeImpl#getGuards <em>Guards</em>}</li>
- *   <li>{@link org.caltoopia.ir.impl.StmtAlternativeImpl#getStatement <em>Statement</em>}</li>
+ *   <li>{@link org.caltoopia.ir.impl.StmtAlternativeImpl#getStatements <em>Statements</em>}</li>
  * </ul>
  * </p>
  *
@@ -47,14 +41,14 @@ public class StmtAlternativeImpl extends ScopeImpl implements StmtAlternative {
 	protected EList<Guard> guards;
 
 	/**
-	 * The cached value of the '{@link #getStatement() <em>Statement</em>}' reference list.
+	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getStatement()
+	 * @see #getStatements()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Statement> statement;
+	protected EList<Statement> statements;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -92,11 +86,11 @@ public class StmtAlternativeImpl extends ScopeImpl implements StmtAlternative {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Statement> getStatement() {
-		if (statement == null) {
-			statement = new EObjectResolvingEList<Statement>(Statement.class, this, IrPackage.STMT_ALTERNATIVE__STATEMENT);
+	public EList<Statement> getStatements() {
+		if (statements == null) {
+			statements = new EObjectResolvingEList<Statement>(Statement.class, this, IrPackage.STMT_ALTERNATIVE__STATEMENTS);
 		}
-		return statement;
+		return statements;
 	}
 
 	/**
@@ -109,8 +103,8 @@ public class StmtAlternativeImpl extends ScopeImpl implements StmtAlternative {
 		switch (featureID) {
 			case IrPackage.STMT_ALTERNATIVE__GUARDS:
 				return getGuards();
-			case IrPackage.STMT_ALTERNATIVE__STATEMENT:
-				return getStatement();
+			case IrPackage.STMT_ALTERNATIVE__STATEMENTS:
+				return getStatements();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -128,9 +122,9 @@ public class StmtAlternativeImpl extends ScopeImpl implements StmtAlternative {
 				getGuards().clear();
 				getGuards().addAll((Collection<? extends Guard>)newValue);
 				return;
-			case IrPackage.STMT_ALTERNATIVE__STATEMENT:
-				getStatement().clear();
-				getStatement().addAll((Collection<? extends Statement>)newValue);
+			case IrPackage.STMT_ALTERNATIVE__STATEMENTS:
+				getStatements().clear();
+				getStatements().addAll((Collection<? extends Statement>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -147,8 +141,8 @@ public class StmtAlternativeImpl extends ScopeImpl implements StmtAlternative {
 			case IrPackage.STMT_ALTERNATIVE__GUARDS:
 				getGuards().clear();
 				return;
-			case IrPackage.STMT_ALTERNATIVE__STATEMENT:
-				getStatement().clear();
+			case IrPackage.STMT_ALTERNATIVE__STATEMENTS:
+				getStatements().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -164,8 +158,8 @@ public class StmtAlternativeImpl extends ScopeImpl implements StmtAlternative {
 		switch (featureID) {
 			case IrPackage.STMT_ALTERNATIVE__GUARDS:
 				return guards != null && !guards.isEmpty();
-			case IrPackage.STMT_ALTERNATIVE__STATEMENT:
-				return statement != null && !statement.isEmpty();
+			case IrPackage.STMT_ALTERNATIVE__STATEMENTS:
+				return statements != null && !statements.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

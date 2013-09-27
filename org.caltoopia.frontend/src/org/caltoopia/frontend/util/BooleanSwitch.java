@@ -478,7 +478,7 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 		//	return true;
 		// }
 
-		for (AstVariable token : input.getTokens()) {
+		for (AstPattern token : input.getTokens()) {
 			if (doSwitch(token)) {
 				return true;
 			}
@@ -721,11 +721,11 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 				return true;
 		}
 
-		for (AstType t : type.getCodomain()) {
-			if (doSwitch(t))
+		if (type.getCodomain() != null) {
+			if (doSwitch(type.getCodomain())) 
 				return true;
 		}
-				
+
 		if (type.getTypeParams() == null) 
 			return false;
 

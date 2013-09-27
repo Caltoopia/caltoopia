@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import org.caltoopia.frontend.cal.AstPattern;
 import org.caltoopia.frontend.cal.AstSubPattern;
+import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.cal.CalPackage;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -29,6 +30,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.caltoopia.frontend.cal.impl.AstPatternImpl#getVariable <em>Variable</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstPatternImpl#getTag <em>Tag</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstPatternImpl#getSubpatterns <em>Subpatterns</em>}</li>
  * </ul>
@@ -38,6 +40,16 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class AstPatternImpl extends MinimalEObjectImpl.Container implements AstPattern
 {
+  /**
+   * The cached value of the '{@link #getVariable() <em>Variable</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getVariable()
+   * @generated
+   * @ordered
+   */
+  protected AstVariable variable;
+
   /**
    * The default value of the '{@link #getTag() <em>Tag</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -94,6 +106,54 @@ public class AstPatternImpl extends MinimalEObjectImpl.Container implements AstP
    * <!-- end-user-doc -->
    * @generated
    */
+  public AstVariable getVariable()
+  {
+    return variable;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetVariable(AstVariable newVariable, NotificationChain msgs)
+  {
+    AstVariable oldVariable = variable;
+    variable = newVariable;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CalPackage.AST_PATTERN__VARIABLE, oldVariable, newVariable);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setVariable(AstVariable newVariable)
+  {
+    if (newVariable != variable)
+    {
+      NotificationChain msgs = null;
+      if (variable != null)
+        msgs = ((InternalEObject)variable).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CalPackage.AST_PATTERN__VARIABLE, null, msgs);
+      if (newVariable != null)
+        msgs = ((InternalEObject)newVariable).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CalPackage.AST_PATTERN__VARIABLE, null, msgs);
+      msgs = basicSetVariable(newVariable, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CalPackage.AST_PATTERN__VARIABLE, newVariable, newVariable));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getTag()
   {
     return tag;
@@ -136,6 +196,8 @@ public class AstPatternImpl extends MinimalEObjectImpl.Container implements AstP
   {
     switch (featureID)
     {
+      case CalPackage.AST_PATTERN__VARIABLE:
+        return basicSetVariable(null, msgs);
       case CalPackage.AST_PATTERN__SUBPATTERNS:
         return ((InternalEList<?>)getSubpatterns()).basicRemove(otherEnd, msgs);
     }
@@ -152,6 +214,8 @@ public class AstPatternImpl extends MinimalEObjectImpl.Container implements AstP
   {
     switch (featureID)
     {
+      case CalPackage.AST_PATTERN__VARIABLE:
+        return getVariable();
       case CalPackage.AST_PATTERN__TAG:
         return getTag();
       case CalPackage.AST_PATTERN__SUBPATTERNS:
@@ -171,6 +235,9 @@ public class AstPatternImpl extends MinimalEObjectImpl.Container implements AstP
   {
     switch (featureID)
     {
+      case CalPackage.AST_PATTERN__VARIABLE:
+        setVariable((AstVariable)newValue);
+        return;
       case CalPackage.AST_PATTERN__TAG:
         setTag((String)newValue);
         return;
@@ -192,6 +259,9 @@ public class AstPatternImpl extends MinimalEObjectImpl.Container implements AstP
   {
     switch (featureID)
     {
+      case CalPackage.AST_PATTERN__VARIABLE:
+        setVariable((AstVariable)null);
+        return;
       case CalPackage.AST_PATTERN__TAG:
         setTag(TAG_EDEFAULT);
         return;
@@ -212,6 +282,8 @@ public class AstPatternImpl extends MinimalEObjectImpl.Container implements AstP
   {
     switch (featureID)
     {
+      case CalPackage.AST_PATTERN__VARIABLE:
+        return variable != null;
       case CalPackage.AST_PATTERN__TAG:
         return TAG_EDEFAULT == null ? tag != null : !TAG_EDEFAULT.equals(tag);
       case CalPackage.AST_PATTERN__SUBPATTERNS:

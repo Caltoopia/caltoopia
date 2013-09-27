@@ -41,11 +41,7 @@ import org.caltoopia.frontend.cal.AstNetwork;
 import org.caltoopia.frontend.cal.AstOutputPattern;
 import org.caltoopia.frontend.cal.AstPackage;
 import org.caltoopia.frontend.cal.AstPattern;
-import org.caltoopia.frontend.cal.AstPatternExpressionBinary;
 import org.caltoopia.frontend.cal.AstPatternExpressionIf;
-import org.caltoopia.frontend.cal.AstPatternExpressionLiteral;
-import org.caltoopia.frontend.cal.AstPatternExpressionSymbolReference;
-import org.caltoopia.frontend.cal.AstPatternExpressionUnary;
 import org.caltoopia.frontend.cal.AstPort;
 import org.caltoopia.frontend.cal.AstPriority;
 import org.caltoopia.frontend.cal.AstProcedure;
@@ -497,21 +493,7 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass astPatternExpressionSymbolReferenceEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass astPatternExpressionIfEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass astPatternExpressionLiteralEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -589,20 +571,6 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * @generated
    */
   private EClass astExpressionUnaryEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass astPatternExpressionBinaryEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass astPatternExpressionUnaryEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -2542,9 +2510,19 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getAstPattern_Variable()
+  {
+    return (EReference)astPatternEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EAttribute getAstPattern_Tag()
   {
-    return (EAttribute)astPatternEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)astPatternEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -2554,7 +2532,7 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    */
   public EReference getAstPattern_Subpatterns()
   {
-    return (EReference)astPatternEClass.getEStructuralFeatures().get(1);
+    return (EReference)astPatternEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -2602,89 +2580,9 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAstSubPattern_Variable()
-  {
-    return (EReference)astSubPatternEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getAstSubPattern_Pattern()
   {
-    return (EReference)astSubPatternEClass.getEStructuralFeatures().get(4);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getAstPatternExpressionSymbolReference()
-  {
-    return astPatternExpressionSymbolReferenceEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAstPatternExpressionSymbolReference_Symbol()
-  {
-    return (EReference)astPatternExpressionSymbolReferenceEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAstPatternExpressionSymbolReference_Indexes()
-  {
-    return (EReference)astPatternExpressionSymbolReferenceEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAstPatternExpressionSymbolReference_Member()
-  {
-    return (EReference)astPatternExpressionSymbolReferenceEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getAstPatternExpressionSymbolReference_Ctor()
-  {
-    return (EAttribute)astPatternExpressionSymbolReferenceEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getAstPatternExpressionSymbolReference_Call()
-  {
-    return (EAttribute)astPatternExpressionSymbolReferenceEClass.getEStructuralFeatures().get(4);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAstPatternExpressionSymbolReference_Parameters()
-  {
-    return (EReference)astPatternExpressionSymbolReferenceEClass.getEStructuralFeatures().get(5);
+    return (EReference)astSubPatternEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -2725,16 +2623,6 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
   public EReference getAstPatternExpressionIf_Else()
   {
     return (EReference)astPatternExpressionIfEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getAstPatternExpressionLiteral()
-  {
-    return astPatternExpressionLiteralEClass;
   }
 
   /**
@@ -3092,76 +2980,6 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getAstPatternExpressionBinary()
-  {
-    return astPatternExpressionBinaryEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAstPatternExpressionBinary_Left()
-  {
-    return (EReference)astPatternExpressionBinaryEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getAstPatternExpressionBinary_Operator()
-  {
-    return (EAttribute)astPatternExpressionBinaryEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAstPatternExpressionBinary_Right()
-  {
-    return (EReference)astPatternExpressionBinaryEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getAstPatternExpressionUnary()
-  {
-    return astPatternExpressionUnaryEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getAstPatternExpressionUnary_UnaryOperator()
-  {
-    return (EAttribute)astPatternExpressionUnaryEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAstPatternExpressionUnary_Expression()
-  {
-    return (EReference)astPatternExpressionUnaryEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public CalFactory getCalFactory()
   {
     return (CalFactory)getEFactoryInstance();
@@ -3429,6 +3247,7 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     createEAttribute(astExpressionStringEClass, AST_EXPRESSION_STRING__VALUE);
 
     astPatternEClass = createEClass(AST_PATTERN);
+    createEReference(astPatternEClass, AST_PATTERN__VARIABLE);
     createEAttribute(astPatternEClass, AST_PATTERN__TAG);
     createEReference(astPatternEClass, AST_PATTERN__SUBPATTERNS);
 
@@ -3436,23 +3255,12 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     createEAttribute(astSubPatternEClass, AST_SUB_PATTERN__LABEL);
     createEAttribute(astSubPatternEClass, AST_SUB_PATTERN__DONTCARE);
     createEReference(astSubPatternEClass, AST_SUB_PATTERN__CONDITION);
-    createEReference(astSubPatternEClass, AST_SUB_PATTERN__VARIABLE);
     createEReference(astSubPatternEClass, AST_SUB_PATTERN__PATTERN);
-
-    astPatternExpressionSymbolReferenceEClass = createEClass(AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE);
-    createEReference(astPatternExpressionSymbolReferenceEClass, AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE__SYMBOL);
-    createEReference(astPatternExpressionSymbolReferenceEClass, AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE__INDEXES);
-    createEReference(astPatternExpressionSymbolReferenceEClass, AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE__MEMBER);
-    createEAttribute(astPatternExpressionSymbolReferenceEClass, AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE__CTOR);
-    createEAttribute(astPatternExpressionSymbolReferenceEClass, AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE__CALL);
-    createEReference(astPatternExpressionSymbolReferenceEClass, AST_PATTERN_EXPRESSION_SYMBOL_REFERENCE__PARAMETERS);
 
     astPatternExpressionIfEClass = createEClass(AST_PATTERN_EXPRESSION_IF);
     createEReference(astPatternExpressionIfEClass, AST_PATTERN_EXPRESSION_IF__CONDITION);
     createEReference(astPatternExpressionIfEClass, AST_PATTERN_EXPRESSION_IF__THEN);
     createEReference(astPatternExpressionIfEClass, AST_PATTERN_EXPRESSION_IF__ELSE);
-
-    astPatternExpressionLiteralEClass = createEClass(AST_PATTERN_EXPRESSION_LITERAL);
 
     astTypeEClass = createEClass(AST_TYPE);
     createEAttribute(astTypeEClass, AST_TYPE__BUILTIN);
@@ -3499,15 +3307,6 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     astExpressionUnaryEClass = createEClass(AST_EXPRESSION_UNARY);
     createEAttribute(astExpressionUnaryEClass, AST_EXPRESSION_UNARY__UNARY_OPERATOR);
     createEReference(astExpressionUnaryEClass, AST_EXPRESSION_UNARY__EXPRESSION);
-
-    astPatternExpressionBinaryEClass = createEClass(AST_PATTERN_EXPRESSION_BINARY);
-    createEReference(astPatternExpressionBinaryEClass, AST_PATTERN_EXPRESSION_BINARY__LEFT);
-    createEAttribute(astPatternExpressionBinaryEClass, AST_PATTERN_EXPRESSION_BINARY__OPERATOR);
-    createEReference(astPatternExpressionBinaryEClass, AST_PATTERN_EXPRESSION_BINARY__RIGHT);
-
-    astPatternExpressionUnaryEClass = createEClass(AST_PATTERN_EXPRESSION_UNARY);
-    createEAttribute(astPatternExpressionUnaryEClass, AST_PATTERN_EXPRESSION_UNARY__UNARY_OPERATOR);
-    createEReference(astPatternExpressionUnaryEClass, AST_PATTERN_EXPRESSION_UNARY__EXPRESSION);
   }
 
   /**
@@ -3561,23 +3360,15 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     astExpressionCaseEClass.getESuperTypes().add(this.getAstExpression());
     astExpressionLiteralEClass.getESuperTypes().add(this.getAstExpression());
     astExpressionBooleanEClass.getESuperTypes().add(this.getAstExpressionLiteral());
-    astExpressionBooleanEClass.getESuperTypes().add(this.getAstPatternExpressionLiteral());
     astExpressionFloatEClass.getESuperTypes().add(this.getAstExpressionLiteral());
     astExpressionIntegerEClass.getESuperTypes().add(this.getAstExpressionLiteral());
-    astExpressionIntegerEClass.getESuperTypes().add(this.getAstPatternExpressionLiteral());
     astExpressionStringEClass.getESuperTypes().add(this.getAstExpressionLiteral());
-    astExpressionStringEClass.getESuperTypes().add(this.getAstPatternExpressionLiteral());
-    astPatternExpressionSymbolReferenceEClass.getESuperTypes().add(this.getAstExpression());
-    astPatternExpressionIfEClass.getESuperTypes().add(this.getAstExpression());
-    astPatternExpressionLiteralEClass.getESuperTypes().add(this.getAstExpression());
     astTupleEClass.getESuperTypes().add(this.getAstTaggedTuple());
     astFunctionEClass.getESuperTypes().add(this.getAstVariable());
     astFunctionEClass.getESuperTypes().add(this.getAstExternalFunction());
     astInitializeEClass.getESuperTypes().add(this.getAstAction());
     astExpressionBinaryEClass.getESuperTypes().add(this.getAstExpression());
     astExpressionUnaryEClass.getESuperTypes().add(this.getAstExpression());
-    astPatternExpressionBinaryEClass.getESuperTypes().add(this.getAstExpression());
-    astPatternExpressionUnaryEClass.getESuperTypes().add(this.getAstExpression());
 
     // Initialize classes and features; add operations and parameters
     initEClass(astTopEClass, AstTop.class, "AstTop", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3723,7 +3514,7 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
 
     initEClass(astInputPatternEClass, AstInputPattern.class, "AstInputPattern", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAstInputPattern_Port(), this.getAstPort(), null, "port", null, 0, 1, AstInputPattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAstInputPattern_Tokens(), this.getAstVariable(), null, "tokens", null, 0, -1, AstInputPattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAstInputPattern_Tokens(), this.getAstPattern(), null, "tokens", null, 0, -1, AstInputPattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstInputPattern_Repeat(), this.getAstExpression(), null, "repeat", null, 0, 1, AstInputPattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(astOutputPatternEClass, AstOutputPattern.class, "AstOutputPattern", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3822,6 +3613,7 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     initEAttribute(getAstExpressionString_Value(), ecorePackage.getEString(), "value", null, 0, 1, AstExpressionString.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(astPatternEClass, AstPattern.class, "AstPattern", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAstPattern_Variable(), this.getAstVariable(), null, "variable", null, 0, 1, AstPattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getAstPattern_Tag(), ecorePackage.getEString(), "tag", null, 0, 1, AstPattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstPattern_Subpatterns(), this.getAstSubPattern(), null, "subpatterns", null, 0, -1, AstPattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -3829,23 +3621,12 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     initEAttribute(getAstSubPattern_Label(), ecorePackage.getEString(), "label", null, 0, 1, AstSubPattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getAstSubPattern_Dontcare(), ecorePackage.getEBoolean(), "dontcare", null, 0, 1, AstSubPattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstSubPattern_Condition(), this.getAstExpression(), null, "condition", null, 0, 1, AstSubPattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAstSubPattern_Variable(), this.getAstVariable(), null, "variable", null, 0, 1, AstSubPattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstSubPattern_Pattern(), this.getAstPattern(), null, "pattern", null, 0, 1, AstSubPattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(astPatternExpressionSymbolReferenceEClass, AstPatternExpressionSymbolReference.class, "AstPatternExpressionSymbolReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAstPatternExpressionSymbolReference_Symbol(), this.getAstVariable(), null, "symbol", null, 0, 1, AstPatternExpressionSymbolReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAstPatternExpressionSymbolReference_Indexes(), this.getAstExpression(), null, "indexes", null, 0, -1, AstPatternExpressionSymbolReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAstPatternExpressionSymbolReference_Member(), this.getAstMemberAccess(), null, "member", null, 0, -1, AstPatternExpressionSymbolReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getAstPatternExpressionSymbolReference_Ctor(), ecorePackage.getEString(), "ctor", null, 0, 1, AstPatternExpressionSymbolReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getAstPatternExpressionSymbolReference_Call(), ecorePackage.getEBoolean(), "call", null, 0, 1, AstPatternExpressionSymbolReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAstPatternExpressionSymbolReference_Parameters(), this.getAstExpression(), null, "parameters", null, 0, -1, AstPatternExpressionSymbolReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(astPatternExpressionIfEClass, AstPatternExpressionIf.class, "AstPatternExpressionIf", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAstPatternExpressionIf_Condition(), this.getAstExpression(), null, "condition", null, 0, 1, AstPatternExpressionIf.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstPatternExpressionIf_Then(), this.getAstExpression(), null, "then", null, 0, 1, AstPatternExpressionIf.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstPatternExpressionIf_Else(), this.getAstExpression(), null, "else", null, 0, 1, AstPatternExpressionIf.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(astPatternExpressionLiteralEClass, AstPatternExpressionLiteral.class, "AstPatternExpressionLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(astTypeEClass, AstType.class, "AstType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getAstType_Builtin(), ecorePackage.getEString(), "builtin", null, 0, 1, AstType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3853,7 +3634,7 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     initEReference(getAstType_Dimensions(), this.getAstExpression(), null, "dimensions", null, 0, -1, AstType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstType_Name(), this.getAstTypeUser(), null, "name", null, 0, 1, AstType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstType_Domain(), this.getAstType(), null, "domain", null, 0, -1, AstType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAstType_Codomain(), this.getAstType(), null, "codomain", null, 0, -1, AstType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAstType_Codomain(), this.getAstType(), null, "codomain", null, 0, 1, AstType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(astTypeParameterListEClass, AstTypeParameterList.class, "AstTypeParameterList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAstTypeParameterList_Params(), this.getAstTypeParam(), null, "params", null, 0, -1, AstTypeParameterList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3892,15 +3673,6 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     initEClass(astExpressionUnaryEClass, AstExpressionUnary.class, "AstExpressionUnary", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getAstExpressionUnary_UnaryOperator(), ecorePackage.getEString(), "unaryOperator", null, 0, 1, AstExpressionUnary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstExpressionUnary_Expression(), this.getAstExpression(), null, "expression", null, 0, 1, AstExpressionUnary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(astPatternExpressionBinaryEClass, AstPatternExpressionBinary.class, "AstPatternExpressionBinary", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAstPatternExpressionBinary_Left(), this.getAstExpression(), null, "left", null, 0, 1, AstPatternExpressionBinary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getAstPatternExpressionBinary_Operator(), ecorePackage.getEString(), "operator", null, 0, 1, AstPatternExpressionBinary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAstPatternExpressionBinary_Right(), this.getAstExpression(), null, "right", null, 0, 1, AstPatternExpressionBinary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(astPatternExpressionUnaryEClass, AstPatternExpressionUnary.class, "AstPatternExpressionUnary", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getAstPatternExpressionUnary_UnaryOperator(), ecorePackage.getEString(), "unaryOperator", null, 0, 1, AstPatternExpressionUnary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAstPatternExpressionUnary_Expression(), this.getAstExpression(), null, "expression", null, 0, 1, AstPatternExpressionUnary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

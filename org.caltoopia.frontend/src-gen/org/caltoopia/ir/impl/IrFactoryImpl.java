@@ -125,6 +125,7 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 			case IrPackage.TYPE_TUPLE: return createTypeTuple();
 			case IrPackage.TAGGED_TUPLE: return createTaggedTuple();
 			case IrPackage.TAGGED_TUPLE_FIELD_EXPRESSION: return createTaggedTupleFieldExpression();
+			case IrPackage.TAG_OF: return createTagOf();
 			case IrPackage.TYPE_UNDEF: return createTypeUndef();
 			case IrPackage.TYPE_ACTOR: return createTypeActor();
 			case IrPackage.TYPE_USER: return createTypeUser();
@@ -830,6 +831,16 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 	public TaggedTupleFieldExpression createTaggedTupleFieldExpression() {
 		TaggedTupleFieldExpressionImpl taggedTupleFieldExpression = new TaggedTupleFieldExpressionImpl();
 		return taggedTupleFieldExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TagOf createTagOf() {
+		TagOfImpl tagOf = new TagOfImpl();
+		return tagOf;
 	}
 
 	/**

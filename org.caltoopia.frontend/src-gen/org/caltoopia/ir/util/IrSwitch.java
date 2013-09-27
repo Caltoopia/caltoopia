@@ -618,6 +618,14 @@ public class IrSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case IrPackage.TAG_OF: {
+				TagOf tagOf = (TagOf)theEObject;
+				T result = caseTagOf(tagOf);
+				if (result == null) result = caseExpression(tagOf);
+				if (result == null) result = caseNode(tagOf);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case IrPackage.TYPE_UNDEF: {
 				TypeUndef typeUndef = (TypeUndef)theEObject;
 				T result = caseTypeUndef(typeUndef);
@@ -1738,6 +1746,21 @@ public class IrSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseTaggedTupleFieldExpression(TaggedTupleFieldExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Tag Of</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Tag Of</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTagOf(TagOf object) {
 		return null;
 	}
 

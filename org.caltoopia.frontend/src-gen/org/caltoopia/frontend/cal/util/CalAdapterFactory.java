@@ -360,19 +360,9 @@ public class CalAdapterFactory extends AdapterFactoryImpl
         return createAstSubPatternAdapter();
       }
       @Override
-      public Adapter caseAstPatternExpressionSymbolReference(AstPatternExpressionSymbolReference object)
-      {
-        return createAstPatternExpressionSymbolReferenceAdapter();
-      }
-      @Override
       public Adapter caseAstPatternExpressionIf(AstPatternExpressionIf object)
       {
         return createAstPatternExpressionIfAdapter();
-      }
-      @Override
-      public Adapter caseAstPatternExpressionLiteral(AstPatternExpressionLiteral object)
-      {
-        return createAstPatternExpressionLiteralAdapter();
       }
       @Override
       public Adapter caseAstType(AstType object)
@@ -428,16 +418,6 @@ public class CalAdapterFactory extends AdapterFactoryImpl
       public Adapter caseAstExpressionUnary(AstExpressionUnary object)
       {
         return createAstExpressionUnaryAdapter();
-      }
-      @Override
-      public Adapter caseAstPatternExpressionBinary(AstPatternExpressionBinary object)
-      {
-        return createAstPatternExpressionBinaryAdapter();
-      }
-      @Override
-      public Adapter caseAstPatternExpressionUnary(AstPatternExpressionUnary object)
-      {
-        return createAstPatternExpressionUnaryAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -1317,21 +1297,6 @@ public class CalAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstPatternExpressionSymbolReference <em>Ast Pattern Expression Symbol Reference</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.caltoopia.frontend.cal.AstPatternExpressionSymbolReference
-   * @generated
-   */
-  public Adapter createAstPatternExpressionSymbolReferenceAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstPatternExpressionIf <em>Ast Pattern Expression If</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1342,21 +1307,6 @@ public class CalAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAstPatternExpressionIfAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstPatternExpressionLiteral <em>Ast Pattern Expression Literal</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.caltoopia.frontend.cal.AstPatternExpressionLiteral
-   * @generated
-   */
-  public Adapter createAstPatternExpressionLiteralAdapter()
   {
     return null;
   }
@@ -1522,36 +1472,6 @@ public class CalAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAstExpressionUnaryAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstPatternExpressionBinary <em>Ast Pattern Expression Binary</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.caltoopia.frontend.cal.AstPatternExpressionBinary
-   * @generated
-   */
-  public Adapter createAstPatternExpressionBinaryAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstPatternExpressionUnary <em>Ast Pattern Expression Unary</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.caltoopia.frontend.cal.AstPatternExpressionUnary
-   * @generated
-   */
-  public Adapter createAstPatternExpressionUnaryAdapter()
   {
     return null;
   }

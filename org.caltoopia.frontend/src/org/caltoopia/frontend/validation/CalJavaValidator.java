@@ -42,6 +42,7 @@ import org.caltoopia.frontend.cal.AstAction;
 import org.caltoopia.frontend.cal.AstActor;
 import org.caltoopia.frontend.cal.AstActorVariable;
 import org.caltoopia.frontend.cal.AstAssignParameter;
+import org.caltoopia.frontend.cal.AstPattern;
 import org.caltoopia.frontend.cal.AstTaggedTuple;
 import org.caltoopia.frontend.cal.AstMemberAccess;
 import org.caltoopia.frontend.cal.AstNamespace;
@@ -260,8 +261,11 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 	private void checkActionVariables(AstAction action) {
 		List<AstInputPattern> inputs = action.getInputs();
 		List<AstVariable> variables = new ArrayList<AstVariable>();
-		for (AstInputPattern pattern : inputs) {
-			variables.addAll(pattern.getTokens());
+		
+		for (AstInputPattern inputPattern : inputs) {
+			for (AstPattern pattern : inputPattern.getTokens()) {
+				Util.doPattern(variables, pattern);
+			}
 		}
 
 		variables.addAll(action.getVariables());
