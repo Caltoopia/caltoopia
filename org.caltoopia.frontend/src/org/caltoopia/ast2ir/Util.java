@@ -76,11 +76,11 @@ import org.caltoopia.ir.ForwardDeclaration;
 import org.caltoopia.ir.Guard;
 import org.caltoopia.ir.IfExpression;
 import org.caltoopia.ir.StmtAlternative;
-import org.caltoopia.ir.TagOf;
 import org.caltoopia.ir.TaggedTuple;
-import org.caltoopia.ir.TaggedTupleFieldExpression;
+import org.caltoopia.ir.TaggedTupleFieldRead;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeDeclarationImport;
+import org.caltoopia.ir.TypeGuard;
 import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeProc;
 import org.caltoopia.ir.TypeUser;
@@ -749,11 +749,9 @@ public class Util {
 //				}		
 //			}
 //		}		
-//	}
+//	}		
 
-		
-
-	public static Expression doPattern(Scope scope, AstType astType, AstPattern astPattern, Expression expr, Expression repeat) { 
+	public static TypeGuard doPattern(Scope scope, AstType astType, AstPattern astPattern, Expression expr, Expression repeat) { 
 				
 		if (astPattern.getVariable() != null) {
 			Type type = TypeConverter.convert(scope, astType, false);
@@ -762,11 +760,13 @@ public class Util {
 			Util.createVariable(scope, astPattern.getVariable(), type, expr);
 			return null;
 		} else {		
-			TagOf tagOf = IrFactory.eINSTANCE.createTagOf();
-			tagOf.setExpression(expr);
-			tagOf.setTag(astPattern.getTag());
-			tagOf.setId(Util.getDefinitionId());
-			tagOf.setContext(scope);									
+			TypeGuard typeGuard = IrFactory.eINSTANCE.createTypeGuard();
+			typeGuard.setTag(astPattern.getTag());
+			typeGuard.setId(Util.getDefinitionId());
+			typeGuard.setContext(scope);
+			typeGuard.setExpression(expr);
+			typeGuard.setType(TypeSystem.createTypeBool());
+			typeGuard.setOuter(scope);
 			
 			AstTypeUser astTypeUser = astType.getName();
 			AstTaggedTuple tt = null;
@@ -794,46 +794,57 @@ public class Util {
 					Type fieldType = TypeConverter.convert(scope, astFieldType, false);
 					if (repeat != null) 
 						fieldType = TypeSystem.createTypeList(repeat, fieldType);
-							
-					TypeUser tu = (TypeUser) TypeConverter.convert(scope, astType, false);
-					Expression memberValue = Util.createTaggedTupleFieldExpression(scope, expr, tu, astPattern.getTag(), label);
-					Variable tmp = Util.createTmpVariable(scope, fieldType, memberValue);
+
+					// Declare a variable and place it in the surrounding scope	
+					Variable var = Util.createTmpVariable(scope, fieldType, null);
 					
+					// Create a read that fills the variable declare above with the content of that field
+					TypeUser tu = (TypeUser) TypeConverter.convert(scope, astType, true);
+					TypeTuple type = (TypeTuple) ((TypeDeclaration) tu.getDeclaration()).getType();
+					typeGuard.getReads().add(Util.createTaggedTupleFieldRead(scope, expr, type, astPattern.getTag(), label, var));
+					
+					// Add a guard expression
 					Expression e = CreateIrExpression.convert(scope, astSubPattern.getCondition());
-					VariableExpression varExpr = Util.createVariableExpression(scope, tmp);
+					VariableExpression varExpr = Util.createVariableExpression(scope, var);
 					Expression condition = Util.createBinaryExpression(scope, varExpr, "=", e, TypeSystem.createTypeBool());
 					
-					guards.add(condition);
-					
+					guards.add(condition);					
 				} else if (astSubPattern.getPattern() != null) {
 					AstType astFieldType = tt.getFields().get(pos).getType();
 					Type fieldType = TypeConverter.convert(scope, astFieldType, false);
 					if (repeat != null) 
 						fieldType = TypeSystem.createTypeList(repeat, fieldType);
-					TypeUser tu = (TypeUser) TypeConverter.convert(scope, astType, false);
-					Expression value = Util.createTaggedTupleFieldExpression(scope, expr, tu, astPattern.getTag(), label);
-					Variable tmp = Util.createTmpVariable(scope, fieldType, value);
-					VariableExpression varExpr = Util.createVariableExpression(scope, tmp);			
+					
+					// Declare a variable and place it in the surrounding scope	
+					Variable var;
+					if (astSubPattern.getPattern().getVariable() != null) {
+						var = Util.createVariable(scope, astSubPattern.getPattern().getVariable(), fieldType, null);
+					} else { 
+						var = Util.createTmpVariable(scope, fieldType, null);
+					}
+					// Create a read that fills the variable declare above with the content of that field
+					// This variable will *only* be used by the subsequent pattern matchings
+					TypeUser tu = (TypeUser) TypeConverter.convert(scope, astType, true);
+					TypeTuple type = (TypeTuple) ((TypeDeclaration) tu.getDeclaration()).getType();
+					typeGuard.getReads().add(Util.createTaggedTupleFieldRead(scope, expr, type, astPattern.getTag(), label, var));
+
+					VariableExpression varExpr = Util.createVariableExpression(scope, var);			
 				
-					Expression e = doPattern(scope, tt.getFields().get(pos).getType(), astSubPattern.getPattern(), varExpr, repeat);
-					if (e != null)
-						guards.add(e);					
-				}		
+					if (astSubPattern.getPattern().getVariable() == null) {
+						Expression e = doPattern(scope, tt.getFields().get(pos).getType(), astSubPattern.getPattern(), varExpr, repeat);
+						if (e != null) {
+							guards.add(e);
+						}
+					}					
+				}	
+				
 			}
 			
-			if (guards.size() == 0) {
-				return tagOf; 
-			} else {
-				IfExpression result = IrFactory.eINSTANCE.createIfExpression();
-				result.setId(Util.getDefinitionId());		
-				result.setContext(scope);
-	
-				result.setCondition(tagOf);
-				result.setThenExpression(Util.createAndExpression(scope, guards));
-				result.setElseExpression(Util.createFalseLiteral());
-				
-				return result ;
+			if (guards.size() > 0) {
+				typeGuard.setBody(Util.createAndExpression(scope, guards));
 			}
+			
+			return typeGuard;
 		}
 	}			
 
@@ -1021,14 +1032,12 @@ public class Util {
 		return s;
 	}
 
-	public static Expression createTaggedTupleFieldExpression(Scope context, Expression value, TypeUser type, String tag, String label) {
-		TaggedTupleFieldExpression field = IrFactory.eINSTANCE.createTaggedTupleFieldExpression();
-		field.setId(Util.getDefinitionId());
-		field.setContext(context);
+	public static TaggedTupleFieldRead createTaggedTupleFieldRead(Scope context, Expression value, TypeTuple type, String tag, String label, Variable var) {
+		TaggedTupleFieldRead field = IrFactory.eINSTANCE.createTaggedTupleFieldRead();
 		field.setValue(value);
-		field.setType(type);
 		field.setTag(tag);
 		field.setLabel(label);		
+		field.setTarget(Util.createVariableReference(var));
 		
 		return field;
 	}

@@ -76,6 +76,7 @@ import org.caltoopia.ir.Member;
 import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeConstructorCall;
+import org.caltoopia.ir.TypeGuard;
 import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeUser;
 import org.caltoopia.ir.UnaryExpression;
@@ -302,14 +303,11 @@ public class CreateIrExpression extends CalSwitch<Expression> {
 				alt.setId(Util.getDefinitionId());
 				alt.setOuter(currentScope);
 			
-				Util.doPattern(alt, astType, a.getPattern(), condition, null);
+				TypeGuard typeGuard = Util.doPattern(alt, astType, a.getPattern(), condition, null);
+				alt.setTypeGuard(typeGuard);
 				
-				for (AstExpression g : a.getGuards()) {
-					final Guard guard =  IrFactory.eINSTANCE.createGuard();
-					guard.setId(Util.getDefinitionId());
-					guard.setOuter(alt);
-					guard.setContext(alt);
-					guard.setBody(CreateIrExpression.convert(alt, g));
+				for (AstExpression guard : a.getGuards()) {
+					alt.getValueGuards().add(CreateIrExpression.convert(alt, guard));
 				}
 				
 				alt.setExpression(CreateIrExpression.convert(currentScope, a.getExpression()));

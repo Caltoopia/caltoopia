@@ -111,6 +111,7 @@ import org.caltoopia.ir.Network;
 import org.caltoopia.ir.Node;
 import org.caltoopia.ir.Point2PointConnection;
 import org.caltoopia.ir.Port;
+import org.caltoopia.ir.PortGuard;
 import org.caltoopia.ir.PortInstance;
 import org.caltoopia.ir.PortRead;
 import org.caltoopia.ir.PortPeek;
@@ -124,6 +125,7 @@ import org.caltoopia.ir.TaggedExpression;
 import org.caltoopia.ir.ToSink;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
+import org.caltoopia.ir.TypeGuard;
 import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeProc;
@@ -747,22 +749,25 @@ public class Ast2Ir extends CalSwitch<EObject> {
 					action.getInputs().add(portRead);
 					
 					AstType astType = Util.getAstPort(inputs).getType();
+										
 					Expression e = Util.doPattern(scopeStack.peek(), astType, inputs.getTokens().get(j), Util.createVariableExpression(action, varDecl), repeat);
 
-					final Guard guard =  IrFactory.eINSTANCE.createGuard();
-					guard.setId(Util.getDefinitionId());
-					guard.setOuter(scopeStack.peek());
-					guard.setContext(scopeStack.peek());
-					guard.setType(TypeSystem.createTypeBool());
-					guard.setBody(e);
-					action.getGuards().add(guard);
+					if (e != null) {
+						final PortGuard portGuard =  IrFactory.eINSTANCE.createPortGuard();
+						portGuard.setId(Util.getDefinitionId());
+						portGuard.setOuter(scopeStack.peek());
+						portGuard.setContext(scopeStack.peek());
+						portGuard.setType(TypeSystem.createTypeBool());
+						portGuard.setBody(e);
+						action.getGuards().add(portGuard);
+					}
 				}
 			}
 							
 		}
 		
 		for (AstExpression e : astAction.getGuards()) {
-			final Guard guard =  IrFactory.eINSTANCE.createGuard();
+			final PortGuard guard =  IrFactory.eINSTANCE.createPortGuard();
 			guard.setId(Util.getDefinitionId());
 			guard.setOuter(scopeStack.peek());
 			guard.setContext(scopeStack.peek());
@@ -796,9 +801,6 @@ public class Ast2Ir extends CalSwitch<EObject> {
 						}
 						portPeek.setVariable(varRef);
 						peeks.add(portPeek);
-						
-					} else if (e.getSymbol().eContainer() instanceof AstPattern) {
-						
 						
 					}
 					return super.caseAstExpressionSymbolReference(e);
@@ -1170,7 +1172,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 		
 		try {
 			AstVariable v = stmtCase.getExpression().getSymbol();
-			AstType astType = null;;
+			AstType astType = null;
 			if (v.eContainer() instanceof AstPattern && v.eContainer().eContainer() instanceof AstInputPattern) {
 				AstInputPattern pattern = (AstInputPattern) v.eContainer().eContainer();
 				AstPort port = null;
@@ -1201,25 +1203,13 @@ public class Ast2Ir extends CalSwitch<EObject> {
 				alt.setOuter(scopeStack.peek());
 				scopeStack.push(alt);
 				
-				Expression e = Util.doPattern(alt, astType, a.getPattern(), condition, null);
-
-				final Guard implicitGuard =  IrFactory.eINSTANCE.createGuard();
-				implicitGuard.setId(Util.getDefinitionId());
-				implicitGuard.setOuter(scopeStack.peek());
-				implicitGuard.setContext(scopeStack.peek());
-				implicitGuard.setType(TypeSystem.createTypeBool());
-				implicitGuard.setBody(e);
-				alt.getGuards().add(implicitGuard);
-								
-				for (AstExpression g : a.getGuards()) {
-					final Guard explicitGuard =  IrFactory.eINSTANCE.createGuard();
-					explicitGuard.setId(Util.getDefinitionId());
-					explicitGuard.setOuter(scopeStack.peek());
-					explicitGuard.setContext(scopeStack.peek());
-					explicitGuard.setBody(CreateIrExpression.convert(alt, g));
-					alt.getGuards().add(explicitGuard);
-				}				
-								
+				TypeGuard typeGuard = Util.doPattern(alt, astType, a.getPattern(), condition, null);
+				alt.setTypeGuard(typeGuard);
+				
+				for (AstExpression guard : a.getGuards()) {
+					alt.getValueGuards().add(CreateIrExpression.convert(alt, guard));
+				}
+				
 				for (AstStatement s : a.getStatements()) {
 					Statement stmt = (Statement) doSwitch(s);
 					alt.getStatements().add(stmt);

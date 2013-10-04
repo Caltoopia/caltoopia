@@ -5,8 +5,8 @@ package org.caltoopia.ir.impl;
 import java.util.Collection;
 
 import org.caltoopia.ir.Action;
-import org.caltoopia.ir.Guard;
 import org.caltoopia.ir.IrPackage;
+import org.caltoopia.ir.PortGuard;
 import org.caltoopia.ir.PortRead;
 import org.caltoopia.ir.PortWrite;
 import org.caltoopia.ir.Statement;
@@ -44,7 +44,7 @@ public class ActionImpl extends ScopeImpl implements Action {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Guard> guards;
+	protected EList<PortGuard> guards;
 
 	/**
 	 * The cached value of the '{@link #getOutputs() <em>Outputs</em>}' reference list.
@@ -110,9 +110,9 @@ public class ActionImpl extends ScopeImpl implements Action {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Guard> getGuards() {
+	public EList<PortGuard> getGuards() {
 		if (guards == null) {
-			guards = new EObjectResolvingEList<Guard>(Guard.class, this, IrPackage.ACTION__GUARDS);
+			guards = new EObjectResolvingEList<PortGuard>(PortGuard.class, this, IrPackage.ACTION__GUARDS);
 		}
 		return guards;
 	}
@@ -198,7 +198,7 @@ public class ActionImpl extends ScopeImpl implements Action {
 		switch (featureID) {
 			case IrPackage.ACTION__GUARDS:
 				getGuards().clear();
-				getGuards().addAll((Collection<? extends Guard>)newValue);
+				getGuards().addAll((Collection<? extends PortGuard>)newValue);
 				return;
 			case IrPackage.ACTION__OUTPUTS:
 				getOutputs().clear();

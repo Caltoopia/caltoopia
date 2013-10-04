@@ -76,12 +76,12 @@ import org.caltoopia.ir.Network;
 import org.caltoopia.ir.Node;
 import org.caltoopia.ir.Point2PointConnection;
 import org.caltoopia.ir.FromSource;
+import org.caltoopia.ir.PortGuard;
 import org.caltoopia.ir.ProcExpression;
 import org.caltoopia.ir.StmtAlternative;
-import org.caltoopia.ir.TagOf;
 import org.caltoopia.ir.TaggedExpression;
 import org.caltoopia.ir.TaggedTuple;
-import org.caltoopia.ir.TaggedTupleFieldExpression;
+import org.caltoopia.ir.TaggedTupleFieldRead;
 import org.caltoopia.ir.ToSink;
 import org.caltoopia.ir.Port;
 import org.caltoopia.ir.PortInstance;
@@ -97,6 +97,7 @@ import org.caltoopia.ir.StringLiteral;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeBool;
+import org.caltoopia.ir.TypeGuard;
 import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeConstructorCall;
 import org.caltoopia.ir.TypeDeclaration;
@@ -459,8 +460,9 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 	}
 	
 	@Override
-	public Stream caseGuard(Guard guard) {
-		s.printlnInc("<Guard id=\"" + guard.getId() + "\""
+	public Stream casePortGuard(PortGuard guard) {
+		s.printlnInc("<Guard kind=\"port\"" 
+					+ "id=\"" + guard.getId() + "\""
 			        + " outer-scope=\"" + guard.getOuter().getId() + "\">");
 		doAnnotations(guard);
 		
@@ -702,9 +704,11 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 			doSwitch(decl);
 		}
 
-		for (Guard guard : alt.getGuards()) {
+		doSwitch(alt.getTypeGuard());
+		
+		for (Expression guard : alt.getValueGuards()) {
 			doSwitch(guard);
-		} 		
+		} 
 		
 		doSwitch(alt.getExpression());
 		
@@ -1030,9 +1034,11 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 			doSwitch(decl);
 		}
 
-		for (Guard guard : alt.getGuards()) {
+		doSwitch(alt.getTypeGuard());
+
+		for (Expression guard : alt.getValueGuards()) {
 			doSwitch(guard);
-		} 		
+		} 
 		
 		for (Statement stmt : alt.getStatements()) {
 			doSwitch(stmt);
@@ -1043,28 +1049,37 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 		return s;
 	}
 	
-	@Override 
-	public Stream caseTaggedTupleFieldExpression(TaggedTupleFieldExpression e) {
-		s.printlnInc("<Expression kind=\"TaggedTupleField\"" 
-					+ " id=\"" + e.getId() + "\""
-					+ " context-scope=\"" + e.getContext().getId() + "\""
-					+ " tag=\"" + e.getTag() + "\""
-					+ " label=\"" + e.getLabel() + "\">");
-		doSwitch(e.getType());
-		doSwitch(e.getValue());
-		s.printlnDec("</Expression>");		
+	@Override
+	public Stream caseTypeGuard(TypeGuard guard) {
+		s.printlnInc("<Guard kind=\"type\"" 
+					+ " tag=\"" + guard.getTag() + "\""
+				    + " id=\"" + guard.getId() + "\""				    
+			        + " outer-scope=\"" + guard.getOuter().getId() + "\">");
 		
+		doAnnotations(guard);
+		
+		doSwitch(guard.getExpression());
+		
+		for (TaggedTupleFieldRead read : guard.getReads()) {
+			doSwitch(read);
+		}				
+
+		if (guard.getBody() != null) {
+			doSwitch(guard.getBody());
+		}
+		s.printlnDec("</Guard>");
+
 		return s;
 	}
 	
 	@Override 
-	public Stream caseTagOf(TagOf e) {
-		s.printlnInc("<Expression kind=\"TagOf\"" 
-				+ " id=\"" + e.getId() + "\""
-				+ " context-scope=\"" + e.getContext().getId() + "\""
-				+ " tag=\"" + e.getTag() + "\">");
-		doSwitch(e.getExpression());
-		s.printlnDec("</Expression>");	
+	public Stream caseTaggedTupleFieldRead(TaggedTupleFieldRead e) {
+		s.printlnInc("<TaggedTupleFieldRead" 
+					+ " tag=\"" + e.getTag() + "\""
+					+ " label=\"" + e.getLabel() + "\">");
+		doSwitch(e.getValue());
+		doSwitch(e.getTarget());
+		s.printlnDec("</TaggedTupleFieldRead>");		
 		
 		return s;
 	}

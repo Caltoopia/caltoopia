@@ -75,6 +75,7 @@ import org.caltoopia.ir.Namespace;
 import org.caltoopia.ir.Network;
 import org.caltoopia.ir.Point2PointConnection;
 import org.caltoopia.ir.Port;
+import org.caltoopia.ir.PortGuard;
 import org.caltoopia.ir.PortInstance;
 import org.caltoopia.ir.PortPeek;
 import org.caltoopia.ir.PortRead;
@@ -402,7 +403,7 @@ public class IrXmlReader {
 		
 		List<Element> guards = getChildren(element, "Guard");
 		for (Element e : guards) {
-			Guard guard = createGuard(e);
+			PortGuard guard = createGuard(e);
 			action.getGuards().add(guard);
 		}	
 
@@ -427,8 +428,8 @@ public class IrXmlReader {
 		return action;
 	}
 
-	private Guard createGuard(Element element) {
-		Guard guard = IrFactory.eINSTANCE.createGuard();
+	private PortGuard createGuard(Element element) {
+		PortGuard guard = IrFactory.eINSTANCE.createPortGuard();
 		String id = element.getAttribute("id");
 		guard.setId(id);
 		doAnnotations(guard, element);

@@ -298,7 +298,7 @@ public class TypeConverter extends CalSwitch<Type> {
 			return doSwitch(((AstFunction) e.getSymbol()).getType());
 		} else if (v instanceof AstTypeUser) {
 			//This is not a function, but a type constructor			
-			Type t = createTypeUser((AstTypeUser) v, approximate);
+			Type t = createTypeUser(context, (AstTypeUser) v, approximate);
 			return t; 
 		} else {
 			try {
@@ -381,7 +381,7 @@ public class TypeConverter extends CalSwitch<Type> {
 						
 			return type;
 		}  else if (isUserDefined(astType)) {
-			return createTypeUser(astType.getName(), approximate);
+			return createTypeUser(context, astType.getName(), approximate);
 		} else if (astType.getBuiltin().equals(BUILTIN_TYPE_INT)) {
 			TypeInt type = IrFactory.eINSTANCE.createTypeInt();
 			AstExpression sz = getSizeParameter(astType);	
@@ -687,12 +687,12 @@ public class TypeConverter extends CalSwitch<Type> {
 		throw new TypeException("Failed to determine valid type for member reference '" + name +  "' for top type" + typePrinter.doSwitch(type) );		
 	}
 
-	public static Type createTypeUser(AstTypeUser astTypeUser, boolean approximate) {
+	public static Type createTypeUser(Scope scope, AstTypeUser astTypeUser, boolean approximate) {
 		if (astTypeUser.isDefinition()) {		
 			TypeUser type = IrFactory.eINSTANCE.createTypeUser();
 			
 			if (approximate) {
-				TypeDeclaration typedef = createTypeDeclaration(null, astTypeUser, approximate);
+				TypeDeclaration typedef = createTypeDeclaration(scope, astTypeUser, approximate);
 				type.setDeclaration(typedef);
 			} else {
 			  try {	

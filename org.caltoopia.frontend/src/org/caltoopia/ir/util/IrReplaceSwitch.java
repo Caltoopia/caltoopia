@@ -67,6 +67,7 @@ import org.caltoopia.ir.Network;
 import org.caltoopia.ir.Point2PointConnection;
 import org.caltoopia.ir.Port;
 import org.caltoopia.ir.PortAccess;
+import org.caltoopia.ir.PortGuard;
 import org.caltoopia.ir.PortInstance;
 import org.caltoopia.ir.PortPeek;
 import org.caltoopia.ir.PortRead;
@@ -222,9 +223,9 @@ public class IrReplaceSwitch extends IrSwitch<EObject> {
 		caseScope(action);
 		
 		//Visit the guards
-		List<Guard> guards = action.getGuards();
+		List<PortGuard> guards = action.getGuards();
 		for (int i = 0; i < guards.size(); i++) {
-			Guard g = caseGuard(guards.get(i));
+			PortGuard g = casePortGuard(guards.get(i));
 			guards.set(i, g);
 		}
 		
@@ -738,7 +739,7 @@ public class IrReplaceSwitch extends IrSwitch<EObject> {
 	}
 
 	@Override
-	public Guard caseGuard(Guard guard) {
+	public PortGuard casePortGuard(PortGuard guard) {
 		Expression body = (Expression) doSwitch(guard.getBody());
 		guard.setBody(body);
 //		Type type = (Type) doSwitch(guard.getType());

@@ -535,6 +535,15 @@ public interface IrFactory extends EFactory {
 	ExprAlternative createExprAlternative();
 
 	/**
+	 * Returns a new object of class '<em>Port Guard</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Port Guard</em>'.
+	 * @generated
+	 */
+	PortGuard createPortGuard();
+
+	/**
 	 * Returns a new object of class '<em>Guard</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -634,22 +643,22 @@ public interface IrFactory extends EFactory {
 	TaggedTuple createTaggedTuple();
 
 	/**
-	 * Returns a new object of class '<em>Tagged Tuple Field Expression</em>'.
+	 * Returns a new object of class '<em>Tagged Tuple Field Read</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Tagged Tuple Field Expression</em>'.
+	 * @return a new object of class '<em>Tagged Tuple Field Read</em>'.
 	 * @generated
 	 */
-	TaggedTupleFieldExpression createTaggedTupleFieldExpression();
+	TaggedTupleFieldRead createTaggedTupleFieldRead();
 
 	/**
-	 * Returns a new object of class '<em>Tag Of</em>'.
+	 * Returns a new object of class '<em>Type Guard</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Tag Of</em>'.
+	 * @return a new object of class '<em>Type Guard</em>'.
 	 * @generated
 	 */
-	TagOf createTagOf();
+	TypeGuard createTypeGuard();
 
 	/**
 	 * Returns a new object of class '<em>Type Undef</em>'.

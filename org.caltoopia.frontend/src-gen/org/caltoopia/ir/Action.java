@@ -27,7 +27,7 @@ import org.eclipse.emf.common.util.EList;
 public interface Action extends Scope {
 	/**
 	 * Returns the value of the '<em><b>Guards</b></em>' reference list.
-	 * The list contents are of type {@link org.caltoopia.ir.Guard}.
+	 * The list contents are of type {@link org.caltoopia.ir.PortGuard}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Guards</em>' reference list isn't clear,
@@ -39,7 +39,7 @@ public interface Action extends Scope {
 	 * @model
 	 * @generated
 	 */
-	EList<Guard> getGuards();
+	EList<PortGuard> getGuards();
 
 	/**
 	 * Returns the value of the '<em><b>Outputs</b></em>' reference list.

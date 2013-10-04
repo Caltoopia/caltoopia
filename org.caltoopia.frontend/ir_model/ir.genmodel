@@ -176,7 +176,8 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//CaseStatement/expression"/>
     </genClasses>
     <genClasses ecoreClass="ir.ecore#//StmtAlternative">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//StmtAlternative/guards"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//StmtAlternative/typeGuard"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//StmtAlternative/valueGuards"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//StmtAlternative/statements"/>
     </genClasses>
     <genClasses ecoreClass="ir.ecore#//PortAccess">
@@ -228,12 +229,14 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//CaseExpression/expression"/>
     </genClasses>
     <genClasses ecoreClass="ir.ecore#//ExprAlternative">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ExprAlternative/guards"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ExprAlternative/typeGuard"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ExprAlternative/valueGuards"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ExprAlternative/expression"/>
     </genClasses>
-    <genClasses ecoreClass="ir.ecore#//Guard">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Guard/peeks"/>
+    <genClasses ecoreClass="ir.ecore#//PortGuard">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//PortGuard/peeks"/>
     </genClasses>
+    <genClasses ecoreClass="ir.ecore#//Guard"/>
     <genClasses ecoreClass="ir.ecore#//Type"/>
     <genClasses ecoreClass="ir.ecore#//TypeBool"/>
     <genClasses ecoreClass="ir.ecore#//TypeExternal">
@@ -260,15 +263,16 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TaggedTuple/fields"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//TaggedTuple/Tag"/>
     </genClasses>
-    <genClasses ecoreClass="ir.ecore#//TaggedTupleFieldExpression">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TaggedTupleFieldExpression/tupleType"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//TaggedTupleFieldExpression/tag"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//TaggedTupleFieldExpression/label"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TaggedTupleFieldExpression/value"/>
+    <genClasses ecoreClass="ir.ecore#//TaggedTupleFieldRead">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//TaggedTupleFieldRead/tag"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//TaggedTupleFieldRead/label"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TaggedTupleFieldRead/value"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TaggedTupleFieldRead/target"/>
     </genClasses>
-    <genClasses ecoreClass="ir.ecore#//TagOf">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TagOf/expression"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//TagOf/tag"/>
+    <genClasses ecoreClass="ir.ecore#//TypeGuard">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeGuard/expression"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//TypeGuard/tag"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeGuard/reads"/>
     </genClasses>
     <genClasses ecoreClass="ir.ecore#//TypeUndef"/>
     <genClasses ecoreClass="ir.ecore#//TypeActor">

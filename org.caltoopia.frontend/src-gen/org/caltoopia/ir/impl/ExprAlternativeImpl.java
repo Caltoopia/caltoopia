@@ -6,8 +6,9 @@ import java.util.Collection;
 
 import org.caltoopia.ir.ExprAlternative;
 import org.caltoopia.ir.Expression;
-import org.caltoopia.ir.Guard;
 import org.caltoopia.ir.IrPackage;
+import org.caltoopia.ir.TypeGuard;
+import org.caltoopia.ir.PortGuard;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -27,7 +28,8 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.caltoopia.ir.impl.ExprAlternativeImpl#getGuards <em>Guards</em>}</li>
+ *   <li>{@link org.caltoopia.ir.impl.ExprAlternativeImpl#getTypeGuard <em>Type Guard</em>}</li>
+ *   <li>{@link org.caltoopia.ir.impl.ExprAlternativeImpl#getValueGuards <em>Value Guards</em>}</li>
  *   <li>{@link org.caltoopia.ir.impl.ExprAlternativeImpl#getExpression <em>Expression</em>}</li>
  * </ul>
  * </p>
@@ -36,14 +38,24 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class ExprAlternativeImpl extends ScopeImpl implements ExprAlternative {
 	/**
-	 * The cached value of the '{@link #getGuards() <em>Guards</em>}' reference list.
+	 * The cached value of the '{@link #getTypeGuard() <em>Type Guard</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getGuards()
+	 * @see #getTypeGuard()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Guard> guards;
+	protected TypeGuard typeGuard;
+
+	/**
+	 * The cached value of the '{@link #getValueGuards() <em>Value Guards</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValueGuards()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Expression> valueGuards;
 
 	/**
 	 * The cached value of the '{@link #getExpression() <em>Expression</em>}' reference.
@@ -79,11 +91,49 @@ public class ExprAlternativeImpl extends ScopeImpl implements ExprAlternative {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Guard> getGuards() {
-		if (guards == null) {
-			guards = new EObjectResolvingEList<Guard>(Guard.class, this, IrPackage.EXPR_ALTERNATIVE__GUARDS);
+	public TypeGuard getTypeGuard() {
+		if (typeGuard != null && typeGuard.eIsProxy()) {
+			InternalEObject oldTypeGuard = (InternalEObject)typeGuard;
+			typeGuard = (TypeGuard)eResolveProxy(oldTypeGuard);
+			if (typeGuard != oldTypeGuard) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.EXPR_ALTERNATIVE__TYPE_GUARD, oldTypeGuard, typeGuard));
+			}
 		}
-		return guards;
+		return typeGuard;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TypeGuard basicGetTypeGuard() {
+		return typeGuard;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTypeGuard(TypeGuard newTypeGuard) {
+		TypeGuard oldTypeGuard = typeGuard;
+		typeGuard = newTypeGuard;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.EXPR_ALTERNATIVE__TYPE_GUARD, oldTypeGuard, typeGuard));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Expression> getValueGuards() {
+		if (valueGuards == null) {
+			valueGuards = new EObjectResolvingEList<Expression>(Expression.class, this, IrPackage.EXPR_ALTERNATIVE__VALUE_GUARDS);
+		}
+		return valueGuards;
 	}
 
 	/**
@@ -132,8 +182,11 @@ public class ExprAlternativeImpl extends ScopeImpl implements ExprAlternative {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case IrPackage.EXPR_ALTERNATIVE__GUARDS:
-				return getGuards();
+			case IrPackage.EXPR_ALTERNATIVE__TYPE_GUARD:
+				if (resolve) return getTypeGuard();
+				return basicGetTypeGuard();
+			case IrPackage.EXPR_ALTERNATIVE__VALUE_GUARDS:
+				return getValueGuards();
 			case IrPackage.EXPR_ALTERNATIVE__EXPRESSION:
 				if (resolve) return getExpression();
 				return basicGetExpression();
@@ -150,9 +203,12 @@ public class ExprAlternativeImpl extends ScopeImpl implements ExprAlternative {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case IrPackage.EXPR_ALTERNATIVE__GUARDS:
-				getGuards().clear();
-				getGuards().addAll((Collection<? extends Guard>)newValue);
+			case IrPackage.EXPR_ALTERNATIVE__TYPE_GUARD:
+				setTypeGuard((TypeGuard)newValue);
+				return;
+			case IrPackage.EXPR_ALTERNATIVE__VALUE_GUARDS:
+				getValueGuards().clear();
+				getValueGuards().addAll((Collection<? extends Expression>)newValue);
 				return;
 			case IrPackage.EXPR_ALTERNATIVE__EXPRESSION:
 				setExpression((Expression)newValue);
@@ -169,8 +225,11 @@ public class ExprAlternativeImpl extends ScopeImpl implements ExprAlternative {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case IrPackage.EXPR_ALTERNATIVE__GUARDS:
-				getGuards().clear();
+			case IrPackage.EXPR_ALTERNATIVE__TYPE_GUARD:
+				setTypeGuard((TypeGuard)null);
+				return;
+			case IrPackage.EXPR_ALTERNATIVE__VALUE_GUARDS:
+				getValueGuards().clear();
 				return;
 			case IrPackage.EXPR_ALTERNATIVE__EXPRESSION:
 				setExpression((Expression)null);
@@ -187,8 +246,10 @@ public class ExprAlternativeImpl extends ScopeImpl implements ExprAlternative {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case IrPackage.EXPR_ALTERNATIVE__GUARDS:
-				return guards != null && !guards.isEmpty();
+			case IrPackage.EXPR_ALTERNATIVE__TYPE_GUARD:
+				return typeGuard != null;
+			case IrPackage.EXPR_ALTERNATIVE__VALUE_GUARDS:
+				return valueGuards != null && !valueGuards.isEmpty();
 			case IrPackage.EXPR_ALTERNATIVE__EXPRESSION:
 				return expression != null;
 		}
