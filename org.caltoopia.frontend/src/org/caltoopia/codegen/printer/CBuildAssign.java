@@ -1,0 +1,337 @@
+/* 
+ * Copyright (c) Ericsson AB, 2013
+ * All rights reserved.
+ *
+ * License terms:
+ *
+ * Redistribution and use in source and binary forms, 
+ * with or without modification, are permitted provided 
+ * that the following conditions are met:
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the 
+ *       following disclaimer.
+ *     * Redistributions in binary form must reproduce the 
+ *       above copyright notice, this list of conditions and 
+ *       the following disclaimer in the documentation and/or 
+ *       other materials provided with the distribution.
+ *     * Neither the name of the copyright holder nor the names 
+ *       of its contributors may be used to endorse or promote 
+ *       products derived from this software without specific 
+ *       prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND 
+ * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+package org.caltoopia.codegen.printer;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
+
+import org.caltoopia.ast2ir.Stream;
+import org.caltoopia.ast2ir.Util;
+import org.caltoopia.ast2ir.Stream.Indent;
+import org.caltoopia.cli.ActorDirectory;
+import org.caltoopia.cli.DirectoryException;
+import org.caltoopia.codegen.CEnvironment;
+import org.caltoopia.codegen.CodegenError;
+import org.caltoopia.codegen.UtilIR;
+import org.caltoopia.codegen.printer.CBuildVarDeclaration.varCB;
+import org.caltoopia.codegen.printer.CPrintUtil.dummyCB;
+import org.caltoopia.codegen.transformer.IrTransformer;
+import org.caltoopia.codegen.transformer.TransUtil;
+import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarAccess;
+import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarLocalAccess;
+import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarType;
+import org.caltoopia.ir.Actor;
+import org.caltoopia.ir.Assign;
+import org.caltoopia.ir.BinaryExpression;
+import org.caltoopia.ir.Declaration;
+import org.caltoopia.ir.Block;
+import org.caltoopia.ir.Expression;
+import org.caltoopia.ir.ForEach;
+import org.caltoopia.ir.ForwardDeclaration;
+import org.caltoopia.ir.FunctionCall;
+import org.caltoopia.ir.Generator;
+import org.caltoopia.ir.IfStatement;
+import org.caltoopia.ir.LambdaExpression;
+import org.caltoopia.ir.Namespace;
+import org.caltoopia.ir.ProcCall;
+import org.caltoopia.ir.ProcExpression;
+import org.caltoopia.ir.ReturnValue;
+import org.caltoopia.ir.Scope;
+import org.caltoopia.ir.Statement;
+import org.caltoopia.ir.Type;
+import org.caltoopia.ir.TypeActor;
+import org.caltoopia.ir.TypeConstructorCall;
+import org.caltoopia.ir.TypeExternal;
+import org.caltoopia.ir.TypeLambda;
+import org.caltoopia.ir.TypeList;
+import org.caltoopia.ir.TypeProc;
+import org.caltoopia.ir.Variable;
+import org.caltoopia.ir.VariableExpression;
+import org.caltoopia.ir.VariableExternal;
+import org.caltoopia.ir.VariableImport;
+import org.caltoopia.ir.VariableReference;
+import org.caltoopia.ir.WhileLoop;
+import org.caltoopia.ir.util.IrSwitch;
+import org.eclipse.emf.ecore.EObject;
+
+public class CBuildAssign extends IrSwitch<Boolean> {
+    String statStr="";
+    Statement statement;
+    boolean semicolon = true;
+    CEnvironment cenv = null;
+    private IndentStr ind = null;
+    Scope scope = null;
+
+    public CBuildAssign(Assign statement, CEnvironment cenv, IndentStr ind, boolean semicolon, Scope scope) {
+        statStr="";
+        this.statement = statement;
+        this.semicolon = semicolon;
+        this.cenv = cenv;
+        this.scope = scope;
+        if(ind == null) {
+            this.ind = new IndentStr();
+        } else {
+            this.ind = ind;
+        }
+    }
+    
+    public String toStr() {
+        Boolean res = doSwitch(statement);
+        if(!res) {
+            CodegenError.err("Statement builder", statStr);
+        }
+        return statStr;
+    }
+    
+    private int getDim(Type type) {
+        Type t = type;
+        int dim = 0;
+        while(t instanceof TypeList) {
+            dim++;
+            t = ((TypeList)t).getType();
+        }
+        return dim;
+    }
+
+    private String sizeofStr(String name, Type type) {
+        Type t = type;
+        int dim = 0;
+        String ret = "(sizeof(";
+        while(t instanceof TypeList) {
+            dim++;
+            t = ((TypeList)t).getType();
+        }
+        ret += new CBuildTypeName(t, new CPrintUtil.dummyCB(), false).toStr()+")";
+        for(int i=0;i<dim;i++) {
+            ret += " * " + name + ".sz[" + i +"]";
+        }
+        ret += ")";
+        return ret;
+    }
+    
+    private void enter(EObject obj) {}
+    private void leave() {}
+
+    @Override
+    public Boolean caseAssign(Assign assign) {
+        enter(assign);
+        Map<String,String> assignAnn = TransUtil.getAnnotationsMap(assign);
+        Map<String,String> targetAnn = TransUtil.getAnnotationsMap(assign.getTarget());
+        Map<String,String> exprAnn = TransUtil.getAnnotationsMap(assign.getExpression());
+        statStr += ind.ind() + "/*\n";
+        if(assignAnn!=null) statStr += ind.ind() + "A:" + assignAnn.toString() +"\n";
+        if(targetAnn!=null) statStr += ind.ind() + "T:" + targetAnn.toString() +"\n";
+        if(exprAnn!=null) statStr += ind.ind() + "E:" + exprAnn.toString() +"\n";
+        statStr += ind.ind() + "*/\n";
+        //TODO fix more complicated assignments
+        /*
+         * Which assignment exist:
+         * 1) scalar and user type assignment of any expression - identical to c, no memory mgmt
+         * 2) Lists fully indexed to scalar type or user type assigned any expression - identical to c, no memory mgmt
+         * 3) List assignment of literal list - allocate target or replace content? Need temp variable?
+         * 3a) When self assignment must use temp target, when target full variable free old and change pointer to temp, otherwise copy into place
+         * 3b) When multi dim list and several list expressions loop over inner lists temp variable with pointer into larger list
+         * 4) When function returning list (allocated inside function) copy or replace target var pointer.
+         * 5) When list expression inside other list expression use temp variables
+         */
+        String selfAnn = assignAnn == null?null:assignAnn.get("Variable_VarLocalAccess");
+        boolean selfAssign = (selfAnn == null)?false:VarLocalAccess.valueOf(selfAnn).equals(VarLocalAccess.self);
+        switch (VarLocalAccess.valueOf(targetAnn.get("Variable_VarLocalAccess"))) {
+        //Anything that is a normal scalar assignment CAL and c looks similar
+        case scalar:
+        case scalarUserType:
+        case listSingle:
+        case listMultiSingle:
+        case listUserTypeSingle:
+        case listMultiUserTypeSingle:
+        case listMemberListMultiSingle:
+        case listMemberListMultiUserTypeSingle:
+        case listMemberListSingle:
+        case listMemberListUserTypeSingle:
+        case listMemberScalar:
+        case listMemberScalarUserType:
+        case memberListMultiSingle:
+        case memberListMultiUserTypeSingle:
+        case memberListSingle:
+        case memberListUserTypeSingle:
+        case memberScalar:
+        case memberScalarUserType:
+            CBuildVarReference cVarRefS = new CBuildVarReference(assign.getTarget(), cenv, true, true);
+            String varStrS = cVarRefS.toStr();
+            String sz = assignAnn == null?"0":(assignAnn.get("Variable_ListSize")==null?"0":assignAnn.get("Variable_ListSize"));
+            if(!sz.equals("0")) {
+                statStr += ind.ind() + "reallocMoveArray" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).toStr()+ "(";
+                statStr += varStrS + ", NULL, (__arrayArg) {1,{" + sz + "}});" + ind.nl();
+            }
+            statStr += ind.ind() + new CBuildVarReference(assign.getTarget(), cenv).toStr() + " = ";
+            statStr += new CBuildExpression(assign.getExpression(), cenv).toStr();
+            if(semicolon) {
+                statStr += ";" + ind.nl();
+            }
+            break;
+        //Assignment of a list to a list (single dimension) built-in type
+        case list:
+        case listMemberList:
+        case memberList:
+        case listMultiList:
+        case memberListMultiList:
+        case listMemberListMultiList:
+            if(assign.getExpression() instanceof VariableExpression) {
+                CBuildVarReference cVarRef = new CBuildVarReference(assign.getTarget(), cenv, true, true);
+                String varStr = cVarRef.toStr();
+                statStr += ind.ind() + "copy" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).toStr()+ "(";
+                statStr += varStr + ", ";
+                CBuildExpression cVarExpr = new CBuildExpression(assign.getExpression(), cenv, true, true);
+                statStr += cVarExpr.toStr() + ", ";
+                statStr += cVarRef.indexStr() + ", ";
+                statStr += cVarExpr.indexStr() + ", ";
+                statStr += "maxArraySz(&" + cVarRef.sizeStr() + ", &" + cVarExpr.sizeStr(true) + ", " + cVarRef.indexLen() + ")";
+                statStr += ")";
+                statStr += ";" + ind.nl();
+                String tempAnn = assignAnn == null?null:assignAnn.get("Variable_VarLocalAccess");
+                boolean tempAssign = (tempAnn == null)?false:VarLocalAccess.valueOf(tempAnn).equals(VarLocalAccess.temp);
+                if(tempAssign) {
+                    statStr += ind.ind() + cVarRef.flagsStr() + "|=0x8;" + ind.nl();
+                }
+            } else {
+                if(assign.getExpression() instanceof FunctionCall) {
+                    CBuildVarReference cVarRefF = new CBuildVarReference(assign.getTarget(), cenv, true, true);
+                    String varStrF = cVarRefF.toStr();
+                    statStr += ind.ind() + "free" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).toStr() + "(" + varStrF + ", TRUE);" + ind.nl();
+                    CBuildVarReference cVarRef = new CBuildVarReference(assign.getTarget(), cenv, false, true);
+                    String varStr = cVarRef.toStr();
+                    statStr += ind.ind() + varStr + " = ";
+                    CBuildExpression cExpr = new CBuildExpression(assign.getExpression(), cenv, false, false);
+                    statStr += cExpr.toStr() + ";" + ind.nl();
+                    String tempAnn = assignAnn == null?null:assignAnn.get("Variable_VarLocalAccess");
+                    boolean tempAssign = (tempAnn == null)?false:VarLocalAccess.valueOf(tempAnn).equals(VarLocalAccess.temp);
+                    if(tempAssign) {
+                        statStr += ind.ind() + cVarRef.flagsStr() + "|=0x8;" + ind.nl();
+                    }
+
+                    /*
+                    statStr += ind.ind() + "__tempExpr_" + assign.getExpression().getId() + " = " + new CBuildExpression(assign.getExpression(), cenv,true,false).toStr() + ";" + ind.nl();
+                    statStr += ind.ind() + "memcpy(" + new CBuildVarReference(assign.getTarget(), cenv, true,false).toStr() + ", ";
+                    statStr += "__tempExpr_" + assign.getExpression().getId() + ".p, ";
+                    statStr += sizeofStr("__tempExpr_" + assign.getExpression().getId(),assign.getTarget().getType()) + ")";
+                    */
+                } else {
+                    statStr += ind.ind() + "__tempVoidPointer = " + new CBuildExpression(assign.getExpression(), cenv,true,false).toStr() + ";" + ind.nl();
+                    statStr += ind.ind() + "mem" + (selfAssign?"move":"cpy") + "(" + new CBuildVarReference(assign.getTarget(), cenv, true,false).toStr() + ", ";
+                    statStr += "__tempVoidPointer, ";
+                    statStr += new CBuildSizeOf(assign, cenv, false, false, 0, true).toStr() + ")";
+                    if(semicolon) {
+                        statStr += ";" + ind.nl();
+                    }
+                }
+            }
+            break;
+            
+        case listMulti:
+        case listMemberListMulti:
+        case memberListMulti:
+
+        case listMemberListUserType:
+        case listUserType:
+        case inlinedMember:
+        case listMemberListMultiUserType:
+        case listMultiUserType:
+        case memberListMultiUserType:
+        case memberListUserType:
+            //Handle assignments from var in the same way for multi-dim lists, others should have been broken up already
+            if(assign.getExpression() instanceof VariableExpression) {
+                CBuildVarReference cVarRef = new CBuildVarReference(assign.getTarget(), cenv, true, true);
+                String varStr = cVarRef.toStr();
+                statStr += ind.ind() + "copy" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).toStr()+ "(";
+                statStr += varStr + ", ";
+                CBuildExpression cVarExpr = new CBuildExpression(assign.getExpression(), cenv, true, true);
+                statStr += cVarExpr.toStr() + ", ";
+                statStr += cVarRef.indexStr() + ", ";
+                statStr += cVarExpr.indexStr() + ", ";
+                statStr += "maxArraySz(&" + cVarRef.sizeStr() + ", &" + cVarExpr.sizeStr(true) + ", " + cVarRef.indexLen() + ")";
+                statStr += ")";
+                statStr += ";" + ind.nl();
+                String tempAnn = assignAnn == null?null:assignAnn.get("Variable_VarLocalAccess");
+                boolean tempAssign = (tempAnn == null)?false:VarLocalAccess.valueOf(tempAnn).equals(VarLocalAccess.temp);
+                if(tempAssign) {
+                    statStr += ind.ind() + cVarRef.flagsStr() + "|=0x8;" + ind.nl();
+                }
+                break;
+            }
+        case refMember:
+            
+        default:
+            statStr += ind.ind() +"/*NOT IMPLEMENTED YET (1)*/";
+            statStr += ind.ind() + new CBuildVarReference(assign.getTarget(), cenv).toStr() + " = ";
+            statStr += new CBuildExpression(assign.getExpression(), cenv).toStr();
+            if(semicolon) {
+                statStr += ";" + ind.nl();
+            }
+        }
+        /*
+        if(assign.getExpression() instanceof TypeConstructorCall && !withinDeclaration()) {
+            TypeConstructorCall expr = (TypeConstructorCall) assign.getExpression();
+            statStr += (validCName(expr.getName()));
+            statStr += ("(");
+            if(hasIndex(assign.getTarget())) statStr += ("&");
+            doSwitch(assign.getTarget());
+            statStr += (", ");
+            for (Iterator<Expression> i = expr.getParameters().iterator(); i.hasNext();) {
+                Expression p = i.next();
+                doSwitch(p);
+                if (i.hasNext()) statStr += Comma();
+            }
+            statStr += Right();
+            statStr += ln(";");
+            leave();
+            return true;
+        }
+        
+        if(isIndir(assign.getTarget().getDeclaration())) statStr += ("*");
+        doSwitch(assign.getTarget());
+        statStr += (" = ");
+        doSwitch(assign.getExpression());
+        statStr += ln(";");
+        */
+        leave();
+        return true;
+    }
+
+}

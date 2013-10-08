@@ -92,7 +92,7 @@ public class CBuildInlineBody extends IrSwitch<Boolean> {
         enter(block);
         for (Iterator<Statement> i = block.getStatements().iterator();i.hasNext();) {
             Statement s = i.next();
-            bodyStr += new CBuildStatement(s, cenv, ind,false).toStr();
+            bodyStr += new CBuildStatement(s, cenv, ind,false,block).toStr();
             if(i.hasNext()) {
                 bodyStr += ", ";
             }

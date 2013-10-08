@@ -36,6 +36,7 @@
 
 package org.caltoopia.codegen.printer;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +52,7 @@ import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.TransUtil;
 import org.caltoopia.codegen.transformer.analysis.IrTypeStructureAnnotation.TypeMember;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarAccess;
+import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarLocalAccess;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarType;
 import org.caltoopia.codegen.transformer.analysis.IrVariablePlacementAnnotation.VarPlacement;
 import org.caltoopia.ir.BinaryExpression;
@@ -81,44 +83,151 @@ import org.eclipse.emf.ecore.EObject;
 
 public class CBuildExpression extends IrSwitch<Boolean> {
     String exprStr="";
+    String refStr ="";
+    String castStr ="";
+    String lastVarStr="";
+    List<Expression> indexArray;
+    List<Expression> sizeArray;
     Expression expression = null;
+    boolean sepIndex = false;
     CEnvironment cenv = null;
     boolean rangechk = false; //TODO be able to control this
-    public CBuildExpression(Expression expression, CEnvironment cenv) {
+    int dim = 0;
+    boolean asRef = false;
+    int level = 0;
+    public CBuildExpression(Expression expression, CEnvironment cenv, boolean asRef, boolean sepIndex) {
         exprStr="";
+        refStr="";
+        indexArray = new ArrayList<Expression>();
+        sizeArray = new ArrayList<Expression>();
         this.expression = expression;
         this.cenv = cenv;
+        this.asRef = asRef;
+        this.sepIndex = sepIndex;
+        level = 0;
+        dim = 0;
     }
     
-    public String toStr() {
-        Boolean res = doSwitch(expression);
-        return exprStr;
+    public CBuildExpression(Expression expression, CEnvironment cenv) {
+        this(expression, cenv,false,false);
     }
 
-    private void enter(EObject obj) {}
-    private void leave() {}
+    public String toStr() {
+        Boolean res = doSwitch(expression);
+        return refStr + castStr + exprStr;
+    }
+
+    public String indexStr() {
+        String indexStr = "(__arrayArg) {";
+        indexStr += indexArray.size() + ",{";
+        for(Iterator<Expression> i = indexArray.iterator();i.hasNext();) {
+            Expression e = i.next();
+            indexStr += new CBuildExpression(e, cenv).toStr();
+            if(i.hasNext()) indexStr += ", ";
+        }
+        indexStr += "}}";
+        return indexStr;
+    }
+
+    public String sizeStr(boolean partial) {
+        int n = partial?indexArray.size():0;
+        String indexStr = "(__arrayArg) {";
+        indexStr += sizeArray.size()-n + ",{";
+        for(int i = n; i<sizeArray.size();i++) {
+            Expression e = sizeArray.get(i);
+            if(e!=null) {
+                indexStr += new CBuildExpression(e, cenv).toStr();
+            } else {
+                indexStr += "/*dynamic*/";
+                indexStr += lastVarStr +".sz[" + i + "]";
+            }
+            if(i<(sizeArray.size()-1)) indexStr += ", ";
+        }
+        indexStr += "}}";
+        return indexStr;
+    }
+
+    public int indexLen() {
+        return indexArray.size();
+    }
+
+    public int sizeLen(boolean partial) {
+        return sizeArray.size()-(partial?indexArray.size():0);
+    }
+
+    private void enter(EObject obj) {level++;}
+    private void leave() {level--;}
     
     //---------------------util------------------------------------
     //Prints indexStr, but also returns boolean true when the resulting type is not a list
-    protected Boolean indexStr(List<Expression> index, Type varType) {
+    protected Boolean indexPStr(List<Expression> index, Type varType, String varStr, boolean sep) {
+        List<Expression> szExpr = new ArrayList<Expression>();
+        List<Expression> indExpr = new ArrayList<Expression>();
+        String indexStr ="";
+        lastVarStr = varStr;
         if(index!=null && !index.isEmpty() && varType instanceof TypeList) {
             Type list = varType;
-            for (Iterator<Expression> i = index.iterator(); i.hasNext();) {
-                Expression e = i.next();
-                exprStr += ("[");
-                if(rangechk) {
-                    exprStr += ("RANGECHK(");
+            while(list instanceof TypeList) {
+                szExpr.add(0,((TypeList)list).getSize());
+                list = ((TypeList)list).getType();
+            }
+            list = varType;
+            indexStr += ("[");
+            for (int i = 0; i<index.size();i++) {
+                indexStr += ("(");
+            }
+            for (int i = 0; i<index.size();i++) {
+                Expression e = index.get(i);
+                indExpr.add(e);
+                if(i>0) {
+                    indexStr += ")*";
+                    if(szExpr.get(i-1)==null) {
+                        indexStr += varStr + ".sz["+ (i-1) +"]+";
+                    } else {
+                        indexStr += new CBuildExpression(szExpr.get(i-1),cenv).toStr() +"+";
+                    }
                 }
-                doSwitch(e);
                 if(rangechk) {
-                    exprStr += (",");
-                    doSwitch(((TypeList)list).getSize());
-                    exprStr += (")");
+                    indexStr += ("RANGECHK(");
+                }
+                indexStr += new CBuildExpression(e, cenv).toStr();
+                if(rangechk) {
+                    indexStr += (",");
+                    //doSwitch(((TypeList)list).getSize());
+                    indexStr += varStr + ".sz["+ i +"]";
+                    indexStr += (")");
                 }
                 list = ((TypeList)list).getType();
-                exprStr += ("]");
+            }
+            indexStr += ")";
+            //Any more dimensions to multiply sizes?
+            if(list instanceof TypeList) {
+                int i = index.size();
+                Type t = list;
+                while(t instanceof TypeList) {
+                    indexStr += "*";
+                    if(szExpr.get(i)==null) {
+                        indexStr += varStr + ".sz["+ (i) +"]";
+                    } else {
+                        indexStr += new CBuildExpression(szExpr.get(i),cenv).toStr();
+                    }
+                    i++;
+                    t = ((TypeList)t).getType();
+                }
+            }
+            indexStr += ("]");
+            if(sep) {
+                indexArray.addAll(indExpr);
+                sizeArray.addAll(szExpr);
+            } else {
+                exprStr += indexStr;
             }
             return !(list instanceof TypeList);
+        }
+        Type list = varType;
+        while(list instanceof TypeList) {
+            sizeArray.add(0,((TypeList)list).getSize());
+            list = ((TypeList)list).getType();
         }
         return false;
     }
@@ -127,6 +236,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
     private boolean directMember(Member member) {
         TypeMember typeMember = TypeMember.valueOf(TransUtil.getAnnotationArg(member, IrTransformer.TYPE_ANNOTATION, "TypeStructure"));
         boolean direct = true;
+/* FIXME not used anyway
         switch(typeMember) {
         case unknown:
             CodegenError.err("Expression builder", "unknown placement of member " + member.getName());
@@ -141,7 +251,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
             direct = false;
             break;
         default:
-        }
+        }*/
         return direct;
     }
     
@@ -155,12 +265,17 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         case actor: //Placed in constructor
         case auto:
         case heap:
-        case fifo:
         case code:
+        case autoDeepHeap:
+        case autoListDeepHeap:
+        case autoListHeap:
             direct = true;
             break;
         case ref: //used when passing as parameter as ref
-        case fifoList:
+        case fifo:
+        case fifoDeepFifo:
+        case autoListDeepFifo:
+        case autoListFifo:
             direct = false;
             break;
         default:
@@ -230,7 +345,9 @@ public class CBuildExpression extends IrSwitch<Boolean> {
     @Override
     public Boolean caseListExpression(ListExpression lit) {
         enter(lit);
-        exprStr += ("{");
+        if(dim==0) 
+            exprStr += ("{");
+        dim++;
         for (Iterator<Expression> i = lit.getExpressions().iterator(); i.hasNext();) {
             Expression l = i.next();            
             doSwitch(l);
@@ -240,7 +357,12 @@ public class CBuildExpression extends IrSwitch<Boolean> {
             exprStr += "/* Don't know what to do with a generator yet "+ lit.toString() +"*/";
             CodegenError.err("Expression builder", "Don't know what to do with a generator yet "+ lit.toString() + ", check output!");
         }
-        exprStr += ("}");
+        dim--;
+        if(dim==0) {
+            exprStr += ("}");
+            if(lit.getExpressions().get(0).getType() != null)
+                castStr = "(" + new CBuildTypeName(lit.getExpressions().get(0).getType(), new CPrintUtil.dummyCB(),false).toStr() +"[])";
+        }
         leave();
         return true;
     }
@@ -260,16 +382,58 @@ public class CBuildExpression extends IrSwitch<Boolean> {
             break;
         default:
         }
-        exprStr += (CPrintUtil.validCName(var.getVariable().getName()));
-
-        boolean hasIndex = indexStr(var.getIndex(),((Variable)var.getVariable()).getType());
+        String varStr = (CPrintUtil.validCName(var.getVariable().getName()));
+        exprStr += varStr;
+        VarLocalAccess vla = VarLocalAccess.valueOf(TransUtil.getAnnotationArg(var, IrTransformer.VARIABLE_ANNOTATION, "VarLocalAccess"));
+        boolean sep = false;
+        switch(vla) {
+        case listMemberScalar:
+        case listMemberList:
+        case listMemberListMulti:
+        case listMemberScalarUserType:
+        case listMemberListUserType:
+        case listMemberListMultiUserType:
+        case listMemberListSingle:
+        case listMemberListMultiSingle:
+        case listMemberListUserTypeSingle:
+        case listMemberListMultiUserTypeSingle:
+        case listMemberListMultiList:
+        case listMemberListMultiUserTypeList:
+            exprStr += ".p";
+            break;
+        case list:
+        case listUserType:
+        case listMulti:
+        case listMultiUserType:
+        case listSingle:
+        case listMultiSingle:
+        case listUserTypeSingle:
+        case listMultiUserTypeSingle:
+        case listMultiList:
+        case listMultiUserTypeList:
+            sep = sepIndex;
+            if(!sepIndex) {
+                exprStr += ".p";
+            }
+        default:
+        }
+        boolean hasIndex = indexPStr(var.getIndex(),((Variable)var.getVariable()).getType(),varStr,sep);
         boolean direct = directVar(var);
+        int nbrMembers = var.getMember().size();
+        boolean inSep = sepIndex;
+        sepIndex = false;
         for (Member m : var.getMember()) {
+            nbrMembers--;
+            if(nbrMembers==0){
+                sepIndex = inSep;
+            }
             exprStr += ((direct||hasIndex)?".":"->");
             hasIndex = caseMember(m);
             direct = directMember(m);
         }
-
+        if(asRef && ((var.getMember().isEmpty()  && !var.getIndex().isEmpty()) || sep || sepIndex) && level == 1) {
+            refStr = "&";
+        }
         leave();
         return true;
     }
@@ -277,8 +441,18 @@ public class CBuildExpression extends IrSwitch<Boolean> {
     @Override
     public Boolean caseMember(Member member) {
         enter(member);
-        exprStr += (CPrintUtil.validCName(member.getName()));
-        boolean hasIndex = indexStr(member.getIndex(),member.getType());
+        String varStr = (CPrintUtil.validCName(member.getName()));
+        exprStr += "members." + varStr;
+        if(UtilIR.isList(member.getType()) && !sepIndex) {
+            exprStr += ".p";
+        }
+        if(asRef && !member.getIndex().isEmpty()) {
+            refStr = "&";
+        } else {
+            //When deeper members overwrite any &
+            refStr = "";
+        }
+        boolean hasIndex = indexPStr(member.getIndex(),member.getType(), varStr, sepIndex);
         leave();
         return hasIndex;
     }
@@ -369,22 +543,33 @@ public class CBuildExpression extends IrSwitch<Boolean> {
             print = true;
             break;
         case externFunc: //calling a c-function
-            VariableImport funcExtern = (VariableImport) ((VariableExpression) expr.getFunction()).getVariable();
-            f = null;
-            try {
-                f = ActorDirectory.findVariable(funcExtern);
-            } catch (DirectoryException e) {
-                System.err.println("[CBuildExpression] Could not find imported extern function " + funcExtern.getName());
+            Declaration decl = ((VariableExpression) expr.getFunction()).getVariable();
+            VariableExternal e=null;
+            List<String> namespaceStr = null;
+            if(decl instanceof VariableImport) {
+                VariableImport funcExtern = (VariableImport) decl;
+                f = null;
+                try {
+                    f = ActorDirectory.findVariable(funcExtern);
+                } catch (DirectoryException ee) {
+                    System.err.println("[CBuildExpression] Could not find imported extern function " + funcExtern.getName());
+                }
+                e = (VariableExternal) f;
+                namespaceStr = funcExtern.getNamespace();
+            } else if(decl instanceof VariableExternal) {
+                e = (VariableExternal) decl;
+                namespaceStr = TransUtil.getNamespaceAnnotationList(e);
             }
-            VariableExternal e = (VariableExternal) f;
             Namespace ns = null;
-            try {
-                ns = ActorDirectory.findNamespace(funcExtern.getNamespace());
-            } catch (DirectoryException ee) {}
-            Map<String,String> annotations = CPrintUtil.getExternAnnotations(CPrintUtil.collectAnnotations(e,ns));
-            nameStr = (CPrintUtil.externalCName(annotations,e));
-            CPrintUtil.toEnvEnv(annotations,cenv);
-            print = true;
+            if(e!=null) {
+                try {
+                    ns = ActorDirectory.findNamespace(namespaceStr);
+                } catch (DirectoryException ee) {}
+                Map<String,String> annotations = CPrintUtil.getExternAnnotations(CPrintUtil.collectAnnotations(e,ns));
+                nameStr = (CPrintUtil.externalCName(annotations,e));
+                CPrintUtil.toEnvEnv(annotations,cenv);
+                print = true;
+            }
             break;
         default:
             exprStr +=("/* TODO FC " +
@@ -445,9 +630,9 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         exprStr += ("((");
         doSwitch(expr.getCondition());
         exprStr += (") ? (");
-        doSwitch(expr.getThenExpression());
+        exprStr += new CBuildExpression(expr.getThenExpression(), cenv, asRef,false).toStr();
         exprStr += ("):(");
-        doSwitch(expr.getElseExpression());
+        exprStr += new CBuildExpression(expr.getElseExpression(), cenv, asRef,false).toStr();
         exprStr += ("))");
         leave();
         return true;
@@ -467,7 +652,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
                 type = ((TypeList) type).getType();
                 i++;
             }
-            exprStr += new CBuildTypeName(type,null).toStr();
+            exprStr += new CBuildTypeName(type,null, true).toStr();
             for(;i>0;i--)
                 exprStr += ("*");
         }

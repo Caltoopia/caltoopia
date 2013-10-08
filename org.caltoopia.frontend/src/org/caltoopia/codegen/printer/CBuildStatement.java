@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 import org.caltoopia.ast2ir.Stream;
 import org.caltoopia.ast2ir.Util;
@@ -53,6 +54,7 @@ import org.caltoopia.codegen.printer.CBuildVarDeclaration.varCB;
 import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.TransUtil;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarAccess;
+import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarLocalAccess;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarType;
 import org.caltoopia.ir.Actor;
 import org.caltoopia.ir.Assign;
@@ -62,6 +64,7 @@ import org.caltoopia.ir.Block;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.ForEach;
 import org.caltoopia.ir.ForwardDeclaration;
+import org.caltoopia.ir.FunctionCall;
 import org.caltoopia.ir.Generator;
 import org.caltoopia.ir.IfStatement;
 import org.caltoopia.ir.LambdaExpression;
@@ -69,6 +72,7 @@ import org.caltoopia.ir.Namespace;
 import org.caltoopia.ir.ProcCall;
 import org.caltoopia.ir.ProcExpression;
 import org.caltoopia.ir.ReturnValue;
+import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
@@ -92,12 +96,14 @@ public class CBuildStatement extends IrSwitch<Boolean> {
     boolean semicolon = true;
     CEnvironment cenv = null;
     private IndentStr ind = null;
+    Scope scope = null;
 
-    public CBuildStatement(Statement statement, CEnvironment cenv, IndentStr ind, boolean semicolon) {
+    public CBuildStatement(Statement statement, CEnvironment cenv, IndentStr ind, boolean semicolon, Scope scope) {
         statStr="";
         this.statement = statement;
         this.semicolon = semicolon;
         this.cenv = cenv;
+        this.scope = scope;
         if(ind == null) {
             this.ind = new IndentStr();
         } else {
@@ -131,37 +137,7 @@ public class CBuildStatement extends IrSwitch<Boolean> {
     @Override
     public Boolean caseAssign(Assign assign) {
         enter(assign);
-        //TODO fix more complicated assignments
-        statStr += ind.ind() + new CBuildVarReference(assign.getTarget(), cenv).toStr() + " = ";
-        statStr += new CBuildExpression(assign.getExpression(), cenv).toStr();
-        if(semicolon) {
-            statStr += ";" + ind.nl();
-        }
-        /*
-        if(assign.getExpression() instanceof TypeConstructorCall && !withinDeclaration()) {
-            TypeConstructorCall expr = (TypeConstructorCall) assign.getExpression();
-            statStr += (validCName(expr.getName()));
-            statStr += ("(");
-            if(hasIndex(assign.getTarget())) statStr += ("&");
-            doSwitch(assign.getTarget());
-            statStr += (", ");
-            for (Iterator<Expression> i = expr.getParameters().iterator(); i.hasNext();) {
-                Expression p = i.next();
-                doSwitch(p);
-                if (i.hasNext()) statStr += Comma();
-            }
-            statStr += Right();
-            statStr += ln(";");
-            leave();
-            return true;
-        }
-        
-        if(isIndir(assign.getTarget().getDeclaration())) statStr += ("*");
-        doSwitch(assign.getTarget());
-        statStr += (" = ");
-        doSwitch(assign.getExpression());
-        statStr += ln(";");
-        */
+        statStr += new CBuildAssign(assign, cenv, ind, semicolon, scope).toStr();
         leave();
         return true;
     }

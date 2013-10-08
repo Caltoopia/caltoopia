@@ -252,7 +252,7 @@ public class CPrintUtil {
             return "";
         }
 
-        public String listTypeFn(TypeList type) {
+        public String listTypeFn(TypeList type, int dim) {
             return "";
         }
 
@@ -263,14 +263,14 @@ public class CPrintUtil {
     
     public static class listStarCB extends dummyCB {
         @Override
-        public String listTypeFn(TypeList type) {
+        public String listTypeFn(TypeList type, int dim) {
             return "*";
         }
     }
     
     public static class listTypeBracketCB extends dummyCB {
         @Override
-        public String listTypeFn(TypeList type) {
+        public String listTypeFn(TypeList type, int dim) {
             return "[]";
         }
     }
@@ -292,17 +292,21 @@ public class CPrintUtil {
                 switch(typeMember) {
                 case unknown:
                     CodegenError.err("Deep sizeof", "unknown placement of member " + member.getName());
-                case builtin:
-                case byListFull: //Used when list of decided size and inlined and all deeper members also (including lists of builtins)
-                case inlineFull: //Used when user type is inlined and all deeper members also
+                case scalarBuiltin:
+                case scalarUserTypeFull:
                     break;
-                case byListSome: //Used when list of decided size and inlined  but have deeper members that are not
-                case inlineSome: //Used when user type that is inlined but have deeper members that are not
+                case scalarUserType:
+                case scalarUserTypeByRef:
+                case listBuiltin:
+                case listUserType:
+                case listUserTypeFull:
                     expr += "(";
                     expr += createDeepSizeofInner(null,body,member.getType(),true, cenv);
                     expr += ")";
                     break;
-                case byRef: //Used when either type (or list of non-decided size?)
+                case dynListBuiltin:
+                case dynListUserType:
+                case dynListUserTypeFull:
                     expr += " + " + createDeepSizeofInner(null,body,member.getType(),false, cenv);
                     break;
                 default:
@@ -325,13 +329,13 @@ public class CPrintUtil {
             }
 
             @Override
-            public String listTypeFn(TypeList type) {
+            public String listTypeFn(TypeList type, int dim) {
                 if(!typeByRef) {
                     return " * " + new CBuildExpression(type.getSize(), fcenv).toStr();
                 }
                 return "";
             }
-        }).toStr();
+        },true).toStr();
         return expr;
     }
 

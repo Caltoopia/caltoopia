@@ -52,9 +52,11 @@ import org.caltoopia.codegen.CEnvironment;
 import org.caltoopia.codegen.CodegenError;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.printer.CBuildVarDeclaration.varCB;
+import org.caltoopia.codegen.printer.CPrintUtil.dummyCB;
 import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.TransUtil;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarAccess;
+import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarLocalAccess;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarType;
 import org.caltoopia.ir.IntegerLiteral;
 import org.caltoopia.ir.Type;
@@ -98,7 +100,7 @@ public class CBuildConstDeclaration extends CBuildVarDeclaration {
 
     //------------------util------
     private void buildConstDeclaration(Variable variable) {
-        vtypeStr = new CBuildTypeName(variable.getType(),new varCB()).toStr();
+        vtypeStr = new CBuildTypeName(variable.getType(),new varCB(), true).toStr();
         String nsStr = "";
         if(!noNS) {
             nsStr = TransUtil.getNamespaceAnnotation(variable) + "__";
@@ -108,6 +110,19 @@ public class CBuildConstDeclaration extends CBuildVarDeclaration {
             vtypeStr = "extern " + vtypeStr;
         } else {
             initStr = new CBuildExpression(variable.getInitValue(),cenv).toStr();
+            if(!dimStr.equals("")) {
+                /*
+                Type type = variable.getType();
+                while(type instanceof TypeList) {
+                    type = ((TypeList)type).getType();
+                }
+                String typeStr = new CBuildTypeName(type, new CPrintUtil.dummyCB(), true).toStr();
+                */
+                initStr = "{" + initStr + ", "; 
+                initStr += (TransUtil.getAnnotationArg(variable, "Variable", "VarLocalAccess").equals(VarLocalAccess.temp.name()))?"0xb":"0x3";
+                initStr += ", ";
+                initStr += maxDim + ", {" + dimStr + "}}";
+            }
         }
     }
 

@@ -118,6 +118,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
     PrintStream out = null;
     boolean debugPrint = false;
     boolean header = false;
+    boolean typesHeader = false;
     CEnvironment cenv = null;
     String topHeaderFilename = null;
     Actor currentActor = null;
@@ -147,6 +148,13 @@ public class CPrinterTop extends IrSwitch<Stream> {
         baseName = nsName + "__" + elaboratedNetworkType .getName();
         topHeaderFilename = baseName + ".h";
         file = session.getOutputFolder() + File.separator + baseName;
+        s = new Stream(file + "__types.h");
+        out.println("Writing '" + file + "__types.h'");
+        typesHeader = true;
+        doSwitch(network);
+        s.close();
+        typesHeader = false;
+
         s = new Stream(file + ".h");
         out.println("Writing '" + file + ".h'");
         header = true;
@@ -271,13 +279,108 @@ public class CPrinterTop extends IrSwitch<Stream> {
     @Override
     public Stream caseNetwork(Network network) {
         s.println("// " + Util.marshallQualifiedName(network.getType().getNamespace()) + network.getType().getName());
+        if(typesHeader) {
+            //Printing all list types
+            String name = Util.marshallQualifiedName(network.getType().getNamespace()) + "__" + network.getType().getName();
+            name = name.toUpperCase();
+            name = "CAL_TOP_NETWORK_" + name +"__TYPES";
+            s.println("#ifndef "+name);
+            s.println("#define "+name);
+            s.println("#include <stdint.h>");
+            s.println("#define TRUE 1");
+            s.println("#define FALSE 0");
+
+            int dimensions[] = {4};//For now only max 4 dim and no optimization of struct size, {1,2,3,4,256}; //list all dimensions needed, if someone wants more than 4 dimensions they get 256 since they anyway don't care about memory usage
+            //A type to remove varying nbr of arg to copy routines
+            s.println("typedef struct {");
+            s.println("  int32_t len;");
+            s.println("  int32_t sz[" + dimensions[dimensions.length-1]+ "];");
+            s.println("} __arrayArg;");
+
+            s.println("__arrayArg maxArraySz(__arrayArg* targetSz, __arrayArg* exprSz, int shift) {");
+            s.println("    __arrayArg ret;");
+            //Full array replace
+            s.println("    if(shift==0) {");
+            s.println("        return *exprSz;");
+            s.println("    }");
+            //Partial array replace shift = nbr of indices
+            s.println("    ret.len = targetSz->len;");
+            s.println("    memcpy(ret.sz,targetSz->sz,sizeof(int32_t)*4);");
+            s.println("    for(int i=0;i<exprSz->len;i++) {");
+            s.println("        if(targetSz->sz[i+shift]<exprSz->sz[i])");
+            s.println("            ret.sz[i+shift] = exprSz->sz[i];");
+            s.println("    }");
+            s.println("    return ret;");
+            s.println("}");
+
+            /*
+             * These are the array types 
+             * First is a union that can point to list containing the elements (p) or list of pointer to the elements (pp)
+             * Next a flag field:
+             *  0: isDirect (i.e. p should be used)
+             *  1: onHeap (the data is currently allocated on the heap and if the pointer is changed the old needs to be (deep) freed (we know non-other keeps pointers to lower levels due to copy semantics) 
+             * Next field is an array of sizes for each dimension.
+             */
+            
+            for(String t: Arrays.asList("char", "int8_t", "uint8_t", "int16_t", "uint16_t", "int32_t", "uint32_t", "double","void")) {
+                for(int i:dimensions) {
+                    s.println("typedef struct {");
+                    s.println("  union {");
+                    s.println("  " + t +"* p;");
+                    s.println("  " + t +"* (*pp);");
+                    s.println("  };");
+                    s.println("  union { struct {");
+                    s.println("    uint16_t flags;");
+                    s.println("    uint16_t dim;");
+                    s.println("  }; uint32_t flags_dim;};");
+                    s.println("  int32_t sz[" + i + "];");
+                    s.println("} __array"+i+t +";");
+                }
+                s.println("#define TYPE " + t);
+                s.println("#include \"__arrayCopy.h\"");
+            }
+            
+            for(Declaration d : network.getDeclarations()) {
+                VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
+                switch(varType) {
+                case declarationType:
+                    s.println("typedef struct " + ((TypeDeclaration)d).getName() + "_s " + ((TypeDeclaration)d).getName() + "_t;");
+                }
+            }
+            for(Declaration d : network.getDeclarations()) {
+                VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
+                switch(varType) {
+                case declarationType:
+                    String t = ((TypeDeclaration)d).getName()+"_t";
+                    for(int i:dimensions) {
+                        s.println("typedef struct {");
+                        s.println("  union {");
+                        s.println("    " + t +"* p;");
+                        s.println("    " + t +"* (*pp);");
+                        s.println("  };");
+                        s.println("  union { struct {");
+                        s.println("    uint16_t flags;");
+                        s.println("    uint16_t dim;");
+                        s.println("  }; uint32_t flags_dim;};");
+                        s.println("  int32_t sz[" + i + "];");
+                        s.println("} __array"+i+t +";");
+                    }
+                    s.println("#define TYPE " + t);
+                    s.println("#include \"__arrayCopy.h\"");
+                }
+            }
+
+            s.println("#endif");
+            return s;
+        }
         enter(network);
         s.println("#include \"actors-rts.h\"");
         s.println("#include \"natives.h\"");
+        String name = Util.marshallQualifiedName(network.getType().getNamespace()) + "__" + network.getType().getName();
+        s.println("#include \"" + name + "__types.h\"");
 
         if(header) {
             //Printing all declarations as externs into one header file
-            String name = Util.marshallQualifiedName(network.getType().getNamespace()) + "__" + network.getType().getName();
             name = name.toUpperCase();
             name = "CAL_TOP_NETWORK_" + name;
             s.println("#ifndef "+name);
@@ -766,7 +869,9 @@ public class CPrinterTop extends IrSwitch<Stream> {
         if(header) {
             enter(type);
             s.println("");
-            s.printlnInc("typedef struct {");
+            s.printlnInc("struct " + type.getName() + "_s {");
+            s.println("uint32_t flags;");
+            s.printlnInc("struct {");
             TypeRecord struct = (TypeRecord) (type.getType() instanceof TypeUser ? ((TypeDeclaration)((TypeUser)type.getType()).getDeclaration()).getType(): type.getType());
             for (Iterator<Variable> i = struct.getMembers().iterator(); i.hasNext();) {
                 Variable var = i.next();
@@ -776,8 +881,9 @@ public class CPrinterTop extends IrSwitch<Stream> {
                     s.dec(); //After next println
                 }
             }
-            s.print("} ");
-            s.println(type.getName() + "_t;");
+            s.println("} members;"); 
+            s.dec();
+            s.print("};"); 
             leave(type);
             s.println("");
         }

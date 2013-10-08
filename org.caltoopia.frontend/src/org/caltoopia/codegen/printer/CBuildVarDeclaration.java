@@ -55,6 +55,7 @@ import org.caltoopia.codegen.printer.CPrintUtil.listStarCB;
 import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.TransUtil;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarAccess;
+import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarLocalAccess;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarType;
 import org.caltoopia.ir.IntegerLiteral;
 import org.caltoopia.ir.Type;
@@ -76,13 +77,21 @@ import org.eclipse.emf.ecore.EObject;
 public class CBuildVarDeclaration extends IrSwitch<Boolean> {
     String vtypeStr="";
     String varStr="";
+    String dimStr="";
+    String sizeStr = "";
+    int maxDim = 0;
     Variable variable;
     boolean onlyVar = false;
+    boolean allFixedSize = true;
     CEnvironment cenv = null;
     
     public CBuildVarDeclaration(Variable variable, CEnvironment cenv, boolean onlyVar) {
         vtypeStr="";
         varStr="";
+        dimStr="";
+        maxDim = 0;
+        sizeStr = "";
+        allFixedSize = true;
         this.variable = variable;
         this.onlyVar = onlyVar;
         this.cenv = cenv;
@@ -93,7 +102,7 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
         if(!res) {
             CodegenError.err("Var declaration builder", vtypeStr + " " + varStr);
         }
-        return (onlyVar?"":vtypeStr + " ") + varStr;
+        return (onlyVar?"":vtypeStr + " ") + varStr + dimStr;
     }
     
     //-----------Util--------------------------------------------------------
@@ -119,11 +128,22 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
             return "";
         }
 
-        public String listTypeFn(TypeList type) {
+        public String listTypeFn(TypeList type,int dim) {
             if(!onlyVar) {
-                varStr += ("[");
-                varStr += (new CBuildExpression(type.getSize(),cenv).toStr());
-                varStr += ("]");
+                if(dim>1) {
+                    dimStr += ", ";
+                }
+                if(type.getSize()!=null) {
+                    String sz = (new CBuildExpression(type.getSize(),cenv).toStr());
+                    dimStr += sz;
+                    sizeStr += "*" + sz;
+                } else {
+                    allFixedSize = false;
+                    dimStr += "0";
+                }
+            }
+            if(dim>maxDim) {
+                maxDim = dim;
             }
             return "";
         }
@@ -136,28 +156,47 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
 
     //------------------------VARIABLES, FUNC, PROC, ETC DECLARATIONS---------------------------------------
     //------------------util------
-    private void buildVarDeclaration(Variable variable) {
-        vtypeStr = new CBuildTypeName(variable.getType(),new varCB()).toStr();
-        varStr = variable.getName()+varStr;
+    private void buildVarDeclaration(Variable variable, boolean initialize) {
+        CBuildTypeName tn = new CBuildTypeName(variable.getType(),new varCB(),true);
+        vtypeStr = tn.toStr();
+        varStr = CPrintUtil.validCName(variable.getName())+varStr;
+        if(!dimStr.equals("") && initialize) {
+            String tmpStr = " = {";
+            if(allFixedSize) {
+                tmpStr += "malloc(sizeof(" + tn.toFinalTypeStr() +")" + sizeStr + "), ";
+                tmpStr += (TransUtil.getAnnotationArg(variable, "Variable", "VarLocalAccess").equals(VarLocalAccess.temp.name()))?"0xf":"0x7";
+                tmpStr += ", ";
+            } else {
+                tmpStr += "NULL, ";
+                tmpStr += (TransUtil.getAnnotationArg(variable, "Variable", "VarLocalAccess").equals(VarLocalAccess.temp.name()))?"0x8":"0x0";
+                tmpStr += ", ";
+            }
+            dimStr = tmpStr + maxDim + ", {" + dimStr + "}}";
+        }
     }
     
     private void buildParamDeclaration(Variable variable) {
-        vtypeStr = new CBuildTypeName(variable.getType(),new CPrintUtil.listStarCB()).toStr();
-        varStr = variable.getName()+varStr;
+        vtypeStr = new CBuildTypeName(variable.getType(),new CPrintUtil.dummyCB(),true).toStr();
+        varStr = CPrintUtil.validCName(variable.getName())+varStr;
     }
 
     @Override
     public Boolean caseVariable(Variable variable) {
         enter(variable);
         VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(variable, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
+        boolean initialize = true;
         switch(varType) {
         case memberDeclType:
+            initialize = false;
+            buildVarDeclaration(variable, initialize);
+            dimStr = "";
+            break;
         case actorVar:
         case funcVar:
         case procVar:
         case generatorVar:
         case blockVar:
-            buildVarDeclaration(variable);
+            buildVarDeclaration(variable, initialize);
             break;
         case funcInParamVar:
         case procInParamVar:

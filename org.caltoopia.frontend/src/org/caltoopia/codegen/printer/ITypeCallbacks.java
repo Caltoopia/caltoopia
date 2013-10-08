@@ -43,6 +43,6 @@ import org.caltoopia.ir.TypeUser;
 public interface ITypeCallbacks {
     public String preTypeFn(Type type);
     public String postTypeFn(Type type);
-    public String listTypeFn(TypeList type);
+    public String listTypeFn(TypeList type, int dim);
     public String userTypeFn(TypeUser type);
 }

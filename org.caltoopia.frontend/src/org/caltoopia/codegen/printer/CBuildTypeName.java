@@ -75,10 +75,14 @@ public class CBuildTypeName extends IrSwitch<Boolean> {
     String typeStr="";
     Type type;
     ITypeCallbacks cb=null;
+    int dim=0;
+    boolean array;
 
-    public CBuildTypeName(Type type, ITypeCallbacks cb) {
+    public CBuildTypeName(Type type, ITypeCallbacks cb, boolean array) {
         typeStr="";
+        dim = 0;
         this.type = type;
+        this.array = array;
         if(cb == null) {
             this.cb = new CPrintUtil.dummyCB();
         } else {
@@ -91,9 +95,13 @@ public class CBuildTypeName extends IrSwitch<Boolean> {
         if(!res) {
             CodegenError.err("Type name builder", typeStr);
         }
-        return typeStr;
+        return ((dim==0)||!array)?typeStr:"__array4"/*+(dim>4?256:dim)*/+typeStr;
     }
     
+    public String toFinalTypeStr() {
+        return typeStr;
+    }
+
     //------------------------------------------------------
 
     private void enter(EObject obj) {}
@@ -185,7 +193,8 @@ public class CBuildTypeName extends IrSwitch<Boolean> {
         typeStr += cb.preTypeFn(type);
         doSwitch(type.getType());
         typeStr += cb.postTypeFn(type);
-        typeStr += cb.listTypeFn(type);
+        dim++;
+        typeStr += cb.listTypeFn(type, dim);
         leave();
         return true;
     }

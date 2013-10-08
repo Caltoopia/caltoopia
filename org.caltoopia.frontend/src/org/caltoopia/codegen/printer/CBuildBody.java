@@ -95,6 +95,8 @@ public class CBuildBody extends IrSwitch<Boolean> {
         enter(block);
         bodyStr += ind.ind() + ("{") + ind.nl();
         ind.inc();
+        bodyStr += ind.ind() + "void * __tempVoidPointer;" +ind.nl();
+        bodyStr += ind.ind() + "__array4void __tempArray;" +ind.nl();
         for (Declaration d : block.getDeclarations()) {
             VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
             switch(varType) {
@@ -128,7 +130,7 @@ public class CBuildBody extends IrSwitch<Boolean> {
         }
 
         for (Statement s : block.getStatements()) {
-            bodyStr += new CBuildStatement(s, cenv, ind,true).toStr();
+            bodyStr += new CBuildStatement(s, cenv, ind,true,block).toStr();
         }
 
         ind.dec();
