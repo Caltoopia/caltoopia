@@ -49,6 +49,7 @@ import org.caltoopia.ir.AnnotationArgument;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.ForwardDeclaration;
+import org.caltoopia.ir.FunctionCall;
 import org.caltoopia.ir.Generator;
 import org.caltoopia.ir.IrFactory;
 import org.caltoopia.ir.LambdaExpression;
@@ -137,7 +138,15 @@ public class ExpandIrSymbols {
 	    		return decl;
 	    	}
 
-	    	@Override
+            @Override
+            public Expression caseVariableExpression(VariableExpression var) {
+                Expression expr = super.caseVariableExpression(var);
+                setNamespace(expr,expr.getContext());
+                expr.setContext(theNetwork);
+                return expr;
+            }
+
+            @Override
 			public Declaration caseVariableExternal(VariableExternal var) {
 	    		Declaration decl = (Declaration) super.caseVariableExternal(var);
 	    		setNamespace(decl,decl.getScope());
@@ -198,6 +207,20 @@ public class ExpandIrSymbols {
 	    		}
 	    		return call;
 	    	}
+	    	
+            @Override
+            public Expression caseFunctionCall(FunctionCall call) {
+                setNamespace(call,call.getContext());
+                call.setContext(theNetwork);
+                doSwitch(call.getFunction());
+                //Visit the parameters
+                for (int i = 0; i < call.getParameters().size(); i++) {
+                    doSwitch(call.getParameters().get(i));
+                }
+                return call;
+            }
+
+	    	
 
 	    }
 	    
