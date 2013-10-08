@@ -622,6 +622,9 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 				    + " context-scope=\"" + expr.getContext().getId() + "\""
 				    + " operator=\"" + UtilIR.marshall(expr.getOperator()) + "\">");
 		doAnnotations(expr);
+        if(expr.getType()!=null) {
+            doSwitch(expr.getType());
+        }
 		doSwitch(expr.getOperand());
 		s.printlnDec("</Expr>");
 		
@@ -634,6 +637,9 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 				    + " context-scope=\"" + expr.getContext().getId() + "\""
 				    + " operator=\"" + UtilIR.marshall(expr.getOperator()) + "\">");
 		doAnnotations(expr);
+        if(expr.getType()!=null) {
+            doSwitch(expr.getType());
+        }
 	    doSwitch(expr.getOperand1());
 		doSwitch(expr.getOperand2());
 		s.printlnDec("</Expr>");
@@ -667,6 +673,9 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 				    + " typedef-id=\"" + expr.getTypedef().getId() + "\""
 				    + " context-scope=\"" + expr.getContext().getId() + "\">"); 
 		doAnnotations(expr);
+        if(expr.getType()!=null) {
+            doSwitch(expr.getType());
+        }
 		s.printlnInc("<Args>");
 		for (Expression e : expr.getParameters()) {
 			doSwitch(e);
@@ -683,6 +692,9 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 		s.printlnInc("<Expr kind=\"If\" id=\"" + expr.getId() + "\""
 				    + " context-scope=\"" + expr.getContext().getId() + "\">"); 
 		doAnnotations(expr);
+        if(expr.getType()!=null) {
+            doSwitch(expr.getType());
+        }
 		doSwitch(expr.getCondition()); 	
 		doSwitch(expr.getThenExpression());	
 		doSwitch(expr.getElseExpression());

@@ -635,6 +635,10 @@ public class IrXmlReader {
 			UnaryExpression expr = IrFactory.eINSTANCE.createUnaryExpression();
 			expr.setId(element.getAttribute("id"));			
 			doAnnotations(expr, element);	
+            Element child = getChild(element,"Type");
+            if(child!=null) {
+                expr.setType(createType(child));
+            }
 			expr.setContext((Scope) findIrObject(element.getAttribute("context-scope"))); 
 			expr.setOperator(UtilIR.unmarshall(element.getAttribute("operator")));			
 			expr.setOperand(createExpression(getChild(element, "Expr")));
@@ -645,6 +649,10 @@ public class IrXmlReader {
 			BinaryExpression expr = IrFactory.eINSTANCE.createBinaryExpression();
 			expr.setId(element.getAttribute("id"));
 			doAnnotations(expr, element);			
+            Element child = getChild(element,"Type");
+            if(child!=null) {
+                expr.setType(createType(child));
+            }
 			expr.setContext((Scope) findIrObject(element.getAttribute("context-scope"))); 
 			expr.setOperator(UtilIR.unmarshall(element.getAttribute("operator")));			
 			List<Element> operands = getChildren(element, "Expr");
@@ -674,6 +682,10 @@ public class IrXmlReader {
 			TypeConstructorCall expr = IrFactory.eINSTANCE.createTypeConstructorCall();
 			expr.setId(element.getAttribute("id"));
 			doAnnotations(expr, element);
+            Element child = getChild(element,"Type");
+            if(child!=null) {
+                expr.setType(createType(child));
+            }
 			expr.setName(element.getAttribute("name"));
 			expr.setContext((Scope) findIrObject(element.getAttribute("context-scope"))); 
 			expr.setTypedef((Declaration) findIrObject(element.getAttribute("typedef-id")));
