@@ -38,6 +38,9 @@ package org.caltoopia.codegen;
 
 public class CodegenError {
     static public void err(String id, String msg) {
-        System.err.println("["+ id + "] " + msg);
+        System.err.println("E["+ id + "] " + msg);
+    }
+    static public void info(String id, String msg) {
+        System.out.println("I["+ id + "] " + msg);
     }
 }
