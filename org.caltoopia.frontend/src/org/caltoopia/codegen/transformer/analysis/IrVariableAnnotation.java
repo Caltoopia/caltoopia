@@ -59,6 +59,7 @@ import org.caltoopia.ir.Generator;
 import org.caltoopia.ir.Guard;
 import org.caltoopia.ir.IrFactory;
 import org.caltoopia.ir.LambdaExpression;
+import org.caltoopia.ir.Member;
 import org.caltoopia.ir.Namespace;
 import org.caltoopia.ir.Network;
 import org.caltoopia.ir.Node;
@@ -87,6 +88,7 @@ import org.caltoopia.ir.VariableExternal;
 import org.caltoopia.ir.VariableImport;
 import org.caltoopia.ir.VariableReference;
 import org.caltoopia.ir.util.IrReplaceSwitch;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.cli.CompilationSession;
@@ -221,7 +223,56 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		refMember
 	};
 
-	public enum VarAssign {
+    public enum VarLocalAccess {
+        unknown,
+        scalar,                     //scalar builtin type
+        list,                       //list of builtin type
+        listMultiList,              //list multi-dim (only single list after index) of builtin type
+        listMulti,                  //list multi-dim (still multi-dim after index) of builtin type
+        scalarUserType,             //scalar user type
+        listUserType,               //list of user type
+        listMultiUserTypeList,      //list multi-dim (only single list after index) of user type
+        listMultiUserType,          //list multi-dim (still multi-dim after index) of user type
+        listSingle,                 //list of builtin type (indexed to scalar)
+        listMultiSingle,            //list multi-dim (indexed to scalar) of builtin type
+        listUserTypeSingle,         //list of user type (indexed to scalar)
+        listMultiUserTypeSingle,    //list multi-dim (indexed to scalar) of user type
+        //when a scalar user type's member
+        memberScalar,
+        memberList,
+        memberListMultiList,
+        memberListMulti,
+        memberScalarUserType,
+        memberListUserType,
+        memberListMultiUserTypeList,
+        memberListMultiUserType,
+        memberListSingle,
+        memberListMultiSingle,
+        memberListUserTypeSingle,
+        memberListMultiUserTypeSingle,
+        //when a list user type's member
+        listMemberScalar,
+        listMemberList,
+        listMemberListMultiList,
+        listMemberListMulti,
+        listMemberScalarUserType,
+        listMemberListUserType,
+        listMemberListMultiUserTypeList,
+        listMemberListMultiUserType,
+        listMemberListSingle,
+        listMemberListMultiSingle,
+        listMemberListUserTypeSingle,
+        listMemberListMultiUserTypeSingle,
+        //assignment ref and expr same variable
+        self,
+        //assignment of temp (codegenerator only) variable
+        temp,
+        //Member accesses
+        inlinedMember,
+        refMember
+    };
+
+    public enum VarAssign {
 		unknown,
         assigned,
 		movedInitAssigned,
@@ -233,16 +284,19 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
         unknown,
         assignedLit,
         assignedListLit,
+        assignedListLitwLVEoFC,
         assignedListLitwTC,
         assignedTypeConstructLit,
         assignedTypeConstruct,
         assignedInitLit,
         assignedInitListLit,
+        assignedInitListLitwLVEoFC,
         assignedInitListLitwTC,
         assignedInitTypeConstructLit,
         assignedInitTypeConstruct,
         initializedLit,
         initializedListLit,
+        initializedListLitwLVEoFC,
         initializedListLitwTC,
         initializedTypeConstructLit,
         initializedTypeConstruct
@@ -522,6 +576,170 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		return va;
 	}
 	
+    private VarLocalAccess findLocalAccess(Declaration decl, List<Expression> index, List<Member> member) {
+        VarLocalAccess vla = VarLocalAccess.unknown;
+        int dim = (index != null)?index.size():0;
+        if(decl instanceof Variable) {
+            Type type = UtilIR.getType(((Variable)decl).getType());
+            if(member !=null && member.size()>0){
+                Declaration mv = null;
+                List<Expression> mi = null;
+                for(Member mm:member) {
+                    if(UtilIR.isList(type)) {
+                        while(type instanceof TypeList) {
+                            dim--;
+                            type = ((TypeList)type).getType();
+                        }
+                        type = UtilIR.getType(type);
+                    }
+                    if(type instanceof TypeRecord) {
+                        for(Variable m:((TypeRecord)type).getMembers()) {
+                            if(m.getName().equals(mm.getName())) {
+                                mv = m;
+                                mi = mm.getIndex();
+                                type = m.getType();
+                                break;
+                            }
+                        }
+                    }
+                }
+                if(mv != null) {
+                    boolean varIsList = (index != null)?index.size()>0:false;
+                    vla = findLocalAccess(mv,mi,null);
+                    switch (vla) {
+                    case unknown:
+                    case inlinedMember:
+                    case refMember:
+                    case self:
+                    case scalarUserType:
+                    case scalar:
+                        break;
+                    case list:
+                        if(varIsList) {
+                            vla = VarLocalAccess.listMemberList;
+                        } else {
+                            vla = VarLocalAccess.memberList;
+                        }
+                        break;
+                    case listMulti:
+                        if(varIsList) {
+                            vla = VarLocalAccess.listMemberListMulti;
+                        } else {
+                            vla = VarLocalAccess.memberListMulti;
+                        }
+                        break;
+                    case listMultiList:
+                        if(varIsList) {
+                            vla = VarLocalAccess.listMemberListMultiList;
+                        } else {
+                            vla = VarLocalAccess.memberListMultiList;
+                        }
+                        break;
+                    case listMultiSingle:
+                        if(varIsList) {
+                            vla = VarLocalAccess.listMemberListMultiSingle;
+                        } else {
+                            vla = VarLocalAccess.memberListMultiSingle;
+                        }
+                        break;
+                    case listMultiUserType:
+                        if(varIsList) {
+                            vla = VarLocalAccess.listMemberListMultiUserType;
+                        } else {
+                            vla = VarLocalAccess.memberListMultiUserType;
+                        }
+                        break;
+                    case listMultiUserTypeList:
+                        if(varIsList) {
+                            vla = VarLocalAccess.listMemberListMultiUserTypeList;
+                        } else {
+                            vla = VarLocalAccess.memberListMultiUserTypeList;
+                        }
+                        break;
+                    case listMultiUserTypeSingle:
+                        if(varIsList) {
+                            vla = VarLocalAccess.listMemberListMultiUserTypeSingle;
+                        } else {
+                            vla = VarLocalAccess.memberListMultiUserTypeSingle;
+                        }
+                        break;
+                    case listSingle:
+                        if(varIsList) {
+                            vla = VarLocalAccess.listMemberListSingle;
+                        } else {
+                            vla = VarLocalAccess.memberListSingle;
+                        }
+                        break;
+                    case listUserType:
+                        if(varIsList) {
+                            vla = VarLocalAccess.listMemberListUserType;
+                        } else {
+                            vla = VarLocalAccess.memberListUserType;
+                        }
+                        break;
+                    case listUserTypeSingle:
+                        if(varIsList) {
+                            vla = VarLocalAccess.listMemberListUserTypeSingle;
+                        } else {
+                            vla = VarLocalAccess.memberListUserTypeSingle;
+                        }
+                        break;
+                    default:
+                    }
+                    return vla;
+                }
+            } else {
+                if(UtilIR.isList(type)) {
+                    int tDim = 0;
+                    while(type instanceof TypeList) {
+                        tDim++;
+                        type = ((TypeList)type).getType();
+                    }
+                    if(UtilIR.isRecord(type)) {
+                        if(tDim>1) {
+                            if(dim<(tDim-1)) {
+                                vla = VarLocalAccess.listMultiUserType;
+                            } else if(dim<tDim) {
+                                vla = VarLocalAccess.listMultiUserTypeList;
+                            } else {
+                                vla = VarLocalAccess.listMultiUserTypeSingle;
+                            }
+                        } else {
+                            if(dim<tDim) {
+                                vla = VarLocalAccess.listUserType;
+                            } else {
+                                vla = VarLocalAccess.listUserTypeSingle;
+                            }
+                        }
+                    } else {
+                        if(tDim>1) {
+                            if(dim<(tDim-1)) {
+                                vla = VarLocalAccess.listMulti;
+                            } else if(dim<tDim) {
+                                vla = VarLocalAccess.listMultiList;
+                            } else {
+                                vla = VarLocalAccess.listMultiSingle;
+                            }
+                        } else {
+                            if(dim<tDim) {
+                                vla = VarLocalAccess.list;
+                            } else {
+                                vla = VarLocalAccess.listSingle;
+                            }
+                        }
+                    }
+                } else {
+                    if(UtilIR.isRecord(type)) {
+                        vla = VarLocalAccess.scalarUserType;
+                    } else {
+                        vla = VarLocalAccess.scalar;
+                    }
+                }
+            }
+        }
+        return vla;
+    }
+
 	@Override
 	public Expression caseVariableExpression(VariableExpression var) {
 		VarType t = findVariableType(var.getVariable());
@@ -538,6 +756,9 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 				idOutVarAccessMap.put(var.getVariable().getId(), va.name());
 			}
 		}
+		Declaration decl = UtilIR.getDeclaration(var.getVariable());
+		VarLocalAccess vla = findLocalAccess(decl,var.getIndex(),var.getMember());
+        TransUtil.setAnnotation(var,IrTransformer.VARIABLE_ANNOTATION,"VarLocalAccess",vla.name());
 		return super.caseVariableExpression(var);
 	}
 	
@@ -552,6 +773,9 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 			va = findPortAccess(var.getType(),currentRead.getRepeat()!=null,currentRead.getVariables().size());
 			idInVarAccessMap.put(var.getDeclaration().getId(), va.name());
 		}
+        Declaration decl = UtilIR.getDeclaration(var.getDeclaration());
+        VarLocalAccess vla = findLocalAccess(decl,var.getIndex(),var.getMember());
+        TransUtil.setAnnotation(var,IrTransformer.VARIABLE_ANNOTATION,"VarLocalAccess",vla.name());
 		return super.caseVariableReference(var);
 	}
 
@@ -576,7 +800,11 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
                     if(h.typeConstruct) {
                         l = VarLiteral.initializedListLitwTC;
                     } else {
-                        l = VarLiteral.initializedListLit;
+                        if(h.containsListType) {
+                            l = VarLiteral.initializedListLitwLVEoFC;
+                        } else {
+                            l = VarLiteral.initializedListLit;
+                        }
                     }
                 } else if(h.typeConstruct) {
                     l = VarLiteral.initializedTypeConstructLit;
@@ -598,6 +826,12 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
                     break;
                 case assignedListLit:
                     l = VarLiteral.assignedInitListLit;
+                    break;
+                case assignedListLitwTC:
+                    l = VarLiteral.assignedInitListLitwTC;
+                    break;
+                case assignedListLitwLVEoFC:
+                    l = VarLiteral.assignedInitListLitwLVEoFC;
                     break;
                 case assignedTypeConstructLit:
                     l = VarLiteral.assignedInitTypeConstructLit;
@@ -721,6 +955,28 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
                 "VarAssign",VarAssign.assigned.name());
         TransUtil.setAnnotation(assign.getTarget(),IrTransformer.VARIABLE_ANNOTATION, 
                 "VarAssign",VarAssign.assigned.name());
+        foundInSwitch=false;
+        final String target = assign.getTarget().getDeclaration().getId();
+        if(target != null) {
+            new IrReplaceSwitch() {
+                @Override
+                public Declaration caseVariable(Variable var) {
+                    if(target.equals(var.getId())) {
+                        foundInSwitch = true;
+                    }
+                    return super.caseVariable(var);
+                }
+                @Override
+                public Declaration caseForwardDeclaration(ForwardDeclaration decl) {
+                    doSwitch(decl.getDeclaration());
+                    return decl;
+                }
+            }.doSwitch(assign.getExpression());
+            if(foundInSwitch) {
+                TransUtil.setAnnotation(assign,IrTransformer.VARIABLE_ANNOTATION, 
+                        "VarLocalAccess",VarLocalAccess.self.name());
+            }
+        }
         VarLiteral l = null;
         HowLiteral h = TransUtil.isLiteralExpression(assign.getExpression());
         if(h.total) {
@@ -728,7 +984,11 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
                 if(h.typeConstruct) {
                     l = VarLiteral.initializedListLitwTC;
                 } else {
-                    l = VarLiteral.initializedListLit;
+                    if(h.containsListType) {
+                        l = VarLiteral.initializedListLitwLVEoFC;
+                    } else {
+                        l = VarLiteral.initializedListLit;
+                    }
                 }
             } else if(h.literalTypeConstruct) {
                 l = VarLiteral.assignedTypeConstructLit;
@@ -752,6 +1012,12 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
                 break;
             case initializedListLit:
                 l = VarLiteral.assignedInitListLit;
+                break;
+            case initializedListLitwTC:
+                l = VarLiteral.assignedInitListLitwTC;
+                break;
+            case initializedListLitwLVEoFC:
+                l = VarLiteral.assignedInitListLitwLVEoFC;
                 break;
             case initializedTypeConstructLit:
                 l = VarLiteral.assignedInitTypeConstructLit;

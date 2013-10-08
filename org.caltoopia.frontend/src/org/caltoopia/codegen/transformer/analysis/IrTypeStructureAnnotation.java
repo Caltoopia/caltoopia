@@ -44,6 +44,7 @@ import java.util.Map;
 import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.cli.CompilationSession;
 import org.caltoopia.cli.DirectoryException;
+import org.caltoopia.codegen.CodegenError;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.IrTransformer.IrPassTypes;
@@ -80,14 +81,25 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
 	
 	public enum TypeMember {
 	    unknown,
-		builtin,
+/*		builtin,
 		byRef, //Used when either type (or list of non-decided size?)
 		byListSome, //Used when list of decided size and inlined  but have deeper members that are not
 		byListFull, //Used when list of decided size and inlined and all deeper members also (including lists of builtins)
 		inlineSome, //Used when user type that is inlined but have deeper members that are not
-		inlineFull //Used when user type is inlined and all deeper members also
+		inlineFull, //Used when user type is inlined and all deeper members also
+*/		
+		scalarBuiltin, //A scalar builtin type
+        listBuiltin, //A list of builtin types
+        dynListBuiltin, //A list of builtin types with varying length
+        scalarUserTypeFull, //A scalar user type which only contains builtin types
+        scalarUserTypeByRef, //A scalar user type which is reached by ref (could be used for very large user types), but also on *variables* referring into FIFO.
+        scalarUserType, //A scalar user type which contains lists or user types
+        listUserTypeFull, //A list of user type which only contains builtin types
+        dynListUserTypeFull, //A list of user type which only contains builtin types with varying length
+        listUserType, //A list of user type which contains lists or user types
+        dynListUserType, //A list of user type which contains lists or user types with varying length
 		/*
-		 * TODO: Add other type of types e.g. with meta-data like list size, or tagged poly-types
+		 * TODO: Add other type of types e.g. tagged tuple-types
 		 */
 	}
 
@@ -104,58 +116,20 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
 		this.doSwitch(node);
 	}
 	
-	/*
-	 * Any record member that refers to a type declaration which is inlined
-	 * in full is inlined unless it is used on an output port and as member
-	 * in same action.
-	 */
-	private boolean recordMemberInline(TypeDeclaration decl, TypeDeclaration td, Variable m, boolean isList) {
-		boolean anyByRef=false;
-		switch(TypeMember.valueOf(TransUtil.getAnnotationArg(td, IrTransformer.TYPE_ANNOTATION, "TypeStructure"))) {
-		case builtin:
-		case inlineFull:
-		case byListFull:
-			if(TransUtil.getAnnotationArg(td, IrTransformer.TYPE_ANNOTATION, "TypeUsage").contains("memberOutPortVar")) {
-				TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, 
-						"TypeStructure",isList?TypeMember.byListSome.name():TypeMember.inlineSome.name());
-                structs.put(decl.getId() + "__" + m.getName(), isList?TypeMember.byListSome.name():TypeMember.inlineSome.name());
-				anyByRef=true;
-			} else {
-				TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, 
-						"TypeStructure",isList?TypeMember.byListFull.name():TypeMember.inlineFull.name());
-                structs.put(decl.getId() + "__" + m.getName(), isList?TypeMember.byListFull.name():TypeMember.inlineFull.name());
-			}
-			break;
-		case byRef:
-		case byListSome:
-		case inlineSome:
-			TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, 
-					"TypeStructure",isList?TypeMember.byListSome.name():TypeMember.inlineSome.name());
-            structs.put(decl.getId() + "__" + m.getName(), isList?TypeMember.byListSome.name():TypeMember.inlineSome.name());
-			anyByRef=true;
-			break;
-		}
-		return anyByRef;
-	}
-	
-	/*
-	 * At the moment this function inline everything but
-	 * types in same action that is used as both
-	 * member and output port variable.
-	 */
 	@Override
 	public Declaration caseTypeDeclaration(TypeDeclaration decl) {
 	    if(find) {
     		System.out.println("[IrTypeStructureAnnotation] Setting type structure for type declaration '" + decl.getName() + "'");
-    		boolean anyByRef=false;
+    		boolean notFull=false;
     		
     		for(Variable m: ((TypeRecord)decl.getType()).getMembers()) {
     			if(!UtilIR.isListOrRecord(m.getType())) {
     				TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, 
-    						"TypeStructure",TypeMember.builtin.name());
-    				structs.put(decl.getId() + "__" + m.getName(), TypeMember.builtin.name());
+    						"TypeStructure",TypeMember.scalarBuiltin.name());
+    				structs.put(decl.getId() + "__" + m.getName(), TypeMember.scalarBuiltin.name());
     			} else if(UtilIR.isList(m.getType())) {
-    				Type type = m.getType();
+    			    notFull = true;
+    			    Type type = m.getType();
     				boolean hasSize=true;
     				while(type instanceof TypeList) {
     					if(!(((TypeList)type).getSize()!=null && ((TypeList)type).getSize() instanceof IntegerLiteral)) {
@@ -163,33 +137,68 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
     					}
     					type = ((TypeList)type).getType();
     				}
-    				if(hasSize) {
-    					if(UtilIR.isRecord(type)) {
-    						TypeDeclaration td = UtilIR.getTypeDeclaration(type);
-    						anyByRef=recordMemberInline(decl,td,m,true);
-    					} else {
+					if(UtilIR.isRecord(type)) {
+						TypeDeclaration td = UtilIR.getTypeDeclaration(type);
+						TypeMember tm = TypeMember.valueOf(TransUtil.getAnnotationArg(td,IrTransformer.TYPE_ANNOTATION, "TypeStructure"));
+						switch (tm) {
+                        case scalarUserTypeFull:
+                            if(hasSize) {
+    						    TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, 
+                                        "TypeStructure",TypeMember.listUserTypeFull.name());
+                                structs.put(decl.getId() + "__" + m.getName(), TypeMember.listUserTypeFull.name());
+                            } else {
+                                TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, 
+                                        "TypeStructure",TypeMember.dynListUserTypeFull.name());
+                                structs.put(decl.getId() + "__" + m.getName(), TypeMember.dynListUserTypeFull.name());
+                            }
+                            break;
+                        case scalarUserType:
+                            if(hasSize) {
+                                TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, 
+                                        "TypeStructure",TypeMember.listUserType.name());
+                                structs.put(decl.getId() + "__" + m.getName(), TypeMember.listUserType.name());
+                            } else {
+                                TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, 
+                                        "TypeStructure",TypeMember.dynListUserType.name());
+                                structs.put(decl.getId() + "__" + m.getName(), TypeMember.dynListUserType.name());
+                            }
+                            break;
+                        default:
+                            CodegenError.err("Type struct annotation", "Not expecting a member " + decl.getName() +"."+ m.getName()+ "that is record to be " + tm.name());
+						}
+					} else {
+                        if(hasSize) {
     						TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, 
-    								"TypeStructure",TypeMember.byListFull.name());
-    	                    structs.put(decl.getId() + "__" + m.getName(), TypeMember.byListFull.name());
-    					}
-    				} else {
-    					//List of unknown size
-    					TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, 
-    							"TypeStructure",TypeMember.byRef.name());
-                        structs.put(decl.getId() + "__" + m.getName(), TypeMember.byRef.name());
-    					anyByRef=true;
-    				}
+    								"TypeStructure",TypeMember.listBuiltin.name());
+    	                    structs.put(decl.getId() + "__" + m.getName(), TypeMember.listBuiltin.name());
+                        } else {
+                            TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, 
+                                    "TypeStructure",TypeMember.dynListBuiltin.name());
+                            structs.put(decl.getId() + "__" + m.getName(), TypeMember.dynListBuiltin.name());
+                        }
+					}
     			} else if(UtilIR.isRecord(m.getType())) {
-    				TypeDeclaration td = UtilIR.getTypeDeclaration(m.getType());
-    				anyByRef=recordMemberInline(decl,td,m,false);
-    			} else {
-    				anyByRef=true;
+                    TypeDeclaration td = UtilIR.getTypeDeclaration(m.getType());
+                    TypeMember tm = TypeMember.valueOf(TransUtil.getAnnotationArg(td,IrTransformer.TYPE_ANNOTATION, "TypeStructure"));
+                    switch (tm) {
+                    case scalarUserTypeFull:
+                            TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, 
+                                    "TypeStructure",TypeMember.scalarUserTypeFull.name());
+                            structs.put(decl.getId() + "__" + m.getName(), TypeMember.scalarUserTypeFull.name());
+                        break;
+                    case scalarUserType:
+                            notFull = true;
+                            TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, 
+                                    "TypeStructure",TypeMember.scalarUserType.name());
+                            structs.put(decl.getId() + "__" + m.getName(), TypeMember.scalarUserType.name());
+                        break;
+                    default:
+                        CodegenError.err("Type struct annotation", "Not expecting a member " + decl.getName() +"."+ m.getName()+ "that is record to be " + tm.name());
+                    }
     			}
     		}
-    
-    		anyByRef = anyByRef || TransUtil.getAnnotationArg(decl, IrTransformer.TYPE_ANNOTATION, "TypeUsage").contains("memberOutPortVar");
     		TransUtil.setAnnotation(decl,IrTransformer.TYPE_ANNOTATION, 
-    				"TypeStructure",anyByRef?TypeMember.inlineSome.name():TypeMember.inlineFull.name());
+    				"TypeStructure",notFull?TypeMember.scalarUserType.name():TypeMember.scalarUserTypeFull.name());
 	    }
 		return decl;
 	}
@@ -208,7 +217,6 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
                     String typeStructure = structs.get(td.getId() + "__" + m.getName());
                     if(!typeStructure.isEmpty()) {
                         TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, "TypeStructure", typeStructure);
-                        break;
                     }
                     t = m.getType();
                     while(t instanceof TypeList) {
@@ -244,7 +252,6 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
                     String typeStructure = structs.get(td.getId() + "__" + m.getName());
                     if(!typeStructure.isEmpty()) {
                         TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, "TypeStructure", typeStructure);
-                        break;
                     }
                     t = m.getType();
                     while(t instanceof TypeList) {

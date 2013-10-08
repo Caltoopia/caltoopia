@@ -91,6 +91,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.cli.CompilationSession;
 import org.caltoopia.cli.DirectoryException;
+import org.caltoopia.codegen.CodegenError;
 import org.caltoopia.codegen.IrXmlPrinter;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.transformer.IrTransformer;
@@ -125,11 +126,16 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 		code, //This variable declaration is a function or procedure etc
 		constant,
 		actor, //Placed in constructor
-		auto,
+        auto,
+        autoDeepHeap,
+        autoListHeap,
+        autoListDeepHeap,
 		heap,
 		ref, //used when passing as parameter as ref
+        autoListFifo,
+        autoListDeepFifo,
 		fifo,
-		fifoList
+        fifoDeepFifo,
 	}
 	
 	@Override
@@ -164,12 +170,12 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 			//Since non-user types don't have a TypeDeclaration just put a builtin in the annotations map
 			if(UtilIR.isList(var.getType())) {
 			    if(litSize) {
-			        annotations.put("TypeStructure", IrTypeStructureAnnotation.TypeMember.byListFull.name());
+			        annotations.put("TypeStructure", IrTypeStructureAnnotation.TypeMember.listBuiltin.name());
 			    } else {
-                    annotations.put("TypeStructure", IrTypeStructureAnnotation.TypeMember.byRef.name());
+                    annotations.put("TypeStructure", IrTypeStructureAnnotation.TypeMember.dynListBuiltin.name());
 			    }
 			} else {
-				annotations.put("TypeStructure", IrTypeStructureAnnotation.TypeMember.builtin.name());
+				annotations.put("TypeStructure", IrTypeStructureAnnotation.TypeMember.scalarBuiltin.name());
 			}
 		}
 		// -- Decide placement --
@@ -192,23 +198,52 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 				IrVariableAnnotation.VarType.procVar.name(), 
 				IrVariableAnnotation.VarType.actionVar.name(),
 				IrVariableAnnotation.VarType.actionInitInDepVar.name()).contains(annotations.get("VarType"))) {
-			if(Arrays.asList(IrTypeStructureAnnotation.TypeMember.builtin.name(), 
-							 IrTypeStructureAnnotation.TypeMember.byListFull.name(), 
-							 IrTypeStructureAnnotation.TypeMember.inlineFull.name()).contains(annotations.get("TypeStructure"))) {
-				placement = VarPlacement.auto;
-			} else {
-				placement = VarPlacement.heap;
-			}
+		    switch (TypeMember.valueOf(annotations.get("TypeStructure"))) {
+		    case scalarBuiltin:
+		    case scalarUserTypeFull:
+                placement = VarPlacement.auto;
+                break;
+            case listBuiltin:
+            case listUserTypeFull:
+            case dynListBuiltin:
+            case dynListUserTypeFull:
+                placement = VarPlacement.autoListHeap;
+                break;
+            case listUserType:
+            case dynListUserType:
+                placement = VarPlacement.autoListDeepHeap;
+                break;
+            case scalarUserType:
+                placement = VarPlacement.autoDeepHeap;
+                break;
+            default:
+                CodegenError.err("Variable placement", "Forgotten placement decision #1");
+		    }
 		//func & proc param?
 		} else if(Arrays.asList(
 				IrVariableAnnotation.VarType.funcInParamVar.name(), 
 				IrVariableAnnotation.VarType.procInParamVar.name()).contains(annotations.get("VarType"))) {
-			if(Arrays.asList(IrTypeStructureAnnotation.TypeMember.builtin.name(), 
-							 IrTypeStructureAnnotation.TypeMember.inlineFull.name()).contains(annotations.get("TypeStructure"))) {
-				placement = VarPlacement.auto;
-			} else {
-				placement = VarPlacement.ref;
-			}
+            switch (TypeMember.valueOf(annotations.get("TypeStructure"))) {
+            case scalarBuiltin:
+            case scalarUserTypeFull:
+                placement = VarPlacement.auto;
+                break;
+            case listBuiltin:
+            case listUserTypeFull:
+            case dynListBuiltin:
+            case dynListUserTypeFull:
+                placement = VarPlacement.autoListHeap;
+                break;
+            case listUserType:
+            case dynListUserType:
+                placement = VarPlacement.autoListDeepHeap;
+                break;
+            case scalarUserType:
+                placement = VarPlacement.autoDeepHeap;
+                break;
+            default:
+                CodegenError.err("Variable placement", "Forgotten placement decision #1");
+            }
 		} else if(annotations.get("VarType").equals(IrVariableAnnotation.VarType.procOutParamVar.name())) {
 			placement = VarPlacement.ref;
 		//in port var?
@@ -218,15 +253,57 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 				IrVariableAnnotation.VarType.inPortVar.name()).contains(annotations.get("VarType"))) {
 			if(annotations.containsKey("VarAssign") && 
 			   annotations.get("VarAssign").equals(IrVariableAnnotation.VarAssign.assigned.name())){
-				if(Arrays.asList(IrTypeStructureAnnotation.TypeMember.builtin.name(), 
-						 IrTypeStructureAnnotation.TypeMember.byListFull.name(), 
-						 IrTypeStructureAnnotation.TypeMember.inlineFull.name()).contains(annotations.get("TypeStructure"))) {
-					placement = VarPlacement.auto;
-				} else {
-					placement = VarPlacement.heap;
-				}
+			    //In port var should never be assign by anything but a port read!!! FIXME is this code used, check this!!!
+	            switch (TypeMember.valueOf(annotations.get("TypeStructure"))) {
+	            case scalarBuiltin:
+	            case scalarUserTypeFull:
+	                placement = VarPlacement.auto;
+	                break;
+	            case listBuiltin:
+	            case listUserTypeFull:
+	            case dynListBuiltin:
+	            case dynListUserTypeFull:
+	                placement = VarPlacement.autoListHeap;
+	                break;
+	            case listUserType:
+	            case dynListUserType:
+	                placement = VarPlacement.autoListDeepHeap;
+	                break;
+	            case scalarUserType:
+	                placement = VarPlacement.autoDeepHeap;
+	                break;
+	            default:
+	                CodegenError.err("Variable placement", "Forgotten placement decision #1");
+	            }
 			} else {
-				if(annotations.get("TypeStructure").equals(IrTypeStructureAnnotation.TypeMember.inlineFull.name())) {
+                switch (TypeMember.valueOf(annotations.get("TypeStructure"))) {
+                case scalarBuiltin:
+                    placement = VarPlacement.auto;
+                    break;
+                case scalarUserTypeFull:
+                    placement = VarPlacement.fifo;
+                    break;
+                case listBuiltin:
+                case dynListBuiltin:
+                    placement = VarPlacement.autoListHeap;
+                    break;
+                case listUserTypeFull:
+                case dynListUserTypeFull:
+                    placement = VarPlacement.autoListFifo;
+                    break;
+                case listUserType:
+                case dynListUserType:
+                    placement = VarPlacement.autoListDeepFifo;
+                    break;
+                case scalarUserType:
+                    placement = VarPlacement.fifoDeepFifo;
+                    break;
+                default:
+                    CodegenError.err("Variable placement", "Forgotten placement decision #2");
+                }
+
+			    /* FIXME should we check VarAccess above is the types not enough???
+			    if(annotations.get("TypeStructure").equals(IrTypeStructureAnnotation.TypeMember.inlineFull.name())) {
 					if(annotations.get("VarAccessIn").equals(IrVariableAnnotation.VarAccess.listUserTypeSingle.name())) {
 						placement = VarPlacement.fifoList;
 					} else {
@@ -237,23 +314,67 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 					placement = VarPlacement.auto;
 				} else {
 					placement = VarPlacement.heap;
-				}
+				}*/
 			}
 		//in port var that is never read?
 		} else if(annotations.get("VarType").equals(IrVariableAnnotation.VarType.syncVar.name())) {
 			placement = VarPlacement.fifo;
-		//out port var?
+		//out port var? FIXME need to look into directly placing in FIFO
 		} else if(Arrays.asList(
-				IrVariableAnnotation.VarType.inOutPortVar.name(),
-				IrVariableAnnotation.VarType.inOutPortPeekVar.name(),
 				IrVariableAnnotation.VarType.outPortVar.name()).contains(annotations.get("VarType"))) {
-			if(Arrays.asList(IrTypeStructureAnnotation.TypeMember.builtin.name(), 
-					 IrTypeStructureAnnotation.TypeMember.byListFull.name(), 
-					 IrTypeStructureAnnotation.TypeMember.inlineFull.name()).contains(annotations.get("TypeStructure"))) {
-				placement = VarPlacement.auto;
-			} else {
-				placement = VarPlacement.heap;
-			}
+            switch (TypeMember.valueOf(annotations.get("TypeStructure"))) {
+            case scalarBuiltin:
+                placement = VarPlacement.auto;
+                break;
+            case scalarUserTypeFull:
+                placement = VarPlacement.fifo;
+                break;
+            case listBuiltin:
+            case dynListBuiltin:
+            case listUserTypeFull:
+            case dynListUserTypeFull:
+                placement = VarPlacement.autoListHeap;
+                break;
+            case listUserType:
+            case dynListUserType:
+                placement = VarPlacement.autoListDeepHeap;
+                break;
+            case scalarUserType:
+                placement = VarPlacement.autoDeepHeap;
+                break;
+            default:
+                CodegenError.err("Variable placement", "Forgotten placement decision #3");
+            }
+          //in/out port var? FIXME need to look into how and when to copy from in to out FIFO placement.
+        } else if(Arrays.asList(
+                IrVariableAnnotation.VarType.inOutPortVar.name(),
+                IrVariableAnnotation.VarType.inOutPortPeekVar.name(),
+                IrVariableAnnotation.VarType.outPortVar.name()).contains(annotations.get("VarType"))) {
+            switch (TypeMember.valueOf(annotations.get("TypeStructure"))) {
+            case scalarBuiltin:
+                placement = VarPlacement.auto;
+                break;
+            case scalarUserTypeFull:
+                placement = VarPlacement.fifo;
+                break;
+            case listBuiltin:
+            case dynListBuiltin:
+                placement = VarPlacement.autoListHeap;
+                break;
+            case listUserTypeFull:
+            case dynListUserTypeFull:
+                placement = VarPlacement.autoListFifo;
+                break;
+            case listUserType:
+            case dynListUserType:
+                placement = VarPlacement.autoListDeepFifo;
+                break;
+            case scalarUserType:
+                placement = VarPlacement.fifoDeepFifo;
+                break;
+            default:
+                CodegenError.err("Variable placement", "Forgotten placement decision #2");
+            }
 		} else if(Arrays.asList(
                 IrVariableAnnotation.VarType.func.name(),
                 IrVariableAnnotation.VarType.proc.name(),
