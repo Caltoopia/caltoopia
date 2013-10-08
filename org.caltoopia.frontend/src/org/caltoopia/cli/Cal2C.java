@@ -318,6 +318,8 @@ public class Cal2C {
 										IrTransformer.IrPassTypes.VariablePlacement,
                                         IrTransformer.IrPassTypes.MoveInitValueExpr,
                                         IrTransformer.IrPassTypes.CreateForLoop,
+                                        IrTransformer.IrPassTypes.Variable, //Repeat
+                                        IrTransformer.IrPassTypes.ExprToTempVar,
                                         //Repeat some analysis passes due to that we have moved things around
                                         IrTransformer.IrPassTypes.Variable,
                                         IrTransformer.IrPassTypes.VariablePlacement)
