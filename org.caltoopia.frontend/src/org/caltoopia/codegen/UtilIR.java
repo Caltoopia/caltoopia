@@ -672,6 +672,17 @@ public class UtilIR {
 		return true;
 	}
 
+	static public boolean isScalarLiteralExpression(Expression expr) {
+        if(expr instanceof LiteralExpression ||
+            expr instanceof FloatLiteral ||
+            expr instanceof BooleanLiteral ||
+            expr instanceof StringLiteral) {
+            return true;
+        } else {
+            return false;
+        }
+	}
+	
 	static public boolean isLiteralExpression(Expression expr) {
 		if(expr instanceof LiteralExpression) {
 			return true;
@@ -737,12 +748,17 @@ public class UtilIR {
 	static public Expression createExpression(Scope scope, Variable var, List<Expression> index, List<Member> member) {
 		VariableExpression expr = IrFactory.eINSTANCE.createVariableExpression();
 		expr.setVariable(var);
-		if(isRecord(var.getType()) && member !=null) {
-			expr.getMember().addAll(member);
-		}
-		if(index!=null) {
-			expr.getIndex().addAll(index);
-		}
+		expr.setType(var.getType());
+        Type type = var.getType();
+        if(index!=null) {
+            expr.getIndex().addAll(index);
+            for(int i = 0; i < index.size(); i++) {
+                type = ((TypeList) type).getType();
+            }
+        }
+        if(isRecord(type) && member !=null) {
+            expr.getMember().addAll(member);
+        }
 		expr.setContext(scope);
 		expr.setId(Util.getDefinitionId());
 		return expr;

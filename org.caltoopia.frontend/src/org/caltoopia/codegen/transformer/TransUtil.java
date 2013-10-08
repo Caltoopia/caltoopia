@@ -36,6 +36,7 @@
 
 package org.caltoopia.codegen.transformer;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -43,6 +44,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.transformer.IrTransformer.IrPassTypes;
 import org.caltoopia.codegen.transformer.analysis.IrTypeStructureAnnotation.TypeMember;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarAccess;
@@ -53,13 +55,19 @@ import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Annotation;
 import org.caltoopia.ir.AnnotationArgument;
 import org.caltoopia.ir.Expression;
+import org.caltoopia.ir.FunctionCall;
 import org.caltoopia.ir.IrFactory;
 import org.caltoopia.ir.ListExpression;
 import org.caltoopia.ir.LiteralExpression;
 import org.caltoopia.ir.Namespace;
 import org.caltoopia.ir.Node;
 import org.caltoopia.ir.Scope;
+import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeConstructorCall;
+import org.caltoopia.ir.TypeList;
+import org.caltoopia.ir.TypeRecord;
+import org.caltoopia.ir.Variable;
+import org.caltoopia.ir.VariableExpression;
 import org.eclipse.emf.ecore.EObject;
 
 public class TransUtil {
@@ -147,6 +155,20 @@ public class TransUtil {
         }
     }
 
+    static public List<String> getNamespaceAnnotationList(Node node) {
+        Annotation a = getAnnotation(node,"NAMESPACE");
+        List<String> ret = new ArrayList<String>();
+        if(a==null) {
+            ret.add("");
+            return ret;
+        } else {
+            for(AnnotationArgument aa: a.getArguments()) {
+                ret.add(aa.getValue());
+            }
+            return ret;
+        }
+    }
+
     static public Annotation getAnnotation(EObject obj, String name) {
 		List<Annotation> annotations = null;
 		//Most obj is a node
@@ -163,7 +185,34 @@ public class TransUtil {
 		return null;
 	}
 
-	static public String getAnnotationArg(EObject obj, String name, String key) {
+    static public Boolean rmAnnotation(EObject obj, String name, String key) {
+        List<Annotation> annotations = null;
+        //Most obj is a node
+        if(obj instanceof Node) {
+            annotations = ((Node)obj).getAnnotations();
+        } else {
+            return false;
+        }
+        int rm = -1;
+        for(Annotation a : annotations) {
+            if(a.getName().equals(name)) {
+                List<AnnotationArgument> aas = a.getArguments();
+                for(int i = 0; i<aas.size();i++) {
+                    if(aas.get(i).getId().equals(key)) {
+                        rm = i;
+                        break;
+                    }
+                }
+                if(rm>=0) {
+                    a.getArguments().remove(rm);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    static public String getAnnotationArg(EObject obj, String name, String key) {
 		Annotation a = getAnnotation(obj, name);
 		if(a!=null) {
 			for(AnnotationArgument aa : a.getArguments()) {
@@ -328,6 +377,7 @@ public class TransUtil {
        public boolean literalTypeConstruct = false; //Has typeconstructor with only literal parameters
        public boolean builtin = false; //is literal of builtin type at top level
        public boolean total = true; //complete expression is literal (assuming type construct calls with only literal params are literals)
+       public boolean containsListType = false; //Has a variable expression or function call that returns a list (i.e. more than one element)
    }
    
    static private HowLiteral literalList(ListExpression list, HowLiteral in) {
@@ -342,6 +392,14 @@ public class TransUtil {
                    in = literalTypeConstruct((TypeConstructorCall) e,in);
                } else if(!(e instanceof LiteralExpression)) {
                    in.total = false;
+               } else if(e instanceof VariableExpression) {
+                   if(((VariableExpression)e).getType() instanceof ListExpression){
+                       in.containsListType = true;
+                   }
+               } else if(e instanceof FunctionCall) {
+                   if(((FunctionCall)e).getType() instanceof ListExpression){
+                       in.containsListType = true;
+                   }
                }
            }
        } else {
@@ -390,9 +448,34 @@ public class TransUtil {
            h.typeConstruct = true;
            h.literalTypeConstruct = true;
            return literalTypeConstruct((TypeConstructorCall) expr,h);
+       } else if(expr instanceof VariableExpression) {
+           h.containsListType = ((VariableExpression)expr).getType() instanceof ListExpression;
+       } else if(expr instanceof FunctionCall) {
+           h.containsListType = ((FunctionCall)expr).getType() instanceof ListExpression;
        }
        h.total = false;
        return h;
    }
    
+   static public boolean allFixedLength(Type type) {
+       boolean ret = true;
+       Type t=type;
+       while(t instanceof TypeList) {
+           if(((TypeList)t).getSize()==null) {
+               ret = false;
+           }
+           t = ((TypeList)t).getType();
+       }
+       if(ret && UtilIR.isRecord(t)) {
+           t = UtilIR.getType(t);
+           for(Variable v: ((TypeRecord)t).getMembers()) {
+               if(!allFixedLength(v.getType())) {
+                   ret = false;
+                   break;
+               }
+           }
+       }
+       return ret;
+   }
+
 }
