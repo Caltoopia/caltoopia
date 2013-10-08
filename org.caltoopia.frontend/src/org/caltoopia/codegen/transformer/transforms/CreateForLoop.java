@@ -50,6 +50,7 @@ import org.caltoopia.cli.CompilationSession;
 import org.caltoopia.cli.DirectoryException;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.printer.CBuildBody;
+import org.caltoopia.codegen.transformer.FixMovedExpr;
 import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.IrTransformer.IrPassTypes;
 import org.caltoopia.codegen.transformer.TransUtil;
@@ -263,117 +264,7 @@ public class CreateForLoop extends IrReplaceSwitch {
                     //Create a variable that const instantiate the list
                     lit.setContext(body);
                     Declaration list = UtilIR.createVarDef(body, v.getName()+"__ListExpression", lit.getType());
-                    //TODO refactor this out to separate file
-                    final Scope finalBody = body;
-                    final Generator finalGenerator = g;
-                    new IrReplaceSwitch(){
-                        private void fixOuter(Node node) {
-                            if(node instanceof Scope && ((Scope)node).getOuter() instanceof Generator && ((Scope)node).getOuter().getId().equals(finalGenerator.getId())) {
-                                ((Scope)node).setOuter(finalBody);
-                            } else
-                            if(node instanceof Expression && ((Expression)node).getContext() instanceof Generator && ((Expression)node).getContext().getId().equals(finalGenerator.getId())) {
-                                ((Expression)node).setContext(finalBody);
-                            }
-                        }
-                        @Override
-                        public Scope caseScope(Scope scope) {
-                            super.caseScope(scope);
-                            fixOuter(scope);
-                            return scope;
-                        }
-                        @Override
-                        public Block caseBlock(Block scope) {
-                            super.caseBlock(scope);
-                            fixOuter(scope);
-                            return scope;
-                        }
-                        @Override
-                        public Expression caseExpression(Expression expr) {
-                            super.caseExpression(expr);
-                            fixOuter(expr);
-                            return expr;
-                        }
-                        @Override
-                        public Expression caseTypeConstructorCall(TypeConstructorCall expr) {
-                            super.caseTypeConstructorCall(expr);
-                            fixOuter(expr);
-                            return expr;
-                        }
-                        @Override
-                        public Expression caseIntegerLiteral(IntegerLiteral literal) {
-                            fixOuter(literal);
-                            return literal;
-                        }
-                        @Override
-                        public Expression caseFloatLiteral(FloatLiteral literal) {
-                            fixOuter(literal);
-                            return literal;
-                        }
-                        @Override
-                        public Expression caseBooleanLiteral(BooleanLiteral literal) {
-                            fixOuter(literal);
-                            return literal;
-                        }
-                        @Override
-                        public Expression caseStringLiteral(StringLiteral literal) {
-                            fixOuter(literal);
-                            return literal;
-                        }
-                        @Override
-                        public Expression caseVariableExpression(VariableExpression var) {
-                            super.caseVariableExpression(var);
-                            fixOuter(var);
-                            return var;
-                        }
-                        @Override
-                        public EObject caseLambdaExpression(LambdaExpression lambda) {
-                            super.caseLambdaExpression(lambda);
-                            fixOuter(lambda);
-                            return lambda;
-                        }
-                        @Override
-                        public EObject caseProcExpression(ProcExpression proc) {
-                            super.caseProcExpression(proc);
-                            fixOuter(proc);
-                            return proc;
-                        }
-                        @Override
-                        public EObject caseIfExpression(IfExpression expr) {
-                            super.caseIfExpression(expr);
-                            fixOuter(expr);
-                            return expr;
-                        }
-                        @Override
-                        public EObject caseListExpression(ListExpression expr) {
-                            super.caseListExpression(expr);
-                            fixOuter(expr);
-                            return expr;
-                        }
-                        @Override
-                        public EObject caseMember(Member member) {
-                            super.caseMember(member);
-                            fixOuter(member);
-                            return member;
-                        }
-                        @Override
-                        public Expression caseBinaryExpression(BinaryExpression expr) {
-                            super.caseBinaryExpression(expr);
-                            fixOuter(expr);
-                            return expr;
-                        }
-                        @Override
-                        public Expression caseUnaryExpression(UnaryExpression expr) {
-                            super.caseUnaryExpression(expr);
-                            fixOuter(expr);
-                            return expr;
-                        }
-                        @Override
-                        public Expression caseFunctionCall(FunctionCall call) {
-                            super.caseFunctionCall(call);
-                            fixOuter(call);
-                            return call;
-                        }
-                    }.doSwitch(lit);
+                    FixMovedExpr.moveScope(lit, body, g);
                     UtilIR.createAssign(0,body, (Variable) list, lit);
                     Expression sz = null;
                     if(lit.getType() instanceof TypeList) {
