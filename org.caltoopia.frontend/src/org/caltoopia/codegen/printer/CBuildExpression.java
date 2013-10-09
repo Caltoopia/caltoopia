@@ -133,15 +133,15 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         int n = partial?indexArray.size():0;
         String indexStr = "(__arrayArg) {";
         indexStr += sizeArray.size()-n + ",{";
-        for(int i = n; i<sizeArray.size();i++) {
+        for(int i = sizeArray.size()-1; i>=n;i--) {
             Expression e = sizeArray.get(i);
             if(e!=null) {
                 indexStr += new CBuildExpression(e, cenv).toStr();
             } else {
                 indexStr += "/*dynamic*/";
-                indexStr += lastVarStr +".sz[" + i + "]";
+                indexStr += lastVarStr +".sz[" + (sizeArray.size()-i-1) + "]";
             }
-            if(i<(sizeArray.size()-1)) indexStr += ", ";
+            if(i>n) indexStr += ", ";
         }
         indexStr += "}}";
         return indexStr;

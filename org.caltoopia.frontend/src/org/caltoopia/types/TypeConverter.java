@@ -36,6 +36,8 @@
 
 package org.caltoopia.types;
 import java.util.List;
+import java.util.Stack;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -94,7 +96,7 @@ public class TypeConverter extends CalSwitch<Type> {
 	private boolean approximate = false;
 		
 	private Scope context;
-		
+	
 	public static String BUILTIN_TYPE_INT   	= "int";
 	public static String BUILTIN_TYPE_UINT  	= "uint";
 	public static String BUILTIN_TYPE_FLOAT 	= "float";
@@ -342,24 +344,19 @@ public class TypeConverter extends CalSwitch<Type> {
 			
 			//FIXME: This is a hack to squeeze in support for the new "int[x][y] v" syntax
 			// We need to redesign this whole type converter stuff... 
-			AstType xxx = EcoreUtil.copy(astType);
-			int sz = astType.getDimensions().size();
-			for (int i = 0; i < sz; i++) {
-				xxx.getDimensions().remove(0);
-			}
-			Type elementType = doSwitch(xxx);
-			//Hack ends. (well, well)
-			for (AstExpression dim : astType.getDimensions()) {
-				type = IrFactory.eINSTANCE.createTypeList();
-				type.setType(elementType);
-				if (approximate) {			
-					type.setSize(CreateIrExpression.NotEvaluatedExpression);				
-				} else {
-					type.setSize(CreateIrExpression.convert(context, dim));
-				} 			
-				elementType = type;
-			}
-						
+			Stack<AstExpression> dimensions = new Stack<AstExpression>();
+            AstType xxx = EcoreUtil.copy(astType);
+            dimensions.addAll(xxx.getDimensions());
+            xxx.getDimensions().clear();
+            Type elementType = doSwitch(xxx);
+            while(!dimensions.isEmpty()) {
+                type = (TypeList) TypeSystem.createTypeList(
+                        approximate?CreateIrExpression.NotEvaluatedExpression:
+                            CreateIrExpression.convert(context, dimensions.peek()),
+                            elementType);
+                dimensions.pop();
+                elementType = type;
+            }
 			return type;
 		}  else if (isUserDefined(astType)) {
 			return createTypeUser(astType.getName(), approximate);

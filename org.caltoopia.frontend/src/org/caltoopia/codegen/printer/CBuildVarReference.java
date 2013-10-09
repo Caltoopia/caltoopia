@@ -135,15 +135,15 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
     public String sizeStr() {
         String indexStr = "(__arrayArg) {";
         indexStr += sizeArray.size() + ",{";
-        for(int i = 0; i<sizeArray.size();i++) {
+        for(int i = sizeArray.size()-1; i>=0;i--) {
             Expression e = sizeArray.get(i);
             if(e!=null) {
                 indexStr += new CBuildExpression(e, cenv).toStr();
             } else {
                 indexStr += "/*dynamic*/";
-                indexStr += lastVarStr +".sz[" + i + "]";
+                indexStr += lastVarStr +".sz[" + (sizeArray.size()-i-1) + "]";
             }
-            if(i<(sizeArray.size()-1)) indexStr += ", ";
+            if(i>0) indexStr += ", ";
         }
         indexStr += "}}";
         return indexStr;
