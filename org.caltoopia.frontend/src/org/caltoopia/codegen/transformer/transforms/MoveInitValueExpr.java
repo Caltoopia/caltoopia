@@ -48,6 +48,7 @@ import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.cli.CompilationSession;
 import org.caltoopia.cli.DirectoryException;
 import org.caltoopia.codegen.UtilIR;
+import org.caltoopia.codegen.transformer.FixMovedExpr;
 import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.IrTransformer.IrPassTypes;
 import org.caltoopia.codegen.transformer.TransUtil;
@@ -192,9 +193,6 @@ public class MoveInitValueExpr extends IrReplaceSwitch {
 			body = pe.getBody();
 		} else {
 			body = IrFactory.eINSTANCE.createBlock();
-		}
-		
-		if(initValueToStatements(obj.getDeclarations(),body) && pe == null) {
 			pe = IrFactory.eINSTANCE.createProcExpression();
 			pe.setBody(body);
 			pe.setContext(obj);
@@ -218,6 +216,8 @@ public class MoveInitValueExpr extends IrReplaceSwitch {
 
 			obj.setBody(pe);
 		}
+    
+		initValueToStatements(obj.getDeclarations(),body);
 
 		return super.caseLambdaExpression(obj);
 	}

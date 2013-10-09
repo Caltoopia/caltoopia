@@ -159,7 +159,7 @@ public class ExprToTempVar extends IrReplaceSwitch {
                 case memberScalar:
                 case memberScalarUserType:
                 case inlinedMember:
-                    CodegenError.err("Expr to temp var", "Did not do anything for scalar " + assign.getTarget().getDeclaration().getName());
+                    //CodegenError.err("Expr to temp var", "Did not do anything for scalar " + assign.getTarget().getDeclaration().getName());
                     break;
                 //Assignment of a list to a list, break up into temp var
                 case list:

@@ -53,11 +53,13 @@ import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Block;
 import org.caltoopia.ir.LambdaExpression;
 import org.caltoopia.ir.ProcExpression;
+import org.caltoopia.ir.ReturnValue;
 import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.Variable;
+import org.caltoopia.ir.VariableReference;
 import org.caltoopia.ir.util.IrSwitch;
 import org.eclipse.emf.ecore.EObject;
 
@@ -129,10 +131,33 @@ public class CBuildBody extends IrSwitch<Boolean> {
             } 
         }
 
+        Statement ret = null;
         for (Statement s : block.getStatements()) {
-            bodyStr += new CBuildStatement(s, cenv, ind,true,block).toStr();
+            if(!(s instanceof ReturnValue)) {
+                bodyStr += new CBuildStatement(s, cenv, ind,true,block).toStr();
+            } else {
+                //Assuming only one return at the end
+                ret = s;
+            }
         }
-
+        for(Declaration d:block.getDeclarations()) {
+            if((d instanceof Variable) && UtilIR.isList(((Variable)d).getType())) {
+                VariableReference varRef = UtilIR.createVarRef((Variable) d);
+                TransUtil.copySelectedAnnotations(varRef, d, new TransUtil.AnnotationsFilter(IrTransformer.VARIABLE_ANNOTATION, new String[]{"VarPlacement"}));
+                CBuildVarReference cVarRefF = new CBuildVarReference(varRef , cenv, false, true);
+                String varStrF = cVarRefF.toStr();
+                bodyStr += ind.ind() + "free" + new CBuildTypeName(((Variable)d).getType(), new CPrintUtil.dummyCB(), false).toStr() + "(&" + varStrF + ", TRUE);" + ind.nl();
+            } else if((d instanceof Variable) && UtilIR.isRecord(((Variable)d).getType())) {
+                VariableReference varRef = UtilIR.createVarRef((Variable) d);
+                TransUtil.copySelectedAnnotations(varRef, d, new TransUtil.AnnotationsFilter(IrTransformer.VARIABLE_ANNOTATION, new String[]{"VarPlacement"}));
+                CBuildVarReference cVarRefF = new CBuildVarReference(varRef , cenv, false, true);
+                String varStrF = cVarRefF.toStr();
+                bodyStr += ind.ind() + "freeStruct" + new CBuildTypeName(((Variable)d).getType(), new CPrintUtil.dummyCB(), false).toStr() + "(&" + varStrF + ", TRUE);" + ind.nl();
+            }
+        }
+        if(ret!=null) {
+            bodyStr += new CBuildStatement(ret, cenv, ind,true,block).toStr();
+        }
         ind.dec();
         bodyStr += ind.ind() + ("}") + ind.nl();
         leave();
