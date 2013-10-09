@@ -342,6 +342,7 @@ public class TransUtil {
                     if(adest == null) {
                         adest = IrFactory.eINSTANCE.createAnnotation();
                         adest.setName(n.annotation);
+                        ((Node)dst).getAnnotations().add(adest);
                     }
                     Map<String,AnnotationArgument> existingIds = new HashMap<String,AnnotationArgument>();
                     for(AnnotationArgument aa:adest.getArguments()) {
