@@ -700,6 +700,10 @@ public class IrXmlReader {
 			IfExpression expr = IrFactory.eINSTANCE.createIfExpression();
 			expr.setId(element.getAttribute("id"));
 			doAnnotations(expr, element);
+            Element child = getChild(element,"Type");
+            if(child!=null) {
+                expr.setType(createType(child));
+            }
 			expr.setContext((Scope) findIrObject(element.getAttribute("context-scope"))); 
 			List<Element> exprs = getChildren(element, "Expr");
 			expr.setCondition(createExpression(exprs.get(0)));

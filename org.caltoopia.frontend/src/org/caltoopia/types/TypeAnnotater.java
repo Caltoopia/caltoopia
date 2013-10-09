@@ -36,13 +36,22 @@
 
 package org.caltoopia.types;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Stack;
+
 import org.caltoopia.ast2ir.Util;
 import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.cli.DirectoryException;
+import org.caltoopia.codegen.UtilIR;
+import org.caltoopia.ir.BinaryExpression;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.ForwardDeclaration;
 import org.caltoopia.ir.FunctionCall;
+import org.caltoopia.ir.IfExpression;
+import org.caltoopia.ir.IntegerLiteral;
 import org.caltoopia.ir.IrFactory;
 import org.caltoopia.ir.ListExpression;
 import org.caltoopia.ir.Member;
@@ -54,6 +63,7 @@ import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.TypeRecord;
 import org.caltoopia.ir.TypeUser;
+import org.caltoopia.ir.UnaryExpression;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExpression;
 import org.caltoopia.ir.VariableExternal;
@@ -231,5 +241,89 @@ public class TypeAnnotater extends IrReplaceSwitch {
 		
 		return varRef;
 	}
-		
+
+   @Override
+    public Expression caseBinaryExpression(BinaryExpression binaryExpression) {
+       super.caseBinaryExpression(binaryExpression);
+       String operator = binaryExpression.getOperator();
+       Type type = null;
+        if (Arrays.asList("and","or","=",">","<","<=",">=","!=","<>").contains(operator)) {
+            type = TypeSystem.createTypeBool();
+        } else if (Arrays.asList("*","/","-","+","bitand","bitor","mod",">>>",">>","<<").contains(operator)) {
+            if(binaryExpression.getType()==null && binaryExpression.getOperand1()!=null) {
+                type = binaryExpression.getOperand1().getType();
+                if(type==null && binaryExpression.getOperand2()!=null) {
+                    type = binaryExpression.getOperand2().getType();
+                }
+            }
+        }
+        if(type!=null) {
+            binaryExpression.setType(type);
+        }
+        return binaryExpression;
+    }
+
+    @Override
+    public Expression caseUnaryExpression(UnaryExpression unaryExpression) {
+        super.caseExpression(unaryExpression);
+        
+       String operator = unaryExpression.getOperator();
+       Type type = null;
+        if (Arrays.asList("!","not").contains(operator)) {
+            type = TypeSystem.createTypeBool();
+        } else if (Arrays.asList("#").contains(operator)) {
+            type = TypeSystem.createTypeInt();
+        } else if (Arrays.asList("-","+").contains(operator)) {
+            if(unaryExpression.getType()==null && unaryExpression.getOperand()!=null) {
+                type = unaryExpression.getOperand().getType();
+            }
+        }
+        if(type!=null) {
+            unaryExpression.setType(type);
+        }
+        return unaryExpression;
+    }
+    
+    @Override
+    public EObject caseIfExpression(IfExpression expr) {
+        super.caseIfExpression(expr);
+        if(expr.getType()==null) {
+            Type typeT = null;
+            Type typeE = null;
+            typeT = expr.getThenExpression().getType();
+            if(TypeSystem.isList(typeT)) {
+                typeE = expr.getElseExpression().getType();
+                Stack<Expression> sz = new Stack<Expression>();
+                boolean equal = true;
+                if(typeT != null && typeE != null) {
+                    while(typeT instanceof TypeList) {
+                        if(((TypeList)typeT).getSize() != ((TypeList)typeE).getSize()) {
+                            if(((TypeList)typeT).getSize() instanceof IntegerLiteral && ((TypeList)typeE).getSize() instanceof IntegerLiteral && 
+                                ((IntegerLiteral)((TypeList)typeT).getSize()).getValue() == ((IntegerLiteral)((TypeList)typeE).getSize()).getValue()) {
+                                sz.push(((TypeList)typeT).getSize());
+                            } else {
+                                sz.push(null);
+                                equal = false;
+                            }
+                        } else {
+                            sz.push(((TypeList)typeT).getSize());
+                        }
+                        typeT = ((TypeList)typeT).getType();
+                        typeE = ((TypeList)typeE).getType();
+                    }
+                    if(equal) {
+                        typeT = expr.getThenExpression().getType();
+                    } else {
+                        //Not equal size of lists, build new type with some null sizes
+                        while(!sz.isEmpty()) {
+                            typeT = TypeSystem.createTypeList(sz.pop(), typeT);
+                        }
+                    }
+                }
+            }
+            expr.setType(typeT);
+        }
+        return expr;
+    }
+
 }
