@@ -278,6 +278,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="PortGuard" eSuperTypes="#//Guard">
     <eStructuralFeatures xsi:type="ecore:EReference" name="peeks" upperBound="-1"
         eType="#//PortPeek"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fieldReads" upperBound="-1"
+        eType="#//TaggedTupleFieldRead"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Guard" eSuperTypes="#//LambdaExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="Type"/>

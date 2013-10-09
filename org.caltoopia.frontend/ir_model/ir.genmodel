@@ -235,6 +235,7 @@
     </genClasses>
     <genClasses ecoreClass="ir.ecore#//PortGuard">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//PortGuard/peeks"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//PortGuard/fieldReads"/>
     </genClasses>
     <genClasses ecoreClass="ir.ecore#//Guard"/>
     <genClasses ecoreClass="ir.ecore#//Type"/>

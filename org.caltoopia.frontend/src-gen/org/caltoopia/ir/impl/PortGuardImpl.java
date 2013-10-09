@@ -8,6 +8,7 @@ import org.caltoopia.ir.IrPackage;
 import org.caltoopia.ir.PortGuard;
 import org.caltoopia.ir.PortPeek;
 
+import org.caltoopia.ir.TaggedTupleFieldRead;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
@@ -22,6 +23,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.caltoopia.ir.impl.PortGuardImpl#getPeeks <em>Peeks</em>}</li>
+ *   <li>{@link org.caltoopia.ir.impl.PortGuardImpl#getFieldReads <em>Field Reads</em>}</li>
  * </ul>
  * </p>
  *
@@ -37,6 +39,16 @@ public class PortGuardImpl extends GuardImpl implements PortGuard {
 	 * @ordered
 	 */
 	protected EList<PortPeek> peeks;
+
+	/**
+	 * The cached value of the '{@link #getFieldReads() <em>Field Reads</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFieldReads()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<TaggedTupleFieldRead> fieldReads;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -74,11 +86,25 @@ public class PortGuardImpl extends GuardImpl implements PortGuard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<TaggedTupleFieldRead> getFieldReads() {
+		if (fieldReads == null) {
+			fieldReads = new EObjectResolvingEList<TaggedTupleFieldRead>(TaggedTupleFieldRead.class, this, IrPackage.PORT_GUARD__FIELD_READS);
+		}
+		return fieldReads;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case IrPackage.PORT_GUARD__PEEKS:
 				return getPeeks();
+			case IrPackage.PORT_GUARD__FIELD_READS:
+				return getFieldReads();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -96,6 +122,10 @@ public class PortGuardImpl extends GuardImpl implements PortGuard {
 				getPeeks().clear();
 				getPeeks().addAll((Collection<? extends PortPeek>)newValue);
 				return;
+			case IrPackage.PORT_GUARD__FIELD_READS:
+				getFieldReads().clear();
+				getFieldReads().addAll((Collection<? extends TaggedTupleFieldRead>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -111,6 +141,9 @@ public class PortGuardImpl extends GuardImpl implements PortGuard {
 			case IrPackage.PORT_GUARD__PEEKS:
 				getPeeks().clear();
 				return;
+			case IrPackage.PORT_GUARD__FIELD_READS:
+				getFieldReads().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -125,6 +158,8 @@ public class PortGuardImpl extends GuardImpl implements PortGuard {
 		switch (featureID) {
 			case IrPackage.PORT_GUARD__PEEKS:
 				return peeks != null && !peeks.isEmpty();
+			case IrPackage.PORT_GUARD__FIELD_READS:
+				return fieldReads != null && !fieldReads.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

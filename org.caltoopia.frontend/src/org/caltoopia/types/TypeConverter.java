@@ -482,7 +482,7 @@ public class TypeConverter extends CalSwitch<Type> {
 		}
 	}
 	
-	private static class PatternBreadcrumb {
+	public static class PatternBreadcrumb {
 		public String tag; 
 		public String label;
 		public int pos; 
@@ -536,9 +536,7 @@ public class TypeConverter extends CalSwitch<Type> {
 				} else {
 					type = TypeConverter.convert(context, port.getType(), approximate);
 				}
-			} else 
-				
-				if (v.eContainer() instanceof AstPattern) {
+			} else if (v.eContainer() instanceof AstPattern) {
 				AstPattern pattern = (AstPattern) v.eContainer();
 				EObject o = pattern.eContainer();
 				List<PatternBreadcrumb> breadcrumbs = new ArrayList<PatternBreadcrumb>();

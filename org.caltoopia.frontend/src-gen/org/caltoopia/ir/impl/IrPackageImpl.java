@@ -2333,6 +2333,15 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getPortGuard_FieldReads() {
+		return (EReference)portGuardEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGuard() {
 		return guardEClass;
 	}
@@ -3165,6 +3174,7 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 
 		portGuardEClass = createEClass(PORT_GUARD);
 		createEReference(portGuardEClass, PORT_GUARD__PEEKS);
+		createEReference(portGuardEClass, PORT_GUARD__FIELD_READS);
 
 		guardEClass = createEClass(GUARD);
 
@@ -3598,6 +3608,7 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 
 		initEClass(portGuardEClass, PortGuard.class, "PortGuard", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPortGuard_Peeks(), this.getPortPeek(), null, "peeks", null, 0, -1, PortGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPortGuard_FieldReads(), this.getTaggedTupleFieldRead(), null, "fieldReads", null, 0, -1, PortGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(guardEClass, Guard.class, "Guard", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

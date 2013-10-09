@@ -122,6 +122,7 @@ import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.StmtAlternative;
 import org.caltoopia.ir.TaggedExpression;
+import org.caltoopia.ir.TaggedTupleFieldRead;
 import org.caltoopia.ir.ToSink;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
@@ -748,6 +749,8 @@ public class Ast2Ir extends CalSwitch<EObject> {
 					portRead.getVariables().add(Util.createVariableReference(varDecl));				
 					action.getInputs().add(portRead);
 					
+					Util.defsput(inputs.getTokens().get(j), varDecl);
+					
 					AstType astType = Util.getAstPort(inputs).getType();
 										
 					Expression e = Util.doPattern(scopeStack.peek(), astType, inputs.getTokens().get(j), Util.createVariableExpression(action, varDecl), repeat);
@@ -759,11 +762,19 @@ public class Ast2Ir extends CalSwitch<EObject> {
 						portGuard.setContext(scopeStack.peek());
 						portGuard.setType(TypeSystem.createTypeBool());
 						portGuard.setBody(e);
+						
+						PortPeek portPeek = IrFactory.eINSTANCE.createPortPeek();
+						portPeek.setId(Util.getDefinitionId());		
+						portPeek.setPort(port);	
+						portPeek.setVariable(Util.createVariableReference(varDecl));
+						portPeek.setPosition(j);
+						portPeek.setRepeat(repeat);
+						portGuard.getPeeks().add(portPeek);
+						
 						action.getGuards().add(portGuard);
 					}
 				}
-			}
-							
+			}							
 		}
 		
 		for (AstExpression e : astAction.getGuards()) {
@@ -777,11 +788,11 @@ public class Ast2Ir extends CalSwitch<EObject> {
 			new VoidSwitch() {
 				@Override
 				public Void caseAstExpressionSymbolReference(AstExpressionSymbolReference e)  {
-					if (e.getSymbol().eContainer() instanceof AstInputPattern)  {
-						AstInputPattern inputs = (AstInputPattern) e.getSymbol().eContainer();
-						Port port = Util.createInputPort(scopeStack.peek(), inputs, false);						
-						AstVariable token = e.getSymbol();
-						int position = inputs.getTokens().indexOf(token);
+					AstVariable v = e.getSymbol();
+					if (v.eContainer() instanceof AstPattern && v.eContainer().eContainer() instanceof AstInputPattern)  {
+						AstInputPattern inputs = (AstInputPattern) v.eContainer().eContainer();
+						Port port = Util.createInputPort(scopeStack.peek(), inputs, false);												
+						int position = inputs.getTokens().indexOf(v);
 						
 						PortPeek portPeek = IrFactory.eINSTANCE.createPortPeek();
 						portPeek.setId(Util.getDefinitionId());		
@@ -791,7 +802,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 							portPeek.setRepeat(repeat);
 						}
 						
-						Variable varDecl = (Variable) Util.findIrDeclaration(e.getSymbol());
+						Variable varDecl = (Variable) Util.findIrDeclaration(v);
 						portPeek.setPort(port);
 						portPeek.setPosition(position);
 						VariableReference varRef = Util.createVariableReference(varDecl);
@@ -800,8 +811,9 @@ public class Ast2Ir extends CalSwitch<EObject> {
 							varRef.getIndex().add(index);
 						}
 						portPeek.setVariable(varRef);
-						peeks.add(portPeek);
-						
+						peeks.add(portPeek);						
+					} else if (v.eContainer() instanceof AstPattern){		
+						Util.doFieldReads(guard, (AstPattern) v.eContainer(), e);
 					}
 					return super.caseAstExpressionSymbolReference(e);
 				}

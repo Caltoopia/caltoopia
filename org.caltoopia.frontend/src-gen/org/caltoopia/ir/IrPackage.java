@@ -4408,13 +4408,22 @@ public interface IrPackage extends EPackage {
 	int PORT_GUARD__PEEKS = GUARD_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Field Reads</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_GUARD__FIELD_READS = GUARD_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Port Guard</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PORT_GUARD_FEATURE_COUNT = GUARD_FEATURE_COUNT + 1;
+	int PORT_GUARD_FEATURE_COUNT = GUARD_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.caltoopia.ir.impl.TypeImpl <em>Type</em>}' class.
@@ -7319,6 +7328,17 @@ public interface IrPackage extends EPackage {
 	EReference getPortGuard_Peeks();
 
 	/**
+	 * Returns the meta object for the reference list '{@link org.caltoopia.ir.PortGuard#getFieldReads <em>Field Reads</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Field Reads</em>'.
+	 * @see org.caltoopia.ir.PortGuard#getFieldReads()
+	 * @see #getPortGuard()
+	 * @generated
+	 */
+	EReference getPortGuard_FieldReads();
+
+	/**
 	 * Returns the meta object for class '{@link org.caltoopia.ir.Guard <em>Guard</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9542,6 +9562,14 @@ public interface IrPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PORT_GUARD__PEEKS = eINSTANCE.getPortGuard_Peeks();
+
+		/**
+		 * The meta object literal for the '<em><b>Field Reads</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PORT_GUARD__FIELD_READS = eINSTANCE.getPortGuard_FieldReads();
 
 		/**
 		 * The meta object literal for the '{@link org.caltoopia.ir.impl.GuardImpl <em>Guard</em>}' class.

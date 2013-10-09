@@ -437,7 +437,7 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 		doAnnotations(action);
 		
 		for (Guard guard : action.getGuards()) {
-			caseGuard(guard);
+			doSwitch(guard);
 		}
 
 		for (PortRead r : action.getInputs()) {
@@ -472,6 +472,10 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 
 		for (PortPeek peek : guard.getPeeks()) {
 			doSwitch(peek);
+		}
+		
+		for (TaggedTupleFieldRead read : guard.getFieldReads()) {
+			doSwitch(read);
 		}
 
 		doSwitch(guard.getBody());

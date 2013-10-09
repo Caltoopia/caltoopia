@@ -61,28 +61,28 @@ import System.io.dprint1;
 //		end 
 //	end
  
-	actor XX2X() ==>:
-	   T6 v;
-	   int i := 1;
-	 
-	   action ==>  do	   
-	      case v of
-	      	A(!1) do i := i + 1; end
-	        A(a) do i := i + 1; end 
-     	    A(a:A(x, y)) guard x > y do i :=  x; end	      	
-	      end
-	   
-	      i := case v of 
- 	             A(a:A(x, _)) guard x > 1: 1 end
-	             A(A(x, _)) guard x = 0: 3.1 end
-	             C(!i) : 3.2 end
-	             C(!1+i) : 3.3 end
-	           else
-	             0 
-	           end;
-	          
-	   end
-	end
+//	actor XX2X() ==>:
+//	   T6 v;
+//	   int i := 1;
+//	 
+//	   action ==>  do	   
+//	      case v of
+//	      	A(!1) do i := i + 1; end
+//	        A(a) do i := i + 1; end 
+//     	    A(a:A(x, y)) guard x > y do i :=  x; end	      	
+//	      end
+//	   
+//	      i := case v of 
+// 	             A(a:A(x, _)) guard x > 1: 1 end
+//	             A(A(x, _)) guard x = 0: 3.1 end
+//	             C(!i) : 3.2 end
+//	             C(!1+i) : 3.3 end
+//	           else
+//	             0   
+//	           end; 
+//	         
+//	   end 
+//	end
 
 //	actor Delay(T1 init) T1 In ==> T1 Out:
 //	
@@ -112,15 +112,15 @@ import System.io.dprint1;
 //	 
 //	end  
 //	
-//	actor Sink2() T2 In ==>:
-//	
-//	  	action In:[A(a1, a2), a] ==> 
-//	  	guard a1 > 3
-//	  	do	  		
-//			dprint1("a.i=%i", a1);	  
-//			dprint1(", a.f=%f\\n", a2);	
-//	  	end
-//
+	actor Sink2() T2 In, int In2 ==>: 
+	
+	  	action In:[A(a1, a2), a], In2: [x] ==> 
+	  	guard a1 > 3 + x
+	  	do	  		
+			dprint1("a.i=%i", a1);	
+			dprint1(", a.f=%f\\n", a2);	    
+	  	end
+
 //	  	action In:[B(!1, b2), C] ==> 
 //	  	do	  		 
 //			dprint1(", b.f=%f\\n", b2);		
@@ -131,8 +131,8 @@ import System.io.dprint1;
 //			dprint1("b.i=%i", b1);		
 //			dprint1(", b.f=%f\\n", b2);		
 //	  	end
-//	
-//	end  
+	
+	end  
 //		
 //	network Test1() ==> :
 //	
