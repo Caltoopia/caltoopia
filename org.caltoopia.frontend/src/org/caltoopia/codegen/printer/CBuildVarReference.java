@@ -135,15 +135,15 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
     public String sizeStr() {
         String indexStr = "(__arrayArg) {";
         indexStr += sizeArray.size() + ",{";
-        for(int i = sizeArray.size()-1; i>=0;i--) {
+        for(int i = 0; i<sizeArray.size();i++) {
             Expression e = sizeArray.get(i);
             if(e!=null) {
                 indexStr += new CBuildExpression(e, cenv).toStr();
             } else {
                 indexStr += "/*dynamic*/";
-                indexStr += lastVarStr +".sz[" + (sizeArray.size()-i-1) + "]";
+                indexStr += lastVarStr +".sz[" + i + "]";
             }
-            if(i>0) indexStr += ", ";
+            if(i<(sizeArray.size()-1)) indexStr += ", ";
         }
         indexStr += "}}";
         return indexStr;
@@ -170,7 +170,7 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
         if(index!=null && !index.isEmpty() && varType instanceof TypeList) {
             Type list = varType;
             while(list instanceof TypeList) {
-                szExpr.add(0,((TypeList)list).getSize());
+                szExpr.add(((TypeList)list).getSize());
                 list = ((TypeList)list).getType();
             }
             list = varType;
@@ -183,10 +183,10 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
                 indExpr.add(e);
                 if(i>0) {
                     indexStr += ")*";
-                    if(szExpr.get(i-1)==null) {
+                    if(szExpr.get(i)==null) {
                         indexStr += varStr + ".sz["+ (i-1) +"]+";
                     } else {
-                        indexStr += new CBuildExpression(szExpr.get(i-1),cenv).toStr() +"+";
+                        indexStr += new CBuildExpression(szExpr.get(i),cenv).toStr() +"+";
                     }
                 }
                 if(rangechk) {
@@ -195,7 +195,6 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
                 indexStr += new CBuildExpression(e, cenv).toStr();
                 if(rangechk) {
                     indexStr += (",");
-                    //indexStr += new CBuildExpression(((TypeList)list).getSize(), cenv).toStr();
                     indexStr += varStr + ".sz["+ i +"]";
                     indexStr += (")");
                 }
