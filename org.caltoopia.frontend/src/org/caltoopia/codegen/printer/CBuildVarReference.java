@@ -227,7 +227,7 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
         }
         Type list = varType;
         while(list instanceof TypeList) {
-            sizeArray.add(0,((TypeList)list).getSize());
+            sizeArray.add(((TypeList)list).getSize());
             list = ((TypeList)list).getType();
         }
         return false;

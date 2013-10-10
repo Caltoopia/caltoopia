@@ -131,15 +131,15 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
         public String listTypeFn(TypeList type,int dim) {
             if(!onlyVar) {
                 if(dim>1) {
-                    dimStr += ", ";
+                    dimStr = ", " + dimStr;
                 }
                 if(type.getSize()!=null) {
                     String sz = (new CBuildExpression(type.getSize(),cenv).toStr());
-                    dimStr += sz;
+                    dimStr = sz + dimStr;
                     sizeStr += "*" + sz;
                 } else {
                     allFixedSize = false;
-                    dimStr += "0";
+                    dimStr = "0" + dimStr;
                 }
             }
             if(dim>maxDim) {
