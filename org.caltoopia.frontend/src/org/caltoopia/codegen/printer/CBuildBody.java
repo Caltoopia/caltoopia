@@ -47,6 +47,7 @@ import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.printer.CBuildVarDeclaration.varCB;
 import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.TransUtil;
+import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarAccess;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarType;
 import org.caltoopia.ir.Declaration;
@@ -141,13 +142,14 @@ public class CBuildBody extends IrSwitch<Boolean> {
             }
         }
         for(Declaration d:block.getDeclarations()) {
-            if((d instanceof Variable) && UtilIR.isList(((Variable)d).getType())) {
+            boolean retValue = TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarAssign").equals(IrVariableAnnotation.VarAssign.movedRetAssigned.name());
+            if(!retValue && (d instanceof Variable) && UtilIR.isList(((Variable)d).getType())) {
                 VariableReference varRef = UtilIR.createVarRef((Variable) d);
                 TransUtil.copySelectedAnnotations(varRef, d, new TransUtil.AnnotationsFilter(IrTransformer.VARIABLE_ANNOTATION, new String[]{"VarPlacement"}));
                 CBuildVarReference cVarRefF = new CBuildVarReference(varRef , cenv, false, true);
                 String varStrF = cVarRefF.toStr();
                 bodyStr += ind.ind() + "free" + new CBuildTypeName(((Variable)d).getType(), new CPrintUtil.dummyCB(), false).toStr() + "(&" + varStrF + ", TRUE);" + ind.nl();
-            } else if((d instanceof Variable) && UtilIR.isRecord(((Variable)d).getType())) {
+            } else if(!retValue && (d instanceof Variable) && UtilIR.isRecord(((Variable)d).getType())) {
                 VariableReference varRef = UtilIR.createVarRef((Variable) d);
                 TransUtil.copySelectedAnnotations(varRef, d, new TransUtil.AnnotationsFilter(IrTransformer.VARIABLE_ANNOTATION, new String[]{"VarPlacement"}));
                 CBuildVarReference cVarRefF = new CBuildVarReference(varRef , cenv, false, true);

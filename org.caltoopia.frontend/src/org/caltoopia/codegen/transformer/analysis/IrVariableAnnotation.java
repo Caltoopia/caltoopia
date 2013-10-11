@@ -951,8 +951,11 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 
 	@Override
 	public Statement caseAssign(Assign assign) {
-        TransUtil.setAnnotation(assign.getTarget().getDeclaration(),IrTransformer.VARIABLE_ANNOTATION, 
-                "VarAssign",VarAssign.assigned.name());
+        boolean retValue = TransUtil.getAnnotationArg(assign.getTarget().getDeclaration(), IrTransformer.VARIABLE_ANNOTATION, "VarAssign").equals(IrVariableAnnotation.VarAssign.movedRetAssigned.name());
+        if(!retValue) {
+            TransUtil.setAnnotation(assign.getTarget().getDeclaration(),IrTransformer.VARIABLE_ANNOTATION, 
+                    "VarAssign",VarAssign.assigned.name());
+        }
         TransUtil.setAnnotation(assign.getTarget(),IrTransformer.VARIABLE_ANNOTATION, 
                 "VarAssign",VarAssign.assigned.name());
         foundInSwitch=false;

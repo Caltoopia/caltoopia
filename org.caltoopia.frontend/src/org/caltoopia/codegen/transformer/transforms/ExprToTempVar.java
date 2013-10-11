@@ -338,7 +338,7 @@ public class ExprToTempVar extends IrReplaceSwitch {
             body.setOuter(pe);
             body.getDeclarations().addAll(obj.getDeclarations());
             //The original expr as return stmt in temp variable (to allow for statements after the expression)
-            Variable ret = UtilIR.createVarDef(body, "CAL__ret__", ((TypeLambda)obj.getType()).getOutputType());
+            Variable ret = UtilIR.createVarDef(body, "_cal__ret__", ((TypeLambda)obj.getType()).getOutputType());
             Assign assign = UtilIR.createAssign(body, ret, obj.getBody());
             TransUtil.setAnnotation(assign.getTarget().getDeclaration(),IrTransformer.VARIABLE_ANNOTATION, 
                     "VarAssign",VarAssign.movedRetAssigned.name());
