@@ -158,8 +158,9 @@ public class TypeAnnotater extends IrReplaceSwitch {
 			}			
 			if (!varExpr.getMember().isEmpty()) {						
 				for (Member member : varExpr.getMember()) {
-					if (TypeSystem.isList(type))
+					while (TypeSystem.isList(type)) {
 						type = TypeSystem.getElementType(type);
+					}
 					type = TypeSystem.asRecord(type);
 					
 					Variable found = null;
@@ -213,9 +214,9 @@ public class TypeAnnotater extends IrReplaceSwitch {
 		}
 		if (!varRef.getMember().isEmpty()) {			
 			for (Member member : varRef.getMember()) {
-				if (TypeSystem.isList(type))
+				while (TypeSystem.isList(type)) {
 					type = TypeSystem.getElementType(type);
-
+				}
 				type = TypeSystem.asRecord(type);
 
 				Variable found = null;

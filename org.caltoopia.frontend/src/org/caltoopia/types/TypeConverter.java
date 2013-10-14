@@ -145,7 +145,7 @@ public class TypeConverter extends CalSwitch<Type> {
 	
 		Type type = topType;
 		for (int i = 0; i <= pos; i++) {			
-			if (TypeSystem.isList(type)) {
+			while (TypeSystem.isList(type)) {
 				type = TypeSystem.getElementType(type);				
 			}
 		
@@ -558,8 +558,11 @@ public class TypeConverter extends CalSwitch<Type> {
 							return getTypeOfMember(member.subList(1,member.size()), d.getType());
 						} else  {
 							if (TypeSystem.isList(d.getType())) {
-								Type e = ((TypeList) d.getType()).getType();								
-								return getTypeOfMember(member.subList(1,member.size()), e);
+                                Type elemType = d.getType();
+                                for(int i = 0; i < v.getMemberIndex().size();i++) {
+                                    elemType = TypeSystem.getElementType(elemType);
+                                }
+								return getTypeOfMember(member.subList(1,member.size()), elemType);
 							} else {
 								throw new TypeException("Illegal indexing for member of type." + typePrinter.doSwitch(d.getType()));
 							}
