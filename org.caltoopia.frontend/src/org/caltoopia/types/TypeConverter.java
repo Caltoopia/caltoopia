@@ -542,8 +542,13 @@ public class TypeConverter extends CalSwitch<Type> {
 					if (d.getName().equals(name)) {	
 						if (v.getMemberIndex().isEmpty())
 							return d.getType();
-						else 
-							return TypeSystem.getElementType(d.getType());
+						else {
+						    Type elemType = d.getType();
+						    for(int i = 0; i < v.getMemberIndex().size();i++) {
+						        elemType = TypeSystem.getElementType(elemType);
+						    }
+							return elemType;
+						}
 					}
 				}
 			} else {
