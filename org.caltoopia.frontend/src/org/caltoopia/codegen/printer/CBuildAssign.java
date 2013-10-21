@@ -218,7 +218,7 @@ public class CBuildAssign extends IrSwitch<Boolean> {
                 String varStr = cVarRef.toStr();
                 statStr += ind.ind() + "copy" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).toStr()+ "(";
                 statStr += varStr + ", ";
-                CBuildExpression cVarExpr = new CBuildExpression(assign.getExpression(), cenv, true, true);
+                CBuildExpression cVarExpr = new CBuildExpression(assign.getExpression(), cenv, true, true,false);
                 statStr += cVarExpr.toStr() + ", ";
                 statStr += cVarRef.indexStr() + ", ";
                 statStr += cVarExpr.indexStr() + ", ";
@@ -238,7 +238,7 @@ public class CBuildAssign extends IrSwitch<Boolean> {
                     CBuildVarReference cVarRef = new CBuildVarReference(assign.getTarget(), cenv, false, true);
                     String varStr = cVarRef.toStr();
                     statStr += ind.ind() + varStr + " = ";
-                    CBuildExpression cExpr = new CBuildExpression(assign.getExpression(), cenv, false, false);
+                    CBuildExpression cExpr = new CBuildExpression(assign.getExpression(), cenv, false, false,false);
                     statStr += cExpr.toStr() + ";" + ind.nl();
                     String tempAnn = assignAnn == null?null:assignAnn.get("Variable_VarLocalAccess");
                     boolean tempAssign = (tempAnn == null)?false:VarLocalAccess.valueOf(tempAnn).equals(VarLocalAccess.temp);
@@ -253,7 +253,7 @@ public class CBuildAssign extends IrSwitch<Boolean> {
                     statStr += sizeofStr("__tempExpr_" + assign.getExpression().getId(),assign.getTarget().getType()) + ")";
                     */
                 } else {
-                    statStr += ind.ind() + "__tempVoidPointer = " + new CBuildExpression(assign.getExpression(), cenv,true,false).toStr() + ";" + ind.nl();
+                    statStr += ind.ind() + "__tempVoidPointer = " + new CBuildExpression(assign.getExpression(), cenv,true,false,false).toStr() + ";" + ind.nl();
                     statStr += ind.ind() + "mem" + (selfAssign?"move":"cpy") + "(" + new CBuildVarReference(assign.getTarget(), cenv, true,false).toStr() + ", ";
                     statStr += "__tempVoidPointer, ";
                     statStr += new CBuildSizeOf(assign, cenv, false, false, 0, true).toStr() + ")";
@@ -281,7 +281,7 @@ public class CBuildAssign extends IrSwitch<Boolean> {
                 String varStr = cVarRef.toStr();
                 statStr += ind.ind() + "copy" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).toStr()+ "(";
                 statStr += varStr + ", ";
-                CBuildExpression cVarExpr = new CBuildExpression(assign.getExpression(), cenv, true, true);
+                CBuildExpression cVarExpr = new CBuildExpression(assign.getExpression(), cenv, true, true,false);
                 statStr += cVarExpr.toStr() + ", ";
                 statStr += cVarRef.indexStr() + ", ";
                 statStr += cVarExpr.indexStr() + ", ";

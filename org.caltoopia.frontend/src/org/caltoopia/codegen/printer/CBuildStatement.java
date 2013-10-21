@@ -250,7 +250,7 @@ public class CBuildStatement extends IrSwitch<Boolean> {
     public Boolean caseReturnValue(ReturnValue returnValue) {
         enter(returnValue);
         statStr += ind.ind() + ("return ");
-        statStr += new CBuildExpression(returnValue.getValue(), cenv,false,true).toStr();
+        statStr += new CBuildExpression(returnValue.getValue(), cenv,false,true,false).toStr();
         if(semicolon) {
             statStr += ";" + ind.nl();
         }

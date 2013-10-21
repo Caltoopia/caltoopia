@@ -205,7 +205,10 @@ public class ExprToTempVar extends IrReplaceSwitch {
                     inserts++;
                     stack.pop();
                     stack.push(lAssign);
-                    doSwitch(lAssign.getExpression());
+                    Expression e = (Expression) doSwitch(lAssign.getExpression());
+                    if(e != null) {
+                        lAssign.setExpression(e);
+                    }
                     break;
                 default:
                     //CodegenError.err("Expr to temp var", "Did not expect a " + vla +" for " + assign.getTarget().getDeclaration().getName());
@@ -234,7 +237,19 @@ public class ExprToTempVar extends IrReplaceSwitch {
                 //TODO
             } else {
                 if(stack.empty()) {
-                    return expr;
+                    Variable target = UtilIR.createVarDef(null, "__temp_" + expr.getId(), expr.getType());
+                    target.setScope(scope);
+                    TransUtil.setAnnotation(target, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
+                    declarations.add(target);
+                    FixMovedExpr.moveScope(expr, scope, expr.getContext());
+                    Assign newAssign = UtilIR.createAssignN(scope, target, expr);
+                    TransUtil.setAnnotation(newAssign, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
+                    statements.add(pos+inserts, newAssign);
+                    inserts++;
+                    stack.push(newAssign);
+                    doSwitch(newAssign.getExpression());
+                    stack.pop();
+                    return UtilIR.createExpression(scope, target);
                 }
                 Assign assign = (Assign) stack.peek();
                 //CodegenError.info("Expr to temp var","Peek(" + stack.size() + ") at " + assign.getTarget().getDeclaration().getName() + (stack.size()>1?", " + ((Assign) stack.get(1)).getExpression().getContext().getId():"") +" in " + assign.getExpression().getContext().getId() + " of class " + assign.getExpression().getContext().getClass().getName());
@@ -286,6 +301,7 @@ public class ExprToTempVar extends IrReplaceSwitch {
                     linserts++;
                     inserts++;
                 }
+                return null;
             }
             return expr;
         }

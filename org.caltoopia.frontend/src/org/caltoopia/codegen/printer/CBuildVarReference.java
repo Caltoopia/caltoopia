@@ -356,7 +356,7 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
         }
 
         if(asRef && ((var.getMember().isEmpty()  && !var.getIndex().isEmpty()) || sep || sepIndex) && level == 1) {
-            ref2Str += "&";
+            ref2Str = "&";
         }
 
         leave();

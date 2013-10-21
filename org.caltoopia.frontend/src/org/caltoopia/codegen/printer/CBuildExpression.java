@@ -94,8 +94,9 @@ public class CBuildExpression extends IrSwitch<Boolean> {
     boolean rangechk = false; //TODO be able to control this
     int dim = 0;
     boolean asRef = false;
+    boolean asArrayPart = false;
     int level = 0;
-    public CBuildExpression(Expression expression, CEnvironment cenv, boolean asRef, boolean sepIndex) {
+    public CBuildExpression(Expression expression, CEnvironment cenv, boolean asRef, boolean sepIndex, boolean asArrayPart) {
         exprStr="";
         refStr="";
         indexArray = new ArrayList<Expression>();
@@ -104,12 +105,13 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         this.cenv = cenv;
         this.asRef = asRef;
         this.sepIndex = sepIndex;
+        this.asArrayPart = asArrayPart;
         level = 0;
         dim = 0;
     }
     
     public CBuildExpression(Expression expression, CEnvironment cenv) {
-        this(expression, cenv,false,false);
+        this(expression, cenv,false,false,false);
     }
 
     public String toStr() {
@@ -215,12 +217,11 @@ public class CBuildExpression extends IrSwitch<Boolean> {
                 }
             }
             indexStr += ("]");
-            if(sep) {
-                indexArray.addAll(indExpr);
-                sizeArray.addAll(szExpr);
-            } else {
+            if(!sep) {
                 exprStr += indexStr;
             }
+            indexArray.addAll(indExpr);
+            sizeArray.addAll(szExpr);
             return !(list instanceof TypeList);
         }
         Type list = varType;
@@ -387,34 +388,38 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         boolean sep = false;
         switch(vla) {
         case listMemberScalar:
-        case listMemberList:
-        case listMemberListMulti:
         case listMemberScalarUserType:
-        case listMemberListUserType:
-        case listMemberListMultiUserType:
         case listMemberListSingle:
         case listMemberListMultiSingle:
         case listMemberListUserTypeSingle:
         case listMemberListMultiUserTypeSingle:
+            asArrayPart = false; //making sure scalar is not made into arrays (since caller might not have checked)
+        case listMemberList:
+        case listMemberListMulti:
+        case listMemberListUserType:
+        case listMemberListMultiUserType:
         case listMemberListMultiList:
         case listMemberListMultiUserTypeList:
             exprStr += ".p";
             break;
-        case list:
-        case listUserType:
-        case listMulti:
-        case listMultiUserType:
         case listSingle:
         case listMultiSingle:
         case listUserTypeSingle:
         case listMultiUserTypeSingle:
+            asArrayPart = false; //making sure scalar is not made into arrays (since caller might not have checked)
+        case list:
+        case listUserType:
+        case listMulti:
+        case listMultiUserType:
         case listMultiList:
         case listMultiUserTypeList:
-            sep = sepIndex;
-            if(!sepIndex) {
+            sep = asArrayPart?true:sepIndex;
+            if(!sepIndex && !asArrayPart) {
                 exprStr += ".p";
             }
+            break;
         default:
+            asArrayPart = false; //making sure scalar is not made into arrays (since caller might not have checked)
         }
         boolean hasIndex = indexPStr(var.getIndex(),((Variable)var.getVariable()).getType(),varStr,sep);
         boolean direct = directVar(var);
@@ -424,12 +429,34 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         for (Member m : var.getMember()) {
             nbrMembers--;
             if(nbrMembers==0){
-                sepIndex = inSep;
+                sepIndex = asArrayPart?true:inSep;
             }
             exprStr += ((direct||hasIndex)?".":"->");
             hasIndex = caseMember(m);
             direct = directMember(m);
         }
+        if(asArrayPart) {
+            //This is only used for building the var to the flags field and other metadata of array
+            String eStr = exprStr;
+            castStr = "(" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(),true).toStr() +")";
+            //Calling build expression again to get a pointer to a part of the array 
+            exprStr = "{" + new CBuildExpression(var, cenv, true, false, false).toStr() + ", ";
+            exprStr += eStr + ".flags|0x10, ";
+            int n = indexArray.size();
+            exprStr += sizeArray.size()-n + ", {";
+            for(int i = n; i<sizeArray.size();i++) {
+                Expression e = sizeArray.get(i);
+                if(e!=null) {
+                    exprStr += new CBuildExpression(e, cenv).toStr();
+                } else {
+                    exprStr += "/*dynamic*/";
+                    exprStr += eStr +".sz[" + i + "]";
+                }
+                if(i<(sizeArray.size()-1)) exprStr += ", ";
+            }
+            exprStr += "}}";
+        }
+        
         if(asRef && ((var.getMember().isEmpty()  && !var.getIndex().isEmpty()) || sep || sepIndex) && level == 1) {
             refStr = "&";
         }
@@ -580,7 +607,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
             exprStr += thisStr + nameStr + "(" + extraParamStr;
             for (int i = 0; i<expr.getParameters().size(); i++) {
                 Expression p = expr.getParameters().get(i);
-                exprStr += new CBuildExpression(p, cenv).toStr();
+                exprStr += new CBuildExpression(p, cenv,false,false,true).toStr();
                 if (i<expr.getParameters().size()-1) exprStr += ", ";
             }
             exprStr += ")";
@@ -605,7 +632,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
             exprStr += ("{");
             for(Iterator<Expression> i= ((TypeConstructorCall) expr).getParameters().iterator();i.hasNext();) {
                 Expression e = i.next();
-                doSwitch(e);
+                exprStr += new CBuildExpression(e,cenv).toStr();
                 if(i.hasNext()) exprStr += ", ";
             }
             exprStr += ("})");               
@@ -614,7 +641,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
             exprStr += ("(NULL, ");
             for (Iterator<Expression> i = expr.getParameters().iterator(); i.hasNext();) {
                 Expression p = i.next();
-                doSwitch(p);
+                exprStr += new CBuildExpression(p,cenv).toStr();
                 if (i.hasNext()) exprStr += ", ";
             }
             exprStr += ")";
@@ -629,9 +656,9 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         exprStr += ("((");
         doSwitch(expr.getCondition());
         exprStr += (") ? (");
-        exprStr += new CBuildExpression(expr.getThenExpression(), cenv, asRef,false).toStr();
+        exprStr += new CBuildExpression(expr.getThenExpression(), cenv, asRef,false,false).toStr();
         exprStr += ("):(");
-        exprStr += new CBuildExpression(expr.getElseExpression(), cenv, asRef,false).toStr();
+        exprStr += new CBuildExpression(expr.getElseExpression(), cenv, asRef,false,false).toStr();
         exprStr += ("))");
         leave();
         return true;

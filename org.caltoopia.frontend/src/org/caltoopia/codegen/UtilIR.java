@@ -859,6 +859,7 @@ public class UtilIR {
 		VariableReference target = IrFactory.eINSTANCE.createVariableReference();
 		target.setDeclaration(var);
 		target.setType(var.getType());
+		target.setId(Util.getDefinitionId());
 		return target;
 	}
 	
@@ -866,6 +867,7 @@ public class UtilIR {
 		VariableReference target = IrFactory.eINSTANCE.createVariableReference();
 		target.setDeclaration(var);
 		target.getIndex().addAll(index);
+        target.setId(Util.getDefinitionId());
 		Type type = var.getType();
 		for(int i = 0; i < index.size(); i++) {
 			type = ((TypeList) type).getType();
@@ -878,6 +880,7 @@ public class UtilIR {
 		VariableReference target = IrFactory.eINSTANCE.createVariableReference();
 		target.setDeclaration(var);
 		Type type = var.getType();
+        target.setId(Util.getDefinitionId());
 		if(index!=null) {
 			target.getIndex().addAll(index);
 			for(int i = 0; i < index.size(); i++) {
@@ -906,6 +909,7 @@ public class UtilIR {
 		elem.setName(member.getName());
 		elem.setType(member.getType());
 		target.getMember().add(elem);		
+        target.setId(Util.getDefinitionId());
 		return target;
 	}
 
@@ -925,6 +929,8 @@ public class UtilIR {
 		Assign assign = IrFactory.eINSTANCE.createAssign();
 		assign.setExpression(expr);	
 		assign.setTarget(targetUse);
+        targetUse.setId(Util.getDefinitionId());
+        assign.setId(Util.getDefinitionId());
 		if(scope instanceof Block && pos < 0) {
 			((Block) scope).getStatements().add(assign);
 		} else if(scope instanceof Block) {
@@ -946,6 +952,7 @@ public class UtilIR {
 		Assign assign = IrFactory.eINSTANCE.createAssign();
 		assign.setExpression(expr);	
 		assign.setTarget(targetUse);				
+        assign.setId(Util.getDefinitionId());
 		if(scope instanceof Block && pos < 0) {
 			((Block) scope).getStatements().add(assign);
 		} else if(scope instanceof Block) {
@@ -969,6 +976,7 @@ public class UtilIR {
 			elem.setName(member.getName());
 			elem.setType(member.getType());
 			targetUse.getMember().add(elem);
+	        targetUse.setId(Util.getDefinitionId());
 			return createAssign(scope,targetUse,expr);
 		} else {
 			//Ooops not a struct type just ignore it
@@ -1002,6 +1010,7 @@ public class UtilIR {
 			elem.setName(dstMember.getName());
 			elem.setType(dstMember.getType());
 			targetUse.getMember().add(elem);
+	        targetUse.setId(Util.getDefinitionId());
 			return createAssign(scope,targetUse,createExpression(scope,src,srcMember));
 		} else {
 			//Ooops not a struct type just ignore it
@@ -1159,6 +1168,7 @@ public class UtilIR {
 
     static public ReturnValue createReturn(Block body, Variable var) {
         ReturnValue ret = IrFactory.eINSTANCE.createReturnValue();
+        ret.setId(Util.getDefinitionId());
         ret.setValue(createExpression(body,var));
         if(body!=null) {
             body.getStatements().add(ret);
@@ -1181,6 +1191,7 @@ public class UtilIR {
 		ifs.setCondition(condition);
 		ifs.setThenBlock(thenBlock);
 		ifs.setElseBlock(elseBlock);
+        ifs.setId(Util.getDefinitionId());
 		if(scope!=null)
 			scope.getStatements().add(ifs);
 		return ifs;
@@ -1221,6 +1232,8 @@ public class UtilIR {
 		Assign assign = IrFactory.eINSTANCE.createAssign();
 		assign.setExpression(expr);	
 		assign.setTarget(targetUse);				
+        targetUse.setId(Util.getDefinitionId());
+        assign.setId(Util.getDefinitionId());
 		return assign;
 	}
 	
@@ -1232,6 +1245,7 @@ public class UtilIR {
 		Assign assign = IrFactory.eINSTANCE.createAssign();
 		assign.setExpression(expr);	
 		assign.setTarget(targetUse);				
+        assign.setId(Util.getDefinitionId());
 		return assign;
 	}
 	
@@ -1245,6 +1259,7 @@ public class UtilIR {
 			elem.setName(member.getName());
 			elem.setType(member.getType());
 			targetUse.getMember().add(elem);
+	        targetUse.setId(Util.getDefinitionId());
 			return createAssignN(scope,targetUse,expr);
 		} else {
 			//Ooops not a struct type just ignore it
@@ -1278,6 +1293,7 @@ public class UtilIR {
 			elem.setName(dstMember.getName());
 			elem.setType(dstMember.getType());
 			targetUse.getMember().add(elem);
+	        targetUse.setId(Util.getDefinitionId());
 			return createAssignN(scope,targetUse,createExpression(scope,src,srcMember));
 		} else {
 			//Ooops not a struct type just ignore it
