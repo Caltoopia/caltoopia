@@ -305,6 +305,7 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
         refStr += varStr;
         VarLocalAccess vla = VarLocalAccess.valueOf(TransUtil.getAnnotationArg(var, IrTransformer.VARIABLE_ANNOTATION, "VarLocalAccess"));
         boolean sep = false;
+        boolean pointerArray = false;
         switch(vla) {
         case listMemberScalar:
         case listMemberList:
@@ -318,23 +319,25 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
         case listMemberListMultiUserTypeSingle:
         case listMemberListMultiList:
         case listMemberListMultiUserTypeList:
-            refStr += ".p";
+            pointerArray = true;
+            refStr += ".pp";
             flagsStr = refStr;
             break;
-        case list:
         case listUserType:
-        case listMulti:
         case listMultiUserType:
-        case listSingle:
-        case listMultiSingle:
         case listUserTypeSingle:
         case listMultiUserTypeSingle:
-        case listMultiList:
         case listMultiUserTypeList:
+            pointerArray = true;
+        case list:
+        case listMulti:
+        case listSingle:
+        case listMultiSingle:
+        case listMultiList:
             sep = sepIndex;
             flagsStr = refStr;
             if(!sepIndex) {
-                refStr += ".p";
+                refStr += ".p" + (pointerArray?"p":"");
             }
         default:
         }
@@ -350,15 +353,18 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
                 sepIndex = inSep;
                 lastMember = true;
             }
-            refStr += ((direct||hasIndex)?".":"->");
+            refStr += ((direct||hasIndex)&&!pointerArray?".":"->");
             hasIndex = caseMember(m);
             direct = directMember(m);
+            pointerArray = TransUtil.getAnnotationArg(m, IrTransformer.TYPE_ANNOTATION, "TypeStructure").equals("listUserType");
         }
 
         if(asRef && ((var.getMember().isEmpty()  && !var.getIndex().isEmpty()) || sep || sepIndex) && level == 1) {
             ref2Str = "&";
         }
-
+        if(pointerArray && !inSep) {
+            ref2Str += "*";
+        }
         leave();
         return true;
     }
@@ -368,11 +374,13 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
         enter(member);
         String varStr = (CPrintUtil.validCName(member.getName()));
         refStr += "members." + varStr;
+        boolean userTypeList = false;
         if(UtilIR.isList(member.getType()) && !sepIndex) {
             if(lastMember) {
                 flagsStr = refStr;
             }
-            refStr += ".p";
+            userTypeList = TransUtil.getAnnotationArg(member, IrTransformer.TYPE_ANNOTATION, "TypeStructure").equals("listUserType");
+            refStr += ".p" + (userTypeList?"p":"");
         }
         if(asRef && !member.getIndex().isEmpty()) {
             ref2Str = "&";

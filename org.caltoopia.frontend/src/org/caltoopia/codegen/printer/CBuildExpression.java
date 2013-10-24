@@ -386,37 +386,62 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         exprStr += varStr;
         VarLocalAccess vla = VarLocalAccess.valueOf(TransUtil.getAnnotationArg(var, IrTransformer.VARIABLE_ANNOTATION, "VarLocalAccess"));
         boolean sep = false;
+        boolean asArray = asArrayPart;
+        boolean pointerArray = false;
         switch(vla) {
-        case listMemberScalar:
         case listMemberScalarUserType:
-        case listMemberListSingle:
-        case listMemberListMultiSingle:
         case listMemberListUserTypeSingle:
         case listMemberListMultiUserTypeSingle:
+        case listMemberScalar:
+        case listMemberListSingle:
+        case listMemberListMultiSingle:
             asArrayPart = false; //making sure scalar is not made into arrays (since caller might not have checked)
-        case listMemberList:
-        case listMemberListMulti:
         case listMemberListUserType:
         case listMemberListMultiUserType:
-        case listMemberListMultiList:
         case listMemberListMultiUserTypeList:
-            exprStr += ".p";
+        case listMemberList:
+        case listMemberListMulti:
+        case listMemberListMultiList:
+            pointerArray = true;
+            exprStr += ".pp";
             break;
-        case listSingle:
-        case listMultiSingle:
         case listUserTypeSingle:
         case listMultiUserTypeSingle:
+            pointerArray = true;
+        case listSingle:
+        case listMultiSingle:
             asArrayPart = false; //making sure scalar is not made into arrays (since caller might not have checked)
-        case list:
-        case listUserType:
-        case listMulti:
-        case listMultiUserType:
-        case listMultiList:
-        case listMultiUserTypeList:
+            asArrayPart = var.getIndex().isEmpty()?false:asArrayPart; //When no index, can't be sub-array
             sep = asArrayPart?true:sepIndex;
-            if(!sepIndex && !asArrayPart) {
-                exprStr += ".p";
+            if(!sepIndex && !asArrayPart && !asArray) {
+                exprStr += ".p" + (pointerArray?"p":"");
             }
+            break;
+        case listUserType:
+        case listMultiUserType:
+        case listMultiUserTypeList:
+            pointerArray = true;
+        case list:
+        case listMulti:
+        case listMultiList:
+            asArrayPart = var.getIndex().isEmpty()?false:asArrayPart; //When no index, can't be sub-array
+            sep = asArrayPart?true:sepIndex;
+            if(!sepIndex && !asArrayPart && !asArray) {
+                exprStr += ".p" + (pointerArray?"p":"");
+            }
+            break;
+        case memberListUserTypeSingle:
+        case memberListMultiUserTypeSingle:
+        case memberListSingle:
+        case memberListMultiSingle:
+            asArrayPart = false; //making sure scalar is not made into arrays (since caller might not have checked)
+            break;
+        case memberListUserType:
+        case memberListMultiUserTypeList:
+        case memberListMultiUserType:
+        case memberList:
+        case memberListMultiList:
+        case memberListMulti:
             break;
         default:
             asArrayPart = false; //making sure scalar is not made into arrays (since caller might not have checked)
@@ -429,11 +454,13 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         for (Member m : var.getMember()) {
             nbrMembers--;
             if(nbrMembers==0){
+                asArrayPart = m.getIndex().isEmpty()?false:asArrayPart; //When no index, can't be sub-array
                 sepIndex = asArrayPart?true:inSep;
             }
-            exprStr += ((direct||hasIndex)?".":"->");
+            exprStr += ((direct||hasIndex)&&!pointerArray?".":"->");
             hasIndex = caseMember(m);
             direct = directMember(m);
+            pointerArray = TransUtil.getAnnotationArg(m, IrTransformer.TYPE_ANNOTATION, "TypeStructure").equals("listUserType");
         }
         if(asArrayPart) {
             //This is only used for building the var to the flags field and other metadata of array
@@ -460,6 +487,9 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         if(asRef && ((var.getMember().isEmpty()  && !var.getIndex().isEmpty()) || sep || sepIndex) && level == 1) {
             refStr = "&";
         }
+        if(pointerArray && !inSep) {
+            refStr += "*";
+        }
         leave();
         return true;
     }
@@ -469,8 +499,10 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         enter(member);
         String varStr = (CPrintUtil.validCName(member.getName()));
         exprStr += "members." + varStr;
+        boolean userTypeList = false;
         if(UtilIR.isList(member.getType()) && !sepIndex) {
-            exprStr += ".p";
+            userTypeList = TransUtil.getAnnotationArg(member, IrTransformer.TYPE_ANNOTATION, "TypeStructure").equals("listUserType");
+            exprStr += ".p" + (userTypeList?"p":"");
         }
         if(asRef && !member.getIndex().isEmpty()) {
             refStr = "&";
