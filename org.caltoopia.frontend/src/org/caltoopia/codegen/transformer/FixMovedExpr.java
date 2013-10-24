@@ -26,28 +26,34 @@ import org.eclipse.emf.ecore.EObject;
 public class FixMovedExpr extends IrReplaceSwitch {
     Scope newScope = null;
     Node oldScope = null;
+    boolean skipTop = true;
     
-    public FixMovedExpr(Scope newScope, Node oldScope) {
+    public FixMovedExpr(Scope newScope, Node oldScope, boolean skipTop) {
         this.newScope = newScope;
         this.oldScope = oldScope;
+        this.skipTop = skipTop;
     }
 
-    public static void moveScope(Node node, Scope newScope, Node oldScope) {
-        new FixMovedExpr(newScope, oldScope).doSwitch(node);
+    public static void moveScope(Node node, Scope newScope, Node oldScope, boolean skipTop) {
+        new FixMovedExpr(newScope, oldScope, skipTop).doSwitch(node);
     }
     @Override
     public Scope caseScope(Scope scope) {
         super.caseScope(scope);
-        if(scope.getOuter().getId().equals(oldScope.getId())) {
-            scope.setOuter(newScope);
+        if(!(skipTop && scope.getId().equals(newScope.getId()))) {
+            if(scope.getOuter().getId().equals(oldScope.getId())) {
+                scope.setOuter(newScope);
+            }
         }
         return scope;
     }
     @Override
     public Block caseBlock(Block scope) {
         super.caseBlock(scope);
-        if(scope.getOuter().getId().equals(oldScope.getId())) {
-            scope.setOuter(newScope);
+        if(!(skipTop && scope.getId().equals(newScope.getId()))) {
+            if(scope.getOuter().getId().equals(oldScope.getId())) {
+                scope.setOuter(newScope);
+            }
         }
         return scope;
     }

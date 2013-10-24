@@ -264,7 +264,7 @@ public class CreateForLoop extends IrReplaceSwitch {
                     //Create a variable that const instantiate the list
                     lit.setContext(body);
                     Declaration list = UtilIR.createVarDef(body, v.getName()+"__ListExpression", lit.getType());
-                    FixMovedExpr.moveScope(lit, body, g);
+                    FixMovedExpr.moveScope(lit, body, g, false);
                     UtilIR.createAssign(0,body, (Variable) list, lit);
                     Expression sz = null;
                     if(lit.getType() instanceof TypeList) {

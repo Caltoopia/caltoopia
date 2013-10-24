@@ -63,6 +63,8 @@ import org.caltoopia.ir.Block;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.ExternalActor;
+import org.caltoopia.ir.IfExpression;
+import org.caltoopia.ir.IfStatement;
 import org.caltoopia.ir.IrFactory;
 import org.caltoopia.ir.LambdaExpression;
 import org.caltoopia.ir.ListExpression;
@@ -99,7 +101,9 @@ public class ExprToTempVar extends IrReplaceSwitch {
         this.doSwitch(node);
     }
     
-    private class moveIt extends IrReplaceSwitch {
+
+    //-------------------------------- split assignments ---------------------------
+    private class moveListAssign extends IrReplaceSwitch {
         Stack<Node> stack = new Stack<Node>();
         
         Statement s = null;
@@ -110,7 +114,7 @@ public class ExprToTempVar extends IrReplaceSwitch {
         int inserts = 0;
         boolean multi = false;
         
-        moveIt(Statement s, int pos, List<Declaration> declarations, List<Statement> statements, Scope scope) {
+        moveListAssign(Statement s, int pos, List<Declaration> declarations, List<Statement> statements, Scope scope) {
             this.s=s;
             this.pos = pos;
             this.declarations = declarations;
@@ -195,7 +199,7 @@ public class ExprToTempVar extends IrReplaceSwitch {
                     target.setScope(scope);
                     TransUtil.setAnnotation(target, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
                     declarations.add(target);
-                    FixMovedExpr.moveScope(assign.getExpression(), scope, assign.getExpression().getContext());
+                    FixMovedExpr.moveScope(assign.getExpression(), scope, assign.getExpression().getContext(), false);
                     newAssign = UtilIR.createAssignN(scope, target, assign.getExpression());
                     lAssign = newAssign;
                     TransUtil.setAnnotation(newAssign, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
@@ -241,7 +245,7 @@ public class ExprToTempVar extends IrReplaceSwitch {
                     target.setScope(scope);
                     TransUtil.setAnnotation(target, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
                     declarations.add(target);
-                    FixMovedExpr.moveScope(expr, scope, expr.getContext());
+                    FixMovedExpr.moveScope(expr, scope, expr.getContext(), false);
                     Assign newAssign = UtilIR.createAssignN(scope, target, expr);
                     TransUtil.setAnnotation(newAssign, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
                     statements.add(pos+inserts, newAssign);
@@ -271,7 +275,7 @@ public class ExprToTempVar extends IrReplaceSwitch {
                         target.setScope(scope);
                         TransUtil.setAnnotation(target, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
                         declarations.add(target);
-                        FixMovedExpr.moveScope(e,scope,expr.getContext());
+                        FixMovedExpr.moveScope(e,scope,expr.getContext(),false);
                         Assign newAssign = UtilIR.createAssignN(scope, target, e);
                         TransUtil.setAnnotation(newAssign, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
                         statements.add(lpos+linserts, newAssign);
@@ -308,14 +312,89 @@ public class ExprToTempVar extends IrReplaceSwitch {
 
     }
     
-    private boolean moveExprToTempVar(List<Declaration> declarations, List<Statement> statements, Scope scope) {
+    private boolean moveAssign(List<Declaration> declarations, List<Statement> statements, Scope scope) {
         if(declarations == null || scope == null || statements == null)
             return false;
                 
         for(int i=0;i<statements.size();i++) {
             Statement s = statements.get(i);
             if(!(s instanceof Block)) {
-                i += new moveIt(s,i,declarations,statements,scope).inserts;
+                i += new moveListAssign(s,i,declarations,statements,scope).inserts;
+            }
+        }
+        return false;
+    }
+    
+    //----------------------------- Move expr to statements -------------------
+    
+    private class moveExpr extends IrReplaceSwitch {
+        Stack<Node> stack = new Stack<Node>();
+        
+        Statement s = null;
+        List<Declaration> declarations = null;
+        List<Statement> statements = null;
+        Scope scope = null;
+        int pos;
+        int inserts = 0;
+        boolean multi = false;
+        
+        moveExpr(Statement s, int pos, List<Declaration> declarations, List<Statement> statements, Scope scope) {
+            this.s=s;
+            this.pos = pos;
+            this.declarations = declarations;
+            this.statements = statements;
+            this.scope = scope;
+            doSwitch(s);
+        }
+        
+        @Override
+        public Expression caseVariableExpression(VariableExpression var) {
+            //Don't go into variable expressions
+            return var;
+        }
+        @Override
+        public Statement caseBlock(Block block) {
+            //Don't go into blocks, that is handled by ExprToTempVar class
+            return block;
+        }
+
+        @Override
+        public EObject caseIfExpression(IfExpression expr) {
+            if(UtilIR.isList(expr.getType())) {
+                Variable target = UtilIR.createVarDef(null, "__temp_" + expr.getId(), expr.getType());
+                target.setScope(scope);
+                TransUtil.setAnnotation(target, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
+                declarations.add(target);
+                Assign thenAssign = UtilIR.createAssignN(scope, target, expr.getThenExpression());
+                TransUtil.setAnnotation(thenAssign, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
+                Assign elseAssign = UtilIR.createAssignN(scope, target, expr.getElseExpression());
+                TransUtil.setAnnotation(elseAssign, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
+                IfStatement ifStatement = UtilIR.createIfN(scope, expr.getCondition(), (Statement)thenAssign, (Statement)elseAssign);
+                FixMovedExpr.moveScope(ifStatement.getCondition(), scope, expr.getContext(), false);
+                FixMovedExpr.moveScope(ifStatement.getThenBlock(), ifStatement.getThenBlock(), expr.getContext(), true);
+                FixMovedExpr.moveScope(ifStatement.getElseBlock(), ifStatement.getElseBlock(), expr.getContext(), true);
+                
+                statements.add(pos+inserts, ifStatement);
+                inserts++;
+                
+                if(s instanceof Assign) {
+                    //Since we have inserted a temp var remove any self assign
+                    TransUtil.rmAnnotation(s, "Variable", "VarLocalAccess","self");
+                }
+                return UtilIR.createExpression(scope, target);
+            }
+            return expr;
+        }
+    }
+    
+    private boolean moveExprToStatement(List<Declaration> declarations, List<Statement> statements, Scope scope) {
+        if(declarations == null || scope == null || statements == null)
+            return false;
+
+        for(int i=0;i<statements.size();i++) {
+            Statement s = statements.get(i);
+            if(!(s instanceof Block)) {
+                i += new moveExpr(s,i,declarations,statements,scope).inserts;
             }
         }
         return false;
@@ -323,7 +402,8 @@ public class ExprToTempVar extends IrReplaceSwitch {
     
     @Override
     public Action caseAction(Action action) {
-        moveExprToTempVar(action.getDeclarations(), action.getStatements(), action);
+        moveExprToStatement(action.getDeclarations(), action.getStatements(), action);
+        moveAssign(action.getDeclarations(), action.getStatements(), action);
         return super.caseAction(action);
     }
     
@@ -367,13 +447,15 @@ public class ExprToTempVar extends IrReplaceSwitch {
             obj.setBody(pe);
         }
         
-        moveExprToTempVar(body.getDeclarations(), body.getStatements(), body);
+        moveExprToStatement(body.getDeclarations(), body.getStatements(), body);
+        moveAssign(body.getDeclarations(), body.getStatements(), body);
         return super.caseLambdaExpression(obj);
     }
     
     @Override
     public Statement caseBlock(Block block) {
-        moveExprToTempVar(block.getDeclarations(), block.getStatements(), block);
+        moveExprToStatement(block.getDeclarations(), block.getStatements(), block);
+        moveAssign(block.getDeclarations(), block.getStatements(), block);
         return super.caseBlock(block);
     }
 
