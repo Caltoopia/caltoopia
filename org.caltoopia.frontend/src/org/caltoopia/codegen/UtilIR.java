@@ -1206,6 +1206,23 @@ public class UtilIR {
 	}
 	
 	//No insert versions -------------------------------------
+    static public IfStatement createIfN(Scope scope, Expression condition, Block thenBlock, Block elseBlock) {
+        IfStatement ifs= IrFactory.eINSTANCE.createIfStatement();
+        ifs.setCondition(condition);
+        ifs.setThenBlock(thenBlock);
+        ifs.setElseBlock(elseBlock);
+        ifs.setId(Util.getDefinitionId());
+        return ifs;
+    }
+    
+    static public IfStatement createIfN(Scope scope, Expression condition, Statement thenStatement, Statement elseStatement) {
+        Block thenBlock = createBlock(scope);
+        Block elseBlock = createBlock(scope);
+        thenBlock.getStatements().add(thenStatement);
+        elseBlock.getStatements().add(elseStatement);
+        return createIfN(scope,condition,thenBlock, elseBlock);
+    }
+
 	static public ProcCall createProcCallN(Scope scope, Declaration decl, List<Expression> inParams, List<VariableReference> outParams) {
 		ProcCall stmt = IrFactory.eINSTANCE.createProcCall();
 		stmt.setProcedure(decl);

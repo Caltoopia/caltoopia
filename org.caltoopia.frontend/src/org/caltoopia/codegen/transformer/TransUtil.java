@@ -186,6 +186,10 @@ public class TransUtil {
 	}
 
     static public Boolean rmAnnotation(EObject obj, String name, String key) {
+        return rmAnnotation(obj, name, key, null);
+    }
+
+    static public Boolean rmAnnotation(EObject obj, String name, String key, String value) {
         List<Annotation> annotations = null;
         //Most obj is a node
         if(obj instanceof Node) {
@@ -199,8 +203,13 @@ public class TransUtil {
                 List<AnnotationArgument> aas = a.getArguments();
                 for(int i = 0; i<aas.size();i++) {
                     if(aas.get(i).getId().equals(key)) {
-                        rm = i;
-                        break;
+                        if(value==null) {
+                            rm = i;
+                            break;
+                        } else if(aas.get(i).getValue().equals(value)) {
+                            rm = i;
+                            break;
+                        }
                     }
                 }
                 if(rm>=0) {
