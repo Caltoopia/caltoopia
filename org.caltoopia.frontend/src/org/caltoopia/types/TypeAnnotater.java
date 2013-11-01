@@ -143,10 +143,13 @@ public class TypeAnnotater extends IrReplaceSwitch {
                             ||exprSrc.getOperand1().getType() instanceof TypeInt
                             ||exprSrc.getOperand2().getType() instanceof TypeUint
                             ||exprSrc.getOperand2().getType() instanceof TypeInt)) {
-                            if(UtilIR.isLiteralExpression(exprSrc.getOperand1()) && UtilIR.isLiteralExpression(exprSrc.getOperand1())) {
-                                sz = UtilIR.createExpression(exprSrc.getOperand2(), "-", exprSrc.getOperand1());
+                            if(UtilIR.isLiteralExpression(exprSrc.getOperand1()) && UtilIR.isLiteralExpression(exprSrc.getOperand2())) {
+                                sz = UtilIR.createExpression(UtilIR.createExpression(exprSrc.getOperand2(), "-", exprSrc.getOperand1()),"+",
+                                        UtilIR.lit(1));
                                 sz.setContext(expr.getContext());
                                 sz.setType(exprSrc.getOperand1().getType());
+                                ((BinaryExpression)sz).getOperand1().setContext(expr.getContext());
+                                ((BinaryExpression)sz).getOperand1().setType(exprSrc.getOperand1().getType());
                             }
                         }
                     } else if(g.getSource() instanceof ListExpression) {
