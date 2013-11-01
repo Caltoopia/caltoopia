@@ -468,6 +468,9 @@ public class TransUtil {
    }
    
    static public boolean allFixedLength(Type type) {
+       if(type == null) {
+           return false;
+       }
        boolean ret = true;
        Type t=type;
        while(t instanceof TypeList) {

@@ -39,6 +39,7 @@ package org.caltoopia.codegen.transformer.transforms;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
@@ -63,6 +64,7 @@ import org.caltoopia.ir.Block;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.ExternalActor;
+import org.caltoopia.ir.ForEach;
 import org.caltoopia.ir.IfExpression;
 import org.caltoopia.ir.IfStatement;
 import org.caltoopia.ir.IrFactory;
@@ -76,6 +78,7 @@ import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeLambda;
+import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExpression;
 import org.caltoopia.ir.util.IrReplaceSwitch;
@@ -102,7 +105,7 @@ public class ExprToTempVar extends IrReplaceSwitch {
     }
     
 
-    //-------------------------------- split assignments ---------------------------
+    //----------- split assignments of (multi-dim) lists since no matching C statement ----------------------
     private class moveListAssign extends IrReplaceSwitch {
         Stack<Node> stack = new Stack<Node>();
         
@@ -325,7 +328,7 @@ public class ExprToTempVar extends IrReplaceSwitch {
         return false;
     }
     
-    //----------------------------- Move expr to statements -------------------
+    //---------- Move expressions involving lists without C-matching into statements -------------------
     
     private class moveExpr extends IrReplaceSwitch {
         Stack<Node> stack = new Stack<Node>();
@@ -383,6 +386,66 @@ public class ExprToTempVar extends IrReplaceSwitch {
                 }
                 return UtilIR.createExpression(scope, target);
             }
+            return expr;
+        }
+
+        @Override
+        public EObject caseListExpression(ListExpression expr) {
+            //Convert generator list expressions into foreach statement and then into while statements, to reuse the same foreach transformation
+            if(!expr.getGenerators().isEmpty()) {
+                if(expr.getGenerators().size()==1) {
+                    Variable target = UtilIR.createVarDef(null, "__temp_" + expr.getId(), expr.getType());
+                    target.setScope(scope);
+                    TransUtil.setAnnotation(target, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
+                    declarations.add(target);
+                    
+                    ForEach fe = IrFactory.eINSTANCE.createForEach();
+                    fe.setId(Util.getDefinitionId());
+                    fe.getGenerators().addAll(expr.getGenerators());
+                    Block body = UtilIR.createBlock(scope);
+                    fe.setBody(body);
+                    Variable index = UtilIR.createVarDef(null, "__temp_index_" + expr.getId(), TypeSystem.createTypeInt());
+                    index.setScope(scope);
+                    TransUtil.setAnnotation(index, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
+                    declarations.add(index);
+                    
+                    //FIXME currently only support first generator
+                    Assign assign = UtilIR.createAssign(body, 
+                            UtilIR.createVarRef(target, Arrays.asList(UtilIR.createExpression(body, index))), 
+                            expr.getExpressions().get(0));
+                    TransUtil.setAnnotation(assign, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
+                    //TODO This code expand the list one element at a time when not fixed size but should be made more efficient or try harder to calc size
+                    if(!TransUtil.allFixedLength(assign.getTarget().getDeclaration().getType())) {
+                        TransUtil.setAnnotation(assign, "Variable", "ListSize", "__temp_index_" + expr.getId());
+                    } else {
+                        TransUtil.setAnnotation(assign, "Variable", "ListSize", "0");
+                    }
+                    //FIXME currently only support first generator
+                    FixMovedExpr.moveScope(body, body, expr.getGenerators().get(0), true);
+                    
+                    Assign incAssign = UtilIR.createAssign(body, 
+                            index, 
+                            UtilIR.createExpression(UtilIR.createExpression(body, index), "+", UtilIR.lit(1)));
+                    
+                    //Roll out the for each statement into while-statements etc
+                    fe = new CreateForLoop(null, session, false).caseForEach(fe);
+    
+                    Assign initAssign = UtilIR.createAssignN(body, index, UtilIR.lit(0));
+                    statements.add(pos+inserts, initAssign);
+                    inserts++;
+                    statements.add(pos+inserts, fe);
+                    inserts++;
+                    
+                    if(s instanceof Assign) {
+                        //Since we have inserted a temp var remove any self assign
+                        TransUtil.rmAnnotation(s, "Variable", "VarLocalAccess","self");
+                    }
+                    return UtilIR.createExpression(scope, target);
+                } else {
+                    throw new RuntimeException("[Expr to Temp Var] Not yet implemented foreach list with multiple generators.");
+                }
+            }
+            super.caseListExpression(expr);
             return expr;
         }
     }

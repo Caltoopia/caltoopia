@@ -125,7 +125,9 @@ public class CreateForLoop extends IrReplaceSwitch {
 			serr = System.err;
 		}
 		this.session = session;
-		this.doSwitch(node);
+		if(node!=null) {
+		    this.doSwitch(node);
+		}
 	}
 	
     @Override
@@ -326,7 +328,7 @@ public class CreateForLoop extends IrReplaceSwitch {
                     Declaration list = UtilIR.createVarDef(body, v.getName()+"__ListExpression", call.getType());
                     UtilIR.createAssign(0,body, (Variable) list, call);
                     Expression sz = null;
-                    if(call.getType() instanceof TypeList) {
+                    if(call.getType() instanceof TypeList && ((TypeList)call.getType()).getSize()!=null) {
                         sz = ((TypeList)call.getType()).getSize();
                     } else {
                         throw new RuntimeException("[CreateForLoop] Not yet implemented foreach list function returning lists of unknown length.");

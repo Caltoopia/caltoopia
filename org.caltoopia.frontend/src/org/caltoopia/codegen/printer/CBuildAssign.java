@@ -198,6 +198,12 @@ public class CBuildAssign extends IrSwitch<Boolean> {
             String sz = assignAnn == null?"0":(assignAnn.get("Variable_ListSize")==null?"0":assignAnn.get("Variable_ListSize"));
             if(!sz.equals("0")) {
                 statStr += ind.ind() + "reallocMoveArray" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).toStr()+ "(";
+                //We allow literal integer or variable name
+                try {
+                    Integer.parseInt(sz);
+                } catch(NumberFormatException e) {
+                    sz=CPrintUtil.validCName(sz);
+                }
                 statStr += varStrS + ", NULL, (__arrayArg) {1,{" + sz + "}});" + ind.nl();
             }
             statStr += ind.ind() + new CBuildVarReference(assign.getTarget(), cenv).toStr() + " = ";
