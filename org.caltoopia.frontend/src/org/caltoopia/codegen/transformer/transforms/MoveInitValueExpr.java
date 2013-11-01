@@ -68,6 +68,7 @@ import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.ExternalActor;
 import org.caltoopia.ir.IrFactory;
 import org.caltoopia.ir.LambdaExpression;
+import org.caltoopia.ir.ListExpression;
 import org.caltoopia.ir.Network;
 import org.caltoopia.ir.Node;
 import org.caltoopia.ir.ProcExpression;
@@ -115,13 +116,15 @@ public class MoveInitValueExpr extends IrReplaceSwitch {
 				if(var.getInitValue()!=null) {
 					Map<String,String> annotations = TransUtil.getAnnotationsMap(var);
 					if(annotations!=null) {
-						//When init expression depends on in port var or is placed on heap 
+						//When init expression depends on in port var or is placed on heap
+					    //or when the expression is a list expression with generator
 						//move to statement. Also any declarations that depend on previous
 						//moved statements need to be moved.
 						String varType = annotations.get(TransUtil.varAnn("VarType"));
 						String varPlacement = annotations.get(TransUtil.varAnn("VarPlacement"));
 						if((varType!=null && varType.equals(VarType.actionInitInDepVar.name())) ||
-							(varPlacement!=null && varPlacement.equals(VarPlacement.heap.name()))) {
+							(varPlacement!=null && varPlacement.equals(VarPlacement.heap.name())) ||
+							(var.getInitValue() instanceof ListExpression && !((ListExpression)var.getInitValue()).getGenerators().isEmpty())) {
 							Assign assign = UtilIR.createAssign(pos, scope, var, var.getInitValue());
 							TransUtil.setAnnotation(assign.getTarget().getDeclaration(),IrTransformer.VARIABLE_ANNOTATION, 
 									"VarAssign",VarAssign.movedInitAssigned.name());
