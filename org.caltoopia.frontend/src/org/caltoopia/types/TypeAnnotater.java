@@ -45,23 +45,29 @@ import org.caltoopia.ast2ir.Util;
 import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.cli.DirectoryException;
 import org.caltoopia.codegen.UtilIR;
+import org.caltoopia.codegen.transformer.FixMovedExpr;
 import org.caltoopia.ir.BinaryExpression;
+import org.caltoopia.ir.Block;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.ForwardDeclaration;
 import org.caltoopia.ir.FunctionCall;
+import org.caltoopia.ir.Generator;
 import org.caltoopia.ir.IfExpression;
 import org.caltoopia.ir.IntegerLiteral;
 import org.caltoopia.ir.IrFactory;
 import org.caltoopia.ir.ListExpression;
 import org.caltoopia.ir.Member;
+import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeConstructorCall;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeDeclarationImport;
+import org.caltoopia.ir.TypeInt;
 import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.TypeRecord;
+import org.caltoopia.ir.TypeUint;
 import org.caltoopia.ir.TypeUser;
 import org.caltoopia.ir.UnaryExpression;
 import org.caltoopia.ir.Variable;
@@ -69,6 +75,7 @@ import org.caltoopia.ir.VariableExpression;
 import org.caltoopia.ir.VariableExternal;
 import org.caltoopia.ir.VariableImport;
 import org.caltoopia.ir.VariableReference;
+import org.caltoopia.ir.WhileLoop;
 import org.caltoopia.ir.util.IrReplaceSwitch;
 import org.eclipse.emf.ecore.EObject;
 
@@ -119,9 +126,47 @@ public class TypeAnnotater extends IrReplaceSwitch {
         if(expr.getType()==null && !expr.getExpressions().isEmpty()) {
             Type elemType = expr.getExpressions().get(0).getType();
             if(elemType!=null) {
+                Expression sz = null;
+                if(expr.getGenerators().isEmpty()) {
+                    sz = Util.createIntegerLiteral(expr.getExpressions().size());
+                } else if(expr.getGenerators().size()==1){
+                    //Only one first generator supported otherwise size is made dynamic (i.e. null)
+                    Generator g = expr.getGenerators().get(0);
+                    if(g.getSource() instanceof VariableExpression) {
+                        if(g.getSource().getType() instanceof TypeList) {
+                            sz = ((TypeList)g.getSource().getType()).getSize();
+                        }
+                    } else if(g.getSource() instanceof BinaryExpression) {
+                        BinaryExpression exprSrc = (BinaryExpression) g.getSource();
+                        if(exprSrc.getOperator().equals("..") &&
+                            (exprSrc.getOperand1().getType() instanceof TypeUint
+                            ||exprSrc.getOperand1().getType() instanceof TypeInt
+                            ||exprSrc.getOperand2().getType() instanceof TypeUint
+                            ||exprSrc.getOperand2().getType() instanceof TypeInt)) {
+                            if(UtilIR.isLiteralExpression(exprSrc.getOperand1()) && UtilIR.isLiteralExpression(exprSrc.getOperand1())) {
+                                sz = UtilIR.createExpression(exprSrc.getOperand2(), "-", exprSrc.getOperand1());
+                                sz.setContext(expr.getContext());
+                                sz.setType(exprSrc.getOperand1().getType());
+                            }
+                        }
+                    } else if(g.getSource() instanceof ListExpression) {
+                        ListExpression lit = (ListExpression) g.getSource();
+                        if(lit.getType() instanceof TypeList) {
+                            sz = ((TypeList)lit.getType()).getSize();
+                        } else if(lit.getGenerators().isEmpty()){
+                            //Fallback when list expression misses type
+                            sz = UtilIR.lit(lit.getExpressions().size());
+                        }
+                    } else if(g.getSource() instanceof FunctionCall) {
+                        FunctionCall call = (FunctionCall) g.getSource();
+                        if(call.getType() instanceof TypeList) {
+                            sz = ((TypeList)call.getType()).getSize();
+                        }
+                    }
+                }
                 TypeList listType = IrFactory.eINSTANCE.createTypeList();
                 listType.setType(elemType);
-                listType.setSize(Util.createIntegerLiteral(expr.getExpressions().size()));
+                listType.setSize(sz);
                 expr.setType(listType);
             }
         }
