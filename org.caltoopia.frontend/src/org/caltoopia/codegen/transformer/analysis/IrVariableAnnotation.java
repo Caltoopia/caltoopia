@@ -611,8 +611,20 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
                     case inlinedMember:
                     case refMember:
                     case self:
+                        break;
                     case scalarUserType:
+                        if(varIsList) {
+                            vla = VarLocalAccess.listMemberScalarUserType;
+                        } else {
+                            vla = VarLocalAccess.memberScalarUserType;
+                        }
+                        break;
                     case scalar:
+                        if(varIsList) {
+                            vla = VarLocalAccess.listMemberScalar;
+                        } else {
+                            vla = VarLocalAccess.memberScalar;
+                        }
                         break;
                     case list:
                         if(varIsList) {
