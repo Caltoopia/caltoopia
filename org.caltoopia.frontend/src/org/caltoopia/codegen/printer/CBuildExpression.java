@@ -661,26 +661,15 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         VarAccess varAccess = VarAccess.valueOf(TransUtil.getAnnotationArg(expr, IrTransformer.VARIABLE_ANNOTATION, "VarAccess"));
         String typeUsage = TransUtil.getAnnotationArg(expr, IrTransformer.TYPE_ANNOTATION, "TypeUsage");
         
-        if(UtilIR.isDeepLiteralExpression(expr)) {
-            exprStr += "((" + CPrintUtil.validCName(expr.getName()) + "_t) ";
-            exprStr += ("{");
-            exprStr += "0x0, "; //Flag allocated on the stack
-            for(Iterator<Expression> i= ((TypeConstructorCall) expr).getParameters().iterator();i.hasNext();) {
-                Expression e = i.next();
-                exprStr += new CBuildExpression(e,cenv).toStr();
-                if(i.hasNext()) exprStr += ", ";
-            }
-            exprStr += ("})");               
-        } else {
-            exprStr += (CPrintUtil.validCName(expr.getName()));
-            exprStr += ("(NULL, ");
-            for (Iterator<Expression> i = expr.getParameters().iterator(); i.hasNext();) {
-                Expression p = i.next();
-                exprStr += new CBuildExpression(p,cenv).toStr();
-                if (i.hasNext()) exprStr += ", ";
-            }
-            exprStr += ")";
+        exprStr += "((" + CPrintUtil.validCName(expr.getName()) + "_t) ";
+        exprStr += ("{");
+        exprStr += "0x0, "; //Flag allocated on the stack
+        for(Iterator<Expression> i= ((TypeConstructorCall) expr).getParameters().iterator();i.hasNext();) {
+            Expression e = i.next();
+            exprStr += new CBuildExpression(e,cenv).toStr();
+            if(i.hasNext()) exprStr += ", ";
         }
+        exprStr += ("})");               
         leave();
         return true;
     }
