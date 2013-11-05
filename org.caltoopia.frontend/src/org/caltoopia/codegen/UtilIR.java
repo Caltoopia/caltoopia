@@ -683,7 +683,40 @@ public class UtilIR {
         }
 	}
 	
-	static public boolean isLiteralExpression(Expression expr) {
+    static public boolean isDeepLiteralExpression(Expression expr) {
+        if(expr instanceof LiteralExpression) {
+            return true;
+        } else if(isScalarLiteralExpression(expr)) {
+            return true;
+        } else if(expr instanceof ListExpression) {
+            ListExpression list = (ListExpression) expr;
+            if(list.getGenerators().isEmpty() && !list.getExpressions().isEmpty()) {
+                for(Expression e : list.getExpressions()) {
+                    if(!isDeepLiteralExpression(e)) {
+                        return false;
+                    }
+                }
+                return true;
+            } else {
+                return false;
+            }
+        } else if(expr instanceof TypeConstructorCall) {
+            TypeConstructorCall call = (TypeConstructorCall) expr;
+            if(!call.getParameters().isEmpty()) {
+                for(Expression e : call.getParameters()) {
+                    if(!isDeepLiteralExpression(e)) {
+                        return false;
+                    }
+                }
+                return true;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static public boolean isLiteralExpression(Expression expr) {
 		if(expr instanceof LiteralExpression) {
 			return true;
 		} else if(expr instanceof ListExpression) {

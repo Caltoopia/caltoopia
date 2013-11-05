@@ -190,7 +190,7 @@ public class CBuildStatement extends IrSwitch<Boolean> {
             
             for (int i = 0; i<call.getInParameters().size(); i++) {
                 Expression ep = call.getInParameters().get(i);
-                statStr += new CBuildExpression(ep, cenv).toStr();
+                statStr += new CBuildExpression(ep, cenv,false,false,true).toStr();
                 if (i<call.getInParameters().size()-1) statStr += ", ";
             }
     

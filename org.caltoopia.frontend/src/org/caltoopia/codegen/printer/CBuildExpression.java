@@ -157,6 +157,11 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         return sizeArray.size()-(partial?indexArray.size():0);
     }
 
+    public CBuildExpression dimension(int dim) {
+        this.dim = dim;
+        return this;
+    }
+    
     private void enter(EObject obj) {level++;}
     private void leave() {level--;}
     
@@ -349,8 +354,9 @@ public class CBuildExpression extends IrSwitch<Boolean> {
             exprStr += ("{");
         dim++;
         for (Iterator<Expression> i = lit.getExpressions().iterator(); i.hasNext();) {
-            Expression l = i.next();            
-            doSwitch(l);
+            Expression l = i.next();
+            exprStr += new CBuildExpression(l, cenv, asRef, sepIndex, asArrayPart).dimension(dim).toStr();
+            //doSwitch(l);
             if (i.hasNext()) exprStr += ", ";
         }
         if(!lit.getGenerators().isEmpty()) {
@@ -654,14 +660,11 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(expr, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
         VarAccess varAccess = VarAccess.valueOf(TransUtil.getAnnotationArg(expr, IrTransformer.VARIABLE_ANNOTATION, "VarAccess"));
         String typeUsage = TransUtil.getAnnotationArg(expr, IrTransformer.TYPE_ANNOTATION, "TypeUsage");
-        exprStr +=("/* TC " +
-                varType.name() +", " +
-                varAccess.name() +", " +
-                typeUsage +" */");
-
-        if(UtilIR.isLiteralExpression(expr)) {
+        
+        if(UtilIR.isDeepLiteralExpression(expr)) {
             exprStr += "((" + CPrintUtil.validCName(expr.getName()) + "_t) ";
             exprStr += ("{");
+            exprStr += "0x0, "; //Flag allocated on the stack
             for(Iterator<Expression> i= ((TypeConstructorCall) expr).getParameters().iterator();i.hasNext();) {
                 Expression e = i.next();
                 exprStr += new CBuildExpression(e,cenv).toStr();

@@ -317,9 +317,13 @@ public class CPrinterTop extends IrSwitch<Stream> {
              * These are the array types 
              * First is a union that can point to list containing the elements (p) or list of pointer to the elements (pp)
              * Next a flag field:
-             *  0: isDirect (i.e. p should be used)
-             *  1: onHeap (the data is currently allocated on the heap and if the pointer is changed the old needs to be (deep) freed (we know non-other keeps pointers to lower levels due to copy semantics) 
-             * Next field is an array of sizes for each dimension.
+             *   Flags (true/false):
+             *   0:0x01 direct(p)/indirect(pp)
+             *   1:0x02 currently allocated(sz & pointer correct)/not-allocated
+             *   2:0x04 on heap/on stack, (the data is currently allocated on the heap and if the pointer is changed the old needs to be (deep) freed (we know non-other keeps pointers to lower levels due to copy semantics)
+             *   3:0x08 codegen (temporary created variable go ahead and steel the memory)/cal variable (must obey copy semantics)
+             *   4:0x10 part of multi-dim (can't used change the pointer or free etc, since pointing into the memory of a larger array)/the full array
+             * Next field is an 4 element array of sizes for each dimension (max 4 dimensions currently).
              */
             
             for(String t: Arrays.asList("char", "int8_t", "uint8_t", "int16_t", "uint16_t", "int32_t", "uint32_t", "double","void")) {
@@ -837,6 +841,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
         switch(varType) {
         case actorConstParamVar:
         case constVar:
+            s.print("/*CONST " + (UtilIR.isDeepLiteralExpression(variable.getInitValue())?"LITERAL":"NON-LITERAL")+"*/");
             s.print(new CBuildConstDeclaration(variable,cenv,header,!(currentActor==null)).toStr());
             s.println(";");
             break;
@@ -868,6 +873,13 @@ public class CPrinterTop extends IrSwitch<Stream> {
     public Stream caseTypeDeclaration(TypeDeclaration type) {
         if(header) {
             enter(type);
+            /* The user type is created as a c-struct:
+             * First a flags element:
+             *   Flags (true/false):
+             *   0:0x01 on heap/on stack
+             *   1:0x02 codegen (temporary created variable go ahead and steel the memory)/cal variable (must obey copy semantics)
+             * Second is the CAL members inside a members struct element
+             */
             s.println("");
             s.printlnInc("struct " + type.getName() + "_s {");
             s.println("uint32_t flags;");
