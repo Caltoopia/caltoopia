@@ -896,9 +896,31 @@ public class CPrinterTop extends IrSwitch<Stream> {
             s.println("} members;"); 
             s.dec();
             s.print("};"); 
-            leave(type);
+            s.println("");
+            s.println("int freeStruct" + type.getName() + "_t ("+ type.getName() + "_t * src, int top);");
+        } else {
+            TypeRecord struct = (TypeRecord) (type.getType() instanceof TypeUser ? ((TypeDeclaration)((TypeUser)type.getType()).getDeclaration()).getType(): type.getType());
+            s.printlnInc("int freeStruct" + type.getName() + "_t ("+ type.getName() + "_t * src, int top) {");
+            for (Iterator<Variable> i = struct.getMembers().iterator(); i.hasNext();) {
+                Variable var = i.next();
+                if(UtilIR.isList(var.getType())) {
+                    s.print("free" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).toStr() + "(&src->members." + new CBuildVarDeclaration(var,cenv,true).toStr() + ", TRUE)");
+                    s.println(";");
+                } else if(UtilIR.isRecord(var.getType())) {
+                    s.print("freeStruct" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).toStr() + "(&src->members." + new CBuildVarDeclaration(var,cenv,true).toStr() + ", TRUE)");
+                    s.println(";");
+                }
+            }
+            s.printlnInc("if(top && (src->flags&0x1)==0x1) {");
+            s.println("free(src);");
+            s.dec();
+            s.println("}"); 
+            s.println("return TRUE;");
+            s.dec();
+            s.println("}"); 
             s.println("");
         }
+        leave(type);
         return s;
     }
 
