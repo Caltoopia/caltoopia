@@ -296,12 +296,9 @@ public class TransUtil {
 					annotations.put(typeAnn(aa.getId()), aa.getValue());
 				}
 			}
-			if(annotations.isEmpty())
-				return null;
-			else
-				return annotations;
+			return annotations;
 		}
-		return null;
+		return new HashMap<String,String>();
 	}
 
 	static public void copyAnnotations(EObject dst, EObject src) {

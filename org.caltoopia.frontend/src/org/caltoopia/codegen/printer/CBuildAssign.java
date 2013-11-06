@@ -156,9 +156,9 @@ public class CBuildAssign extends IrSwitch<Boolean> {
         Map<String,String> targetAnn = TransUtil.getAnnotationsMap(assign.getTarget());
         Map<String,String> exprAnn = TransUtil.getAnnotationsMap(assign.getExpression());
         statStr += ind.ind() + "/*\n";
-        if(assignAnn!=null) statStr += ind.ind() + "A:" + assignAnn.toString() +"\n";
-        if(targetAnn!=null) statStr += ind.ind() + "T:" + targetAnn.toString() +"\n";
-        if(exprAnn!=null) statStr += ind.ind() + "E:" + exprAnn.toString() +"\n";
+        if(!assignAnn.isEmpty()) statStr += ind.ind() + "A:" + assignAnn.toString() +"\n";
+        if(!targetAnn.isEmpty()) statStr += ind.ind() + "T:" + targetAnn.toString() +"\n";
+        if(!exprAnn.isEmpty()) statStr += ind.ind() + "E:" + exprAnn.toString() +"\n";
         statStr += ind.ind() + "*/\n";
         //TODO fix more complicated assignments
         /*
@@ -171,6 +171,7 @@ public class CBuildAssign extends IrSwitch<Boolean> {
          * 4) When function returning list (allocated inside function) copy or replace target var pointer.
          * 5) When list expression inside other list expression use temp variables
          */
+        List<Expression> indices = null;
         String selfAnn = assignAnn == null?null:assignAnn.get("Variable_VarLocalAccess");
         boolean selfAssign = (selfAnn == null)?false:VarLocalAccess.valueOf(selfAnn).equals(VarLocalAccess.self);
         switch (VarLocalAccess.valueOf(targetAnn.get("Variable_VarLocalAccess"))) {
@@ -181,6 +182,7 @@ public class CBuildAssign extends IrSwitch<Boolean> {
         case listMultiSingle:
         case listUserTypeSingle:
         case listMultiUserTypeSingle:
+            indices = assign.getTarget().getIndex();
         case listMemberListMultiSingle:
         case listMemberListMultiUserTypeSingle:
         case listMemberListSingle:
@@ -193,18 +195,35 @@ public class CBuildAssign extends IrSwitch<Boolean> {
         case memberListUserTypeSingle:
         case memberScalar:
         case memberScalarUserType:
+            if((indices==null || (indices!=null && indices.isEmpty())) &&
+                    (assign.getTarget().getMember()!=null && !assign.getTarget().getMember().isEmpty())) {
+                indices = assign.getTarget().getMember().get(assign.getTarget().getMember().size()-1).getIndex();
+            }
             CBuildVarReference cVarRefS = new CBuildVarReference(assign.getTarget(), cenv, true, true);
             String varStrS = cVarRefS.toStr();
             String sz = assignAnn == null?"0":(assignAnn.get("Variable_ListSize")==null?"0":assignAnn.get("Variable_ListSize"));
             if(!sz.equals("0")) {
                 statStr += ind.ind() + "reallocMoveArray" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).toStr()+ "(";
+                int len = 1;
                 //We allow literal integer or variable name
                 try {
                     Integer.parseInt(sz);
                 } catch(NumberFormatException e) {
                     sz=CPrintUtil.validCName(sz);
                 }
-                statStr += varStrS + ", NULL, (__arrayArg) {1,{" + sz + "}});" + ind.nl();
+                if(sz.equals("-1")) {
+                    //Should use indices as sizes
+                    len=0;
+                    sz="";
+                    //FIXME should rather do temp variables to guarantee to be side effect free but CAL expressions should be side effect free
+                    for (Iterator<Expression> i = indices.iterator(); i.hasNext();) {
+                        len++;
+                        Expression e = i.next();
+                        sz += new CBuildExpression(e, cenv).toStr();
+                        if (i.hasNext()) sz += ",";
+                    }
+                }
+                statStr += varStrS + ", NULL, (__arrayArg) {" + len + ",{" + sz + "}});" + ind.nl();
             }
             statStr += ind.ind() + new CBuildVarReference(assign.getTarget(), cenv).toStr() + " = ";
             statStr += new CBuildExpression(assign.getExpression(), cenv).toStr();

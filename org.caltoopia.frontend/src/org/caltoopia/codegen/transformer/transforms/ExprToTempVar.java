@@ -133,6 +133,24 @@ public class ExprToTempVar extends IrReplaceSwitch {
             Map<String,String> assignAnn = TransUtil.getAnnotationsMap(assign);
             Map<String,String> targetAnn = TransUtil.getAnnotationsMap(assign.getTarget());
             Map<String,String> exprAnn = TransUtil.getAnnotationsMap(assign.getExpression());
+            //Also handle the allocation when assign scalar into dynamic list
+            if(assign.getTarget().getDeclaration().getType() instanceof TypeList && 
+                    !TransUtil.allFixedLength(assign.getTarget().getDeclaration().getType()) &&
+                    assignAnn.get("Variable_ListSize")==null &&
+                    Arrays.asList(VarLocalAccess.listSingle.name(),
+                            VarLocalAccess.listMultiSingle.name(),
+                            VarLocalAccess.listUserTypeSingle.name(),
+                            VarLocalAccess.listMultiUserTypeSingle.name(),
+                            VarLocalAccess.listMemberListMultiSingle.name(),
+                            VarLocalAccess.listMemberListMultiUserTypeSingle.name(),
+                            VarLocalAccess.listMemberListSingle.name(),
+                            VarLocalAccess.listMemberListUserTypeSingle.name(),
+                            VarLocalAccess.memberListMultiSingle.name(),
+                            VarLocalAccess.memberListMultiUserTypeSingle.name(),
+                            VarLocalAccess.memberListSingle.name(),
+                            VarLocalAccess.memberListUserTypeSingle.name()).contains(targetAnn.get("Variable_VarLocalAccess"))) {
+                TransUtil.setAnnotation(assign, "Variable", "ListSize", String.valueOf(-1));
+            }
             String selfAnn = assignAnn == null?null:assignAnn.get("Variable_VarLocalAccess");
             boolean selfAssign = (selfAnn == null)?false:VarLocalAccess.valueOf(selfAnn).equals(VarLocalAccess.self);
             if (selfAssign || !(assign.getExpression() instanceof VariableExpression)) {
