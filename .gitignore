@@ -1,6 +1,7 @@
 *.class
 org.caltoopia.frontend/bin/resources
 org.caltoopia.frontend/bin/org/caltoopia/cli/Makefile
+org.caltoopia.frontend/bin/org/caltoopia/codegen/printer/__arrayCopy.h
 org.caltoopia.analysis/bin
 .DS_Store
 org.caltoopia.frontend.ui/.DS_Store

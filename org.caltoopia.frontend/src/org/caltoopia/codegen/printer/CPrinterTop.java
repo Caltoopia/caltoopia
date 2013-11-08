@@ -36,7 +36,13 @@
 
 package org.caltoopia.codegen.printer;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -134,6 +140,31 @@ public class CPrinterTop extends IrSwitch<Stream> {
         this.session = session;
         this.out = session.getOutputStream();
         this.cenv = cenv;
+        
+        //Copy the array methods header file
+        try {
+            File dst = new File(session.getOutputFolder() + File.separator + "__arrayCopy.h");
+            System.out.println("Copying '" + dst + "'");
+            BufferedReader reader = null;
+            InputStream src = this.getClass().getResourceAsStream("__arrayCopy.h");
+            reader = new BufferedReader(new InputStreamReader(src));
+            
+            if(!dst.exists()) {
+                    dst.createNewFile();
+            }
+            
+            PrintStream writer = new PrintStream(new FileOutputStream(dst));
+                 
+            String line = null;
+            while((line = reader.readLine()) != null) {
+                writer.println(line);
+            }
+            writer.close();
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Network network = null;
         TypeActor elaboratedNetworkType = session.getElaboratedNetwork().getType();
         try {
