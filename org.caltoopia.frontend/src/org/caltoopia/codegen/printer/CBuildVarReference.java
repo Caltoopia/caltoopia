@@ -71,6 +71,7 @@ import org.caltoopia.ir.StringLiteral;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeConstructorCall;
 import org.caltoopia.ir.TypeList;
+import org.caltoopia.ir.TypeString;
 import org.caltoopia.ir.TypeUndef;
 import org.caltoopia.ir.UnaryExpression;
 import org.caltoopia.ir.Variable;
@@ -134,16 +135,21 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
 
     public String sizeStr() {
         String indexStr = "(__arrayArg) {";
-        indexStr += sizeArray.size() + ",{";
-        for(int i = 0; i<sizeArray.size();i++) {
-            Expression e = sizeArray.get(i);
-            if(e!=null) {
-                indexStr += new CBuildExpression(e, cenv).toStr();
-            } else {
-                indexStr += "/*dynamic*/";
-                indexStr += lastVarStr +".sz[" + i + "]";
+        if(reference.getType() instanceof TypeString) {
+            indexStr += "1,{";
+            indexStr += lastVarStr +".sz[0]";
+        } else {
+            indexStr += sizeArray.size() + ",{";
+            for(int i = 0; i<sizeArray.size();i++) {
+                Expression e = sizeArray.get(i);
+                if(e!=null) {
+                    indexStr += new CBuildExpression(e, cenv).toStr();
+                } else {
+                    indexStr += "/*dynamic*/";
+                    indexStr += lastVarStr +".sz[" + i + "]";
+                }
+                if(i<(sizeArray.size()-1)) indexStr += ", ";
             }
-            if(i<(sizeArray.size()-1)) indexStr += ", ";
         }
         indexStr += "}}";
         return indexStr;
@@ -319,6 +325,7 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
         case listMemberListMultiUserTypeSingle:
         case listMemberListMultiList:
         case listMemberListMultiUserTypeList:
+        case listMemberString:
             pointerArray = true;
             refStr += ".pp";
             flagsStr = refStr;
@@ -334,6 +341,7 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
         case listSingle:
         case listMultiSingle:
         case listMultiList:
+        case string:
             sep = sepIndex;
             flagsStr = refStr;
             if(!sepIndex) {

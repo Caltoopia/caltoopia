@@ -71,6 +71,7 @@ import org.caltoopia.ir.StringLiteral;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeConstructorCall;
 import org.caltoopia.ir.TypeList;
+import org.caltoopia.ir.TypeString;
 import org.caltoopia.ir.TypeUndef;
 import org.caltoopia.ir.UnaryExpression;
 import org.caltoopia.ir.Variable;
@@ -134,16 +135,21 @@ public class CBuildExpression extends IrSwitch<Boolean> {
     public String sizeStr(boolean partial) {
         int n = partial?indexArray.size():0;
         String indexStr = "(__arrayArg) {";
-        indexStr += sizeArray.size()-n + ",{";
-        for(int i = n; i<sizeArray.size();i++) {
-            Expression e = sizeArray.get(i);
-            if(e!=null) {
-                indexStr += new CBuildExpression(e, cenv).toStr();
-            } else {
-                indexStr += "/*dynamic*/";
-                indexStr += lastVarStr +".sz[" + i + "]";
+        if(expression.getType() instanceof TypeString) {
+            indexStr += "1,{";
+            indexStr += lastVarStr +".sz[0]";
+        } else {
+            indexStr += sizeArray.size()-n + ",{";
+            for(int i = n; i<sizeArray.size();i++) {
+                Expression e = sizeArray.get(i);
+                if(e!=null) {
+                    indexStr += new CBuildExpression(e, cenv).toStr();
+                } else {
+                    indexStr += "/*dynamic*/";
+                    indexStr += lastVarStr +".sz[" + i + "]";
+                }
+                if(i<(sizeArray.size()-1)) indexStr += ", ";
             }
-            if(i<(sizeArray.size()-1)) indexStr += ", ";
         }
         indexStr += "}}";
         return indexStr;
@@ -408,6 +414,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         case listMemberList:
         case listMemberListMulti:
         case listMemberListMultiList:
+        case listMemberString:
             pointerArray = true;
             exprStr += ".pp";
             break;
@@ -430,6 +437,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         case list:
         case listMulti:
         case listMultiList:
+        case string:
             asArrayPart = var.getIndex().isEmpty()?false:asArrayPart; //When no index, can't be sub-array
             sep = asArrayPart?true:sepIndex;
             if(!sepIndex && !asArrayPart && !asArray) {
@@ -448,6 +456,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         case memberList:
         case memberListMultiList:
         case memberListMulti:
+        case memberString:
             break;
         default:
             asArrayPart = false; //making sure scalar is not made into arrays (since caller might not have checked)
@@ -523,26 +532,52 @@ public class CBuildExpression extends IrSwitch<Boolean> {
 
     @Override
     public Boolean caseBinaryExpression(BinaryExpression expr) {
-        // Ugly hack starts
-        // This is a solution JUST to get the test examples compiling
-        // The '..' operator shall be not be around at this stage, 
-        // but for that we need some dead code removal to clean it up.
-        // So for, now we just print 'null'
-        /*
-        if (expr.getOperator().equals("..")) {
-            exprStr += ("0");
-            return true;
-        }
-        */
-        // Ugly ends
-        
         enter(expr);
         exprStr += "(";
-        doSwitch(expr.getOperand1());
-        exprStr += " ";
-        printOperator(expr.getOperator());
-        exprStr += " ";
-        doSwitch(expr.getOperand2());
+        if(expr.getOperand1().getType() instanceof TypeString) {
+            boolean op1IsLit = expr.getOperand1() instanceof StringLiteral;
+            boolean op2IsLit = expr.getOperand2() instanceof StringLiteral;
+            exprStr += "string";
+            String operator = expr.getOperator();
+            if (operator.equals("=")) {
+                exprStr += ("eq");
+            } else if (operator.equals("!=")) {
+                exprStr += ("ne");
+            } else if (operator.equals("<")) {
+                exprStr += ("lt");
+            } else if (operator.equals(">")) {
+                exprStr += ("gt");
+            } else if (operator.equals("<=")) {
+                exprStr += ("le");
+            } else if (operator.equals(">=")) {
+                exprStr += ("ge");
+            } else {
+                exprStr += "/* NOT YET IMPLEMENTED (3) string operator " + operator + "*/";
+            }           
+            exprStr += (op1IsLit?"l":"v") + (op2IsLit?"l":"v") + "(";
+            if(op1IsLit) {
+                StringLiteral strLit = (StringLiteral) expr.getOperand1();
+                exprStr += "\"" + strLit.getValue() +"\"";
+            } else {
+                CBuildExpression cVarExpr = new CBuildExpression(expr.getOperand1(), cenv, true, true,false);
+                exprStr += cVarExpr.toStr();
+            }
+            exprStr += ", ";
+            if(op2IsLit) {
+                StringLiteral strLit = (StringLiteral) expr.getOperand2();
+                exprStr += "\"" + strLit.getValue() +"\"";
+            } else {
+                CBuildExpression cVarExpr = new CBuildExpression(expr.getOperand2(), cenv, true, true,false);
+                exprStr += cVarExpr.toStr();
+            }
+            exprStr += ")";
+        } else {
+            doSwitch(expr.getOperand1());
+            exprStr += " ";
+            printOperator(expr.getOperator());
+            exprStr += " ";
+            doSwitch(expr.getOperand2());
+        }
         exprStr += ")";
         leave();
         return true;
@@ -553,20 +588,31 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         enter(expr);
         exprStr += "(";
         String operator = expr.getOperator();
-        if (operator.equals("not")) {
-            exprStr += ("!");
-        } else if (operator.equals("#")) {
-            exprStr += ("sizeof");
-        } else if (operator.equals("old")) {
-            exprStr += ("/* Usage of unary operator old is not supported! */");
-            CodegenError.err("Expression builder", "Usage of unary operator old is not supported, check output!");
+        //FIXME instead of chasing type here should make sure that the type annotator do its job
+        if((expr.getOperand().getType() instanceof TypeString ||
+            (expr.getOperand() instanceof VariableExpression && 
+                    ((VariableExpression)expr.getOperand()).getVariable() instanceof Variable &&
+                    ((Variable)((VariableExpression)expr.getOperand()).getVariable()).getType() instanceof TypeString))
+            && operator.equals("#")) {
+            exprStr += "(int32_t)strlen(";
+            doSwitch(expr.getOperand());
+            exprStr += ")";
         } else {
-            exprStr += (operator);
-        }           
-        exprStr += "(";
-        doSwitch(expr.getOperand());
-        exprStr += "))";
-        
+            if (operator.equals("not")) {
+                exprStr += ("!");
+            } else if (operator.equals("#")) {
+                    exprStr += ("sizeof");
+            } else if (operator.equals("old")) {
+                exprStr += ("/* Usage of unary operator old is not supported! */");
+                CodegenError.err("Expression builder", "Usage of unary operator old is not supported, check output!");
+            } else {
+                exprStr += (operator);
+            }           
+            exprStr += "(";
+            doSwitch(expr.getOperand());
+            exprStr += ")";
+        }
+        exprStr += ")";
         leave();
         return true;
     }

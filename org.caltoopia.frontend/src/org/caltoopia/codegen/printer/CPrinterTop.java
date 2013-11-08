@@ -56,6 +56,7 @@ import org.caltoopia.cli.CompilationSession;
 import org.caltoopia.cli.DirectoryException;
 import org.caltoopia.codegen.CEnvironment;
 import org.caltoopia.codegen.CPrinter;
+import org.caltoopia.codegen.CodegenError;
 import org.caltoopia.codegen.IrXmlPrinter;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.transformer.IrTransformer;
@@ -289,6 +290,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
             s.println("#include <stdint.h>");
             s.println("#define TRUE 1");
             s.println("#define FALSE 0");
+            s.println("#define TYPE_DIRECT");
 
             int dimensions[] = {4};//For now only max 4 dim and no optimization of struct size, {1,2,3,4,256}; //list all dimensions needed, if someone wants more than 4 dimensions they get 256 since they anyway don't care about memory usage
             //A type to remove varying nbr of arg to copy routines
@@ -343,6 +345,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
                 s.println("#define TYPE " + t);
                 s.println("#include \"__arrayCopy.h\"");
             }
+            s.println("#undef TYPE_DIRECT");
             
             for(Declaration d : network.getDeclarations()) {
                 VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
@@ -842,6 +845,9 @@ public class CPrinterTop extends IrSwitch<Stream> {
         case actorConstParamVar:
         case constVar:
             s.print("/*CONST " + (UtilIR.isDeepLiteralExpression(variable.getInitValue())?"LITERAL":"NON-LITERAL")+"*/");
+            if(!UtilIR.isDeepLiteralExpression(variable.getInitValue())) {
+                CodegenError.err("CPrinterTop", "Not yet implemented handling of const declaration ("+variable.getName()+") that can't be reduced to literal constants at compile time.");
+            }
             s.print(new CBuildConstDeclaration(variable,cenv,header,!(currentActor==null)).toStr());
             s.println(";");
             break;

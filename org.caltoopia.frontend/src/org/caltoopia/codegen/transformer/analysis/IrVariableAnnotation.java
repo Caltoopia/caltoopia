@@ -81,6 +81,7 @@ import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.TypeProc;
 import org.caltoopia.ir.TypeRecord;
+import org.caltoopia.ir.TypeString;
 import org.caltoopia.ir.TypeUint;
 import org.caltoopia.ir.TypeUser;
 import org.caltoopia.ir.Variable;
@@ -227,6 +228,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
     public enum VarLocalAccess {
         unknown,
         scalar,                     //scalar builtin type
+        string,                     //i.e. one dimension char array (FIXME add arrays of strings)
         list,                       //list of builtin type
         listMultiList,              //list multi-dim (only single list after index) of builtin type
         listMulti,                  //list multi-dim (still multi-dim after index) of builtin type
@@ -240,6 +242,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
         listMultiUserTypeSingle,    //list multi-dim (indexed to scalar) of user type
         //when a scalar user type's member
         memberScalar,
+        memberString,
         memberList,
         memberListMultiList,
         memberListMulti,
@@ -253,6 +256,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
         memberListMultiUserTypeSingle,
         //when a list user type's member
         listMemberScalar,
+        listMemberString,
         listMemberList,
         listMemberListMultiList,
         listMemberListMulti,
@@ -627,6 +631,13 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
                             vla = VarLocalAccess.memberScalar;
                         }
                         break;
+                    case string:
+                        if(varIsList) {
+                            vla = VarLocalAccess.listMemberString;
+                        } else {
+                            vla = VarLocalAccess.memberString;
+                        }
+                        break;
                     case list:
                         if(varIsList) {
                             vla = VarLocalAccess.listMemberList;
@@ -744,6 +755,8 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
                 } else {
                     if(UtilIR.isRecord(type)) {
                         vla = VarLocalAccess.scalarUserType;
+                    } else if(type instanceof TypeString) {
+                        vla = VarLocalAccess.string;
                     } else {
                         vla = VarLocalAccess.scalar;
                     }

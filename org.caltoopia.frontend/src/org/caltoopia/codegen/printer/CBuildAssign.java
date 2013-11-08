@@ -75,6 +75,7 @@ import org.caltoopia.ir.ProcExpression;
 import org.caltoopia.ir.ReturnValue;
 import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.Statement;
+import org.caltoopia.ir.StringLiteral;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeConstructorCall;
@@ -287,6 +288,93 @@ public class CBuildAssign extends IrSwitch<Boolean> {
                     }
                 }
             }
+            break;
+            
+        case string:
+        case memberString:
+        case listMemberString:
+            if(assign.getExpression() instanceof VariableExpression) {
+                CBuildVarReference cVarRef = new CBuildVarReference(assign.getTarget(), cenv, true, true);
+                String varStr = cVarRef.toStr();
+                statStr += ind.ind() + "copychar(";
+                statStr += varStr + ", ";
+                CBuildExpression cVarExpr = new CBuildExpression(assign.getExpression(), cenv, true, true,false);
+                statStr += cVarExpr.toStr() + ", ";
+                statStr += cVarRef.indexStr() + ", ";
+                statStr += cVarExpr.indexStr() + ", ";
+                statStr += "maxArraySz(&" + cVarRef.sizeStr() + ", &" + cVarExpr.sizeStr(true) + ", " + cVarRef.indexLen() + ")";
+                statStr += ")";
+                statStr += ";" + ind.nl();
+                String tempAnn = assignAnn == null?null:assignAnn.get("Variable_VarLocalAccess");
+                boolean tempAssign = (tempAnn == null)?false:VarLocalAccess.valueOf(tempAnn).equals(VarLocalAccess.temp);
+                if(tempAssign) {
+                    statStr += ind.ind() + cVarRef.flagsStr() + "|=0x8;" + ind.nl();
+                }
+            } else if(assign.getExpression() instanceof FunctionCall) {
+                CBuildVarReference cVarRefF = new CBuildVarReference(assign.getTarget(), cenv, true, true);
+                String varStrF = cVarRefF.toStr();
+                statStr += ind.ind() + "free" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).toStr() + "(" + varStrF + ", TRUE);" + ind.nl();
+                CBuildVarReference cVarRef = new CBuildVarReference(assign.getTarget(), cenv, false, true);
+                String varStr = cVarRef.toStr();
+                statStr += ind.ind() + varStr + " = ";
+                CBuildExpression cExpr = new CBuildExpression(assign.getExpression(), cenv, false, false,false);
+                statStr += cExpr.toStr() + ";" + ind.nl();
+                String tempAnn = assignAnn == null?null:assignAnn.get("Variable_VarLocalAccess");
+                boolean tempAssign = (tempAnn == null)?false:VarLocalAccess.valueOf(tempAnn).equals(VarLocalAccess.temp);
+                if(tempAssign) {
+                    statStr += ind.ind() + cVarRef.flagsStr() + "|=0x8;" + ind.nl();
+                }
+            } else if(assign.getExpression() instanceof BinaryExpression &&
+                    ((BinaryExpression)assign.getExpression()).getOperator().equals("+")) {
+                boolean op1IsLit = ((BinaryExpression)assign.getExpression()).getOperand1() instanceof StringLiteral;
+                boolean op2IsLit = ((BinaryExpression)assign.getExpression()).getOperand2() instanceof StringLiteral;
+                statStr += ind.ind() + "stringadd" + (op1IsLit?"l":"v") + (op2IsLit?"l":"v") + "(";
+                CBuildVarReference cVarRef = new CBuildVarReference(assign.getTarget(), cenv, true, true);
+                String varStr = cVarRef.toStr();
+                statStr += varStr + ", ";
+                if(op1IsLit) {
+                    StringLiteral strLit = (StringLiteral) ((BinaryExpression)assign.getExpression()).getOperand1();
+                    statStr += "\"" + strLit.getValue() +"\"";
+                } else {
+                    CBuildExpression cVarExpr = new CBuildExpression(((BinaryExpression)assign.getExpression()).getOperand1(), cenv, true, true,false);
+                    statStr += cVarExpr.toStr();
+                }
+                statStr += ", ";
+                if(op2IsLit) {
+                    StringLiteral strLit = (StringLiteral) ((BinaryExpression)assign.getExpression()).getOperand2();
+                    statStr += "\"" + strLit.getValue() +"\"";
+                } else {
+                    CBuildExpression cVarExpr = new CBuildExpression(((BinaryExpression)assign.getExpression()).getOperand2(), cenv, true, true,false);
+                    statStr += cVarExpr.toStr();
+                }
+                statStr += ");" + ind.nl();
+                String tempAnn = assignAnn == null?null:assignAnn.get("Variable_VarLocalAccess");
+                boolean tempAssign = (tempAnn == null)?false:VarLocalAccess.valueOf(tempAnn).equals(VarLocalAccess.temp);
+                if(tempAssign) {
+                    statStr += ind.ind() + cVarRef.flagsStr() + "|=0x8;" + ind.nl();
+                }
+            } else if(assign.getExpression() instanceof StringLiteral) {
+                statStr += ind.ind() + "stringassignl(";
+                CBuildVarReference cVarRef = new CBuildVarReference(assign.getTarget(), cenv, true, true);
+                String varStr = cVarRef.toStr();
+                statStr += varStr + ", ";
+                StringLiteral strLit = (StringLiteral) assign.getExpression();
+                statStr += "\"" + strLit.getValue() +"\"";
+                statStr += ");" + ind.nl();
+                String tempAnn = assignAnn == null?null:assignAnn.get("Variable_VarLocalAccess");
+                boolean tempAssign = (tempAnn == null)?false:VarLocalAccess.valueOf(tempAnn).equals(VarLocalAccess.temp);
+                if(tempAssign) {
+                    statStr += ind.ind() + cVarRef.flagsStr() + "|=0x8;" + ind.nl();
+                }
+            } else {
+                statStr += "/*NOT YET IMPLEMENTED (2)*/";
+                statStr += ind.ind() + new CBuildVarReference(assign.getTarget(), cenv).toStr() + " = ";
+                statStr += new CBuildExpression(assign.getExpression(), cenv).toStr();
+                if(semicolon) {
+                    statStr += ";" + ind.nl();
+                }
+            }
+            
             break;
             
         case listMulti:

@@ -60,11 +60,14 @@ import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Action;
 import org.caltoopia.ir.ActorInstance;
 import org.caltoopia.ir.Assign;
+import org.caltoopia.ir.BinaryExpression;
 import org.caltoopia.ir.Block;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.ExternalActor;
 import org.caltoopia.ir.ForEach;
+import org.caltoopia.ir.FunctionCall;
+import org.caltoopia.ir.Guard;
 import org.caltoopia.ir.IfExpression;
 import org.caltoopia.ir.IfStatement;
 import org.caltoopia.ir.IrFactory;
@@ -72,13 +75,17 @@ import org.caltoopia.ir.LambdaExpression;
 import org.caltoopia.ir.ListExpression;
 import org.caltoopia.ir.Network;
 import org.caltoopia.ir.Node;
+import org.caltoopia.ir.PortRead;
+import org.caltoopia.ir.PortWrite;
 import org.caltoopia.ir.ProcExpression;
 import org.caltoopia.ir.ReturnValue;
 import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.Statement;
+import org.caltoopia.ir.StringLiteral;
 import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeList;
+import org.caltoopia.ir.TypeString;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExpression;
 import org.caltoopia.ir.util.IrReplaceSwitch;
@@ -184,6 +191,9 @@ public class ExprToTempVar extends IrReplaceSwitch {
                 case memberScalar:
                 case memberScalarUserType:
                 case inlinedMember:
+                case string:
+                case memberString:
+                case listMemberString:
                     //CodegenError.err("Expr to temp var", "Did not do anything for scalar " + assign.getTarget().getDeclaration().getName());
                     break;
                 //Assignment of a list to a list, break up into temp var
@@ -481,11 +491,161 @@ public class ExprToTempVar extends IrReplaceSwitch {
         return false;
     }
     
+    //---------- Move expressions involving strings without C-matching into statements -------------------
+    
+    private class moveStringExpr extends IrReplaceSwitch {
+        Stack<Node> stack = new Stack<Node>();
+        
+        Statement s = null;
+        List<Declaration> declarations = null;
+        List<Statement> statements = null;
+        Scope scope = null;
+        int pos;
+        int inserts = 0;
+        boolean multi = false;
+        
+        moveStringExpr(Statement s, int pos, List<Declaration> declarations, List<Statement> statements, Scope scope) {
+            this.s=s;
+            this.pos = pos;
+            this.declarations = declarations;
+            this.statements = statements;
+            this.scope = scope;
+            doSwitch(s);
+        }
+        
+        @Override
+        public Expression caseVariableExpression(VariableExpression var) {
+            //Don't go into variable expressions
+            return var;
+        }
+        @Override
+        public Statement caseBlock(Block block) {
+            //Don't go into blocks, that is handled by ExprToTempVar class
+            return block;
+        }
+        @Override
+        public Expression caseStringLiteral(StringLiteral literal) {
+            //Don't go into string literals
+            return literal;
+        }
+
+        @Override
+        public Expression caseBinaryExpression(BinaryExpression expr) {
+            if(expr.getType() instanceof TypeString) {
+                expr.setOperand1((Expression) doSwitch(expr.getOperand1()));
+                expr.setOperand2((Expression) doSwitch(expr.getOperand2()));
+                Variable target = UtilIR.createVarDef(null, "__temp_" + expr.getId(), expr.getType());
+                target.setScope(scope);
+                TransUtil.setAnnotation(target, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
+                declarations.add(target);
+                Assign assign = UtilIR.createAssignN(scope, target, expr);
+                TransUtil.setAnnotation(assign, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
+                statements.add(pos+inserts, assign);
+                inserts++;
+                TransUtil.setAnnotation(assign, "DEBUG", "StringExprToTemp", "BinaryExpression");
+                
+                if(s instanceof Assign) {
+                    //Since we have inserted a temp var remove any self assign
+                    TransUtil.rmAnnotation(s, "Variable", "VarLocalAccess","self");
+                }
+                return UtilIR.createExpression(scope, target);
+            }
+            return expr;
+        }
+
+        @Override
+        public EObject caseIfExpression(IfExpression expr) {
+            if(expr.getType() instanceof TypeString) {
+                Variable target = UtilIR.createVarDef(null, "__temp_" + expr.getId(), expr.getType());
+                target.setScope(scope);
+                TransUtil.setAnnotation(target, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
+                declarations.add(target);
+                Assign thenAssign = UtilIR.createAssignN(scope, target, expr.getThenExpression());
+                TransUtil.setAnnotation(thenAssign, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
+                Assign elseAssign = UtilIR.createAssignN(scope, target, expr.getElseExpression());
+                TransUtil.setAnnotation(elseAssign, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
+                IfStatement ifStatement = UtilIR.createIfN(scope, expr.getCondition(), (Statement)thenAssign, (Statement)elseAssign);
+                FixMovedExpr.moveScope(ifStatement.getCondition(), scope, expr.getContext(), false);
+                FixMovedExpr.moveScope(ifStatement.getThenBlock(), ifStatement.getThenBlock(), expr.getContext(), true);
+                FixMovedExpr.moveScope(ifStatement.getElseBlock(), ifStatement.getElseBlock(), expr.getContext(), true);
+                
+                statements.add(pos+inserts, ifStatement);
+                inserts++;
+                
+                if(s instanceof Assign) {
+                    //Since we have inserted a temp var remove any self assign
+                    TransUtil.rmAnnotation(s, "Variable", "VarLocalAccess","self");
+                }
+                return UtilIR.createExpression(scope, target);
+            }
+            return expr;
+        }
+
+        @Override
+        public Expression caseFunctionCall(FunctionCall expr) {
+            super.caseFunctionCall(expr);
+            if(expr.getType() instanceof TypeString) {
+                Variable target = UtilIR.createVarDef(null, "__temp_" + expr.getId(), expr.getType());
+                target.setScope(scope);
+                TransUtil.setAnnotation(target, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
+                declarations.add(target);
+                Assign assign = UtilIR.createAssignN(scope, target, expr);
+                TransUtil.setAnnotation(assign, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
+                statements.add(pos+inserts, assign);
+                inserts++;
+
+                TransUtil.setAnnotation(assign, "DEBUG", "StringExprToTemp", "FunctionCall");
+                
+                if(s instanceof Assign) {
+                    //Since we have inserted a temp var remove any self assign
+                    TransUtil.rmAnnotation(s, "Variable", "VarLocalAccess","self");
+                }
+                return UtilIR.createExpression(scope, target);
+            }
+            return expr;
+        }
+}
+    
+    private boolean moveStringExprToStatement(List<Declaration> declarations, List<Statement> statements, Scope scope) {
+        if(declarations == null || scope == null || statements == null)
+            return false;
+
+        for(int i=0;i<statements.size();i++) {
+            Statement s = statements.get(i);
+            if(!(s instanceof Block)) {
+                i += new moveStringExpr(s,i,declarations,statements,scope).inserts;
+            }
+        }
+        return false;
+    }
+
     @Override
     public Action caseAction(Action action) {
         moveExprToStatement(action.getDeclarations(), action.getStatements(), action);
         moveAssign(action.getDeclarations(), action.getStatements(), action);
-        return super.caseAction(action);
+        moveStringExprToStatement(action.getDeclarations(), action.getStatements(), action);
+
+        List<PortRead> reads = action.getInputs();
+        for (int i = 0; i < reads.size(); i++) {
+            PortRead r = casePortRead(reads.get(i));
+            reads.set(i, r);
+        }
+        
+        //Visit the guards
+        List<Guard> guards = action.getGuards();
+        for (int i = 0; i < guards.size(); i++) {
+            Guard g = caseGuard(guards.get(i));
+            guards.set(i, g);
+        }
+        
+        //Visit the output expression
+        List<PortWrite> writes = action.getOutputs();
+        for (int i = 0; i < writes.size(); i++) {
+            PortWrite w = casePortWrite(writes.get(i));
+            writes.set(i, w);
+        }
+        
+        return action;
     }
     
     @Override
@@ -530,14 +690,21 @@ public class ExprToTempVar extends IrReplaceSwitch {
         
         moveExprToStatement(body.getDeclarations(), body.getStatements(), body);
         moveAssign(body.getDeclarations(), body.getStatements(), body);
-        return super.caseLambdaExpression(obj);
+        moveStringExprToStatement(body.getDeclarations(), body.getStatements(), body);
+
+        for (int i = 0; i < obj.getParameters().size(); i++) {
+            Variable param = (Variable) caseVariable(obj.getParameters().get(i));
+            obj.getParameters().set(i, param);
+        }
+        return obj;
     }
     
     @Override
     public Statement caseBlock(Block block) {
         moveExprToStatement(block.getDeclarations(), block.getStatements(), block);
         moveAssign(block.getDeclarations(), block.getStatements(), block);
-        return super.caseBlock(block);
+        moveStringExprToStatement(block.getDeclarations(), block.getStatements(), block);
+        return block;
     }
 
     @Override

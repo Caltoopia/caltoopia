@@ -204,7 +204,11 @@ public class CBuildTypeName extends IrSwitch<Boolean> {
     public Boolean caseTypeString(TypeString type) {
         enter(type);
         typeStr += cb.preTypeFn(type);
-        typeStr += ("char *");
+        if(!array) {
+            typeStr += "char";
+        } else {
+            typeStr += "__array4char";
+        }
         typeStr += cb.postTypeFn(type);
         leave();
         return true;
