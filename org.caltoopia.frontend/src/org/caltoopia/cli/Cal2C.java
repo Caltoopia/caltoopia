@@ -311,11 +311,12 @@ public class Cal2C {
                 out.println("#*#*#*#*#*#*#*#*#*#*# Init  #*#*#*#*#*#*#*##*#*#*#");
 				IrTransformer.IrTransformNetworkInit(session.getElaboratedNetwork());
                 out.println("#*#*#*#*#*#*#*#*#*# Transform #*#*#*#*#*#*##*#*#*#");
-				new IrTransformer(session.getElaboratedNetwork().getType(), session, 
-						Arrays.asList(	IrTransformer.IrPassTypes.Variable,
-										IrTransformer.IrPassTypes.TypeUsage,
-										IrTransformer.IrPassTypes.TypeStructure,
-										IrTransformer.IrPassTypes.VariablePlacement,
+                new IrTransformer(session.getElaboratedNetwork().getType(), session, 
+                        Arrays.asList(  IrTransformer.IrPassTypes.Variable,
+                                        IrTransformer.IrPassTypes.TypeUsage,
+                                        IrTransformer.IrPassTypes.Port,
+                                        IrTransformer.IrPassTypes.TypeStructure,
+                                        IrTransformer.IrPassTypes.VariablePlacement,
                                         IrTransformer.IrPassTypes.MoveInitValueExpr,
                                         IrTransformer.IrPassTypes.CreateForLoop,
                                         IrTransformer.IrPassTypes.Variable, //Repeat
@@ -323,7 +324,7 @@ public class Cal2C {
                                         //Repeat some analysis passes due to that we have moved things around
                                         IrTransformer.IrPassTypes.Variable,
                                         IrTransformer.IrPassTypes.VariablePlacement)
-										);
+                                        );
 				//For now run this to make sure the top network type declarations don't have type decl imports
                 out.println("#*#*#*#*#*#*#*#*#*# Type decl #*#*#*#*#*#*##*#*#*#");
 				new TypeMatchDeclaration().doSwitch(session.getElaboratedNetwork());

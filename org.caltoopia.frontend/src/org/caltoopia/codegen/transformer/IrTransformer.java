@@ -45,6 +45,7 @@ import org.caltoopia.ast2ir.Util;
 import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.cli.CompilationSession;
 import org.caltoopia.cli.DirectoryException;
+import org.caltoopia.codegen.transformer.analysis.IrPortAnnotation;
 import org.caltoopia.codegen.transformer.analysis.IrTypeAnnotation;
 import org.caltoopia.codegen.transformer.analysis.IrTypeStructureAnnotation;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation;
@@ -93,6 +94,7 @@ public class IrTransformer {
 		TypeUsage,
 		TypeStructure,
 		VariablePlacement,
+		Port,
 		
 		//Transformations
 		MoveInitValueExpr,
@@ -129,6 +131,10 @@ public class IrTransformer {
 				printHeader("Variable Placement");
 				new IrVariablePlacementAnnotation(node, session, true);
 				break;
+            case Port:
+                printHeader("Port ");
+                new IrPortAnnotation(node, session, true);
+                break;
 			case MoveInitValueExpr:
 				printHeader("Move initvalue expr");
 				new MoveInitValueExpr(node, session, true);
