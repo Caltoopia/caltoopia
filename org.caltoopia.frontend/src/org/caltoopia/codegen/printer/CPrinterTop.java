@@ -330,7 +330,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
             s.println("  int32_t sz[" + dimensions[dimensions.length-1]+ "];");
             s.println("} __arrayArg;");
 
-            s.println("__arrayArg maxArraySz(__arrayArg* targetSz, __arrayArg* exprSz, int shift) {");
+            s.println("static inline __arrayArg maxArraySz(__arrayArg* targetSz, __arrayArg* exprSz, int shift) {");
             s.println("    __arrayArg ret;");
             //Full array replace
             s.println("    if(shift==0) {");
@@ -458,7 +458,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
             artClasses.clear();
             for (ActorInstance instance : network.getActors()) {
                 TypeActor type = ((TypeActor) instance.getType());
-                String actorInstanceName = Util.marshallQualifiedName(type.getNamespace()) + "_" + instance.getName();
+                String actorInstanceName = Util.marshallQualifiedName(type.getNamespace()) + "__" + instance.getName();
                 String actorClassName = null;
                 if(type.getName().startsWith("art_")) {
                     actorClassName = type.getName();
@@ -493,7 +493,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
             int actorId = 0;
             for (ActorInstance actor : network.getActors()) {
                 TypeActor type = ((TypeActor) actor.getType());
-                String actorInstanceName =  Util.marshallQualifiedName(type.getNamespace()) + "_" + actor.getName();
+                String actorInstanceName =  Util.marshallQualifiedName(type.getNamespace()) + "__" + actor.getName();
                 String actorClassName = null;
                 if(type.getName().startsWith("art_")) {
                     actorClassName = type.getName(); 
@@ -552,10 +552,10 @@ public class CPrinterTop extends IrSwitch<Stream> {
                     if(c instanceof Point2PointConnection) {
                         Point2PointConnection p2p = (Point2PointConnection) c;
                         s.print("connectPorts(" + Util.marshallQualifiedName(((TypeActor) p2p.getSource().getActor().getType()).getNamespace()) + 
-                                "_" + p2p.getSource().getActor().getName() + 
+                                "__" + p2p.getSource().getActor().getName() + 
                                 "_" + p2p.getSource().getName());
                         s.println(", " + Util.marshallQualifiedName(((TypeActor) p2p.getTarget().getActor().getType()).getNamespace()) + 
-                                "_" + p2p.getTarget().getActor().getName() + 
+                                "__" + p2p.getTarget().getActor().getName() + 
                                 "_" + p2p.getTarget().getName() + ");");
                     } else {
                         System.err.println("CONNECTION not P2P:" + c.toString());
@@ -797,9 +797,10 @@ public class CPrinterTop extends IrSwitch<Stream> {
         s.printlnDec(");");
         s.println();
         
-        for (Action a : actor.getActions()) {
+        for (int i=0;i < actor.getActions().size();i++) {
+            Action a = actor.getActions().get(i);
             //TODO CBuildAction extends CBuildBody extends CBuildStatement
-            doSwitch(a);
+            s.println(new CBuildAction(a,cenv,thisStr,i).toStr());
         }
         
         if(!actor.getInitializers().isEmpty()) {
@@ -859,9 +860,9 @@ public class CPrinterTop extends IrSwitch<Stream> {
         s.println();
         s.println("}");
         
-        //TODO scheduler
-        //doActionScheduler(actor);
-
+        IndentStr ind = new IndentStr();
+        ind.inc();
+        s.println(new CBuildActorActionScheduler(actor,cenv,ind, debugPrint).toStr());
         
         leave(actor);
         return s;
