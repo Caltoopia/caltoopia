@@ -96,6 +96,7 @@ import org.caltoopia.ir.VariableExternal;
 import org.caltoopia.ir.VariableImport;
 import org.caltoopia.ir.VariableReference;
 import org.caltoopia.ir.WhileLoop;
+import org.caltoopia.types.TypeException;
 import org.caltoopia.types.TypeSystem;
 import org.eclipse.emf.common.util.EList;
 
@@ -376,7 +377,7 @@ public class UtilIR {
 		expr.setOperand2(op2);
 		expr.setOperator(op);
 		Type type=null;
-		/* TODO TypeSystem seems to not be updated to dig up the type of a lambda function etc
+		// TODO TypeSystem seems to not be updated to dig up the type of a lambda function etc
 		try {
 			type=TypeSystem.LUB(op1.getType(), op2.getType());
 		} catch (TypeException e) {
@@ -385,7 +386,7 @@ public class UtilIR {
 			} else if(op2.getType()!=null) {
 				type=op2.getType();
 			}
-		}*/
+		}
 		expr.setType(type);
 		expr.setContext(op1.getContext());
 		expr.setId(Util.getDefinitionId());
