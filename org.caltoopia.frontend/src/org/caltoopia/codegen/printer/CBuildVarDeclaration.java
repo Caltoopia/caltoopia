@@ -198,6 +198,7 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
         case blockVar:
         case inPortVar:
         case outPortVar:
+        case actionVar:
             buildVarDeclaration(variable, initialize);
             break;
         case funcInParamVar:

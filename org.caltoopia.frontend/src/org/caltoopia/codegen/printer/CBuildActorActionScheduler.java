@@ -146,7 +146,6 @@ public class CBuildActorActionScheduler extends IrSwitch<Boolean> {
           printFiringTests(actor.getSchedule().getFreeRunners(), null);
         }
         schedStr += ind.ind() + ("switch(thisActor->_fsmState) {") + ind.nl();
-        ind.inc();
         for (State state : actor.getSchedule().getStates()) {
             schedStr += ind.ind() + ("case " + actorId + "__" + state.getName() + "_ID:") + ind.nl();
             ind.inc();
@@ -157,18 +156,16 @@ public class CBuildActorActionScheduler extends IrSwitch<Boolean> {
             schedStr += ind.ind() + ("goto out;") + ind.nl();
             schedStr += ind.ind() + ("break;") + ind.nl();
             ind.dec();
-            schedStr += ind.ind() + ("") + ind.nl();
-        }       
+        }
         schedStr += ind.ind() + ("}") + ind.nl();
         ind.dec();
 
         schedStr += ind.ind() + ("}") + ind.nl();
-        ind.dec();
         schedStr += ind.ind() + ("out:") + ind.nl();
         schedStr += ind.ind() + ("ART_ACTION_SCHEDULER_EXIT(" + actor.getInputPorts().size() + ", " + actor.getOutputPorts().size() + ")") + ind.nl();
         schedStr += ind.ind() + ("return result;") + ind.nl();
-        schedStr += ind.ind() + ("}") + ind.nl();
         ind.dec();
+        schedStr += ind.ind() + ("}") + ind.nl();
         return true;
     }
     
@@ -194,7 +191,7 @@ public class CBuildActorActionScheduler extends IrSwitch<Boolean> {
                         schedStr += ("*");
                     } 
                     if(read.getRepeat()!=null)
-                        new CBuildExpression(read.getRepeat(),cenv).toStr();
+                        schedStr += new CBuildExpression(read.getRepeat(),cenv).toStr();
                     else
                         schedStr += ("1");
 
@@ -237,7 +234,7 @@ public class CBuildActorActionScheduler extends IrSwitch<Boolean> {
                         schedStr += ("*");
                     } 
                     if(write.getRepeat()!=null)
-                        new CBuildExpression(write.getRepeat(),cenv).toStr();
+                        schedStr += new CBuildExpression(write.getRepeat(),cenv).toStr();
                     else
                         schedStr += ("1");
                     
@@ -274,6 +271,7 @@ public class CBuildActorActionScheduler extends IrSwitch<Boolean> {
                 schedStr += ind.ind() + ("goto out;") + ind.nl();
                 ind.dec();
                 schedStr += ind.ind() + ("}") + ind.nl();
+                ind.dec();
             }
             if (!action.getGuards().isEmpty()) {
                     schedStr += ind.ind() + ("}") + ind.nl();
@@ -282,7 +280,6 @@ public class CBuildActorActionScheduler extends IrSwitch<Boolean> {
             
             if (!action.getInputs().isEmpty()) {
                 schedStr += ind.ind() + ("}") + ind.nl();
-                ind.dec();
             }
         }
     }

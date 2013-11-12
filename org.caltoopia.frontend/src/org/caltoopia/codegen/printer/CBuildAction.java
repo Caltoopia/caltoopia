@@ -149,10 +149,29 @@ public class CBuildAction extends IrSwitch<Boolean> {
         for (PortRead read: action.getInputs()){
             String portNbr = TransUtil.getAnnotationArg(read, "Port", "index");
             String portStr = "IN" + portNbr+ "_" + TransUtil.getAnnotationArg(read, "Port", "name");
-            for(VariableReference readVar: read.getVariables()) {
-                bodyStr += ind.ind() + new CBuildVarReference(readVar, cenv).toStr() + " = ";
-                bodyStr += "pinRead_" + new CBuildTypeName(readVar.getType(), new CPrintUtil.dummyCB(), false).toStr();
-                bodyStr += "(" + portStr + ");"+ind.nl();
+            if(read.getRepeat()==null) {
+                for(VariableReference readVar: read.getVariables()) {
+                    bodyStr += ind.ind() + new CBuildVarReference(readVar, cenv).toStr() + " = ";
+                    bodyStr += "pinRead_" + new CBuildTypeName(readVar.getType(), new CPrintUtil.dummyCB(), false).toStr();
+                    bodyStr += "(" + portStr + ");"+ind.nl();
+                }
+            } else {
+                bodyStr += ind.ind() + "{" + ind.nl();
+                ind.inc();
+                String repStr = "__temp" + CPrintUtil.validCName(portStr);
+                bodyStr += ind.ind() + "int " + repStr + "Count, " + repStr + " = " + 
+                        new CBuildExpression(read.getRepeat(),cenv).toStr() + ";" + ind.nl();
+                bodyStr += ind.ind() + "for(" + repStr + "Count = 0;" + repStr + "Count<" + repStr + "; "+repStr+"Count++) {" + ind.nl(); 
+                ind.inc();
+                for(VariableReference readVar: read.getVariables()) {
+                    bodyStr += ind.ind() + new CBuildVarReference(readVar, cenv, false, true).toStr() + ".p["+ repStr +"Count] = ";
+                    bodyStr += "pinRead_" + new CBuildTypeName(readVar.getType(), new CPrintUtil.dummyCB(), false).toStr();
+                    bodyStr += "(" + portStr + ");" + ind.nl();
+                }
+                ind.dec();
+                bodyStr += ind.ind() + "}" + ind.nl();
+                ind.dec();
+                bodyStr += ind.ind() + "}" + ind.nl();
             }
         }
         for (Statement s : action.getStatements()) {
@@ -161,9 +180,27 @@ public class CBuildAction extends IrSwitch<Boolean> {
         for (PortWrite write: action.getOutputs()){
             String portNbr = TransUtil.getAnnotationArg(write, "Port", "index");
             String portStr = "OUT" + portNbr+ "_" + TransUtil.getAnnotationArg(write, "Port", "name");
-            for(Expression writeExpr: write.getExpressions()) {
-                bodyStr += ind.ind() + "pinWrite_" + new CBuildTypeName(writeExpr.getType(), new CPrintUtil.dummyCB(), false).toStr();
-                bodyStr += "(" + portStr + ", " + new CBuildExpression(writeExpr, cenv).toStr() + ");"+ind.nl();
+            if(write.getRepeat()==null) {
+                for(Expression writeExpr: write.getExpressions()) {
+                    bodyStr += ind.ind() + "pinWrite_" + new CBuildTypeName(writeExpr.getType(), new CPrintUtil.dummyCB(), false).toStr();
+                    bodyStr += "(" + portStr + ", " + new CBuildExpression(writeExpr, cenv).toStr() + ");"+ind.nl();
+                }
+            } else {
+                bodyStr += ind.ind() + "{" + ind.nl();
+                ind.inc();
+                String repStr = "__temp" + CPrintUtil.validCName(portStr);
+                bodyStr += ind.ind() + "int " + repStr + "Count, " + repStr + " = " + 
+                        new CBuildExpression(write.getRepeat(),cenv).toStr() + ";" + ind.nl();
+                bodyStr += ind.ind() + "for(" + repStr + "Count = 0;" + repStr + "Count<" + repStr + "; "+repStr+"Count++) {" + ind.nl(); 
+                ind.inc();
+                for(Expression writeExpr: write.getExpressions()) {
+                    bodyStr += ind.ind() + "pinWrite_" + new CBuildTypeName(writeExpr.getType(), new CPrintUtil.dummyCB(), false).toStr();
+                    bodyStr += "(" + portStr + ", " + new CBuildExpression(writeExpr, cenv,false,true,false).toStr() + ".p["+ repStr + "Count]);"+ind.nl();
+                }
+                ind.dec();
+                bodyStr += ind.ind() + "}" + ind.nl();
+                ind.dec();
+                bodyStr += ind.ind() + "}" + ind.nl();
             }
         }
         for(Declaration d:action.getDeclarations()) {

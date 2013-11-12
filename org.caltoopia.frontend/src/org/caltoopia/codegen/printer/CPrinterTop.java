@@ -861,7 +861,6 @@ public class CPrinterTop extends IrSwitch<Stream> {
         s.println("}");
         
         IndentStr ind = new IndentStr();
-        ind.inc();
         s.println(new CBuildActorActionScheduler(actor,cenv,ind, debugPrint).toStr());
         
         leave(actor);
