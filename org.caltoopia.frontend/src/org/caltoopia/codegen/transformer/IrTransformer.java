@@ -55,6 +55,7 @@ import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarType;
 import org.caltoopia.codegen.transformer.transforms.CreateForLoop;
 import org.caltoopia.codegen.transformer.transforms.ExprToTempVar;
 import org.caltoopia.codegen.transformer.transforms.MoveInitValueExpr;
+import org.caltoopia.codegen.transformer.transforms.PortTransformations;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Actor;
 import org.caltoopia.ir.ActorInstance;
@@ -97,6 +98,7 @@ public class IrTransformer {
 		Port,
 		
 		//Transformations
+		PortTransformations,
 		MoveInitValueExpr,
 		CreateForLoop,
 		ExprToTempVar
@@ -135,10 +137,14 @@ public class IrTransformer {
                 printHeader("Port ");
                 new IrPortAnnotation(node, session, true);
                 break;
-			case MoveInitValueExpr:
-				printHeader("Move initvalue expr");
-				new MoveInitValueExpr(node, session, true);
-				break;
+            case MoveInitValueExpr:
+                printHeader("Move initvalue expr");
+                new MoveInitValueExpr(node, session, true);
+                break;
+            case PortTransformations:
+                printHeader("Move port statements");
+                new PortTransformations(node, session, true);
+                break;
             case CreateForLoop:
                 printHeader("Create c-style for loops");
                 new CreateForLoop(node, session, true);

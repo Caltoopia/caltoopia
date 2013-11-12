@@ -313,6 +313,7 @@ public class Cal2C {
                 out.println("#*#*#*#*#*#*#*#*#*# Transform #*#*#*#*#*#*##*#*#*#");
                 new IrTransformer(session.getElaboratedNetwork().getType(), session, 
                         Arrays.asList(  IrTransformer.IrPassTypes.Variable,
+                                        IrTransformer.IrPassTypes.PortTransformations,
                                         IrTransformer.IrPassTypes.TypeUsage,
                                         IrTransformer.IrPassTypes.Port,
                                         IrTransformer.IrPassTypes.TypeStructure,
