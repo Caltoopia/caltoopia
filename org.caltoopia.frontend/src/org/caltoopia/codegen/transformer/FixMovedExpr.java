@@ -3,8 +3,10 @@ package org.caltoopia.codegen.transformer;
 import org.caltoopia.ir.BinaryExpression;
 import org.caltoopia.ir.Block;
 import org.caltoopia.ir.BooleanLiteral;
+import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.FloatLiteral;
+import org.caltoopia.ir.ForwardDeclaration;
 import org.caltoopia.ir.FunctionCall;
 import org.caltoopia.ir.Generator;
 import org.caltoopia.ir.IfExpression;
@@ -16,9 +18,13 @@ import org.caltoopia.ir.Node;
 import org.caltoopia.ir.ProcExpression;
 import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.StringLiteral;
+import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeConstructorCall;
 import org.caltoopia.ir.UnaryExpression;
+import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExpression;
+import org.caltoopia.ir.VariableExternal;
+import org.caltoopia.ir.VariableImport;
 import org.caltoopia.ir.util.IrReplaceSwitch;
 import org.eclipse.emf.ecore.EObject;
 
@@ -136,6 +142,7 @@ public class FixMovedExpr extends IrReplaceSwitch {
     @Override
     public EObject caseListExpression(ListExpression expr) {
         super.caseListExpression(expr);
+        expr.setType((Type)doSwitch(expr.getType()));
         if(expr.getContext().getId().equals(oldScope.getId())) {
             expr.setContext(newScope);
         }
@@ -169,5 +176,46 @@ public class FixMovedExpr extends IrReplaceSwitch {
             call.setContext(newScope);
         }
         return call;
+    }
+    //---- Also declarations
+    @Override
+    public Declaration caseVariable(Variable variable) {
+        super.caseVariable(variable);
+        if(variable.getScope().getId().equals(oldScope.getId())) {
+            variable.setScope(newScope);
+        }
+        return variable;
+    }
+    @Override
+    public Declaration caseDeclaration(Declaration variable) {
+        super.caseDeclaration(variable);
+        if(variable.getScope().getId().equals(oldScope.getId())) {
+            variable.setScope(newScope);
+        }
+        return variable;
+    }
+    @Override
+    public Declaration caseForwardDeclaration(ForwardDeclaration variable) {
+        super.caseForwardDeclaration(variable);
+        if(variable.getScope().getId().equals(oldScope.getId())) {
+            variable.setScope(newScope);
+        }
+        return variable;
+    }
+    @Override
+    public Declaration caseVariableExternal(VariableExternal variable) {
+        super.caseVariableExternal(variable);
+        if(variable.getScope().getId().equals(oldScope.getId())) {
+            variable.setScope(newScope);
+        }
+        return variable;
+    }
+    @Override
+    public Declaration caseVariableImport(VariableImport variable) {
+        super.caseVariableImport(variable);
+        if(variable.getScope().getId().equals(oldScope.getId())) {
+            variable.setScope(newScope);
+        }
+        return variable;
     }
 }
