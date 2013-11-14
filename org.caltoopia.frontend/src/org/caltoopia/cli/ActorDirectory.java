@@ -313,8 +313,8 @@ public class ActorDirectory {
 		return ret;
 	}
 	
-	public static TypeDeclaration findTypeDeclaration(TypeDeclarationImport typedeclImport) throws DirectoryException {
-		if(transformedTopNetwork!=null) {
+	public static TypeDeclaration findTypeDeclaration(TypeDeclarationImport typedeclImport, boolean original) throws DirectoryException {
+		if(original==false && transformedTopNetwork!=null) {
 			return findTransformedTypeDeclaration(typedeclImport);
 		}
 		Namespace ns = findNamespace(typedeclImport.getNamespace());
@@ -328,8 +328,8 @@ public class ActorDirectory {
 		throw new DirectoryException("[ActorDirectory] Typedef '" + typedeclImport.getName() + "' not found.");
 	}
 
-	public static Declaration findVariable(VariableImport variableImport) throws DirectoryException {		
-		if(transformedTopNetwork!=null) {
+	public static Declaration findVariable(VariableImport variableImport, boolean original) throws DirectoryException {		
+		if(original==false && transformedTopNetwork!=null) {
 			return findTransformedVariable(variableImport);
 		}
 		Namespace ns = findNamespace(variableImport.getNamespace());

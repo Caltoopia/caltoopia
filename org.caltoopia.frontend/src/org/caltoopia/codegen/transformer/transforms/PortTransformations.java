@@ -112,7 +112,7 @@ public class PortTransformations extends IrReplaceSwitch {
     public Action caseAction(Action action) {
         for(PortWrite write: action.getOutputs()) {
             for(Declaration d: write.getDeclarations()) {
-                FixMovedExpr.moveScope(d, action, write, false);
+                FixMovedExpr.moveDeclScope(d, action, write, false);
                 action.getDeclarations().add(d);
             }
             for(Statement s:write.getStatements()) {

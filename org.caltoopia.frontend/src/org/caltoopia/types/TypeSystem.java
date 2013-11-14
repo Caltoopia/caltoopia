@@ -170,7 +170,7 @@ public class TypeSystem {
 			Declaration typeDecl = ((TypeUser) t).getDeclaration();
 			if (typeDecl instanceof TypeDeclarationImport) {
 				try {
-					typeDecl = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) typeDecl);
+					typeDecl = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) typeDecl,true);
 				} catch (DirectoryException x) {
 					throw new RuntimeException("[TypeSystem] internal error#2a");
 				}
@@ -189,7 +189,7 @@ public class TypeSystem {
 			Declaration typeDecl = ((TypeUser) t).getDeclaration();
 			if (typeDecl instanceof TypeDeclarationImport) {
 				try {
-					typeDecl = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) typeDecl);
+					typeDecl = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) typeDecl, true);
 				} catch (DirectoryException x) {
 					throw new RuntimeException("[TypeSystem] internal error#2a");
 				}
@@ -272,6 +272,9 @@ public class TypeSystem {
 	}	
 	
 	public static boolean isIdenticalTypes(Type t1, Type t2) throws TypeException {	
+	    if (t1==null || t2==null) {
+	        return false;
+	    }
 		if (t1.getClass().equals(t2.getClass())) {
 			if (isList(t1)) {
 				Type et1 = ((TypeList) t1).getType(); 

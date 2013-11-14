@@ -461,7 +461,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         default:
             asArrayPart = false; //making sure scalar is not made into arrays (since caller might not have checked)
         }
-        boolean hasIndex = indexPStr(var.getIndex(),((Variable)var.getVariable()).getType(),varStr,sep);
+        boolean hasIndex = indexPStr(var.getIndex(),((Variable)UtilIR.getDeclarationTransformed(var.getVariable())).getType(),varStr,sep);
         boolean direct = directVar(var);
         int nbrMembers = var.getMember().size();
         boolean inSep = sepIndex;
@@ -660,7 +660,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
                 VariableImport funcExtern = (VariableImport) decl;
                 f = null;
                 try {
-                    f = ActorDirectory.findVariable(funcExtern);
+                    f = ActorDirectory.findVariable(funcExtern, false);
                 } catch (DirectoryException ee) {
                     System.err.println("[CBuildExpression] Could not find imported extern function " + funcExtern.getName());
                 }

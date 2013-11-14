@@ -102,7 +102,7 @@ public class TypeMatchDeclaration extends IrReplaceSwitch {
 		for(Declaration d:actor.getDeclarations()) {
 			if(d instanceof TypeDeclarationImport) {
 				try {
-					TypeDeclaration real = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) d);
+					TypeDeclaration real = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) d, false);
 					imports.put(real, (TypeDeclarationImport) d);
 				} catch (DirectoryException e) {
 					System.err.println("[TypeMatchDeclaration] Internal Error #1 - could not find type declaration import " + d.getName());
@@ -130,22 +130,31 @@ public class TypeMatchDeclaration extends IrReplaceSwitch {
 		return super.caseNetwork(network);
 	}
 	
-	private Type replaceDirectTypeWithLocalImport(Type type) {
-		if(type instanceof TypeUser) {
-			found.put(((TypeUser) type).getDeclaration().getId(),(((TypeUser) type).getDeclaration() instanceof TypeDeclarationImport?"I_":"R_") +((TypeUser) type).getDeclaration().getName());
-		}
-		//Replace any direct declarations with import declarations
-		if(type instanceof TypeUser && ((TypeUser) type).getDeclaration() instanceof TypeDeclaration 
-				&& imports.containsKey(((TypeUser) type).getDeclaration())) {
-			((TypeUser) type).setDeclaration(imports.get(((TypeUser) type).getDeclaration()));
-			if(debugPrint) {
-				System.out.println("[TypeMatchDeclaration] Replace direct " +
-						((TypeUser) type).getDeclaration().getId()+ " " +
-						((TypeUser) type).getDeclaration().getName());
-			}
-		}
-		return type;
-	}
+    private Type replaceDirectTypeWithLocalImport(Type type) {
+        if(type instanceof TypeUser) {
+            found.put(((TypeUser) type).getDeclaration().getId(),(((TypeUser) type).getDeclaration() instanceof TypeDeclarationImport?"I_":"R_") +((TypeUser) type).getDeclaration().getName());
+        }
+        //Replace any direct declarations with import declarations
+        if(type instanceof TypeUser && ((TypeUser) type).getDeclaration() instanceof TypeDeclaration) {
+            String id = ((TypeUser) type).getDeclaration().getId();
+            Declaration typeImport = null;
+            for(Declaration d: imports.keySet()) {
+                if(d.getId().equals(id)) {
+                    typeImport = imports.get(d);
+                    break;
+                }
+            }
+            if(typeImport!=null) {
+                ((TypeUser) type).setDeclaration(typeImport);
+                if(debugPrint) {
+                    System.out.println("[TypeMatchDeclaration] Replace direct " +
+                            ((TypeUser) type).getDeclaration().getId()+ " " +
+                            ((TypeUser) type).getDeclaration().getName());
+                }
+            }
+        }
+        return type;
+    }
 	
 	private Type replaceNonLocalImport(Type type) {
 		//Replace any import declaration that does not refer to imports in this file
@@ -171,7 +180,7 @@ public class TypeMatchDeclaration extends IrReplaceSwitch {
 		if(topnetwork) {
 			if(type.getDeclaration() instanceof TypeDeclarationImport) {
 				try {
-					TypeDeclaration real = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) type.getDeclaration());
+					TypeDeclaration real = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) type.getDeclaration(),false);
 					type.setDeclaration(real);
 				} catch (DirectoryException e) {
 					System.err.println("[TypeMatchDeclaration] Internal Error #2 - could not find type declaration import " + type.getDeclaration().getName());

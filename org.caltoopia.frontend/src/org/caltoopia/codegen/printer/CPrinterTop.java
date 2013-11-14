@@ -280,7 +280,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
                 d = (d instanceof ForwardDeclaration)?((ForwardDeclaration)d).getDeclaration():d;
                 if(d instanceof VariableImport) {
                     try {
-                        e = (VariableExternal) ActorDirectory.findVariable((VariableImport) d);
+                        e = (VariableExternal) ActorDirectory.findVariable((VariableImport) d, false);
                         ns = ActorDirectory.findNamespace(((VariableImport)d).getNamespace());
                     } catch (DirectoryException ee) {
                         ee.printStackTrace();

@@ -238,7 +238,7 @@ public class ExpandIrSymbols {
 			public TypeUser caseTypeUser(TypeUser t) {
 				if(t.getDeclaration() instanceof TypeDeclarationImport) {
 			    	try {
-						Declaration innerDecl = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) t.getDeclaration());
+						Declaration innerDecl = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) t.getDeclaration(), true);
 						t.setDeclaration(innerDecl);
 			    	} catch (DirectoryException e) {
 						//Ignore it
@@ -252,13 +252,13 @@ public class ExpandIrSymbols {
 			
 			try {
 				if (decl instanceof TypeDeclarationImport) {  
-					Declaration newDecl = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) decl);
+					Declaration newDecl = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) decl, true);
 					//Change scope to network due to this is the new home of the declaration
 					new scopeReplace().doSwitch(newDecl);
 					imported.put(decl, newDecl);
 					decl = newDecl;			
 				} else if (decl instanceof VariableImport) {	
-					Declaration newDecl = ActorDirectory.findVariable((VariableImport) decl);
+					Declaration newDecl = ActorDirectory.findVariable((VariableImport) decl, true);
 					//Change scope to network due to this is the new home of the declaration
 					new scopeReplace().doSwitch(newDecl);
 					imported.put(decl, newDecl);
@@ -277,13 +277,13 @@ public class ExpandIrSymbols {
 			for (Declaration decl : ns.getDeclarations()) {
 				try {
 					if (decl instanceof TypeDeclarationImport) {  
-						Declaration newDecl = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) decl);
+						Declaration newDecl = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) decl, true);
 						//Change scope to network due to this is the new home of the declaration
 						new scopeReplace().doSwitch(newDecl);
 						imported.put(decl, newDecl);
 						decl = newDecl;	
 					} else if  (decl instanceof VariableImport) {	
-						Declaration newDecl = ActorDirectory.findVariable((VariableImport) decl);
+						Declaration newDecl = ActorDirectory.findVariable((VariableImport) decl, true);
 						//Change scope to network due to this is the new home of the declaration
 						new scopeReplace().doSwitch(newDecl);
 						imported.put(decl, newDecl);

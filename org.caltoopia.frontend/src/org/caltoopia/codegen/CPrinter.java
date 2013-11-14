@@ -301,7 +301,7 @@ public class CPrinter extends IrSwitch<Stream> {
 				Declaration decl = null;
 				if(!dimport.getName().startsWith("dprint")) {
 					try {
-						decl = ActorDirectory.findVariable(dimport);
+						decl = ActorDirectory.findVariable(dimport, true);
 					} catch (DirectoryException ee) {
 						System.err.println("[CPrinter] Could not find imported declaration " + dimport.getName());
 					}
@@ -1299,7 +1299,7 @@ public class CPrinter extends IrSwitch<Stream> {
 			VariableImport func = (VariableImport) ((VariableExpression) expr.getFunction()).getVariable();
 			Declaration f = null;
 			try {
-				f = ActorDirectory.findVariable(func);
+				f = ActorDirectory.findVariable(func, true);
 			} catch (DirectoryException e) {
 				System.err.println("[CPrinter] Could not find imported function " + func.getName());
 			}
@@ -1422,7 +1422,7 @@ public class CPrinter extends IrSwitch<Stream> {
 			VariableImport func = (VariableImport) call.getProcedure();
 			Declaration f = null;
 			try {
-				f = ActorDirectory.findVariable(func);
+				f = ActorDirectory.findVariable(func, true);
 			} catch (DirectoryException e) {
 				System.err.println("[CPrinter] Could not find imported procedure " + func.getName());
 			}

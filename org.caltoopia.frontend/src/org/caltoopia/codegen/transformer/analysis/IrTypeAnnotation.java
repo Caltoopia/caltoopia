@@ -117,7 +117,7 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 		/*
 		 * Added the variable expression usage to the type's set of usages.
 		 */
-		Declaration decl = UtilIR.getDeclaration(var.getVariable());
+		Declaration decl = UtilIR.getDeclarationTransformed(var.getVariable());
 		if(decl instanceof Variable) {
 			String a = TransUtil.getAnnotationArg(decl,IrTransformer.VARIABLE_ANNOTATION,"VarType");
 			Type type = ((Variable) decl).getType();

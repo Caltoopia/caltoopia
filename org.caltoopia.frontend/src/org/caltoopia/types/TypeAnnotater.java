@@ -48,8 +48,10 @@ import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.transformer.FixMovedExpr;
 import org.caltoopia.ir.BinaryExpression;
 import org.caltoopia.ir.Block;
+import org.caltoopia.ir.BooleanLiteral;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
+import org.caltoopia.ir.FloatLiteral;
 import org.caltoopia.ir.ForwardDeclaration;
 import org.caltoopia.ir.FunctionCall;
 import org.caltoopia.ir.Generator;
@@ -59,6 +61,7 @@ import org.caltoopia.ir.IrFactory;
 import org.caltoopia.ir.ListExpression;
 import org.caltoopia.ir.Member;
 import org.caltoopia.ir.Statement;
+import org.caltoopia.ir.StringLiteral;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeConstructorCall;
 import org.caltoopia.ir.TypeDeclaration;
@@ -102,7 +105,7 @@ public class TypeAnnotater extends IrReplaceSwitch {
             Declaration decl = call.getTypedef();
             if (decl instanceof TypeDeclarationImport) {
                 try {
-                    decl =  ActorDirectory.findTypeDeclaration((TypeDeclarationImport)decl);
+                    decl =  ActorDirectory.findTypeDeclaration((TypeDeclarationImport)decl,true);
                 } catch (DirectoryException x) {
                     System.err.println("[TypeAnnotater] Internal Error - caseTypeConstructorCall");
                     return call;
@@ -183,7 +186,7 @@ public class TypeAnnotater extends IrReplaceSwitch {
 		Declaration decl = varExpr.getVariable();
 		if (decl instanceof VariableImport) {
 			try {
-				decl =  ActorDirectory.findVariable((VariableImport) decl);
+				decl =  ActorDirectory.findVariable((VariableImport) decl, true);
 			} catch (DirectoryException x) {
 				System.err.println("[TypeAnnotater] Internal Error - caseVariableExpression");
 			}
@@ -242,7 +245,7 @@ public class TypeAnnotater extends IrReplaceSwitch {
 		Declaration decl = varRef.getDeclaration();
 		if (decl instanceof VariableImport) {
 			try {
-				decl =  ActorDirectory.findVariable((VariableImport) decl);
+				decl =  ActorDirectory.findVariable((VariableImport) decl, true);
 			} catch (DirectoryException x) {
 				System.err.println("[TypeAnnotater] Internal Error - caseVariableExpression");
 			}
@@ -373,6 +376,42 @@ public class TypeAnnotater extends IrReplaceSwitch {
             expr.setType(typeT);
         }
         return expr;
+    }
+    
+    @Override
+    public Expression caseIntegerLiteral(IntegerLiteral literal) {
+        super.caseIntegerLiteral(literal);
+        if(literal.getType()==null){
+            literal.setType(TypeSystem.createTypeInt());
+        }
+        return literal;
+    }
+
+    @Override
+    public Expression caseFloatLiteral(FloatLiteral literal) {
+        super.caseFloatLiteral(literal);
+        if(literal.getType()==null){
+            literal.setType(TypeSystem.createTypeFloat());
+        }
+        return literal;
+    }
+
+    @Override
+    public Expression caseBooleanLiteral(BooleanLiteral literal) {
+        super.caseBooleanLiteral(literal);
+        if(literal.getType()==null){
+            literal.setType(TypeSystem.createTypeBool());
+        }
+        return literal;
+    }
+
+    @Override
+    public Expression caseStringLiteral(StringLiteral literal) {
+        super.caseStringLiteral(literal);
+        if(literal.getType()==null){
+            literal.setType(TypeSystem.createTypeString());
+        }
+        return literal;
     }
 
 }

@@ -314,7 +314,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 			for(PortWrite p : a.getOutputs()) {
 				if(!p.getExpressions().isEmpty()) {
 					for(Expression e : p.getExpressions()) {
-						if(e instanceof VariableExpression && UtilIR.getDeclaration(((VariableExpression)e).getVariable()).getId().equals(variable.getId())) {
+						if(e instanceof VariableExpression && UtilIR.getDeclarationTransformed(((VariableExpression)e).getVariable()).getId().equals(variable.getId())) {
 							t = VarType.outPortVar;
 							break;
 						}
@@ -383,7 +383,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 	private List<PortRead> LookForReadSwitch;
 	
 	private VarType findVariableType(Declaration inDecl) {
-		Declaration decl = UtilIR.getDeclaration(inDecl); //Any of: (import, forward,) external, variable
+		Declaration decl = UtilIR.getDeclarationTransformed(inDecl); //Any of: (import, forward,) external, variable
 		VarType t = VarType.unknown;
 		if(decl instanceof Variable) {
 			Variable variable = (Variable) decl;
@@ -782,7 +782,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 				idOutVarAccessMap.put(var.getVariable().getId(), va.name());
 			}
 		}
-		Declaration decl = UtilIR.getDeclaration(var.getVariable());
+		Declaration decl = UtilIR.getDeclarationTransformed(var.getVariable());
 		VarLocalAccess vla = findLocalAccess(decl,var.getIndex(),var.getMember());
         TransUtil.setAnnotation(var,IrTransformer.VARIABLE_ANNOTATION,"VarLocalAccess",vla.name());
 		return super.caseVariableExpression(var);
@@ -799,7 +799,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 			va = findPortAccess(var.getType(),currentRead.getRepeat()!=null,currentRead.getVariables().size());
 			idInVarAccessMap.put(var.getDeclaration().getId(), va.name());
 		}
-        Declaration decl = UtilIR.getDeclaration(var.getDeclaration());
+        Declaration decl = UtilIR.getDeclarationTransformed(var.getDeclaration());
         VarLocalAccess vla = findLocalAccess(decl,var.getIndex(),var.getMember());
         TransUtil.setAnnotation(var,IrTransformer.VARIABLE_ANNOTATION,"VarLocalAccess",vla.name());
 		return super.caseVariableReference(var);

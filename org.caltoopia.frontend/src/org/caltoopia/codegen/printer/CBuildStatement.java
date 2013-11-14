@@ -163,7 +163,7 @@ public class CBuildStatement extends IrSwitch<Boolean> {
         case externProc:
             Declaration pp = null;
             try {
-                pp = ActorDirectory.findVariable((VariableImport)p);
+                pp = ActorDirectory.findVariable((VariableImport)p, false);
             } catch (DirectoryException e) {
                 System.err.println("[CBuildStatement] Could not find imported extern procedure " + p.getName());
             }

@@ -429,7 +429,7 @@ public class UtilIR {
 			if(imp.getName().startsWith("dprint"))
 				return null;
 			try {
-				Declaration var = ActorDirectory.findVariable(imp);
+				Declaration var = ActorDirectory.findVariable(imp, true);
 				return var;
 			} catch (DirectoryException x) {
 				System.err.println("[UtilIR] Internal Error - getDeclaration");
@@ -556,7 +556,7 @@ public class UtilIR {
 			if( ((TypeUser) type).getDeclaration() instanceof TypeDeclarationImport) {
 				TypeDeclarationImport imp = (TypeDeclarationImport)((TypeUser) type).getDeclaration();
 				try {
-					TypeDeclaration decl = ActorDirectory.findTypeDeclaration(imp);
+					TypeDeclaration decl = ActorDirectory.findTypeDeclaration(imp,false);
 					return decl;
 				} catch (DirectoryException x) {
 					System.err.println("[UtilIR] Internal Error - getDeclaration");
@@ -573,7 +573,7 @@ public class UtilIR {
 	static public Type getType(Declaration declIn) {
 		if( declIn instanceof TypeDeclarationImport) {
 			try {
-				TypeDeclaration decl = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) declIn);
+				TypeDeclaration decl = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) declIn,false);
 				return decl.getType();
 			} catch (DirectoryException x) {
 				System.err.println("[UtilIR] Internal Error - getType");
@@ -588,7 +588,7 @@ public class UtilIR {
 	static public TypeDeclaration getTypeDeclaration(Declaration declIn) {
 		if( declIn instanceof TypeDeclarationImport) {
 			try {
-				TypeDeclaration decl = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) declIn);
+				TypeDeclaration decl = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) declIn,false);
 				return decl;
 			} catch (DirectoryException x) {
 				System.err.println("[UtilIR] Internal Error - getTypeDeclaration");

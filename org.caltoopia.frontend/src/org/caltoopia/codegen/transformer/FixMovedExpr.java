@@ -33,15 +33,20 @@ public class FixMovedExpr extends IrReplaceSwitch {
     Scope newScope = null;
     Node oldScope = null;
     boolean skipTop = true;
+    boolean skipDecl = true;
     
-    public FixMovedExpr(Scope newScope, Node oldScope, boolean skipTop) {
+    public FixMovedExpr(Scope newScope, Node oldScope, boolean skipTop, boolean skipDecl) {
         this.newScope = newScope;
         this.oldScope = oldScope;
         this.skipTop = skipTop;
+        this.skipDecl = skipDecl;
     }
 
     public static void moveScope(Node node, Scope newScope, Node oldScope, boolean skipTop) {
-        new FixMovedExpr(newScope, oldScope, skipTop).doSwitch(node);
+        new FixMovedExpr(newScope, oldScope, skipTop, true).doSwitch(node);
+    }
+    public static void moveDeclScope(Node node, Scope newScope, Node oldScope, boolean skipTop) {
+        new FixMovedExpr(newScope, oldScope, skipTop, false).doSwitch(node);
     }
     @Override
     public Scope caseScope(Scope scope) {
@@ -142,7 +147,11 @@ public class FixMovedExpr extends IrReplaceSwitch {
     @Override
     public EObject caseListExpression(ListExpression expr) {
         super.caseListExpression(expr);
-        expr.setType((Type)doSwitch(expr.getType()));
+        if(expr == null || (expr!=null && expr.getContext()==null))
+            return expr;
+        if(expr.getType()!=null) {
+            expr.setType((Type)doSwitch(expr.getType()));
+        }
         if(expr.getContext().getId().equals(oldScope.getId())) {
             expr.setContext(newScope);
         }
@@ -181,7 +190,7 @@ public class FixMovedExpr extends IrReplaceSwitch {
     @Override
     public Declaration caseVariable(Variable variable) {
         super.caseVariable(variable);
-        if(variable.getScope().getId().equals(oldScope.getId())) {
+        if(!skipDecl && variable.getScope().getId().equals(oldScope.getId())) {
             variable.setScope(newScope);
         }
         return variable;
@@ -189,7 +198,7 @@ public class FixMovedExpr extends IrReplaceSwitch {
     @Override
     public Declaration caseDeclaration(Declaration variable) {
         super.caseDeclaration(variable);
-        if(variable.getScope().getId().equals(oldScope.getId())) {
+        if(!skipDecl && variable.getScope().getId().equals(oldScope.getId())) {
             variable.setScope(newScope);
         }
         return variable;
@@ -197,7 +206,7 @@ public class FixMovedExpr extends IrReplaceSwitch {
     @Override
     public Declaration caseForwardDeclaration(ForwardDeclaration variable) {
         super.caseForwardDeclaration(variable);
-        if(variable.getScope().getId().equals(oldScope.getId())) {
+        if(!skipDecl && variable.getScope().getId().equals(oldScope.getId())) {
             variable.setScope(newScope);
         }
         return variable;
@@ -205,7 +214,7 @@ public class FixMovedExpr extends IrReplaceSwitch {
     @Override
     public Declaration caseVariableExternal(VariableExternal variable) {
         super.caseVariableExternal(variable);
-        if(variable.getScope().getId().equals(oldScope.getId())) {
+        if(!skipDecl && variable.getScope().getId().equals(oldScope.getId())) {
             variable.setScope(newScope);
         }
         return variable;
@@ -213,7 +222,9 @@ public class FixMovedExpr extends IrReplaceSwitch {
     @Override
     public Declaration caseVariableImport(VariableImport variable) {
         super.caseVariableImport(variable);
-        if(variable.getScope().getId().equals(oldScope.getId())) {
+        if(variable == null || (variable!=null && variable.getScope()==null))
+            return variable;
+        if(!skipDecl && variable.getScope().getId().equals(oldScope.getId())) {
             variable.setScope(newScope);
         }
         return variable;

@@ -597,7 +597,7 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 				lambda = (LambdaExpression) var.getInitValue();				
 			} else if (decl instanceof VariableImport){
 				try {
-					Declaration d = ActorDirectory.findVariable((VariableImport) decl);
+					Declaration d = ActorDirectory.findVariable((VariableImport) decl, true);
 					if(d instanceof VariableExternal) {
 						return call;
 					}
@@ -816,7 +816,7 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 			return expression;
 		} else if (decl instanceof VariableImport) {
 			try { 
-				Declaration d = ActorDirectory.findVariable((VariableImport) expression.getVariable());
+				Declaration d = ActorDirectory.findVariable((VariableImport) expression.getVariable(), true);
 				if (d instanceof Variable) {
 					Variable var = (Variable) d;
 					if (var.getInitValue() instanceof LiteralExpression) {
@@ -857,7 +857,7 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 						typedecl = (TypeDeclaration) ((TypeConstructorCall) result).getTypedef();
 					} else {
 						try {
-							typedecl = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) ((TypeConstructorCall) result).getTypedef());
+							typedecl = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) ((TypeConstructorCall) result).getTypedef(),true);
 						} catch (DirectoryException x) {
 							error("[ConstantExpressionEvaluator] Internal Error#2 in caseVariableExpression");
 							return expression;

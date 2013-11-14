@@ -246,7 +246,7 @@ public class MoveInitValueExpr extends IrReplaceSwitch {
 			actorConstructor = IrFactory.eINSTANCE.createAction();
 		}
 		//If we actually needed the constructor push it in first in the list
-		if(initValueToStatements(actorConstructor.getDeclarations(),actorConstructor) && !existing) {
+		if(initValueToStatements(actor.getDeclarations(),actorConstructor) && !existing) {
 			actorConstructor.setId(Util.getDefinitionId());
 			actorConstructor.setOuter(actor);
 			actorConstructor.getTag().add("CAL__actorConstructor__");
