@@ -817,10 +817,10 @@ public class CPrinterTop extends IrSwitch<Stream> {
         }
         
         if(!actor.getInitializers().isEmpty()) {
-            for(Action a : actor.getInitializers()) {
+            for (int i=0;i < actor.getInitializers().size();i++) {
+                Action a = actor.getInitializers().get(i);
                 if(!a.getOutputs().isEmpty()) {
-                    //TODO CBuildAction extends CBuildBody extends CBuildStatement
-                    doSwitch(a);
+                    s.println(new CBuildAction(a,cenv,thisStr,i).toStr());
                 }
             }
         }
@@ -844,24 +844,15 @@ public class CPrinterTop extends IrSwitch<Stream> {
             s.println("thisActor->_fsmState = " + actorId + "__" + actor.getSchedule().getStates().get(0).getName() + "_ID;//First state"); 
         }
 
-        //TODO constructor
-        /*
-        doSwitch(cir.actorConstructor.get(actor));
         if(!actor.getInitializers().isEmpty()) {
+            IndentStr ind = new IndentStr();
+            ind.inc();
             for(Action a : actor.getInitializers()) {
                 if(a.getOutputs().isEmpty()) {
-                    s.println("{");
-                    s.inc();
-                    for(Declaration d : a.getDeclarations()) {
-                        doSwitch(d);
-                    }
-                    for(Statement d : a.getStatements()) {
-                        doSwitch(d);
-                    }
-                    s.dec();
-                    s.println("}");
+                    s.println(new CBuildConstructorInitializer(a, cenv, ind).toStr());
                 }
             }
+            ind.dec();
         }
         if(isCActiveMode(actor)) 
         {
