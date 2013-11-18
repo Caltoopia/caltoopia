@@ -48,6 +48,7 @@ import org.caltoopia.cli.DirectoryException;
 import org.caltoopia.codegen.transformer.analysis.IrPortAnnotation;
 import org.caltoopia.codegen.transformer.analysis.IrTypeAnnotation;
 import org.caltoopia.codegen.transformer.analysis.IrTypeStructureAnnotation;
+import org.caltoopia.codegen.transformer.analysis.IrUsedDeclarationAnnotation;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation;
 import org.caltoopia.codegen.transformer.analysis.IrVariablePlacementAnnotation;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarAccess;
@@ -91,7 +92,8 @@ public class IrTransformer {
 	public enum IrPassTypes {
 		//Annotations
 		Init,
-		Variable,
+        Variable,
+        UsedDeclaration,
 		TypeUsage,
 		TypeStructure,
 		VariablePlacement,
@@ -117,10 +119,14 @@ public class IrTransformer {
 		for(IrPassTypes p : passes) {
 			node=getNode(nodeType,p);
 			switch (p) {
-			case Variable:
-				printHeader("Variable");
-				new IrVariableAnnotation(node, session, true);
-				break;
+            case UsedDeclaration:
+                printHeader("Used Declaration");
+                new IrUsedDeclarationAnnotation(node, session, true);
+                break;
+            case Variable:
+                printHeader("Variable");
+                new IrVariableAnnotation(node, session, true);
+                break;
 			case TypeUsage:
 				printHeader("Type Usage");
 				new IrTypeAnnotation(node, session, true);
