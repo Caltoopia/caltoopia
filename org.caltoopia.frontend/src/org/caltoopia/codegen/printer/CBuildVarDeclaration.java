@@ -187,17 +187,20 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
         boolean initialize = true;
         switch(varType) {
         case memberDeclType:
+        case actorVar:
             initialize = false;
             buildVarDeclaration(variable, initialize);
             dimStr = "";
             break;
-        case actorVar:
         case funcVar:
         case procVar:
         case generatorVar:
         case blockVar:
         case inPortVar:
+        case inPortPeekVar:
+        case inOutPortPeekVar:
         case outPortVar:
+        case inOutPortVar:
         case actionVar:
             buildVarDeclaration(variable, initialize);
             break;

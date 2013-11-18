@@ -149,7 +149,11 @@ public class TransUtil {
         } else {
             String ns = "";
             for(AnnotationArgument aa: a.getArguments()) {
-                ns += "__" + aa.getValue();
+                if(aa.getValue().equals("MISSING_NAMESPACE")) {
+                    ns += "/*MISSING_NAMESPACE*/";
+                } else {
+                    ns += "__" + aa.getValue();
+                }
             }
             return ns;
         }

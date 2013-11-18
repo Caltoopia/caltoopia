@@ -79,11 +79,9 @@ public class CBuildConstDeclaration extends CBuildVarDeclaration {
 
     String initStr="";
     boolean header = false;
-    boolean noNS = false;
-    public CBuildConstDeclaration(Variable variable, CEnvironment cenv, boolean header, boolean noNS) {
+    public CBuildConstDeclaration(Variable variable, CEnvironment cenv, boolean header) {
         super(variable,cenv,false);
         this.header = header;
-        this.noNS = noNS;
     }
     
     @Override
@@ -99,12 +97,9 @@ public class CBuildConstDeclaration extends CBuildVarDeclaration {
     private void leave() {}
 
     //------------------util------
-    private void buildConstDeclaration(Variable variable) {
+    private void buildConstDeclaration(Variable variable, boolean constant) {
         vtypeStr = new CBuildTypeName(variable.getType(),new varCB(), true).toStr();
-        String nsStr = "";
-        if(!noNS) {
-            nsStr = TransUtil.getNamespaceAnnotation(variable) + "__";
-        }
+        String nsStr = TransUtil.getNamespaceAnnotation(variable) + (constant?"__":"");
         varStr = nsStr + variable.getName()+varStr;
         if(header) {
             vtypeStr = "extern " + vtypeStr;
@@ -134,17 +129,20 @@ public class CBuildConstDeclaration extends CBuildVarDeclaration {
         switch(varType) {
         case constVar:
         case blockConstVar:
-            buildConstDeclaration(variable);
+            buildConstDeclaration(variable, true);
             break;
         case actorConstParamVar:
-            buildConstDeclaration(variable);
+            buildConstDeclaration(variable, true);
             varStr = "__CalActorParam__" + varStr;
             break;
         //Actually declaration + initialization of non-const
         case funcVar:
         case procVar:
         case blockVar:
-            buildConstDeclaration(variable);
+        case actionVar:
+        case outPortVar:
+        case outPortInitInDepVar:
+            buildConstDeclaration(variable, false);
             break;
         default:
             varStr += ("/*TODO BCD "+variable.getName() + " of varType " + varType.name() + " */");

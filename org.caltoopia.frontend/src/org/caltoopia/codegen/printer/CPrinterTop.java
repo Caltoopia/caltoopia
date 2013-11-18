@@ -359,7 +359,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
              * Next field is an 4 element array of sizes for each dimension (max 4 dimensions currently).
              */
             
-            for(String t: Arrays.asList("char", "int8_t", "uint8_t", "int16_t", "uint16_t", "int32_t", "uint32_t", "double","void")) {
+            for(String t: Arrays.asList("char", "int8_t", "uint8_t", "int16_t", "uint16_t", "int32_t", "uint32_t", "double","void", "bool_t")) {
                 for(int i:dimensions) {
                     s.println("typedef struct {");
                     s.println("  union {");
@@ -434,6 +434,13 @@ public class CPrinterTop extends IrSwitch<Stream> {
                 case importFunc:
                 case importProc:
                 case func:
+                    //TODO maybe this check should be moved deeper into the c printing
+                    if(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "DeclUsed").equals("TRUE")) {
+                        doSwitch(d);
+                    } else {
+                        s.println("/*NOT USED " + d.getName() + "*/");
+                    }
+                    break;
                 case declarationType:
                     doSwitch(d);
                 }
@@ -443,7 +450,12 @@ public class CPrinterTop extends IrSwitch<Stream> {
             //Printing the actual network into one c-code file
             s.println("#include \"" + Util.marshallQualifiedName(network.getType().getNamespace()) + "__" + network.getType().getName() + ".h\"");
             for(Declaration d : network.getDeclarations()) {
-                doSwitch(d);
+                //TODO maybe this check should be moved deeper into the c printing
+                if(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "DeclUsed").equals("TRUE")) {
+                    doSwitch(d);
+                } else {
+                    s.println("/*NOT USED " + d.getName() + "*/");
+                }
             }
 
             s.printlnInc("static void initNetwork(AbstractActorInstance ***pInstances, int *pNumberOfInstances) {");
@@ -509,11 +521,13 @@ public class CPrinterTop extends IrSwitch<Stream> {
                 if(type.getName().startsWith("art_") || aactor instanceof ExternalActor) {
                     for(TaggedExpression param : actor.getActualParameters()) {
                         s.print("setParameter(" + actorInstanceName + ", \"" + param.getTag() + "\", ");
+                        //FIXME now we only support strings as parameter input and hence must be literal, so this goes wrong if it is a function call or variable
+                        //Usually the constant expression evaluator have reduced it to a literal, but it is not possible for external declared functions etc.
                         if(param.getExpression().getType() instanceof TypeString || param.getExpression() instanceof StringLiteral) {
-                            doSwitch(param.getExpression());
+                            s.print(new CBuildExpression(param.getExpression(), cenv).toStr());
                         } else {
                             s.print("\"");
-                            doSwitch(param.getExpression());                                
+                            s.print(new CBuildExpression(param.getExpression(), cenv).toStr());
                             s.print("\"");
                         }
                         s.println(");");
@@ -547,31 +561,31 @@ public class CPrinterTop extends IrSwitch<Stream> {
                                         
                 s.println("actorInstances[" + actorId++ + "] = " + actorInstanceName + ";");
                 s.println();
-                          
-                for (Connection c : network.getConnections()) {
-                    if(c instanceof Point2PointConnection) {
-                        Point2PointConnection p2p = (Point2PointConnection) c;
-                        s.print("connectPorts(" + Util.marshallQualifiedName(((TypeActor) p2p.getSource().getActor().getType()).getNamespace()) + 
-                                "__" + p2p.getSource().getActor().getName() + 
-                                "_" + p2p.getSource().getName());
-                        s.println(", " + Util.marshallQualifiedName(((TypeActor) p2p.getTarget().getActor().getType()).getNamespace()) + 
-                                "__" + p2p.getTarget().getActor().getName() + 
-                                "_" + p2p.getTarget().getName() + ");");
-                    } else {
-                        System.err.println("CONNECTION not P2P:" + c.toString());
-                    }
-                }
-                s.printlnDec("");
-                s.println("}");
-                
-                s.printlnInc("int main(int argc, char *argv[]) {");
-                s.println("int numberOfInstances;");
-                s.println("AbstractActorInstance **instances;");
-                s.println("initNetwork(&instances, &numberOfInstances);");
-                s.println("return executeNetwork(argc, argv, instances, numberOfInstances);");
-                s.printlnDec("");
-                s.println("}"); 
             }
+                      
+            for (Connection c : network.getConnections()) {
+                if(c instanceof Point2PointConnection) {
+                    Point2PointConnection p2p = (Point2PointConnection) c;
+                    s.print("connectPorts(" + Util.marshallQualifiedName(((TypeActor) p2p.getSource().getActor().getType()).getNamespace()) + 
+                            "__" + p2p.getSource().getActor().getName() + 
+                            "_" + p2p.getSource().getName());
+                    s.println(", " + Util.marshallQualifiedName(((TypeActor) p2p.getTarget().getActor().getType()).getNamespace()) + 
+                            "__" + p2p.getTarget().getActor().getName() + 
+                            "_" + p2p.getTarget().getName() + ");");
+                } else {
+                    System.err.println("CONNECTION not P2P:" + c.toString());
+                }
+            }
+            s.printlnDec("");
+            s.println("}");
+            
+            s.printlnInc("int main(int argc, char *argv[]) {");
+            s.println("int numberOfInstances;");
+            s.println("AbstractActorInstance **instances;");
+            s.println("initNetwork(&instances, &numberOfInstances);");
+            s.println("return executeNetwork(argc, argv, instances, numberOfInstances);");
+            s.printlnDec("");
+            s.println("}"); 
         }
     
         leave(network);
@@ -879,7 +893,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
             if(!UtilIR.isDeepLiteralExpression(variable.getInitValue())) {
                 CodegenError.err("CPrinterTop", "Not yet implemented handling of const declaration ("+variable.getName()+") that can't be reduced to literal constants at compile time.");
             }
-            s.print(new CBuildConstDeclaration(variable,cenv,header,!(currentActor==null)).toStr());
+            s.print(new CBuildConstDeclaration(variable,cenv,header).toStr());
             s.println(";");
             break;
         case actorVar:

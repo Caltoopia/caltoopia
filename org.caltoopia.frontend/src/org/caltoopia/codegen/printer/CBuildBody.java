@@ -104,10 +104,10 @@ public class CBuildBody extends IrSwitch<Boolean> {
             VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
             switch(varType) {
             case constVar:
-                bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d, cenv,false,false).toStr()) + ";" + ind.nl();
+                bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d, cenv,false).toStr()) + ";" + ind.nl();
                 break;
             case blockConstVar:
-                bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d,cenv, false,true).toStr()) + ";" + ind.nl();
+                bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d,cenv, false).toStr()) + ";" + ind.nl();
                 break;
             case actorVar:
             case blockVar:
@@ -117,7 +117,7 @@ public class CBuildBody extends IrSwitch<Boolean> {
             case actionInitInDepVar:
                 if(((Variable)d).getInitValue() != null) {
                     //TODO should have separate class for var declaration with initialization
-                    bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d, cenv, false,true).toStr()) + ";" + ind.nl();
+                    bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d, cenv, false).toStr()) + ";" + ind.nl();
                 } else {
                     bodyStr += ind.ind() + (new CBuildVarDeclaration((Variable) d,cenv, false).toStr()) + ";" + ind.nl();
                 }

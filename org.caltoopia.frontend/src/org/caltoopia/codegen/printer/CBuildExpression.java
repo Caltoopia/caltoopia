@@ -392,6 +392,9 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         case constVar:
             exprStr += TransUtil.getNamespaceAnnotation(var) + "__";
             break;
+        case actorConstParamVar:
+            exprStr += "__CalActorParam____";
+            break;
         default:
         }
         String varStr = (CPrintUtil.validCName(var.getVariable().getName()));
@@ -408,6 +411,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         case listMemberListSingle:
         case listMemberListMultiSingle:
             asArrayPart = false; //making sure scalar is not made into arrays (since caller might not have checked)
+            asArray = false; //making sure scalar is not made into arrays (since caller might not have checked)
         case listMemberListUserType:
         case listMemberListMultiUserType:
         case listMemberListMultiUserTypeList:
@@ -424,6 +428,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         case listSingle:
         case listMultiSingle:
             asArrayPart = false; //making sure scalar is not made into arrays (since caller might not have checked)
+            asArray = false; //making sure scalar is not made into arrays (since caller might not have checked)
             asArrayPart = var.getIndex().isEmpty()?false:asArrayPart; //When no index, can't be sub-array
             sep = asArrayPart?true:sepIndex;
             if(!sepIndex && !asArrayPart && !asArray) {

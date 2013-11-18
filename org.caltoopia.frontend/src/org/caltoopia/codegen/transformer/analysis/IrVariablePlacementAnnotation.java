@@ -321,7 +321,8 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 			placement = VarPlacement.fifo;
 		//out port var? FIXME need to look into directly placing in FIFO
 		} else if(Arrays.asList(
-				IrVariableAnnotation.VarType.outPortVar.name()).contains(annotations.get("VarType"))) {
+				IrVariableAnnotation.VarType.outPortVar.name(),
+				IrVariableAnnotation.VarType.outPortInitInDepVar.name()).contains(annotations.get("VarType"))) {
             switch (TypeMember.valueOf(annotations.get("TypeStructure"))) {
             case scalarBuiltin:
                 placement = VarPlacement.auto;
@@ -349,7 +350,8 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
         } else if(Arrays.asList(
                 IrVariableAnnotation.VarType.inOutPortVar.name(),
                 IrVariableAnnotation.VarType.inOutPortPeekVar.name(),
-                IrVariableAnnotation.VarType.outPortVar.name()).contains(annotations.get("VarType"))) {
+                IrVariableAnnotation.VarType.outPortVar.name(),
+                IrVariableAnnotation.VarType.outPortInitInDepVar.name()).contains(annotations.get("VarType"))) {
             switch (TypeMember.valueOf(annotations.get("TypeStructure"))) {
             case scalarBuiltin:
                 placement = VarPlacement.auto;

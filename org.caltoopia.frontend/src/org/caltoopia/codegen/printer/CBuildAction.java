@@ -111,7 +111,7 @@ public class CBuildAction extends IrSwitch<Boolean> {
             VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
             switch(varType) {
             case constVar:
-                bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d, cenv,false,false).toStr()) + ";" + ind.nl();
+                bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d, cenv,false).toStr()) + ";" + ind.nl();
                 break;
             /*case blockConstVar:
                 bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d,cenv, false,true).toStr()) + ";" + ind.nl();
@@ -122,17 +122,21 @@ public class CBuildAction extends IrSwitch<Boolean> {
             //case funcVar:
             case actionVar:
             case actionInitInDepVar:
+            case outPortVar:
+            case outPortInitInDepVar:
                 if(((Variable)d).getInitValue() != null) {
                     //TODO should have separate class for var declaration with initialization
-                    bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d, cenv, false,true).toStr()) + ";" + ind.nl();
+                    bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d, cenv, false).toStr()) + ";" + ind.nl();
                 } else {
                     bodyStr += ind.ind() + (new CBuildVarDeclaration((Variable) d,cenv, false).toStr()) + ";" + ind.nl();
                 }
                 break;
             case inPortVar:
+            case inPortPeekVar:
                 bodyStr += ind.ind() + (new CBuildVarDeclaration((Variable) d,cenv, false).toStr()) + ";" + ind.nl();
                 break;
-            case outPortVar:
+            case inOutPortVar:
+            case inOutPortPeekVar:
                 bodyStr += ind.ind() + (new CBuildVarDeclaration((Variable) d,cenv, false).toStr()) + ";" + ind.nl();
                 break;
             default:
@@ -141,7 +145,7 @@ public class CBuildAction extends IrSwitch<Boolean> {
                 String varStr =(varType.name() +", " +
                         varAccess.name() +", " +
                         typeUsage);
-                bodyStr += ind.ind() + ("/*TODO BD "+d.getName() + ", " + varStr + " */") +ind.nl();
+                bodyStr += ind.ind() + ("/*TODO BAD "+d.getName() + ", " + varStr + " */") +ind.nl();
             } 
         }
 
@@ -151,7 +155,13 @@ public class CBuildAction extends IrSwitch<Boolean> {
             String portStr = "IN" + portNbr+ "_" + TransUtil.getAnnotationArg(read, "Port", "name");
             if(read.getRepeat()==null) {
                 for(VariableReference readVar: read.getVariables()) {
-                    bodyStr += ind.ind() + new CBuildVarReference(readVar, cenv).toStr() + " = ";
+                    VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(readVar, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
+                    //Don't save result if never used
+                    if(!varType.equals(VarType.peekVar) && !varType.equals(VarType.syncVar)) {
+                        bodyStr += ind.ind() + new CBuildVarReference(readVar, cenv).toStr() + " = ";
+                    } else {
+                        bodyStr += ind.ind();
+                    }
                     bodyStr += "pinRead_" + new CBuildTypeName(readVar.getType(), new CPrintUtil.dummyCB(), false).toStr();
                     bodyStr += "(" + portStr + ");"+ind.nl();
                 }
@@ -164,7 +174,13 @@ public class CBuildAction extends IrSwitch<Boolean> {
                 bodyStr += ind.ind() + "for(" + repStr + "Count = 0;" + repStr + "Count<" + repStr + "; "+repStr+"Count++) {" + ind.nl(); 
                 ind.inc();
                 for(VariableReference readVar: read.getVariables()) {
-                    bodyStr += ind.ind() + new CBuildVarReference(readVar, cenv, false, true).toStr() + ".p["+ repStr +"Count] = ";
+                    VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(readVar, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
+                    //Don't save result if never used
+                    if(!varType.equals(VarType.peekVar) && !varType.equals(VarType.syncVar)) {
+                        bodyStr += ind.ind() + new CBuildVarReference(readVar, cenv, false, true).toStr() + ".p["+ repStr +"Count] = ";
+                    } else {
+                        bodyStr += ind.ind();
+                    }
                     bodyStr += "pinRead_" + new CBuildTypeName(readVar.getType(), new CPrintUtil.dummyCB(), false).toStr();
                     bodyStr += "(" + portStr + ");" + ind.nl();
                 }
@@ -204,19 +220,22 @@ public class CBuildAction extends IrSwitch<Boolean> {
             }
         }
         for(Declaration d:action.getDeclarations()) {
-            boolean retValue = TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarAssign").equals(IrVariableAnnotation.VarAssign.movedRetAssigned.name());
-            if(!retValue && (d instanceof Variable) && UtilIR.isList(((Variable)d).getType())) {
-                VariableReference varRef = UtilIR.createVarRef((Variable) d);
-                TransUtil.copySelectedAnnotations(varRef, d, new TransUtil.AnnotationsFilter(IrTransformer.VARIABLE_ANNOTATION, new String[]{"VarPlacement"}));
-                CBuildVarReference cVarRefF = new CBuildVarReference(varRef , cenv, false, true);
-                String varStrF = cVarRefF.toStr();
-                bodyStr += ind.ind() + "free" + new CBuildTypeName(((Variable)d).getType(), new CPrintUtil.dummyCB(), false).toStr() + "(&" + varStrF + ", TRUE);" + ind.nl();
-            } else if(!retValue && (d instanceof Variable) && UtilIR.isRecord(((Variable)d).getType())) {
-                VariableReference varRef = UtilIR.createVarRef((Variable) d);
-                TransUtil.copySelectedAnnotations(varRef, d, new TransUtil.AnnotationsFilter(IrTransformer.VARIABLE_ANNOTATION, new String[]{"VarPlacement"}));
-                CBuildVarReference cVarRefF = new CBuildVarReference(varRef , cenv, false, true);
-                String varStrF = cVarRefF.toStr();
-                bodyStr += ind.ind() + "freeStruct" + new CBuildTypeName(((Variable)d).getType(), new CPrintUtil.dummyCB(), false).toStr() + "(&" + varStrF + ", TRUE);" + ind.nl();
+            VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
+            if(!varType.equals(VarType.peekVar) && !varType.equals(VarType.syncVar)) {
+                boolean retValue = TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarAssign").equals(IrVariableAnnotation.VarAssign.movedRetAssigned.name());
+                if(!retValue && (d instanceof Variable) && UtilIR.isList(((Variable)d).getType())) {
+                    VariableReference varRef = UtilIR.createVarRef((Variable) d);
+                    TransUtil.copySelectedAnnotations(varRef, d, new TransUtil.AnnotationsFilter(IrTransformer.VARIABLE_ANNOTATION, new String[]{"VarPlacement"}));
+                    CBuildVarReference cVarRefF = new CBuildVarReference(varRef , cenv, false, true);
+                    String varStrF = cVarRefF.toStr();
+                    bodyStr += ind.ind() + "free" + new CBuildTypeName(((Variable)d).getType(), new CPrintUtil.dummyCB(), false).toStr() + "(&" + varStrF + ", TRUE);" + ind.nl();
+                } else if(!retValue && (d instanceof Variable) && UtilIR.isRecord(((Variable)d).getType())) {
+                    VariableReference varRef = UtilIR.createVarRef((Variable) d);
+                    TransUtil.copySelectedAnnotations(varRef, d, new TransUtil.AnnotationsFilter(IrTransformer.VARIABLE_ANNOTATION, new String[]{"VarPlacement"}));
+                    CBuildVarReference cVarRefF = new CBuildVarReference(varRef , cenv, false, true);
+                    String varStrF = cVarRefF.toStr();
+                    bodyStr += ind.ind() + "freeStruct" + new CBuildTypeName(((Variable)d).getType(), new CPrintUtil.dummyCB(), false).toStr() + "(&" + varStrF + ", TRUE);" + ind.nl();
+                }
             }
         }
         bodyStr += ind.ind() + "ART_ACTION_EXIT(" + action.getId() + ", " + idNbr + ");" +ind.nl();

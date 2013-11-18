@@ -144,6 +144,8 @@ public class CreateForLoop extends IrReplaceSwitch {
          * Hence after this conversion all the generators will be removed and the Body in ForEach will refer to the outer
          * most block containing a while loop.
          */
+        //But first run thru the body it might have a separate foreach statement
+        stmt.setBody((Block) doSwitch(stmt.getBody()));
         Block innerBody = stmt.getBody();
         Scope outer = innerBody.getOuter();
         while(outer instanceof Generator) {

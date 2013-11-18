@@ -204,6 +204,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		inOutPortVar, //input var used on output directly
 		inOutPortPeekVar, //input var used on output directly and in guard
 		outPortVar, //Only when directly used as variable on port, not if part of some expression giving the output port expression
+		outPortInitInDepVar, //When used as a variable on an output but is also initialized with an input port variable 
 		//Declarations
 		declarationType,
 		memberDeclType
@@ -458,32 +459,31 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 				} else if(variable.getScope() instanceof Action) {
 					Action a = (Action) variable.getScope();
 					t = annotatePortVar(variable, a);
-					if(t == VarType.unknown) {
-						//Check if the initValue contains ref to any in-port variable
-						if(variable.getInitValue()==null) {
-							t = VarType.actionVar;
-						} else {
-							foundInSwitch=false;
-							LookForReadSwitch = a.getInputs();
-							new IrReplaceSwitch() {
-								@Override
-								public Expression caseVariableExpression(VariableExpression var) {
-									for(PortRead r : LookForReadSwitch) {
-										for(VariableReference vr : r.getVariables()) {
-											if(vr.getDeclaration().getId().equals(var.getVariable().getId())) {
-												foundInSwitch=true;
-											}
+                    if(t == VarType.unknown && variable.getInitValue()==null) {
+                        t = VarType.actionVar;
+                    } else if((t == VarType.outPortVar || t == VarType.unknown) && variable.getInitValue()!=null) {
+						foundInSwitch=false;
+						LookForReadSwitch = a.getInputs();
+						new IrReplaceSwitch() {
+							@Override
+							public Expression caseVariableExpression(VariableExpression var) {
+								for(PortRead r : LookForReadSwitch) {
+									for(VariableReference vr : r.getVariables()) {
+										if(vr.getDeclaration().getId().equals(var.getVariable().getId())) {
+											foundInSwitch=true;
 										}
 									}
-									return super.caseVariableExpression(var);
 								}
-							}.doSwitch(variable.getInitValue());
-							if(foundInSwitch) {
-								t = VarType.actionInitInDepVar;
-							} else {
-								t = VarType.actionVar;
+								return super.caseVariableExpression(var);
 							}
-						}
+						}.doSwitch(variable.getInitValue());
+                        if(foundInSwitch && t == VarType.unknown) {
+                            t = VarType.actionInitInDepVar;
+                        } else if(!foundInSwitch && t == VarType.unknown){
+                            t = VarType.actionVar;
+                        } else if(foundInSwitch && t == VarType.outPortVar){
+                            t = VarType.outPortInitInDepVar;
+                        }
 					}
 				} else if(variable.getScope() instanceof PortWrite) {
 					t = annotatePortVar(variable, currentAction);
@@ -777,7 +777,8 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 			switch(t) {
 			case inOutPortVar:
 			case inOutPortPeekVar:
-			case outPortVar:
+            case outPortVar:
+            case outPortInitInDepVar:
 				va = findPortAccess(var.getType(),currentWrite.getRepeat()!=null,currentWrite.getExpressions().size());
 				idOutVarAccessMap.put(var.getVariable().getId(), va.name());
 			}

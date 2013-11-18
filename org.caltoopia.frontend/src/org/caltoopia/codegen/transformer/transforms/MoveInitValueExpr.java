@@ -122,7 +122,7 @@ public class MoveInitValueExpr extends IrReplaceSwitch {
 						//moved statements need to be moved.
 						String varType = annotations.get(TransUtil.varAnn("VarType"));
 						String varPlacement = annotations.get(TransUtil.varAnn("VarPlacement"));
-						if((varType!=null && varType.equals(VarType.actionInitInDepVar.name())) ||
+						if((varType!=null && (varType.equals(VarType.actionInitInDepVar.name()) || varType.equals(VarType.outPortInitInDepVar.name()))) ||
 							(varPlacement!=null && varPlacement.equals(VarPlacement.heap.name())) ||
 							(var.getInitValue() instanceof ListExpression && !((ListExpression)var.getInitValue()).getGenerators().isEmpty())) {
 							Assign assign = UtilIR.createAssign(pos, scope, var, var.getInitValue());
