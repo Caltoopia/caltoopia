@@ -308,6 +308,23 @@ public class TypeAnnotater extends IrReplaceSwitch {
                     type = binaryExpression.getOperand2().getType();
                 }
             }
+        } else if (Arrays.asList("..").contains(operator)) {
+            if((binaryExpression.getOperand1().getType() instanceof TypeUint
+                ||binaryExpression.getOperand1().getType() instanceof TypeInt
+                ||binaryExpression.getOperand2().getType() instanceof TypeUint
+                ||binaryExpression.getOperand2().getType() instanceof TypeInt)) {
+                BinaryExpression sz = null;
+                if(UtilIR.isDeepLiteralExpression(binaryExpression.getOperand1()) && UtilIR.isDeepLiteralExpression(binaryExpression.getOperand2())) {
+                    sz = (BinaryExpression) UtilIR.createExpression(UtilIR.createExpression(binaryExpression.getOperand2(), "-", binaryExpression.getOperand1()),"+",
+                            UtilIR.lit(1));
+                    sz.setContext(binaryExpression.getContext());
+                    sz.getOperand1().setContext(binaryExpression.getContext());
+                    sz.getOperand2().setContext(binaryExpression.getContext());
+                    ((BinaryExpression)sz.getOperand1()).getOperand1().setContext(binaryExpression.getContext());
+                    ((BinaryExpression)sz.getOperand1()).getOperand2().setContext(binaryExpression.getContext());
+                    type = TypeSystem.createTypeList(sz, binaryExpression.getOperand1().getType());
+                }
+            }
         }
         if(type!=null) {
             binaryExpression.setType(type);
