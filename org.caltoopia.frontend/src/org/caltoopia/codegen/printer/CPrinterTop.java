@@ -813,7 +813,6 @@ public class CPrinterTop extends IrSwitch<Stream> {
         
         for (int i=0;i < actor.getActions().size();i++) {
             Action a = actor.getActions().get(i);
-            //TODO CBuildAction extends CBuildBody extends CBuildStatement
             s.println(new CBuildAction(a,cenv,thisStr,i).toStr());
         }
         
@@ -824,6 +823,11 @@ public class CPrinterTop extends IrSwitch<Stream> {
                     doSwitch(a);
                 }
             }
+        }
+
+        for (int i=0;i < actor.getActions().size();i++) {
+            Action a = actor.getActions().get(i);
+            s.println(new CBuildGuard(a,cenv,thisStr,i).toStr());
         }
 
         int i = 0;

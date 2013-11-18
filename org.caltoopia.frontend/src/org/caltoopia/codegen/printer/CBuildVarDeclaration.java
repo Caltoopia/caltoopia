@@ -196,6 +196,7 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
         case procVar:
         case generatorVar:
         case blockVar:
+        case peekVar:
         case inPortVar:
         case inPortPeekVar:
         case inOutPortPeekVar:

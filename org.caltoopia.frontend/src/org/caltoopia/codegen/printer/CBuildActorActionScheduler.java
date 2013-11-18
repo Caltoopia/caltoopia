@@ -208,11 +208,8 @@ public class CBuildActorActionScheduler extends IrSwitch<Boolean> {
             
             if (!action.getGuards().isEmpty()) {
                 schedStr += ind.ind() + ("if (");
-                for (Iterator<Guard> i = action.getGuards().iterator(); i.hasNext();) {
-                    Guard f = i.next();
-                    schedStr += (thisStr + CPrintUtil.validCName(f.getId()) + "(context, thisActor)");
-                    if (i.hasNext()) schedStr += (" && ");
-                }           
+                String actionId = thisStr + CPrintUtil.getNamespace(action.getTag());
+                schedStr += "Guard_" + actionId + "__" + action.getId()+ "(context, thisActor)";
                 schedStr += (") {") + ind.nl();
                 ind.inc();
             }
