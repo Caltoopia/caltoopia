@@ -854,17 +854,17 @@ public class CPrinterTop extends IrSwitch<Stream> {
             }
             ind.dec();
         }
-        if(isCActiveMode(actor)) 
+
+        if(CPrintUtil.isCActiveMode(actor)) 
         {
             s.println("{");
             s.inc();
-            s.println("ActorClass *actorClass = (ActorClass *)thisActor->base.actorClass;");
+            s.println("ActorClass *actorClass = (ActorClass *)thisActor->base.actor;");
             s.println("actorClass->actorExecMode = 1;");
             s.dec();
             s.println("}");             
         }
-        */
-
+        
         s.dec();
         s.println();
         s.println("}");

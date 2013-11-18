@@ -77,6 +77,16 @@ public class CPrintUtil {
     private static final String EXTERN_ANNOTATION_CLIBPATH = "c_libpath";
     private static final String EXTERN_ANNOTATION_CACTIVEMODE = "c_activemode";
     
+    static Boolean isCActiveMode(AbstractActor actor) {
+        Map<String,String> annotations = getExternAnnotations(actor.getAnnotations());
+        if(annotations.containsKey(EXTERN_ANNOTATION_CACTIVEMODE)) {
+            String value = annotations.get(EXTERN_ANNOTATION_CACTIVEMODE);
+            if (value.equals("true"))
+                return true;
+        }
+        return false;
+    }
+
     private static final Set<String> keywords;
     static {
         Set<String> a = new HashSet<String>();
