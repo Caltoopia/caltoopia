@@ -371,7 +371,7 @@ public class IrXmlReader {
 		List<Element> ports = getChildren(element, "Port");
 		for (Element e : ports) {
 			Port port = createPort(e);
-			if (element.getAttribute("direction").equals("in")) {
+			if (e.getAttribute("direction").equals("in")) {
 				actor.getInputPorts().add(port);
 			} else {
 				actor.getOutputPorts().add(port);
