@@ -116,6 +116,8 @@ public class Elaborator {
 				// Add all the inner actors to the top level network.
 				for (ActorInstance instance : clone.getActors()) {										
 					instance.setName(prefix + instance.getName());
+                    //Make sure to give the actor instance a unique ID due to that the subnetwork might be instantiated several times
+                    instance.setId(Util.getDefinitionId());
 					topNetwork.getActors().add(instance);	
 					// Take care of actor parameters by making them into 
 					// actor state variables 
