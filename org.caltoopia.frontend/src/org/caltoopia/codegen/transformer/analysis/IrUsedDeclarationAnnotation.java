@@ -157,6 +157,10 @@ public class IrUsedDeclarationAnnotation extends IrReplaceSwitch {
 	
     @Override
     public EObject caseVariableImport(VariableImport var) {
+        Declaration decl = UtilIR.getDeclarationTransformed(var);
+        if(decl!=null) {
+            doSwitch(decl);
+        }
         return var;
     }
     
