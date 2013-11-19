@@ -182,9 +182,10 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 		VarPlacement placement = VarPlacement.unknown;
 		//constants?
 		if(Arrays.asList(IrVariableAnnotation.VarType.constVar.name(),
-						 IrVariableAnnotation.VarType.importConstVar.name(),
-						 IrVariableAnnotation.VarType.blockConstVar.name(),
-						 IrVariableAnnotation.VarType.actorConstParamVar.name()).contains(annotations.get("VarType"))) {
+                         IrVariableAnnotation.VarType.actorConstVar.name(),
+                         IrVariableAnnotation.VarType.importConstVar.name(),
+                         IrVariableAnnotation.VarType.blockConstVar.name(),
+                         IrVariableAnnotation.VarType.actorConstParamVar.name()).contains(annotations.get("VarType"))) {
 			placement = VarPlacement.constant;
 		//actor constructor?
 		} else if(Arrays.asList(IrVariableAnnotation.VarType.actorVar.name(), 

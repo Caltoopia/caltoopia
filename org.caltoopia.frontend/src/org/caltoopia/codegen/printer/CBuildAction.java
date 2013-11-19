@@ -111,6 +111,7 @@ public class CBuildAction extends IrSwitch<Boolean> {
             VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
             switch(varType) {
             case constVar:
+            case actorConstVar:
                 bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d, cenv,false).toStr()) + ";" + ind.nl();
                 break;
             /*case blockConstVar:

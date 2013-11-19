@@ -183,7 +183,8 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
         externOtherTypeVar, //TODO frontend won't allow user types in external declarations
         externOtherListTypeVar,  //TODO frontend won't allow user types in external declarations
 		importConstVar,
-		constVar,
+        constVar,
+        actorConstVar,
 		generatorVar,
         blockVar,
         blockConstVar,
@@ -413,7 +414,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 						if(variable.isParameter())
 							t = VarType.actorConstParamVar;
 						else {
-							t = VarType.constVar;
+							t = VarType.actorConstVar;
 	                        TransUtil.setNamespaceAnnotation(inDecl, variable.getScope());
 						}
 					} else {

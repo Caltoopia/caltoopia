@@ -83,7 +83,7 @@ public class CBuildProcDeclaration extends IrSwitch<Boolean> {
     
     public Boolean caseVariable(Variable variable) {
         ProcExpression proc =  (ProcExpression) variable.getInitValue();
-        procStr = "void ";
+        procStr = "static void ";
         String thisStr = TransUtil.getNamespaceAnnotation(variable);
         if(thisStr.equals("")) {
             Actor actor = (Actor)proc.getOuter();

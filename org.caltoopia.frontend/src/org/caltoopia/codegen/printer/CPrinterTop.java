@@ -430,6 +430,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
                 VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
                 switch(varType) {
                 case constVar:
+                case actorConstVar:
                 case importConstVar:
                 case importFunc:
                 case importProc:
@@ -632,6 +633,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
             switch(varType) {
             case actorConstParamVar:
             case constVar:
+            case actorConstVar:
                 doSwitch(d);
                 break;
             default:
@@ -656,6 +658,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
             //These are known to not be printed here, makes sure that the default is only called for things that miss code (besides the type import or forward)
             case actorConstParamVar:
             case constVar:
+            case actorConstVar:
             case proc:
             case func:
             case actorFunc:
@@ -698,6 +701,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
             case actorParamVar:
             case actorConstParamVar:
             case constVar:
+            case actorConstVar:
             case func:
                 break;
             default:
@@ -884,6 +888,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
         switch(varType) {
         case actorConstParamVar:
         case constVar:
+        case actorConstVar:
             s.print("/*CONST " + (UtilIR.isDeepLiteralExpression(variable.getInitValue())?"LITERAL":"NON-LITERAL")+"*/");
             if(!UtilIR.isDeepLiteralExpression(variable.getInitValue())) {
                 CodegenError.err("CPrinterTop", "Not yet implemented handling of const declaration ("+variable.getName()+") that can't be reduced to literal constants at compile time.");

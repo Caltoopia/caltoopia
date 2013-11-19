@@ -83,16 +83,21 @@ public class CBuildFuncDeclaration extends IrSwitch<Boolean> {
     
 
     public Boolean caseVariable(Variable variable) {
+        VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(variable, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
+        if(varType == VarType.actorFunc) {
+            funcStr = "static ";
+        } else {
+            funcStr = "";
+        }
         LambdaExpression lambda = (LambdaExpression) variable.getInitValue();
         Type type = ((TypeLambda)lambda.getType()).getOutputType();
-        funcStr = new CBuildTypeName(type, new CPrintUtil.dummyCB(),true).toStr() + " ";
+        funcStr += new CBuildTypeName(type, new CPrintUtil.dummyCB(),true).toStr() + " ";
 
         String thisStr = TransUtil.getNamespaceAnnotation(variable);
         
         funcStr += thisStr + "__";
         funcStr += CPrintUtil.validCName(variable.getName()) + "(";
 
-        VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(variable, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
         if(varType == VarType.actorFunc) {
             if(thisStr.equals("")) {
                 Actor actor = (Actor)lambda.getOuter();

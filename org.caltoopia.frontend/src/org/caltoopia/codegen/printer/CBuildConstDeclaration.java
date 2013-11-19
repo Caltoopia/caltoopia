@@ -127,6 +127,10 @@ public class CBuildConstDeclaration extends CBuildVarDeclaration {
         enter(variable);
         VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(variable, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
         switch(varType) {
+        case actorConstVar:
+            buildConstDeclaration(variable, true);
+            vtypeStr = "static " + vtypeStr;
+            break;
         case constVar:
         case blockConstVar:
             buildConstDeclaration(variable, true);
