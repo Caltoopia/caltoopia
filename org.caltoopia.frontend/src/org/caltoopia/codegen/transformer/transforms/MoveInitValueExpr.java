@@ -122,7 +122,8 @@ public class MoveInitValueExpr extends IrReplaceSwitch {
 						//moved statements need to be moved.
 						String varType = annotations.get(TransUtil.varAnn("VarType"));
 						String varPlacement = annotations.get(TransUtil.varAnn("VarPlacement"));
-						if((varType!=null && (varType.equals(VarType.actionInitInDepVar.name()) || varType.equals(VarType.outPortInitInDepVar.name()))) ||
+						if((varType!=null && (varType.equals(VarType.actionInitInDepVar.name()) || 
+						                      varType.equals(VarType.outPortInitInDepVar.name()))) ||
 							(varPlacement!=null && varPlacement.equals(VarPlacement.heap.name())) ||
 							(var.getInitValue() instanceof ListExpression && !((ListExpression)var.getInitValue()).getGenerators().isEmpty())) {
 							Assign assign = UtilIR.createAssign(pos, scope, var, var.getInitValue());
@@ -132,6 +133,13 @@ public class MoveInitValueExpr extends IrReplaceSwitch {
 							pos++;
 							var.setInitValue(null);
 							System.out.println("[MoveInitValueExpr] Moved " + var.getName() + ", " + var.getId() + " in " + scope.getId());
+						} else if((varType!=null && varType.equals(VarType.actorVar.name()))) {
+                              Assign assign = UtilIR.createAssign(pos, scope, var, var.getInitValue());
+                              TransUtil.setAnnotation(assign.getTarget(),IrTransformer.VARIABLE_ANNOTATION, 
+                                      "VarAssign",VarAssign.movedInitAssigned.name());
+                              pos++;
+                              var.setInitValue(null);
+                              System.out.println("[MoveInitValueExpr] Moved actor var " + var.getName() + ", " + var.getId() + " in " + scope.getId());
 						} else if(
 							new IrFindSwitch(var){
 								@Override
