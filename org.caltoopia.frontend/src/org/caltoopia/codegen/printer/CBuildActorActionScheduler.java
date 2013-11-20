@@ -268,14 +268,14 @@ public class CBuildActorActionScheduler extends IrSwitch<Boolean> {
                 schedStr += ind.ind() + ("goto out;") + ind.nl();
                 ind.dec();
                 schedStr += ind.ind() + ("}") + ind.nl();
-                ind.dec();
             }
             if (!action.getGuards().isEmpty()) {
-                    schedStr += ind.ind() + ("}") + ind.nl();
-                    ind.dec();
+                ind.dec();
+                schedStr += ind.ind() + ("}") + ind.nl();
             }
             
             if (!action.getInputs().isEmpty()) {
+                ind.dec();
                 schedStr += ind.ind() + ("}") + ind.nl();
             }
         }
