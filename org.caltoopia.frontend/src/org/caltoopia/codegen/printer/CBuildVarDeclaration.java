@@ -82,6 +82,7 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
     int maxDim = 0;
     Variable variable;
     boolean onlyVar = false;
+    boolean initializeVar = false;
     boolean allFixedSize = true;
     CEnvironment cenv = null;
     
@@ -105,6 +106,15 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
         return (onlyVar?"":vtypeStr + " ") + varStr + dimStr;
     }
     
+    public String initializeToStr() {
+        initializeVar = true;
+        Boolean res = doSwitch(variable);
+        if(!res) {
+            CodegenError.err("Var declaration builder", "failed initialize " + vtypeStr + " " + varStr);
+        }
+        return varStr + dimStr;
+    }
+
     //-----------Util--------------------------------------------------------
     
     private void enter(EObject obj) {}
@@ -161,7 +171,7 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
         vtypeStr = tn.toStr();
         varStr = CPrintUtil.validCName(variable.getName())+varStr;
         if(!dimStr.equals("") && initialize) {
-            String tmpStr = " = {";
+            String tmpStr = " = (" + vtypeStr +"){";
             if(allFixedSize) {
                 tmpStr += "malloc(sizeof(" + tn.toFinalTypeStr() +")" + sizeStr + "), ";
                 tmpStr += (TransUtil.getAnnotationArg(variable, "Variable", "VarLocalAccess").equals(VarLocalAccess.temp.name()))?"0xf":"0x7";
@@ -188,9 +198,14 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
         switch(varType) {
         case memberDeclType:
         case actorVar:
-            initialize = false;
-            buildVarDeclaration(variable, initialize);
-            dimStr = "";
+            if(initializeVar) {
+                buildVarDeclaration(variable, true);
+                varStr = "thisActor->" + varStr;
+            } else {
+                initialize = false;
+                buildVarDeclaration(variable, initialize);
+                dimStr = "";
+            }
             break;
         case funcVar:
         case procVar:

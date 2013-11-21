@@ -39,6 +39,7 @@ package org.caltoopia.codegen.transformer.transforms;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +66,9 @@ import org.caltoopia.ir.AnnotationArgument;
 import org.caltoopia.ir.Assign;
 import org.caltoopia.ir.Block;
 import org.caltoopia.ir.Declaration;
+import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.ExternalActor;
+import org.caltoopia.ir.IntegerLiteral;
 import org.caltoopia.ir.IrFactory;
 import org.caltoopia.ir.LambdaExpression;
 import org.caltoopia.ir.ListExpression;
@@ -79,6 +82,7 @@ import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeDeclarationImport;
 import org.caltoopia.ir.TypeLambda;
+import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExpression;
 import org.caltoopia.ir.VariableReference;
@@ -113,69 +117,81 @@ public class MoveInitValueExpr extends IrReplaceSwitch {
 		for(Declaration d:declarations) {
 			if(d instanceof Variable) {
 				Variable var = (Variable) d;
-				if(var.getInitValue()!=null) {
-					Map<String,String> annotations = TransUtil.getAnnotationsMap(var);
-					if(annotations!=null) {
-						//When init expression depends on in port var or is placed on heap
-					    //or when the expression is a list expression with generator
-						//move to statement. Also any declarations that depend on previous
-						//moved statements need to be moved.
-						String varType = annotations.get(TransUtil.varAnn("VarType"));
-						String varPlacement = annotations.get(TransUtil.varAnn("VarPlacement"));
-						if((varType!=null && (varType.equals(VarType.actionInitInDepVar.name()) || 
-						                      varType.equals(VarType.outPortInitInDepVar.name()))) ||
-							(varPlacement!=null && varPlacement.equals(VarPlacement.heap.name())) ||
-							(var.getInitValue() instanceof ListExpression && !((ListExpression)var.getInitValue()).getGenerators().isEmpty())) {
-							Assign assign = UtilIR.createAssign(pos, scope, var, var.getInitValue());
-							TransUtil.setAnnotation(assign.getTarget().getDeclaration(),IrTransformer.VARIABLE_ANNOTATION, 
-									"VarAssign",VarAssign.movedInitAssigned.name());
-							TransUtil.copyAnnotations(assign.getTarget(), var);
-							pos++;
-							var.setInitValue(null);
-							System.out.println("[MoveInitValueExpr] Moved " + var.getName() + ", " + var.getId() + " in " + scope.getId());
-						} else if((varType!=null && varType.equals(VarType.actorVar.name()))) {
-                              Assign assign = UtilIR.createAssign(pos, scope, var, var.getInitValue());
-                              TransUtil.setAnnotation(assign.getTarget(),IrTransformer.VARIABLE_ANNOTATION, 
-                                      "VarAssign",VarAssign.movedInitAssigned.name());
-                              pos++;
-                              var.setInitValue(null);
-                              System.out.println("[MoveInitValueExpr] Moved actor var " + var.getName() + ", " + var.getId() + " in " + scope.getId());
-						} else if(
-							new IrFindSwitch(var){
-								@Override
-								public VariableReference caseVariableReference(VariableReference var) {
-									Map<String,String> annotations = TransUtil.getAnnotationsMap(var.getDeclaration());
-									if(annotations!=null) {
-										String varAssign = annotations.get(TransUtil.varAnn("VarAssign"));
-										if(varAssign != null && varAssign.equals(VarAssign.movedInitAssigned.name())) {
-											foundInSwitch=true;
-										}
-									}
-									return var;
-								}
-								
-								@Override
-								public VariableExpression caseVariableExpression(VariableExpression var) {
-									Map<String,String> annotations = TransUtil.getAnnotationsMap(var.getVariable());
-									if(annotations!=null) {
-										String varAssign = annotations.get(TransUtil.varAnn("VarAssign"));
-										if(varAssign != null && varAssign.equals(VarAssign.movedInitAssigned.name())) {
-											foundInSwitch=true;
-										}
-									}
-									return var;
-								}
-							}.found()) {
-								Assign assign = UtilIR.createAssign(pos, scope, var, var.getInitValue());
-								TransUtil.setAnnotation(assign.getTarget().getDeclaration(),IrTransformer.VARIABLE_ANNOTATION, 
-										"VarAssign",VarAssign.movedInitAssigned.name());
-								TransUtil.copyAnnotations(assign.getTarget(), var);
-								pos++;
-								var.setInitValue(null);
-								System.out.println("[MoveInitValueExpr] Chain-moved " + var.getName() + ", " + var.getId() + " in " + scope.getId());
-						}
-					}
-				}
+                Map<String,String> annotations = TransUtil.getAnnotationsMap(var);
+                String varType = null;
+                String varPlacement = null;
+                if(annotations!=null) {
+                    varType = annotations.get(TransUtil.varAnn("VarType"));
+                    varPlacement = annotations.get(TransUtil.varAnn("VarPlacement"));
+                }
+                if((varType!=null && varType.equals(VarType.actorVar.name()))) {
+                    if(var.getInitValue()!=null) {
+                        Assign assign = UtilIR.createAssign(pos, scope, var, var.getInitValue());
+                        TransUtil.setAnnotation(assign.getTarget(),IrTransformer.VARIABLE_ANNOTATION, 
+                                "VarAssign",VarAssign.movedInitAssigned.name());
+                        pos++;
+                        var.setInitValue(null);
+                        System.out.println("[MoveInitValueExpr] Moved actor var " + var.getName() + ", " + var.getId() + " in " + scope.getId());
+                    } else if(UtilIR.isList(var.getType())) {
+                        //Even if the actor variable is not initialized it must be allocated if it is a list
+                        //We do that by setting the first element to zero
+                        //VariableReference target = UtilIR.createVarRef(var, Arrays.asList((Expression)UtilIR.lit(scope,0)));
+                        Assign assign = UtilIR.createAssign(pos, scope, var, UtilIR.lit(scope,0));
+                        TransUtil.setAnnotation(assign, "Variable", "Allocate", "true");
+                        pos++;
+                        System.out.println("[MoveInitValueExpr] Allocated actor var " + var.getName() + ", " + var.getId() + " in " + scope.getId());
+                    }
+                } else if(var.getInitValue()!=null) {
+                    //When init expression depends on in port var or is placed on heap
+                    //or when the expression is a list expression with generator
+                    //move to statement. Also any declarations that depend on previous
+                    //moved statements need to be moved.
+                    if((varType!=null && (varType.equals(VarType.actionInitInDepVar.name()) || 
+                            varType.equals(VarType.outPortInitInDepVar.name()))) ||
+                            (varPlacement!=null && varPlacement.equals(VarPlacement.heap.name())) ||
+                            (var.getInitValue() instanceof ListExpression && !((ListExpression)var.getInitValue()).getGenerators().isEmpty())) {
+                        Assign assign = UtilIR.createAssign(pos, scope, var, var.getInitValue());
+                        TransUtil.setAnnotation(assign.getTarget().getDeclaration(),IrTransformer.VARIABLE_ANNOTATION, 
+                                "VarAssign",VarAssign.movedInitAssigned.name());
+                        TransUtil.copyAnnotations(assign.getTarget(), var);
+                        pos++;
+                        var.setInitValue(null);
+                        System.out.println("[MoveInitValueExpr] Moved " + var.getName() + ", " + var.getId() + " in " + scope.getId());
+                    } else if(
+                        new IrFindSwitch(var){
+                          @Override
+                          public VariableReference caseVariableReference(VariableReference var) {
+                              Map<String,String> annotations = TransUtil.getAnnotationsMap(var.getDeclaration());
+                              if(annotations!=null) {
+                                  String varAssign = annotations.get(TransUtil.varAnn("VarAssign"));
+                                  if(varAssign != null && varAssign.equals(VarAssign.movedInitAssigned.name())) {
+                                      foundInSwitch=true;
+                                  }
+                              }
+                              return var;
+                          }
+                          
+                          @Override
+                          public VariableExpression caseVariableExpression(VariableExpression var) {
+                              Map<String,String> annotations = TransUtil.getAnnotationsMap(var.getVariable());
+                              if(annotations!=null) {
+                                  String varAssign = annotations.get(TransUtil.varAnn("VarAssign"));
+                                  if(varAssign != null && varAssign.equals(VarAssign.movedInitAssigned.name())) {
+                                      foundInSwitch=true;
+                                  }
+                              }
+                              return var;
+                          }
+                        }.found()) {
+                        Assign assign = UtilIR.createAssign(pos, scope, var, var.getInitValue());
+                        TransUtil.setAnnotation(assign.getTarget().getDeclaration(),IrTransformer.VARIABLE_ANNOTATION, 
+                                "VarAssign",VarAssign.movedInitAssigned.name());
+                        TransUtil.copyAnnotations(assign.getTarget(), var);
+                        pos++;
+                        var.setInitValue(null);
+                        System.out.println("[MoveInitValueExpr] Chain-moved " + var.getName() + ", " + var.getId() + " in " + scope.getId());
+                    }
+                }
 			}
 		}
 		return pos>0;

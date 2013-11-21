@@ -349,7 +349,7 @@ public class ExprToTempVar extends IrReplaceSwitch {
                 
         for(int i=0;i<statements.size();i++) {
             Statement s = statements.get(i);
-            if(!(s instanceof Block)) {
+            if(!(s instanceof Block) && !TransUtil.getAnnotationArg(s, "Variable", "Allocate").equals("true")) {
                 i += new moveListAssign(s,i,declarations,statements,scope).inserts;
             }
         }
@@ -484,7 +484,7 @@ public class ExprToTempVar extends IrReplaceSwitch {
 
         for(int i=0;i<statements.size();i++) {
             Statement s = statements.get(i);
-            if(!(s instanceof Block)) {
+            if(!(s instanceof Block) && !TransUtil.getAnnotationArg(s, "Variable", "Allocate").equals("true")) {
                 i += new moveExpr(s,i,declarations,statements,scope).inserts;
             }
         }
@@ -612,7 +612,7 @@ public class ExprToTempVar extends IrReplaceSwitch {
 
         for(int i=0;i<statements.size();i++) {
             Statement s = statements.get(i);
-            if(!(s instanceof Block)) {
+            if(!(s instanceof Block) && !TransUtil.getAnnotationArg(s, "Variable", "Allocate").equals("true")) {
                 i += new moveStringExpr(s,i,declarations,statements,scope).inserts;
             }
         }

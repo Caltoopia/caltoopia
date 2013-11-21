@@ -161,7 +161,14 @@ public class CBuildAssign extends IrSwitch<Boolean> {
         if(!targetAnn.isEmpty()) statStr += ind.ind() + "T:" + targetAnn.toString() +"\n";
         if(!exprAnn.isEmpty()) statStr += ind.ind() + "E:" + exprAnn.toString() +"\n";
         statStr += ind.ind() + "*/\n";
-        //TODO fix more complicated assignments
+        String initAnn = assignAnn == null?null:assignAnn.get("Variable_Allocate");
+        boolean initAssign = (initAnn == null)?false:initAnn.equals("true");
+        if(initAssign) {
+            //This is just an assignment to signal that the target var should be initialized.
+            statStr += ind.ind() + new CBuildVarDeclaration(assign.getTarget().getDeclaration(), cenv, false).initializeToStr() +";" + ind.nl();
+            leave();
+            return true;
+        }
         /*
          * Which assignment exist:
          * 1) scalar and user type assignment of any expression - identical to c, no memory mgmt
