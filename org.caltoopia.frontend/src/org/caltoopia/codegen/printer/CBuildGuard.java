@@ -144,7 +144,7 @@ public class CBuildGuard extends IrSwitch<Boolean> {
                         peeked.add(peekVar.getDeclaration().getName());
                         if(peek.getRepeat()==null) {
                             bodyStr += ind.ind() + new CBuildVarReference(peekVar, cenv).toStr() + " = ";
-                            bodyStr += "pinPeek_" + new CBuildTypeName(peekVar.getType(), new CPrintUtil.dummyCB(), false).toStr();
+                            bodyStr += "pinPeek_" + new CBuildTypeName(peek.getPort().getType(), new CPrintUtil.dummyCB(), false).toStr();
                             bodyStr += "(" + portStr + ", " + peek.getPosition() + ");"+ind.nl();
                         } else {
                             //TODO optimize by only reading in the indices that are used
@@ -157,7 +157,7 @@ public class CBuildGuard extends IrSwitch<Boolean> {
                             bodyStr += ind.ind() + "for(" + repStr + "Count = 0;" + repStr + "Count<" + repStr + "; "+repStr+"Count++) {" + ind.nl(); 
                             ind.inc();
                             bodyStr += ind.ind() + new CBuildVarReference(peekVar, cenv, false, true).toStr() + ".p["+ repStr +"Count] = ";
-                            bodyStr += "pinPeek_" + new CBuildTypeName(peekVar.getType(), new CPrintUtil.dummyCB(), false).toStr();
+                            bodyStr += "pinPeek_" + new CBuildTypeName(peek.getPort().getType(), new CPrintUtil.dummyCB(), false).toStr();
                             bodyStr += "(" + portStr + ", " + sz +" * "+ repStr + "Count + " + peek.getPosition() + ");" + ind.nl();
                             ind.dec();
                             bodyStr += ind.ind() + "}" + ind.nl();
