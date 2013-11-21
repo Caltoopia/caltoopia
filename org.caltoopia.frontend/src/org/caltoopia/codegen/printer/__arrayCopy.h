@@ -120,7 +120,7 @@ __attribute__((always_inline)) static inline int FTYPE(reallocMoveArray)(ATYPE* 
 }
 
 __attribute__((always_inline)) static inline int FTYPE(copy)(ATYPE* dst, ATYPE* src, __arrayArg dstIndex, __arrayArg srcIndex, __arrayArg srcMax) {
-    if(dstIndex.len == 0 && srcIndex.len == 0 && dst->dim == src->dim) {
+    if(dstIndex.len == 0 && srcIndex.len == 0 && (dst->dim == src->dim || dst->dim==0)) {
         //assign full variable dst from full variable src
         //we can just change ref when dst is full array & src allocated on heap and is a codegen var and not part of multi-dim.
         if((dst->flags & 0x10) == 0x0 && (src->flags & 0x1f) == 0xf) {
@@ -397,7 +397,7 @@ __attribute__((always_inline)) static inline int FTYPE(reallocMoveArray)(ATYPE* 
 }
 
 __attribute__((always_inline)) static inline int FTYPE(copy)(ATYPE* dst, ATYPE* src, __arrayArg dstIndex, __arrayArg srcIndex, __arrayArg srcMax) {
-    if(dstIndex.len == 0 && srcIndex.len == 0 && dst->dim == src->dim) {
+    if(dstIndex.len == 0 && srcIndex.len == 0 && (dst->dim == src->dim || dst->dim==0)) {
         //assign full variable dst from full variable src
         //we can just change ref when dst is full array & src allocated on heap and is a codegen var and not part of multi-dim.
         if((dst->flags & 0x10) == 0x0 && (src->flags & 0x1f) == 0xe) {
