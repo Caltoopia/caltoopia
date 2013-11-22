@@ -75,16 +75,18 @@ public class CBuildAction extends IrSwitch<Boolean> {
     int idNbr=0;
     Action action;
     boolean header = false;
+    boolean debugPrint = false;
     CEnvironment cenv = null;
     private IndentStr ind = null;
 
-    public CBuildAction(Action action, CEnvironment cenv, String thisStr, int idNbr) {
+    public CBuildAction(Action action, CEnvironment cenv, String thisStr, int idNbr, boolean debugPrint) {
         bodyStr="";
         this.thisStr = thisStr;
         this.idNbr = idNbr;
         this.action = action;
         this.cenv = cenv;
         this.ind = new IndentStr();
+        this.debugPrint = debugPrint;
     }
     
     public String toStr() {
@@ -150,6 +152,9 @@ public class CBuildAction extends IrSwitch<Boolean> {
             } 
         }
 
+        if(debugPrint)
+            bodyStr += ind.ind() + ("dprint(\"" + thisStr + " " + action.getId() +"\\n\");");
+        
         bodyStr += ind.ind() + "ART_ACTION_ENTER(" + action.getId() + ", " + idNbr + ");" +ind.nl();
         for (PortRead read: action.getInputs()){
             String portNbr = TransUtil.getAnnotationArg(read, "Port", "index");

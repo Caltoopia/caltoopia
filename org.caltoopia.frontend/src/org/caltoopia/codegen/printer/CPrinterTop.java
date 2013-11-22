@@ -817,14 +817,14 @@ public class CPrinterTop extends IrSwitch<Stream> {
         
         for (int i=0;i < actor.getActions().size();i++) {
             Action a = actor.getActions().get(i);
-            s.println(new CBuildAction(a,cenv,thisStr,i).toStr());
+            s.println(new CBuildAction(a,cenv,thisStr,i,debugPrint).toStr());
         }
         
         if(!actor.getInitializers().isEmpty()) {
             for (int i=0;i < actor.getInitializers().size();i++) {
                 Action a = actor.getInitializers().get(i);
                 if(!a.getOutputs().isEmpty()) {
-                    s.println(new CBuildAction(a,cenv,thisStr,i).toStr());
+                    s.println(new CBuildAction(a,cenv,thisStr,i,debugPrint).toStr());
                 }
             }
         }
