@@ -224,7 +224,7 @@ public class CreateForLoop extends IrReplaceSwitch {
                     Expression sz = expr.getOperand2();
                     //initialize;while(cond){access;innerBody;update;}
                     FixMovedExpr.moveScope(sz, body, g, false);
-                    BinaryExpression cond = (BinaryExpression) UtilIR.createExpression(UtilIR.createExpression(body, (Variable) v), "<", sz);
+                    BinaryExpression cond = (BinaryExpression) UtilIR.createExpression(UtilIR.createExpression(body, (Variable) v), "<=", sz);
                     //v=op1 intialize
                     Expression start = expr.getOperand1();
                     start.setContext(body);
