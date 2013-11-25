@@ -5,8 +5,8 @@ package org.caltoopia.ir.impl;
 import java.util.Collection;
 
 import org.caltoopia.ir.Action;
+import org.caltoopia.ir.Guard;
 import org.caltoopia.ir.IrPackage;
-import org.caltoopia.ir.PortGuard;
 import org.caltoopia.ir.PortRead;
 import org.caltoopia.ir.PortWrite;
 import org.caltoopia.ir.Statement;
@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *   <li>{@link org.caltoopia.ir.impl.ActionImpl#getInputs <em>Inputs</em>}</li>
  *   <li>{@link org.caltoopia.ir.impl.ActionImpl#getTag <em>Tag</em>}</li>
  *   <li>{@link org.caltoopia.ir.impl.ActionImpl#getStatements <em>Statements</em>}</li>
+ *   <li>{@link org.caltoopia.ir.impl.ActionImpl#getTypeGuards <em>Type Guards</em>}</li>
  * </ul>
  * </p>
  *
@@ -44,7 +45,7 @@ public class ActionImpl extends ScopeImpl implements Action {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<PortGuard> guards;
+	protected EList<Guard> guards;
 
 	/**
 	 * The cached value of the '{@link #getOutputs() <em>Outputs</em>}' reference list.
@@ -87,6 +88,16 @@ public class ActionImpl extends ScopeImpl implements Action {
 	protected EList<Statement> statements;
 
 	/**
+	 * The cached value of the '{@link #getTypeGuards() <em>Type Guards</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTypeGuards()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Guard> typeGuards;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -110,9 +121,9 @@ public class ActionImpl extends ScopeImpl implements Action {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<PortGuard> getGuards() {
+	public EList<Guard> getGuards() {
 		if (guards == null) {
-			guards = new EObjectResolvingEList<PortGuard>(PortGuard.class, this, IrPackage.ACTION__GUARDS);
+			guards = new EObjectResolvingEList<Guard>(Guard.class, this, IrPackage.ACTION__GUARDS);
 		}
 		return guards;
 	}
@@ -170,6 +181,18 @@ public class ActionImpl extends ScopeImpl implements Action {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Guard> getTypeGuards() {
+		if (typeGuards == null) {
+			typeGuards = new EObjectResolvingEList<Guard>(Guard.class, this, IrPackage.ACTION__TYPE_GUARDS);
+		}
+		return typeGuards;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -183,6 +206,8 @@ public class ActionImpl extends ScopeImpl implements Action {
 				return getTag();
 			case IrPackage.ACTION__STATEMENTS:
 				return getStatements();
+			case IrPackage.ACTION__TYPE_GUARDS:
+				return getTypeGuards();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -198,7 +223,7 @@ public class ActionImpl extends ScopeImpl implements Action {
 		switch (featureID) {
 			case IrPackage.ACTION__GUARDS:
 				getGuards().clear();
-				getGuards().addAll((Collection<? extends PortGuard>)newValue);
+				getGuards().addAll((Collection<? extends Guard>)newValue);
 				return;
 			case IrPackage.ACTION__OUTPUTS:
 				getOutputs().clear();
@@ -215,6 +240,10 @@ public class ActionImpl extends ScopeImpl implements Action {
 			case IrPackage.ACTION__STATEMENTS:
 				getStatements().clear();
 				getStatements().addAll((Collection<? extends Statement>)newValue);
+				return;
+			case IrPackage.ACTION__TYPE_GUARDS:
+				getTypeGuards().clear();
+				getTypeGuards().addAll((Collection<? extends Guard>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -243,6 +272,9 @@ public class ActionImpl extends ScopeImpl implements Action {
 			case IrPackage.ACTION__STATEMENTS:
 				getStatements().clear();
 				return;
+			case IrPackage.ACTION__TYPE_GUARDS:
+				getTypeGuards().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -265,6 +297,8 @@ public class ActionImpl extends ScopeImpl implements Action {
 				return tag != null && !tag.isEmpty();
 			case IrPackage.ACTION__STATEMENTS:
 				return statements != null && !statements.isEmpty();
+			case IrPackage.ACTION__TYPE_GUARDS:
+				return typeGuards != null && !typeGuards.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

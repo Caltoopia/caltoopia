@@ -5,16 +5,13 @@ package org.caltoopia.ir.impl;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.IrPackage;
 import org.caltoopia.ir.TaggedTupleFieldRead;
-import org.caltoopia.ir.TypeTuple;
 
-import org.caltoopia.ir.VariableReference;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,13 +23,12 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link org.caltoopia.ir.impl.TaggedTupleFieldReadImpl#getTag <em>Tag</em>}</li>
  *   <li>{@link org.caltoopia.ir.impl.TaggedTupleFieldReadImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.caltoopia.ir.impl.TaggedTupleFieldReadImpl#getValue <em>Value</em>}</li>
- *   <li>{@link org.caltoopia.ir.impl.TaggedTupleFieldReadImpl#getTarget <em>Target</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class TaggedTupleFieldReadImpl extends EObjectImpl implements TaggedTupleFieldRead {
+public class TaggedTupleFieldReadImpl extends ExpressionImpl implements TaggedTupleFieldRead {
 	/**
 	 * The default value of the '{@link #getTag() <em>Tag</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -82,16 +78,6 @@ public class TaggedTupleFieldReadImpl extends EObjectImpl implements TaggedTuple
 	 * @ordered
 	 */
 	protected Expression value;
-
-	/**
-	 * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTarget()
-	 * @generated
-	 * @ordered
-	 */
-	protected VariableReference target;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -197,44 +183,6 @@ public class TaggedTupleFieldReadImpl extends EObjectImpl implements TaggedTuple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public VariableReference getTarget() {
-		if (target != null && target.eIsProxy()) {
-			InternalEObject oldTarget = (InternalEObject)target;
-			target = (VariableReference)eResolveProxy(oldTarget);
-			if (target != oldTarget) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.TAGGED_TUPLE_FIELD_READ__TARGET, oldTarget, target));
-			}
-		}
-		return target;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public VariableReference basicGetTarget() {
-		return target;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTarget(VariableReference newTarget) {
-		VariableReference oldTarget = target;
-		target = newTarget;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.TAGGED_TUPLE_FIELD_READ__TARGET, oldTarget, target));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -245,9 +193,6 @@ public class TaggedTupleFieldReadImpl extends EObjectImpl implements TaggedTuple
 			case IrPackage.TAGGED_TUPLE_FIELD_READ__VALUE:
 				if (resolve) return getValue();
 				return basicGetValue();
-			case IrPackage.TAGGED_TUPLE_FIELD_READ__TARGET:
-				if (resolve) return getTarget();
-				return basicGetTarget();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -268,9 +213,6 @@ public class TaggedTupleFieldReadImpl extends EObjectImpl implements TaggedTuple
 				return;
 			case IrPackage.TAGGED_TUPLE_FIELD_READ__VALUE:
 				setValue((Expression)newValue);
-				return;
-			case IrPackage.TAGGED_TUPLE_FIELD_READ__TARGET:
-				setTarget((VariableReference)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -293,9 +235,6 @@ public class TaggedTupleFieldReadImpl extends EObjectImpl implements TaggedTuple
 			case IrPackage.TAGGED_TUPLE_FIELD_READ__VALUE:
 				setValue((Expression)null);
 				return;
-			case IrPackage.TAGGED_TUPLE_FIELD_READ__TARGET:
-				setTarget((VariableReference)null);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -314,8 +253,6 @@ public class TaggedTupleFieldReadImpl extends EObjectImpl implements TaggedTuple
 				return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
 			case IrPackage.TAGGED_TUPLE_FIELD_READ__VALUE:
 				return value != null;
-			case IrPackage.TAGGED_TUPLE_FIELD_READ__TARGET:
-				return target != null;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -2,7 +2,6 @@
  */
 package org.caltoopia.ir;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -15,7 +14,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.caltoopia.ir.TaggedTupleFieldRead#getTag <em>Tag</em>}</li>
  *   <li>{@link org.caltoopia.ir.TaggedTupleFieldRead#getLabel <em>Label</em>}</li>
  *   <li>{@link org.caltoopia.ir.TaggedTupleFieldRead#getValue <em>Value</em>}</li>
- *   <li>{@link org.caltoopia.ir.TaggedTupleFieldRead#getTarget <em>Target</em>}</li>
  * </ul>
  * </p>
  *
@@ -23,7 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface TaggedTupleFieldRead extends EObject {
+public interface TaggedTupleFieldRead extends Expression {
 	/**
 	 * Returns the value of the '<em><b>Tag</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -101,31 +99,5 @@ public interface TaggedTupleFieldRead extends EObject {
 	 * @generated
 	 */
 	void setValue(Expression value);
-
-	/**
-	 * Returns the value of the '<em><b>Target</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Target</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Target</em>' reference.
-	 * @see #setTarget(VariableReference)
-	 * @see org.caltoopia.ir.IrPackage#getTaggedTupleFieldRead_Target()
-	 * @model
-	 * @generated
-	 */
-	VariableReference getTarget();
-
-	/**
-	 * Sets the value of the '{@link org.caltoopia.ir.TaggedTupleFieldRead#getTarget <em>Target</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Target</em>' reference.
-	 * @see #getTarget()
-	 * @generated
-	 */
-	void setTarget(VariableReference value);
 
 } // TaggedTupleFieldRead

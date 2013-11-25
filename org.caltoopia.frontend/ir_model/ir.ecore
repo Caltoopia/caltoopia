@@ -52,7 +52,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Action" eSuperTypes="#//Scope">
     <eStructuralFeatures xsi:type="ecore:EReference" name="guards" upperBound="-1"
-        eType="#//PortGuard"/>
+        eType="#//Guard"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="outputs" upperBound="-1"
         eType="#//PortWrite"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inputs" upperBound="-1"
@@ -60,6 +60,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tag" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
         eType="#//Statement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeGuards" upperBound="-1"
+        eType="#//Guard"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Port" eSuperTypes="#//Node">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//Type"/>
@@ -206,8 +208,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//Expression"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StmtAlternative" eSuperTypes="#//Scope">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="typeGuard" eType="#//TypeGuard"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="valueGuards" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="guards" upperBound="-1"
         eType="#//Expression"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
         eType="#//Statement"/>
@@ -270,18 +271,15 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//Expression"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExprAlternative" eSuperTypes="#//Scope">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="typeGuard" eType="#//TypeGuard"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="valueGuards" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="guards" upperBound="-1"
         eType="#//Expression"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//Expression"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PortGuard" eSuperTypes="#//Guard">
+  <eClassifiers xsi:type="ecore:EClass" name="Guard" eSuperTypes="#//Scope">
     <eStructuralFeatures xsi:type="ecore:EReference" name="peeks" upperBound="-1"
         eType="#//PortPeek"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="fieldReads" upperBound="-1"
-        eType="#//TaggedTupleFieldRead"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//Expression"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Guard" eSuperTypes="#//LambdaExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="Type"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeBool" eSuperTypes="#//Type"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeExternal" eSuperTypes="#//Type">
@@ -312,17 +310,14 @@
         eType="#//Variable"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="Tag" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TaggedTupleFieldRead">
+  <eClassifiers xsi:type="ecore:EClass" name="TaggedTupleFieldRead" eSuperTypes="#//Expression">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tag" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//Expression"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//VariableReference"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TypeGuard" eSuperTypes="#//Guard">
+  <eClassifiers xsi:type="ecore:EClass" name="TagOf" eSuperTypes="#//Expression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//Expression"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tag" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="reads" upperBound="-1"
-        eType="#//TaggedTupleFieldRead"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeUndef" eSuperTypes="#//Type"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeActor" eSuperTypes="#//Type">

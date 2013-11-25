@@ -113,7 +113,6 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 			case IrPackage.IF_EXPRESSION: return createIfExpression();
 			case IrPackage.CASE_EXPRESSION: return createCaseExpression();
 			case IrPackage.EXPR_ALTERNATIVE: return createExprAlternative();
-			case IrPackage.PORT_GUARD: return createPortGuard();
 			case IrPackage.GUARD: return createGuard();
 			case IrPackage.TYPE: return createType();
 			case IrPackage.TYPE_BOOL: return createTypeBool();
@@ -126,7 +125,7 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 			case IrPackage.TYPE_TUPLE: return createTypeTuple();
 			case IrPackage.TAGGED_TUPLE: return createTaggedTuple();
 			case IrPackage.TAGGED_TUPLE_FIELD_READ: return createTaggedTupleFieldRead();
-			case IrPackage.TYPE_GUARD: return createTypeGuard();
+			case IrPackage.TAG_OF: return createTagOf();
 			case IrPackage.TYPE_UNDEF: return createTypeUndef();
 			case IrPackage.TYPE_ACTOR: return createTypeActor();
 			case IrPackage.TYPE_USER: return createTypeUser();
@@ -719,16 +718,6 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PortGuard createPortGuard() {
-		PortGuardImpl portGuard = new PortGuardImpl();
-		return portGuard;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Guard createGuard() {
 		GuardImpl guard = new GuardImpl();
 		return guard;
@@ -849,9 +838,9 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TypeGuard createTypeGuard() {
-		TypeGuardImpl typeGuard = new TypeGuardImpl();
-		return typeGuard;
+	public TagOf createTagOf() {
+		TagOfImpl tagOf = new TagOfImpl();
+		return tagOf;
 	}
 
 	/**

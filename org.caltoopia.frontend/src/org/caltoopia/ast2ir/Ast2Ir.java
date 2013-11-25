@@ -111,7 +111,6 @@ import org.caltoopia.ir.Network;
 import org.caltoopia.ir.Node;
 import org.caltoopia.ir.Point2PointConnection;
 import org.caltoopia.ir.Port;
-import org.caltoopia.ir.PortGuard;
 import org.caltoopia.ir.PortInstance;
 import org.caltoopia.ir.PortRead;
 import org.caltoopia.ir.PortPeek;
@@ -122,16 +121,12 @@ import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.StmtAlternative;
 import org.caltoopia.ir.TaggedExpression;
-import org.caltoopia.ir.TaggedTupleFieldRead;
 import org.caltoopia.ir.ToSink;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
-import org.caltoopia.ir.TypeGuard;
 import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeProc;
-import org.caltoopia.ir.TypeUser;
-import org.caltoopia.ir.VariableExpression;
 import org.caltoopia.ir.VariableExternal;
 import org.caltoopia.ir.VariableReference;
 import org.caltoopia.ir.Variable;
@@ -737,11 +732,12 @@ public class Ast2Ir extends CalSwitch<EObject> {
 				portRead.setRepeat(repeat);
 				type = TypeSystem.createTypeList(repeat, type);
 			}
-			
+						
 			for (int j = 0; j < inputs.getTokens().size(); j++) {
 				if (inputs.getTokens().get(j).getVariable() != null) {
 					AstVariable v = inputs.getTokens().get(j).getVariable();
 					Variable varDecl = Util.createVariable(action, v, type, null);
+					Util.defsput(inputs.getTokens().get(j), varDecl);
 					portRead.getVariables().add(Util.createVariableReference(varDecl));				
 					action.getInputs().add(portRead);
 				} else {
@@ -753,79 +749,51 @@ public class Ast2Ir extends CalSwitch<EObject> {
 					
 					AstType astType = Util.getAstPort(inputs).getType();
 										
-					Expression e = Util.doPattern(scopeStack.peek(), astType, inputs.getTokens().get(j), Util.createVariableExpression(action, varDecl), repeat);
+					Util.doPatternDeclarations(action, astType, inputs.getTokens().get(j), Util.createVariableExpression(action, varDecl), repeat);
 
-					if (e != null) {
-						final PortGuard portGuard =  IrFactory.eINSTANCE.createPortGuard();
-						portGuard.setId(Util.getDefinitionId());
-						portGuard.setOuter(scopeStack.peek());
-						portGuard.setContext(scopeStack.peek());
-						portGuard.setType(TypeSystem.createTypeBool());
-						portGuard.setBody(e);
-						
-						PortPeek portPeek = IrFactory.eINSTANCE.createPortPeek();
-						portPeek.setId(Util.getDefinitionId());		
-						portPeek.setPort(port);	
-						portPeek.setVariable(Util.createVariableReference(varDecl));
-						portPeek.setPosition(j);
-						portPeek.setRepeat(repeat);
-						portGuard.getPeeks().add(portPeek);
-						
-						action.getGuards().add(portGuard);
-					}
+					//Do the type guards	
+					final Guard guard =  IrFactory.eINSTANCE.createGuard();
+					guard.setId(Util.getDefinitionId());
+					guard.setOuter(action);
+
+					PortPeek portPeek = IrFactory.eINSTANCE.createPortPeek();
+					portPeek.setId(Util.getDefinitionId());
+					portPeek.setPort(port);	
+					portPeek.setPosition(j); 
+					varDecl = Util.createTmpVariable(action, type, null);
+					portPeek.setVariable(Util.createVariableReference(varDecl));				
+					guard.getPeeks().add(portPeek);
+					
+					guard.setExpression(Util.doPatternTypeGuards(guard, inputs.getTokens().get(j), Util.createVariableExpression(guard, varDecl), astType));
+					action.getTypeGuards().add(guard);
 				}
 			}							
 		}
 		
 		for (AstExpression e : astAction.getGuards()) {
-			final PortGuard guard =  IrFactory.eINSTANCE.createPortGuard();
+			final Guard guard =  IrFactory.eINSTANCE.createGuard();
 			guard.setId(Util.getDefinitionId());
-			guard.setOuter(scopeStack.peek());
-			guard.setContext(scopeStack.peek());
-						
+			guard.setOuter(action);
+			
 			final List<PortPeek> peeks = new ArrayList<PortPeek>();
-							
+			Util.stashDefs();
+			
 			new VoidSwitch() {
 				@Override
 				public Void caseAstExpressionSymbolReference(AstExpressionSymbolReference e)  {
-					AstVariable v = e.getSymbol();
-					if (v.eContainer() instanceof AstPattern && v.eContainer().eContainer() instanceof AstInputPattern)  {
-						AstInputPattern inputs = (AstInputPattern) v.eContainer().eContainer();
-						Port port = Util.createInputPort(scopeStack.peek(), inputs, false);												
-						int position = inputs.getTokens().indexOf(v);
-						
-						PortPeek portPeek = IrFactory.eINSTANCE.createPortPeek();
-						portPeek.setId(Util.getDefinitionId());		
-						
-						if (inputs.getRepeat() != null) {
-							Expression repeat = CreateIrExpression.convert(scopeStack.peek(), inputs.getRepeat());
-							portPeek.setRepeat(repeat);
-						}
-						
-						Variable varDecl = (Variable) Util.findIrDeclaration(v);
-						portPeek.setPort(port);
-						portPeek.setPosition(position);
-						VariableReference varRef = Util.createVariableReference(varDecl);
-						for(AstExpression expr : e.getIndexes()) {
-							Expression index = CreateIrExpression.convert(scopeStack.peek(), expr);
-							varRef.getIndex().add(index);
-						}
-						portPeek.setVariable(varRef);
-						peeks.add(portPeek);						
-					} else if (v.eContainer() instanceof AstPattern){		
+					AstVariable v = e.getSymbol();					
+					if (v.eContainer() instanceof AstPattern){		
 						Util.doFieldReads(guard, (AstPattern) v.eContainer(), e);
 					}
+					
 					return super.caseAstExpressionSymbolReference(e);
 				}
 			}.doSwitch(e);
 			
-			for (PortPeek pp : peeks) {
-				guard.getPeeks().add(pp);
-			}
-			
-			guard.setType(TypeSystem.createTypeBool());
-			guard.setBody(CreateIrExpression.convert(guard, e));
+			guard.setExpression(CreateIrExpression.convert(action, e));
 			action.getGuards().add(guard);
+
+			Util.unstashDefs();
 		}		
 				
 		List<VertexData> graphData = new ArrayList<VertexData>();
@@ -1215,11 +1183,12 @@ public class Ast2Ir extends CalSwitch<EObject> {
 				alt.setOuter(scopeStack.peek());
 				scopeStack.push(alt);
 				
-				TypeGuard typeGuard = Util.doPattern(alt, astType, a.getPattern(), condition, null);
-				alt.setTypeGuard(typeGuard);
+				Util.doPatternDeclarations(alt, astType, a.getPattern(), condition, null);
+				if (a.getPattern() != null)
+					alt.getGuards().add(Util.doPatternTypeGuards(alt, a.getPattern(), condition, astType));
 				
 				for (AstExpression guard : a.getGuards()) {
-					alt.getValueGuards().add(CreateIrExpression.convert(alt, guard));
+					alt.getGuards().add(CreateIrExpression.convert(alt, guard));
 				}
 				
 				for (AstStatement s : a.getStatements()) {

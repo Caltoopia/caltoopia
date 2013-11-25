@@ -75,7 +75,6 @@ import org.caltoopia.ir.Namespace;
 import org.caltoopia.ir.Network;
 import org.caltoopia.ir.Point2PointConnection;
 import org.caltoopia.ir.Port;
-import org.caltoopia.ir.PortGuard;
 import org.caltoopia.ir.PortInstance;
 import org.caltoopia.ir.PortPeek;
 import org.caltoopia.ir.PortRead;
@@ -403,7 +402,7 @@ public class IrXmlReader {
 		
 		List<Element> guards = getChildren(element, "Guard");
 		for (Element e : guards) {
-			PortGuard guard = createGuard(e);
+			Guard guard = createGuard(e);
 			action.getGuards().add(guard);
 		}	
 
@@ -428,22 +427,21 @@ public class IrXmlReader {
 		return action;
 	}
 
-	private PortGuard createGuard(Element element) {
-		PortGuard guard = IrFactory.eINSTANCE.createPortGuard();
+	private Guard createGuard(Element element) {
+		Guard guard = IrFactory.eINSTANCE.createGuard();
 		String id = element.getAttribute("id");
-		guard.setId(id);
+
 		doAnnotations(guard, element);
 		
 		addIrObject(id, guard);
 				
-		Action action = (Action) findIrObject(element.getAttribute("outer-scope"));
-		guard.setOuter(action);
+		Action action = (Action) findIrObject(element.getAttribute("outer-scope"));		
 		
-		List<Element> decls = getChildren(element, "Decl");
-		for (Element e : decls) {
-			Declaration decl = createDeclaration(e);
-			guard.getDeclarations().add(decl);
-		}	
+		List<Element> declarations = getChildren(element, "Decl");
+		for (Element e : declarations) {
+			Declaration var = (Declaration ) createDeclaration(e);
+			guard.getDeclarations().add(var);			
+		}
 		
 		List<Element> peeks = getChildren(element, "PortPeek");
 		for (Element e : peeks) {
@@ -452,9 +450,6 @@ public class IrXmlReader {
 		}
 		
 		Expression body = createExpression(getChild(element, "Expr"));
-		guard.setBody(body);		
-		
-		guard.setType(TypeSystem.createTypeBool());
 		
 		return guard;
 	}

@@ -2,28 +2,25 @@
  */
 package org.caltoopia.ir;
 
-import org.eclipse.emf.common.util.EList;
-
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Type Guard</b></em>'.
+ * A representation of the model object '<em><b>Tag Of</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.caltoopia.ir.TypeGuard#getExpression <em>Expression</em>}</li>
- *   <li>{@link org.caltoopia.ir.TypeGuard#getTag <em>Tag</em>}</li>
- *   <li>{@link org.caltoopia.ir.TypeGuard#getReads <em>Reads</em>}</li>
+ *   <li>{@link org.caltoopia.ir.TagOf#getExpression <em>Expression</em>}</li>
+ *   <li>{@link org.caltoopia.ir.TagOf#getTag <em>Tag</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.caltoopia.ir.IrPackage#getTypeGuard()
+ * @see org.caltoopia.ir.IrPackage#getTagOf()
  * @model
  * @generated
  */
-public interface TypeGuard extends Guard {
+public interface TagOf extends Expression {
 	/**
 	 * Returns the value of the '<em><b>Expression</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -34,14 +31,14 @@ public interface TypeGuard extends Guard {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Expression</em>' reference.
 	 * @see #setExpression(Expression)
-	 * @see org.caltoopia.ir.IrPackage#getTypeGuard_Expression()
+	 * @see org.caltoopia.ir.IrPackage#getTagOf_Expression()
 	 * @model
 	 * @generated
 	 */
 	Expression getExpression();
 
 	/**
-	 * Sets the value of the '{@link org.caltoopia.ir.TypeGuard#getExpression <em>Expression</em>}' reference.
+	 * Sets the value of the '{@link org.caltoopia.ir.TagOf#getExpression <em>Expression</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Expression</em>' reference.
@@ -60,14 +57,14 @@ public interface TypeGuard extends Guard {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Tag</em>' attribute.
 	 * @see #setTag(String)
-	 * @see org.caltoopia.ir.IrPackage#getTypeGuard_Tag()
+	 * @see org.caltoopia.ir.IrPackage#getTagOf_Tag()
 	 * @model
 	 * @generated
 	 */
 	String getTag();
 
 	/**
-	 * Sets the value of the '{@link org.caltoopia.ir.TypeGuard#getTag <em>Tag</em>}' attribute.
+	 * Sets the value of the '{@link org.caltoopia.ir.TagOf#getTag <em>Tag</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Tag</em>' attribute.
@@ -76,20 +73,4 @@ public interface TypeGuard extends Guard {
 	 */
 	void setTag(String value);
 
-	/**
-	 * Returns the value of the '<em><b>Reads</b></em>' reference list.
-	 * The list contents are of type {@link org.caltoopia.ir.TaggedTupleFieldRead}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Reads</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Reads</em>' reference list.
-	 * @see org.caltoopia.ir.IrPackage#getTypeGuard_Reads()
-	 * @model
-	 * @generated
-	 */
-	EList<TaggedTupleFieldRead> getReads();
-
-} // TypeGuard
+} // TagOf

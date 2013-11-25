@@ -296,10 +296,6 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 				return createExprAlternativeAdapter();
 			}
 			@Override
-			public Adapter casePortGuard(PortGuard object) {
-				return createPortGuardAdapter();
-			}
-			@Override
 			public Adapter caseGuard(Guard object) {
 				return createGuardAdapter();
 			}
@@ -348,8 +344,8 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 				return createTaggedTupleFieldReadAdapter();
 			}
 			@Override
-			public Adapter caseTypeGuard(TypeGuard object) {
-				return createTypeGuardAdapter();
+			public Adapter caseTagOf(TagOf object) {
+				return createTagOfAdapter();
 			}
 			@Override
 			public Adapter caseTypeUndef(TypeUndef object) {
@@ -1218,20 +1214,6 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.PortGuard <em>Port Guard</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.caltoopia.ir.PortGuard
-	 * @generated
-	 */
-	public Adapter createPortGuardAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.Guard <em>Guard</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -1400,16 +1382,16 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.TypeGuard <em>Type Guard</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.TagOf <em>Tag Of</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.caltoopia.ir.TypeGuard
+	 * @see org.caltoopia.ir.TagOf
 	 * @generated
 	 */
-	public Adapter createTypeGuardAdapter() {
+	public Adapter createTagOfAdapter() {
 		return null;
 	}
 

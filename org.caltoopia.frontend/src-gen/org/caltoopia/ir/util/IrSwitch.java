@@ -531,23 +531,10 @@ public class IrSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case IrPackage.PORT_GUARD: {
-				PortGuard portGuard = (PortGuard)theEObject;
-				T result = casePortGuard(portGuard);
-				if (result == null) result = caseGuard(portGuard);
-				if (result == null) result = caseLambdaExpression(portGuard);
-				if (result == null) result = caseScope(portGuard);
-				if (result == null) result = caseExpression(portGuard);
-				if (result == null) result = caseNode(portGuard);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case IrPackage.GUARD: {
 				Guard guard = (Guard)theEObject;
 				T result = caseGuard(guard);
-				if (result == null) result = caseLambdaExpression(guard);
 				if (result == null) result = caseScope(guard);
-				if (result == null) result = caseExpression(guard);
 				if (result == null) result = caseNode(guard);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -624,17 +611,16 @@ public class IrSwitch<T> extends Switch<T> {
 			case IrPackage.TAGGED_TUPLE_FIELD_READ: {
 				TaggedTupleFieldRead taggedTupleFieldRead = (TaggedTupleFieldRead)theEObject;
 				T result = caseTaggedTupleFieldRead(taggedTupleFieldRead);
+				if (result == null) result = caseExpression(taggedTupleFieldRead);
+				if (result == null) result = caseNode(taggedTupleFieldRead);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case IrPackage.TYPE_GUARD: {
-				TypeGuard typeGuard = (TypeGuard)theEObject;
-				T result = caseTypeGuard(typeGuard);
-				if (result == null) result = caseGuard(typeGuard);
-				if (result == null) result = caseLambdaExpression(typeGuard);
-				if (result == null) result = caseScope(typeGuard);
-				if (result == null) result = caseExpression(typeGuard);
-				if (result == null) result = caseNode(typeGuard);
+			case IrPackage.TAG_OF: {
+				TagOf tagOf = (TagOf)theEObject;
+				T result = caseTagOf(tagOf);
+				if (result == null) result = caseExpression(tagOf);
+				if (result == null) result = caseNode(tagOf);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1582,21 +1568,6 @@ public class IrSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Port Guard</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Port Guard</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T casePortGuard(PortGuard object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Guard</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1777,17 +1748,17 @@ public class IrSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Type Guard</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Tag Of</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Type Guard</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Tag Of</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseTypeGuard(TypeGuard object) {
+	public T caseTagOf(TagOf object) {
 		return null;
 	}
 

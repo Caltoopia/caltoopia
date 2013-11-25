@@ -6,18 +6,13 @@ import java.util.Collection;
 
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.IrPackage;
-import org.caltoopia.ir.PortGuard;
 import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.StmtAlternative;
 
-import org.caltoopia.ir.TypeGuard;
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
-import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 /**
@@ -27,8 +22,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.caltoopia.ir.impl.StmtAlternativeImpl#getTypeGuard <em>Type Guard</em>}</li>
- *   <li>{@link org.caltoopia.ir.impl.StmtAlternativeImpl#getValueGuards <em>Value Guards</em>}</li>
+ *   <li>{@link org.caltoopia.ir.impl.StmtAlternativeImpl#getGuards <em>Guards</em>}</li>
  *   <li>{@link org.caltoopia.ir.impl.StmtAlternativeImpl#getStatements <em>Statements</em>}</li>
  * </ul>
  * </p>
@@ -37,24 +31,14 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class StmtAlternativeImpl extends ScopeImpl implements StmtAlternative {
 	/**
-	 * The cached value of the '{@link #getTypeGuard() <em>Type Guard</em>}' reference.
+	 * The cached value of the '{@link #getGuards() <em>Guards</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTypeGuard()
+	 * @see #getGuards()
 	 * @generated
 	 * @ordered
 	 */
-	protected TypeGuard typeGuard;
-
-	/**
-	 * The cached value of the '{@link #getValueGuards() <em>Value Guards</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getValueGuards()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Expression> valueGuards;
+	protected EList<Expression> guards;
 
 	/**
 	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' reference list.
@@ -90,49 +74,11 @@ public class StmtAlternativeImpl extends ScopeImpl implements StmtAlternative {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TypeGuard getTypeGuard() {
-		if (typeGuard != null && typeGuard.eIsProxy()) {
-			InternalEObject oldTypeGuard = (InternalEObject)typeGuard;
-			typeGuard = (TypeGuard)eResolveProxy(oldTypeGuard);
-			if (typeGuard != oldTypeGuard) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.STMT_ALTERNATIVE__TYPE_GUARD, oldTypeGuard, typeGuard));
-			}
+	public EList<Expression> getGuards() {
+		if (guards == null) {
+			guards = new EObjectResolvingEList<Expression>(Expression.class, this, IrPackage.STMT_ALTERNATIVE__GUARDS);
 		}
-		return typeGuard;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TypeGuard basicGetTypeGuard() {
-		return typeGuard;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTypeGuard(TypeGuard newTypeGuard) {
-		TypeGuard oldTypeGuard = typeGuard;
-		typeGuard = newTypeGuard;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.STMT_ALTERNATIVE__TYPE_GUARD, oldTypeGuard, typeGuard));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<Expression> getValueGuards() {
-		if (valueGuards == null) {
-			valueGuards = new EObjectResolvingEList<Expression>(Expression.class, this, IrPackage.STMT_ALTERNATIVE__VALUE_GUARDS);
-		}
-		return valueGuards;
+		return guards;
 	}
 
 	/**
@@ -155,11 +101,8 @@ public class StmtAlternativeImpl extends ScopeImpl implements StmtAlternative {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case IrPackage.STMT_ALTERNATIVE__TYPE_GUARD:
-				if (resolve) return getTypeGuard();
-				return basicGetTypeGuard();
-			case IrPackage.STMT_ALTERNATIVE__VALUE_GUARDS:
-				return getValueGuards();
+			case IrPackage.STMT_ALTERNATIVE__GUARDS:
+				return getGuards();
 			case IrPackage.STMT_ALTERNATIVE__STATEMENTS:
 				return getStatements();
 		}
@@ -175,12 +118,9 @@ public class StmtAlternativeImpl extends ScopeImpl implements StmtAlternative {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case IrPackage.STMT_ALTERNATIVE__TYPE_GUARD:
-				setTypeGuard((TypeGuard)newValue);
-				return;
-			case IrPackage.STMT_ALTERNATIVE__VALUE_GUARDS:
-				getValueGuards().clear();
-				getValueGuards().addAll((Collection<? extends Expression>)newValue);
+			case IrPackage.STMT_ALTERNATIVE__GUARDS:
+				getGuards().clear();
+				getGuards().addAll((Collection<? extends Expression>)newValue);
 				return;
 			case IrPackage.STMT_ALTERNATIVE__STATEMENTS:
 				getStatements().clear();
@@ -198,11 +138,8 @@ public class StmtAlternativeImpl extends ScopeImpl implements StmtAlternative {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case IrPackage.STMT_ALTERNATIVE__TYPE_GUARD:
-				setTypeGuard((TypeGuard)null);
-				return;
-			case IrPackage.STMT_ALTERNATIVE__VALUE_GUARDS:
-				getValueGuards().clear();
+			case IrPackage.STMT_ALTERNATIVE__GUARDS:
+				getGuards().clear();
 				return;
 			case IrPackage.STMT_ALTERNATIVE__STATEMENTS:
 				getStatements().clear();
@@ -219,10 +156,8 @@ public class StmtAlternativeImpl extends ScopeImpl implements StmtAlternative {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case IrPackage.STMT_ALTERNATIVE__TYPE_GUARD:
-				return typeGuard != null;
-			case IrPackage.STMT_ALTERNATIVE__VALUE_GUARDS:
-				return valueGuards != null && !valueGuards.isEmpty();
+			case IrPackage.STMT_ALTERNATIVE__GUARDS:
+				return guards != null && !guards.isEmpty();
 			case IrPackage.STMT_ALTERNATIVE__STATEMENTS:
 				return statements != null && !statements.isEmpty();
 		}

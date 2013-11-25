@@ -17,6 +17,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.caltoopia.ir.Action#getInputs <em>Inputs</em>}</li>
  *   <li>{@link org.caltoopia.ir.Action#getTag <em>Tag</em>}</li>
  *   <li>{@link org.caltoopia.ir.Action#getStatements <em>Statements</em>}</li>
+ *   <li>{@link org.caltoopia.ir.Action#getTypeGuards <em>Type Guards</em>}</li>
  * </ul>
  * </p>
  *
@@ -27,7 +28,7 @@ import org.eclipse.emf.common.util.EList;
 public interface Action extends Scope {
 	/**
 	 * Returns the value of the '<em><b>Guards</b></em>' reference list.
-	 * The list contents are of type {@link org.caltoopia.ir.PortGuard}.
+	 * The list contents are of type {@link org.caltoopia.ir.Guard}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Guards</em>' reference list isn't clear,
@@ -39,7 +40,7 @@ public interface Action extends Scope {
 	 * @model
 	 * @generated
 	 */
-	EList<PortGuard> getGuards();
+	EList<Guard> getGuards();
 
 	/**
 	 * Returns the value of the '<em><b>Outputs</b></em>' reference list.
@@ -104,5 +105,21 @@ public interface Action extends Scope {
 	 * @generated
 	 */
 	EList<Statement> getStatements();
+
+	/**
+	 * Returns the value of the '<em><b>Type Guards</b></em>' reference list.
+	 * The list contents are of type {@link org.caltoopia.ir.Guard}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Type Guards</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Type Guards</em>' reference list.
+	 * @see org.caltoopia.ir.IrPackage#getAction_TypeGuards()
+	 * @model
+	 * @generated
+	 */
+	EList<Guard> getTypeGuards();
 
 } // Action
