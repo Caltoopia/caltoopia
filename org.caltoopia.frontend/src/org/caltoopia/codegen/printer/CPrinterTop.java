@@ -451,8 +451,10 @@ public class CPrinterTop extends IrSwitch<Stream> {
             //Printing the actual network into one c-code file
             s.println("#include \"" + Util.marshallQualifiedName(network.getType().getNamespace()) + "__" + network.getType().getName() + ".h\"");
             for(Declaration d : network.getDeclarations()) {
-                //TODO maybe this check should be moved deeper into the c printing
-                if(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "DeclUsed").equals("TRUE")) {
+                //TODO maybe the declaration used check should be moved deeper into the c printing
+                VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
+                if(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "DeclUsed").equals("TRUE") ||
+                   varType.equals(VarType.declarationType)) {
                     doSwitch(d);
                 } else {
                     s.println("/*NOT USED " + d.getName() + "*/");

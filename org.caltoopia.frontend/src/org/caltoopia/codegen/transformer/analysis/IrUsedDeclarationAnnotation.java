@@ -156,6 +156,15 @@ public class IrUsedDeclarationAnnotation extends IrReplaceSwitch {
 	}
 	
     @Override
+    public Declaration caseForwardDeclaration(ForwardDeclaration decl) {
+        if(currentVarExpr!=null || currentVarRef!=null) {
+            TransUtil.setAnnotation(decl.getDeclaration(),IrTransformer.VARIABLE_ANNOTATION,"DeclUsed",
+                    "TRUE");
+        }
+        return decl;
+    }
+
+    @Override
     public EObject caseVariableImport(VariableImport var) {
         Declaration decl = UtilIR.getDeclarationTransformed(var);
         if(decl!=null) {
