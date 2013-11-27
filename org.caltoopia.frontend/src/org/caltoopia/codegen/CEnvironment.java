@@ -37,9 +37,13 @@
 
 package org.caltoopia.codegen;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class CEnvironment {
 	public String sources = "";
 	public String includePaths = "";
 	public String libraryPaths = "";
-	public String libraries = "";	
+	public String libraries = "";
+	public Set<String> sourceFiles = new HashSet<String>();
 }

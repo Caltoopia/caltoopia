@@ -132,7 +132,6 @@ public class CPrinterTop extends IrSwitch<Stream> {
     //-----------------------------------------------------------------------------
     
     public CPrinterTop(CompilationSession session, CEnvironment cenv) {
-        List<String> sourceFiles = new ArrayList<String>();
         PrintStream out = session.getOutputStream();
         String nsName;
         String file;
@@ -197,7 +196,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
         out.println("Writing '" + file + ".c'");
         header = false;
         doSwitch(network);
-        sourceFiles.add(baseName + ".c");
+        cenv.sourceFiles.add(baseName + ".c");
         s.close();
         
         String needSdl = "n";
@@ -230,7 +229,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
                 out.println("Writing '" + file + "'");
                 doSwitch(actor);
                 s.close();
-                sourceFiles.add(baseName);
+                cenv.sourceFiles.add(baseName);
             } else if(actor instanceof ExternalActor) {
                 if(nsName.equals("ART") && actor.getType().getName().equals("art_Display_yuv"))
                     needSdl="y";
@@ -244,6 +243,13 @@ public class CPrinterTop extends IrSwitch<Stream> {
                 CPrinter.toEnvEnv(externAnnotations,env);
                 */
             }
+        }
+        CPrintBuildFiles build = new CPrintBuildFiles(session,cenv);
+        try {
+            build.MonoMakefile();
+            build.MonoConfigFile(needSdl);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
