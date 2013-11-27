@@ -231,7 +231,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
                 s.close();
                 cenv.sourceFiles.add(baseName);
             } else if(actor instanceof ExternalActor) {
-                if(nsName.equals("ART") && actor.getType().getName().equals("art_Display_yuv"))
+                if(((TypeActor) a.getType()).getNamespace().get(0).equals("ART") && actor.getType().getName().equals("art_Display_yuv"))
                     needSdl="y";
                 Namespace ns = null;
                 try {

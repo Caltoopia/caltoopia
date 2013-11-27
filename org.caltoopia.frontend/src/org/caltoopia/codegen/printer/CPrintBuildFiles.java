@@ -74,8 +74,7 @@ public class CPrintBuildFiles {
         File dst = new File(session.getOutputFolder() + File.separator + "Makefile");
         out.println("Copying '" + dst + "'");
         BufferedReader reader = null;
-        //InputStream src = this.getClass().getResourceAsStream("Makefile");
-        InputStream src = Cal2C.class.getResourceAsStream("Makefile");
+        InputStream src = this.getClass().getResourceAsStream("Makefile");
         reader = new BufferedReader(new InputStreamReader(src));
         
         String line = null;
