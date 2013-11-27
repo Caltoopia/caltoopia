@@ -303,6 +303,7 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
             break;
         case importConstVar:
         case constVar:
+        case blockConstVar:
         case actorConstVar:
             refStr += TransUtil.getNamespaceAnnotation(var) + "__";
             break;

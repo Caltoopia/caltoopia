@@ -390,6 +390,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
             break;
         case importConstVar:
         case constVar:
+        case blockConstVar:
         case actorConstVar:
             exprStr += TransUtil.getNamespaceAnnotation(var) + "__";
             break;
