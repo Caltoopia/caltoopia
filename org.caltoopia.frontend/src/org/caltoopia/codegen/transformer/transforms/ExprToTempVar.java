@@ -704,7 +704,7 @@ public class ExprToTempVar extends IrReplaceSwitch {
         moveExprToStatement(block.getDeclarations(), block.getStatements(), block);
         moveAssign(block.getDeclarations(), block.getStatements(), block);
         moveStringExprToStatement(block.getDeclarations(), block.getStatements(), block);
-        return block;
+        return super.caseBlock(block);
     }
 
     @Override
