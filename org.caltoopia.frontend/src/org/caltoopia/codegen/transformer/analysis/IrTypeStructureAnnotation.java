@@ -81,13 +81,6 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
 	
 	public enum TypeMember {
 	    unknown,
-/*		builtin,
-		byRef, //Used when either type (or list of non-decided size?)
-		byListSome, //Used when list of decided size and inlined  but have deeper members that are not
-		byListFull, //Used when list of decided size and inlined and all deeper members also (including lists of builtins)
-		inlineSome, //Used when user type that is inlined but have deeper members that are not
-		inlineFull, //Used when user type is inlined and all deeper members also
-*/		
 		scalarBuiltin, //A scalar builtin type
         listBuiltin, //A list of builtin types
         dynListBuiltin, //A list of builtin types with varying length
@@ -103,6 +96,20 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
 		 */
 	}
 
+    /*
+     * Annotates the user types members, is currently not of much use
+     * more than debugging but might be needed when introducing tuple types.
+     * 
+     * The analysis result of this pass is used very little. Only reason
+     * it is still here is due to that when the tuple types are introduced
+     * we might need this analysis.
+     * 
+     * Quality: 2, since rarely used.
+     * 
+     * node: top network
+     * session: contains metadata about the build like directory paths etc
+     * errPrint: if error printout should be printed
+     */
 	public IrTypeStructureAnnotation(Node node, CompilationSession session, boolean errPrint) {
 		if(!errPrint) {
 			serr = new PrintStream(new OutputStream(){
@@ -113,6 +120,7 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
 		} else {
 			serr = System.err;
 		}
+		//start at caseNetwork() below
 		this.doSwitch(node);
 	}
 	

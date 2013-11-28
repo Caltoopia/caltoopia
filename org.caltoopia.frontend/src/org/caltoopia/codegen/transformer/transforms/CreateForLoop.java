@@ -114,6 +114,18 @@ public class CreateForLoop extends IrReplaceSwitch {
 	private PrintStream serr = null; 
 	private CompilationSession session;
 
+    /*
+     * Transformation to convert foreach statements into while statements with
+     * initialization of variables as necessary. This conversion is done as a 
+     * transformation to simplify c-printing and make all the versions equivalent.
+     * 
+     * Quality: 5, Have been test with all the 4 cases supported and throws exception on none recognized syntax.
+     * 
+     * node: top network
+     * session: contains metadata about the build like directory paths etc
+     * errPrint: if error printout should be printed
+     */
+
 	public CreateForLoop(Node node, CompilationSession session, boolean errPrint) {
 		if(!errPrint) {
 			serr = new PrintStream(new OutputStream(){
@@ -140,7 +152,7 @@ public class CreateForLoop extends IrReplaceSwitch {
          * FunctionCall returning result of type List
          * Also the list must be exactly one-dimension more than the index variable type, typically one-dimensional.
          * ---------------------
-         * This class converts all the generators into a while loops inside a block to enable setup and handle of helper variables
+         * This class converts all the generators into while loops inside a block to enable setup and handle of helper variables
          * Hence after this conversion all the generators will be removed and the Body in ForEach will refer to the outer
          * most block containing a while loop.
          */
@@ -153,10 +165,16 @@ public class CreateForLoop extends IrReplaceSwitch {
         }
         Statement access = null;
         int nesting = 0;
+        //A foreach statement can have several nested loops (without repeating foreach keyword) 
         for(int i = stmt.getGenerators().size()-1;i>=0;i--) {
             Generator g = stmt.getGenerators().get(i);
             if(g.getSource() instanceof VariableExpression) {
+                /*
+                 * Variable of list type
+                 * Create index variable to step thru elements
+                 */
                 if(g.getDeclarations().get(0) instanceof Variable) {
+                    //Even if list of declarations syntax allows only one variable
                     Variable v = (Variable) g.getDeclarations().get(0);
                     int listDim=0;
                     Type t = ((Variable)v).getType();
@@ -207,6 +225,10 @@ public class CreateForLoop extends IrReplaceSwitch {
                     nesting++;
                 }
             } else if(g.getSource() instanceof BinaryExpression) {
+                /*
+                 * A list from a start to stop integer value
+                 * Steps thru from start to stop value
+                 */
                 BinaryExpression expr = (BinaryExpression) g.getSource();
                 if(!expr.getOperator().equals("..")
                         ||!(expr.getOperand1().getType() instanceof TypeUint
@@ -238,6 +260,11 @@ public class CreateForLoop extends IrReplaceSwitch {
                     nesting++;
                 }
             } else if(g.getSource() instanceof ListExpression) {
+                /*
+                 * A list of elements
+                 * Assign a temp variable with the list of elements
+                 * Create a index variable to step thru the temp variable
+                 */
                 if(g.getDeclarations().get(0) instanceof Variable) {
                     Variable v = (Variable) g.getDeclarations().get(0);
                     ListExpression lit = (ListExpression) g.getSource();
@@ -294,6 +321,11 @@ public class CreateForLoop extends IrReplaceSwitch {
                     nesting++;
                 }
             } else if(g.getSource() instanceof FunctionCall) {
+                /*
+                 * A function call returning a list
+                 * Assign a temp variable the result of the function call
+                 * Create an index to step thru the temp variable.
+                 */
                 if(g.getDeclarations().get(0) instanceof Variable) {
                     Variable v = (Variable) g.getDeclarations().get(0);
                     FunctionCall call = (FunctionCall) g.getSource();

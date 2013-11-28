@@ -112,50 +112,71 @@ public class IrTransformer {
 	 * The passes takes a top network type.
 	 * When a annotator need access to other nodes in the tree it needs 
 	 * to retrieve them from the $Transformed part of ActorDirectory
+	 * 
+	 * The annotations are placed on nodes (as e.g. variables and types)
+	 * to have the analysis of the IR readily available when transforming
+	 * or printing the node. The intention is that later passes or printing
+	 * should avoid doing their own analysis.
+	 * 
+	 * The transformations are intended to transform all CAL specific imperative code
+	 * into statements that have an easy equivalent in c-code. It does not introduce
+	 * memory or port handling (as the previous IR2CIR codegen did), since that is handled
+	 * in the c-printer.
 	 */
 	public IrTransformer(TypeActor nodeType, CompilationSession session, List<IrPassTypes> passes) {
 		//Apply the list of annotation passes in order
 		Node node=null;
 		for(IrPassTypes p : passes) {
+		    //Get elaborated transformed top network
 			node=getNode(nodeType,p);
 			switch (p) {
             case UsedDeclaration:
+                //Annotate all variable declarations (incl functions and procedures) if they are still used
                 printHeader("Used Declaration");
                 new IrUsedDeclarationAnnotation(node, session, true);
                 break;
             case Variable:
+                //Annotate all variable declarations (incl functions and procedures) how and where they are used, also all var ref/expr classified based on lists, members, indexes, etc
                 printHeader("Variable");
                 new IrVariableAnnotation(node, session, true);
                 break;
 			case TypeUsage:
+			    //Annotates how user types and their members are used by variables, the intention is that it should be used to optimize placement of variables
 				printHeader("Type Usage");
 				new IrTypeAnnotation(node, session, true);
 				break;
 			case TypeStructure:
+                //Annotates the user types members, is currently not of much use more than debugging but might be needed when introducing tuple types
 				printHeader("Type Structure");
 				new IrTypeStructureAnnotation(node, session, true);
 				break;
 			case VariablePlacement:
+			    //Annotates variable placement, i.e. heap, stack, fifo etc, this is not followed in the printer now when we have a runtime handling of arrays and user types (i.e. all print the same no change at static level)
 				printHeader("Variable Placement");
 				new IrVariablePlacementAnnotation(node, session, true);
 				break;
             case Port:
+                //Annotates the ports with their index since needed to identify in an array of input or output ports in the c-code
                 printHeader("Port ");
                 new IrPortAnnotation(node, session, true);
                 break;
             case MoveInitValueExpr:
+                //Transformation to move any variable initialization to later assignment that is non-scalar or dependent on such variable initialization or port reading
                 printHeader("Move initvalue expr");
                 new MoveInitValueExpr(node, session, true);
                 break;
             case PortTransformations:
+                //Transformation to move any port write statement last after the action statements, port write statements are usually assignment of temp output var (U_x) from output expression 
                 printHeader("Move port statements");
                 new PortTransformations(node, session, true);
                 break;
             case CreateForLoop:
+                //Transformation to convert foreach statements into while statements etc
                 printHeader("Create c-style for loops");
                 new CreateForLoop(node, session, true);
                 break;
             case ExprToTempVar:
+                //Transforms the IR so that non-scalar expressions and assignments (including strings) are broken down to scalar assignments
                 printHeader("Create temp var for expressions");
                 new ExprToTempVar(node, session, true);
                 break;
@@ -169,6 +190,7 @@ public class IrTransformer {
 	/*
 	 * Local utility functions
 	 */
+	//Read the top network from transformed (elaborated) part of actor directory
 	private Node getNode(TypeActor nodeType, IrPassTypes p) {
 		Node node=null;
 		try {
@@ -193,7 +215,7 @@ public class IrTransformer {
 
 	/*
 	 * Function to store the initial elaborated network 
-	 * and the instanciated actors into
+	 * and the instantiated actors into
 	 * the $Transformed part of the ActorDirectory.
 	 * Must be called before any pass.
 	 * The elaborated top network is taken as input the actor 
@@ -206,26 +228,6 @@ public class IrTransformer {
 		new TypeAnnotater().doSwitch(network);
 		new TypeMatchDeclaration().doSwitch(network);
 		
-	    /*DEBUG
-		new IrReplaceSwitch() {
-			private Map<String,String> found = new HashMap<String,String>();
-			@Override	
-			public TypeUser caseTypeUser(TypeUser type) {
-				found.put(((TypeUser) type).getDeclaration().getId(),(((TypeUser) type).getDeclaration() instanceof TypeDeclarationImport?"I_":"R_") +((TypeUser) type).getDeclaration().getName());
-				return type;
-			}
-
-			@Override
-			public AbstractActor caseNetwork(Network network) {
-				super.caseNetwork(network);
-				System.out.println("[IrTransformer] ----- Found type declarations usage direcly after network type annotation -----");
-				for(String f:found.keySet()) {
-					System.out.println("[IrTransformer] Found type declaration " + f + " " + found.get(f));
-				}
-				return network;
-			}
-		}.doSwitch(network);
-		*/
 		TransUtil.AnnotatePass(network, IrPassTypes.Init, "0");
 		System.out.println("[IrTransformer] Write network  " + network.getType().getName());
 		ActorDirectory.addTransformedActor(network, null, path);

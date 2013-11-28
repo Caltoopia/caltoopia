@@ -97,6 +97,27 @@ public class ExprToTempVar extends IrReplaceSwitch {
     private PrintStream serr = null; 
     private CompilationSession session;
 
+    /*
+     * Transforms the IR so that non-scalar expressions and assignments
+     * (including strings) are broken down to scalar assignments when needed.
+     * First an outer Switch is used to find lists of statements 
+     * (in Block and Action). For each such list of statements 3 transformations
+     * are made:
+     * 1) MoveExpr - used to find expressions that can't easily be c-printed and
+     * convert that to statements, typically assignments to temporary variable
+     * or if expression to if statement when lists involved.
+     * 2) moveAssign - used to break down any multi-dim list assignments or
+     * assignments from list of elements into separate assign statements.
+     * 3) moveString - since we treat CAL type string as list of char need to handle
+     * any expressions doing string operations.
+     * 
+     * Quality: 3, no known issues but likely cases not yet supported
+     * 
+     * node: top network
+     * session: contains metadata about the build like directory paths etc
+     * errPrint: if error printout should be printed
+     */
+
     public ExprToTempVar(Node node, CompilationSession session, boolean errPrint) {
         if(!errPrint) {
             serr = new PrintStream(new OutputStream(){
@@ -108,11 +129,22 @@ public class ExprToTempVar extends IrReplaceSwitch {
             serr = System.err;
         }
         this.session = session;
+        //Continue at the caseNetwork at the end of the file
         this.doSwitch(node);
     }
     
 
-    //----------- split assignments of (multi-dim) lists since no matching C statement ----------------------
+    /*
+     ***************************************************************
+     * Split assignments of (multi-dim) lists since no matching 
+     * C statement.
+     * 
+     * Inserts annotation of list size to allocate for dynamic
+     * sized arrays. Make sure that self assignments introduce a
+     * temporary variable assignment as a middle step. Assignments
+     * of a list of elements is broken up into separate assignments.
+     ***************************************************************
+     */
     private class moveListAssign extends IrReplaceSwitch {
         Stack<Node> stack = new Stack<Node>();
         
@@ -160,6 +192,7 @@ public class ExprToTempVar extends IrReplaceSwitch {
             }
             String selfAnn = assignAnn == null?null:assignAnn.get("Variable_VarLocalAccess");
             boolean selfAssign = (selfAnn == null)?false:VarLocalAccess.valueOf(selfAnn).equals(VarLocalAccess.self);
+            //Only introduce temp variable if the expressions isn't only the same variable without further operation since moving of (some dimension of) lists can be handled
             if (selfAssign || !(assign.getExpression() instanceof VariableExpression)) {
                 String vla = targetAnn==null?null:targetAnn.get("Variable_VarLocalAccess");
                 if(vla == null) {
@@ -269,8 +302,10 @@ public class ExprToTempVar extends IrReplaceSwitch {
         @Override
         public EObject caseListExpression(ListExpression expr) {
             if(!expr.getGenerators().isEmpty()) {
-                //TODO
+                //Generator expressions are handled in moveExpr
             } else {
+                //The stack is used to go deep into the assignment, e.g. a many dimension array might need to be broken up several times
+                //Also the stack makes sure to only go into list expressions that are part of an assignment
                 if(stack.empty()) {
                     Variable target = UtilIR.createVarDef(null, "__temp_" + expr.getId(), expr.getType());
                     target.setScope(scope);
@@ -290,6 +325,7 @@ public class ExprToTempVar extends IrReplaceSwitch {
                 //CodegenError.info("Expr to temp var","Peek(" + stack.size() + ") at " + assign.getTarget().getDeclaration().getName() + (stack.size()>1?", " + ((Assign) stack.get(1)).getExpression().getContext().getId():"") +" in " + assign.getExpression().getContext().getId() + " of class " + assign.getExpression().getContext().getClass().getName());
                 int lpos = statements.indexOf(assign);
                 int linserts = 0;
+                //We replace an assignment with another hence we remove the old
                 statements.remove(lpos);
                 inserts--;
                 for (int i = 0; i < expr.getExpressions().size(); i++) {
@@ -297,6 +333,7 @@ public class ExprToTempVar extends IrReplaceSwitch {
                     /*if(UtilIR.isList(e.getType())) {
                         doSwitch(e);
                     }*/
+                    //Don't introduce temp variable for expressions that already is a variable or is a scalar literal (it just looks stupid)
                     if(!(e instanceof VariableExpression) && !UtilIR.isScalarLiteralExpression(e)) {
                         String id = e.getId()==null?Util.getDefinitionId():e.getId();
                         if(e.getType() == null) {
@@ -319,12 +356,14 @@ public class ExprToTempVar extends IrReplaceSwitch {
                         linserts += inserts-insertsOld;
                         e = UtilIR.createExpression(scope, target);
                     }
+                    //Expand the index with one for the specified element (might be multi-dim array with other indices that needs to be kept)
                     List<Expression> index = new ArrayList<Expression>();
                     index.addAll(assign.getTarget().getIndex());
                     index.add(UtilIR.lit(i));
                     Assign newIndAssign = UtilIR.createAssignN(scope, 
                             UtilIR.createVarRef(assign.getTarget().getDeclaration(), index),
                             e);
+                    //For the first element we add an annotation to make the c printer insert an allocation of the array if needed.
                     if(i==0) {
                         if(!TransUtil.allFixedLength(newIndAssign.getTarget().getDeclaration().getType())) {
                             TransUtil.setAnnotation(newIndAssign, "Variable", "ListSize", String.valueOf(expr.getExpressions().size()));
@@ -343,6 +382,7 @@ public class ExprToTempVar extends IrReplaceSwitch {
 
     }
     
+    //Helper function for moving assignments of lists
     private boolean moveAssign(List<Declaration> declarations, List<Statement> statements, Scope scope) {
         if(declarations == null || scope == null || statements == null)
             return false;
@@ -356,8 +396,19 @@ public class ExprToTempVar extends IrReplaceSwitch {
         return false;
     }
     
-    //---------- Move expressions involving lists without C-matching into statements -------------------
-    
+    /*
+     ***************************************************************
+     * Move expressions involving lists without C-matching into 
+     * statements
+     * 
+     * Printer can't handle if-expressions of list so these are 
+     * converted to if-statements. Also list expression can be of
+     * the syntax [expr(x):for int x in List], called generator.
+     * This is converted to a foreach statement which also have 
+     * generator and the foreach to while statement transform is 
+     * applied.
+     ***************************************************************
+     */
     private class moveExpr extends IrReplaceSwitch {
         Stack<Node> stack = new Stack<Node>();
         
@@ -437,7 +488,7 @@ public class ExprToTempVar extends IrReplaceSwitch {
                     TransUtil.setAnnotation(index, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
                     declarations.add(index);
                     
-                    //FIXME currently only support first generator
+                    //FIXME currently only support first generator as the syntax frontend
                     Assign assign = UtilIR.createAssign(body, 
                             UtilIR.createVarRef(target, Arrays.asList(UtilIR.createExpression(body, index))), 
                             expr.getExpressions().get(0));
@@ -448,7 +499,7 @@ public class ExprToTempVar extends IrReplaceSwitch {
                     } else {
                         TransUtil.setAnnotation(assign, "Variable", "ListSize", "0");
                     }
-                    //FIXME currently only support first generator
+                    //FIXME currently only support first generator as the syntax frontend
                     FixMovedExpr.moveScope(body, body, expr.getGenerators().get(0), true);
                     
                     Assign incAssign = UtilIR.createAssign(body, 
@@ -477,7 +528,7 @@ public class ExprToTempVar extends IrReplaceSwitch {
             return expr;
         }
     }
-    
+    //Helper function to move expression into statement
     private boolean moveExprToStatement(List<Declaration> declarations, List<Statement> statements, Scope scope) {
         if(declarations == null || scope == null || statements == null)
             return false;
@@ -491,8 +542,17 @@ public class ExprToTempVar extends IrReplaceSwitch {
         return false;
     }
     
-    //---------- Move expressions involving strings without C-matching into statements -------------------
-    
+    /*
+     ***************************************************************
+     * Move expressions involving strings without C-matching into
+     * statements.
+     * 
+     * Printer only handles concat of two strings, hence make
+     * all binary expressions store result in temp variable. Also
+     * if expressions are converted to if statement, to simplify
+     * printing.
+     ***************************************************************
+     */
     private class moveStringExpr extends IrReplaceSwitch {
         Stack<Node> stack = new Stack<Node>();
         
@@ -604,8 +664,9 @@ public class ExprToTempVar extends IrReplaceSwitch {
             }
             return expr;
         }
-}
+    }
     
+    //Helper function for the moveString class
     private boolean moveStringExprToStatement(List<Declaration> declarations, List<Statement> statements, Scope scope) {
         if(declarations == null || scope == null || statements == null)
             return false;
@@ -619,6 +680,15 @@ public class ExprToTempVar extends IrReplaceSwitch {
         return false;
     }
 
+    /*
+     ***************************************************************
+     * Outer Switch find all blocks of statements in
+     * Actions, Blocks (in procedures, etc), and also converted 
+     * LambdaExpressions (functions) body to Block.
+     * 
+     * Call the moveExpr, moveAssign and moveStringExpr on those blocks
+     ***************************************************************
+     */
     @Override
     public Action caseAction(Action action) {
         moveExprToStatement(action.getDeclarations(), action.getStatements(), action);

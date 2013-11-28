@@ -89,6 +89,15 @@ public class IrPortAnnotation extends IrReplaceSwitch {
 	PortWrite currentWrite = null;
 	PortPeek currentPeek = null;
 	
+	/*
+	 * Annotate all ports with their index (order) in list of in- or out-ports
+	 * 
+	 * Quality: 5, does what the label say
+	 * 
+	 * node: top network
+	 * session: contains metadata about the build like directory paths etc
+	 * errPrint: if error printout should be printed
+	 */
 	public IrPortAnnotation(Node node, CompilationSession session, boolean errPrint) {
 		if(!errPrint) {
 			serr = new PrintStream(new OutputStream(){
@@ -99,6 +108,7 @@ public class IrPortAnnotation extends IrReplaceSwitch {
 		} else {
 			serr = System.err;
 		}
+		//start at caseNetwork() below
 		this.doSwitch(node);
 	}
 	

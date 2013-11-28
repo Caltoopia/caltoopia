@@ -94,6 +94,16 @@ public class PortTransformations extends IrReplaceSwitch {
     private PrintStream serr = null; 
     private CompilationSession session;
 
+    /*
+     * Transformation to move any port write statement last after the action statements,
+     * port write statements are usually assignment of temp output var (U_x) from output expression 
+     * 
+     * Quality: 5, should work well
+     * 
+     * node: top network
+     * session: contains metadata about the build like directory paths etc
+     * errPrint: if error printout should be printed
+     */
     public PortTransformations(Node node, CompilationSession session, boolean errPrint) {
         if(!errPrint) {
             serr = new PrintStream(new OutputStream(){

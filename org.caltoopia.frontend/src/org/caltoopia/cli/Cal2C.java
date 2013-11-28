@@ -294,7 +294,7 @@ public class Cal2C {
 			List<String> sourceFiles = new ArrayList<String>();
 			CEnvironment env = new CEnvironment();
 		
-			//Create object used for converting the CAL IR into a C IR
+			//Create object used for converting the CAL IR into a C IR (only for legacy codegen)
 			IR2CIR cir = (IR2CIR) new IR2CIR();
 
 			//Print the elaborated network
@@ -302,7 +302,7 @@ public class Cal2C {
 			if(System.getenv().containsKey("CALTOOPIA_CODEGEN_EXPERIMENT") && System.getenv().get("CALTOOPIA_CODEGEN_EXPERIMENT").equals("Y")) {
 				out.println("#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*##*#*#*#");
 				out.println("#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*##*#*#*#");
-				out.println("#*#*#   Using experimental code generation   #*#*#");
+				out.println("#*#*#    Using refactored code generation    #*#*#");
 				out.println("#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*##*#*#*#");
 				out.println("#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*##*#*#*#");
 				altCodegen=true;

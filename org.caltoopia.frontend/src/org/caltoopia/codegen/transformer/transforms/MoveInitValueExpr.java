@@ -96,6 +96,16 @@ public class MoveInitValueExpr extends IrReplaceSwitch {
 	private PrintStream serr = null; 
 	private CompilationSession session;
 
+    /*
+     * Transformation to move any variable initialization to later assignment
+     * which is non-scalar or dependent on such variable initialization or port reading.
+     * 
+     * Quality: 5, should work well
+     * 
+     * node: top network
+     * session: contains metadata about the build like directory paths etc
+     * errPrint: if error printout should be printed
+     */
 	public MoveInitValueExpr(Node node, CompilationSession session, boolean errPrint) {
 		if(!errPrint) {
 			serr = new PrintStream(new OutputStream(){
@@ -110,6 +120,14 @@ public class MoveInitValueExpr extends IrReplaceSwitch {
 		this.doSwitch(node);
 	}
 	
+	/*
+	 * Move init values to separate assignment.
+	 * declarations: list of declarations in scope
+	 * scope: the scope in which the assignment should be placed, here a Scope
+	 * is used to be able to handle both Action and Block which are the objects
+	 * that actually can handle statements. UtilIR.createAssign() etc takes a 
+	 * Scope parameter but internally checks if either Action or Block.
+	 */
 	private static boolean initValueToStatements(List<Declaration> declarations, Scope scope) {
 		int pos = 0;
 		if(declarations == null || scope == null)
@@ -124,6 +142,10 @@ public class MoveInitValueExpr extends IrReplaceSwitch {
                     varType = annotations.get(TransUtil.varAnn("VarType"));
                     varPlacement = annotations.get(TransUtil.varAnn("VarPlacement"));
                 }
+                /* 
+                 * First handle Actor variables since they need handling also when
+                 * no init value if they need allocation.
+                 */
                 if((varType!=null && varType.equals(VarType.actorVar.name()))) {
                     if(var.getInitValue()!=null) {
                         Assign assign = UtilIR.createAssign(pos, scope, var, var.getInitValue());
@@ -134,13 +156,15 @@ public class MoveInitValueExpr extends IrReplaceSwitch {
                         System.out.println("[MoveInitValueExpr] Moved actor var " + var.getName() + ", " + var.getId() + " in " + scope.getId());
                     } else if(UtilIR.isList(var.getType())) {
                         //Even if the actor variable is not initialized it must be allocated if it is a list
-                        //We do that by setting the first element to zero
-                        //VariableReference target = UtilIR.createVarRef(var, Arrays.asList((Expression)UtilIR.lit(scope,0)));
+                        //We do that by creating a dummy assignment with an annotation of that it should be allocated
                         Assign assign = UtilIR.createAssign(pos, scope, var, UtilIR.lit(scope,0));
                         TransUtil.setAnnotation(assign, "Variable", "Allocate", "true");
                         pos++;
                         System.out.println("[MoveInitValueExpr] Allocated actor var " + var.getName() + ", " + var.getId() + " in " + scope.getId());
                     }
+                /*
+                 * Now handle all other variables with an init value
+                 */
                 } else if(var.getInitValue()!=null) {
                     //When init expression depends on in port var or is placed on heap
                     //or when the expression is a list expression with generator
@@ -148,6 +172,7 @@ public class MoveInitValueExpr extends IrReplaceSwitch {
                     //moved statements need to be moved.
                     if((varType!=null && (varType.equals(VarType.actionInitInDepVar.name()) || 
                             varType.equals(VarType.outPortInitInDepVar.name()))) ||
+                            //FIXME reference to heap placement, should be removed
                             (varPlacement!=null && varPlacement.equals(VarPlacement.heap.name())) ||
                             (var.getInitValue() instanceof ListExpression && !((ListExpression)var.getInitValue()).getGenerators().isEmpty())) {
                         Assign assign = UtilIR.createAssign(pos, scope, var, var.getInitValue());
@@ -253,7 +278,8 @@ public class MoveInitValueExpr extends IrReplaceSwitch {
 	public AbstractActor caseActor(Actor actor) {
 		/*
 		 * No actor constructor exist in IR, but we might need one to initialize variables etc
-		 * Use a first initializer action to handle actor construction
+		 * Use a first initializer action to handle actor construction since initializer actions
+		 * without port operations anyway is printed inside actor constructor
 		 */
 		Action actorConstructor = null;
 		boolean existing = false;

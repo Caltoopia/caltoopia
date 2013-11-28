@@ -107,6 +107,20 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 	private PrintStream serr = null; 
 	private CompilationSession session;
 
+    /*
+     * Annotates variable placement, i.e. heap, stack, fifo etc, 
+     * this is not followed in the printer now when we have a runtime handling
+     * of arrays and user types (i.e. all print the same no change at static level)
+     * 
+     * FIXME remove this code and any users and reimplement correct behavior when 
+     * we want to do optimization on placement due to running on same processor etc.
+     *  
+     * Quality: 1, should not use the result.
+     * 
+     * node: top network
+     * session: contains metadata about the build like directory paths etc
+     * errPrint: if error printout should be printed
+     */
 	public IrVariablePlacementAnnotation(Node node, CompilationSession session, boolean errPrint) {
 		if(!errPrint) {
 			serr = new PrintStream(new OutputStream(){
@@ -121,6 +135,10 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 		this.doSwitch(node);
 	}
 
+	/*
+	 * Classification of placement
+	 * NB! these does not make sense anymore
+	 */
 	public enum VarPlacement {
 		unknown,
 		code, //This variable declaration is a function or procedure etc

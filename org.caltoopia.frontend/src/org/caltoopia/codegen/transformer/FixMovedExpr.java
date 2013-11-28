@@ -28,13 +28,28 @@ import org.caltoopia.ir.VariableImport;
 import org.caltoopia.ir.util.IrReplaceSwitch;
 import org.eclipse.emf.ecore.EObject;
 
-
+/*
+ * This class is used when moving an expression or a declaration.
+ * Expressions and Declarations refer to their containing context 
+ * or scope. When moved such reference needs to be updated to refer
+ * to the new context or scope. Expressions or Declarations are
+ * commonly nested and a scope reference could be buried deep down.
+ * 
+ * Quality: 4, works for all current uses and tests
+ */
 public class FixMovedExpr extends IrReplaceSwitch {
     Scope newScope = null;
     Node oldScope = null;
     boolean skipTop = true;
     boolean skipDecl = true;
     
+    /*
+     * Constructor of class, use new FixMovedExpr(...).doSwitch(node)
+     * newScope: the new context or scope to replace with
+     * oldScope: the previous context or scope to search for
+     * skipTop: skip blocks and scope useful when converting a whole Block but don't want to effect the Block itself (i.e. created a new Block inside the old then we should refer to the old block as context)
+     * skipDecl: when using this on expressions these may contain variable declarations and if their scope should not be replaced (which is typical) set this to true
+     */
     public FixMovedExpr(Scope newScope, Node oldScope, boolean skipTop, boolean skipDecl) {
         this.newScope = newScope;
         this.oldScope = oldScope;

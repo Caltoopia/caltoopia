@@ -104,6 +104,9 @@ import org.caltoopia.codegen.transformer.TransUtil;
 
 public class IrVariableAnnotation extends IrReplaceSwitch {
 
+    /*
+     * Searches nodes looking for ID string in variable expressions
+     */
 	private class UsedInBody extends IrReplaceSwitch {
 		private String searchID=null;
 		private boolean found=false;
@@ -122,6 +125,12 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		}
 	}
 	private Map<String,Boolean> foundMap = new HashMap<String,Boolean>();
+	/*
+	 * Searches an action for usage of the variable with a specified ID,
+	 * builds a cache (foundMap)
+	 * id: an ID of an in port variable
+	 * a: action to search in
+	 */
 	private boolean isUsedInBody(String id, Action a) {
 		if(foundMap.containsKey(id))
 			return foundMap.get(id);
@@ -153,6 +162,24 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 	private PrintStream serr = null; 
 	private CompilationSession session;
 
+    /*
+     * Annotate all variable declarations (incl functions and procedures)
+     * how and where they are used (VarType). All port variables are
+     * also classified based on repeat, multiple var ref/expr, etc (VarAccess).
+     * Also all variable ref/expr classified based on if lists, members,
+     * indexes are used (VarLocalAccess). Also classifies if a variable is 
+     * assigned or initialized (VarAssign). Also classifies what kind of literal
+     * expression a variable is assigned or initialized with (VarLiteral). 
+     *  
+     * The analysis result of this pass is used a lot in the transformations and 
+     * c-printing.
+     * 
+     * Quality: 4, works for test cases but might not have covered all corner cases.
+     * 
+     * node: top network
+     * session: contains metadata about the build like directory paths etc
+     * errPrint: if error printout should be printed
+     */
 	public IrVariableAnnotation(Node node, CompilationSession session, boolean errPrint) {
 		if(!errPrint) {
 			serr = new PrintStream(new OutputStream(){
@@ -164,9 +191,13 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 			serr = System.err;
 		}
 		this.session = session;
+		//start at caseNetwork() below
 		this.doSwitch(node);
 	}
 	
+	/*
+	 * Classification of variable, constants, functions, procedures and type declarations
+	 */
 	public enum VarType {
 		unknown,
 		//Functions and procedures of different flavors
@@ -210,7 +241,10 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		declarationType,
 		memberDeclType
 	};
-	
+
+	/*
+	 * Classification of port variable access
+	 */
 	public enum VarAccess {
 		unknown,
 		//Port accesses
@@ -227,7 +261,10 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		refMember
 	};
 
-    public enum VarLocalAccess {
+	/*
+	 * Classification of usage of a variable in an var expr/ref
+	 */
+	public enum VarLocalAccess {
         unknown,
         scalar,                     //scalar builtin type
         string,                     //i.e. one dimension char array (FIXME add arrays of strings)
@@ -279,6 +316,9 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
         refMember
     };
 
+    /*
+     * Classification if a variable is ever assigned or initialized
+     */
     public enum VarAssign {
 		unknown,
         assigned,
@@ -287,6 +327,24 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		//TODO add more types of assignment when needed, e.g. if member is assigned, assigned due to procedure output, etc
 	};
 	
+	/*
+	 * Classifies each assignment or initialization of a variable with a literal expression
+	 * w = with
+	 * o = or
+	 * LVE = List Variable Expression 
+	 * FC = Function Call returning list
+	 * TC = Type Constructor
+	 * 
+	 * assigned = assignment is of this class
+	 * initialized = initialization is of this class
+	 * 
+	 * The classes ending with Lit are true literals
+	 * the others are list expressions (w)ith
+	 * elements being LVE, FC (o)r TC.
+	 * 
+	 *  {assigned|initialized}TypeConstruct have non-literal
+	 *  parameters.
+	 */
     public enum VarLiteral {
         unknown,
         assignedLit,
@@ -309,6 +367,12 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
         initializedTypeConstruct
     };
 
+    /*  
+     * Classifies (VarType) a variable on a port, called from findVariableType.
+     * With this it is possible to know if a variable is both
+     * an input and output variable if it never is used only read, etc.
+     * Quality: 5
+     */
     private VarType annotatePortVar(Declaration variable, Action a) {
 		VarType t = VarType.unknown;
 		if(!a.getOutputs().isEmpty()) {
@@ -384,6 +448,18 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 	private boolean foundInSwitch;
 	private List<PortRead> LookForReadSwitch;
 	
+	/*
+	 * Classifies (VarType), mainly checks scope and instance type
+	 * to find out where and how a variable is used.
+	 * Declarations can be very many different things in the IR,
+	 * hence the usefulness of this function putting a clear label on it.
+	 * 
+	 * This function also finds the namespace it was originally declared in
+	 * and sets that as an annotation, since the elaboration and conversion
+	 * between imported/local declarations moves declaration around but we 
+	 * still need to maintain a naming corresponding with the original placement.
+	 * Quality: 5
+	 */
 	private VarType findVariableType(Declaration inDecl) {
 		Declaration decl = UtilIR.getDeclarationTransformed(inDecl); //Any of: (import, forward,) external, variable
 		VarType t = VarType.unknown;
@@ -450,10 +526,10 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 						t = VarType.funcVar;
 					}
 				} else if(variable.getScope() instanceof Variable && ((Variable)variable.getScope()).getInitValue() instanceof ProcExpression) {
-					//FIXME should check for in/out
+					//FIXME should check for in/out, but currently no way in CAL syntax to express out parameter of procedures
 					t = VarType.procInParamVar;
 				} else if(variable.getScope() instanceof ProcExpression) {
-					//FIXME should check for in/out
+					//FIXME should check for in/out, but currently no way in CAL syntax to express out parameter of procedures
 					t = VarType.procInParamVar;
 				} else if(variable.getScope() instanceof Block && variable.getScope().getOuter() instanceof ProcExpression) {
 					t = VarType.procVar;
@@ -540,6 +616,12 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		return t;
 	}
 
+	/*
+	 * Classifies (VarAccess) variables on both input and output ports
+	 * type: type on port
+	 * isRepeat: if the action have a repeat on the port
+	 * size: number of elements (variable references or expressions) on a in- or out-port, respectively
+	 */
 	private VarAccess findPortAccess(Type type, boolean isRepeat, int size) {
 		VarAccess va = VarAccess.unknown;
 		if(UtilIR.isList(type)) {
@@ -582,6 +664,15 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		return va;
 	}
 	
+	/*
+	 * Classifies (VarLocalAccess) the usage of a variable in a VariableExpression
+	 * or VariableReference. Have the component as seperate parameters to use the
+	 * same function for both ref and expr.
+	 * decl: the variable the ref or expr is using
+	 * index: list of indices for getting the element of a (multi-dim) list
+	 * member: chain of members in user types to potentially reach into deeper types
+	 * Quality: 4, may have missed some corner cases
+	 */
     private VarLocalAccess findLocalAccess(Declaration decl, List<Expression> index, List<Member> member) {
         VarLocalAccess vla = VarLocalAccess.unknown;
         int dim = (index != null)?index.size():0;
@@ -773,7 +864,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		TransUtil.setAnnotation(var,IrTransformer.VARIABLE_ANNOTATION,"VarType",t.name());
 		TransUtil.copyNamespaceAnnotation(var, var.getVariable());
 		VarAccess va = VarAccess.unknown;
-		//Put the access annotation in the map, will be replicated in caseAction to all variables, var ref and exp refering to the same id
+		//Put the access annotation in the map, will be replicated in caseAction to all variables, var ref and expr referring to the same id
 		if(currentWrite!=null) {
 			switch(t) {
 			case inOutPortVar:
@@ -796,7 +887,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		TransUtil.setAnnotation(var,IrTransformer.VARIABLE_ANNOTATION,"VarType",t.name());
         TransUtil.copyNamespaceAnnotation(var, var.getDeclaration());
 		VarAccess va = VarAccess.unknown;
-		//Put the access annotation in the map, will be replicated in caseAction to all variables, var ref and exp refering to the same id
+		//Put the access annotation in the map, will be replicated in caseAction to all variables, var ref and expr referring to the same id
 		if(currentRead!=null) {
 			va = findPortAccess(var.getType(),currentRead.getRepeat()!=null,currentRead.getVariables().size());
 			idInVarAccessMap.put(var.getDeclaration().getId(), va.name());
@@ -820,7 +911,8 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 	public Declaration caseVariable(Variable var) {
 		VarType t = findVariableType(var);
 		TransUtil.setAnnotation(var,IrTransformer.VARIABLE_ANNOTATION,"VarType",t.name());
-        VarLiteral l = null;
+		//Classify how literal any init value is
+		VarLiteral l = null;
         if(var.getInitValue() != null) {
             HowLiteral h = TransUtil.isLiteralExpression(var.getInitValue());
             if(h.total) {
@@ -986,6 +1078,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
         }
         TransUtil.setAnnotation(assign.getTarget(),IrTransformer.VARIABLE_ANNOTATION, 
                 "VarAssign",VarAssign.assigned.name());
+        //Check if the same variable is both target and expression in assignment, self assignment might require temp variable
         foundInSwitch=false;
         final String target = assign.getTarget().getDeclaration().getId();
         if(target != null) {
@@ -1008,6 +1101,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
                         "VarLocalAccess",VarLocalAccess.self.name());
             }
         }
+        //Classify how literal any assignment expression is
         VarLiteral l = null;
         HowLiteral h = TransUtil.isLiteralExpression(assign.getExpression());
         if(h.total) {

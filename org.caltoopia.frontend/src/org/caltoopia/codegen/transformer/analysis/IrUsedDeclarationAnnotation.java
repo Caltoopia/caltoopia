@@ -111,12 +111,22 @@ public class IrUsedDeclarationAnnotation extends IrReplaceSwitch {
 	private PrintStream serr = null; 
 	private CompilationSession session;
 
-	/* 
-	 * Find all declarations which is needed due to 
-	 * at least one user has not removed usage in
-	 * constant expression evaluation.
-	 */
-	
+
+    /*
+     * Find all declarations (not type declarations) which is needed due to 
+     * at least one user has not removed usage in constant expression 
+     * evaluation. Annotate the declarations which are used, unused declarations
+     * will have no annotation, i.e. they will not have FALSE annotation.
+     *  
+     * The analysis result of this pass is used at least on top network level
+     * to decide which functions and constants should be printed.
+     * 
+     * Quality: 4, works for test cases but might not have covered all corner cases.
+     * 
+     * node: top network
+     * session: contains metadata about the build like directory paths etc
+     * errPrint: if error printout should be printed
+     */
 	public IrUsedDeclarationAnnotation(Node node, CompilationSession session, boolean errPrint) {
 		if(!errPrint) {
 			serr = new PrintStream(new OutputStream(){
@@ -128,6 +138,7 @@ public class IrUsedDeclarationAnnotation extends IrReplaceSwitch {
 			serr = System.err;
 		}
 		this.session = session;
+        //start at caseNetwork() below
 		this.doSwitch(node);
 	}
 
@@ -149,6 +160,7 @@ public class IrUsedDeclarationAnnotation extends IrReplaceSwitch {
 
     @Override
 	public Declaration caseVariable(Variable var) {
+        //If declaration reached by usage then annotate as used
         if(currentVarExpr!=null || currentVarRef!=null)
             TransUtil.setAnnotation(var,IrTransformer.VARIABLE_ANNOTATION,"DeclUsed",
                     "TRUE");
@@ -157,6 +169,7 @@ public class IrUsedDeclarationAnnotation extends IrReplaceSwitch {
 	
     @Override
     public Declaration caseForwardDeclaration(ForwardDeclaration decl) {
+        //If declaration reached by usage then annotate the pointed to variable as used
         if(currentVarExpr!=null || currentVarRef!=null) {
             TransUtil.setAnnotation(decl.getDeclaration(),IrTransformer.VARIABLE_ANNOTATION,"DeclUsed",
                     "TRUE");

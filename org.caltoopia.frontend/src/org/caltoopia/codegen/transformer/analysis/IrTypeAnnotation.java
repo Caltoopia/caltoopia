@@ -78,6 +78,21 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 	private PrintStream serr = null; 
 	AbstractActor currentActor=null;
 	
+    /*
+     * Annotates how user types and their members are used by variables,
+     * the intention is that it should be used to optimize placement
+     * of variables.
+     * 
+     * The analysis result of this pass is used very little. Only reason
+     * it is still here is due to that when the tuple types are introduced
+     * we might need this analysis.
+     * 
+     * Quality: 2, since rarely used.
+     * 
+     * node: top network
+     * session: contains metadata about the build like directory paths etc
+     * errPrint: if error printout should be printed
+     */
 	public IrTypeAnnotation(Node node, CompilationSession session, boolean errPrint) {
 		if(!errPrint) {
 			serr = new PrintStream(new OutputStream(){
@@ -88,6 +103,7 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 		} else {
 			serr = System.err;
 		}
+		//start at caseNetwork() below
 		this.doSwitch(node);
 	}
 	
