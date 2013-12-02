@@ -68,24 +68,19 @@ import org.caltoopia.frontend.cal.AstType;
 import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.cli.ActorDirectory;
-import org.caltoopia.ir.Action;
 import org.caltoopia.ir.Annotation;
 import org.caltoopia.ir.AnnotationArgument;
-import org.caltoopia.ir.ExprAlternative;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.ForwardDeclaration;
 import org.caltoopia.ir.Guard;
 import org.caltoopia.ir.IfExpression;
+import org.caltoopia.ir.Node;
 import org.caltoopia.ir.PortPeek;
-import org.caltoopia.ir.StmtAlternative;
 import org.caltoopia.ir.TagOf;
-import org.caltoopia.ir.TaggedTuple;
 import org.caltoopia.ir.TaggedTupleFieldRead;
-import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeDeclarationImport;
 import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeProc;
-import org.caltoopia.ir.TypeUser;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Actor;
@@ -775,21 +770,17 @@ public class Util {
 		}
 	}			
 	
-	public static Expression doPatternTypeGuards(Scope scope, AstPattern astPattern, Expression e, AstType astType) {
+	public static Expression doPatternTypeGuards(Scope scope, AstPattern astPattern, Expression expr, AstType astType) {
 		
 		TagOf tagOf = IrFactory.eINSTANCE.createTagOf();
 		tagOf.setId(Util.getDefinitionId());
 		tagOf.setTag(astPattern.getTag());
 		tagOf.setContext(scope);
-		tagOf.setExpression(e);	
+		tagOf.setExpression(expr);	
 		
 		List<Expression> conditions = new ArrayList<Expression>(); 
 		for (AstSubPattern astSubPattern : astPattern.getSubpatterns()) {
 			if (astSubPattern.getPattern() != null && astSubPattern.getPattern().getTag() != null) {
-				TaggedTupleFieldRead field  = IrFactory.eINSTANCE.createTaggedTupleFieldRead();
-				field.setId(Util.getDefinitionId());
-				field.setTag(astPattern.getTag());
-				field.setValue(e);
 
 				AstTypeUser astTypeUser = astType.getName();
 				AstTaggedTuple tt = null;
@@ -814,8 +805,8 @@ public class Util {
 					pos = astPattern.getSubpatterns().indexOf(astSubPattern);
 					label = tt.getFields().get(pos).getName();
 				}
-				
-				field.setLabel(label);
+
+				TaggedTupleFieldRead field  = Util.createTaggedTupleFieldRead(scope, expr, astPattern.getTag(), label); 
 				
 				conditions.add(doPatternTypeGuards(scope, astSubPattern.getPattern(), field, tt.getFields().get(pos).getType()));				
 			}
@@ -1086,5 +1077,17 @@ public class Util {
 		field.setLabel(label);		
 		
 		return field;
+	}
+
+	static public boolean fromNamespace(Node node) {
+		List<String> ns = new ArrayList<String>();
+		for(Annotation a : node.getAnnotations()) {
+			if(a.getName().equals("NAMESPACE")) {
+				if(!a.getArguments().isEmpty()) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

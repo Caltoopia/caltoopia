@@ -292,8 +292,6 @@
     </genClasses>
     <genClasses ecoreClass="ir.ecore#//TypeDeclaration">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeDeclaration/type"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeDeclaration/valueParameters"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeDeclaration/typeParameters"/>
     </genClasses>
     <genClasses ecoreClass="ir.ecore#//TypeVariableDeclaration"/>
     <genClasses ecoreClass="ir.ecore#//Schedule">

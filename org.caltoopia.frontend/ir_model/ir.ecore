@@ -344,9 +344,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeDeclaration" eSuperTypes="#//Declaration">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//Type"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="valueParameters" upperBound="-1"
-        eType="#//Variable"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="typeParameters" eType="#//TypeVariable"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeVariableDeclaration" eSuperTypes="#//Declaration"/>
   <eClassifiers xsi:type="ecore:EClass" name="Schedule">

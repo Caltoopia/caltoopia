@@ -2712,24 +2712,6 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTypeDeclaration_ValueParameters() {
-		return (EReference)typeDeclarationEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getTypeDeclaration_TypeParameters() {
-		return (EReference)typeDeclarationEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getTypeVariableDeclaration() {
 		return typeVariableDeclarationEClass;
 	}
@@ -3192,8 +3174,6 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 
 		typeDeclarationEClass = createEClass(TYPE_DECLARATION);
 		createEReference(typeDeclarationEClass, TYPE_DECLARATION__TYPE);
-		createEReference(typeDeclarationEClass, TYPE_DECLARATION__VALUE_PARAMETERS);
-		createEReference(typeDeclarationEClass, TYPE_DECLARATION__TYPE_PARAMETERS);
 
 		typeVariableDeclarationEClass = createEClass(TYPE_VARIABLE_DECLARATION);
 
@@ -3621,8 +3601,6 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 
 		initEClass(typeDeclarationEClass, TypeDeclaration.class, "TypeDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTypeDeclaration_Type(), this.getType(), null, "type", null, 0, 1, TypeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTypeDeclaration_ValueParameters(), this.getVariable(), null, "valueParameters", null, 0, -1, TypeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTypeDeclaration_TypeParameters(), this.getTypeVariable(), null, "typeParameters", null, 0, 1, TypeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typeVariableDeclarationEClass, TypeVariableDeclaration.class, "TypeVariableDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

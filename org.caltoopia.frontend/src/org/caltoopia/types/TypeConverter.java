@@ -724,11 +724,12 @@ public class TypeConverter extends CalSwitch<Type> {
 				td.setScope(scope);
 				td.setName(param.getType().getName());				
 				Util.defsput(param.getType(), td);
+				typeDecl.getDeclarations().add(td);
 			} else {
 				Variable decl = Util.createVariable(typeDecl, param.getValue(), false);
 				decl.setParameter(true);
 				decl.setConstant(true);
-				typeDecl.getValueParameters().add(decl);					
+				typeDecl.getDeclarations().add(decl);					
 			}
 		}
 		

@@ -346,7 +346,7 @@ public class Cal2C {
 							out.println("Writing '" + file + "'");
 							AbstractActor actorInstantiated = Instantiator.instantiate(instance, session.getElaboratedNetwork());
 							new IrXmlPrinter(session.getOutputFolder()).doSwitch(actorInstantiated);
-							new CPrinter(file, null, session.getElaboratedNetwork(), cir, systemc, env, debugPrint, session.isRangeChk()).doSwitch(instance);
+//							new CPrinter(file, null, session.getElaboratedNetwork(), cir, systemc, env, debugPrint, session.isRangeChk()).doSwitch(instance);
 							sourceFiles.add(nsName + "__" + instance.getName() + ".c");
 							//String dotFile = session.getOutputFolder() + File.separator + nsName + "__" + instance.getName() + ".dot";
 							//((org.caltoopia.ast2ir.PriorityGraph)((Actor) actor).getSchedule().getPriorityGraph()).print(new PrintStream(dotFile));

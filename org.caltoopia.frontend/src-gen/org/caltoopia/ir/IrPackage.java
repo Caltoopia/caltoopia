@@ -5011,31 +5011,13 @@ public interface IrPackage extends EPackage {
 	int TYPE_DECLARATION__TYPE = DECLARATION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Value Parameters</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_DECLARATION__VALUE_PARAMETERS = DECLARATION_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Type Parameters</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_DECLARATION__TYPE_PARAMETERS = DECLARATION_FEATURE_COUNT + 2;
-
-	/**
 	 * The number of structural features of the '<em>Type Declaration</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_DECLARATION_FEATURE_COUNT = DECLARATION_FEATURE_COUNT + 3;
+	int TYPE_DECLARATION_FEATURE_COUNT = DECLARATION_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.caltoopia.ir.impl.TypeVariableDeclarationImpl <em>Type Variable Declaration</em>}' class.
@@ -7628,28 +7610,6 @@ public interface IrPackage extends EPackage {
 	EReference getTypeDeclaration_Type();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.caltoopia.ir.TypeDeclaration#getValueParameters <em>Value Parameters</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Value Parameters</em>'.
-	 * @see org.caltoopia.ir.TypeDeclaration#getValueParameters()
-	 * @see #getTypeDeclaration()
-	 * @generated
-	 */
-	EReference getTypeDeclaration_ValueParameters();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.caltoopia.ir.TypeDeclaration#getTypeParameters <em>Type Parameters</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Type Parameters</em>'.
-	 * @see org.caltoopia.ir.TypeDeclaration#getTypeParameters()
-	 * @see #getTypeDeclaration()
-	 * @generated
-	 */
-	EReference getTypeDeclaration_TypeParameters();
-
-	/**
 	 * Returns the meta object for class '{@link org.caltoopia.ir.TypeVariableDeclaration <em>Type Variable Declaration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9747,22 +9707,6 @@ public interface IrPackage extends EPackage {
 		 * @generated
 		 */
 		EReference TYPE_DECLARATION__TYPE = eINSTANCE.getTypeDeclaration_Type();
-
-		/**
-		 * The meta object literal for the '<em><b>Value Parameters</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TYPE_DECLARATION__VALUE_PARAMETERS = eINSTANCE.getTypeDeclaration_ValueParameters();
-
-		/**
-		 * The meta object literal for the '<em><b>Type Parameters</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TYPE_DECLARATION__TYPE_PARAMETERS = eINSTANCE.getTypeDeclaration_TypeParameters();
 
 		/**
 		 * The meta object literal for the '{@link org.caltoopia.ir.impl.TypeVariableDeclarationImpl <em>Type Variable Declaration</em>}' class.

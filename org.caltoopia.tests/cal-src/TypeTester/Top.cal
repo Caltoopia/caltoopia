@@ -95,14 +95,14 @@ import System.io.dprint1;
 		do
 			a.i := i * 2;			
 		end
-				
-		
+			
+	
 		schedule fsm s0:
 			s0 (a1) --> s1;
 			s1 (a2) --> s1;
-		end
+		end 
 	end
-
+	
 	actor Sink() T1 In ==>:
 	
 	  	action In:[a] ==> 
@@ -111,8 +111,8 @@ import System.io.dprint1;
 			dprint1(", a.f=%f\\n", a.f);		
 	  	end
 	 
-	end  
-	
+	end
+
 	actor Sink2() T2 In, T2b In2 ==>: 
 	
 	  	action In:[A(a1, a2), a], In2: [x] ==>
@@ -142,21 +142,21 @@ import System.io.dprint1;
 	  	end
 	
 	end  
-//		
-//	network Test1() ==> :
-//	
-//		entities
-//			main = Main(max=10);
-//			delay1 = Delay(init=T1::A(0, 0));
-//			delay2 = Delay(init=T1(1, 1));
-//			sink = Sink();
-//
-//		structure
-//			main.Out --> delay2.In;
-//			delay2.Out --> delay1.In;
-//			delay2.Out --> main.In2;
-//			delay1.Out --> main.In1;
-//			main.Out --> sink.In;  	
-//	end 
+		
+	network Test1() ==> :
+	
+		entities
+			main = Main(max=10);
+			delay1 = Delay(init=T1::A(0, 0));
+			delay2 = Delay(init=T1(1, 1));
+			sink = Sink();
+
+		structure
+			main.Out --> delay2.In;
+			delay2.Out --> delay1.In;
+			delay2.Out --> main.In2;
+			delay1.Out --> main.In1;
+			main.Out --> sink.In;  	
+	end 
 
 end

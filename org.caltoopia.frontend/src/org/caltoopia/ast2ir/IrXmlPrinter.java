@@ -110,6 +110,8 @@ import org.caltoopia.ir.TypeUint;
 import org.caltoopia.ir.TypeUndef;
 import org.caltoopia.ir.TypeUser;
 import org.caltoopia.ir.TypeDeclarationImport;
+import org.caltoopia.ir.TypeVariable;
+import org.caltoopia.ir.TypeVariableDeclaration;
 import org.caltoopia.ir.UnaryExpression;
 import org.caltoopia.ir.VariableExternal;
 import org.caltoopia.ir.VariableReference;
@@ -464,17 +466,18 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 	
 	@Override
 	public Stream caseGuard(Guard guard) {
-		s.printlnInc("<Guard>");
+		s.printlnInc("<Guard id=\"" + guard.getId() + "\""
+			        + " outer-scope=\"" + guard.getOuter().getId() + "\">");
 		doAnnotations(guard);
 		
-		for (Declaration decl : guard.getDeclarations()) {
-			doSwitch(decl);
-		}		
-		
+		for (Declaration d : guard.getDeclarations()) {
+			doSwitch(d);
+		}
+
 		for (PortPeek peek : guard.getPeeks()) {
 			doSwitch(peek);
 		}
-		
+
 		doSwitch(guard.getExpression());
 		s.printlnDec("</Guard>");
 
@@ -578,7 +581,20 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 		
 		return s;
 	}		
-	
+
+	@Override
+	public Stream caseTypeVariableDeclaration(TypeVariableDeclaration variable) {
+		s.printlnInc("<Decl kind=\"TypeVariable\" name=\"" + variable.getName() + "\""
+				    + " id=\"" + variable.getId() + "\""
+				    + " scope=\"" + variable.getScope().getId() + "\" >");
+		
+		doAnnotations(variable);
+		
+		s.printlnDec("</Decl>");
+		
+		return s;
+	}
+		
 	@Override
 	public Stream caseForwardDeclaration(ForwardDeclaration decl) {
 		s.printlnInc("<Decl kind=\"Forward\""
@@ -600,6 +616,11 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 				    + " id=\"" + typeDecl.getId() + "\""
 				    + " scope=\"" + typeDecl.getScope().getId() + "\">");	
 		doAnnotations(typeDecl);
+		
+		for (Declaration par : typeDecl.getDeclarations()) {
+			doSwitch(par);
+		}
+		
 		doSwitch(typeDecl.getType());
 		s.printlnDec("</Decl>");
 
@@ -682,6 +703,8 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 	public Stream caseCaseExpression(CaseExpression caze) {
 		s.printlnInc("<Expr kind=\"Case\" "
 					+ " id=\"" + caze.getId() + "\">");
+
+		doSwitch(caze.getExpression());
 		
 		for (ExprAlternative alt : caze.getAlternatives()) {
 			doSwitch(alt);
@@ -878,7 +901,7 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 			s.println("<Var name=\"" + var.getDeclaration().getName() + "\""				   
 			     	+ " decl-id=\"" + var.getDeclaration().getId() + "\"/>");
 		} else {
-			s.printlnInc("<Var name=\"" + var.getDeclaration().getName() + "\""				   
+			s.printlnInc("<Var kind=\"value\" name=\"" + var.getDeclaration().getName() + "\""				   
 				     	+ " decl-id=\"" + var.getDeclaration().getId() + "\">");
 			doAnnotations(var);
 			if(var.getType()!=null) {
@@ -1023,6 +1046,9 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 	public Stream caseCaseStatement(CaseStatement caze) {
 		s.printlnInc("<Stmt kind=\"Case\" "
 					+ " id=\"" + caze.getId() + "\">");
+		doAnnotations(caze);
+
+		doSwitch(caze.getExpression());
 		
 		for (StmtAlternative alt : caze.getAlternatives()) {
 			doSwitch(alt);
@@ -1039,7 +1065,8 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 					+ " id=\"" + alt.getId() + "\""
 					+ " outer-scope=\"" + alt.getOuter().getId() 
 					+ "\">"); 		
-
+		doAnnotations(alt);
+		
 		for (Declaration decl : alt.getDeclarations()) {
 			doSwitch(decl);
 		}
@@ -1058,14 +1085,16 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 	}
 		
 	@Override 
-	public Stream caseTaggedTupleFieldRead(TaggedTupleFieldRead e) {
-		s.printlnInc("<Expression kind=\"TaggedTupleFieldRead\"" 
-					+ " tag=\"" + e.getTag() + "\""
-					+ " label=\"" + e.getLabel() + "\">");
+	public Stream caseTaggedTupleFieldRead(TaggedTupleFieldRead read) {
+		s.printlnInc("<Expr kind=\"TaggedTupleFieldRead\"" 
+			    + " id=\"" + read.getId() + "\""
+			    + " context-scope=\"" + read.getContext().getId() + "\""
+				+ " tag=\"" + read.getTag() + "\""
+				+ " label=\"" + read.getLabel() + "\">");
 
-		doSwitch(e.getValue());
+		doSwitch(read.getValue());
 
-		s.printlnDec("</Expression>");		
+		s.printlnDec("</Expr>");		
 		
 		return s;
 	}
@@ -1281,6 +1310,15 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 	public Stream caseTypeActor(TypeActor type) {
 		s.println("<Type kind=\"actor\" name=\"" + type.getName() + "\""
 				 + " namespace=\"" + Util.packQualifiedName(type.getNamespace()) + "\"/>");
+
+		return s;
+	}
+	
+	@Override
+	public Stream caseTypeVariable(TypeVariable var) {
+		s.println("<Type kind=\"variable\" name=\"" + var.getDeclaration().getName() + "\""				   
+		     	+ " decl-id=\"" + var.getDeclaration().getId() + "\"/>");
+
 		return s;
 	}
 	

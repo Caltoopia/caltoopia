@@ -45,7 +45,6 @@ import java.util.Set;
 
 import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.cli.DirectoryException;
-import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Action;
 import org.caltoopia.ir.Assign;
@@ -282,7 +281,7 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 	@Override
 	public Declaration caseVariable(Variable var) {
 		Variable result;
-		if (var.getScope() instanceof Namespace || UtilIR.fromNamespace(var)) {
+		if (var.getScope() instanceof Namespace || Util.fromNamespace(var)) {
 			result = var; 
 		} else {
 		    result = IrFactory.eINSTANCE.createVariable();	
