@@ -90,6 +90,15 @@ import org.caltoopia.ir.WhileLoop;
 import org.caltoopia.ir.util.IrSwitch;
 import org.eclipse.emf.ecore.EObject;
 
+/*
+ * This class generates a string for a statement. 
+ * This is the general statement printer for most
+ * statements.
+ * Assignment and block (body) is broken out into 
+ * CBuildAssign and CBuildBody.
+ * 
+ * Quality: 5, should work
+ */
 public class CBuildStatement extends IrSwitch<Boolean> {
     String statStr="";
     Statement statement;
@@ -98,6 +107,19 @@ public class CBuildStatement extends IrSwitch<Boolean> {
     private IndentStr ind = null;
     Scope scope = null;
 
+    /*
+     * Constructor for building a long string containing the 
+     * c-code of a statement. The statement is printed as a 
+     * line or more lines of c-code and should be embedded in
+     * Block/Action bodies. 
+     * 
+     * statement: statement to be printed
+     * cenv: input/output variable collecting information that is 
+     *       needed in makefiles etc, same object used for all CBuilders
+     * ind: indentation object, passed in so that sub-parts maintains overall indentation level
+     * semicolon: a leftover from supporting inline body should always be true
+     * scope: the scope of the statement (not currently used)
+     */
     public CBuildStatement(Statement statement, CEnvironment cenv, IndentStr ind, boolean semicolon, Scope scope) {
         statStr="";
         this.statement = statement;
@@ -111,6 +133,10 @@ public class CBuildStatement extends IrSwitch<Boolean> {
         }
     }
     
+    /*
+     * Do the actual generation of the statement string, use as:
+     * new CBuildStatement(...).toStr()
+     */
     public String toStr() {
         Boolean res = doSwitch(statement);
         if(!res) {
@@ -155,6 +181,7 @@ public class CBuildStatement extends IrSwitch<Boolean> {
         case proc:
             thisStr = "__";
             nameStr = (CPrintUtil.validCName(p.getName()));
+            //First parameter is pointer to actor instance to access actor state variables
             extraParamStr = ("thisActor");
             if(!(call.getInParameters().isEmpty() && call.getOutParameters().isEmpty()))
                 extraParamStr += (", ");
@@ -172,8 +199,10 @@ public class CBuildStatement extends IrSwitch<Boolean> {
             try {
                 ns = ActorDirectory.findNamespace(((VariableImport)p).getNamespace());
             } catch (DirectoryException ee) {}
+            //Get the extern annotations that may affect the name of the procedure
             Map<String,String> annotations = CPrintUtil.getExternAnnotations(CPrintUtil.collectAnnotations(e,ns));
             nameStr = (CPrintUtil.externalCName(annotations,e));
+            //also merge in the annotations to the overall c environment used for makefiles etc 
             CPrintUtil.toEnvEnv(annotations,cenv);
             print = true;
             break;
@@ -185,6 +214,7 @@ public class CBuildStatement extends IrSwitch<Boolean> {
                     varAccess.name() +", " +
                     typeUsage +" */");
         }
+        //Print the common part, i.e. parameter expressions
         if(print) {
             statStr += ind.ind() + thisStr + nameStr + "(" + extraParamStr;
             
@@ -193,7 +223,7 @@ public class CBuildStatement extends IrSwitch<Boolean> {
                 statStr += new CBuildExpression(ep, cenv,false,false,true).toStr();
                 if (i<call.getInParameters().size()-1) statStr += ", ";
             }
-    
+            //Currently the frontend syntax don't allow output parameters
             if(!call.getOutParameters().isEmpty()) {
                 statStr += ", ";
                 for (int i = 0; i<call.getOutParameters().size(); i++) {

@@ -58,11 +58,30 @@ import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.util.IrSwitch;
 import org.eclipse.emf.ecore.EObject;
 
+/*
+ * This class generates a string containing a procedure declaration.
+ * 
+ * Quality: 5, should work
+ */
 public class CBuildProcDeclaration extends IrSwitch<Boolean> {
     String procStr="";
     Variable variable;
     boolean header = false;
     CEnvironment cenv = null;
+
+    /*
+     * Constructor for building a long string containing the 
+     * c-code of a procedure declaration. It prints the 
+     * procedures's name, parameters and body.
+     * NB! CAL makes a difference between functions and procedures.
+     * 
+     * variable: procedure to be printed
+     * cenv: input/output variable collecting information that is 
+     *       needed in makefiles etc, same object used for all CBuilders
+     * header: when procedures are printed in a header it is only defined
+     *         i.e. no body. It should then also be printed in a c-file
+     *         with the body.
+     */
     public CBuildProcDeclaration(Variable variable, CEnvironment cenv, boolean header) {
         procStr="";
         this.header = header;
@@ -70,6 +89,10 @@ public class CBuildProcDeclaration extends IrSwitch<Boolean> {
         this.cenv = cenv;
     }
     
+    /*
+     * Do the actual generation of the procedure declaration string, use as:
+     * new CBuildProcDeclaration(...).toStr()
+     */
     public String toStr() {
         Boolean res = doSwitch(variable);
         if(!res) {
@@ -83,6 +106,13 @@ public class CBuildProcDeclaration extends IrSwitch<Boolean> {
     
     public Boolean caseVariable(Variable variable) {
         ProcExpression proc =  (ProcExpression) variable.getInitValue();
+        /*
+         * Procedures can currently only be defined inside actors due to the
+         * only effect is on actor state variables. But when the support for 
+         * output variables comes then procedures might also exist in 
+         * network or namespace context. But currently procedures are always 
+         * printed static in the same file as the actor.
+         */
         procStr = "static void ";
         String thisStr = TransUtil.getNamespaceAnnotation(variable);
         if(thisStr.equals("")) {
@@ -99,21 +129,21 @@ public class CBuildProcDeclaration extends IrSwitch<Boolean> {
         }
         for(Iterator<Variable> i = proc.getParameters().iterator();i.hasNext();) {
             Variable p = i.next();
-            //FIXME must fix so that it can handle params
             procStr += new CBuildVarDeclaration(p,cenv, false).toStr();
             if (i.hasNext()) procStr += ", ";
         }
+        //TODO Frontend syntax does not allow output parameters yet, we don't even have support for external procedures with out-params
         if(!proc.getOutputs().isEmpty()) {
             procStr += (", ");
             for(Iterator<Variable> i = proc.getOutputs().iterator();i.hasNext();) {
                 Variable p = i.next();
-                //FIXME must fix so that it can handle params
                 procStr += new CBuildVarDeclaration(p,cenv, false).toStr();
                 if (i.hasNext()) procStr += ", ";
             }           
         }
         procStr += (")");
         if(header) {
+            //Only declaration
             procStr += (";\n");
         } else {
             procStr += "\n";

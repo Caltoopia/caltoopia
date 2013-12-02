@@ -57,11 +57,32 @@ import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.util.IrSwitch;
 import org.eclipse.emf.ecore.EObject;
 
+/*
+ * This class generates a string containing a function declaration.
+ * 
+ * Quality: 5, should work
+ */
 public class CBuildFuncDeclaration extends IrSwitch<Boolean> {
     String funcStr="";
     Variable variable;
     boolean header = false;
     CEnvironment cenv = null;
+
+    /*
+     * Constructor for building a long string containing the 
+     * c-code of a function declaration. It prints the 
+     * functions's type, name, parameters and body.
+     * NB! CAL makes a difference between functions and procedures
+     * but we have likely already transformed any functions to use
+     * a procedure body.
+     * 
+     * variable: function to be printed
+     * cenv: input/output variable collecting information that is 
+     *       needed in makefiles etc, same object used for all CBuilders
+     * header: when functions are printed in a header it is only defined
+     *         i.e. no body. It should then also be printed in a c-file
+     *         with the body.
+     */
     public CBuildFuncDeclaration(Variable variable, CEnvironment cenv, boolean header) {
         funcStr="";
         this.header = header;
@@ -69,6 +90,10 @@ public class CBuildFuncDeclaration extends IrSwitch<Boolean> {
         this.cenv = cenv;
     }
     
+    /*
+     * Do the actual generation of the function declaration string, use as:
+     * new CBuildFuncDeclaration(...).toStr()
+     */
     public String toStr() {
         Boolean res = doSwitch(variable);
         if(!res) {
@@ -84,6 +109,7 @@ public class CBuildFuncDeclaration extends IrSwitch<Boolean> {
 
     public Boolean caseVariable(Variable variable) {
         VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(variable, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
+        //Actor functions are printed in the actor's file and hence can be made static
         if(varType == VarType.actorFunc) {
             funcStr = "static ";
         } else {
@@ -99,6 +125,7 @@ public class CBuildFuncDeclaration extends IrSwitch<Boolean> {
         funcStr += CPrintUtil.validCName(variable.getName()) + "(";
 
         if(varType == VarType.actorFunc) {
+            //All actor functions have as first parameter the actor instance pointer to allow access to actor state variables
             if(thisStr.equals("")) {
                 Actor actor = (Actor)lambda.getOuter();
                 thisStr = Util.marshallQualifiedName(actor.getType().getNamespace()) + "__" + TransUtil.getAnnotationArg(actor, "Instance", "name");
@@ -107,32 +134,33 @@ public class CBuildFuncDeclaration extends IrSwitch<Boolean> {
             if(!lambda.getParameters().isEmpty())
                 funcStr += (", ");
         }
+        //All the parameters
         for(Iterator<Variable> i = lambda.getParameters().iterator();i.hasNext();) {
             Variable p = i.next();
-            //FIXME must fix so that it can handle params
             funcStr += new CBuildVarDeclaration(p,cenv,false).toStr();
             if (i.hasNext()) funcStr += ", ";
         }
         funcStr += (")");
         if(header) {
+            //Only declaration
             funcStr += (";\n");
         } else {
             if(lambda.getBody() instanceof ProcExpression) {
                 //Expression have been expanded to nameless proc to get a block
                 funcStr += new CBuildBody(((ProcExpression)lambda.getBody()).getBody(), cenv, null).toStr();
             } else {
-                //TODO should probably always move to ProcExpression body in transform step but for now do a body here.
+                /*
+                 * Both the MoveInitValueExpr and ExprToTempVar always transforms a 
+                 * lambda's expression into a proc expression. But if those transform
+                 * passes have not executed we might end up here.
+                 * 
+                 * Create a block out of the expression to not need to repeat
+                 * memory handling etc.
+                 */
                 Block b = UtilIR.createBlock(lambda);
                 UtilIR.createReturn(b, lambda.getBody());
                 b.getDeclarations().addAll(lambda.getDeclarations());
                 funcStr += new CBuildBody(b, cenv, null).toStr();
-                /*
-                funcStr += ("{\n");
-                funcStr += ("\treturn ");
-                funcStr += new CBuildExpression(lambda.getBody(),cenv).toStr();
-                funcStr += (";\n");
-                funcStr += ("}\n");
-                */
             }
         }
         return true;

@@ -74,6 +74,12 @@ import org.caltoopia.ir.VariableReference;
 import org.caltoopia.ir.util.IrSwitch;
 import org.eclipse.emf.ecore.EObject;
 
+/*
+ * This class generates a string containing a guard declaration
+ * for an action.
+ * 
+ * Quality: 5, should work
+ */
 public class CBuildGuard extends IrSwitch<Boolean> {
     String bodyStr="";
     String thisStr="";
@@ -83,6 +89,18 @@ public class CBuildGuard extends IrSwitch<Boolean> {
     CEnvironment cenv = null;
     private IndentStr ind = null;
 
+    /*
+     * Constructor for building a long string containing the 
+     * c-code of an action's guards. The guards are printed as
+     * one c function with all the action's guards (comma separated).
+     * Which is called from the action scheduler.
+     * 
+     * action: action's guards to be printed
+     * cenv: input/output variable collecting information that is 
+     *       needed in makefiles etc, same object used for all CBuilders
+     * thisStr: actor prefix string for the guards
+     * idNbr: index number in list of actions
+     */
     public CBuildGuard(Action action, CEnvironment cenv, String thisStr, int idNbr) {
         bodyStr="";
         this.thisStr = thisStr;
@@ -92,10 +110,14 @@ public class CBuildGuard extends IrSwitch<Boolean> {
         this.ind = new IndentStr();
     }
     
+    /*
+     * Do the actual generation of the guard string, use as:
+     * new CBuildGuard(...).toStr()
+     */
     public String toStr() {
         Boolean res = doSwitch(action);
         if(!res) {
-            CodegenError.err("Action builder", bodyStr);
+            CodegenError.err("Guard builder", bodyStr);
         }
         return bodyStr;
     }
@@ -107,6 +129,8 @@ public class CBuildGuard extends IrSwitch<Boolean> {
     public Boolean caseAction(Action action) {
         enter(action);
         if(!action.getGuards().isEmpty()) {
+            //Name the guards as Guard_ actor prefix __ action tag
+            //context contains the port info
             String actionId = thisStr + CPrintUtil.getNamespace(action.getTag());
             bodyStr += ind.ind() + "static int Guard_" + actionId + "__" + action.getId()+ "(art_action_context_t *context, ActorInstance_"+thisStr+" *thisActor)" + ind.nl();
             bodyStr += ind.ind() + ("{") + ind.nl();
@@ -114,6 +138,7 @@ public class CBuildGuard extends IrSwitch<Boolean> {
             bodyStr += ind.ind() + "void * __tempVoidPointer;" +ind.nl();
             bodyStr += ind.ind() + "__array4void __tempArray;" +ind.nl();
             for (Declaration d : action.getDeclarations()) {
+                //Only print the constants and peek variable declarations
                 VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
                 switch(varType) {
                 case constVar:
@@ -141,6 +166,7 @@ public class CBuildGuard extends IrSwitch<Boolean> {
                     String portStr = "IN" + portNbr+ "_" + TransUtil.getAnnotationArg(peek, "Port", "name");
                     VariableReference peekVar = peek.getVariable();
                     if(!peeked.contains(peekVar.getDeclaration().getName())) {
+                        //Only peek into FIFO once for each variable/port
                         peeked.add(peekVar.getDeclaration().getName());
                         if(peek.getRepeat()==null) {
                             bodyStr += ind.ind() + new CBuildVarReference(peekVar, cenv).toStr() + " = ";
@@ -151,6 +177,28 @@ public class CBuildGuard extends IrSwitch<Boolean> {
                             int sz = g.getPeeks().size();
                             bodyStr += ind.ind() + "{" + ind.nl();
                             ind.inc();
+                            /*
+                             * When peeking and have repeat and potentially several variable references
+                             * we must make sure to interleave the peeking correctly. 
+                             * 
+                             * action In:[a,b,c] repeat 5
+                             * guard a[0]>c[2]>b[4]
+                             * 
+                             * 
+                             * {int __tempIN0_InCount, __tempIN0_In = 5;
+                             * for(__tempIN0_InCount=0;__tempIN0_InCount<__tempIN0_In;__tempIN0_InCount++) {
+                             *   a[__tempIN0_InCount]= pinPeek_T(IN0_In, 3 * __tempIN0_InCount + 0);
+                             * }}
+                             * {int __tempIN0_InCount, __tempIN0_In = 5;
+                             * for(__tempIN0_InCount=0;__tempIN0_InCount<__tempIN0_In;__tempIN0_InCount++) {
+                             *   c[__tempIN0_InCount]= pinPeek_T(IN0_In, 3 * __tempIN0_InCount + 2);
+                             * }}
+                             * {int __tempIN0_InCount, __tempIN0_In = 5;
+                             * for(__tempIN0_InCount=0;__tempIN0_InCount<__tempIN0_In;__tempIN0_InCount++) {
+                             *   b[__tempIN0_InCount]= pinPeek_T(IN0_In, 3 * __tempIN0_InCount + 1);
+                             * }}
+                             * The number 3 comes from the 3 variables, the + 1, 2, 0 comes from the position of a, c and b
+                             */
                             String repStr = "__temp" + CPrintUtil.validCName(portStr);
                             bodyStr += ind.ind() + "int " + repStr + "Count, " + repStr + " = " + 
                                     new CBuildExpression(peek.getRepeat(),cenv).toStr() + ";" + ind.nl();
@@ -169,6 +217,7 @@ public class CBuildGuard extends IrSwitch<Boolean> {
             }
             bodyStr += ind.ind() + "int ret = " +ind.nl();
             ind.inc();
+            //And together the individual boolean guard expressions
             for (Iterator<Guard> i = action.getGuards().iterator();i.hasNext();) {
                 Expression e = i.next().getBody();
                 bodyStr += ind.ind() + new CBuildExpression(e, cenv).toStr();

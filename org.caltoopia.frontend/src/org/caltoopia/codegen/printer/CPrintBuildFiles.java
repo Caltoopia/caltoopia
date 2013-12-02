@@ -57,20 +57,37 @@ import org.caltoopia.cli.CompilationSession;
 import org.caltoopia.codegen.CEnvironment;
 import org.caltoopia.codegen.CodegenError;
 
+/*
+ * This class prints files needed to build the code.
+ * It covers for the monolithic linux/mac runtime:
+ *   the config makefile and copy of the general makefile
+ * 
+ * Quality: 4, should work but need more testing for the external linking etc
+ */
 public class CPrintBuildFiles {
 
     CompilationSession session = null;
     PrintStream out = null;
     CEnvironment cenv = null;
 
+    /*
+     * Constructor for handling the build files.
+     * 
+     * session: session info
+     * cenv: input variable having collected information that is 
+     *       needed in makefiles etc from all the CBuilders
+     */
     public CPrintBuildFiles(CompilationSession session, CEnvironment cenv) {
         this.session = session;
         this.out = session.getOutputStream();
         this.cenv = cenv;
     }
     
+    /*
+     * Copies the Makefile used to build the code
+     * for the monolithic linux-runtime (also works for mac)
+     */
     public void MonoMakefile() throws Exception {
-        //Print the makefile
         File dst = new File(session.getOutputFolder() + File.separator + "Makefile");
         out.println("Copying '" + dst + "'");
         BufferedReader reader = null;
@@ -90,8 +107,14 @@ public class CPrintBuildFiles {
         writer.close();
     }
     
+    /*
+     * Prints the config makefile used to configure the build
+     * of the code for the monolithic linux-runtime (also works for mac).
+     * Include information such as files to compile, runtime path, 
+     * external headers, c-code and libraries.
+     * needSdl: informs that the art display actor is used
+     */
     public void MonoConfigFile(String needSdl) throws Exception {
-        //Print make config file including annotation information
         String file = session.getOutputFolder() + File.separator + "config.mk";            
         out.println("Writing '" + file + "'");
         PrintStream config = new PrintStream(file);

@@ -62,6 +62,12 @@ import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.util.IrSwitch;
 import org.eclipse.emf.ecore.EObject;
 
+/*
+ * This class is not used and should not be used. Was previous
+ * intended to handle comma separated bodies i.e. inside expressions.
+ * 
+ * Quality: 1, don't use
+ */
 public class CBuildInlineBody extends IrSwitch<Boolean> {
     String bodyStr="";
     Block body;

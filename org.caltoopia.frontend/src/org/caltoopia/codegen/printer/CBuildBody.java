@@ -64,6 +64,12 @@ import org.caltoopia.ir.VariableReference;
 import org.caltoopia.ir.util.IrSwitch;
 import org.eclipse.emf.ecore.EObject;
 
+/*
+ * This class generates a string for a block of 
+ * statements and declarations.
+ * 
+ * Quality: 4, works
+ */
 public class CBuildBody extends IrSwitch<Boolean> {
     String bodyStr="";
     Block body;
@@ -71,6 +77,16 @@ public class CBuildBody extends IrSwitch<Boolean> {
     CEnvironment cenv = null;
     private IndentStr ind = null;
 
+    /*
+     * Constructor for building a long string containing the 
+     * c-code of a block. The block is printed between {} and is assumed
+     * to be embedded into another c-function.
+     * 
+     * body: block to be printed
+     * cenv: input/output variable collecting information that is 
+     *       needed in makefiles etc, same object used for all CBuilders
+     * ind: indentation object, passed in so that sub-parts maintains overall indentation level
+     */
     public CBuildBody(Block body, CEnvironment cenv, IndentStr ind) {
         bodyStr="";
         this.body = body;
@@ -82,6 +98,10 @@ public class CBuildBody extends IrSwitch<Boolean> {
         }
     }
     
+    /*
+     * Do the actual generation of the block string, use as:
+     * new CBuildBody(...).toStr()
+     */
     public String toStr() {
         Boolean res = doSwitch(body);
         if(!res) {
@@ -98,8 +118,10 @@ public class CBuildBody extends IrSwitch<Boolean> {
         enter(block);
         bodyStr += ind.ind() + ("{") + ind.nl();
         ind.inc();
+        //TODO remove these when the code potentially utilizing them in CBuildAssign is removed
         bodyStr += ind.ind() + "void * __tempVoidPointer;" +ind.nl();
         bodyStr += ind.ind() + "__array4void __tempArray;" +ind.nl();
+        //Print all declarations
         for (Declaration d : block.getDeclarations()) {
             VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
             switch(varType) {
@@ -117,7 +139,7 @@ public class CBuildBody extends IrSwitch<Boolean> {
             case actionVar:
             case actionInitInDepVar:
                 if(((Variable)d).getInitValue() != null) {
-                    //TODO should have separate class for var declaration with initialization
+                    //If the variable needs initialization it uses the CBuildConstDeclaration
                     bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d, cenv, false).toStr()) + ";" + ind.nl();
                 } else {
                     bodyStr += ind.ind() + (new CBuildVarDeclaration((Variable) d,cenv, false).toStr()) + ";" + ind.nl();
@@ -133,6 +155,7 @@ public class CBuildBody extends IrSwitch<Boolean> {
             } 
         }
 
+        //Print all statements except any return statement
         Statement ret = null;
         for (Statement s : block.getStatements()) {
             if(!(s instanceof ReturnValue)) {
@@ -142,7 +165,17 @@ public class CBuildBody extends IrSwitch<Boolean> {
                 ret = s;
             }
         }
+        /*
+         * Allocation of arrays or user types are done at initialization of the variable (when static sizes)
+         * or when the variable is assigned. Here we need to make sure to free the allocated memory before
+         * leaving the block. Both arrays and user types contains metadata that keeps track of if the data
+         * is allocated on heap or stack. Hence we call our free function on all of them which checks such
+         * metadata before attempting to free the memory.
+         * 
+         * CBuildAction have similar code for freeing at end of Action. Make sure they evolve in sync.
+         */
         for(Declaration d:block.getDeclarations()) {
+            //Make sure to skip freeing any return variable it is the responsibility of the function caller
             boolean retValue = TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarAssign").equals(IrVariableAnnotation.VarAssign.movedRetAssigned.name());
             if(!retValue && (d instanceof Variable) && UtilIR.isList(((Variable)d).getType())) {
                 VariableReference varRef = UtilIR.createVarRef((Variable) d);
@@ -158,6 +191,7 @@ public class CBuildBody extends IrSwitch<Boolean> {
                 bodyStr += ind.ind() + "freeStruct" + new CBuildTypeName(((Variable)d).getType(), new CPrintUtil.dummyCB(), false).toStr() + "(&" + varStrF + ", TRUE);" + ind.nl();
             }
         }
+        //And final print any return statement
         if(ret!=null) {
             bodyStr += new CBuildStatement(ret, cenv, ind,true,block).toStr();
         }

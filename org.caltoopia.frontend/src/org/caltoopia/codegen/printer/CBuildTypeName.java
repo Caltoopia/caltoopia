@@ -71,6 +71,11 @@ import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.util.IrSwitch;
 import org.eclipse.emf.ecore.EObject;
 
+/*
+ * This class generates a string for a type.
+ * 
+ * Quality: 4, works but its a bit too complex for its own good
+ */
 public class CBuildTypeName extends IrSwitch<Boolean> {
     String typeStr="";
     Type type;
@@ -78,6 +83,19 @@ public class CBuildTypeName extends IrSwitch<Boolean> {
     int dim=0;
     boolean array;
 
+    /*
+     * Constructor for building a long string containing the 
+     * c-code of a type. The action is printed as a c type
+     * which should be embedded with declarations or expressions.
+     * 
+     * type: type to be printed
+     * cb: a callback implementation of an interface that handles
+     *     what extra to print for lists, user type, and pre/post.
+     *     Some classes to inherit/use are declared in CPrintUtil.
+     * array: even if list not always want to print the array part
+     *        of type name. True means print full type name with "array"
+     *        false only the element type name.
+     */
     public CBuildTypeName(Type type, ITypeCallbacks cb, boolean array) {
         typeStr="";
         dim = 0;
@@ -90,14 +108,31 @@ public class CBuildTypeName extends IrSwitch<Boolean> {
         }
     }
     
+    /*
+     * Do the actual generation of the type string, use as:
+     * new CBuildTypeName(...).toStr()
+     */
     public String toStr() {
         Boolean res = doSwitch(type);
         if(!res) {
             CodegenError.err("Type name builder", typeStr);
         }
-        return ((dim==0)||!array)?typeStr:"__array4"/*+(dim>4?256:dim)*/+typeStr;
+        /*
+         * If is a list and we want array in type name print it.
+         * The c-structure for arrays are defined as __array4. 
+         * The 4 is that we support maximum 4 dimension sizes.
+         * The number is to allow for optimization/extension
+         * to support fewer and more dimensions with other
+         * metadata structs.
+         */
+        return ((dim==0)||!array)?typeStr:"__array4"+typeStr;
     }
     
+    /*
+     * Print the final element type string, use as:
+     * new CBuildTypeName(...).toFinalTypeStr()
+     * NB! Must have called toStr() first.
+     */
     public String toFinalTypeStr() {
         return typeStr;
     }
@@ -137,6 +172,7 @@ public class CBuildTypeName extends IrSwitch<Boolean> {
         switch(sz) {
         case 32:
         case -1:
+            //When no size specified use 32 bit
             typeStr += ("int32_t");
             break;
         case 16:
@@ -146,6 +182,8 @@ public class CBuildTypeName extends IrSwitch<Boolean> {
             typeStr += ("int8_t");
             break;
         default:
+            //Also for sizes that don't is even 8, 16 or 32 use 32 bit, 
+            //this is new behavior since previous codegen have all used 32 bit.
             typeStr += ("int32_t /*FIXME actually sz="+sz+"*/");
         }
         typeStr += cb.postTypeFn(type);
@@ -161,6 +199,7 @@ public class CBuildTypeName extends IrSwitch<Boolean> {
         switch(sz) {
         case 32:
         case -1:
+            //When no size specified use 32 bit
             typeStr += ("uint32_t");
             break;
         case 16:
@@ -170,6 +209,8 @@ public class CBuildTypeName extends IrSwitch<Boolean> {
             typeStr += ("uint8_t");
             break;
         default:
+            //Also for sizes that don't is even 8, 16 or 32 use 32 bit, 
+            //this is new behavior since previous codegen have all used 32 bit.
             typeStr += ("uint32_t /*FIXME actually sz="+sz+"*/");
         }
         typeStr += cb.postTypeFn(type);
@@ -193,6 +234,7 @@ public class CBuildTypeName extends IrSwitch<Boolean> {
         typeStr += cb.preTypeFn(type);
         doSwitch(type.getType());
         typeStr += cb.postTypeFn(type);
+        //Keep track of how many dimensions in we are which is available for the callback function
         dim++;
         typeStr += cb.listTypeFn(type, dim);
         leave();
@@ -203,6 +245,7 @@ public class CBuildTypeName extends IrSwitch<Boolean> {
     @Override
     public Boolean caseTypeString(TypeString type) {
         enter(type);
+        //Strings are printed as single dim char array
         typeStr += cb.preTypeFn(type);
         if(!array) {
             typeStr += "char";

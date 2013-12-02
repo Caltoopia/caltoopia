@@ -73,7 +73,12 @@ import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableReference;
 import org.caltoopia.ir.util.IrSwitch;
 import org.eclipse.emf.ecore.EObject;
-
+/*
+ * Class for generating a string with the actor's
+ * action scheduler.
+ * 
+ * Quality: 5, mostly same as previous implementation 
+ */
 public class CBuildActorActionScheduler extends IrSwitch<Boolean> {
     String schedStr="";
     Actor actor;
@@ -84,6 +89,18 @@ public class CBuildActorActionScheduler extends IrSwitch<Boolean> {
     boolean initialToken = false;
     boolean debugPrint=false;
 
+    /*
+     * Constructor for building a long string containing the 
+     * c-code of an action scheduler. The action scheduler is 
+     * printed as a c function. The function is called from the
+     * runtime.
+     * 
+     * actor: actor for which action scheduler should be printed
+     * cenv: input/output variable collecting information that is 
+     *       needed in makefiles etc, same object used for all CBuilders
+     * ind: indentation object, passed in so that sub-parts maintains overall indentation level
+     * debugPrint: if true prints the debug printing of firing actions and state changes (should be controlled by the GUI switch)
+     */
     public CBuildActorActionScheduler(Actor actor, CEnvironment cenv, IndentStr ind, boolean debugPrint) {
         schedStr="";
         this.actor = actor;
@@ -96,6 +113,10 @@ public class CBuildActorActionScheduler extends IrSwitch<Boolean> {
         this.debugPrint=debugPrint;
     }
     
+    /*
+     * Do the actual generation of the action scheduler string, use as:
+     * new CBuildActorActionScheduler(...).toStr()
+     */
     public String toStr() {
         Boolean res = doSwitch(actor);
         if(!res) {

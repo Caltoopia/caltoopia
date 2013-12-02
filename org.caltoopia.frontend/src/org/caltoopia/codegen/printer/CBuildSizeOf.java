@@ -92,6 +92,17 @@ import org.caltoopia.ir.VariableReference;
 import org.caltoopia.ir.util.IrSwitch;
 import org.eclipse.emf.ecore.EObject;
 
+/*
+ * This class generates a string giving the c-code sizeof(). 
+ * Supports types, variables, expressions, and assignments.
+ * 
+ * Like the idea of this class but no real usage since
+ * switch to runtime dynamic array handling. Maybe needed again
+ * when doing optimized copying, user type ports etc.
+ * 
+ * Quality: 2, only one user (from code that should not be reached)
+ *             needs shaping up before actual usage.
+ */
 public class CBuildSizeOf extends IrSwitch<Boolean> {
     String exprStr="";
     CEnvironment cenv = null;

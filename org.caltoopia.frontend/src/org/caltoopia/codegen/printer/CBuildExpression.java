@@ -82,6 +82,14 @@ import org.caltoopia.ir.VariableReference;
 import org.caltoopia.ir.util.IrSwitch;
 import org.eclipse.emf.ecore.EObject;
 
+/*
+ * This class generates a string for an expression.
+ * It covers all expressions currently and should 
+ * benefit from further being broken up.
+ * 
+ * Quality: 3, works but variable expression printing is complicated and could have errors
+ *             also type constructor calls have limited testing.
+ */
 public class CBuildExpression extends IrSwitch<Boolean> {
     String exprStr="";
     String refStr ="";
@@ -97,6 +105,21 @@ public class CBuildExpression extends IrSwitch<Boolean> {
     boolean asRef = false;
     boolean asArrayPart = false;
     int level = 0;
+    /*
+     * Constructor for building a long string containing the 
+     * c-code of an expression. The expression is printed as 
+     * a single line of c-code to be embedded into a statement.
+     * 
+     * expression: expression to be printed
+     * cenv: input/output variable collecting information that is 
+     *       needed in makefiles etc, same object used for all CBuilders
+     * asRef: print the variable as a c-code pointer, i.e. if not already a pointer prefix with "&"
+     * sepIndex: the expStr will not have the indices of the variable (or last user type member)
+     *           instead these can be access by indexStr(), hence only relevant to variable expressions.
+     *  asArrayPart: build up the metadata structure of a sub-array around the multi-dim variable 
+     *               expression, to avoid copying to temp array. Only used for input params 
+     *               to functions/procedures.
+     */
     public CBuildExpression(Expression expression, CEnvironment cenv, boolean asRef, boolean sepIndex, boolean asArrayPart) {
         exprStr="";
         refStr="";
@@ -111,15 +134,25 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         dim = 0;
     }
     
+    //Use this constructor as much as possible
     public CBuildExpression(Expression expression, CEnvironment cenv) {
         this(expression, cenv,false,false,false);
     }
 
+    /*
+     * Do the actual generation of the expression string, use as:
+     * new CBuildExpression(...).toStr()
+     */
     public String toStr() {
         Boolean res = doSwitch(expression);
         return refStr + castStr + exprStr;
     }
 
+    /*
+     * Do the generation of the index string as a struct,
+     * that can be used with the array copy functions.
+     * Must have called toStr() first.
+     */
     public String indexStr() {
         String indexStr = "(__arrayArg) {";
         indexStr += indexArray.size() + ",{";
@@ -132,6 +165,12 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         return indexStr;
     }
 
+    /*
+     * Do the generation of the size string as a struct,
+     * that can be used with the array copy functions.
+     * Must have called toStr() first.
+     * partial: skip the dimensions that are covered by the indices
+     */
     public String sizeStr(boolean partial) {
         int n = partial?indexArray.size():0;
         String indexStr = "(__arrayArg) {";
@@ -163,6 +202,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         return sizeArray.size()-(partial?indexArray.size():0);
     }
 
+    //Used when doing nested list expressions and want to keep track of the nesting level
     public CBuildExpression dimension(int dim) {
         this.dim = dim;
         return this;
@@ -172,7 +212,22 @@ public class CBuildExpression extends IrSwitch<Boolean> {
     private void leave() {level--;}
     
     //---------------------util------------------------------------
-    //Prints indexStr, but also returns boolean true when the resulting type is not a list
+    /*
+     * Prints indexStr, but also returns boolean true when the resulting type is not a list
+     * The result indexStr is only used when printing index with variable
+     * otherwise when separate it is generated in indexStr(). 
+     * NB! it is only the last member when user types that can have separate index,
+     * previous indices are always printed with the variable.
+     * Since the array is allocated as a single memory allocation we multiply
+     * indices with dimension sizes to reach correct element. 
+     * [((((i0)*sz1+i1)*sz2+i2)*sz3+i3)], when fewer indices the +iX is muted
+     * When static dimension sizes use those otherwise pick it from metadata.
+     * 
+     * index: list of indices expressions
+     * varType: variable's type
+     * varStr: name of variable including all prefixing etc
+     * sep: if the indices string is printed separate
+     */
     protected Boolean indexPStr(List<Expression> index, Type varType, String varStr, boolean sep) {
         List<Expression> szExpr = new ArrayList<Expression>();
         List<Expression> indExpr = new ArrayList<Expression>();
@@ -243,29 +298,13 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         return false;
     }
     
-    
+    //FIXME remove function, it's a leftover from when we did static placement
     private boolean directMember(Member member) {
-        TypeMember typeMember = TypeMember.valueOf(TransUtil.getAnnotationArg(member, IrTransformer.TYPE_ANNOTATION, "TypeStructure"));
         boolean direct = true;
-/* FIXME not used anyway
-        switch(typeMember) {
-        case unknown:
-            CodegenError.err("Expression builder", "unknown placement of member " + member.getName());
-        case builtin:
-        case byListSome: //Used when list of decided size and inlined  but have deeper members that are not
-        case byListFull: //Used when list of decided size and inlined and all deeper members also (including lists of builtins)
-        case inlineSome: //Used when user type that is inlined but have deeper members that are not
-        case inlineFull: //Used when user type is inlined and all deeper members also
-            direct = true;
-            break;
-        case byRef: //Used when either type (or list of non-decided size?)
-            direct = false;
-            break;
-        default:
-        }*/
         return direct;
     }
     
+    //FIXME should be removed, have the return value based on other annotations instead
     private boolean directVar(VariableExpression var) {
         VarPlacement varPlacement = VarPlacement.valueOf(TransUtil.getAnnotationArg(var, IrTransformer.VARIABLE_ANNOTATION, "VarPlacement"));
         boolean direct = true;
@@ -294,6 +333,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         return direct;
     }
     
+    //Translation between CAL and c for arithmetic operations
     private void printOperator(String operator) {
         if (operator.equals("=")) {
             exprStr += ("==");
@@ -356,6 +396,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
     @Override
     public Boolean caseListExpression(ListExpression lit) {
         enter(lit);
+        //Build the list expression as a long list of elements between {}, even when multi-dim
         if(dim==0) 
             exprStr += ("{");
         dim++;
@@ -366,12 +407,14 @@ public class CBuildExpression extends IrSwitch<Boolean> {
             if (i.hasNext()) exprStr += ", ";
         }
         if(!lit.getGenerators().isEmpty()) {
+            //Transformations passes should have removed all of them
             exprStr += "/* Don't know what to do with a generator yet "+ lit.toString() +"*/";
             CodegenError.err("Expression builder", "Don't know what to do with a generator yet "+ lit.toString() + ", check output!");
         }
         dim--;
         if(dim==0) {
             exprStr += ("}");
+            //Need a type cast string to help the c-compiler understand the expression between {}
             if(lit.getExpressions().get(0).getType() != null)
                 castStr = "(" + new CBuildTypeName(lit.getExpressions().get(0).getType(), new CPrintUtil.dummyCB(),false).toStr() +"[])";
         }
@@ -383,7 +426,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
     public Boolean caseVariableExpression(VariableExpression var) {
         enter(var);
         VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(var, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
-
+        //create prefix string to variable dependent on classification
         switch(varType) {
         case actorVar:
             exprStr += ("thisActor->");
@@ -401,6 +444,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         }
         String varStr = (CPrintUtil.validCName(var.getVariable().getName()));
         exprStr += varStr;
+        //create string that access the actual array 
         VarLocalAccess vla = VarLocalAccess.valueOf(TransUtil.getAnnotationArg(var, IrTransformer.VARIABLE_ANNOTATION, "VarLocalAccess"));
         boolean sep = false;
         boolean asArray = asArrayPart;
@@ -417,10 +461,11 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         case listMemberListUserType:
         case listMemberListMultiUserType:
         case listMemberListMultiUserTypeList:
-        case listMemberList:
+        case listMemberList: //Since this is a list of user types even if that member have a list of builtin type
         case listMemberListMulti:
         case listMemberListMultiList:
         case listMemberString:
+            //User types arrays are stored as an array of pointers and use the .pp notation
             pointerArray = true;
             exprStr += ".pp";
             break;
@@ -432,7 +477,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
             asArrayPart = false; //making sure scalar is not made into arrays (since caller might not have checked)
             asArray = false; //making sure scalar is not made into arrays (since caller might not have checked)
             asArrayPart = var.getIndex().isEmpty()?false:asArrayPart; //When no index, can't be sub-array
-            sep = asArrayPart?true:sepIndex;
+            sep = asArrayPart?true:sepIndex;//we also want to have the index separate when part of array
             if(!sepIndex && !asArrayPart && !asArray) {
                 exprStr += ".p" + (pointerArray?"p":"");
             }
@@ -446,7 +491,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         case listMultiList:
         case string:
             asArrayPart = var.getIndex().isEmpty()?false:asArrayPart; //When no index, can't be sub-array
-            sep = asArrayPart?true:sepIndex;
+            sep = asArrayPart?true:sepIndex;//we also want to have the index separate when part of array
             if(!sepIndex && !asArrayPart && !asArray) {
                 exprStr += ".p" + (pointerArray?"p":"");
             }
@@ -468,28 +513,35 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         default:
             asArrayPart = false; //making sure scalar is not made into arrays (since caller might not have checked)
         }
+        //Print any index
         boolean hasIndex = indexPStr(var.getIndex(),((Variable)UtilIR.getDeclarationTransformed(var.getVariable())).getType(),varStr,sep);
         boolean direct = directVar(var);
         int nbrMembers = var.getMember().size();
         boolean inSep = sepIndex;
         sepIndex = false;
+        //Print each user type member and their index
         for (Member m : var.getMember()) {
             nbrMembers--;
+            //Only for last member in chain any sepIndex applies
             if(nbrMembers==0){
                 asArrayPart = m.getIndex().isEmpty()?false:asArrayPart; //When no index, can't be sub-array
                 sepIndex = asArrayPart?true:inSep;
             }
+            //Do we have a pointer?
             exprStr += ((direct||hasIndex)&&!pointerArray?".":"->");
             hasIndex = caseMember(m);
             direct = directMember(m);
+            //Check if list of user type which affect if we need to print "*" to get the actual structure
             pointerArray = TransUtil.getAnnotationArg(m, IrTransformer.TYPE_ANNOTATION, "TypeStructure").equals("listUserType");
         }
+        //Build a sub-array from the expression
         if(asArrayPart) {
             //This is only used for building the var to the flags field and other metadata of array
             String eStr = exprStr;
             castStr = "(" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(),true).toStr() +")";
-            //Calling build expression again to get a pointer to a part of the array 
+            //Calling build expression again to get a pointer to a part of the array
             exprStr = "{" + new CBuildExpression(var, cenv, true, false, false).toStr() + ", ";
+            //flag this as a sub-array and hence can't be freed etc.
             exprStr += eStr + ".flags|0x10, ";
             int n = indexArray.size();
             exprStr += sizeArray.size()-n + ", {";
@@ -506,9 +558,12 @@ public class CBuildExpression extends IrSwitch<Boolean> {
             exprStr += "}}";
         }
         
+        //If needing a pointer prefix with & if no members but have index or separate index requested and 
+        //this is the highest level of the expression (hence not deeper down into sub-expressions reach by doSwitch)
         if(asRef && ((var.getMember().isEmpty()  && !var.getIndex().isEmpty()) || sep || sepIndex) && level == 1) {
             refStr = "&";
         }
+        //user type array need extra *
         if(pointerArray && !inSep) {
             refStr += "*";
         }
@@ -541,6 +596,8 @@ public class CBuildExpression extends IrSwitch<Boolean> {
     public Boolean caseBinaryExpression(BinaryExpression expr) {
         enter(expr);
         exprStr += "(";
+        //Handle the string comparisons by utilizing helper string methods
+        //Handles l=literal or v=variable expressions
         if(expr.getOperand1().getType() instanceof TypeString) {
             boolean op1IsLit = expr.getOperand1() instanceof StringLiteral;
             boolean op2IsLit = expr.getOperand2() instanceof StringLiteral;
@@ -579,6 +636,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
             }
             exprStr += ")";
         } else {
+            //Handle the arithmetic comparisons
             doSwitch(expr.getOperand1());
             exprStr += " ";
             printOperator(expr.getOperator());
@@ -601,6 +659,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
                     ((VariableExpression)expr.getOperand()).getVariable() instanceof Variable &&
                     ((Variable)((VariableExpression)expr.getOperand()).getVariable()).getType() instanceof TypeString))
             && operator.equals("#")) {
+            //Get the length of a string with #-operator
             exprStr += "(int32_t)strlen(";
             doSwitch(expr.getOperand());
             exprStr += ")";
@@ -608,6 +667,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
             if (operator.equals("not")) {
                 exprStr += ("!");
             } else if (operator.equals("#")) {
+                    //FIXME need to calculate array lengths instead or int bit-width instead
                     exprStr += ("sizeof");
             } else if (operator.equals("old")) {
                 exprStr += ("/* Usage of unary operator old is not supported! */");
@@ -635,6 +695,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         String nameStr="";
         Declaration f = null;
         boolean print = false;
+        //Get the function prefix and function name
         switch(varType) {
         case func: //functions declared inside same namespace-level and likely called from a function or an initValue
             thisStr = TransUtil.getNamespaceAnnotation(expr.getFunction()) + "__";
@@ -695,6 +756,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
                     typeUsage + " */");
         }
         if(print) {
+            //If successfully found function name print it with the param expressions.
             exprStr += thisStr + nameStr + "(" + extraParamStr;
             for (int i = 0; i<expr.getParameters().size(); i++) {
                 Expression p = expr.getParameters().get(i);
@@ -713,7 +775,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(expr, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
         VarAccess varAccess = VarAccess.valueOf(TransUtil.getAnnotationArg(expr, IrTransformer.VARIABLE_ANNOTATION, "VarAccess"));
         String typeUsage = TransUtil.getAnnotationArg(expr, IrTransformer.TYPE_ANNOTATION, "TypeUsage");
-        
+        //A type constructor call is printed as (type){flags,member1,member2,...}, the c-compiler figures out the implicit {} to reach the members part of the structure
         exprStr += "((" + CPrintUtil.validCName(expr.getName()) + "_t) ";
         exprStr += ("{");
         exprStr += "0x0, "; //Flag allocated on the stack

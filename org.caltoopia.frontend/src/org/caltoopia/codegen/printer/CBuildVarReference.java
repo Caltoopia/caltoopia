@@ -82,6 +82,13 @@ import org.caltoopia.ir.VariableReference;
 import org.caltoopia.ir.util.IrSwitch;
 import org.eclipse.emf.ecore.EObject;
 
+/*
+ * This class generates a string for a variable reference.
+ * It has much resemblence with variable expressions in
+ * CBuildExpression and could benefit from more common code.
+ * 
+ * Quality: 3, works but it is complicated and could have errors
+ */
 public class CBuildVarReference extends IrSwitch<Boolean> {
     String refStr="";
     String flagsStr = "";
@@ -96,6 +103,20 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
     boolean sepIndex = false;
     boolean lastMember = false;
     CEnvironment cenv = null;
+
+    /*
+     * Constructor for building a long string containing the 
+     * c-code of an variable reference. The variable reference
+     * is printed as a single line of c-code to be embedded 
+     * into a statement.
+     * 
+     * reference: variable reference to be printed
+     * cenv: input/output variable collecting information that is 
+     *       needed in makefiles etc, same object used for all CBuilders
+     * asRef: print the variable as a c-code pointer, i.e. if not already a pointer prefix with "&"
+     * sepIndex: the expStr will not have the indices of the variable (or last user type member)
+     *           instead these can be access by indexStr().
+     */
     public CBuildVarReference(VariableReference reference, CEnvironment cenv, boolean asRef, boolean sepIndex) {
         refStr="";
         ref2Str="";
@@ -108,19 +129,34 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
         this.sepIndex = sepIndex;
     }
     
+    //Use this constructor as much as possible
     public CBuildVarReference(VariableReference reference, CEnvironment cenv) {
         this(reference,cenv,false,false);
     }
     
+    /*
+     * Do the actual generation of the variable ref string, use as:
+     * new CBuildVarReference(...).toStr()
+     */
     public String toStr() {
         Boolean res = doSwitch(reference);
         return ref2Str + refStr;
     }
 
+    /*
+     * Do the generation of the flags metadata string,
+     * that can be used to change the flags (typically temp array).
+     * Must have called toStr() first.
+     */
     public String flagsStr() {
         return flagsStr + ".flags";
     }
 
+    /*
+     * Do the generation of the index string as a struct,
+     * that can be used with the array copy functions.
+     * Must have called toStr() first.
+     */
     public String indexStr() {
         String indexStr = "(__arrayArg) {";
         indexStr += indexArray.size() + ",{";
@@ -133,6 +169,11 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
         return indexStr;
     }
 
+    /*
+     * Do the generation of the size string as a struct,
+     * that can be used with the array copy functions.
+     * Must have called toStr() first.
+     */
     public String sizeStr() {
         String indexStr = "(__arrayArg) {";
         if(reference.getType() instanceof TypeString) {
@@ -167,7 +208,22 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
     private void leave() {level--;}
     
     //---------------------util------------------------------------
-    //Prints indexStr, but also returns boolean true when the resulting type is not a list
+    /*
+     * Prints indexStr, but also returns boolean true when the resulting type is not a list
+     * The result indexStr is only used when printing index with variable
+     * otherwise when separate it is generated in indexStr(). 
+     * NB! it is only the last member when user types that can have separate index,
+     * previous indices are always printed with the variable.
+     * Since the array is allocated as a single memory allocation we multiply
+     * indices with dimension sizes to reach correct element. 
+     * [((((i0)*sz1+i1)*sz2+i2)*sz3+i3)], when fewer indices the +iX is muted
+     * When static dimension sizes use those otherwise pick it from metadata.
+     * 
+     * index: list of indices expressions
+     * varType: variable's type
+     * varStr: name of variable including all prefixing etc
+     * sep: if the indices string is printed separate
+     */
     protected Boolean indexPStr(List<Expression> index, Type varType, String varStr, boolean sep) {
         List<Expression> szExpr = new ArrayList<Expression>();
         List<Expression> indExpr = new ArrayList<Expression>();
@@ -240,28 +296,14 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
     }
     
     
+    //FIXME remove function, it's a leftover from when we did static placement
     private boolean directMember(Member member) {
         TypeMember typeMember = TypeMember.valueOf(TransUtil.getAnnotationArg(member, IrTransformer.TYPE_ANNOTATION, "TypeStructure"));
         boolean direct = true;
-/*      FIXME Not used anyway
-        switch(typeMember) {
-        case unknown:
-            CodegenError.err("Var ref builder", "unknown placement of member " + member.getName());
-        case builtin:
-        case byListSome: //Used when list of decided size and inlined  but have deeper members that are not
-        case byListFull: //Used when list of decided size and inlined and all deeper members also (including lists of builtins)
-        case inlineSome: //Used when user type that is inlined but have deeper members that are not
-        case inlineFull: //Used when user type is inlined and all deeper members also
-            direct = true;
-            break;
-        case byRef: //Used when either type (or list of non-decided size?)
-            direct = false;
-            break;
-        default:
-        }*/
         return direct;
     }
     
+    //FIXME should be removed, have the return value based on other annotations instead
     private boolean directVar(VariableReference var) {
         VarPlacement varPlacement = VarPlacement.valueOf(TransUtil.getAnnotationArg(var, IrTransformer.VARIABLE_ANNOTATION, "VarPlacement"));
         boolean direct = true;
@@ -296,7 +338,7 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
     public Boolean caseVariableReference(VariableReference var) {
         enter(var);
         VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(var, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
-
+        //create prefix string to variable dependent on classification
         switch(varType) {
         case actorVar:
             refStr += ("thisActor->");
@@ -314,9 +356,10 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
         }
         String varStr = (CPrintUtil.validCName(var.getDeclaration().getName()));
         refStr += varStr;
+        //create string that access the actual array 
         VarLocalAccess vla = VarLocalAccess.valueOf(TransUtil.getAnnotationArg(var, IrTransformer.VARIABLE_ANNOTATION, "VarLocalAccess"));
         boolean sep = false;
-        boolean pointerArray = false;
+        boolean pointerArray = false; //list of pointers (for user types)
         switch(vla) {
         case listMemberScalar:
         case listMemberList:
@@ -333,6 +376,7 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
         case listMemberString:
             pointerArray = true;
             refStr += ".pp";
+            //We want the flags of the member of array type this is why flags string contains the actual array of the first array
             flagsStr = refStr;
             break;
         case listUserType:
@@ -355,26 +399,34 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
         default:
         }
 
+        //Print any index
         boolean hasIndex = indexPStr(var.getIndex(),var.getDeclaration().getType(), varStr, sep);
         boolean direct = directVar(var);
         int nbrMembers = var.getMember().size();
         boolean inSep = sepIndex;
         sepIndex = false;
+        //Print each user type member and their index
         for (Member m : var.getMember()) {
             nbrMembers--;
+            //Only for last member in chain any sepIndex applies
             if(nbrMembers==0){
                 sepIndex = inSep;
                 lastMember = true;
             }
+            //Do we have a pointer?
             refStr += ((direct||hasIndex)&&!pointerArray?".":"->");
             hasIndex = caseMember(m);
             direct = directMember(m);
+            //Check if list of user type which affect if we need to print "*" to get the actual structure
             pointerArray = TransUtil.getAnnotationArg(m, IrTransformer.TYPE_ANNOTATION, "TypeStructure").equals("listUserType");
         }
 
+        //If needing a pointer prefix with & if no members but have index or separate index requested and 
+        //this is the highest level of the expression (hence not deeper down into sub-expressions reach by doSwitch)
         if(asRef && ((var.getMember().isEmpty()  && !var.getIndex().isEmpty()) || sep || sepIndex) && level == 1) {
             ref2Str = "&";
         }
+        //user type array need extra *
         if(pointerArray && !inSep) {
             ref2Str += "*";
         }
@@ -390,6 +442,7 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
         boolean userTypeList = false;
         if(UtilIR.isList(member.getType()) && !sepIndex) {
             if(lastMember) {
+                //When last member in chain copy the string to flags
                 flagsStr = refStr;
             }
             userTypeList = TransUtil.getAnnotationArg(member, IrTransformer.TYPE_ANNOTATION, "TypeStructure").equals("listUserType");

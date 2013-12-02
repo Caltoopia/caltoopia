@@ -39,10 +39,19 @@ package org.caltoopia.codegen.printer;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.TypeUser;
-
+/*
+ * Interface used in CBuildTypeName
+ * to define callback methods when
+ * printing a type.
+ */
 public interface ITypeCallbacks {
+    //Called before adding the type name to the string, allowing adding prefix string
     public String preTypeFn(Type type);
+    //Called after adding the type name to the string, allowing adding postfix string
     public String postTypeFn(Type type);
+    //Called after postTypeFn for list type, once for each dimension starting on 1, allow adding to the string
+    //It is also common to alter type callback implementation surrounding variables inside this function
     public String listTypeFn(TypeList type, int dim);
+    //FIXME actually never called, but should be called after a user type
     public String userTypeFn(TypeUser type);
 }

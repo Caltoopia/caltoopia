@@ -118,6 +118,14 @@ import org.caltoopia.ir.VariableImport;
 import org.caltoopia.ir.util.IrSwitch;
 import org.eclipse.emf.ecore.EObject;
 
+/*
+ * This is the top class for printing an
+ * annotated and transformed IR. It prints
+ * the types header file, the network header and c-code,
+ * and the actor c-code.
+ * 
+ * Quality: 4, should work but would benefit from breaking out parts and better organization
+ */
 public class CPrinterTop extends IrSwitch<Stream> {
 
     Stream s;
@@ -129,8 +137,16 @@ public class CPrinterTop extends IrSwitch<Stream> {
     CEnvironment cenv = null;
     String topHeaderFilename = null;
     Actor currentActor = null;
-    //-----------------------------------------------------------------------------
     
+    /*
+     * Constructor for printing all the header and c-files.
+     * Main entry point for printing the annotated and
+     * transformed IR.
+     * 
+     * session: session info
+     * cenv: empty input variable to collect information 
+     *       needed in makefiles etc from all the CBuilders
+     */
     public CPrinterTop(CompilationSession session, CEnvironment cenv) {
         PrintStream out = session.getOutputStream();
         String nsName;
@@ -140,7 +156,11 @@ public class CPrinterTop extends IrSwitch<Stream> {
         this.out = session.getOutputStream();
         this.cenv = cenv;
         
-        //Copy the array methods header file
+        /* 
+         * Copy the array methods header file, declaring all the functions
+         * used for (de)allocating and copying arrays. It has inlined declared methods.
+         */
+        
         try {
             File dst = new File(session.getOutputFolder() + File.separator + "__arrayCopy.h");
             System.out.println("Copying '" + dst + "'");
@@ -164,6 +184,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
             e.printStackTrace();
         }
 
+        //Get the transformed elaborated top network from actor directory
         Network network = null;
         TypeActor elaboratedNetworkType = session.getElaboratedNetwork().getType();
         try {
@@ -173,6 +194,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
             System.err.println("[CPrinter] Internal error could not get top network from storage.");
         }
 
+        //Check if debug printing is set in the GUI
         debugPrint = session.debugPrint() == CompilationSession.DEBUG_TYPE_ACTIONUSER;
 
         nsName = Util.marshallQualifiedName(elaboratedNetworkType.getNamespace());
@@ -181,6 +203,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
         file = session.getOutputFolder() + File.separator + baseName;
         s = new Stream(file + "__types.h");
         out.println("Writing '" + file + "__types.h'");
+        //Print user type header file
         typesHeader = true;
         doSwitch(network);
         s.close();
@@ -188,12 +211,14 @@ public class CPrinterTop extends IrSwitch<Stream> {
 
         s = new Stream(file + ".h");
         out.println("Writing '" + file + ".h'");
+        //Print network header file
         header = true;
         doSwitch(network);
         s.close();
         
         s = new Stream(file + ".c");
         out.println("Writing '" + file + ".c'");
+        //Print network c-code file
         header = false;
         doSwitch(network);
         cenv.sourceFiles.add(baseName + ".c");
@@ -227,6 +252,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
                 file = session.getOutputFolder() + File.separator + baseName;
                 s = new Stream(file);
                 out.println("Writing '" + file + "'");
+                //Print actor instance
                 doSwitch(actor);
                 s.close();
                 cenv.sourceFiles.add(baseName);
@@ -244,6 +270,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
                 */
             }
         }
+        //Print build files
         CPrintBuildFiles build = new CPrintBuildFiles(session,cenv);
         try {
             build.MonoMakefile();
@@ -272,6 +299,11 @@ public class CPrinterTop extends IrSwitch<Stream> {
         CPrintUtil.toEnvEnv(aargs, cenv);
     }
 
+    /*
+     * Find out which files to include in an actor c-code file,
+     * based on the external declarations, i.e. extra external 
+     * declarations.
+     */
     private void printCIncludes(List<Declaration> declarations) {
         Set<String> cHeaders = new HashSet<String>();
         
@@ -312,8 +344,15 @@ public class CPrinterTop extends IrSwitch<Stream> {
         }        
     }
 
-    //--------------------------------------------------------------------------------
-    
+    /*
+     * Print the transformed elaborated top network.
+     * This function can print either header, c-code
+     * or type header file based on how the class
+     * variables header and typeHeader are set.
+     * 
+     * network: top network
+     * Quality: 3, need to clean up and break up into pieces.
+     */
     @Override
     public Stream caseNetwork(Network network) {
         s.println("// " + Util.marshallQualifiedName(network.getType().getNamespace()) + network.getType().getName());
@@ -330,12 +369,22 @@ public class CPrinterTop extends IrSwitch<Stream> {
             s.println("#define TYPE_DIRECT");
 
             int dimensions[] = {4};//For now only max 4 dim and no optimization of struct size, {1,2,3,4,256}; //list all dimensions needed, if someone wants more than 4 dimensions they get 256 since they anyway don't care about memory usage
-            //A type to remove varying nbr of arg to copy routines
+            /*
+             * Print a type used to specify index or size
+             * of an array. Used by the array copy methods.
+             */
             s.println("typedef struct {");
             s.println("  int32_t len;");
             s.println("  int32_t sz[" + dimensions[dimensions.length-1]+ "];");
             s.println("} __arrayArg;");
 
+            /*
+             * Print a function used to calc a max of
+             * each dimension.
+             * targetSz: the assigned target's size
+             * exprSz: the assigning expression's size
+             * shift: how many dimensions (due to index) that is used from the targetSz.
+             */
             s.println("static inline __arrayArg maxArraySz(__arrayArg* targetSz, __arrayArg* exprSz, int shift) {");
             s.println("    __arrayArg ret;");
             //Full array replace
@@ -354,17 +403,28 @@ public class CPrinterTop extends IrSwitch<Stream> {
 
             /*
              * These are the array types 
-             * First is a union that can point to list containing the elements (p) or list of pointer to the elements (pp)
-             * Next a flag field:
+             * typedef struct {
+             *     union {
+             *         T_t* p;           pointer to array of builtin typed elements of the flattened array
+             *         T_t* (*pp);       pointer to array of pointers to user type elements of the flattened array 
+             *     };
+             *     union { struct {
+             *         uint16_t flags;  flags see below
+             *         uint16_t dim;    dimensions valid in size array below
+             *     }; uint32_t flags_dim;};
+             *     int32_t sz[4];       size of each dimension (currently maximum of 4 allowed)
+             * } __array4T_t;           This metadata type is created for all the builtin types and all the user types
+             *
+             * Flag field:
              *   Flags (true/false):
-             *   0:0x01 direct(p)/indirect(pp)
-             *   1:0x02 currently allocated(sz & pointer correct)/not-allocated
-             *   2:0x04 on heap/on stack, (the data is currently allocated on the heap and if the pointer is changed the old needs to be (deep) freed (we know non-other keeps pointers to lower levels due to copy semantics)
-             *   3:0x08 codegen (temporary created variable go ahead and steel the memory)/cal variable (must obey copy semantics)
-             *   4:0x10 part of multi-dim (can't used change the pointer or free etc, since pointing into the memory of a larger array)/the full array
-             * Next field is an 4 element array of sizes for each dimension (max 4 dimensions currently).
+             *   0:0x01 direct(p)/indirect(pp)  (FIXME not set correctly in all the code, remove it since anyway linked to user type?)
+             *   1:0x02 currently allocated(sz & pointer correct)/not-allocated (Very important to be correct)
+             *   2:0x04 on heap/on stack, (the data is currently mostly allocated on the heap and if the pointer is changed the old needs to be (deep) freed (we know non-other keeps pointers to lower levels due to copy semantics)
+             *   3:0x08 codegen (temporary created variable due to transformations go ahead and steel the memory)/cal variable (must obey copy semantics)
+             *   4:0x10 part of multi-dim (can't change the pointer or free etc, since pointing into the memory of a larger array)/the full array
              */
-            
+
+            //Print array metadata struct and array methods for all builtin types
             for(String t: Arrays.asList("char", "int8_t", "uint8_t", "int16_t", "uint16_t", "int32_t", "uint32_t", "double","void", "bool_t")) {
                 for(int i:dimensions) {
                     s.println("typedef struct {");
@@ -384,6 +444,8 @@ public class CPrinterTop extends IrSwitch<Stream> {
             }
             s.println("#undef TYPE_DIRECT");
             
+            
+            //Print typedef definition of user type struct for all user types
             for(Declaration d : network.getDeclarations()) {
                 VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
                 switch(varType) {
@@ -391,6 +453,8 @@ public class CPrinterTop extends IrSwitch<Stream> {
                     s.println("typedef struct " + ((TypeDeclaration)d).getName() + "_s " + ((TypeDeclaration)d).getName() + "_t;");
                 }
             }
+            
+            //Print array metadata struct and array methods for all user types
             for(Declaration d : network.getDeclarations()) {
                 VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
                 switch(varType) {
@@ -417,6 +481,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
             s.println("#endif");
             return s;
         }
+        //All the includes
         enter(network);
         s.println("#include \"actors-rts.h\"");
         s.println("#include \"natives.h\"");
@@ -430,6 +495,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
             s.println("#ifndef "+name);
             s.println("#define "+name);
 
+            //include all external annotated files
             printCIncludes(network.getDeclarations());
 
             for(Declaration d : network.getDeclarations()) {
@@ -474,25 +540,31 @@ public class CPrinterTop extends IrSwitch<Stream> {
             s.println("*pNumberOfInstances=numberOfInstances;");
             s.println();
             
-            // Declare the actors
+            /*
+             *  Declare the actors
+             */
             Set<String> artClasses = new HashSet<String>();
             artClasses.clear();
             for (ActorInstance instance : network.getActors()) {
                 TypeActor type = ((TypeActor) instance.getType());
                 String actorInstanceName = Util.marshallQualifiedName(type.getNamespace()) + "__" + instance.getName();
                 String actorClassName = null;
+                //The ART actors are implemented in the runtime and we use the class name directly instead of instance name 
                 if(type.getName().startsWith("art_")) {
                     actorClassName = type.getName();
                 } else {
                     actorClassName = actorInstanceName; 
                 }
+                //Only new once are defined
                 if(!artClasses.contains(actorClassName)) {
                     s.println("extern ActorClass ActorClass_" + actorClassName + ";");
                     artClasses.add(actorClassName);
                 }
 
+                //Declare the actor instance ...
                 s.println("AbstractActorInstance *" + actorInstanceName + ";");
-                
+
+                //... with its ports
                 AbstractActor actor;
                 try {
                     actor = ActorDirectory.findActor(type);
@@ -510,12 +582,15 @@ public class CPrinterTop extends IrSwitch<Stream> {
                 s.println();
             }                
             
-            // Instantiate the actors
+            /*
+             *  Instantiate the actors
+             */
             int actorId = 0;
             for (ActorInstance actor : network.getActors()) {
                 TypeActor type = ((TypeActor) actor.getType());
                 String actorInstanceName =  Util.marshallQualifiedName(type.getNamespace()) + "__" + actor.getName();
                 String actorClassName = null;
+                //The ART actors are implemented in the runtime and we use the class name directly instead of instance name 
                 if(type.getName().startsWith("art_")) {
                     actorClassName = type.getName(); 
                 } else {
@@ -527,6 +602,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
                     aactor = ActorDirectory.findActor((TypeActor) actor.getType());
                 } catch (DirectoryException x) {
                 }
+                //For any ART actors set the parameters, all other actors have their parameters as part of the actor instance
                 if(type.getName().startsWith("art_") || aactor instanceof ExternalActor) {
                     for(TaggedExpression param : actor.getActualParameters()) {
                         s.print("setParameter(" + actorInstanceName + ", \"" + param.getTag() + "\", ");
@@ -543,6 +619,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
                     }
                 }
                 
+                //Create all the ports
                 for (PortInstance port : actor.getInputs()) {
                     String portName = port.getName();    
                     for (Connection c : network.getConnections()) {
@@ -568,10 +645,12 @@ public class CPrinterTop extends IrSwitch<Stream> {
                     s.println(actorInstanceName + "_" + portName + " = createOutputPort(" + actorInstanceName + ", \"" + portName +"\", " + fanOut + ");");                
                 }
                                         
+                //Finally put the actor instance into the array of instances
                 s.println("actorInstances[" + actorId++ + "] = " + actorInstanceName + ";");
                 s.println();
             }
-                      
+
+            //Connect all the ports
             for (Connection c : network.getConnections()) {
                 if(c instanceof Point2PointConnection) {
                     Point2PointConnection p2p = (Point2PointConnection) c;
@@ -588,6 +667,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
             s.printlnDec("");
             s.println("}");
             
+            //The main function setting up and executing the network
             s.printlnInc("int main(int argc, char *argv[]) {");
             s.println("int numberOfInstances;");
             s.println("AbstractActorInstance **instances;");
@@ -601,6 +681,9 @@ public class CPrinterTop extends IrSwitch<Stream> {
         return s;        
     }
 
+    /*
+     * Print an actor instance
+     */
     @Override
     public Stream caseActor(Actor actor) {
         Map<String, String> inputPortMap = new HashMap<String, String>();
@@ -616,11 +699,14 @@ public class CPrinterTop extends IrSwitch<Stream> {
         s.println("#include \"natives.h\"");
         s.println("#include \"" + topHeaderFilename + "\"");
 
+        //We print an actor instance from an elaborated transformed actor hence the instance name is only available in an annotation
         String thisStr = Util.marshallQualifiedName(actor.getType().getNamespace()) + "__" + TransUtil.getAnnotationArg(actor, "Instance", "name");
         String actorId = "ActorInstance_" + thisStr;
         
+        //Print any external c includes from annotations
         printCIncludes(actor.getDeclarations());
         
+        //Define all the ports
         for (int i = 0; i < actor.getInputPorts().size(); i++) {
             Port p = actor.getInputPorts().get(i);          
             s.println("#define  " + "IN" + i + "_" + p.getName() + " ART_INPUT(" + i + ")");
@@ -634,7 +720,9 @@ public class CPrinterTop extends IrSwitch<Stream> {
         }
         s.println();
 
-
+        /*
+         * Actor local constants
+         */
         s.println("//Actor constants");
         for (Declaration d : actor.getDeclarations()) {
             VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
@@ -651,6 +739,11 @@ public class CPrinterTop extends IrSwitch<Stream> {
     
         s.println();
 
+        /*
+         * Print actor instance state struct
+         * Includes information on context, ports
+         * state variables and FSM state.
+         */
         s.println("//Actor state");
         s.printlnInc("typedef struct {");
         s.println("AbstractActorInstance base;");
@@ -674,28 +767,14 @@ public class CPrinterTop extends IrSwitch<Stream> {
             default:
                 s.println("/*TODO DD " + d.getName() + " of varType " + varType.name() + " and " + ((d instanceof ForwardDeclaration)?"forward declaration":(d instanceof TypeDeclarationImport)?"type import":"NOT anticipated") + " */");
             }
-            /*
-            if (UtilIR.isNormalDef(decl) || UtilIR.isNormalInit(decl)) {
-                UtilIR.tag(decl,"const", false);
-                actorStructDecl.add(decl.getId());
-                doSwitch(((Variable)decl).getType());
-                if(UtilIR.isList(UtilIR.getType(((Variable)decl).getType()))) {
-                    Type type = ((Variable)decl).getType();
-                    while(type instanceof TypeList) {
-                        type = ((TypeList) type).getType();
-                        s.print("*");
-                    }
-                } else if(UtilIR.isRecord(UtilIR.getType(((Variable)decl).getType()))) {
-                        s.print("*");
-                }
-                s.println(" " + validCName(((Variable)decl).getName()) + ";");
-            }
-            */
         }
 
         s.printlnDec("} " + actorId + ";");
         s.println();
         
+        /*
+         * Print actor local function declarations
+         */
         s.println("//Actor functions");
         for (Declaration d : actor.getDeclarations()) {
             VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
@@ -717,22 +796,28 @@ public class CPrinterTop extends IrSwitch<Stream> {
             }
         }   
 
+        //Allocate the actor's action context
         s.println("ART_ACTION_CONTEXT(" + actor.getInputPorts().size() + ", " + actor.getOutputPorts().size() + ")");
         s.println();
 
+        //Define the actions
         for (Action a : actor.getActions()) {
             s.println("ART_ACTION(" + a.getId() + ", " + actorId + ");");
         }
+        //Define the action scheduler
         s.println("ART_ACTION_SCHEDULER(" + thisStr + "_action_scheduler);");
+        //Define the actor constructor
         s.println("static void " + actorId + "_constructor(AbstractActorInstance *);");
         s.println();
         
-
+        //Declare the input port descriptions
         s.printlnInc("static const PortDescription inputPortDescriptions[]={");
         for (int i = 0; i < actor.getInputPorts().size(); i++) {
             Port p = actor.getInputPorts().get(i);
             Type type=p.getType();
+            //First param indicate user type or builtin type
             s.print("{" + (UtilIR.isRecord(type)?"1":"0") + ", \"" + p.getName() + "\", ");
+            //Last param indicate port token size in bytes
             s.print(CPrintUtil.createDeepSizeof(null, type, cenv));
 
             if (i < actor.getInputPorts().size()) {
@@ -743,11 +828,14 @@ public class CPrinterTop extends IrSwitch<Stream> {
         }
         s.printlnDec("};");
 
+        //Declare the output port descriptions
         s.printlnInc("static const PortDescription outputPortDescriptions[]={");
         for (int i = 0; i < actor.getOutputPorts().size(); i++) {
             Port p = actor.getOutputPorts().get(i);         
             Type type=p.getType();
+            //First param indicate user type or builtin type
             s.print("{" + (UtilIR.isRecord(type)?"1":"0") + ", \"" + p.getName() + "\", ");
+            //Last param indicate port token size in bytes
             s.print(CPrintUtil.createDeepSizeof(null, type, cenv));
 
             if (i < actor.getOutputPorts().size()) {
@@ -758,7 +846,8 @@ public class CPrinterTop extends IrSwitch<Stream> {
         }
         s.printlnDec("};");
         s.println();
-        
+
+        //Declare the port rates
         for (Action action : actor.getActions()) {
             s.print("static const int portRate_in_" + action.getId() + "[] = {");
             for (Iterator<Port> i = actor.getInputPorts().iterator(); i.hasNext();) {
@@ -803,13 +892,17 @@ public class CPrinterTop extends IrSwitch<Stream> {
             s.println();    
         }
 
+        //Declare the action descriptions with their port rates
         s.printlnInc("static const ActionDescription actionDescriptions[] = {");
         for (Action action : actor.getActions()) {
             s.println("{\"" + action.getId() + "\", portRate_in_" + action.getId() + ", portRate_out_" + action.getId() + "},");
         }
         s.printlnDec("};");
         s.println();    
-        
+
+        /*
+         * Declare the actor instance struct
+         */
         s.printlnInc("ActorClass ActorClass_" + thisStr + " = INIT_ActorClass(");
         s.println("\"" + thisStr + "\",");
         s.println(actorId + ",");
@@ -823,11 +916,18 @@ public class CPrinterTop extends IrSwitch<Stream> {
         s.printlnDec(");");
         s.println();
         
+        /*
+         * Print each action as a function
+         */
         for (int i=0;i < actor.getActions().size();i++) {
             Action a = actor.getActions().get(i);
             s.println(new CBuildAction(a,cenv,thisStr,i,debugPrint).toStr());
         }
         
+        /*
+         * Print the initializer actions which have output ports
+         * as other actions.
+         */
         if(!actor.getInitializers().isEmpty()) {
             for (int i=0;i < actor.getInitializers().size();i++) {
                 Action a = actor.getInitializers().get(i);
@@ -837,25 +937,34 @@ public class CPrinterTop extends IrSwitch<Stream> {
             }
         }
 
+        /*
+         * Print all the actions guard functions
+         */
         for (int i=0;i < actor.getActions().size();i++) {
             Action a = actor.getActions().get(i);
             s.println(new CBuildGuard(a,cenv,thisStr,i).toStr());
         }
 
+        //Define the intial FSM state
         int i = 0;
         for (State state : actor.getSchedule().getStates()) {
             s.println("#define " + actorId + "__" + state.getName() + "_ID " + i++);
         }
 
+        /*
+         * Declare the actor constructor
+         */
         s.printlnInc("static void " + actorId + "_constructor(AbstractActorInstance *pBase) {");
         s.println(actorId + " *thisActor=(" + actorId + "*) pBase;");
 
+        //Set FSM inital state
         if(actor.getSchedule().getInitialState()!=null) {
             s.println("thisActor->_fsmState = " + actorId + "__" + actor.getSchedule().getInitialState().getName() + "_ID;//Initial state"); 
         } else if(!actor.getSchedule().getStates().isEmpty()){
             s.println("thisActor->_fsmState = " + actorId + "__" + actor.getSchedule().getStates().get(0).getName() + "_ID;//First state"); 
         }
 
+        //Print the bodies of all initializer actions without out ports
         if(!actor.getInitializers().isEmpty()) {
             IndentStr ind = new IndentStr();
             ind.inc();
@@ -867,6 +976,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
             ind.dec();
         }
 
+        //Actors that have CAL annotation of needing active mode set that for the runtime
         if(CPrintUtil.isCActiveMode(actor)) 
         {
             s.println("{");
@@ -932,7 +1042,16 @@ public class CPrinterTop extends IrSwitch<Stream> {
     public Stream caseTypeDeclaration(TypeDeclaration type) {
         if(header) {
             enter(type);
-            /* The user type is created as a c-struct:
+            /* 
+             * This is printed in the network header file
+             * The user type is created as a c-struct:
+             *   struct T_s {
+             *     uint32_t flags;
+             *     struct {
+             *       T1 member1;
+             *       T2 member2;
+             *     } members;
+             *   };
              * First a flags element:
              *   Flags (true/false):
              *   0:0x01 on heap/on stack
@@ -956,20 +1075,33 @@ public class CPrinterTop extends IrSwitch<Stream> {
             s.dec();
             s.print("};"); 
             s.println("");
+            //Define a freeStruct function
             s.println("int freeStruct" + type.getName() + "_t ("+ type.getName() + "_t * src, int top);");
         } else {
+            //Printed in network c-file
             TypeRecord struct = (TypeRecord) (type.getType() instanceof TypeUser ? ((TypeDeclaration)((TypeUser)type.getType()).getDeclaration()).getType(): type.getType());
+            /*
+             * Declaration of freeStruct function. 
+             * This function is used to deep free any user type variable.
+             * It is also used by the array handling methods when freeing
+             * arrays.
+             * src: variable to be freed
+             * top: if also the top level should be freed or only deeper levels
+             */
             s.printlnInc("int freeStruct" + type.getName() + "_t ("+ type.getName() + "_t * src, int top) {");
             for (Iterator<Variable> i = struct.getMembers().iterator(); i.hasNext();) {
                 Variable var = i.next();
                 if(UtilIR.isList(var.getType())) {
+                    //Free any array members
                     s.print("free" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).toStr() + "(&src->members." + new CBuildVarDeclaration(var,cenv,true).toStr() + ", TRUE)");
                     s.println(";");
                 } else if(UtilIR.isRecord(var.getType())) {
+                    //Go deep into a user typed member
                     s.print("freeStruct" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).toStr() + "(&src->members." + new CBuildVarDeclaration(var,cenv,true).toStr() + ", TRUE)");
                     s.println(";");
                 }
             }
+            //If top and allocated on heap free it
             s.printlnInc("if(top && (src->flags&0x1)==0x1) {");
             s.println("free(src);");
             s.dec();

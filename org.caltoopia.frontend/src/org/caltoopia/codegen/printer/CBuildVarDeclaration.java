@@ -74,6 +74,14 @@ import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.util.IrSwitch;
 import org.eclipse.emf.ecore.EObject;
 
+/*
+ * This class generates a string containing a variable declaration
+ * of a normal variable or a parameter variable declaration.
+ * It also handles the memory allocation of static length
+ * arrays. CBuildConstDeclaration inherits from this class.
+ * 
+ * Quality: 5, should work
+ */
 public class CBuildVarDeclaration extends IrSwitch<Boolean> {
     String vtypeStr="";
     String varStr="";
@@ -86,6 +94,18 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
     boolean allFixedSize = true;
     CEnvironment cenv = null;
     
+    /*
+     * Constructor for building a long string containing the 
+     * c-code of a variable declaration. It prints the 
+     * variable's type, name and potentially assigns allocated
+     * memory and sets metadata information.
+     * 
+     * variable: variable to be printed
+     * cenv: input/output variable collecting information that is 
+     *       needed in makefiles etc, same object used for all CBuilders
+     * onlyVar: when true skip printing of the type string, this is useful
+     *          for printing a member of a user type. Generally should be false.
+     */
     public CBuildVarDeclaration(Variable variable, CEnvironment cenv, boolean onlyVar) {
         vtypeStr="";
         varStr="";
@@ -98,6 +118,10 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
         this.cenv = cenv;
     }
     
+    /*
+     * Do the actual generation of the variable declaration string, use as:
+     * new CBuildVarDeclaration(...).toStr()
+     */
     public String toStr() {
         Boolean res = doSwitch(variable);
         if(!res) {
@@ -106,6 +130,16 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
         return (onlyVar?"":vtypeStr + " ") + varStr + dimStr;
     }
     
+    /*
+     * Do the actual generation of the variable allocation string, use as:
+     * new CBuildVarDeclaration(...).initializeToStr()
+     * 
+     * This function is used to allocate array type variables that are of static
+     * size but can't be allocated at declaration time. The reason for placing it
+     * in this class is to use the same code in both cases. The only user is 
+     * allocation of actor variables (which are part of the actor instance struct)
+     * in the actor constructor.
+     */
     public String initializeToStr() {
         initializeVar = true;
         Boolean res = doSwitch(variable);
@@ -123,23 +157,16 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
     //---------------Type callbacks -----------------------------------------
     protected class varCB implements ITypeCallbacks {
         public String preTypeFn(Type type) {
-            // TODO Auto-generated method stub
             return "";
         }
 
         public String postTypeFn(Type type) {
-            /*VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(type, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
-            VarAccess varAccess = VarAccess.valueOf(TransUtil.getAnnotationArg(type, IrTransformer.VARIABLE_ANNOTATION, "VarAccess"));
-            String typeUsage = TransUtil.getAnnotationArg(type, IrTransformer.TYPE_ANNOTATION, "TypeUsage");*/
-//            varStr +=("/* " +
-//                    varType.name() +", " +
-//                    varAccess.name() +", " +
-//                    typeUsage +" */");
             return "";
         }
 
         public String listTypeFn(TypeList type,int dim) {
             if(!onlyVar) {
+                //Create a comma separated list of array dimension sizes and multiply them togheter
                 if(dim>1) {
                     dimStr = ", " + dimStr;
                 }
@@ -148,6 +175,7 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
                     dimStr = sz + dimStr;
                     sizeStr += "*" + sz;
                 } else {
+                    //Non static declared length
                     allFixedSize = false;
                     dimStr = "0" + dimStr;
                 }
@@ -159,7 +187,6 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
         }
 
         public String userTypeFn(TypeUser type) {
-            // TODO Auto-generated method stub
             return "";
         }
     }
@@ -171,13 +198,17 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
         vtypeStr = tn.toStr();
         varStr = CPrintUtil.validCName(variable.getName())+varStr;
         if(!dimStr.equals("") && initialize) {
+            //Type cast to allow c-compiler to recognize it
             String tmpStr = " = (" + vtypeStr +"){";
             if(allFixedSize) {
+                //Allocate the whole array
                 tmpStr += "malloc(sizeof(" + tn.toFinalTypeStr() +")" + sizeStr + "), ";
+                //Set flags indicating allocated, heap, and potentially temporary variable
                 tmpStr += (TransUtil.getAnnotationArg(variable, "Variable", "VarLocalAccess").equals(VarLocalAccess.temp.name()))?"0xf":"0x7";
                 tmpStr += ", ";
             } else {
                 tmpStr += "NULL, ";
+                //Set flags indicating not allocated and potentially temporary variable
                 tmpStr += (TransUtil.getAnnotationArg(variable, "Variable", "VarLocalAccess").equals(VarLocalAccess.temp.name()))?"0x8":"0x0";
                 tmpStr += ", ";
             }
@@ -200,10 +231,12 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
         case actorVar:
             if(initializeVar) {
                 buildVarDeclaration(variable, true);
+                //prefix the declaration with the actor instance, since the only user is in actor constructor
                 varStr = "thisActor->" + varStr;
             } else {
                 initialize = false;
                 buildVarDeclaration(variable, initialize);
+                //member type declarations and actor variable (in instance struct) get here and can't have any allocation
                 dimStr = "";
             }
             break;
@@ -218,6 +251,7 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
         case outPortVar:
         case inOutPortVar:
         case actionVar:
+            //Normal variables with static array size should be allocated
             buildVarDeclaration(variable, initialize);
             break;
         case funcInParamVar:

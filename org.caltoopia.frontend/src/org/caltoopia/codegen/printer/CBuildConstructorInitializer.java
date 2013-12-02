@@ -65,6 +65,16 @@ import org.caltoopia.ir.VariableReference;
 import org.caltoopia.ir.util.IrSwitch;
 import org.eclipse.emf.ecore.EObject;
 
+/*
+ * This class generates a string for an initialization
+ * action which have no output port (initialize actions
+ * are run before any other actions). Initializers with
+ * ports instead print using CBuildAction.
+ * 
+ * Quality: 5, works but when we introduce an actor 
+ *             destructor it should have the corresponding
+ *             free statements like Block and Action.
+ */
 public class CBuildConstructorInitializer extends IrSwitch<Boolean> {
     String bodyStr="";
     Action initializer;
@@ -72,6 +82,17 @@ public class CBuildConstructorInitializer extends IrSwitch<Boolean> {
     CEnvironment cenv = null;
     private IndentStr ind = null;
 
+    /*
+     * Constructor for building a long string containing the 
+     * c-code of an initialization action. The action is printed
+     * as a block and should be embedded into the constructor of
+     * the actor.
+     * 
+     * initializer: initializer to be printed
+     * cenv: input/output variable collecting information that is 
+     *       needed in makefiles etc, same object used for all CBuilders
+     * ind: indentation object, passed in so that sub-parts maintains overall indentation level
+     */
     public CBuildConstructorInitializer(Action initializer, CEnvironment cenv, IndentStr ind) {
         bodyStr="";
         this.initializer = initializer;
@@ -83,6 +104,10 @@ public class CBuildConstructorInitializer extends IrSwitch<Boolean> {
         }
     }
     
+    /*
+     * Do the actual generation of the action scheduler string, use as:
+     * new CBuildConstructorInitializer(...).toStr()
+     */
     public String toStr() {
         Boolean res = doSwitch(initializer);
         if(!res) {
@@ -118,7 +143,7 @@ public class CBuildConstructorInitializer extends IrSwitch<Boolean> {
             case actionVar:
             case actionInitInDepVar:
                 if(((Variable)d).getInitValue() != null) {
-                    //TODO should have separate class for var declaration with initialization
+                    //If the variable needs initialization it uses the CBuildConstDeclaration
                     bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d, cenv, false).toStr()) + ";" + ind.nl();
                 } else {
                     bodyStr += ind.ind() + (new CBuildVarDeclaration((Variable) d,cenv, false).toStr()) + ";" + ind.nl();

@@ -68,7 +68,15 @@ import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableReference;
 import org.caltoopia.ir.util.IrSwitch;
 import org.eclipse.emf.ecore.EObject;
-
+/*
+ * This class generates a string for an action, both a 
+ * normal action and an initialization action which have
+ * an output port (initialize actions are run before any 
+ * other actions). Initializers without ports instead print 
+ * using CBuildConstructorInitializer.
+ * 
+ * Quality: 4, works but user type port operations is not implemented
+ */
 public class CBuildAction extends IrSwitch<Boolean> {
     String bodyStr="";
     String thisStr="";
@@ -79,6 +87,18 @@ public class CBuildAction extends IrSwitch<Boolean> {
     CEnvironment cenv = null;
     private IndentStr ind = null;
 
+    /*
+     * Constructor for building a long string containing the 
+     * c-code of an action. The action is printed as a c function.
+     * Which is called from the action scheduler.
+     * 
+     * action: action to be printed
+     * cenv: input/output variable collecting information that is 
+     *       needed in makefiles etc, same object used for all CBuilders
+     * thisStr: actor prefix string for the action tag
+     * idNbr: index number in list of actions
+     * debugPrint: if true prints the debug printing of firing actions and state changes (should be controlled by the GUI switch)
+     */
     public CBuildAction(Action action, CEnvironment cenv, String thisStr, int idNbr, boolean debugPrint) {
         bodyStr="";
         this.thisStr = thisStr;
@@ -89,6 +109,10 @@ public class CBuildAction extends IrSwitch<Boolean> {
         this.debugPrint = debugPrint;
     }
     
+    /*
+     * Do the actual generation of the action string, use as:
+     * new CBuildAction(...).toStr()
+     */
     public String toStr() {
         Boolean res = doSwitch(action);
         if(!res) {
@@ -116,19 +140,12 @@ public class CBuildAction extends IrSwitch<Boolean> {
             case actorConstVar:
                 bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d, cenv,false).toStr()) + ";" + ind.nl();
                 break;
-            /*case blockConstVar:
-                bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d,cenv, false,true).toStr()) + ";" + ind.nl();
-                break;*/
-            //case actorVar:
-            //case blockVar:
-            //case procVar:
-            //case funcVar:
             case actionVar:
             case actionInitInDepVar:
             case outPortVar:
             case outPortInitInDepVar:
                 if(((Variable)d).getInitValue() != null) {
-                    //TODO should have separate class for var declaration with initialization
+                    //If the variable needs initialization it uses the CBuildConstDeclaration
                     bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d, cenv, false).toStr()) + ";" + ind.nl();
                 } else {
                     bodyStr += ind.ind() + (new CBuildVarDeclaration((Variable) d,cenv, false).toStr()) + ";" + ind.nl();
@@ -156,6 +173,9 @@ public class CBuildAction extends IrSwitch<Boolean> {
             bodyStr += ind.ind() + ("dprint(\"" + thisStr + " " + action.getId() +"\\n\");");
         
         bodyStr += ind.ind() + "ART_ACTION_ENTER(" + action.getId() + ", " + idNbr + ");" +ind.nl();
+        /*
+         * FIXME the port reading only works for builtin types and not user types
+         */
         for (PortRead read: action.getInputs()){
             String portNbr = TransUtil.getAnnotationArg(read, "Port", "index");
             String portStr = "IN" + portNbr+ "_" + TransUtil.getAnnotationArg(read, "Port", "name");
@@ -172,6 +192,12 @@ public class CBuildAction extends IrSwitch<Boolean> {
                     bodyStr += "(" + portStr + ");"+ind.nl();
                 }
             } else {
+                /*
+                 * We have a repeat, her we always use a for loop to simplify the 
+                 * case with several read variables needing interleaved reading.
+                 * TODO Should optimize to use pinReadRepeat when only one variable
+                 * or optimize in general to keep the data in the FIFO.
+                 */
                 bodyStr += ind.ind() + "{" + ind.nl();
                 ind.inc();
                 String repStr = "__temp" + CPrintUtil.validCName(portStr);
@@ -199,6 +225,9 @@ public class CBuildAction extends IrSwitch<Boolean> {
         for (Statement s : action.getStatements()) {
             bodyStr += new CBuildStatement(s, cenv, ind,true,action).toStr();
         }
+        /*
+         * FIXME the port writing only works for builtin types and not user types
+         */
         for (PortWrite write: action.getOutputs()){
             String portNbr = TransUtil.getAnnotationArg(write, "Port", "index");
             String portStr = "OUT" + portNbr+ "_" + TransUtil.getAnnotationArg(write, "Port", "name");
@@ -208,6 +237,12 @@ public class CBuildAction extends IrSwitch<Boolean> {
                     bodyStr += "(" + portStr + ", " + new CBuildExpression(writeExpr, cenv).toStr() + ");"+ind.nl();
                 }
             } else {
+                /*
+                 * We have a repeat, her we always use a for loop to simplify the 
+                 * case with several write expressions needing interleaved writing.
+                 * TODO Should optimize to use pinWriteRepeat when only one expression
+                 * or optimize in general to allocate the data in the FIFO directly.
+                 */
                 bodyStr += ind.ind() + "{" + ind.nl();
                 ind.inc();
                 String repStr = "__temp" + CPrintUtil.validCName(portStr);
@@ -225,6 +260,19 @@ public class CBuildAction extends IrSwitch<Boolean> {
                 bodyStr += ind.ind() + "}" + ind.nl();
             }
         }
+        /*
+         * Allocation of arrays or user types are done at initialization of the variable (when static sizes)
+         * or when the variable is assigned. Here we need to make sure to free the allocated memory before
+         * leaving the action. Both arrays and user types contains metadata that keeps track of if the data
+         * is allocated on heap or stack. Hence we call our free function on all of them which checks such
+         * metadata before attempting to free the memory.
+         * 
+         * CBuildBody have similar code for freeing at end of Block. Make sure they evolve in sync.
+         * 
+         * TODO When implementing user type on ports and allowing sending references to such make sure
+         * to allocate those in heap and free functions should not free that memory until it is read (by
+         * all readers).
+         */
         for(Declaration d:action.getDeclarations()) {
             VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
             if(!varType.equals(VarType.peekVar) && !varType.equals(VarType.syncVar)) {

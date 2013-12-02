@@ -75,15 +75,38 @@ import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.util.IrSwitch;
 import org.eclipse.emf.ecore.EObject;
 
+/*
+ * This class generates a string containing a constant declaration
+ * of a normal variable or a declaration of a variable with initialization.
+ * 
+ * Quality: 5, should work
+ */
 public class CBuildConstDeclaration extends CBuildVarDeclaration {
 
     String initStr="";
     boolean header = false;
+
+    /*
+     * Constructor for building a long string containing the 
+     * c-code of a variable declaration with an (constant) 
+     * initialization. It prints the variable's type, name
+     * and assigned expression.
+     * 
+     * variable: variable to be printed
+     * cenv: input/output variable collecting information that is 
+     *       needed in makefiles etc, same object used for all CBuilders
+     * header: when constants are printed in a header it is extern declared
+     *         it is then also printed in a c-file with the assignment.
+     */
     public CBuildConstDeclaration(Variable variable, CEnvironment cenv, boolean header) {
         super(variable,cenv,false);
         this.header = header;
     }
     
+    /*
+     * Do the actual generation of the action string, use as:
+     * new CBuildConstDeclaration(...).toStr()
+     */
     @Override
     public String toStr() {
         Boolean res = doSwitch(variable);
@@ -96,23 +119,24 @@ public class CBuildConstDeclaration extends CBuildVarDeclaration {
     private void enter(EObject obj) {}
     private void leave() {}
 
-    //------------------util------
+    //Do the actual string creation
     private void buildConstDeclaration(Variable variable, boolean constant) {
+        //Type string
         vtypeStr = new CBuildTypeName(variable.getType(),new varCB(), true).toStr();
+        //Variable name string including prefix of namespace
         String nsStr = TransUtil.getNamespaceAnnotation(variable) + (constant?"__":"");
         varStr = nsStr + variable.getName()+varStr;
         if(header) {
+            //in header then only extern declaration
             vtypeStr = "extern " + vtypeStr;
         } else {
+            //CBuildExpression affects our inherited dimStr and maxDim
             initStr = new CBuildExpression(variable.getInitValue(),cenv).toStr();
             if(!dimStr.equals("")) {
                 /*
-                Type type = variable.getType();
-                while(type instanceof TypeList) {
-                    type = ((TypeList)type).getType();
-                }
-                String typeStr = new CBuildTypeName(type, new CPrintUtil.dummyCB(), true).toStr();
-                */
+                 * Build the array and metadata struct
+                 * {.p/.pp=malloc(...), flags = heap allocated and maybe temp var, dimensions, {dim1 size, dim2 size, ...}}
+                 */
                 initStr = "{" + initStr + ", "; 
                 initStr += (TransUtil.getAnnotationArg(variable, "Variable", "VarLocalAccess").equals(VarLocalAccess.temp.name()))?"0xb":"0x3";
                 initStr += ", ";
@@ -121,7 +145,6 @@ public class CBuildConstDeclaration extends CBuildVarDeclaration {
         }
     }
 
-    //------------------caseX
     @Override
     public Boolean caseVariable(Variable variable) {
         enter(variable);

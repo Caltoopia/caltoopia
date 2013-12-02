@@ -92,6 +92,16 @@ import org.caltoopia.ir.WhileLoop;
 import org.caltoopia.ir.util.IrSwitch;
 import org.eclipse.emf.ecore.EObject;
 
+/*
+ * This class generates a string with an assignment statement.
+ * Some statements like assign and body are broken out of the
+ * general CBuildStatement. This printer also handles allocation
+ * of memory for dynamic size arrays, since it can't be determined
+ * until runtime in each assignment if the elements fit in the array. 
+ * 
+ * Quality: 3, seems to work for all tests but could have problems 
+ *             due to the complex nature of memory allocation.
+ */
 public class CBuildAssign extends IrSwitch<Boolean> {
     String statStr="";
     Statement statement;
@@ -100,6 +110,17 @@ public class CBuildAssign extends IrSwitch<Boolean> {
     private IndentStr ind = null;
     Scope scope = null;
 
+    /*
+     * Constructor for building a long string containing the 
+     * c-code of an assignment and potentially memory allocation. 
+     * 
+     * statement: assignment to be printed
+     * cenv: input/output variable collecting information that is 
+     *       needed in makefiles etc, same object used for all CBuilders
+     * ind: indentation object, passed in so that sub-parts maintains overall indentation level
+     * semicolon: should always be true, was introduced to support the CBuildInlineBody which is not used. FIXME remove parameter
+     * scope: the surrounding scope (Action or Block) of the statement
+     */
     public CBuildAssign(Assign statement, CEnvironment cenv, IndentStr ind, boolean semicolon, Scope scope) {
         statStr="";
         this.statement = statement;
@@ -113,6 +134,10 @@ public class CBuildAssign extends IrSwitch<Boolean> {
         }
     }
     
+    /*
+     * Do the actual generation of the assignment string, use as:
+     * new CBuildAssign(...).toStr()
+     */
     public String toStr() {
         Boolean res = doSwitch(statement);
         if(!res) {
@@ -121,6 +146,7 @@ public class CBuildAssign extends IrSwitch<Boolean> {
         return statStr;
     }
     
+    //Calc dimension of array type
     private int getDim(Type type) {
         Type t = type;
         int dim = 0;
@@ -131,6 +157,11 @@ public class CBuildAssign extends IrSwitch<Boolean> {
         return dim;
     }
 
+    /*
+     * Build a string giving the size of an array (in bytes)
+     * name: string prefix to reach array metadata (which include the dimension sizes)
+     * type: variable type 
+     */
     private String sizeofStr(String name, Type type) {
         Type t = type;
         int dim = 0;
@@ -156,6 +187,7 @@ public class CBuildAssign extends IrSwitch<Boolean> {
         Map<String,String> assignAnn = TransUtil.getAnnotationsMap(assign);
         Map<String,String> targetAnn = TransUtil.getAnnotationsMap(assign.getTarget());
         Map<String,String> exprAnn = TransUtil.getAnnotationsMap(assign.getExpression());
+        //print all annotations for assignment to help in debugging
         statStr += ind.ind() + "/*\n";
         if(!assignAnn.isEmpty()) statStr += ind.ind() + "A:" + assignAnn.toString() +"\n";
         if(!targetAnn.isEmpty()) statStr += ind.ind() + "T:" + targetAnn.toString() +"\n";
@@ -170,20 +202,18 @@ public class CBuildAssign extends IrSwitch<Boolean> {
             return true;
         }
         /*
+         * The transformation passes have altered the IR so only a smaller set of assignment exist. 
          * Which assignment exist:
-         * 1) scalar and user type assignment of any expression - identical to c, no memory mgmt
-         * 2) Lists fully indexed to scalar type or user type assigned any expression - identical to c, no memory mgmt
-         * 3) List assignment of literal list - allocate target or replace content? Need temp variable?
-         * 3a) When self assignment must use temp target, when target full variable free old and change pointer to temp, otherwise copy into place
-         * 3b) When multi dim list and several list expressions loop over inner lists temp variable with pointer into larger list
-         * 4) When function returning list (allocated inside function) copy or replace target var pointer.
-         * 5) When list expression inside other list expression use temp variables
+         * 1) scalar and user type assignment of any expression - identical to c, no memory mgmt (FIXME does it handle user types with arrays?)
+         * 2) Arrays fully indexed to scalar type or user type assigned any expression - identical to c, no memory mgmt
+         * 3) Full array assigned to full array
+         * 4) Multi-dim array assigned lower dimension array
+         * 5) Function returning list (allocated inside function) replace target var allocation (since always to same dimension (temp) var).
          */
-        List<Expression> indices = null;
+        List<Expression> indices = null; //Hold the list of index for target variable
         String selfAnn = assignAnn == null?null:assignAnn.get("Variable_VarLocalAccess");
         boolean selfAssign = (selfAnn == null)?false:VarLocalAccess.valueOf(selfAnn).equals(VarLocalAccess.self);
         switch (VarLocalAccess.valueOf(targetAnn.get("Variable_VarLocalAccess"))) {
-        //Anything that is a normal scalar assignment CAL and c looks similar
         case scalar:
         case scalarUserType:
         case listSingle:
@@ -203,14 +233,24 @@ public class CBuildAssign extends IrSwitch<Boolean> {
         case memberListUserTypeSingle:
         case memberScalar:
         case memberScalarUserType:
+            //Anything that is a normal scalar assignment CAL and c looks similar
             if((indices==null || (indices!=null && indices.isEmpty())) &&
                     (assign.getTarget().getMember()!=null && !assign.getTarget().getMember().isEmpty())) {
                 indices = assign.getTarget().getMember().get(assign.getTarget().getMember().size()-1).getIndex();
             }
+            //Create string of target var without indices and as a ref
             CBuildVarReference cVarRefS = new CBuildVarReference(assign.getTarget(), cenv, true, true);
             String varStrS = cVarRefS.toStr();
+            /*
+             * get annotation of array size (only one dimension) 
+             *  0=already static allocated
+             *  var string or >0 insert allocation of array with the size in annotation before assignment 
+             *  -1=insert allocation of array corresponding to indices before assignment
+             */
             String sz = assignAnn == null?"0":(assignAnn.get("Variable_ListSize")==null?"0":assignAnn.get("Variable_ListSize"));
             if(!sz.equals("0")) {
+                //reallocMoveArray takes a dst and src array and a arrayArg specifying wanted minimum size, 
+                //it never shrinks an array.
                 statStr += ind.ind() + "reallocMoveArray" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).toStr()+ "(";
                 int len = 1;
                 //We allow literal integer or variable name
@@ -220,10 +260,11 @@ public class CBuildAssign extends IrSwitch<Boolean> {
                     sz=CPrintUtil.validCName(sz);
                 }
                 if(sz.equals("-1")) {
-                    //Should use indices as sizes
+                    //Use indices as sizes, this expand the array to cover this element
                     len=0;
                     sz="";
-                    //FIXME should rather do temp variables to guarantee to be side effect free but CAL expressions should be side effect free
+                    //FIXME should rather do transformations to temp variables to guarantee to be side effect free
+                    //but CAL expressions should be side effect free, even if a function is called twice instead of once
                     for (Iterator<Expression> i = indices.iterator(); i.hasNext();) {
                         len++;
                         Expression e = i.next();
@@ -231,22 +272,31 @@ public class CBuildAssign extends IrSwitch<Boolean> {
                         if (i.hasNext()) sz += ",";
                     }
                 }
+                //src==NULL since no elements to copy in
                 statStr += varStrS + ", NULL, (__arrayArg) {" + len + ",{" + sz + "}});" + ind.nl();
             }
+            //Create string of target var with indices
             statStr += ind.ind() + new CBuildVarReference(assign.getTarget(), cenv).toStr() + " = ";
             statStr += new CBuildExpression(assign.getExpression(), cenv).toStr();
             if(semicolon) {
                 statStr += ";" + ind.nl();
             }
             break;
-        //Assignment of a list to a list (single dimension) built-in type
         case list:
         case listMemberList:
         case memberList:
         case listMultiList:
         case memberListMultiList:
         case listMemberListMultiList:
+            //Assignment of a list to a list (single dimension) built-in type
             if(assign.getExpression() instanceof VariableExpression) {
+                /*
+                 * Assignment of variable to variable
+                 * Utilize the copy array function which takes the parameters
+                 * dst and src array, dst and src index, and the calculated maximum dimension sizes between the two arrays
+                 * TODO maxArraySz is separate to later allow optimization and calculating such array size for several assignments
+                 * and avoid resizing.
+                 */
                 CBuildVarReference cVarRef = new CBuildVarReference(assign.getTarget(), cenv, true, true);
                 String varStr = cVarRef.toStr();
                 statStr += ind.ind() + "copy" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).toStr()+ "(";
@@ -261,10 +311,17 @@ public class CBuildAssign extends IrSwitch<Boolean> {
                 String tempAnn = assignAnn == null?null:assignAnn.get("Variable_VarLocalAccess");
                 boolean tempAssign = (tempAnn == null)?false:VarLocalAccess.valueOf(tempAnn).equals(VarLocalAccess.temp);
                 if(tempAssign) {
+                    //When temporary target var set that flag to allow stealing the memory
                     statStr += ind.ind() + cVarRef.flagsStr() + "|=0x8;" + ind.nl();
                 }
             } else {
                 if(assign.getExpression() instanceof FunctionCall) {
+                    /*
+                     * Assignment of result of function call to variable
+                     * The array is allocated inside the function,
+                     * hence free any memory already allocated for target variable
+                     * before overwriting with the new array.
+                     */
                     CBuildVarReference cVarRefF = new CBuildVarReference(assign.getTarget(), cenv, true, true);
                     String varStrF = cVarRefF.toStr();
                     statStr += ind.ind() + "free" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).toStr() + "(" + varStrF + ", TRUE);" + ind.nl();
@@ -276,16 +333,14 @@ public class CBuildAssign extends IrSwitch<Boolean> {
                     String tempAnn = assignAnn == null?null:assignAnn.get("Variable_VarLocalAccess");
                     boolean tempAssign = (tempAnn == null)?false:VarLocalAccess.valueOf(tempAnn).equals(VarLocalAccess.temp);
                     if(tempAssign) {
+                        //When temporary target var set that flag to allow stealing the memory
                         statStr += ind.ind() + cVarRef.flagsStr() + "|=0x8;" + ind.nl();
                     }
-
-                    /*
-                    statStr += ind.ind() + "__tempExpr_" + assign.getExpression().getId() + " = " + new CBuildExpression(assign.getExpression(), cenv,true,false).toStr() + ";" + ind.nl();
-                    statStr += ind.ind() + "memcpy(" + new CBuildVarReference(assign.getTarget(), cenv, true,false).toStr() + ", ";
-                    statStr += "__tempExpr_" + assign.getExpression().getId() + ".p, ";
-                    statStr += sizeofStr("__tempExpr_" + assign.getExpression().getId(),assign.getTarget().getType()) + ")";
-                    */
                 } else {
+                    /*
+                     * This should never be reached transformation should have removed all options.
+                     * Anyway try a best effort standard memcpy, but watch out for copying to unallocated memory
+                     */
                     statStr += ind.ind() + "__tempVoidPointer = " + new CBuildExpression(assign.getExpression(), cenv,true,false,false).toStr() + ";" + ind.nl();
                     statStr += ind.ind() + "mem" + (selfAssign?"move":"cpy") + "(" + new CBuildVarReference(assign.getTarget(), cenv, true,false).toStr() + ", ";
                     statStr += "__tempVoidPointer, ";
@@ -300,7 +355,14 @@ public class CBuildAssign extends IrSwitch<Boolean> {
         case string:
         case memberString:
         case listMemberString:
+            //Do the string type assignments
             if(assign.getExpression() instanceof VariableExpression) {
+                /*
+                 * Assignment of variable to variable
+                 * Utilize the copy array function which takes the parameters
+                 * dst and src char array, dst and src index, and the calculated maximum dimension sizes between the two strings
+                 * FIXME since strings always single dimension enough to use the right hand side string size
+                 */
                 CBuildVarReference cVarRef = new CBuildVarReference(assign.getTarget(), cenv, true, true);
                 String varStr = cVarRef.toStr();
                 statStr += ind.ind() + "copychar(";
@@ -315,9 +377,16 @@ public class CBuildAssign extends IrSwitch<Boolean> {
                 String tempAnn = assignAnn == null?null:assignAnn.get("Variable_VarLocalAccess");
                 boolean tempAssign = (tempAnn == null)?false:VarLocalAccess.valueOf(tempAnn).equals(VarLocalAccess.temp);
                 if(tempAssign) {
+                    //When temporary target var set that flag to allow stealing the memory
                     statStr += ind.ind() + cVarRef.flagsStr() + "|=0x8;" + ind.nl();
                 }
             } else if(assign.getExpression() instanceof FunctionCall) {
+                /*
+                 * Assignment of result of function call to variable
+                 * The char array is allocated inside the function,
+                 * hence free any memory already allocated for target variable
+                 * before overwriting with the new array.
+                 */
                 CBuildVarReference cVarRefF = new CBuildVarReference(assign.getTarget(), cenv, true, true);
                 String varStrF = cVarRefF.toStr();
                 statStr += ind.ind() + "free" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).toStr() + "(" + varStrF + ", TRUE);" + ind.nl();
@@ -329,10 +398,15 @@ public class CBuildAssign extends IrSwitch<Boolean> {
                 String tempAnn = assignAnn == null?null:assignAnn.get("Variable_VarLocalAccess");
                 boolean tempAssign = (tempAnn == null)?false:VarLocalAccess.valueOf(tempAnn).equals(VarLocalAccess.temp);
                 if(tempAssign) {
+                    //When temporary target var set that flag to allow stealing the memory
                     statStr += ind.ind() + cVarRef.flagsStr() + "|=0x8;" + ind.nl();
                 }
             } else if(assign.getExpression() instanceof BinaryExpression &&
                     ((BinaryExpression)assign.getExpression()).getOperator().equals("+")) {
+                /*
+                 * For strings we also support assignment of a variable with the concatenation of 2 strings
+                 * Either l=literal or v=variable expression
+                 */
                 boolean op1IsLit = ((BinaryExpression)assign.getExpression()).getOperand1() instanceof StringLiteral;
                 boolean op2IsLit = ((BinaryExpression)assign.getExpression()).getOperand2() instanceof StringLiteral;
                 statStr += ind.ind() + "stringadd" + (op1IsLit?"l":"v") + (op2IsLit?"l":"v") + "(";
@@ -358,9 +432,13 @@ public class CBuildAssign extends IrSwitch<Boolean> {
                 String tempAnn = assignAnn == null?null:assignAnn.get("Variable_VarLocalAccess");
                 boolean tempAssign = (tempAnn == null)?false:VarLocalAccess.valueOf(tempAnn).equals(VarLocalAccess.temp);
                 if(tempAssign) {
+                    //When temporary target var set that flag to allow stealing the memory
                     statStr += ind.ind() + cVarRef.flagsStr() + "|=0x8;" + ind.nl();
                 }
             } else if(assign.getExpression() instanceof StringLiteral) {
+                /*
+                 * String variable could also be assigned a string literal
+                 */
                 statStr += ind.ind() + "stringassignl(";
                 CBuildVarReference cVarRef = new CBuildVarReference(assign.getTarget(), cenv, true, true);
                 String varStr = cVarRef.toStr();
@@ -371,9 +449,14 @@ public class CBuildAssign extends IrSwitch<Boolean> {
                 String tempAnn = assignAnn == null?null:assignAnn.get("Variable_VarLocalAccess");
                 boolean tempAssign = (tempAnn == null)?false:VarLocalAccess.valueOf(tempAnn).equals(VarLocalAccess.temp);
                 if(tempAssign) {
+                    //When temporary target var set that flag to allow stealing the memory
                     statStr += ind.ind() + cVarRef.flagsStr() + "|=0x8;" + ind.nl();
                 }
             } else {
+                /*
+                 * Should never be reached all other options should have been removed by transformations
+                 * Anyway try to print as a simple assignment.
+                 */
                 statStr += "/*NOT YET IMPLEMENTED (2)*/";
                 statStr += ind.ind() + new CBuildVarReference(assign.getTarget(), cenv).toStr() + " = ";
                 statStr += new CBuildExpression(assign.getExpression(), cenv).toStr();
@@ -395,8 +478,18 @@ public class CBuildAssign extends IrSwitch<Boolean> {
         case listMultiUserType:
         case memberListMultiUserType:
         case memberListUserType:
-            //Handle assignments from var in the same way for multi-dim lists, others should have been broken up already
+            /*
+             * Handle assignments from variable expression of multi-dim array type.
+             * All other right hand side expressions should have been transformed.
+             */
             if(assign.getExpression() instanceof VariableExpression) {
+                /*
+                 * Assignment of variable to variable
+                 * Utilize the copy array function which takes the parameters
+                 * dst and src array, dst and src index, and the calculated maximum dimension sizes between the two arrays
+                 * TODO maxArraySz is separate to later allow optimization and calculating such array size for several assignments
+                 * and avoid resizing.
+                 */
                 CBuildVarReference cVarRef = new CBuildVarReference(assign.getTarget(), cenv, true, true);
                 String varStr = cVarRef.toStr();
                 statStr += ind.ind() + "copy" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).toStr()+ "(";
@@ -411,6 +504,7 @@ public class CBuildAssign extends IrSwitch<Boolean> {
                 String tempAnn = assignAnn == null?null:assignAnn.get("Variable_VarLocalAccess");
                 boolean tempAssign = (tempAnn == null)?false:VarLocalAccess.valueOf(tempAnn).equals(VarLocalAccess.temp);
                 if(tempAssign) {
+                    //When temporary target var set that flag to allow stealing the memory
                     statStr += ind.ind() + cVarRef.flagsStr() + "|=0x8;" + ind.nl();
                 }
                 break;
@@ -418,6 +512,10 @@ public class CBuildAssign extends IrSwitch<Boolean> {
         case refMember:
             
         default:
+            /*
+             * Should never reach here all other options should have been transformed
+             * Anyway try to print as a simple assignment
+             */
             statStr += ind.ind() +"/*NOT IMPLEMENTED YET (1)*/";
             statStr += ind.ind() + new CBuildVarReference(assign.getTarget(), cenv).toStr() + " = ";
             statStr += new CBuildExpression(assign.getExpression(), cenv).toStr();
@@ -425,31 +523,6 @@ public class CBuildAssign extends IrSwitch<Boolean> {
                 statStr += ";" + ind.nl();
             }
         }
-        /*
-        if(assign.getExpression() instanceof TypeConstructorCall && !withinDeclaration()) {
-            TypeConstructorCall expr = (TypeConstructorCall) assign.getExpression();
-            statStr += (validCName(expr.getName()));
-            statStr += ("(");
-            if(hasIndex(assign.getTarget())) statStr += ("&");
-            doSwitch(assign.getTarget());
-            statStr += (", ");
-            for (Iterator<Expression> i = expr.getParameters().iterator(); i.hasNext();) {
-                Expression p = i.next();
-                doSwitch(p);
-                if (i.hasNext()) statStr += Comma();
-            }
-            statStr += Right();
-            statStr += ln(";");
-            leave();
-            return true;
-        }
-        
-        if(isIndir(assign.getTarget().getDeclaration())) statStr += ("*");
-        doSwitch(assign.getTarget());
-        statStr += (" = ");
-        doSwitch(assign.getExpression());
-        statStr += ln(";");
-        */
         leave();
         return true;
     }
