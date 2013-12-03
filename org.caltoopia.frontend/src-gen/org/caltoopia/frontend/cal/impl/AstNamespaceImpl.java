@@ -6,9 +6,8 @@ import java.util.Collection;
 
 import org.caltoopia.frontend.cal.AstAnnotation;
 import org.caltoopia.frontend.cal.AstEntity;
-import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstNamespace;
-import org.caltoopia.frontend.cal.AstTypeName;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstUnit;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.cal.CalPackage;
@@ -110,7 +109,7 @@ public class AstNamespaceImpl extends AstTopImpl implements AstNamespace
    * @generated
    * @ordered
    */
-  protected EList<AstFunction> functions;
+  protected EList<AstVariable> functions;
 
   /**
    * The cached value of the '{@link #getVariables() <em>Variables</em>}' containment reference list.
@@ -150,7 +149,7 @@ public class AstNamespaceImpl extends AstTopImpl implements AstNamespace
    * @generated
    * @ordered
    */
-  protected EList<AstTypeName> typedefs;
+  protected EList<AstTypeUser> typedefs;
 
   /**
    * The cached value of the '{@link #getNamespaces() <em>Namespaces</em>}' containment reference list.
@@ -253,11 +252,11 @@ public class AstNamespaceImpl extends AstTopImpl implements AstNamespace
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<AstFunction> getFunctions()
+  public EList<AstVariable> getFunctions()
   {
     if (functions == null)
     {
-      functions = new EObjectContainmentEList<AstFunction>(AstFunction.class, this, CalPackage.AST_NAMESPACE__FUNCTIONS);
+      functions = new EObjectContainmentEList<AstVariable>(AstVariable.class, this, CalPackage.AST_NAMESPACE__FUNCTIONS);
     }
     return functions;
   }
@@ -309,11 +308,11 @@ public class AstNamespaceImpl extends AstTopImpl implements AstNamespace
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<AstTypeName> getTypedefs()
+  public EList<AstTypeUser> getTypedefs()
   {
     if (typedefs == null)
     {
-      typedefs = new EObjectContainmentEList<AstTypeName>(AstTypeName.class, this, CalPackage.AST_NAMESPACE__TYPEDEFS);
+      typedefs = new EObjectContainmentEList<AstTypeUser>(AstTypeUser.class, this, CalPackage.AST_NAMESPACE__TYPEDEFS);
     }
     return typedefs;
   }
@@ -426,7 +425,7 @@ public class AstNamespaceImpl extends AstTopImpl implements AstNamespace
         return;
       case CalPackage.AST_NAMESPACE__FUNCTIONS:
         getFunctions().clear();
-        getFunctions().addAll((Collection<? extends AstFunction>)newValue);
+        getFunctions().addAll((Collection<? extends AstVariable>)newValue);
         return;
       case CalPackage.AST_NAMESPACE__VARIABLES:
         getVariables().clear();
@@ -442,7 +441,7 @@ public class AstNamespaceImpl extends AstTopImpl implements AstNamespace
         return;
       case CalPackage.AST_NAMESPACE__TYPEDEFS:
         getTypedefs().clear();
-        getTypedefs().addAll((Collection<? extends AstTypeName>)newValue);
+        getTypedefs().addAll((Collection<? extends AstTypeUser>)newValue);
         return;
       case CalPackage.AST_NAMESPACE__NAMESPACES:
         getNamespaces().clear();

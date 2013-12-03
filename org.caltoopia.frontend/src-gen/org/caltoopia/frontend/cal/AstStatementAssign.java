@@ -26,30 +26,30 @@ import org.eclipse.emf.common.util.EList;
 public interface AstStatementAssign extends AstStatement
 {
   /**
-   * Returns the value of the '<em><b>Target</b></em>' containment reference.
+   * Returns the value of the '<em><b>Target</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Target</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Target</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Target</em>' containment reference.
-   * @see #setTarget(AstVariableReference)
+   * @return the value of the '<em>Target</em>' reference.
+   * @see #setTarget(AstVariable)
    * @see org.caltoopia.frontend.cal.CalPackage#getAstStatementAssign_Target()
-   * @model containment="true"
+   * @model
    * @generated
    */
-  AstVariableReference getTarget();
+  AstVariable getTarget();
 
   /**
-   * Sets the value of the '{@link org.caltoopia.frontend.cal.AstStatementAssign#getTarget <em>Target</em>}' containment reference.
+   * Sets the value of the '{@link org.caltoopia.frontend.cal.AstStatementAssign#getTarget <em>Target</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Target</em>' containment reference.
+   * @param value the new value of the '<em>Target</em>' reference.
    * @see #getTarget()
    * @generated
    */
-  void setTarget(AstVariableReference value);
+  void setTarget(AstVariable value);
 
   /**
    * Returns the value of the '<em><b>Indexes</b></em>' containment reference list.

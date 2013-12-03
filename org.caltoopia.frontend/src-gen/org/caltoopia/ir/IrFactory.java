@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.caltoopia.ir;
 
@@ -413,6 +409,24 @@ public interface IrFactory extends EFactory {
 	Block createBlock();
 
 	/**
+	 * Returns a new object of class '<em>Case Statement</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Case Statement</em>'.
+	 * @generated
+	 */
+	CaseStatement createCaseStatement();
+
+	/**
+	 * Returns a new object of class '<em>Stmt Alternative</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Stmt Alternative</em>'.
+	 * @generated
+	 */
+	StmtAlternative createStmtAlternative();
+
+	/**
 	 * Returns a new object of class '<em>Port Access</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -503,6 +517,24 @@ public interface IrFactory extends EFactory {
 	IfExpression createIfExpression();
 
 	/**
+	 * Returns a new object of class '<em>Case Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Case Expression</em>'.
+	 * @generated
+	 */
+	CaseExpression createCaseExpression();
+
+	/**
+	 * Returns a new object of class '<em>Expr Alternative</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Expr Alternative</em>'.
+	 * @generated
+	 */
+	ExprAlternative createExprAlternative();
+
+	/**
 	 * Returns a new object of class '<em>Guard</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -584,13 +616,40 @@ public interface IrFactory extends EFactory {
 	TypeString createTypeString();
 
 	/**
-	 * Returns a new object of class '<em>Type Record</em>'.
+	 * Returns a new object of class '<em>Type Tuple</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Type Record</em>'.
+	 * @return a new object of class '<em>Type Tuple</em>'.
 	 * @generated
 	 */
-	TypeRecord createTypeRecord();
+	TypeTuple createTypeTuple();
+
+	/**
+	 * Returns a new object of class '<em>Tagged Tuple</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Tagged Tuple</em>'.
+	 * @generated
+	 */
+	TaggedTuple createTaggedTuple();
+
+	/**
+	 * Returns a new object of class '<em>Tagged Tuple Field Read</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Tagged Tuple Field Read</em>'.
+	 * @generated
+	 */
+	TaggedTupleFieldRead createTaggedTupleFieldRead();
+
+	/**
+	 * Returns a new object of class '<em>Tag Of</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Tag Of</em>'.
+	 * @generated
+	 */
+	TagOf createTagOf();
 
 	/**
 	 * Returns a new object of class '<em>Type Undef</em>'.
@@ -638,13 +697,13 @@ public interface IrFactory extends EFactory {
 	TypeProc createTypeProc();
 
 	/**
-	 * Returns a new object of class '<em>Type Constructor</em>'.
+	 * Returns a new object of class '<em>Type Variable</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Type Constructor</em>'.
+	 * @return a new object of class '<em>Type Variable</em>'.
 	 * @generated
 	 */
-	TypeConstructor createTypeConstructor();
+	TypeVariable createTypeVariable();
 
 	/**
 	 * Returns a new object of class '<em>Type Declaration</em>'.
@@ -654,6 +713,15 @@ public interface IrFactory extends EFactory {
 	 * @generated
 	 */
 	TypeDeclaration createTypeDeclaration();
+
+	/**
+	 * Returns a new object of class '<em>Type Variable Declaration</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Type Variable Declaration</em>'.
+	 * @generated
+	 */
+	TypeVariableDeclaration createTypeVariableDeclaration();
 
 	/**
 	 * Returns a new object of class '<em>Schedule</em>'.

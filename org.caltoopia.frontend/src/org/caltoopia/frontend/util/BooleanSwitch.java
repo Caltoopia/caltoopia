@@ -40,18 +40,24 @@ import org.caltoopia.frontend.cal.AstActorVariableReference;
 import org.caltoopia.frontend.cal.AstAssignParameter;
 import org.caltoopia.frontend.cal.AstConnection;
 import org.caltoopia.frontend.cal.AstConnectionAttribute;
+import org.caltoopia.frontend.cal.AstExpressionAlternative;
+import org.caltoopia.frontend.cal.AstExpressionCase;
+import org.caltoopia.frontend.cal.AstPattern;
+import org.caltoopia.frontend.cal.AstStatementAlternative;
+import org.caltoopia.frontend.cal.AstStatementCase;
+import org.caltoopia.frontend.cal.AstSubPattern;
+import org.caltoopia.frontend.cal.AstTaggedTuple;
 import org.caltoopia.frontend.cal.AstEntity;
 import org.caltoopia.frontend.cal.AstExpression;
 import org.caltoopia.frontend.cal.AstExpressionBinary;
 import org.caltoopia.frontend.cal.AstExpressionBoolean;
-import org.caltoopia.frontend.cal.AstExpressionCall;
 import org.caltoopia.frontend.cal.AstExpressionFloat;
 import org.caltoopia.frontend.cal.AstExpressionIf;
 import org.caltoopia.frontend.cal.AstExpressionInteger;
 import org.caltoopia.frontend.cal.AstExpressionList;
 import org.caltoopia.frontend.cal.AstExpressionString;
 import org.caltoopia.frontend.cal.AstExpressionUnary;
-import org.caltoopia.frontend.cal.AstExpressionVariable;
+import org.caltoopia.frontend.cal.AstExpressionSymbolReference;
 import org.caltoopia.frontend.cal.AstForeachGenerator;
 import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstGenerator;
@@ -70,10 +76,9 @@ import org.caltoopia.frontend.cal.AstStatementIf;
 import org.caltoopia.frontend.cal.AstStatementWhile;
 import org.caltoopia.frontend.cal.AstStatementBlock;
 import org.caltoopia.frontend.cal.AstType;
-import org.caltoopia.frontend.cal.AstTypeName;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstTypeParam;
 import org.caltoopia.frontend.cal.AstVariable;
-import org.caltoopia.frontend.cal.AstVariableReference;
 import org.caltoopia.frontend.cal.Import;
 import org.caltoopia.frontend.cal.util.CalSwitch;
 
@@ -97,7 +102,7 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 			}
 		}
 
-		for (AstFunction fun : namespace.getFunctions()) {
+		for (AstVariable fun : namespace.getFunctions()) {
 			if (doSwitch(fun)) {
 				return true;
 			}
@@ -109,7 +114,7 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 			}
 		}
 
-		for (AstTypeName typedef : namespace.getTypedefs()) {
+		for (AstTypeUser typedef : namespace.getTypedefs()) {
 			if (doSwitch(typedef)) {
 				return true;
 			}
@@ -167,7 +172,7 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 			}
 		}
 
-		for (AstFunction function : actor.getFunctions()) {
+		for (AstVariable function : actor.getFunctions()) {
 			if (doSwitch(function)) {
 				return true;
 			}
@@ -329,9 +334,22 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 	}
 
 	@Override
-	public Boolean caseAstExpressionCall(AstExpressionCall call) {
-		for (AstExpression parameter : call.getParameters()) {
+	public Boolean caseAstExpressionSymbolReference(AstExpressionSymbolReference ref) {
+		
+		for (AstExpression parameter : ref.getParameters()) {
 			if (doSwitch(parameter)) {
+				return true;
+			}
+		}
+		
+		for (AstMemberAccess mv: ref.getMember()) {
+			if (doSwitch(mv)) {
+				return true;
+			}
+		}
+
+		for (AstExpression index: ref.getIndexes()) {
+			if (doSwitch(index)) {
 				return true;
 			}
 		}
@@ -347,8 +365,8 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 	@Override
 	public Boolean caseAstExpressionIf(AstExpressionIf expression) {
 		if (doSwitch(expression.getCondition())
-				|| doSwitch(expression.getThen())
-				|| doSwitch(expression.getElse())) {
+			|| doSwitch(expression.getThen())
+			|| doSwitch(expression.getElse())) {
 			return true;
 		}
 
@@ -387,23 +405,6 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 		return doSwitch(expression.getExpression());
 	}
 
-	@Override
-	public Boolean caseAstExpressionVariable(AstExpressionVariable expression) {
-		for (AstMemberAccess mv: expression.getMember()) {
-			if (doSwitch(mv)) {
-				return true;
-			}
-		}
-
-		for (AstExpression index: expression.getIndexes()) {
-			if (doSwitch(index)) {
-				return true;
-			}
-		}
-		
-		return doSwitch(expression.getValue());
-	}
-
 	@Override 
 	public Boolean caseAstMemberAccess(AstMemberAccess mv) {
 		for (AstExpression index: mv.getMemberIndex()) {
@@ -413,7 +414,40 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 		}		
 		return false;
 	}
+	
+	@Override
+	public Boolean caseAstExpressionCase(AstExpressionCase exprCase) { 
+		if (doSwitch(exprCase.getExpression())) {
+			return true;
+		}
 
+		for (AstExpressionAlternative alt : exprCase.getCases()) {
+			if (doSwitch(alt)) {
+				return true;
+			}
+		}
+		
+		return false;	
+	}
+	
+	@Override 
+	public Boolean caseAstExpressionAlternative(AstExpressionAlternative exprAlt) {
+		if (doSwitch(exprAlt.getPattern())) {
+			return true;
+		}
+
+		for (AstExpression guard : exprAlt.getGuards()) {
+			if (doSwitch(guard)) {
+				return true;
+			}
+		}
+		
+		if (doSwitch(exprAlt.getExpression())) {
+			return true;
+		}
+		
+		return false;
+	}	
 
 	@Override
 	public Boolean caseAstFunction(AstFunction function) {
@@ -444,7 +478,7 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 		//	return true;
 		// }
 
-		for (AstVariable token : input.getTokens()) {
+		for (AstPattern token : input.getTokens()) {
 			if (doSwitch(token)) {
 				return true;
 			}
@@ -565,6 +599,7 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 		if (doSwitch(generator.getExpression())) {
 			return true;
 		}
+		
 		return false;
 	}
 
@@ -620,6 +655,58 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 		return false;	
 	}
 	
+	@Override
+	public Boolean caseAstStatementCase(AstStatementCase stmtCase) { 
+		if (doSwitch(stmtCase.getExpression())) {
+			return true;
+		}
+
+		for (AstStatementAlternative alt : stmtCase.getCases()) {
+			if (doSwitch(alt)) {
+				return true;
+			}
+		}
+		
+		return false;	
+	}
+	
+	@Override 
+	public Boolean caseAstStatementAlternative(AstStatementAlternative stmtAlt) {
+		if (doSwitch(stmtAlt.getPattern())) {
+			return true;
+		}
+
+		for (AstExpression guard : stmtAlt.getGuards()) {
+			if (doSwitch(guard)) {
+				return true;
+			}
+		}
+		
+		for (AstStatement stmt : stmtAlt.getStatements()) {
+			if (doSwitch(stmt)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	@Override 
+	public Boolean caseAstPattern(AstPattern pattern) {
+		for (AstSubPattern subPattern : pattern.getSubpatterns()) {
+			if (doSwitch(subPattern)) {
+				return true;
+			}
+		}
+		
+		return false;		
+	}
+	
+	@Override 
+	public Boolean caseAstSubPattern(AstSubPattern pattern) {
+		
+		return false;		
+	}
 	
 	@Override
 	public Boolean caseAstType(AstType type) {
@@ -634,11 +721,11 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 				return true;
 		}
 
-		for (AstType t : type.getCodomain()) {
-			if (doSwitch(t))
+		if (type.getCodomain() != null) {
+			if (doSwitch(type.getCodomain())) 
 				return true;
 		}
-				
+
 		if (type.getTypeParams() == null) 
 			return false;
 
@@ -647,23 +734,35 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 				return true;
 			}
 		}
+		
 		return false;
 	}
 
 	@Override
-	public Boolean caseAstTypeName(AstTypeName typeName) { 
-		if (typeName.getName() == null) 
+	public Boolean caseAstTypeUser(AstTypeUser typeUser) { 
+		if (typeUser.getName() == null) 
 			return true;
 		
-		if (typeName.getConstructor() != null) {
-			for (AstFunction tc : typeName.getConstructor()) {			
-				for (AstVariable tmd : tc.getMembers()) {
+		if (typeUser.getTuples() != null) {
+			for (AstTaggedTuple tt : typeUser.getTuples()) {			
+				for (AstVariable tmd : tt.getFields()) {
 					if (doSwitch(tmd.getType())) {
 						return true;
 					}
 				}
 			}
 		} 
+		
+		return false;
+	}
+	
+	@Override
+	public Boolean caseAstTaggedTuple(AstTaggedTuple tuple) {
+		for (AstVariable parameter : tuple.getFields()) {
+			if (doSwitch(parameter)) {
+				return true;
+			}
+		}
 		
 		return false;
 	}
@@ -690,11 +789,6 @@ public class BooleanSwitch extends CalSwitch<Boolean> {
 		}
 
 		return doSwitch(variable.getValue());
-	}
-
-	@Override
-	public Boolean caseAstVariableReference(AstVariableReference reference) {
-		return false;
 	}
 
 	@Override

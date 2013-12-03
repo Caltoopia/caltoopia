@@ -6,6 +6,7 @@ import org.caltoopia.frontend.cal.AstPort;
 import org.caltoopia.frontend.cal.AstState;
 import org.caltoopia.frontend.cal.AstTag;
 import org.caltoopia.frontend.cal.AstTransition;
+import org.caltoopia.frontend.cal.AstType;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.cal.AstInequality;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
@@ -34,11 +35,11 @@ public class CalLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	public String text(AstVariable var) {
-		return var.getName() + " - " + var.getType().getName().getName(); 
+		return var.getName() + " - " + doType(var.getType()); 
 	}
 
 	public String text(AstPort port) {
-		return port.getName() + " - " + port.getType().getName().getName(); 
+		return port.getName() + " - " + doType(port.getType()); 
 	}
 	
 	public String text(AstState state) {
@@ -68,4 +69,13 @@ public class CalLabelProvider extends DefaultEObjectLabelProvider {
 		return id;
 	}
 	
+	private String doType(AstType type) {
+		if (type == null) 
+			return "<undef>";
+		if (type.getBuiltin() != null) {
+			return type.getBuiltin();
+		} else {
+			return type.getName().getName();
+		}
+	}
 }

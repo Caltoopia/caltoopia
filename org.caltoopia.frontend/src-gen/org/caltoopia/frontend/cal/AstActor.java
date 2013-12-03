@@ -30,7 +30,7 @@ public interface AstActor extends AstAbstractActor
 {
   /**
    * Returns the value of the '<em><b>Functions</b></em>' containment reference list.
-   * The list contents are of type {@link org.caltoopia.frontend.cal.AstFunction}.
+   * The list contents are of type {@link org.caltoopia.frontend.cal.AstVariable}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Functions</em>' containment reference list isn't clear,
@@ -42,7 +42,7 @@ public interface AstActor extends AstAbstractActor
    * @model containment="true"
    * @generated
    */
-  EList<AstFunction> getFunctions();
+  EList<AstVariable> getFunctions();
 
   /**
    * Returns the value of the '<em><b>Procedures</b></em>' containment reference list.

@@ -3,7 +3,7 @@
 package org.caltoopia.frontend.cal.impl;
 
 import org.caltoopia.frontend.cal.AstTypeDefinitionParameter;
-import org.caltoopia.frontend.cal.AstTypeName;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.cal.CalPackage;
 
@@ -50,7 +50,7 @@ public class AstTypeDefinitionParameterImpl extends MinimalEObjectImpl.Container
    * @generated
    * @ordered
    */
-  protected AstTypeName type;
+  protected AstTypeUser type;
 
   /**
    * <!-- begin-user-doc -->
@@ -126,7 +126,7 @@ public class AstTypeDefinitionParameterImpl extends MinimalEObjectImpl.Container
    * <!-- end-user-doc -->
    * @generated
    */
-  public AstTypeName getType()
+  public AstTypeUser getType()
   {
     return type;
   }
@@ -136,9 +136,9 @@ public class AstTypeDefinitionParameterImpl extends MinimalEObjectImpl.Container
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetType(AstTypeName newType, NotificationChain msgs)
+  public NotificationChain basicSetType(AstTypeUser newType, NotificationChain msgs)
   {
-    AstTypeName oldType = type;
+    AstTypeUser oldType = type;
     type = newType;
     if (eNotificationRequired())
     {
@@ -153,7 +153,7 @@ public class AstTypeDefinitionParameterImpl extends MinimalEObjectImpl.Container
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setType(AstTypeName newType)
+  public void setType(AstTypeUser newType)
   {
     if (newType != type)
     {
@@ -219,7 +219,7 @@ public class AstTypeDefinitionParameterImpl extends MinimalEObjectImpl.Container
         setValue((AstVariable)newValue);
         return;
       case CalPackage.AST_TYPE_DEFINITION_PARAMETER__TYPE:
-        setType((AstTypeName)newValue);
+        setType((AstTypeUser)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -239,7 +239,7 @@ public class AstTypeDefinitionParameterImpl extends MinimalEObjectImpl.Container
         setValue((AstVariable)null);
         return;
       case CalPackage.AST_TYPE_DEFINITION_PARAMETER__TYPE:
-        setType((AstTypeName)null);
+        setType((AstTypeUser)null);
         return;
     }
     super.eUnset(featureID);

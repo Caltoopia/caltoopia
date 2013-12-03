@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.caltoopia.ir.util;
 
@@ -244,6 +240,14 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 				return createBlockAdapter();
 			}
 			@Override
+			public Adapter caseCaseStatement(CaseStatement object) {
+				return createCaseStatementAdapter();
+			}
+			@Override
+			public Adapter caseStmtAlternative(StmtAlternative object) {
+				return createStmtAlternativeAdapter();
+			}
+			@Override
 			public Adapter casePortAccess(PortAccess object) {
 				return createPortAccessAdapter();
 			}
@@ -284,6 +288,14 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 				return createIfExpressionAdapter();
 			}
 			@Override
+			public Adapter caseCaseExpression(CaseExpression object) {
+				return createCaseExpressionAdapter();
+			}
+			@Override
+			public Adapter caseExprAlternative(ExprAlternative object) {
+				return createExprAlternativeAdapter();
+			}
+			@Override
 			public Adapter caseGuard(Guard object) {
 				return createGuardAdapter();
 			}
@@ -320,8 +332,20 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 				return createTypeStringAdapter();
 			}
 			@Override
-			public Adapter caseTypeRecord(TypeRecord object) {
-				return createTypeRecordAdapter();
+			public Adapter caseTypeTuple(TypeTuple object) {
+				return createTypeTupleAdapter();
+			}
+			@Override
+			public Adapter caseTaggedTuple(TaggedTuple object) {
+				return createTaggedTupleAdapter();
+			}
+			@Override
+			public Adapter caseTaggedTupleFieldRead(TaggedTupleFieldRead object) {
+				return createTaggedTupleFieldReadAdapter();
+			}
+			@Override
+			public Adapter caseTagOf(TagOf object) {
+				return createTagOfAdapter();
 			}
 			@Override
 			public Adapter caseTypeUndef(TypeUndef object) {
@@ -344,12 +368,16 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 				return createTypeProcAdapter();
 			}
 			@Override
-			public Adapter caseTypeConstructor(TypeConstructor object) {
-				return createTypeConstructorAdapter();
+			public Adapter caseTypeVariable(TypeVariable object) {
+				return createTypeVariableAdapter();
 			}
 			@Override
 			public Adapter caseTypeDeclaration(TypeDeclaration object) {
 				return createTypeDeclarationAdapter();
+			}
+			@Override
+			public Adapter caseTypeVariableDeclaration(TypeVariableDeclaration object) {
+				return createTypeVariableDeclarationAdapter();
 			}
 			@Override
 			public Adapter caseSchedule(Schedule object) {
@@ -990,6 +1018,34 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.CaseStatement <em>Case Statement</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.caltoopia.ir.CaseStatement
+	 * @generated
+	 */
+	public Adapter createCaseStatementAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.StmtAlternative <em>Stmt Alternative</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.caltoopia.ir.StmtAlternative
+	 * @generated
+	 */
+	public Adapter createStmtAlternativeAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.PortAccess <em>Port Access</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -1130,6 +1186,34 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.CaseExpression <em>Case Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.caltoopia.ir.CaseExpression
+	 * @generated
+	 */
+	public Adapter createCaseExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.ExprAlternative <em>Expr Alternative</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.caltoopia.ir.ExprAlternative
+	 * @generated
+	 */
+	public Adapter createExprAlternativeAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.Guard <em>Guard</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -1256,16 +1340,58 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.TypeRecord <em>Type Record</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.TypeTuple <em>Type Tuple</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.caltoopia.ir.TypeRecord
+	 * @see org.caltoopia.ir.TypeTuple
 	 * @generated
 	 */
-	public Adapter createTypeRecordAdapter() {
+	public Adapter createTypeTupleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.TaggedTuple <em>Tagged Tuple</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.caltoopia.ir.TaggedTuple
+	 * @generated
+	 */
+	public Adapter createTaggedTupleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.TaggedTupleFieldRead <em>Tagged Tuple Field Read</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.caltoopia.ir.TaggedTupleFieldRead
+	 * @generated
+	 */
+	public Adapter createTaggedTupleFieldReadAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.TagOf <em>Tag Of</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.caltoopia.ir.TagOf
+	 * @generated
+	 */
+	public Adapter createTagOfAdapter() {
 		return null;
 	}
 
@@ -1340,16 +1466,16 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.TypeConstructor <em>Type Constructor</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.TypeVariable <em>Type Variable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.caltoopia.ir.TypeConstructor
+	 * @see org.caltoopia.ir.TypeVariable
 	 * @generated
 	 */
-	public Adapter createTypeConstructorAdapter() {
+	public Adapter createTypeVariableAdapter() {
 		return null;
 	}
 
@@ -1364,6 +1490,20 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTypeDeclarationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.TypeVariableDeclaration <em>Type Variable Declaration</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.caltoopia.ir.TypeVariableDeclaration
+	 * @generated
+	 */
+	public Adapter createTypeVariableDeclarationAdapter() {
 		return null;
 	}
 

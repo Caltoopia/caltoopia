@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.caltoopia.ir.util;
 
@@ -87,6 +83,7 @@ public class IrSwitch<T> extends Switch<T> {
 				VariableImport variableImport = (VariableImport)theEObject;
 				T result = caseVariableImport(variableImport);
 				if (result == null) result = caseDeclaration(variableImport);
+				if (result == null) result = caseScope(variableImport);
 				if (result == null) result = caseNode(variableImport);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -95,6 +92,7 @@ public class IrSwitch<T> extends Switch<T> {
 				VariableExternal variableExternal = (VariableExternal)theEObject;
 				T result = caseVariableExternal(variableExternal);
 				if (result == null) result = caseDeclaration(variableExternal);
+				if (result == null) result = caseScope(variableExternal);
 				if (result == null) result = caseNode(variableExternal);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -103,6 +101,7 @@ public class IrSwitch<T> extends Switch<T> {
 				TypeDeclarationImport typeDeclarationImport = (TypeDeclarationImport)theEObject;
 				T result = caseTypeDeclarationImport(typeDeclarationImport);
 				if (result == null) result = caseDeclaration(typeDeclarationImport);
+				if (result == null) result = caseScope(typeDeclarationImport);
 				if (result == null) result = caseNode(typeDeclarationImport);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -170,6 +169,7 @@ public class IrSwitch<T> extends Switch<T> {
 				T result = caseActorInstance(actorInstance);
 				if (result == null) result = caseVariable(actorInstance);
 				if (result == null) result = caseDeclaration(actorInstance);
+				if (result == null) result = caseScope(actorInstance);
 				if (result == null) result = caseNode(actorInstance);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -413,6 +413,22 @@ public class IrSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case IrPackage.CASE_STATEMENT: {
+				CaseStatement caseStatement = (CaseStatement)theEObject;
+				T result = caseCaseStatement(caseStatement);
+				if (result == null) result = caseStatement(caseStatement);
+				if (result == null) result = caseNode(caseStatement);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case IrPackage.STMT_ALTERNATIVE: {
+				StmtAlternative stmtAlternative = (StmtAlternative)theEObject;
+				T result = caseStmtAlternative(stmtAlternative);
+				if (result == null) result = caseScope(stmtAlternative);
+				if (result == null) result = caseNode(stmtAlternative);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case IrPackage.PORT_ACCESS: {
 				PortAccess portAccess = (PortAccess)theEObject;
 				T result = casePortAccess(portAccess);
@@ -450,6 +466,7 @@ public class IrSwitch<T> extends Switch<T> {
 			case IrPackage.DECLARATION: {
 				Declaration declaration = (Declaration)theEObject;
 				T result = caseDeclaration(declaration);
+				if (result == null) result = caseScope(declaration);
 				if (result == null) result = caseNode(declaration);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -458,6 +475,7 @@ public class IrSwitch<T> extends Switch<T> {
 				ForwardDeclaration forwardDeclaration = (ForwardDeclaration)theEObject;
 				T result = caseForwardDeclaration(forwardDeclaration);
 				if (result == null) result = caseDeclaration(forwardDeclaration);
+				if (result == null) result = caseScope(forwardDeclaration);
 				if (result == null) result = caseNode(forwardDeclaration);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -466,6 +484,7 @@ public class IrSwitch<T> extends Switch<T> {
 				Variable variable = (Variable)theEObject;
 				T result = caseVariable(variable);
 				if (result == null) result = caseDeclaration(variable);
+				if (result == null) result = caseScope(variable);
 				if (result == null) result = caseNode(variable);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -496,12 +515,26 @@ public class IrSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case IrPackage.CASE_EXPRESSION: {
+				CaseExpression caseExpression = (CaseExpression)theEObject;
+				T result = caseCaseExpression(caseExpression);
+				if (result == null) result = caseExpression(caseExpression);
+				if (result == null) result = caseNode(caseExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case IrPackage.EXPR_ALTERNATIVE: {
+				ExprAlternative exprAlternative = (ExprAlternative)theEObject;
+				T result = caseExprAlternative(exprAlternative);
+				if (result == null) result = caseScope(exprAlternative);
+				if (result == null) result = caseNode(exprAlternative);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case IrPackage.GUARD: {
 				Guard guard = (Guard)theEObject;
 				T result = caseGuard(guard);
-				if (result == null) result = caseLambdaExpression(guard);
 				if (result == null) result = caseScope(guard);
-				if (result == null) result = caseExpression(guard);
 				if (result == null) result = caseNode(guard);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -561,11 +594,33 @@ public class IrSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case IrPackage.TYPE_RECORD: {
-				TypeRecord typeRecord = (TypeRecord)theEObject;
-				T result = caseTypeRecord(typeRecord);
-				if (result == null) result = caseType(typeRecord);
-				if (result == null) result = caseNode(typeRecord);
+			case IrPackage.TYPE_TUPLE: {
+				TypeTuple typeTuple = (TypeTuple)theEObject;
+				T result = caseTypeTuple(typeTuple);
+				if (result == null) result = caseType(typeTuple);
+				if (result == null) result = caseNode(typeTuple);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case IrPackage.TAGGED_TUPLE: {
+				TaggedTuple taggedTuple = (TaggedTuple)theEObject;
+				T result = caseTaggedTuple(taggedTuple);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case IrPackage.TAGGED_TUPLE_FIELD_READ: {
+				TaggedTupleFieldRead taggedTupleFieldRead = (TaggedTupleFieldRead)theEObject;
+				T result = caseTaggedTupleFieldRead(taggedTupleFieldRead);
+				if (result == null) result = caseExpression(taggedTupleFieldRead);
+				if (result == null) result = caseNode(taggedTupleFieldRead);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case IrPackage.TAG_OF: {
+				TagOf tagOf = (TagOf)theEObject;
+				T result = caseTagOf(tagOf);
+				if (result == null) result = caseExpression(tagOf);
+				if (result == null) result = caseNode(tagOf);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -604,11 +659,10 @@ public class IrSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case IrPackage.TYPE_CONSTRUCTOR: {
-				TypeConstructor typeConstructor = (TypeConstructor)theEObject;
-				T result = caseTypeConstructor(typeConstructor);
-				if (result == null) result = caseDeclaration(typeConstructor);
-				if (result == null) result = caseNode(typeConstructor);
+			case IrPackage.TYPE_VARIABLE: {
+				TypeVariable typeVariable = (TypeVariable)theEObject;
+				T result = caseTypeVariable(typeVariable);
+				if (result == null) result = caseType(typeVariable);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -616,7 +670,17 @@ public class IrSwitch<T> extends Switch<T> {
 				TypeDeclaration typeDeclaration = (TypeDeclaration)theEObject;
 				T result = caseTypeDeclaration(typeDeclaration);
 				if (result == null) result = caseDeclaration(typeDeclaration);
+				if (result == null) result = caseScope(typeDeclaration);
 				if (result == null) result = caseNode(typeDeclaration);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case IrPackage.TYPE_VARIABLE_DECLARATION: {
+				TypeVariableDeclaration typeVariableDeclaration = (TypeVariableDeclaration)theEObject;
+				T result = caseTypeVariableDeclaration(typeVariableDeclaration);
+				if (result == null) result = caseDeclaration(typeVariableDeclaration);
+				if (result == null) result = caseScope(typeVariableDeclaration);
+				if (result == null) result = caseNode(typeVariableDeclaration);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1294,6 +1358,36 @@ public class IrSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Case Statement</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Case Statement</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCaseStatement(CaseStatement object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Stmt Alternative</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Stmt Alternative</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseStmtAlternative(StmtAlternative object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Port Access</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1444,6 +1538,36 @@ public class IrSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Case Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Case Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCaseExpression(CaseExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Expr Alternative</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Expr Alternative</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseExprAlternative(ExprAlternative object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Guard</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1579,17 +1703,62 @@ public class IrSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Type Record</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Type Tuple</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Type Record</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Type Tuple</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseTypeRecord(TypeRecord object) {
+	public T caseTypeTuple(TypeTuple object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Tagged Tuple</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Tagged Tuple</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTaggedTuple(TaggedTuple object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Tagged Tuple Field Read</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Tagged Tuple Field Read</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTaggedTupleFieldRead(TaggedTupleFieldRead object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Tag Of</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Tag Of</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTagOf(TagOf object) {
 		return null;
 	}
 
@@ -1669,17 +1838,17 @@ public class IrSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Type Constructor</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Type Variable</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Type Constructor</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Type Variable</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseTypeConstructor(TypeConstructor object) {
+	public T caseTypeVariable(TypeVariable object) {
 		return null;
 	}
 
@@ -1695,6 +1864,21 @@ public class IrSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseTypeDeclaration(TypeDeclaration object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Type Variable Declaration</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type Variable Declaration</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTypeVariableDeclaration(TypeVariableDeclaration object) {
 		return null;
 	}
 

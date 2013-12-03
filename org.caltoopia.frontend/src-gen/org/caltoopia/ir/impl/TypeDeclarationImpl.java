@@ -1,14 +1,9 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.caltoopia.ir.impl;
 
 import org.caltoopia.ir.IrPackage;
 import org.caltoopia.ir.Type;
-import org.caltoopia.ir.TypeConstructor;
 import org.caltoopia.ir.TypeDeclaration;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -26,7 +21,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.caltoopia.ir.impl.TypeDeclarationImpl#getType <em>Type</em>}</li>
- *   <li>{@link org.caltoopia.ir.impl.TypeDeclarationImpl#getConstructor <em>Constructor</em>}</li>
  * </ul>
  * </p>
  *
@@ -42,16 +36,6 @@ public class TypeDeclarationImpl extends DeclarationImpl implements TypeDeclarat
 	 * @ordered
 	 */
 	protected Type type;
-
-	/**
-	 * The cached value of the '{@link #getConstructor() <em>Constructor</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getConstructor()
-	 * @generated
-	 * @ordered
-	 */
-	protected TypeConstructor constructor;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -115,53 +99,12 @@ public class TypeDeclarationImpl extends DeclarationImpl implements TypeDeclarat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TypeConstructor getConstructor() {
-		if (constructor != null && constructor.eIsProxy()) {
-			InternalEObject oldConstructor = (InternalEObject)constructor;
-			constructor = (TypeConstructor)eResolveProxy(oldConstructor);
-			if (constructor != oldConstructor) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.TYPE_DECLARATION__CONSTRUCTOR, oldConstructor, constructor));
-			}
-		}
-		return constructor;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TypeConstructor basicGetConstructor() {
-		return constructor;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setConstructor(TypeConstructor newConstructor) {
-		TypeConstructor oldConstructor = constructor;
-		constructor = newConstructor;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.TYPE_DECLARATION__CONSTRUCTOR, oldConstructor, constructor));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case IrPackage.TYPE_DECLARATION__TYPE:
 				if (resolve) return getType();
 				return basicGetType();
-			case IrPackage.TYPE_DECLARATION__CONSTRUCTOR:
-				if (resolve) return getConstructor();
-				return basicGetConstructor();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -176,9 +119,6 @@ public class TypeDeclarationImpl extends DeclarationImpl implements TypeDeclarat
 		switch (featureID) {
 			case IrPackage.TYPE_DECLARATION__TYPE:
 				setType((Type)newValue);
-				return;
-			case IrPackage.TYPE_DECLARATION__CONSTRUCTOR:
-				setConstructor((TypeConstructor)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -195,9 +135,6 @@ public class TypeDeclarationImpl extends DeclarationImpl implements TypeDeclarat
 			case IrPackage.TYPE_DECLARATION__TYPE:
 				setType((Type)null);
 				return;
-			case IrPackage.TYPE_DECLARATION__CONSTRUCTOR:
-				setConstructor((TypeConstructor)null);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -212,8 +149,6 @@ public class TypeDeclarationImpl extends DeclarationImpl implements TypeDeclarat
 		switch (featureID) {
 			case IrPackage.TYPE_DECLARATION__TYPE:
 				return type != null;
-			case IrPackage.TYPE_DECLARATION__CONSTRUCTOR:
-				return constructor != null;
 		}
 		return super.eIsSet(featureID);
 	}

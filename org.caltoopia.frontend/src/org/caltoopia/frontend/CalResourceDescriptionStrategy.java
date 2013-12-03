@@ -39,7 +39,7 @@ package org.caltoopia.frontend;
 import org.caltoopia.frontend.cal.AstEntity;
 import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstNamespace;
-import org.caltoopia.frontend.cal.AstTypeName;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.naming.QualifiedName;
@@ -71,7 +71,7 @@ public class CalResourceDescriptionStrategy extends DefaultResourceDescriptionSt
 		}
 
 		// create the object description for the entity (with qualified name)		
-		for (AstFunction decl : namespace.getFunctions()) {
+		for (AstVariable decl : namespace.getFunctions()) {
 			tryAddWithQualifiedName(decl, acceptor);
 		}
 		
@@ -79,14 +79,9 @@ public class CalResourceDescriptionStrategy extends DefaultResourceDescriptionSt
 			tryAddWithQualifiedName(decl, acceptor);
 		}
 		
-		for (AstTypeName decl : namespace.getTypedefs()) {
+		for (AstTypeUser decl : namespace.getTypedefs()) {
 			// Export the type
 			tryAddWithQualifiedName(decl, acceptor);
-			
-			// And the type ctor
-			for (AstFunction tc : decl.getConstructor()) {			
-				tryAddWithQualifiedName(tc, acceptor);
-			}
 		}	
 		
 		for (AstVariable decl : namespace.getVariables()) {

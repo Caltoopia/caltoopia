@@ -6,8 +6,8 @@ import java.util.Collection;
 
 import org.caltoopia.frontend.cal.AstExpression;
 import org.caltoopia.frontend.cal.AstInputPattern;
+import org.caltoopia.frontend.cal.AstPattern;
 import org.caltoopia.frontend.cal.AstPort;
-import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.cal.CalPackage;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -59,7 +59,7 @@ public class AstInputPatternImpl extends MinimalEObjectImpl.Container implements
    * @generated
    * @ordered
    */
-  protected EList<AstVariable> tokens;
+  protected EList<AstPattern> tokens;
 
   /**
    * The cached value of the '{@link #getRepeat() <em>Repeat</em>}' containment reference.
@@ -140,11 +140,11 @@ public class AstInputPatternImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<AstVariable> getTokens()
+  public EList<AstPattern> getTokens()
   {
     if (tokens == null)
     {
-      tokens = new EObjectContainmentEList<AstVariable>(AstVariable.class, this, CalPackage.AST_INPUT_PATTERN__TOKENS);
+      tokens = new EObjectContainmentEList<AstPattern>(AstPattern.class, this, CalPackage.AST_INPUT_PATTERN__TOKENS);
     }
     return tokens;
   }
@@ -252,7 +252,7 @@ public class AstInputPatternImpl extends MinimalEObjectImpl.Container implements
         return;
       case CalPackage.AST_INPUT_PATTERN__TOKENS:
         getTokens().clear();
-        getTokens().addAll((Collection<? extends AstVariable>)newValue);
+        getTokens().addAll((Collection<? extends AstPattern>)newValue);
         return;
       case CalPackage.AST_INPUT_PATTERN__REPEAT:
         setRepeat((AstExpression)newValue);

@@ -7,7 +7,7 @@ import java.util.Collection;
 import org.caltoopia.frontend.cal.AstExpression;
 import org.caltoopia.frontend.cal.AstMemberAccess;
 import org.caltoopia.frontend.cal.AstStatementAssign;
-import org.caltoopia.frontend.cal.AstVariableReference;
+import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.cal.CalPackage;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -42,14 +42,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class AstStatementAssignImpl extends AstStatementImpl implements AstStatementAssign
 {
   /**
-   * The cached value of the '{@link #getTarget() <em>Target</em>}' containment reference.
+   * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getTarget()
    * @generated
    * @ordered
    */
-  protected AstVariableReference target;
+  protected AstVariable target;
 
   /**
    * The cached value of the '{@link #getIndexes() <em>Indexes</em>}' containment reference list.
@@ -107,7 +107,27 @@ public class AstStatementAssignImpl extends AstStatementImpl implements AstState
    * <!-- end-user-doc -->
    * @generated
    */
-  public AstVariableReference getTarget()
+  public AstVariable getTarget()
+  {
+    if (target != null && target.eIsProxy())
+    {
+      InternalEObject oldTarget = (InternalEObject)target;
+      target = (AstVariable)eResolveProxy(oldTarget);
+      if (target != oldTarget)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CalPackage.AST_STATEMENT_ASSIGN__TARGET, oldTarget, target));
+      }
+    }
+    return target;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AstVariable basicGetTarget()
   {
     return target;
   }
@@ -117,37 +137,12 @@ public class AstStatementAssignImpl extends AstStatementImpl implements AstState
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetTarget(AstVariableReference newTarget, NotificationChain msgs)
+  public void setTarget(AstVariable newTarget)
   {
-    AstVariableReference oldTarget = target;
+    AstVariable oldTarget = target;
     target = newTarget;
     if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CalPackage.AST_STATEMENT_ASSIGN__TARGET, oldTarget, newTarget);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTarget(AstVariableReference newTarget)
-  {
-    if (newTarget != target)
-    {
-      NotificationChain msgs = null;
-      if (target != null)
-        msgs = ((InternalEObject)target).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CalPackage.AST_STATEMENT_ASSIGN__TARGET, null, msgs);
-      if (newTarget != null)
-        msgs = ((InternalEObject)newTarget).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CalPackage.AST_STATEMENT_ASSIGN__TARGET, null, msgs);
-      msgs = basicSetTarget(newTarget, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CalPackage.AST_STATEMENT_ASSIGN__TARGET, newTarget, newTarget));
+      eNotify(new ENotificationImpl(this, Notification.SET, CalPackage.AST_STATEMENT_ASSIGN__TARGET, oldTarget, target));
   }
 
   /**
@@ -236,8 +231,6 @@ public class AstStatementAssignImpl extends AstStatementImpl implements AstState
   {
     switch (featureID)
     {
-      case CalPackage.AST_STATEMENT_ASSIGN__TARGET:
-        return basicSetTarget(null, msgs);
       case CalPackage.AST_STATEMENT_ASSIGN__INDEXES:
         return ((InternalEList<?>)getIndexes()).basicRemove(otherEnd, msgs);
       case CalPackage.AST_STATEMENT_ASSIGN__MEMBER:
@@ -259,7 +252,8 @@ public class AstStatementAssignImpl extends AstStatementImpl implements AstState
     switch (featureID)
     {
       case CalPackage.AST_STATEMENT_ASSIGN__TARGET:
-        return getTarget();
+        if (resolve) return getTarget();
+        return basicGetTarget();
       case CalPackage.AST_STATEMENT_ASSIGN__INDEXES:
         return getIndexes();
       case CalPackage.AST_STATEMENT_ASSIGN__MEMBER:
@@ -282,7 +276,7 @@ public class AstStatementAssignImpl extends AstStatementImpl implements AstState
     switch (featureID)
     {
       case CalPackage.AST_STATEMENT_ASSIGN__TARGET:
-        setTarget((AstVariableReference)newValue);
+        setTarget((AstVariable)newValue);
         return;
       case CalPackage.AST_STATEMENT_ASSIGN__INDEXES:
         getIndexes().clear();
@@ -310,7 +304,7 @@ public class AstStatementAssignImpl extends AstStatementImpl implements AstState
     switch (featureID)
     {
       case CalPackage.AST_STATEMENT_ASSIGN__TARGET:
-        setTarget((AstVariableReference)null);
+        setTarget((AstVariable)null);
         return;
       case CalPackage.AST_STATEMENT_ASSIGN__INDEXES:
         getIndexes().clear();

@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.caltoopia.frontend.cal.AstType#getName <em>Name</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.AstType#getDomain <em>Domain</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.AstType#getCodomain <em>Codomain</em>}</li>
- *   <li>{@link org.caltoopia.frontend.cal.AstType#getMembers <em>Members</em>}</li>
  * </ul>
  * </p>
  *
@@ -107,12 +106,12 @@ public interface AstType extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' reference.
-   * @see #setName(AstTypeName)
+   * @see #setName(AstTypeUser)
    * @see org.caltoopia.frontend.cal.CalPackage#getAstType_Name()
    * @model
    * @generated
    */
-  AstTypeName getName();
+  AstTypeUser getName();
 
   /**
    * Sets the value of the '{@link org.caltoopia.frontend.cal.AstType#getName <em>Name</em>}' reference.
@@ -122,7 +121,7 @@ public interface AstType extends EObject
    * @see #getName()
    * @generated
    */
-  void setName(AstTypeName value);
+  void setName(AstTypeUser value);
 
   /**
    * Returns the value of the '<em><b>Domain</b></em>' containment reference list.
@@ -141,35 +140,29 @@ public interface AstType extends EObject
   EList<AstType> getDomain();
 
   /**
-   * Returns the value of the '<em><b>Codomain</b></em>' containment reference list.
-   * The list contents are of type {@link org.caltoopia.frontend.cal.AstType}.
+   * Returns the value of the '<em><b>Codomain</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Codomain</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Codomain</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Codomain</em>' containment reference list.
+   * @return the value of the '<em>Codomain</em>' containment reference.
+   * @see #setCodomain(AstType)
    * @see org.caltoopia.frontend.cal.CalPackage#getAstType_Codomain()
    * @model containment="true"
    * @generated
    */
-  EList<AstType> getCodomain();
+  AstType getCodomain();
 
   /**
-   * Returns the value of the '<em><b>Members</b></em>' containment reference list.
-   * The list contents are of type {@link org.caltoopia.frontend.cal.AstVariable}.
+   * Sets the value of the '{@link org.caltoopia.frontend.cal.AstType#getCodomain <em>Codomain</em>}' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Members</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Members</em>' containment reference list.
-   * @see org.caltoopia.frontend.cal.CalPackage#getAstType_Members()
-   * @model containment="true"
+   * @param value the new value of the '<em>Codomain</em>' containment reference.
+   * @see #getCodomain()
    * @generated
    */
-  EList<AstVariable> getMembers();
+  void setCodomain(AstType value);
 
 } // AstType

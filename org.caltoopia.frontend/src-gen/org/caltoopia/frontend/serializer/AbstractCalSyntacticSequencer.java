@@ -24,6 +24,7 @@ public abstract class AbstractCalSyntacticSequencer extends AbstractSyntacticSeq
 	protected AbstractElementAlias match_AstExpressionPostfix_LeftParenthesisKeyword_5_0_p;
 	protected AbstractElementAlias match_AstInitialize_DoKeyword_8_0_q;
 	protected AbstractElementAlias match_AstStatementIf_ElseKeyword_4_0_q;
+	protected AbstractElementAlias match_AstTaggedTuple___LeftParenthesisKeyword_1_0_RightParenthesisKeyword_1_2__q;
 	protected AbstractElementAlias match_AstTypeDefinition___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q;
 	
 	@Inject
@@ -35,14 +36,25 @@ public abstract class AbstractCalSyntacticSequencer extends AbstractSyntacticSeq
 		match_AstExpressionPostfix_LeftParenthesisKeyword_5_0_p = new TokenAlias(true, false, grammarAccess.getAstExpressionPostfixAccess().getLeftParenthesisKeyword_5_0());
 		match_AstInitialize_DoKeyword_8_0_q = new TokenAlias(false, true, grammarAccess.getAstInitializeAccess().getDoKeyword_8_0());
 		match_AstStatementIf_ElseKeyword_4_0_q = new TokenAlias(false, true, grammarAccess.getAstStatementIfAccess().getElseKeyword_4_0());
+		match_AstTaggedTuple___LeftParenthesisKeyword_1_0_RightParenthesisKeyword_1_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAstTaggedTupleAccess().getLeftParenthesisKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getAstTaggedTupleAccess().getRightParenthesisKeyword_1_2()));
 		match_AstTypeDefinition___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAstTypeDefinitionAccess().getLeftParenthesisKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getAstTypeDefinitionAccess().getRightParenthesisKeyword_2_2()));
 	}
 	
 	@Override
 	protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if(ruleCall.getRule() == grammarAccess.getIDRule())
+			return getIDToken(semanticObject, ruleCall, node);
 		return "";
 	}
 	
+	/**
+	 * terminal ID returns ecore::EString : ('a'..'z'|'A'..'Z'|'_'|'$')('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'$')*;
+	 */
+	protected String getIDToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "";
+	}
 	
 	@Override
 	protected void emitUnassignedTokens(EObject semanticObject, ISynTransition transition, INode fromNode, INode toNode) {
@@ -62,6 +74,8 @@ public abstract class AbstractCalSyntacticSequencer extends AbstractSyntacticSeq
 				emit_AstInitialize_DoKeyword_8_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_AstStatementIf_ElseKeyword_4_0_q.equals(syntax))
 				emit_AstStatementIf_ElseKeyword_4_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_AstTaggedTuple___LeftParenthesisKeyword_1_0_RightParenthesisKeyword_1_2__q.equals(syntax))
+				emit_AstTaggedTuple___LeftParenthesisKeyword_1_0_RightParenthesisKeyword_1_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_AstTypeDefinition___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q.equals(syntax))
 				emit_AstTypeDefinition___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
@@ -113,6 +127,14 @@ public abstract class AbstractCalSyntacticSequencer extends AbstractSyntacticSeq
 	 *     'else'?
 	 */
 	protected void emit_AstStatementIf_ElseKeyword_4_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     ('(' ')')?
+	 */
+	protected void emit_AstTaggedTuple___LeftParenthesisKeyword_1_0_RightParenthesisKeyword_1_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

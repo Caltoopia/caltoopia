@@ -42,7 +42,7 @@ import org.caltoopia.ir.TypeFloat;
 import org.caltoopia.ir.TypeInt;
 import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.TypeString;
-import org.caltoopia.ir.TypeRecord;
+import org.caltoopia.ir.TypeTuple;
 import org.caltoopia.ir.TypeUint;
 import org.caltoopia.ir.TypeUser;
 import org.caltoopia.ir.util.ExpressionPrinter;
@@ -89,12 +89,16 @@ public class TypePrinter extends IrSwitch<String> {
 	}
 
 	@Override
-	public String caseTypeRecord(TypeRecord type){		
-		String result = "record(";
-		for (int i = 0; i < type.getMembers().size(); i++) {
-			result += type.getMembers().get(i).getName();
-			result += " " + doSwitch(type.getMembers().get(i).getType());
-			if (i< type.getMembers().size()) result += ", ";
+	public String caseTypeTuple(TypeTuple type){
+		
+		String result = "tuple(";
+		for (int i = 0; i < type.getTaggedTuples().size(); i++) {
+			result += "  tag:" + type.getTaggedTuples().get(i).getTag();	
+			for (int j = 0; i < type.getTaggedTuples().get(i).getFields().size(); j++) {
+				result += type.getTaggedTuples().get(i).getFields().get(j).getName();
+				result += " " + doSwitch(type.getTaggedTuples().get(i).getFields().get(j).getType());
+				if (i< type.getTaggedTuples().get(i).getFields().size()) result += ", ";
+			}
 		}
 		result += ")";
 		return result;

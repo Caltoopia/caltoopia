@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.caltoopia.ir.impl;
 
@@ -16,8 +12,11 @@ import org.caltoopia.ir.Assign;
 import org.caltoopia.ir.BinaryExpression;
 import org.caltoopia.ir.Block;
 import org.caltoopia.ir.BooleanLiteral;
+import org.caltoopia.ir.CaseExpression;
+import org.caltoopia.ir.CaseStatement;
 import org.caltoopia.ir.Connection;
 import org.caltoopia.ir.Declaration;
+import org.caltoopia.ir.ExprAlternative;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.ExpressionCall;
 import org.caltoopia.ir.ExternalActor;
@@ -54,13 +53,16 @@ import org.caltoopia.ir.Schedule;
 import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.State;
 import org.caltoopia.ir.Statement;
+import org.caltoopia.ir.StmtAlternative;
 import org.caltoopia.ir.StringLiteral;
+import org.caltoopia.ir.TagOf;
 import org.caltoopia.ir.TaggedExpression;
+import org.caltoopia.ir.TaggedTuple;
+import org.caltoopia.ir.TaggedTupleFieldRead;
 import org.caltoopia.ir.ToSink;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeBool;
-import org.caltoopia.ir.TypeConstructor;
 import org.caltoopia.ir.TypeConstructorCall;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeDeclarationImport;
@@ -70,11 +72,13 @@ import org.caltoopia.ir.TypeInt;
 import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.TypeProc;
-import org.caltoopia.ir.TypeRecord;
 import org.caltoopia.ir.TypeString;
+import org.caltoopia.ir.TypeTuple;
 import org.caltoopia.ir.TypeUint;
 import org.caltoopia.ir.TypeUndef;
 import org.caltoopia.ir.TypeUser;
+import org.caltoopia.ir.TypeVariable;
+import org.caltoopia.ir.TypeVariableDeclaration;
 import org.caltoopia.ir.UnaryExpression;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExpression;
@@ -403,6 +407,20 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass caseStatementEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass stmtAlternativeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass portAccessEClass = null;
 
 	/**
@@ -473,6 +491,20 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass caseExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass exprAlternativeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass guardEClass = null;
 
 	/**
@@ -536,7 +568,28 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass typeRecordEClass = null;
+	private EClass typeTupleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass taggedTupleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass taggedTupleFieldReadEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass tagOfEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -578,7 +631,7 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass typeConstructorEClass = null;
+	private EClass typeVariableEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -586,6 +639,13 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * @generated
 	 */
 	private EClass typeDeclarationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass typeVariableDeclarationEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -980,6 +1040,15 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 */
 	public EReference getAction_Statements() {
 		return (EReference)actionEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAction_TypeGuards() {
+		return (EReference)actionEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1815,6 +1884,60 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getCaseStatement() {
+		return caseStatementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCaseStatement_Alternatives() {
+		return (EReference)caseStatementEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCaseStatement_Expression() {
+		return (EReference)caseStatementEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getStmtAlternative() {
+		return stmtAlternativeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getStmtAlternative_Guards() {
+		return (EReference)stmtAlternativeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getStmtAlternative_Statements() {
+		return (EReference)stmtAlternativeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getPortAccess() {
 		return portAccessEClass;
 	}
@@ -2112,6 +2235,69 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getCaseExpression() {
+		return caseExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCaseExpression_Alternatives() {
+		return (EReference)caseExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCaseExpression_Default() {
+		return (EReference)caseExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCaseExpression_Expression() {
+		return (EReference)caseExpressionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getExprAlternative() {
+		return exprAlternativeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExprAlternative_Guards() {
+		return (EReference)exprAlternativeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExprAlternative_Expression() {
+		return (EReference)exprAlternativeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGuard() {
 		return guardEClass;
 	}
@@ -2123,6 +2309,15 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 */
 	public EReference getGuard_Peeks() {
 		return (EReference)guardEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGuard_Expression() {
+		return (EReference)guardEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2265,8 +2460,8 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getTypeRecord() {
-		return typeRecordEClass;
+	public EClass getTypeTuple() {
+		return typeTupleEClass;
 	}
 
 	/**
@@ -2274,8 +2469,98 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTypeRecord_Members() {
-		return (EReference)typeRecordEClass.getEStructuralFeatures().get(0);
+	public EReference getTypeTuple_TaggedTuples() {
+		return (EReference)typeTupleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTaggedTuple() {
+		return taggedTupleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTaggedTuple_Fields() {
+		return (EReference)taggedTupleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTaggedTuple_Tag() {
+		return (EAttribute)taggedTupleEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTaggedTupleFieldRead() {
+		return taggedTupleFieldReadEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTaggedTupleFieldRead_Tag() {
+		return (EAttribute)taggedTupleFieldReadEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTaggedTupleFieldRead_Label() {
+		return (EAttribute)taggedTupleFieldReadEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTaggedTupleFieldRead_Value() {
+		return (EReference)taggedTupleFieldReadEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTagOf() {
+		return tagOfEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTagOf_Expression() {
+		return (EReference)tagOfEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTagOf_Tag() {
+		return (EAttribute)tagOfEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2391,8 +2676,8 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getTypeConstructor() {
-		return typeConstructorEClass;
+	public EClass getTypeVariable() {
+		return typeVariableEClass;
 	}
 
 	/**
@@ -2400,17 +2685,8 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTypeConstructor_Typedef() {
-		return (EReference)typeConstructorEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getTypeConstructor_Parameters() {
-		return (EReference)typeConstructorEClass.getEStructuralFeatures().get(1);
+	public EReference getTypeVariable_Declaration() {
+		return (EReference)typeVariableEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2436,8 +2712,8 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTypeDeclaration_Constructor() {
-		return (EReference)typeDeclarationEClass.getEStructuralFeatures().get(1);
+	public EClass getTypeVariableDeclaration() {
+		return typeVariableDeclarationEClass;
 	}
 
 	/**
@@ -2647,6 +2923,7 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		createEReference(actionEClass, ACTION__INPUTS);
 		createEAttribute(actionEClass, ACTION__TAG);
 		createEReference(actionEClass, ACTION__STATEMENTS);
+		createEReference(actionEClass, ACTION__TYPE_GUARDS);
 
 		portEClass = createEClass(PORT);
 		createEReference(portEClass, PORT__TYPE);
@@ -2772,6 +3049,14 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		blockEClass = createEClass(BLOCK);
 		createEReference(blockEClass, BLOCK__STATEMENTS);
 
+		caseStatementEClass = createEClass(CASE_STATEMENT);
+		createEReference(caseStatementEClass, CASE_STATEMENT__ALTERNATIVES);
+		createEReference(caseStatementEClass, CASE_STATEMENT__EXPRESSION);
+
+		stmtAlternativeEClass = createEClass(STMT_ALTERNATIVE);
+		createEReference(stmtAlternativeEClass, STMT_ALTERNATIVE__GUARDS);
+		createEReference(stmtAlternativeEClass, STMT_ALTERNATIVE__STATEMENTS);
+
 		portAccessEClass = createEClass(PORT_ACCESS);
 		createEReference(portAccessEClass, PORT_ACCESS__PORT);
 		createEReference(portAccessEClass, PORT_ACCESS__REPEAT);
@@ -2815,8 +3100,18 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		createEReference(ifExpressionEClass, IF_EXPRESSION__ELSE_EXPRESSION);
 		createEReference(ifExpressionEClass, IF_EXPRESSION__CONDITION);
 
+		caseExpressionEClass = createEClass(CASE_EXPRESSION);
+		createEReference(caseExpressionEClass, CASE_EXPRESSION__ALTERNATIVES);
+		createEReference(caseExpressionEClass, CASE_EXPRESSION__DEFAULT);
+		createEReference(caseExpressionEClass, CASE_EXPRESSION__EXPRESSION);
+
+		exprAlternativeEClass = createEClass(EXPR_ALTERNATIVE);
+		createEReference(exprAlternativeEClass, EXPR_ALTERNATIVE__GUARDS);
+		createEReference(exprAlternativeEClass, EXPR_ALTERNATIVE__EXPRESSION);
+
 		guardEClass = createEClass(GUARD);
 		createEReference(guardEClass, GUARD__PEEKS);
+		createEReference(guardEClass, GUARD__EXPRESSION);
 
 		typeEClass = createEClass(TYPE);
 
@@ -2841,8 +3136,21 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 
 		typeStringEClass = createEClass(TYPE_STRING);
 
-		typeRecordEClass = createEClass(TYPE_RECORD);
-		createEReference(typeRecordEClass, TYPE_RECORD__MEMBERS);
+		typeTupleEClass = createEClass(TYPE_TUPLE);
+		createEReference(typeTupleEClass, TYPE_TUPLE__TAGGED_TUPLES);
+
+		taggedTupleEClass = createEClass(TAGGED_TUPLE);
+		createEReference(taggedTupleEClass, TAGGED_TUPLE__FIELDS);
+		createEAttribute(taggedTupleEClass, TAGGED_TUPLE__TAG);
+
+		taggedTupleFieldReadEClass = createEClass(TAGGED_TUPLE_FIELD_READ);
+		createEAttribute(taggedTupleFieldReadEClass, TAGGED_TUPLE_FIELD_READ__TAG);
+		createEAttribute(taggedTupleFieldReadEClass, TAGGED_TUPLE_FIELD_READ__LABEL);
+		createEReference(taggedTupleFieldReadEClass, TAGGED_TUPLE_FIELD_READ__VALUE);
+
+		tagOfEClass = createEClass(TAG_OF);
+		createEReference(tagOfEClass, TAG_OF__EXPRESSION);
+		createEAttribute(tagOfEClass, TAG_OF__TAG);
 
 		typeUndefEClass = createEClass(TYPE_UNDEF);
 
@@ -2861,13 +3169,13 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		createEReference(typeProcEClass, TYPE_PROC__INPUT_TYPES);
 		createEReference(typeProcEClass, TYPE_PROC__OUTPUT_TYPES);
 
-		typeConstructorEClass = createEClass(TYPE_CONSTRUCTOR);
-		createEReference(typeConstructorEClass, TYPE_CONSTRUCTOR__TYPEDEF);
-		createEReference(typeConstructorEClass, TYPE_CONSTRUCTOR__PARAMETERS);
+		typeVariableEClass = createEClass(TYPE_VARIABLE);
+		createEReference(typeVariableEClass, TYPE_VARIABLE__DECLARATION);
 
 		typeDeclarationEClass = createEClass(TYPE_DECLARATION);
 		createEReference(typeDeclarationEClass, TYPE_DECLARATION__TYPE);
-		createEReference(typeDeclarationEClass, TYPE_DECLARATION__CONSTRUCTOR);
+
+		typeVariableDeclarationEClass = createEClass(TYPE_VARIABLE_DECLARATION);
 
 		scheduleEClass = createEClass(SCHEDULE);
 		createEReference(scheduleEClass, SCHEDULE__STATES);
@@ -2959,12 +3267,14 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		ifStatementEClass.getESuperTypes().add(this.getStatement());
 		blockEClass.getESuperTypes().add(this.getScope());
 		blockEClass.getESuperTypes().add(this.getStatement());
+		caseStatementEClass.getESuperTypes().add(this.getStatement());
+		stmtAlternativeEClass.getESuperTypes().add(this.getScope());
 		portAccessEClass.getESuperTypes().add(this.getNode());
 		portWriteEClass.getESuperTypes().add(this.getBlock());
 		portWriteEClass.getESuperTypes().add(this.getPortAccess());
 		portReadEClass.getESuperTypes().add(this.getPortAccess());
 		portPeekEClass.getESuperTypes().add(this.getPortAccess());
-		declarationEClass.getESuperTypes().add(this.getNode());
+		declarationEClass.getESuperTypes().add(this.getScope());
 		forwardDeclarationEClass.getESuperTypes().add(this.getDeclaration());
 		variableEClass.getESuperTypes().add(this.getDeclaration());
 		lambdaExpressionEClass.getESuperTypes().add(this.getScope());
@@ -2972,7 +3282,9 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		procExpressionEClass.getESuperTypes().add(this.getScope());
 		procExpressionEClass.getESuperTypes().add(this.getExpression());
 		ifExpressionEClass.getESuperTypes().add(this.getExpression());
-		guardEClass.getESuperTypes().add(this.getLambdaExpression());
+		caseExpressionEClass.getESuperTypes().add(this.getExpression());
+		exprAlternativeEClass.getESuperTypes().add(this.getScope());
+		guardEClass.getESuperTypes().add(this.getScope());
 		typeBoolEClass.getESuperTypes().add(this.getType());
 		typeExternalEClass.getESuperTypes().add(this.getType());
 		typeIntEClass.getESuperTypes().add(this.getType());
@@ -2980,15 +3292,18 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		typeFloatEClass.getESuperTypes().add(this.getType());
 		typeUintEClass.getESuperTypes().add(this.getType());
 		typeStringEClass.getESuperTypes().add(this.getType());
-		typeRecordEClass.getESuperTypes().add(this.getType());
-		typeRecordEClass.getESuperTypes().add(this.getNode());
+		typeTupleEClass.getESuperTypes().add(this.getType());
+		typeTupleEClass.getESuperTypes().add(this.getNode());
+		taggedTupleFieldReadEClass.getESuperTypes().add(this.getExpression());
+		tagOfEClass.getESuperTypes().add(this.getExpression());
 		typeUndefEClass.getESuperTypes().add(this.getType());
 		typeActorEClass.getESuperTypes().add(this.getType());
 		typeUserEClass.getESuperTypes().add(this.getType());
 		typeLambdaEClass.getESuperTypes().add(this.getType());
 		typeProcEClass.getESuperTypes().add(this.getType());
-		typeConstructorEClass.getESuperTypes().add(this.getDeclaration());
+		typeVariableEClass.getESuperTypes().add(this.getType());
 		typeDeclarationEClass.getESuperTypes().add(this.getDeclaration());
+		typeVariableDeclarationEClass.getESuperTypes().add(this.getDeclaration());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(scopeEClass, Scope.class, "Scope", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3035,6 +3350,7 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		initEReference(getAction_Inputs(), this.getPortRead(), null, "inputs", null, 0, -1, Action.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAction_Tag(), ecorePackage.getEString(), "tag", null, 0, -1, Action.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAction_Statements(), this.getStatement(), null, "statements", null, 0, -1, Action.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAction_TypeGuards(), this.getGuard(), null, "typeGuards", null, 0, -1, Action.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(portEClass, Port.class, "Port", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPort_Type(), this.getType(), null, "type", null, 0, 1, Port.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3160,6 +3476,14 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		initEClass(blockEClass, Block.class, "Block", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBlock_Statements(), this.getStatement(), null, "statements", null, 0, -1, Block.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(caseStatementEClass, CaseStatement.class, "CaseStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getCaseStatement_Alternatives(), this.getStmtAlternative(), null, "alternatives", null, 0, -1, CaseStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCaseStatement_Expression(), this.getExpression(), null, "expression", null, 0, 1, CaseStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(stmtAlternativeEClass, StmtAlternative.class, "StmtAlternative", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getStmtAlternative_Guards(), this.getExpression(), null, "guards", null, 0, -1, StmtAlternative.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getStmtAlternative_Statements(), this.getStatement(), null, "statements", null, 0, -1, StmtAlternative.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(portAccessEClass, PortAccess.class, "PortAccess", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPortAccess_Port(), this.getPort(), null, "port", null, 0, 1, PortAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPortAccess_Repeat(), this.getExpression(), null, "repeat", null, 0, 1, PortAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3203,8 +3527,18 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		initEReference(getIfExpression_ElseExpression(), this.getExpression(), null, "elseExpression", null, 0, 1, IfExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getIfExpression_Condition(), this.getExpression(), null, "condition", null, 0, 1, IfExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(caseExpressionEClass, CaseExpression.class, "CaseExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getCaseExpression_Alternatives(), this.getExprAlternative(), null, "alternatives", null, 0, -1, CaseExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCaseExpression_Default(), this.getExpression(), null, "default", null, 0, 1, CaseExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCaseExpression_Expression(), this.getExpression(), null, "expression", null, 0, 1, CaseExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(exprAlternativeEClass, ExprAlternative.class, "ExprAlternative", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getExprAlternative_Guards(), this.getExpression(), null, "guards", null, 0, -1, ExprAlternative.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExprAlternative_Expression(), this.getExpression(), null, "expression", null, 0, 1, ExprAlternative.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(guardEClass, Guard.class, "Guard", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGuard_Peeks(), this.getPortPeek(), null, "peeks", null, 0, -1, Guard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGuard_Expression(), this.getExpression(), null, "expression", null, 0, 1, Guard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typeEClass, Type.class, "Type", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -3229,8 +3563,21 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 
 		initEClass(typeStringEClass, TypeString.class, "TypeString", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(typeRecordEClass, TypeRecord.class, "TypeRecord", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTypeRecord_Members(), this.getVariable(), null, "members", null, 0, -1, TypeRecord.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(typeTupleEClass, TypeTuple.class, "TypeTuple", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTypeTuple_TaggedTuples(), this.getTaggedTuple(), null, "TaggedTuples", null, 0, -1, TypeTuple.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(taggedTupleEClass, TaggedTuple.class, "TaggedTuple", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTaggedTuple_Fields(), this.getVariable(), null, "fields", null, 0, -1, TaggedTuple.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTaggedTuple_Tag(), ecorePackage.getEString(), "Tag", null, 0, 1, TaggedTuple.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(taggedTupleFieldReadEClass, TaggedTupleFieldRead.class, "TaggedTupleFieldRead", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTaggedTupleFieldRead_Tag(), ecorePackage.getEString(), "tag", null, 0, 1, TaggedTupleFieldRead.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTaggedTupleFieldRead_Label(), ecorePackage.getEString(), "label", null, 0, 1, TaggedTupleFieldRead.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTaggedTupleFieldRead_Value(), this.getExpression(), null, "value", null, 0, 1, TaggedTupleFieldRead.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(tagOfEClass, TagOf.class, "TagOf", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTagOf_Expression(), this.getExpression(), null, "expression", null, 0, 1, TagOf.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTagOf_Tag(), ecorePackage.getEString(), "tag", null, 0, 1, TagOf.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typeUndefEClass, TypeUndef.class, "TypeUndef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -3249,13 +3596,13 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		initEReference(getTypeProc_InputTypes(), this.getType(), null, "inputTypes", null, 0, -1, TypeProc.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTypeProc_OutputTypes(), this.getType(), null, "outputTypes", null, 0, -1, TypeProc.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(typeConstructorEClass, TypeConstructor.class, "TypeConstructor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTypeConstructor_Typedef(), this.getTypeDeclaration(), null, "typedef", null, 0, 1, TypeConstructor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTypeConstructor_Parameters(), this.getVariable(), null, "parameters", null, 0, -1, TypeConstructor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(typeVariableEClass, TypeVariable.class, "TypeVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTypeVariable_Declaration(), this.getTypeVariableDeclaration(), null, "declaration", null, 0, 1, TypeVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typeDeclarationEClass, TypeDeclaration.class, "TypeDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTypeDeclaration_Type(), this.getType(), null, "type", null, 0, 1, TypeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTypeDeclaration_Constructor(), this.getTypeConstructor(), null, "constructor", null, 0, 1, TypeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(typeVariableDeclarationEClass, TypeVariableDeclaration.class, "TypeVariableDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(scheduleEClass, Schedule.class, "Schedule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSchedule_States(), this.getState(), null, "states", null, 0, -1, Schedule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

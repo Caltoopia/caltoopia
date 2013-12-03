@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.caltoopia.ir.impl;
 
@@ -103,6 +99,8 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 			case IrPackage.FOR_EACH: return createForEach();
 			case IrPackage.IF_STATEMENT: return createIfStatement();
 			case IrPackage.BLOCK: return createBlock();
+			case IrPackage.CASE_STATEMENT: return createCaseStatement();
+			case IrPackage.STMT_ALTERNATIVE: return createStmtAlternative();
 			case IrPackage.PORT_ACCESS: return createPortAccess();
 			case IrPackage.PORT_WRITE: return createPortWrite();
 			case IrPackage.PORT_READ: return createPortRead();
@@ -113,6 +111,8 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 			case IrPackage.LAMBDA_EXPRESSION: return createLambdaExpression();
 			case IrPackage.PROC_EXPRESSION: return createProcExpression();
 			case IrPackage.IF_EXPRESSION: return createIfExpression();
+			case IrPackage.CASE_EXPRESSION: return createCaseExpression();
+			case IrPackage.EXPR_ALTERNATIVE: return createExprAlternative();
 			case IrPackage.GUARD: return createGuard();
 			case IrPackage.TYPE: return createType();
 			case IrPackage.TYPE_BOOL: return createTypeBool();
@@ -122,14 +122,18 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 			case IrPackage.TYPE_FLOAT: return createTypeFloat();
 			case IrPackage.TYPE_UINT: return createTypeUint();
 			case IrPackage.TYPE_STRING: return createTypeString();
-			case IrPackage.TYPE_RECORD: return createTypeRecord();
+			case IrPackage.TYPE_TUPLE: return createTypeTuple();
+			case IrPackage.TAGGED_TUPLE: return createTaggedTuple();
+			case IrPackage.TAGGED_TUPLE_FIELD_READ: return createTaggedTupleFieldRead();
+			case IrPackage.TAG_OF: return createTagOf();
 			case IrPackage.TYPE_UNDEF: return createTypeUndef();
 			case IrPackage.TYPE_ACTOR: return createTypeActor();
 			case IrPackage.TYPE_USER: return createTypeUser();
 			case IrPackage.TYPE_LAMBDA: return createTypeLambda();
 			case IrPackage.TYPE_PROC: return createTypeProc();
-			case IrPackage.TYPE_CONSTRUCTOR: return createTypeConstructor();
+			case IrPackage.TYPE_VARIABLE: return createTypeVariable();
 			case IrPackage.TYPE_DECLARATION: return createTypeDeclaration();
+			case IrPackage.TYPE_VARIABLE_DECLARATION: return createTypeVariableDeclaration();
 			case IrPackage.SCHEDULE: return createSchedule();
 			case IrPackage.STATE: return createState();
 			case IrPackage.ANNOTATION: return createAnnotation();
@@ -574,6 +578,26 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public CaseStatement createCaseStatement() {
+		CaseStatementImpl caseStatement = new CaseStatementImpl();
+		return caseStatement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StmtAlternative createStmtAlternative() {
+		StmtAlternativeImpl stmtAlternative = new StmtAlternativeImpl();
+		return stmtAlternative;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public PortAccess createPortAccess() {
 		PortAccessImpl portAccess = new PortAccessImpl();
 		return portAccess;
@@ -674,6 +698,26 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public CaseExpression createCaseExpression() {
+		CaseExpressionImpl caseExpression = new CaseExpressionImpl();
+		return caseExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ExprAlternative createExprAlternative() {
+		ExprAlternativeImpl exprAlternative = new ExprAlternativeImpl();
+		return exprAlternative;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Guard createGuard() {
 		GuardImpl guard = new GuardImpl();
 		return guard;
@@ -764,9 +808,39 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TypeRecord createTypeRecord() {
-		TypeRecordImpl typeRecord = new TypeRecordImpl();
-		return typeRecord;
+	public TypeTuple createTypeTuple() {
+		TypeTupleImpl typeTuple = new TypeTupleImpl();
+		return typeTuple;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TaggedTuple createTaggedTuple() {
+		TaggedTupleImpl taggedTuple = new TaggedTupleImpl();
+		return taggedTuple;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TaggedTupleFieldRead createTaggedTupleFieldRead() {
+		TaggedTupleFieldReadImpl taggedTupleFieldRead = new TaggedTupleFieldReadImpl();
+		return taggedTupleFieldRead;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TagOf createTagOf() {
+		TagOfImpl tagOf = new TagOfImpl();
+		return tagOf;
 	}
 
 	/**
@@ -824,9 +898,9 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TypeConstructor createTypeConstructor() {
-		TypeConstructorImpl typeConstructor = new TypeConstructorImpl();
-		return typeConstructor;
+	public TypeVariable createTypeVariable() {
+		TypeVariableImpl typeVariable = new TypeVariableImpl();
+		return typeVariable;
 	}
 
 	/**
@@ -837,6 +911,16 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 	public TypeDeclaration createTypeDeclaration() {
 		TypeDeclarationImpl typeDeclaration = new TypeDeclarationImpl();
 		return typeDeclaration;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TypeVariableDeclaration createTypeVariableDeclaration() {
+		TypeVariableDeclarationImpl typeVariableDeclaration = new TypeVariableDeclarationImpl();
+		return typeVariableDeclaration;
 	}
 
 	/**

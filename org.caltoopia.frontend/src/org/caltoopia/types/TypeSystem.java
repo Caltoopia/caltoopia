@@ -53,10 +53,11 @@ import org.caltoopia.ir.TypeFloat;
 import org.caltoopia.ir.TypeInt;
 import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.TypeString;
-import org.caltoopia.ir.TypeRecord;
+import org.caltoopia.ir.TypeTuple;
 import org.caltoopia.ir.TypeUint;
 import org.caltoopia.ir.TypeUndef;
 import org.caltoopia.ir.TypeUser;
+import org.caltoopia.ir.TypeVariable;
 
 public class TypeSystem {		
 		
@@ -165,7 +166,7 @@ public class TypeSystem {
 		return (t instanceof TypeUser);
 	}
 
-	public static boolean isRecord(Type t){		
+	public static boolean isTypeTuple(Type t){		
 		if (t instanceof TypeUser) {
 			Declaration typeDecl = ((TypeUser) t).getDeclaration();
 			if (typeDecl instanceof TypeDeclarationImport) {
@@ -176,15 +177,15 @@ public class TypeSystem {
 				}
 			}
 			Type t2 = ((TypeDeclaration) typeDecl).getType();
-			return isRecord(t2);
+			return isTypeTuple(t2);
 		} else {
-			return (t instanceof TypeRecord);
+			return (t instanceof TypeTuple);
 		}
 	}
 
-	public static TypeRecord asRecord(Type t) {
-		if (t instanceof TypeRecord) {
-			return (TypeRecord) t;
+	public static TypeTuple asTypeTuple(Type t) {
+		if (t instanceof TypeTuple) {
+			return (TypeTuple) t;
 		} else if (t instanceof TypeUser) {
 			Declaration typeDecl = ((TypeUser) t).getDeclaration();
 			if (typeDecl instanceof TypeDeclarationImport) {
@@ -194,7 +195,7 @@ public class TypeSystem {
 					throw new RuntimeException("[TypeSystem] internal error#2a");
 				}
 			}
-			return (TypeRecord) ((TypeDeclaration) typeDecl).getType();
+			return (TypeTuple) ((TypeDeclaration) typeDecl).getType();
 		} else {
 			throw new RuntimeException("[TypeSystem] internal error#2b");
 		}
@@ -228,6 +229,10 @@ public class TypeSystem {
 	public static boolean isString(Type t) {
 		return (t instanceof TypeString);
 	}
+	
+	public static boolean isTypeVariable(Type t) {
+		return (t instanceof TypeVariable);
+	}
 
 	//FIXME the functions "isCompatible" and "LUB" are just placeholders
 	public static boolean isCompatible(Type t1, Type t2) throws TypeException {
@@ -235,6 +240,14 @@ public class TypeSystem {
 	}
 	
 	public static Type LUB(Type t1, Type t2) throws TypeException {
+		
+	if (isTypeVariable(t1) && isTypeVariable(t2)) {
+			return t1;
+		} else if (isTypeVariable(t1)) {
+			return t2;
+		} else if (isTypeVariable(t2)) {
+			return t1;
+		}
 		
 		if (isInt(t1)  && isInt(t2)  || 
 			isInt(t1)  && isUint(t2) ||

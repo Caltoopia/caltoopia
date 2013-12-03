@@ -109,7 +109,7 @@ public interface AstNamespace extends AstTop, AstPackage, AstUnit
 
   /**
    * Returns the value of the '<em><b>Functions</b></em>' containment reference list.
-   * The list contents are of type {@link org.caltoopia.frontend.cal.AstFunction}.
+   * The list contents are of type {@link org.caltoopia.frontend.cal.AstVariable}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Functions</em>' containment reference list isn't clear,
@@ -121,7 +121,7 @@ public interface AstNamespace extends AstTop, AstPackage, AstUnit
    * @model containment="true"
    * @generated
    */
-  EList<AstFunction> getFunctions();
+  EList<AstVariable> getFunctions();
 
   /**
    * Returns the value of the '<em><b>Variables</b></em>' containment reference list.
@@ -173,7 +173,7 @@ public interface AstNamespace extends AstTop, AstPackage, AstUnit
 
   /**
    * Returns the value of the '<em><b>Typedefs</b></em>' containment reference list.
-   * The list contents are of type {@link org.caltoopia.frontend.cal.AstTypeName}.
+   * The list contents are of type {@link org.caltoopia.frontend.cal.AstTypeUser}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Typedefs</em>' containment reference list isn't clear,
@@ -185,7 +185,7 @@ public interface AstNamespace extends AstTop, AstPackage, AstUnit
    * @model containment="true"
    * @generated
    */
-  EList<AstTypeName> getTypedefs();
+  EList<AstTypeUser> getTypedefs();
 
   /**
    * Returns the value of the '<em><b>Namespaces</b></em>' containment reference list.

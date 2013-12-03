@@ -1191,7 +1191,6 @@ send_new_vop_height: action ==> BTYPE: [ vol_height ], HEIGHT: [ vol_height ] en
     set_bits_to_read( 8 );
   end
 
-
   schedule fsm stuck_1a /* look_for_vo */ :
 
  

@@ -158,13 +158,13 @@ public interface CalFactory extends EFactory
   AstVariable createAstVariable();
 
   /**
-   * Returns a new object of class '<em>Ast Type Name</em>'.
+   * Returns a new object of class '<em>Ast Type User</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Ast Type Name</em>'.
+   * @return a new object of class '<em>Ast Type User</em>'.
    * @generated
    */
-  AstTypeName createAstTypeName();
+  AstTypeUser createAstTypeUser();
 
   /**
    * Returns a new object of class '<em>Ast Type Definition Parameter</em>'.
@@ -176,13 +176,13 @@ public interface CalFactory extends EFactory
   AstTypeDefinitionParameter createAstTypeDefinitionParameter();
 
   /**
-   * Returns a new object of class '<em>Ast Function</em>'.
+   * Returns a new object of class '<em>Ast Tagged Tuple</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Ast Function</em>'.
+   * @return a new object of class '<em>Ast Tagged Tuple</em>'.
    * @generated
    */
-  AstFunction createAstFunction();
+  AstTaggedTuple createAstTaggedTuple();
 
   /**
    * Returns a new object of class '<em>Ast Actor</em>'.
@@ -383,6 +383,24 @@ public interface CalFactory extends EFactory
   AstStatementWhile createAstStatementWhile();
 
   /**
+   * Returns a new object of class '<em>Ast Statement Case</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ast Statement Case</em>'.
+   * @generated
+   */
+  AstStatementCase createAstStatementCase();
+
+  /**
+   * Returns a new object of class '<em>Ast Statement Alternative</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ast Statement Alternative</em>'.
+   * @generated
+   */
+  AstStatementAlternative createAstStatementAlternative();
+
+  /**
    * Returns a new object of class '<em>Ast Statement</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -401,13 +419,13 @@ public interface CalFactory extends EFactory
   AstExpression createAstExpression();
 
   /**
-   * Returns a new object of class '<em>Ast Expression Call</em>'.
+   * Returns a new object of class '<em>Ast Expression Symbol Reference</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Ast Expression Call</em>'.
+   * @return a new object of class '<em>Ast Expression Symbol Reference</em>'.
    * @generated
    */
-  AstExpressionCall createAstExpressionCall();
+  AstExpressionSymbolReference createAstExpressionSymbolReference();
 
   /**
    * Returns a new object of class '<em>Ast Expression If</em>'.
@@ -437,13 +455,22 @@ public interface CalFactory extends EFactory
   AstGenerator createAstGenerator();
 
   /**
-   * Returns a new object of class '<em>Ast Expression Variable</em>'.
+   * Returns a new object of class '<em>Ast Expression Case</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Ast Expression Variable</em>'.
+   * @return a new object of class '<em>Ast Expression Case</em>'.
    * @generated
    */
-  AstExpressionVariable createAstExpressionVariable();
+  AstExpressionCase createAstExpressionCase();
+
+  /**
+   * Returns a new object of class '<em>Ast Expression Alternative</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ast Expression Alternative</em>'.
+   * @generated
+   */
+  AstExpressionAlternative createAstExpressionAlternative();
 
   /**
    * Returns a new object of class '<em>Ast Expression Literal</em>'.
@@ -491,6 +518,33 @@ public interface CalFactory extends EFactory
   AstExpressionString createAstExpressionString();
 
   /**
+   * Returns a new object of class '<em>Ast Pattern</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ast Pattern</em>'.
+   * @generated
+   */
+  AstPattern createAstPattern();
+
+  /**
+   * Returns a new object of class '<em>Ast Sub Pattern</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ast Sub Pattern</em>'.
+   * @generated
+   */
+  AstSubPattern createAstSubPattern();
+
+  /**
+   * Returns a new object of class '<em>Ast Pattern Expression If</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ast Pattern Expression If</em>'.
+   * @generated
+   */
+  AstPatternExpressionIf createAstPatternExpressionIf();
+
+  /**
    * Returns a new object of class '<em>Ast Type</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -518,15 +572,6 @@ public interface CalFactory extends EFactory
   AstTypeParam createAstTypeParam();
 
   /**
-   * Returns a new object of class '<em>Ast Variable Reference</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Ast Variable Reference</em>'.
-   * @generated
-   */
-  AstVariableReference createAstVariableReference();
-
-  /**
    * Returns a new object of class '<em>Ast Member Access</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -552,6 +597,24 @@ public interface CalFactory extends EFactory
    * @generated
    */
   AstAnnotationArgument createAstAnnotationArgument();
+
+  /**
+   * Returns a new object of class '<em>Ast Tuple</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ast Tuple</em>'.
+   * @generated
+   */
+  AstTuple createAstTuple();
+
+  /**
+   * Returns a new object of class '<em>Ast Function</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Ast Function</em>'.
+   * @generated
+   */
+  AstFunction createAstFunction();
 
   /**
    * Returns a new object of class '<em>Ast Initialize</em>'.

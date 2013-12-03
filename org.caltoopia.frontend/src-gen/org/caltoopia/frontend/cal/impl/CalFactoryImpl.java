@@ -30,7 +30,7 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
   {
     try
     {
-      CalFactory theCalFactory = (CalFactory)EPackage.Registry.INSTANCE.getEFactory(CalPackage.eNS_URI);
+      CalFactory theCalFactory = (CalFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.caltoopia.org/frontend/Cal"); 
       if (theCalFactory != null)
       {
         return theCalFactory;
@@ -79,9 +79,9 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
       case CalPackage.AST_ACTOR_VARIABLE_REFERENCE: return createAstActorVariableReference();
       case CalPackage.AST_CONNECTION_ATTRIBUTE: return createAstConnectionAttribute();
       case CalPackage.AST_VARIABLE: return createAstVariable();
-      case CalPackage.AST_TYPE_NAME: return createAstTypeName();
+      case CalPackage.AST_TYPE_USER: return createAstTypeUser();
       case CalPackage.AST_TYPE_DEFINITION_PARAMETER: return createAstTypeDefinitionParameter();
-      case CalPackage.AST_FUNCTION: return createAstFunction();
+      case CalPackage.AST_TAGGED_TUPLE: return createAstTaggedTuple();
       case CalPackage.AST_ACTOR: return createAstActor();
       case CalPackage.AST_PORT: return createAstPort();
       case CalPackage.AST_EXTERNAL_FUNCTION: return createAstExternalFunction();
@@ -104,25 +104,32 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
       case CalPackage.AST_STATEMENT_BLOCK: return createAstStatementBlock();
       case CalPackage.AST_STATEMENT_IF: return createAstStatementIf();
       case CalPackage.AST_STATEMENT_WHILE: return createAstStatementWhile();
+      case CalPackage.AST_STATEMENT_CASE: return createAstStatementCase();
+      case CalPackage.AST_STATEMENT_ALTERNATIVE: return createAstStatementAlternative();
       case CalPackage.AST_STATEMENT: return createAstStatement();
       case CalPackage.AST_EXPRESSION: return createAstExpression();
-      case CalPackage.AST_EXPRESSION_CALL: return createAstExpressionCall();
+      case CalPackage.AST_EXPRESSION_SYMBOL_REFERENCE: return createAstExpressionSymbolReference();
       case CalPackage.AST_EXPRESSION_IF: return createAstExpressionIf();
       case CalPackage.AST_EXPRESSION_LIST: return createAstExpressionList();
       case CalPackage.AST_GENERATOR: return createAstGenerator();
-      case CalPackage.AST_EXPRESSION_VARIABLE: return createAstExpressionVariable();
+      case CalPackage.AST_EXPRESSION_CASE: return createAstExpressionCase();
+      case CalPackage.AST_EXPRESSION_ALTERNATIVE: return createAstExpressionAlternative();
       case CalPackage.AST_EXPRESSION_LITERAL: return createAstExpressionLiteral();
       case CalPackage.AST_EXPRESSION_BOOLEAN: return createAstExpressionBoolean();
       case CalPackage.AST_EXPRESSION_FLOAT: return createAstExpressionFloat();
       case CalPackage.AST_EXPRESSION_INTEGER: return createAstExpressionInteger();
       case CalPackage.AST_EXPRESSION_STRING: return createAstExpressionString();
+      case CalPackage.AST_PATTERN: return createAstPattern();
+      case CalPackage.AST_SUB_PATTERN: return createAstSubPattern();
+      case CalPackage.AST_PATTERN_EXPRESSION_IF: return createAstPatternExpressionIf();
       case CalPackage.AST_TYPE: return createAstType();
       case CalPackage.AST_TYPE_PARAMETER_LIST: return createAstTypeParameterList();
       case CalPackage.AST_TYPE_PARAM: return createAstTypeParam();
-      case CalPackage.AST_VARIABLE_REFERENCE: return createAstVariableReference();
       case CalPackage.AST_MEMBER_ACCESS: return createAstMemberAccess();
       case CalPackage.AST_ANNOTATION: return createAstAnnotation();
       case CalPackage.AST_ANNOTATION_ARGUMENT: return createAstAnnotationArgument();
+      case CalPackage.AST_TUPLE: return createAstTuple();
+      case CalPackage.AST_FUNCTION: return createAstFunction();
       case CalPackage.AST_INITIALIZE: return createAstInitialize();
       case CalPackage.AST_EXPRESSION_BINARY: return createAstExpressionBinary();
       case CalPackage.AST_EXPRESSION_UNARY: return createAstExpressionUnary();
@@ -301,10 +308,10 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public AstTypeName createAstTypeName()
+  public AstTypeUser createAstTypeUser()
   {
-    AstTypeNameImpl astTypeName = new AstTypeNameImpl();
-    return astTypeName;
+    AstTypeUserImpl astTypeUser = new AstTypeUserImpl();
+    return astTypeUser;
   }
 
   /**
@@ -323,10 +330,10 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public AstFunction createAstFunction()
+  public AstTaggedTuple createAstTaggedTuple()
   {
-    AstFunctionImpl astFunction = new AstFunctionImpl();
-    return astFunction;
+    AstTaggedTupleImpl astTaggedTuple = new AstTaggedTupleImpl();
+    return astTaggedTuple;
   }
 
   /**
@@ -576,6 +583,28 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public AstStatementCase createAstStatementCase()
+  {
+    AstStatementCaseImpl astStatementCase = new AstStatementCaseImpl();
+    return astStatementCase;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AstStatementAlternative createAstStatementAlternative()
+  {
+    AstStatementAlternativeImpl astStatementAlternative = new AstStatementAlternativeImpl();
+    return astStatementAlternative;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public AstStatement createAstStatement()
   {
     AstStatementImpl astStatement = new AstStatementImpl();
@@ -598,10 +627,10 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public AstExpressionCall createAstExpressionCall()
+  public AstExpressionSymbolReference createAstExpressionSymbolReference()
   {
-    AstExpressionCallImpl astExpressionCall = new AstExpressionCallImpl();
-    return astExpressionCall;
+    AstExpressionSymbolReferenceImpl astExpressionSymbolReference = new AstExpressionSymbolReferenceImpl();
+    return astExpressionSymbolReference;
   }
 
   /**
@@ -642,10 +671,21 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public AstExpressionVariable createAstExpressionVariable()
+  public AstExpressionCase createAstExpressionCase()
   {
-    AstExpressionVariableImpl astExpressionVariable = new AstExpressionVariableImpl();
-    return astExpressionVariable;
+    AstExpressionCaseImpl astExpressionCase = new AstExpressionCaseImpl();
+    return astExpressionCase;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AstExpressionAlternative createAstExpressionAlternative()
+  {
+    AstExpressionAlternativeImpl astExpressionAlternative = new AstExpressionAlternativeImpl();
+    return astExpressionAlternative;
   }
 
   /**
@@ -708,6 +748,39 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public AstPattern createAstPattern()
+  {
+    AstPatternImpl astPattern = new AstPatternImpl();
+    return astPattern;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AstSubPattern createAstSubPattern()
+  {
+    AstSubPatternImpl astSubPattern = new AstSubPatternImpl();
+    return astSubPattern;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AstPatternExpressionIf createAstPatternExpressionIf()
+  {
+    AstPatternExpressionIfImpl astPatternExpressionIf = new AstPatternExpressionIfImpl();
+    return astPatternExpressionIf;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public AstType createAstType()
   {
     AstTypeImpl astType = new AstTypeImpl();
@@ -741,17 +814,6 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public AstVariableReference createAstVariableReference()
-  {
-    AstVariableReferenceImpl astVariableReference = new AstVariableReferenceImpl();
-    return astVariableReference;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public AstMemberAccess createAstMemberAccess()
   {
     AstMemberAccessImpl astMemberAccess = new AstMemberAccessImpl();
@@ -778,6 +840,28 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
   {
     AstAnnotationArgumentImpl astAnnotationArgument = new AstAnnotationArgumentImpl();
     return astAnnotationArgument;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AstTuple createAstTuple()
+  {
+    AstTupleImpl astTuple = new AstTupleImpl();
+    return astTuple;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AstFunction createAstFunction()
+  {
+    AstFunctionImpl astFunction = new AstFunctionImpl();
+    return astFunction;
   }
 
   /**

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<genmodel:GenModel xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.caltoopia.frontend/src-gen"
-    modelPluginID="org.caltoopia.frontend" modelName="Ir" rootImplementsInterface=""
-    importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0" copyrightFields="false">
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.caltoopia.frontend/src-gen" modelPluginID="org.caltoopia.frontend"
+    modelName="Ir" importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0"
+    copyrightFields="false">
   <foreignModel>ir.ecore</foreignModel>
   <genPackages prefix="Ir" basePackage="org.caltoopia" disposableProviderFactory="true"
       ecorePackage="ir.ecore#/">
@@ -50,6 +49,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Action/inputs"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//Action/tag"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Action/statements"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Action/typeGuards"/>
     </genClasses>
     <genClasses ecoreClass="ir.ecore#//Port">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Port/type"/>
@@ -172,6 +172,14 @@
     <genClasses ecoreClass="ir.ecore#//Block">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Block/statements"/>
     </genClasses>
+    <genClasses ecoreClass="ir.ecore#//CaseStatement">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//CaseStatement/alternatives"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//CaseStatement/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//StmtAlternative">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//StmtAlternative/guards"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//StmtAlternative/statements"/>
+    </genClasses>
     <genClasses ecoreClass="ir.ecore#//PortAccess">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//PortAccess/port"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//PortAccess/repeat"/>
@@ -215,8 +223,18 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//IfExpression/elseExpression"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//IfExpression/condition"/>
     </genClasses>
+    <genClasses ecoreClass="ir.ecore#//CaseExpression">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//CaseExpression/alternatives"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//CaseExpression/default"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//CaseExpression/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//ExprAlternative">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ExprAlternative/guards"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ExprAlternative/expression"/>
+    </genClasses>
     <genClasses ecoreClass="ir.ecore#//Guard">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Guard/peeks"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Guard/expression"/>
     </genClasses>
     <genClasses ecoreClass="ir.ecore#//Type"/>
     <genClasses ecoreClass="ir.ecore#//TypeBool"/>
@@ -237,8 +255,21 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeUint/size"/>
     </genClasses>
     <genClasses ecoreClass="ir.ecore#//TypeString"/>
-    <genClasses ecoreClass="ir.ecore#//TypeRecord">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeRecord/members"/>
+    <genClasses ecoreClass="ir.ecore#//TypeTuple">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeTuple/TaggedTuples"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//TaggedTuple">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TaggedTuple/fields"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//TaggedTuple/Tag"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//TaggedTupleFieldRead">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//TaggedTupleFieldRead/tag"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//TaggedTupleFieldRead/label"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TaggedTupleFieldRead/value"/>
+    </genClasses>
+    <genClasses ecoreClass="ir.ecore#//TagOf">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TagOf/expression"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ir.ecore#//TagOf/tag"/>
     </genClasses>
     <genClasses ecoreClass="ir.ecore#//TypeUndef"/>
     <genClasses ecoreClass="ir.ecore#//TypeActor">
@@ -256,14 +287,13 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeProc/inputTypes"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeProc/outputTypes"/>
     </genClasses>
-    <genClasses ecoreClass="ir.ecore#//TypeConstructor">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeConstructor/typedef"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeConstructor/parameters"/>
+    <genClasses ecoreClass="ir.ecore#//TypeVariable">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeVariable/declaration"/>
     </genClasses>
     <genClasses ecoreClass="ir.ecore#//TypeDeclaration">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeDeclaration/type"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeDeclaration/constructor"/>
     </genClasses>
+    <genClasses ecoreClass="ir.ecore#//TypeVariableDeclaration"/>
     <genClasses ecoreClass="ir.ecore#//Schedule">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Schedule/states"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Schedule/freeRunners"/>

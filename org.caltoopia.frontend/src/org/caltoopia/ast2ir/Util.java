@@ -53,22 +53,31 @@ import org.caltoopia.frontend.cal.AstExpressionBoolean;
 import org.caltoopia.frontend.cal.AstExpressionFloat;
 import org.caltoopia.frontend.cal.AstExpressionInteger;
 import org.caltoopia.frontend.cal.AstExpressionString;
+import org.caltoopia.frontend.cal.AstExpressionSymbolReference;
 import org.caltoopia.frontend.cal.AstInputPattern;
 import org.caltoopia.frontend.cal.AstMemberAccess;
 import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstNamespace;
 import org.caltoopia.frontend.cal.AstOutputPattern;
+import org.caltoopia.frontend.cal.AstPattern;
 import org.caltoopia.frontend.cal.AstPort;
 import org.caltoopia.frontend.cal.AstProcedure;
+import org.caltoopia.frontend.cal.AstSubPattern;
+import org.caltoopia.frontend.cal.AstTaggedTuple;
 import org.caltoopia.frontend.cal.AstType;
-import org.caltoopia.frontend.cal.AstTypeName;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.ir.Annotation;
 import org.caltoopia.ir.AnnotationArgument;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.ForwardDeclaration;
-import org.caltoopia.ir.TypeDeclaration;
+import org.caltoopia.ir.Guard;
+import org.caltoopia.ir.IfExpression;
+import org.caltoopia.ir.Node;
+import org.caltoopia.ir.PortPeek;
+import org.caltoopia.ir.TagOf;
+import org.caltoopia.ir.TaggedTupleFieldRead;
 import org.caltoopia.ir.TypeDeclarationImport;
 import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeProc;
@@ -92,10 +101,9 @@ import org.caltoopia.ir.Port;
 import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.TypeActor;
-import org.caltoopia.ir.TypeConstructor;
 import org.caltoopia.ir.TypeConstructorCall;
 import org.caltoopia.ir.TypeList;
-import org.caltoopia.ir.TypeRecord;
+import org.caltoopia.ir.TypeTuple;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.VariableExternal;
 import org.caltoopia.ir.VariableImport;
@@ -111,6 +119,7 @@ public class Util {
 	
 	// This is a map from AstVariable & function definitions to corresponding IR declaration
 	static private Map<EObject, Declaration> defs = new HashMap<EObject, Declaration>();
+	static private Map<EObject, Declaration> stashedDefs;
 	
 	static private int definitionID = 0;	
 
@@ -124,10 +133,19 @@ public class Util {
 	
 	public static void defsprint() {
 		System.out.println("------------------ D E F S ------------------");
-		for (Declaration decl : defs.values()) {
-			System.out.println(decl.getName());
+		for (EObject key : defs.keySet()) {
+			System.out.println(key + " --> " + defs.get(key).getName());
 		}
 		System.out.println("---------------------------------------------");
+	}
+	
+	public static void stashDefs() {
+		stashedDefs = defs;
+		defs = new HashMap<EObject, Declaration>(defs);
+	}
+	
+	public static void unstashDefs() {
+		defs = stashedDefs;		
 	}
 	
 	public static VariableImport createImportedVariableDeclaration(List<String> NamespaceName, AstVariable p) {
@@ -140,7 +158,7 @@ public class Util {
 		return var;
 	}
 	
-	public static TypeDeclarationImport createImportedTypeDeclaration(List<String> NamespaceName, AstTypeName t) {
+	public static TypeDeclarationImport createImportedTypeDeclaration(List<String> NamespaceName, AstTypeUser t) {
 		TypeDeclarationImport typedef = IrFactory.eINSTANCE.createTypeDeclarationImport();
 		typedef.setName(t.getName());
 		typedef.setId(getDefinitionId());
@@ -202,28 +220,7 @@ public class Util {
 		defsput(astVariable, var);
 
 		return var;
-	}	
-	
-	public static TypeConstructor createTypeConstructor(TypeDeclaration typeDecl, AstFunction f, boolean approximate) {
-		TypeConstructor tc = IrFactory.eINSTANCE.createTypeConstructor();
-		tc.setId(getDefinitionId());
-		tc.setName(f.getName());
-		
-		for (AstVariable m : f.getMembers()) {
-			Variable member = IrFactory.eINSTANCE.createVariable();
-			member.setId(Util.getDefinitionId());
-			member.setScope(typeDecl.getScope());
-			member.setName(m.getName());
-			Type type = TypeConverter.convert(typeDecl.getScope(), m.getType(), approximate);
-			member.setType(type);			
-			tc.getParameters().add(member);
-		}
-		tc.setTypedef(typeDecl);
-		tc.setScope(typeDecl.getScope());
-		defsput(f, tc);
-		
-		return tc;
-	}
+	}		
 	
 	public static Declaration createForwardFunctionDeclaration(Scope scope, AstFunction f, boolean approximate) {
 		ForwardDeclaration fun = IrFactory.eINSTANCE.createForwardDeclaration();
@@ -350,11 +347,11 @@ public class Util {
 		return annotation;
 	}
 
-	public static VariableExpression createVariableExpression(Scope scope, Variable var) {
+	public static VariableExpression createVariableExpression(Scope context, Variable var) {
 		VariableExpression result = IrFactory.eINSTANCE.createVariableExpression();
 		result.setId(Util.getDefinitionId());
 		result.setVariable(var);
-		result.setContext(scope);
+		result.setContext(context);
 		return result;
 	}
 
@@ -376,6 +373,15 @@ public class Util {
 	
 	public static Port createInputPort(Scope scope, AstInputPattern pattern, boolean approximate) {
 		Port port = IrFactory.eINSTANCE.createPort();
+		AstPort astPort = getAstPort(pattern);
+		port.setName(astPort.getName());
+		Type type = TypeConverter.convert(scope, astPort.getType(), approximate);
+		port.setType(type);
+		
+		return port;
+	}
+	
+	public static AstPort getAstPort(AstInputPattern pattern) {
 		AstPort astPort = null;
 		if (pattern.getPort() != null) {
 			astPort = pattern.getPort();
@@ -391,11 +397,7 @@ public class Util {
 			}
 		}
 		assert(astPort != null);
-		port.setName(astPort.getName());
-		Type type = TypeConverter.convert(scope, astPort.getType(), approximate);
-		port.setType(type);
-		
-		return port;
+		return astPort;
 	}
 	
 	public static Port createOutputPort(Scope scope, AstOutputPattern pattern, boolean approximate) {
@@ -475,6 +477,24 @@ public class Util {
 		lit.setId(Util.getDefinitionId());
 		lit.setValue(e.isValue());
 		lit.setType(TypeSystem.createTypeBool());
+		return lit;
+	}
+	
+	private static Expression createFalseLiteral() {
+		BooleanLiteral lit = IrFactory.eINSTANCE.createBooleanLiteral();
+		lit.setId(Util.getDefinitionId());
+		lit.setValue(false);
+		lit.setType(TypeSystem.createTypeBool());
+
+		return lit;
+	}
+	
+	private static Expression createTrueLiteral() {
+		BooleanLiteral lit = IrFactory.eINSTANCE.createBooleanLiteral();
+		lit.setId(Util.getDefinitionId());
+		lit.setValue(true);
+		lit.setType(TypeSystem.createTypeBool());
+
 		return lit;
 	}
 
@@ -581,21 +601,21 @@ public class Util {
 			String name = "unknown";
 			if (astObject instanceof AstVariable) {
 				name = ((AstVariable) astObject).getName() + " (variable)";
-			} else if (astObject instanceof AstTypeName) {
-				name = ((AstTypeName) astObject).getName() + " (typedef)";
+			} else if (astObject instanceof AstTypeUser) {
+				name = ((AstTypeUser) astObject).getName() + " (typedef)";
 			} else if (astObject instanceof AstFunction) {
 				name = ((AstFunction) astObject).getName() + " (function)";
 			} else if (astObject instanceof AstProcedure) {
 				name = ((AstProcedure) astObject).getName() + " (procedure)";
 			}
-			// defsprint();
+//			defsprint();
 			throw new RuntimeException("Internal error in findIrDeclaration for '" + name + "'");
 		}
 
 		return irObject;
 	}
 		
-	public static Member createMemberAccess(AstMemberAccess field, Scope scope) {
+	public static Member createFieldAccess(AstMemberAccess field, Scope scope) {
 		Member member = IrFactory.eINSTANCE.createMember();
 		member.setName(field.getName());
 		// Type type = TypeConverter.typeOf(scope, field);
@@ -627,8 +647,8 @@ public class Util {
 		}
 	}
 
-	public static boolean isTypeRecord(Type type) {
-		if (type instanceof TypeRecord) {
+	public static boolean isTypeTuple(Type type) {
+		if (type instanceof TypeTuple) {
 			return true;
 		} else {
 			return false;
@@ -642,7 +662,6 @@ public class Util {
 			return false;
 		}
 	}
-
 	
 	public static TypeConstructorCall createTypeConstructorCall(Scope scope, AstType astType, boolean approximate) {
 		TypeConstructorCall ctor = IrFactory.eINSTANCE.createTypeConstructorCall();	
@@ -692,7 +711,189 @@ public class Util {
 
 		return null;
 	}
+
+	/**
+	 * Creates all the variable declarations needed in order to execute the body
+	 * that is guarded by a pattern. The declarations are only valid if the expressions  
+	 * that guards the body are true.
+	 */
+	
+	public static void doPatternDeclarations(Scope scope, AstType astType, AstPattern astPattern, Expression expr, Expression repeat) { 
 		
+		if (astPattern.getVariable() != null) {
+			Type type = TypeConverter.convert(scope, astType, false);
+			if (repeat != null) 
+				type = TypeSystem.createTypeList(repeat, type);
+			
+			Util.createVariable(scope, astPattern.getVariable(), type, expr);
+		} else {		
+			String tag = astPattern.getTag();
+									
+			AstTypeUser astTypeUser = astType.getName();
+			AstTaggedTuple tt = null;
+			
+			for (AstTaggedTuple tmp :  astTypeUser.getTuples()) {
+				if (tmp.getName().equals(astPattern.getTag())) {
+					tt = tmp;
+				}
+			}
+											
+			for (AstSubPattern astSubPattern : astPattern.getSubpatterns()) {
+				int pos = astPattern.getSubpatterns().indexOf(astSubPattern);
+				String label;
+				if (astSubPattern.getLabel() != null) {
+					label = astSubPattern.getLabel();
+				} else {
+					label = tt.getFields().get(pos).getName();
+				}
+				
+				if (astSubPattern.getPattern() != null) {
+					AstType astFieldType = tt.getFields().get(pos).getType();
+					Type fieldType = TypeConverter.convert(scope, astFieldType, false);
+					if (repeat != null) 
+						fieldType = TypeSystem.createTypeList(repeat, fieldType);
+					
+					// Declare a variable and place it in the surrounding scope						
+					Variable var;
+					if (astSubPattern.getPattern().getVariable() != null) {
+						var = Util.createVariable(scope, astSubPattern.getPattern().getVariable(), fieldType, Util.createTaggedTupleFieldRead(scope, expr, tag, label));
+					} else { 
+						var = Util.createTmpVariable(scope, fieldType, Util.createTaggedTupleFieldRead(scope, expr, tag, label));
+					}					
+					defsput(astSubPattern.getPattern(), var);
+					
+					if (astSubPattern.getPattern().getVariable() == null) {
+						doPatternDeclarations(scope, tt.getFields().get(pos).getType(), astSubPattern.getPattern(), Util.createVariableExpression(scope, var), repeat);
+					}					
+				}					
+			}			
+		}
+	}			
+	
+	public static Expression doPatternTypeGuards(Scope scope, AstPattern astPattern, Expression expr, AstType astType) {
+		
+		TagOf tagOf = IrFactory.eINSTANCE.createTagOf();
+		tagOf.setId(Util.getDefinitionId());
+		tagOf.setTag(astPattern.getTag());
+		tagOf.setContext(scope);
+		tagOf.setExpression(expr);	
+		
+		List<Expression> conditions = new ArrayList<Expression>(); 
+		for (AstSubPattern astSubPattern : astPattern.getSubpatterns()) {
+			if (astSubPattern.getPattern() != null && astSubPattern.getPattern().getTag() != null) {
+
+				AstTypeUser astTypeUser = astType.getName();
+				AstTaggedTuple tt = null;
+				
+				for (AstTaggedTuple tmp :  astTypeUser.getTuples()) {
+					if (tmp.getName().equals(astPattern.getTag())) {
+						tt = tmp;
+					}
+				}
+											
+				String label;
+				int pos = -1;
+				if (astSubPattern.getLabel() != null) {
+					label = astSubPattern.getLabel();
+					for (int i = 0; i < tt.getFields().size(); i++) {
+						AstVariable f = tt.getFields().get(i);						
+						if (f.getName().equals(astSubPattern.getLabel())) {
+							pos = i; 
+						}
+					}
+				} else {
+					pos = astPattern.getSubpatterns().indexOf(astSubPattern);
+					label = tt.getFields().get(pos).getName();
+				}
+
+				TaggedTupleFieldRead field  = Util.createTaggedTupleFieldRead(scope, expr, astPattern.getTag(), label); 
+				
+				conditions.add(doPatternTypeGuards(scope, astSubPattern.getPattern(), field, tt.getFields().get(pos).getType()));				
+			}
+		} 
+
+		if (conditions.size() > 0) {
+			IfExpression ifExpression = IrFactory.eINSTANCE.createIfExpression();
+			ifExpression.setContext(scope);
+			ifExpression.setId(Util.getDefinitionId());
+			ifExpression.setCondition(tagOf);
+			ifExpression.setThenExpression(Util.createAndExpression(scope, conditions));
+			ifExpression.setElseExpression(Util.createFalseLiteral());			
+			return ifExpression;
+		} else {
+			return tagOf;
+		}
+	}	
+		
+	public static Variable doFieldReads(Guard guard, AstPattern astPattern, AstExpressionSymbolReference e) { 
+		Variable target;
+		if (astPattern.eContainer() instanceof AstInputPattern) {
+			AstInputPattern inputs = (AstInputPattern) astPattern.eContainer();
+			
+			PortPeek portPeek = IrFactory.eINSTANCE.createPortPeek();
+			portPeek.setId(Util.getDefinitionId());		
+			
+			if (inputs.getRepeat() != null) {
+				Expression repeat = CreateIrExpression.convert(guard, inputs.getRepeat());
+				portPeek.setRepeat(repeat);
+			}
+			
+			Variable tmp = (Variable) Util.findIrDeclaration(astPattern);
+			
+			target = IrFactory.eINSTANCE.createVariable();
+			target.setName(tmp.getName() + "__guard");
+			target.setId(getDefinitionId());	
+			target.setType(tmp.getType());
+			target.setScope(guard);
+			guard.getDeclarations().add(target);			
+			
+			Port port = Util.createInputPort(guard, inputs, false);
+			portPeek.setPort(port);
+			
+			int position = inputs.getTokens().indexOf(astPattern);
+			portPeek.setPosition(position);
+			VariableReference varRef = Util.createVariableReference(target);
+			for(AstExpression expr : e.getIndexes()) {
+				Expression index = CreateIrExpression.convert(guard, expr);
+				varRef.getIndex().add(index);
+			}
+			portPeek.setVariable(varRef);
+			guard.getPeeks().add(portPeek);									
+		} else {									
+			Variable source =  doFieldReads(guard, (AstPattern) astPattern.eContainer().eContainer(), e);
+
+			// Lookup at the action level version of the same variable 
+			// and use the same type
+			Variable tmp = (Variable) Util.findIrDeclaration(astPattern);
+			String tag = astPattern.getTag();
+			String label = ((AstSubPattern) astPattern.eContainer()).getLabel();
+			
+			target = IrFactory.eINSTANCE.createVariable();
+			target.setName(tmp.getName() + "__guard");
+			target.setId(getDefinitionId());	
+			target.setType(tmp.getType());
+			target.setScope(guard);
+			target.setInitValue(Util.createTaggedTupleFieldRead(guard, Util.createVariableExpression(guard, source), tag, label));			
+			guard.getDeclarations().add(target);			
+		} 
+		
+		if (astPattern.getVariable() != null) {
+			Util.defsput(astPattern.getVariable(), target); //This will override the previous declaration
+		}
+		return target;
+	}			
+
+
+	private static Expression createAndExpression(Scope scope, List<Expression> expressions) {
+		if (expressions.size() == 1) {
+			return expressions.get(0);
+		} else {
+			return createBinaryExpression(scope, expressions.get(0), "and", 
+					createAndExpression(scope, expressions.subList(1, expressions.size())), 
+					TypeSystem.createTypeBool());
+		}			
+	}
+
 	public static String packQualifiedName(List<String> ns, String... s) {
 		String ret = packQualifiedName(ns);
 		
@@ -829,5 +1030,64 @@ public class Util {
 		} else {
 			return filename;
 		}
+	}
+	
+	public static String namespace2Path(List<String> ns) {
+		String ret="";
+		if(ns != null) {
+			for(Iterator<String> i=ns.iterator();i.hasNext();) {
+				String s=i.next();
+				ret+=s;
+				if(i.hasNext()) ret+=File.separator;
+			}
+		}
+		return ret;
+	}
+	
+	public static String marshall(String s) {
+		s = s.replace("<=", "LTE");
+		s = s.replace("<", "LT");
+		s = s.replace(">=", "GTE");
+		s = s.replace("<", "GT");
+		s = s.replace("&&", "AND");
+		s = s.replace("&", "BAND");
+		s = s.replace("/", "DIV");
+		
+		return s;
+	}
+
+	public static String unmarshall(String s) {
+		s = s.replace("LTE", "<=");
+		s = s.replace("LT", "<");
+		s = s.replace("GTE", ">=");
+		s = s.replace("GT", ">");
+		s = s.replace("BAND", "&");
+		s = s.replace("AND", "&&");
+		s = s.replace("DIV", "/");
+		
+		return s;
+	}
+
+	public static TaggedTupleFieldRead createTaggedTupleFieldRead(Scope context, Expression value, String tag, String label) {
+		TaggedTupleFieldRead field = IrFactory.eINSTANCE.createTaggedTupleFieldRead();
+		field.setId(Util.getDefinitionId());
+		field.setContext(context);
+		field.setValue(value);
+		field.setTag(tag);
+		field.setLabel(label);		
+		
+		return field;
+	}
+
+	static public boolean fromNamespace(Node node) {
+		List<String> ns = new ArrayList<String>();
+		for(Annotation a : node.getAnnotations()) {
+			if(a.getName().equals("NAMESPACE")) {
+				if(!a.getArguments().isEmpty()) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

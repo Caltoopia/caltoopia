@@ -39,13 +39,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-
-import org.caltoopia.frontend.cal.AstExpressionCall;
-import org.caltoopia.frontend.cal.AstExpressionVariable;
+import org.caltoopia.frontend.cal.AstTaggedTuple;
+import org.caltoopia.frontend.cal.AstExpressionSymbolReference;
 import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstProcedure;
+import org.caltoopia.frontend.cal.AstTaggedTuple;
 import org.caltoopia.frontend.cal.AstType;
-import org.caltoopia.frontend.cal.AstTypeName;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.util.VoidSwitch;
 import org.caltoopia.types.TypeConverter;
@@ -61,30 +61,18 @@ public class AstDeclVertex implements VertexData {
 		// such as variables, types, functions and procedures
 		
 		@Override
-		public Void caseAstExpressionCall(AstExpressionCall c)  {
-			if (!c.getFunction().getMembers().isEmpty()) {
-				// This is type ctor call, add the typedef
-				AstTypeName typedef = (AstTypeName) c.getFunction().eContainer();
-				inputDefs.add(typedef);
-			} else {
-				inputDefs.add(c.getFunction());
-			}
-			return super.caseAstExpressionCall(c);
+		public Void caseAstExpressionSymbolReference(AstExpressionSymbolReference c)  {
+			inputDefs.add(c.getSymbol());
+			return super.caseAstExpressionSymbolReference(c);
 		}	
-		
-		@Override
-		public Void caseAstExpressionVariable(AstExpressionVariable e)  {
-			inputDefs.add(e.getValue().getVariable());
-			return super.caseAstExpressionVariable(e);
-		}
 									
 		@Override
-		public Void caseAstTypeName(AstTypeName typeName) { 		
-			if (!typeName.getConstructor().isEmpty()) {
+		public Void caseAstTypeUser(AstTypeUser typeName) { 		
+			if (!typeName.getTuples().isEmpty()) {
 				// This means that we have found 
 				// a type definition 				
-				for (AstFunction ctor : typeName.getConstructor()) {
-					for (AstVariable m : ctor.getMembers()) {
+				for (AstTaggedTuple tuple : typeName.getTuples()) {
+					for (AstVariable m : tuple.getFields()) {
 						doSwitch(m.getType());
 					}
 				}
@@ -117,8 +105,8 @@ public class AstDeclVertex implements VertexData {
 			return ((AstFunction) var).getName();
 		} else if (var instanceof AstProcedure) {
 			return ((AstProcedure) var).getName();
-		} else if (var instanceof AstTypeName) {
-			return ((AstTypeName) var).getName();
+		} else if (var instanceof AstTypeUser) {
+			return ((AstTypeUser) var).getName();
 		} else {
 			throw new RuntimeException("Invalid data in dependecy graph.");
 		}
@@ -127,40 +115,36 @@ public class AstDeclVertex implements VertexData {
 	public List<VertexData> getConnectedData() {
 		DependencySwitch s = new DependencySwitch();
 		
-		if (var instanceof AstVariable) {
-			AstVariable variable = (AstVariable) var;
-			s.doSwitch(variable.getType());
-			if (variable.getValue() != null) {
-				s.doSwitch(variable.getValue());
-			}
+		if (var instanceof AstTaggedTuple){
+			AstTaggedTuple tuple = (AstTaggedTuple) var;
+			for (AstVariable member : tuple.getFields()) {
+				s.doSwitch(member);
+			}	
 		} else if (var instanceof AstFunction){
 			AstFunction function = (AstFunction) var;
 			s.doSwitch(function.getType());
 			
-			if (!function.getMembers().isEmpty()) {
-				//This is a type ctor
-				for (AstVariable member : function.getMembers()) {
-					s.doSwitch(member);
-				}
-				
-			} else {
-				// Iterate to include dependencies on type parameters
-				for (AstVariable parameter : function.getParameters()) {
-					s.doSwitch(parameter.getType());
-				}				
-			}
-
+			// Iterate to include dependencies on type parameters
+			for (AstVariable parameter : function.getParameters()) {
+				s.doSwitch(parameter.getType());
+			}				
 		} else if (var instanceof AstProcedure) {
 			AstProcedure procedure = (AstProcedure) var;
 			for (AstVariable parameter : procedure.getParameters()) {
 				s.doSwitch(parameter);
 			}
-		} else if (var instanceof AstTypeName) {
-			AstTypeName typedef = (AstTypeName) var;
-			for (AstFunction ctor : typedef.getConstructor()) {
-				for (AstVariable m : ctor.getMembers()) {
+		} else if (var instanceof AstTypeUser) {
+			AstTypeUser typedef = (AstTypeUser) var;
+			for (AstTaggedTuple tuple : typedef.getTuples()) {
+				for (AstVariable m : tuple.getFields()) {
 					s.doSwitch(m);
 				}			
+			}
+		} else if (var instanceof AstVariable) {
+			AstVariable variable = (AstVariable) var;
+			s.doSwitch(variable.getType());
+			if (variable.getValue() != null) {
+				s.doSwitch(variable.getValue());
 			}
 		} else {
 			throw new RuntimeException("Invalid data in dependecy graph.");

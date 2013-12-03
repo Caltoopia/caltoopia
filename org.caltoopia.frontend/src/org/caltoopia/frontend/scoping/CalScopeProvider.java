@@ -40,19 +40,28 @@ import java.util.ArrayList;
 import java.util.List;
 import org.caltoopia.frontend.cal.AstAction;
 import org.caltoopia.frontend.cal.AstActor;
+import org.caltoopia.frontend.cal.AstExpressionAlternative;
 import org.caltoopia.frontend.cal.AstExpressionList;
 import org.caltoopia.frontend.cal.AstForeachGenerator;
 import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstGenerator;
 import org.caltoopia.frontend.cal.AstInputPattern;
 import org.caltoopia.frontend.cal.AstNamespace;
+import org.caltoopia.frontend.cal.AstPattern;
 import org.caltoopia.frontend.cal.AstProcedure;
+import org.caltoopia.frontend.cal.AstStatementAlternative;
 import org.caltoopia.frontend.cal.AstStatementBlock;
 import org.caltoopia.frontend.cal.AstStatementForeach;
 import org.caltoopia.frontend.cal.AstStructure;
 import org.caltoopia.frontend.cal.AstNetwork;
 import org.caltoopia.frontend.cal.AstActorVariable;
+import org.caltoopia.frontend.cal.AstSubPattern;
+import org.caltoopia.frontend.cal.AstTaggedTuple;
+import org.caltoopia.frontend.cal.AstType;
+import org.caltoopia.frontend.cal.AstTypeDefinitionParameter;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstVariable;
+import org.caltoopia.frontend.util.Util;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.scoping.IScope;
@@ -79,15 +88,18 @@ public class CalScopeProvider extends AbstractDeclarativeScopeProvider {
 
 	/* 
 	 * Compute the set of functions that can are visible from within an actor 
-	 * (and subsequently from all actions and their subscopes)
+	 * (and subsequently from all actions and their sub scopes)
 	 */
 	
-	public IScope scope_AstFunction(AstActor actor, EReference reference) {
-		return Scopes.scopeFor(actor.getFunctions(), delegateGetScope(actor, reference));
-	}
+//	public IScope scope_AstVariable(AstActor actor, EReference reference) {
+//		return Scopes.scopeFor(actor.getFunctions(), delegateGetScope(actor, reference));
+//	}
 	
-	public IScope scope_AstFunction(AstNamespace namespace, EReference reference) {
-		return Scopes.scopeFor(namespace.getFunctions(), delegateGetScope(namespace, reference));
+	public IScope scope_AstVariable(AstNamespace namespace, EReference reference) {
+		List<AstVariable> elements = new ArrayList<AstVariable>();
+		elements.addAll(namespace.getFunctions());
+		elements.addAll(namespace.getTypedefs());
+		return Scopes.scopeFor(elements, delegateGetScope(namespace, reference));
 	}
 
 	public IScope scope_AstInputPattern_port(AstAction action, EReference reference) {
@@ -105,10 +117,12 @@ public class CalScopeProvider extends AbstractDeclarativeScopeProvider {
 				delegateGetScope(actor, reference));
 	}
 
-	public IScope scope_AstVariableReference_variable(AstAction action,	EReference reference) {		
+	public IScope scope_AstVariable(AstAction action,	EReference reference) {		
 		List<AstVariable> elements = new ArrayList<AstVariable>();
-		for (AstInputPattern pattern : action.getInputs()) {
-			elements.addAll(pattern.getTokens());
+		for (AstInputPattern inputPattern : action.getInputs()) {
+			for (AstPattern pattern : inputPattern.getTokens()) {
+				Util.doPattern(elements, pattern);
+			}
 		}
 		elements.addAll(action.getVariables());
 		
@@ -116,15 +130,16 @@ public class CalScopeProvider extends AbstractDeclarativeScopeProvider {
 		return Scopes.scopeFor(elements, getScope(actor, reference));
 	}
 
-	public IScope scope_AstVariableReference_variable(AstActor actor, EReference reference) {
+	public IScope scope_AstVariable(AstActor actor, EReference reference) {
 		List<AstVariable> elements = new ArrayList<AstVariable>();
 		elements.addAll(actor.getParameters());
-		elements.addAll(actor.getStateVariables());		
+		elements.addAll(actor.getStateVariables());	
+		elements.addAll(actor.getFunctions());	
 			
 		return Scopes.scopeFor(elements, delegateGetScope(actor, reference));
 	}
 	
-	public IScope scope_AstVariableReference_variable(AstActorVariable decl, EReference reference) {
+	public IScope scope_AstVariable(AstActorVariable decl, EReference reference) {
 		AstNetwork network = (AstNetwork) decl.eContainer();
 		List<AstVariable> elements = new ArrayList<AstVariable>();
 		elements.addAll(network.getVariables());
@@ -132,14 +147,14 @@ public class CalScopeProvider extends AbstractDeclarativeScopeProvider {
 		return Scopes.scopeFor(elements, getScope(network, reference));
 	}
 
-	public IScope scope_AstVariableReference_variable(AstNetwork network, EReference reference) {
+	public IScope scope_AstVariable(AstNetwork network, EReference reference) {
 		List<AstVariable> elements = new ArrayList<AstVariable>();
 		elements.addAll(network.getParameters());
 
 		return Scopes.scopeFor(elements, delegateGetScope(network, reference));
 	}
 	
-	public IScope scope_AstVariableReference_variable(AstExpressionList list, EReference reference) {
+	public IScope scope_AstVariable(AstExpressionList list, EReference reference) {
 		List<AstVariable> elements = new ArrayList<AstVariable>();
 		for (AstGenerator generator : list.getGenerators()) {
 			elements.add(generator.getVariable());
@@ -151,16 +166,16 @@ public class CalScopeProvider extends AbstractDeclarativeScopeProvider {
 		return Scopes.scopeFor(elements, getScope(container, reference));
 	}
 	
-	public IScope scope_AstVariableReference_variable(AstFunction function,	EReference reference) {
+	public IScope scope_AstVariable(AstFunction function,	EReference reference) {
 		List<AstVariable> elements = new ArrayList<AstVariable>();
 		elements.addAll(function.getParameters());
 		elements.addAll(function.getVariables());
 
-		EObject cter = function.eContainer();
+		EObject cter = function.eContainer();		
 		return Scopes.scopeFor(elements, getScope(cter, reference));
 	}
 
-	public IScope scope_AstVariableReference_variable(AstProcedure procedure, EReference reference) {
+	public IScope scope_AstVariable(AstProcedure procedure, EReference reference) {
 		List<AstVariable> elements = new ArrayList<AstVariable>();
 		elements.addAll(procedure.getParameters());
 		elements.addAll(procedure.getVariables());
@@ -169,7 +184,7 @@ public class CalScopeProvider extends AbstractDeclarativeScopeProvider {
 		return Scopes.scopeFor(elements, getScope(actor, reference));
 	}
 
-	public IScope scope_AstVariableReference_variable(AstStatementForeach foreach, EReference reference) {
+	public IScope scope_AstVariable(AstStatementForeach foreach, EReference reference) {
 		List<AstVariable> variables = new ArrayList<AstVariable>();
 		for (AstForeachGenerator g : foreach.getGenerators()) {
 			variables.add(g.getVariable());
@@ -179,12 +194,48 @@ public class CalScopeProvider extends AbstractDeclarativeScopeProvider {
 				getScope(foreach.eContainer(), reference));
 	}
 		
-    public IScope scope_AstVariableReference_variable(AstStatementBlock block, EReference reference) {
+    public IScope scope_AstVariable(AstStatementBlock block, EReference reference) {
 		List<AstVariable> variables = new ArrayList<AstVariable>();		
 		variables.addAll(block.getVariables());
 		
 		return Scopes.scopeFor(variables, getScope(block.eContainer(), reference));
 	}
         
+    public IScope scope_AstTypeUser(AstTaggedTuple tuple, EReference reference) {
+    	List<AstTypeUser> typeParameters = new ArrayList<AstTypeUser>();
+    	AstTypeUser typedef = (AstTypeUser) tuple.eContainer();
+    	for (AstTypeDefinitionParameter param : typedef.getParameters()) {
+    		if (param.getType() != null)
+    			typeParameters.add(param.getType()); 
+    	}
+    	
+    	return Scopes.scopeFor(typeParameters, getScope(typedef, reference));
+    }
+    
+    public IScope scope_AstVariable(AstTaggedTuple tuple, EReference reference) {
+		List<AstVariable> variables = new ArrayList<AstVariable>();		
+    	AstTypeUser typedef = (AstTypeUser) tuple.eContainer();
+    	for (AstTypeDefinitionParameter param : typedef.getParameters()) {
+    		if (param.getValue() != null)
+    			variables.add(param.getValue()); 
+    	}
+    	
+    	return Scopes.scopeFor(variables, getScope(typedef, reference));
+	}
+ 
+	public IScope scope_AstVariable(AstStatementAlternative alternative, EReference reference) {		
+		List<AstVariable> variables = new ArrayList<AstVariable>();
+		Util.doPattern(variables, alternative.getPattern());
+		
+		return Scopes.scopeFor(variables, getScope(alternative.eContainer(), reference));
+	}
+	
+	public IScope scope_AstVariable(AstExpressionAlternative alternative, EReference reference) {		
+		List<AstVariable> variables = new ArrayList<AstVariable>();
+		Util.doPattern(variables, alternative.getPattern());
+		
+		return Scopes.scopeFor(variables, getScope(alternative.eContainer(), reference));
+	}
+    
 }
 

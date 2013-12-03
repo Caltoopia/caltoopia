@@ -28,6 +28,11 @@
  */
 package org.caltoopia.frontend.util;
 
+import java.util.List;
+
+import org.caltoopia.frontend.cal.AstPattern;
+import org.caltoopia.frontend.cal.AstSubPattern;
+import org.caltoopia.frontend.cal.AstVariable;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -64,5 +69,16 @@ public class Util {
 			return getTopLevelContainer(cter);
 		}
 	}
-
+	
+	public static void doPattern(List<AstVariable> variables, AstPattern pattern) {
+		if (pattern.getVariable() != null ) {
+			variables.add(pattern.getVariable());
+		} else {
+			for (AstSubPattern subPattern : pattern.getSubpatterns()) {	
+				if (subPattern.getPattern() != null) {
+					doPattern(variables, subPattern.getPattern());
+				}
+			}
+		}
+	}  
 }

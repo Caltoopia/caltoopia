@@ -90,6 +90,7 @@ QualifiedName:
 
 QualifiedNameWithWildCard:
 	QualifiedName '.*'?;
+
 		
 ///////////////////////////////////////////////////////////////////////////////
 // network
@@ -136,23 +137,27 @@ AstExternalVariable returns AstVariable:
     'external' AstVariableDeclaration ';';
 
 ///////////////////////////////////////////////////////////////////////////////
-// type defintions
+// type definitions
 ///////////////////////////////////////////////////////////////////////////////
 
-AstTypeDefinition returns AstTypeName: 
-	'type' name=ID ( '(' (parameters += AstTypeDefinitionParameter (',' parameters += AstTypeDefinitionParameter)*)? ')')? '=' 
-	 ( constructor += AstConstructor  ('|' constructor += AstConstructor )? 
-	 | (type = AstType) 
-	 ) ';'; 
+AstTypeDefinition returns AstTypeUser: 
+	definition ?= 'type' name=ID ( '(' (parameters += AstTypeDefinitionParameter (',' parameters += AstTypeDefinitionParameter)*)? ')')? 
+	':' 
+	( tuples += AstTuple 
+	| ( tuples += AstTaggedTuple  ('|' tuples += AstTaggedTuple )* )) 
+	'end'; 
 	 
 AstTypeDefinitionParameter:
     (value = AstVariableDeclaration | type = AstTypeDefinitionTypeParameter );	 
 
-AstTypeDefinitionTypeParameter returns AstTypeName:
-        name = ID;
+AstTypeDefinitionTypeParameter returns AstTypeUser:
+     variable ?= 'type' name = ID;
 	
-AstConstructor returns AstFunction:	
-	name=ID '(' (members += AstValuedVariableDeclaration (',' members += AstValuedVariableDeclaration)*)? ')'; 
+AstTaggedTuple :
+	name=ID ('(' (fields += AstValuedVariableDeclaration (',' fields += AstValuedVariableDeclaration)*)? ')')?; 
+	
+AstTuple returns AstTaggedTuple: {AstTuple}
+	('(' (fields += AstValuedVariableDeclaration (',' fields += AstValuedVariableDeclaration)*)? ')');
 	
 ///////////////////////////////////////////////////////////////////////////////
 // actor
@@ -175,7 +180,7 @@ AstActor: {AstActor}
 
 AstPort: (annotations += AstAnnotation)* type=AstType name=ID;
 
-AstFunction:
+AstFunction returns AstVariable: {AstFunction}
     (annotations += AstAnnotation)*
 	'function' name=ID
 	'('
@@ -294,7 +299,7 @@ AstInitialize returns AstAction:
 	('do' (statements+=AstStatement)*)?
 	'end';
 
-AstInputPattern: (port=[AstPort] ':')? '[' tokens+=AstToken (',' tokens+=AstToken)* ']'
+AstInputPattern: (port=[AstPort] ':')? '[' tokens+=AstPattern (',' tokens+=AstPattern)* ']'
 	('repeat' repeat=AstExpression)?;
 
 AstToken returns AstVariable: name=ID;
@@ -307,8 +312,7 @@ AstOutputPattern: (port=[AstPort] ':')? '[' values+=AstExpression (',' values+=A
 ///////////////////////////////////////////////////////////////////////////////
 
 AstStatementAssign:
-	target=AstVariableReference
-		('[' indexes += AstExpression ']')* (member += AstMemberAccess)* ':=' value=AstExpression ';';
+	target=[AstVariable] ('[' indexes += AstExpression ']')* (member += AstMemberAccess)* ':=' value=AstExpression ';';
 
 AstStatementCall:
 	procedure=[AstProcedure]
@@ -349,13 +353,27 @@ AstStatementWhile:
 		(statements += AstStatement)*
 	'end';
 
+AstStatementCase:
+	'case' expression = AstExpressionSymbolReference 'of'
+		(cases += AstStatementAlternative)+
+	'end'	
+;
+
+AstStatementAlternative:
+	(pattern = AstPattern 
+	('guard' guards += AstExpression (',' guards += AstExpression)*)?
+	'do' (statements += AstStatement)* 'end')	
+;
+
 AstStatement:
 	AstStatementAssign
 	| AstStatementCall
 	| AstStatementForeach
 	| AstStatementIf
 	| AstStatementWhile
-	| AstStatementBlock;
+	| AstStatementBlock
+	| AstStatementCase;
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // expressions
@@ -390,15 +408,15 @@ AstExpressionUnary returns AstExpression:
 
 AstExpressionPostfix returns AstExpression:
 	AstExpressionList
-	| AstExpressionCall
+	| AstExpressionSymbolReference
 	| AstExpressionIf
+	| AstExpressionCase
     | AstExpressionLiteral
-    | AstExpressionVariable
     | '(' AstExpression ')';
 
-AstExpressionCall:
-	function=[AstFunction] '(' (parameters += AstExpression (',' parameters += AstExpression)*)? ')';
-
+AstExpressionSymbolReference:
+	symbol=[AstVariable] ('[' indexes += AstExpression ']')* (member += AstMemberAccess)* ('::' ctor = ID)? (call ?= '(' (parameters += AstExpression (',' parameters += AstExpression)*)? ')')?;
+			
 AstExpressionIf:
 	'if' condition=AstExpression
 	'then' then=AstExpression
@@ -412,7 +430,16 @@ AstExpressionList:
 AstGenerator:
 	'for' variable=AstVariableDeclaration 'in' expression = AstExpression;
 
-AstExpressionVariable: value=AstVariableReference ('[' indexes += AstExpression ']')* (member += AstMemberAccess)*;
+AstExpressionCase:
+	'case' expression = AstExpressionSymbolReference 'of'
+		(cases += AstExpressionAlternative)+
+		'else' default = AstExpression 
+	'end';
+
+AstExpressionAlternative:
+	pattern = AstPattern 
+	('guard' guards += AstExpression (',' guards += AstExpression)*)?
+	':' expression = AstExpression 'end';
 
 ///////////////////////////////////////////////////////////////////////////////
 // literal expressions
@@ -449,21 +476,94 @@ terminal STRING :
 terminal ID returns ecore::EString : ('a'..'z'|'A'..'Z'|'_'|'$')('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'$')*;
 
 ///////////////////////////////////////////////////////////////////////////////
+// patterns
+///////////////////////////////////////////////////////////////////////////////
+
+AstPattern:
+	   variable = AstToken
+     | (tag = ID '(' (subpatterns += AstSubPattern (',' subpatterns += AstSubPattern)?)? ')');
+
+AstSubPattern returns AstSubPattern:
+	 (label = ID ':')?
+	 ( dontcare ?= '_' 
+	 | '!' condition = AstExpression
+	 | pattern = AstPattern
+	 )
+;
+
+///////////////////////////////////////////////////////////////////////////////
+// pattern expressions
+///////////////////////////////////////////////////////////////////////////////
+
+//AstPatternExpression returns AstExpression:
+//	AstPatternExpressionAnd ({AstPatternExpressionBinary.left=current} operator=('||' | 'or' | '..') right=AstExpressionAnd)*;
+//AstPatternExpressionAnd returns AstExpression:
+//	AstPatternExpressionBitor ({AstPatternExpressionBinary.left=current} operator=('&&' | 'and') right=AstPatternExpressionBitor)*;
+//AstPatternExpressionBitor returns AstExpression:
+//	AstPatternExpressionBitxor ({AstPatternExpressionBinary.left=current} operator='|' right=AstPatternExpressionBitxor)*;
+//AstPatternExpressionBitxor returns AstExpression:
+//	AstPatternExpressionBitand ({AstPatternExpressionBinary.left=current} operator='^' right=AstPatternExpressionBitand)*;
+//AstPatternExpressionBitand returns AstExpression:
+//	AstPatternExpressionEq ({AstPatternExpressionBinary.left=current} operator='&' right=AstPatternExpressionEq)*;
+//AstPatternExpressionEq returns AstExpression:
+//	AstPatternExpressionRelational ({AstPatternExpressionBinary.left=current} operator=('=' | '!=') right=AstPatternExpressionRelational)*;
+//AstPatternExpressionRelational returns AstExpression:
+//	AstPatternExpressionShift ({AstPatternExpressionBinary.left=current} operator=('<' | '<=' | '>' | '>=') right=AstPatternExpressionShift)*;
+//AstPatternExpressionShift returns AstExpression:
+//	AstPatternExpressionAdditive ({AstPatternExpressionBinary.left=current} operator=('<<' | '>>' | '>>>') right=AstPatternExpressionAdditive)*;
+//AstPatternExpressionAdditive returns AstExpression:
+//	AstPatternExpressionMultiplicative ({AstPatternExpressionBinary.left=current} operator=('+' | '-') right=AstPatternExpressionMultiplicative)*;
+//AstPatternExpressionMultiplicative returns AstExpression:
+//	AstPatternExpressionExp ({AstPatternExpressionBinary.left=current} operator=('*' | '/' | 'div' | 'mod' ) right=AstPatternExpressionExp)*;
+//AstPatternExpressionExp returns AstExpression:
+//	AstPatternExpressionUnary ({AstPatternExpressionBinary.left=current} operator='**' right=AstPatternExpressionUnary)*;	
+//AstPatternExpressionUnary returns AstExpression:
+//	{AstPatternExpressionUnary} unaryOperator=('~' | '-' | 'not' | '#' | 'old') expression=AstPatternExpressionPostfix
+//	| AstPatternExpressionPostfix;
+//AstPatternExpressionPostfix returns AstExpression:
+//	AstPatternExpressionSymbolReference 
+//	| AstPatternExpressionIf
+//	| AstExpressionCase
+
+
+AstPatternExpression returns AstExpression:
+	  AstExpressionBoolean
+	| AstExpressionInteger
+	| AstExpressionString
+	| '!' AstExpressionSymbolReference
+	;
+			
+AstPatternExpressionIf:
+	'if' condition=AstExpression
+	'then' then=AstExpression
+	'else' else=AstExpression
+	'end';
+
+///////////////////////////////////////////////////////////////////////////////
+// literal expressions
+///////////////////////////////////////////////////////////////////////////////
+
+//AstPatternExpressionLiteral:
+//	AstExpressionBoolean
+//	| AstExpressionInteger
+//	| AstExpressionString;
+
+///////////////////////////////////////////////////////////////////////////////
 // type and variable declarations
 ///////////////////////////////////////////////////////////////////////////////
 
-AstTypeName : ID | AstBuiltInType;
+//AstTypeUser returns AstVariable: {AstTypeUser} ID | AstTypeBuiltIn;
 
-AstBuiltInType: 'int' | 'uint' | 'float' | 'bool' | 'List' | 'string' | 'byte' | 'short';
+AstTypeUser returns AstVariable: {AstTypeUser} ID;
+
+AstTypeBuiltIn: 'int' | 'uint' | 'float' | 'bool' | 'List' | 'string' | 'byte' | 'short';
 
 AstType: {AstType} 
-           (builtin = AstBuiltInType ( typeParams = AstTypeParameterList )?  ('[' dimensions += AstExpression ']')*
-         | name = [AstTypeName] ( typeParams = AstTypeParameterList )?  ('[' dimensions += AstExpression ']')*
-         | '[' (domain += AstType (',' domain += AstType)*)? '-->' (codomain += AstType  (',' domain += AstType)*)? ']')
-         | AstTypeTuple;         
-
-AstTypeTuple returns AstType: {AstType}
-    "(" (members += AstValuedVariableDeclaration (',' members += AstValuedVariableDeclaration)*)? ")";
+           (
+            builtin = AstTypeBuiltIn ( typeParams = AstTypeParameterList )?  ('[' dimensions += AstExpression ']')*
+            | name  = [AstTypeUser]  ( typeParams = AstTypeParameterList )?  ('[' dimensions += AstExpression ']')*
+            | '[' (domain += AstType (',' domain += AstType)*)? '-->' (codomain = AstType)? ']'
+           );
 
 AstTypeParameterList: '(' params += AstTypeParam (',' params += AstTypeParam)* ')';
 
@@ -476,8 +576,6 @@ AstVariableDeclaration returns AstVariable:
 
 AstValuedVariableDeclaration returns AstVariable:
 	AstVariableDeclaration ((constant ?= '=' | ':=') value=AstExpression)?;
-
-AstVariableReference:  variable = [AstVariable]; 
 	
 AstMemberAccess: 
 	'.' name = ID ('[' memberIndex += AstExpression']')*;

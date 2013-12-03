@@ -34,12 +34,13 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.caltoopia.codegen;
+package org.caltoopia.ast2ir;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.caltoopia.ast2ir.Stream;
+
+import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.ir.ActorInstance;
 import org.caltoopia.ir.Connection;
 import org.caltoopia.ir.FromSource;
@@ -96,7 +97,7 @@ public class IrDottyPrinter extends IrSwitch<Stream> {
 		
 	@Override
 	public Stream caseNetwork(Network network) {		
-		s = new Stream(folder + File.separator + UtilIR.namespace2Path(network.getType().getNamespace()) + File.separator + network.getType().getName() + ".dot");		
+		s = new Stream(folder + File.separator + Util.namespace2Path(network.getType().getNamespace()) + File.separator + network.getType().getName() + ".dot");		
 
 		java.util.Date date= new java.util.Date();
 		s.println();

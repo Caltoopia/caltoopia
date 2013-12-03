@@ -38,22 +38,33 @@ package org.caltoopia.ast2ir;
 
 import java.util.List;
 import org.eclipse.emf.ecore.EObject;
+import org.caltoopia.frontend.cal.AstAction;
+import org.caltoopia.frontend.cal.AstActor;
 import org.caltoopia.frontend.cal.AstExpression;
+import org.caltoopia.frontend.cal.AstExpressionAlternative;
 import org.caltoopia.frontend.cal.AstExpressionBinary;
 import org.caltoopia.frontend.cal.AstExpressionBoolean;
-import org.caltoopia.frontend.cal.AstExpressionCall;
+import org.caltoopia.frontend.cal.AstExpressionCase;
 import org.caltoopia.frontend.cal.AstExpressionFloat;
 import org.caltoopia.frontend.cal.AstExpressionIf;
 import org.caltoopia.frontend.cal.AstExpressionInteger;
 import org.caltoopia.frontend.cal.AstExpressionList;
 import org.caltoopia.frontend.cal.AstExpressionString;
+import org.caltoopia.frontend.cal.AstExpressionSymbolReference;
 import org.caltoopia.frontend.cal.AstExpressionUnary;
-import org.caltoopia.frontend.cal.AstExpressionVariable;
+import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstGenerator;
+import org.caltoopia.frontend.cal.AstInputPattern;
 import org.caltoopia.frontend.cal.AstMemberAccess;
-import org.caltoopia.frontend.cal.AstTypeName;
+import org.caltoopia.frontend.cal.AstPort;
+import org.caltoopia.frontend.cal.AstType;
+import org.caltoopia.frontend.cal.AstTypeUser;
+import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.cal.util.CalSwitch;
 import org.caltoopia.ir.BinaryExpression;
+import org.caltoopia.ir.CaseExpression;
+import org.caltoopia.ir.ExprAlternative;
+import org.caltoopia.ir.Guard;
 import org.caltoopia.ir.IfExpression;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
@@ -63,9 +74,13 @@ import org.caltoopia.ir.IrFactory;
 import org.caltoopia.ir.ListExpression;
 import org.caltoopia.ir.Member;
 import org.caltoopia.ir.Scope;
+import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeConstructorCall;
+import org.caltoopia.ir.TypeLambda;
+import org.caltoopia.ir.TypeUser;
 import org.caltoopia.ir.UnaryExpression;
 import org.caltoopia.ir.VariableExpression;
+import org.caltoopia.types.TypeConverter;
 
 public class CreateIrExpression extends CalSwitch<Expression> {
 	
@@ -119,7 +134,7 @@ public class CreateIrExpression extends CalSwitch<Expression> {
 		result.setId(Util.getDefinitionId());
 		result.setContext(currentScope);
 		
-		Scope intialScope = currentScope;
+		Scope initialScope = currentScope;
 		
 		if (!e.getGenerators().isEmpty()) {	
 			List<AstGenerator> gs = e.getGenerators();
@@ -145,7 +160,7 @@ public class CreateIrExpression extends CalSwitch<Expression> {
 		}	
 		result.setId(Util.getDefinitionId());
 
-		currentScope = intialScope;
+		currentScope = initialScope;
 		return result;
 							
 	}		
@@ -161,15 +176,14 @@ public class CreateIrExpression extends CalSwitch<Expression> {
 		result.setOperand1(e1);
 		result.setOperand2(e2);
 		result.setOperator(e.getOperator());
-
 		
 		return result;
 	}
 
 	@Override
-	public Expression caseAstExpressionCall(AstExpressionCall e) {
-		if(e.getFunction().getMembers().isEmpty()) {
-			Declaration funDecl = (Declaration) Util.findIrDeclaration(e.getFunction());
+	public Expression caseAstExpressionSymbolReference(AstExpressionSymbolReference e) {
+		if(e.getSymbol() instanceof AstFunction) {
+			Declaration funDecl = (Declaration) Util.findIrDeclaration(e.getSymbol());
 			
 			FunctionCall result = IrFactory.eINSTANCE.createFunctionCall();
 			result.setId(Util.getDefinitionId());
@@ -187,13 +201,13 @@ public class CreateIrExpression extends CalSwitch<Expression> {
 			}
 			
 			return result;
-		} else {
+		} else if (e.getSymbol() instanceof AstTypeUser){
 			TypeConstructorCall result = IrFactory.eINSTANCE.createTypeConstructorCall();
 			result.setId(Util.getDefinitionId());
 			result.setContext(currentScope);
 			
-			result.setName(e.getFunction().getName());
-			AstTypeName astTypedef = (AstTypeName) e.getFunction().eContainer();
+			result.setName(e.getCtor());
+			AstTypeUser astTypedef = (AstTypeUser) e.getSymbol();
 			Declaration typedef = Util.findIrDeclaration(astTypedef);
 			result.setTypedef(typedef);			
 			
@@ -202,9 +216,28 @@ public class CreateIrExpression extends CalSwitch<Expression> {
 			}
 
 			return result;			
+		} else {
+			VariableExpression result = IrFactory.eINSTANCE.createVariableExpression();
+			result.setId(Util.getDefinitionId());
+			result.setContext(currentScope);
+			
+			Declaration decl = Util.findIrDeclaration(e.getSymbol());
+			result.setVariable(decl);
+				
+			for (AstExpression i : e.getIndexes()) {
+				Expression ve = convert(currentScope, i);
+				result.getIndex().add(ve);
+			}
+			
+			for (AstMemberAccess mv : e.getMember()) {
+				Member m = Util.createFieldAccess(mv, currentScope);
+				result.getMember().add(m);
+			}
+						
+			return result;			
 		}
 	}
-
+		
 	@Override
 	public Expression caseAstExpressionUnary(AstExpressionUnary e) {
 		UnaryExpression result = IrFactory.eINSTANCE.createUnaryExpression();
@@ -217,29 +250,6 @@ public class CreateIrExpression extends CalSwitch<Expression> {
 		return result;
 	}
 
-	
-	@Override
-	public Expression caseAstExpressionVariable(AstExpressionVariable e)  {
-		VariableExpression result = IrFactory.eINSTANCE.createVariableExpression();
-		result.setId(Util.getDefinitionId());
-		result.setContext(currentScope);
-		
-		Declaration decl = Util.findIrDeclaration(e.getValue().getVariable());
-		result.setVariable(decl);
-			
-		for (AstExpression i : e.getIndexes()) {
-			Expression ve = convert(currentScope, i);
-			result.getIndex().add(ve);
-		}
-		
-		for (AstMemberAccess mv : e.getMember()) {
-			Member m = Util.createMemberAccess(mv, currentScope);
-			result.getMember().add(m);
-		}
-					
-		return result;
-	}
-
 	@Override 
 	public Expression caseAstExpressionIf(AstExpressionIf e) {
 		IfExpression result = IrFactory.eINSTANCE.createIfExpression();
@@ -249,6 +259,65 @@ public class CreateIrExpression extends CalSwitch<Expression> {
 		result.setCondition(CreateIrExpression.convert(currentScope, e.getCondition()));
 		result.setThenExpression(CreateIrExpression.convert(currentScope, e.getThen()));
 		result.setElseExpression(CreateIrExpression.convert(currentScope, e.getElse()));
+				
+		return result;
+	}
+	
+	@Override
+	public Expression caseAstExpressionCase(AstExpressionCase e) {
+		CaseExpression result = IrFactory.eINSTANCE.createCaseExpression();
+		result.setId(Util.getDefinitionId());
+		Expression condition = CreateIrExpression.convert(currentScope, e.getExpression());
+		result.setExpression(condition);
+		
+		try {
+			AstVariable v = e.getExpression().getSymbol();
+			AstType astType = null;;
+			if (v.eContainer() instanceof AstInputPattern) {
+				AstInputPattern pattern = (AstInputPattern) v.eContainer();
+				AstPort port = null;
+				if (pattern.getPort() != null) {
+					port = pattern.getPort();
+				} else {
+					AstAction action = (AstAction) pattern.eContainer();
+					List<AstInputPattern> inputs = action.getInputs();
+					AstActor actor = (AstActor) action.eContainer();
+					List<AstPort> ports = actor.getInputs();
+					for (int i = 0; i < inputs.size(); i++) {
+						if (inputs.get(i) == pattern) {
+							port = ports.get(i);
+						}
+					}
+				}
+				astType = port.getType();
+			} else {
+				astType = v.getType();
+			}
+			
+			if (astType.getCodomain() != null) 
+				astType = astType.getCodomain();
+			
+			for (AstExpressionAlternative a : e.getCases()) {
+				ExprAlternative alt = IrFactory.eINSTANCE.createExprAlternative();
+				alt.setId(Util.getDefinitionId());
+				alt.setOuter(currentScope);
+			
+				Util.doPatternDeclarations(alt, astType, a.getPattern(), condition, null);				
+				
+				for (AstExpression guard : a.getGuards()) {
+					alt.getGuards().add(CreateIrExpression.convert(alt, guard));
+				}
+				
+				alt.setExpression(CreateIrExpression.convert(currentScope, a.getExpression()));
+				
+				result.getAlternatives().add(alt);
+			}
+			
+			result.setDefault(CreateIrExpression.convert(currentScope, e.getDefault()));
+			
+		} catch (Exception x) {
+			System.err.println("Internal error in Ast2Ir");
+		}
 				
 		return result;
 	}

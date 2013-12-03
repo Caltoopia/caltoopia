@@ -37,18 +37,24 @@ import org.caltoopia.frontend.cal.AstActorVariableReference;
 import org.caltoopia.frontend.cal.AstAssignParameter;
 import org.caltoopia.frontend.cal.AstConnection;
 import org.caltoopia.frontend.cal.AstConnectionAttribute;
+import org.caltoopia.frontend.cal.AstExpressionAlternative;
+import org.caltoopia.frontend.cal.AstExpressionCase;
+import org.caltoopia.frontend.cal.AstPattern;
+import org.caltoopia.frontend.cal.AstStatementAlternative;
+import org.caltoopia.frontend.cal.AstStatementCase;
+import org.caltoopia.frontend.cal.AstSubPattern;
+import org.caltoopia.frontend.cal.AstTaggedTuple;
 import org.caltoopia.frontend.cal.AstEntity;
 import org.caltoopia.frontend.cal.AstExpression;
 import org.caltoopia.frontend.cal.AstExpressionBinary;
 import org.caltoopia.frontend.cal.AstExpressionBoolean;
-import org.caltoopia.frontend.cal.AstExpressionCall;
 import org.caltoopia.frontend.cal.AstExpressionFloat;
 import org.caltoopia.frontend.cal.AstExpressionIf;
 import org.caltoopia.frontend.cal.AstExpressionInteger;
 import org.caltoopia.frontend.cal.AstExpressionList;
 import org.caltoopia.frontend.cal.AstExpressionString;
 import org.caltoopia.frontend.cal.AstExpressionUnary;
-import org.caltoopia.frontend.cal.AstExpressionVariable;
+import org.caltoopia.frontend.cal.AstExpressionSymbolReference;
 import org.caltoopia.frontend.cal.AstForeachGenerator;
 import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstGenerator;
@@ -67,10 +73,9 @@ import org.caltoopia.frontend.cal.AstStatementForeach;
 import org.caltoopia.frontend.cal.AstStatementIf;
 import org.caltoopia.frontend.cal.AstStatementWhile;
 import org.caltoopia.frontend.cal.AstType;
-import org.caltoopia.frontend.cal.AstTypeName;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstTypeParam;
 import org.caltoopia.frontend.cal.AstVariable;
-import org.caltoopia.frontend.cal.AstVariableReference;
 import org.caltoopia.frontend.cal.Import;
 import org.caltoopia.frontend.cal.util.CalSwitch;
 
@@ -86,11 +91,11 @@ public class VoidSwitch extends CalSwitch<Void> {
 	@Override
 	public Void caseAstNamespace(AstNamespace namespace) {
 		
-		for (AstFunction fun : namespace.getFunctions()) {
+		for (AstVariable fun : namespace.getFunctions()) {
 			doSwitch(fun);
 		}
 
-		for (AstTypeName typedef : namespace.getTypedefs()) {
+		for (AstTypeUser typedef : namespace.getTypedefs()) {
 			doSwitch(typedef);
 		}
 
@@ -144,7 +149,7 @@ public class VoidSwitch extends CalSwitch<Void> {
 			doSwitch(stateVariable);
 		}
 
-		for (AstFunction function : actor.getFunctions()) {
+		for (AstVariable function : actor.getFunctions()) {
 			doSwitch(function);
 		}
 
@@ -263,15 +268,6 @@ public class VoidSwitch extends CalSwitch<Void> {
 	}
 
 	@Override
-	public Void caseAstExpressionCall(AstExpressionCall call) {
-		for (AstExpression parameter : call.getParameters()) {
-			doSwitch(parameter);
-		}
-
-		return null;
-	}
-
-	@Override
 	public Void caseAstExpressionFloat(AstExpressionFloat expression) {
 		return null;
 	}
@@ -314,16 +310,21 @@ public class VoidSwitch extends CalSwitch<Void> {
 	}
 
 	@Override
-	public Void caseAstExpressionVariable(AstExpressionVariable expression) {
-		for (AstMemberAccess mv: expression.getMember()) {
+	public Void caseAstExpressionSymbolReference(AstExpressionSymbolReference ref) {
+		
+		for (AstExpression parameter : ref.getParameters()) {
+			doSwitch(parameter);
+		}
+
+		for (AstMemberAccess mv: ref.getMember()) {
 			doSwitch(mv);
 		}
 
-		for (AstExpression index: expression.getIndexes()) {
+		for (AstExpression index: ref.getIndexes()) {
 			doSwitch(index);
 		}
 		
-		return doSwitch(expression.getValue());
+		return null;
 	}
 
 	@Override 
@@ -331,6 +332,31 @@ public class VoidSwitch extends CalSwitch<Void> {
 		for (AstExpression index: mv.getMemberIndex()) {
 			doSwitch(index);
 		}		
+		
+		return null;
+	}
+	
+	@Override
+	public Void caseAstExpressionCase(AstExpressionCase exprCase) { 
+		doSwitch(exprCase.getExpression());
+		
+		for (AstExpressionAlternative alt : exprCase.getCases()) {
+			doSwitch(alt);
+		}
+		
+		return null;	
+	}
+	
+	@Override 
+	public Void caseAstExpressionAlternative(AstExpressionAlternative exprAlt) {
+		doSwitch(exprAlt.getPattern());
+
+		for (AstExpression guard : exprAlt.getGuards()) {
+			doSwitch(guard);
+		}
+		
+		doSwitch(exprAlt.getExpression());
+		
 		return null;
 	}
 	
@@ -346,14 +372,10 @@ public class VoidSwitch extends CalSwitch<Void> {
 		}
 		
 		doSwitch(function.getExpression());
-
-		for (AstVariable member : function.getMembers()) {
-			doSwitch(member);
-		}
 		
 		return null;
 	}
-
+	
 	@Override
 	public Void caseAstGenerator(AstGenerator generator) {
 		doSwitch(generator.getVariable());
@@ -365,7 +387,7 @@ public class VoidSwitch extends CalSwitch<Void> {
 	public Void caseAstInputPattern(AstInputPattern input) {
 		doSwitch(input.getPort());
 
-		for (AstVariable token : input.getTokens()) {
+		for (AstPattern token : input.getTokens()) {
 			doSwitch(token);
 		}
 
@@ -499,6 +521,47 @@ public class VoidSwitch extends CalSwitch<Void> {
 	}
 	
 	@Override
+	public Void caseAstStatementCase(AstStatementCase stmtCase) { 
+		doSwitch(stmtCase.getExpression());
+
+		for (AstStatementAlternative alt : stmtCase.getCases()) {
+			doSwitch(alt);
+		}
+		
+		return null;	
+	}
+	
+	@Override 
+	public Void caseAstStatementAlternative(AstStatementAlternative stmtAlt) {
+		doSwitch(stmtAlt.getPattern());
+
+		for (AstExpression guard : stmtAlt.getGuards()) {
+			doSwitch(guard);
+		}
+		
+		for (AstStatement stmt : stmtAlt.getStatements()) {
+			doSwitch(stmt);
+		}
+		
+		return null;
+	}
+	
+	@Override 
+	public Void caseAstPattern(AstPattern pattern) {
+		for (AstSubPattern subPattern : pattern.getSubpatterns()) {
+			doSwitch(subPattern);
+		}
+		
+		return null;		
+	}
+	
+	@Override 
+	public Void caseAstSubPattern(AstSubPattern pattern) {		
+		return null;		
+	}
+	
+	
+	@Override
 	public Void caseAstType(AstType type) {
 		doSwitch(type.getName());
 
@@ -510,9 +573,9 @@ public class VoidSwitch extends CalSwitch<Void> {
 			doSwitch(t);
 		}	
 		
-		for(AstType t : type.getCodomain()) {
-			doSwitch(t);
-		}		
+		if (type.getCodomain() != null) {
+			doSwitch(type.getCodomain()); 
+		}
 		
 		if (type.getTypeParams() != null) {
 			for (AstTypeParam p: type.getTypeParams().getParams()) {
@@ -523,10 +586,10 @@ public class VoidSwitch extends CalSwitch<Void> {
 	}
 
 	@Override
-	public Void caseAstTypeName(AstTypeName typeName) { 
-		if (typeName.getConstructor() != null) {
-			for (AstFunction tc : typeName.getConstructor()) {			
-				for (AstVariable tmd : tc.getMembers()) {
+	public Void caseAstTypeUser(AstTypeUser typeUser) { 
+		if (typeUser.getTuples() != null) {
+			for (AstTaggedTuple tt : typeUser.getTuples()) {			
+				for (AstVariable tmd : tt.getFields()) {
 					doSwitch(tmd.getType());
 				}
 			}
@@ -547,14 +610,19 @@ public class VoidSwitch extends CalSwitch<Void> {
 	}
 
 	@Override
+	public Void caseAstTaggedTuple(AstTaggedTuple tuple) {
+		
+		for (AstVariable variable : tuple.getFields()) {
+			doSwitch(variable);
+		}
+		
+		return null;
+	}
+	
+	@Override
 	public Void caseAstVariable(AstVariable variable) {
 		doSwitch(variable.getType());
 		return doSwitch(variable.getValue());
-	}
-
-	@Override
-	public Void caseAstVariableReference(AstVariableReference reference) {
-		return null;
 	}
 
 	@Override

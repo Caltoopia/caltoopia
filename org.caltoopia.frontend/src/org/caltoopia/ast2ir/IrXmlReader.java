@@ -34,7 +34,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.caltoopia.codegen;
+package org.caltoopia.ast2ir;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -53,8 +53,11 @@ import org.caltoopia.ir.Assign;
 import org.caltoopia.ir.BinaryExpression;
 import org.caltoopia.ir.Block;
 import org.caltoopia.ir.BooleanLiteral;
+import org.caltoopia.ir.CaseExpression;
+import org.caltoopia.ir.CaseStatement;
 import org.caltoopia.ir.Connection;
 import org.caltoopia.ir.Declaration;
+import org.caltoopia.ir.ExprAlternative;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.ExternalActor;
 import org.caltoopia.ir.FloatLiteral;
@@ -86,20 +89,25 @@ import org.caltoopia.ir.Schedule;
 import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.State;
 import org.caltoopia.ir.Statement;
+import org.caltoopia.ir.StmtAlternative;
 import org.caltoopia.ir.StringLiteral;
+import org.caltoopia.ir.TagOf;
 import org.caltoopia.ir.TaggedExpression;
+import org.caltoopia.ir.TaggedTuple;
+import org.caltoopia.ir.TaggedTupleFieldRead;
 import org.caltoopia.ir.ToSink;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
-import org.caltoopia.ir.TypeConstructor;
 import org.caltoopia.ir.TypeConstructorCall;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeDeclarationImport;
 import org.caltoopia.ir.TypeInt;
 import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeProc;
-import org.caltoopia.ir.TypeRecord;
+import org.caltoopia.ir.TypeTuple;
 import org.caltoopia.ir.TypeUint;
+import org.caltoopia.ir.TypeVariable;
+import org.caltoopia.ir.TypeVariableDeclaration;
 import org.caltoopia.ir.UnaryExpression;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExpression;
@@ -108,8 +116,6 @@ import org.caltoopia.ir.VariableImport;
 import org.caltoopia.ir.VariableReference;
 import org.caltoopia.ir.WhileLoop;
 import org.caltoopia.types.TypeSystem;
-import org.caltoopia.ast2ir.PriorityGraph;
-import org.caltoopia.ast2ir.Util;
 import org.eclipse.emf.ecore.EObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -150,7 +156,7 @@ public class IrXmlReader {
 			
 			return result;			
 		} catch (Exception x) {
-			System.err.println("[ActorDirectory]ÊError reading '" + path + "' x " + x.getMessage()); 
+			System.err.println("[IrXmlReader] Error reading '" + path + "' x " + x.getMessage()); 
 			return null;
 		}
 		
@@ -427,7 +433,7 @@ public class IrXmlReader {
 		
 		return action;
 	}
-
+	
 	private Guard createGuard(Element element) {
 		Guard guard = IrFactory.eINSTANCE.createGuard();
 		String id = element.getAttribute("id");
@@ -452,12 +458,10 @@ public class IrXmlReader {
 		}
 		
 		Expression body = createExpression(getChild(element, "Expr"));
-		guard.setBody(body);		
-		
-		guard.setType(TypeSystem.createTypeBool());
+		guard.setExpression(body);				
 		
 		return guard;
-	}
+	}	
 	
 	private ActorInstance createActorInstance(Element element) {
 		ActorInstance instance = IrFactory.eINSTANCE.createActorInstance();
@@ -572,6 +576,18 @@ public class IrXmlReader {
 			}
 			
 			return typeImport;
+		} else if (kind.equals("TypeVariable")) {
+			TypeVariableDeclaration typeVariableDeclaration = IrFactory.eINSTANCE.createTypeVariableDeclaration();
+			typeVariableDeclaration.setName(element.getAttribute("name"));
+			String id = element.getAttribute("id");
+			typeVariableDeclaration.setId(id);	
+			doAnnotations(typeVariableDeclaration, element);
+	
+			typeVariableDeclaration.setScope((Scope) findIrObject(element.getAttribute("scope")));
+			
+			addIrObject(id, typeVariableDeclaration);
+			
+			return typeVariableDeclaration;
 		} else if (kind.equals("Forward")) {
 			ForwardDeclaration forwardDeclaration = IrFactory.eINSTANCE.createForwardDeclaration();
 			forwardDeclaration.setName(element.getAttribute("name"));
@@ -603,23 +619,19 @@ public class IrXmlReader {
 
 			addIrObject(id, typeDeclaration);
 						
-			typeDeclaration.setName(element.getAttribute("name"));
-		
+			typeDeclaration.setName(element.getAttribute("name"));		
 			typeDeclaration.setScope((Scope) findIrObject(element.getAttribute("scope")));
 
+			List<Element> declarations = getChildren(element, "Decl");
+			for (Element e : declarations) {
+				Declaration var = (Declaration ) createDeclaration(e);
+				typeDeclaration.getDeclarations().add(var);
+			}
+			
 			Element typeElement = getChild(element, "Type");
 			Type type = createType(typeElement);
 			typeDeclaration.setType(type);
-					
-			Element ctorElement = getChild(element, "TypeConstructor");
-			TypeConstructor ctor = IrFactory.eINSTANCE.createTypeConstructor();
-			ctor.setName(ctorElement.getAttribute("name"));
-			ctor.setId(ctorElement.getAttribute("id"));
-			doAnnotations(ctor, ctorElement);
-			ctor.setScope((Scope) findIrObject(ctorElement.getAttribute("scope")));
-			ctor.setTypedef(typeDeclaration);
 
-			typeDeclaration.setConstructor(ctor);
 			
 			return typeDeclaration;			
 		}
@@ -640,7 +652,7 @@ public class IrXmlReader {
                 expr.setType(createType(child));
             }
 			expr.setContext((Scope) findIrObject(element.getAttribute("context-scope"))); 
-			expr.setOperator(UtilIR.unmarshall(element.getAttribute("operator")));			
+			expr.setOperator(Util.unmarshall(element.getAttribute("operator")));			
 			expr.setOperand(createExpression(getChild(element, "Expr")));
 			// expr.setType(createType(getChild(element, "Type")));
 			
@@ -654,7 +666,7 @@ public class IrXmlReader {
                 expr.setType(createType(child));
             }
 			expr.setContext((Scope) findIrObject(element.getAttribute("context-scope"))); 
-			expr.setOperator(UtilIR.unmarshall(element.getAttribute("operator")));			
+			expr.setOperator(Util.unmarshall(element.getAttribute("operator")));			
 			List<Element> operands = getChildren(element, "Expr");
 			expr.setOperand1(createExpression(operands.get(0)));
 			expr.setOperand2(createExpression(operands.get(1)));			
@@ -840,10 +852,65 @@ public class IrXmlReader {
 			expr.setType(TypeSystem.createTypeString());
 			
 			return expr;				
-		} 
+		} else if (kind.equals("Case")) {
+			CaseExpression expr = IrFactory.eINSTANCE.createCaseExpression();
+	
+			expr.setId(element.getAttribute("id"));
+									
+			List<Element> alts = getChildren(element, "Alternative");
+			for (Element alt : alts) {				
+				expr.getAlternatives().add(createExprAlternative(alt));
+			}
+			
+			expr.setDefault((Expression) getChild(element, "Expr")); 
+
+			return expr;
+		} else if (kind.equals("TaggedTupleFieldRead")) {
+			TaggedTupleFieldRead expr = IrFactory.eINSTANCE.createTaggedTupleFieldRead();
+			expr.setId(element.getAttribute("id"));
+			expr.setContext((Scope) findIrObject(element.getAttribute("context-scope")));
+			expr.setTag(element.getAttribute("tag"));
+			expr.setLabel(element.getAttribute("label"));
+			
+			expr.setValue((Expression) createExpression(getChild(element, "Expr")));
+			
+			return expr;
+		} else if (kind.equals("TagOf")) {
+			TagOf expr = IrFactory.eINSTANCE.createTagOf();
+			expr.setId(element.getAttribute("id"));
+			expr.setContext((Scope) findIrObject(element.getAttribute("context-scope")));
+			expr.setTag(element.getAttribute("tag"));
+
+			expr.setExpression(createExpression(getChild(element, "Expr")));
+			
+			return expr;
+		}
 		
 		assert(false);
 		return null;
+	}
+	
+	private ExprAlternative createExprAlternative(Element element) {
+		ExprAlternative alt = IrFactory.eINSTANCE.createExprAlternative();
+		
+		alt.setId(element.getAttribute("id"));
+		alt.setOuter((Scope) findIrObject(element.getAttribute("context-scope"))); 
+
+		doAnnotations(alt, element);
+
+		List<Element> decls = getChildren(element, "Decl");
+		for (Element e : decls) {
+			alt.getDeclarations().add(createDeclaration(e));
+		}
+
+		List<Element> guards = getChildren(element, "Guard");
+		for (Element e : guards) {
+			alt.getGuards().add(createExpression(e));
+		}		
+		
+		alt.setExpression((Expression) getChild(element, "Expr")); 
+		
+		return alt;
 	}
 	
 	private Generator createGenerator(Element element) {
@@ -989,11 +1056,50 @@ public class IrXmlReader {
 			stmt.setValue(createExpression(getChild(element, "Expr"))); 
 			
 			return stmt;
+		} else if (kind.equals("Case")) {
+			CaseStatement stmt = IrFactory.eINSTANCE.createCaseStatement();
+
+			String id = element.getAttribute("id");
+			stmt.setId(id);
+			doAnnotations(stmt, element);
+	
+			this.addIrObject(id, stmt);
+
+			stmt.setExpression(createExpression(getChild(element, "Expr"))); 
+			
+			List<Element> alts = getChildren(element, "Alternative");
+			for (Element alt : alts) {				
+				stmt.getAlternatives().add(createStmtAlternative(alt));
+			}
+			
+			return stmt;
 		}
 		
 		assert(false);
 		return null;
 	}	
+
+	private StmtAlternative createStmtAlternative(Element element) {
+		StmtAlternative alt = IrFactory.eINSTANCE.createStmtAlternative();
+		
+		String id = element.getAttribute("id");
+		alt.setId(id);
+		doAnnotations(alt, element);
+
+		this.addIrObject(id, alt);
+		
+		List<Element> decls = getChildren(element, "Decl");
+		for (Element e : decls) {
+			alt.getDeclarations().add(createDeclaration(e));
+		}
+
+		List<Element> guards = getChildren(element, "Guard");
+		for (Element e : guards) {
+			alt.getGuards().add(createExpression(e));
+		}		
+		
+		return alt;
+	}
 
 	private PortRead createPortRead(Action action, Element element) {
 		PortRead portRead = IrFactory.eINSTANCE.createPortRead();
@@ -1115,21 +1221,28 @@ public class IrXmlReader {
 		} else if (kind.equals("user")) {
 			Declaration typeDeclaration = (Declaration) findIrObject(element.getAttribute("type-declaration-id"));
 			return TypeSystem.createTypeUser(typeDeclaration);
-		} else if (kind.equals("record")) {
-			TypeRecord typeRecord = IrFactory.eINSTANCE.createTypeRecord();
+		} else if (kind.equals("tuple")) {
+			TypeTuple typeTuple = IrFactory.eINSTANCE.createTypeTuple();
+						
 			String id = element.getAttribute("id");
-			typeRecord.setId(id);
-			doAnnotations(typeRecord, element);
+			typeTuple.setId(id);
+			doAnnotations(typeTuple, element);
 			
-			List<Element> members = getChildren(element, "Decl");			
-			for (Element member : members) {
-				Variable m = (Variable) createDeclaration(member);
-				typeRecord.getMembers().add(m);
-			}
+			addIrObject(id, typeTuple);
 			
-			addIrObject(id, typeRecord);
+			List<Element> taggedTuples = getChildren(element, "TaggedTuple");
+			for (Element taggedTuple : taggedTuples) {
+				TaggedTuple tt = IrFactory.eINSTANCE.createTaggedTuple();
+				tt.setTag(taggedTuple.getAttribute("tag"));
+				List<Element> members = getChildren(taggedTuple, "Decl");			
+				for (Element member : members) {
+					Variable m = (Variable) createDeclaration(member);
+					tt.getFields().add(m);
+				}
+				typeTuple.getTaggedTuples().add(tt);
+			}							
 			
-			return typeRecord;
+			return typeTuple;
 		} else if (kind.equals("lambda")) {
 			TypeLambda type = IrFactory.eINSTANCE.createTypeLambda();
 			Element input = getChild(element, "Input");
@@ -1158,10 +1271,14 @@ public class IrXmlReader {
 			String name = element.getAttribute("name");			
 			String namespace = element.getAttribute("namespace"); 
 			return TypeSystem.createTypeActor(name, Util.unpackQualifiedName(namespace));					
+		} else if (kind.equals("variable")) {
+			TypeVariable type = IrFactory.eINSTANCE.createTypeVariable();
+			type.setDeclaration((TypeVariableDeclaration) findIrObject(element.getAttribute("decl-id")));			
+			
+			return type;
 		} else if (kind.equals("undef")) {
 			return TypeSystem.createTypeUndef();			
-		}
-		
+		}		
 		assert(false);
 		return null;
 	}
@@ -1320,6 +1437,11 @@ public class IrXmlReader {
 	}
 	
 	private EObject findIrObject(String key) {
+		if (key.equals("")) {
+			System.err.println("Empty key");
+			new Throwable().printStackTrace();
+		}
+		
 		EObject obj = objectMap.get(key);
 		if (obj == null) {
 			System.err.println("........ ObjectMap ........");
@@ -1328,15 +1450,21 @@ public class IrXmlReader {
 			}
 			System.err.println("Failed for key=" + key + " ==> " + obj);
 			new Throwable().printStackTrace();
-			assert(obj != null);
 		}
 
 		return obj;
 	}
 
 	private void addIrObject(String key, EObject obj) {
-		assert(!objectMap.containsKey(key));
-		objectMap.put(key, obj);
+		if (key.equals("")) {
+			System.err.println("Empty key");
+			new Throwable().printStackTrace();
+		} else if (objectMap.containsKey(key)) { 
+			System.err.println("Multiple objects");
+			new Throwable().printStackTrace();
+		} else {
+			objectMap.put(key, obj);
+		}
 	}
 	
 }

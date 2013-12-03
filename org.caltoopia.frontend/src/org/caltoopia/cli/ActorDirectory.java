@@ -51,9 +51,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.caltoopia.ast2ir.IrXmlPrinter;
+import org.caltoopia.ast2ir.IrXmlReader;
 import org.caltoopia.ast2ir.Util;
-import org.caltoopia.codegen.IrXmlReader;
-import org.caltoopia.codegen.IrXmlPrinter;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.ActorInstance;

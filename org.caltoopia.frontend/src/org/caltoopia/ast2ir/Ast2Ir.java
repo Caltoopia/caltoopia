@@ -50,13 +50,17 @@ import org.caltoopia.frontend.cal.AstAnnotation;
 import org.caltoopia.frontend.cal.AstAssignParameter;
 import org.caltoopia.frontend.cal.AstConnection;
 import org.caltoopia.frontend.cal.AstConnectionAttribute;
-import org.caltoopia.frontend.cal.AstExpressionVariable;
+import org.caltoopia.frontend.cal.AstExpressionSymbolReference;
 import org.caltoopia.frontend.cal.AstExternalActor;
 import org.caltoopia.frontend.cal.AstForeachGenerator;
 import org.caltoopia.frontend.cal.AstMemberAccess;
 import org.caltoopia.frontend.cal.AstNamespace;
 import org.caltoopia.frontend.cal.AstNetwork;
+import org.caltoopia.frontend.cal.AstPattern;
+import org.caltoopia.frontend.cal.AstStatementAlternative;
 import org.caltoopia.frontend.cal.AstStatementBlock;
+import org.caltoopia.frontend.cal.AstStatementCase;
+import org.caltoopia.frontend.cal.AstSubPattern;
 import org.caltoopia.frontend.cal.AstTag;
 import org.caltoopia.frontend.cal.AstTransition;
 import org.caltoopia.frontend.cal.AstAction;
@@ -73,7 +77,8 @@ import org.caltoopia.frontend.cal.AstStatementCall;
 import org.caltoopia.frontend.cal.AstStatementForeach;
 import org.caltoopia.frontend.cal.AstStatementIf;
 import org.caltoopia.frontend.cal.AstStatementWhile;
-import org.caltoopia.frontend.cal.AstTypeName;
+import org.caltoopia.frontend.cal.AstType;
+import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstVariable;
 import org.caltoopia.frontend.cal.util.CalSwitch;
 import org.caltoopia.cli.ActorDirectory;
@@ -87,6 +92,7 @@ import org.caltoopia.ir.Actor;
 import org.caltoopia.ir.ActorInstance;
 import org.caltoopia.ir.Annotation;
 import org.caltoopia.ir.Block;
+import org.caltoopia.ir.CaseStatement;
 import org.caltoopia.ir.Connection;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
@@ -113,12 +119,12 @@ import org.caltoopia.ir.ProcCall;
 import org.caltoopia.ir.ProcExpression;
 import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.Statement;
+import org.caltoopia.ir.StmtAlternative;
 import org.caltoopia.ir.TaggedExpression;
 import org.caltoopia.ir.ToSink;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeLambda;
-import org.caltoopia.ir.TypeConstructor;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeProc;
 import org.caltoopia.ir.VariableExternal;
@@ -202,34 +208,30 @@ public class Ast2Ir extends CalSwitch<EObject> {
 			graphData.add(new AstDeclVertex(constvar));
 		}
 		
-		for (AstFunction f : astNamespace.getFunctions()) {
+		for (AstVariable f : astNamespace.getFunctions()) {
 			graphData.add(new AstDeclVertex(f));
 		}
 		
-		for (AstTypeName td : astNamespace.getTypedefs()) {
+		for (AstTypeUser td : astNamespace.getTypedefs()) {
 			graphData.add(new AstDeclVertex(td));
 		}
 		
 		graphData = new Graph(graphData).sortByDependency();
 		
 		for (VertexData data : graphData) {
-			if (data.getData() instanceof AstVariable) {
-				AstVariable var = (AstVariable) data.getData();
-				Util.createVariable(scopeStack.peek(), var, false);
-			} else if (data.getData() instanceof AstTypeName) {
-				TypeDeclaration typeDecl  = TypeConverter.createTypeDeclaration(scopeStack.peek(), (AstTypeName) data.getData(), false);
-				ns.getDeclarations().add(typeDecl);		
-				for (AstFunction tc : ((AstTypeName) data.getData()).getConstructor()) {				
-					TypeConstructor  typeConstructor  = Util.createTypeConstructor(typeDecl, tc, false);
-					typeDecl.setConstructor(typeConstructor);
-				}
-			} else if (data.getData() instanceof AstFunction){
+			if (data.getData() instanceof AstFunction){
 				Declaration def = Util.createForwardFunctionDeclaration(scopeStack.peek(), (AstFunction) data.getData(), false);				                                                                                   
 				ns.getDeclarations().add(def);
 			} else if (data.getData() instanceof AstProcedure) {
 				// NB Only external procedures are allow.
 				Declaration def =  Util.createForwardProcedureDeclaration(scopeStack.peek(), (AstProcedure) data.getData());				                                                                                   
 				ns.getDeclarations().add(def);
+			} else if (data.getData() instanceof AstTypeUser) {
+				TypeDeclaration typeDecl  = TypeConverter.createTypeDeclaration(scopeStack.peek(), (AstTypeUser) data.getData(), false);
+				ns.getDeclarations().add(typeDecl);						
+			} else if (data.getData() instanceof AstVariable) {
+				AstVariable var = (AstVariable) data.getData();
+				Util.createVariable(scopeStack.peek(), var, false);
 			}
 			
 			else {
@@ -237,7 +239,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 			}
 		}
 		
-		for (AstFunction astFunction : astNamespace.getFunctions()) {
+		for (AstVariable astFunction : astNamespace.getFunctions()) {
 			Variable irFunction = (Variable) doSwitch(astFunction);
 			ns.getDeclarations().add(irFunction);
 		}
@@ -261,8 +263,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 			actor.getAnnotations().add(Util.createPathAnnotation(filePath));
 			actor.getAnnotations().add(Util.createProjectAnnotation(projectPath));
 			ActorDirectory.addActor(actor, projectPath);
-		}
-		
+		}	
 		
 		for (AstNamespace astSubNamespace : astNamespace.getNamespaces()) {
 			// Do all subnetworks 
@@ -313,7 +314,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 			graphData.add(new AstDeclVertex(state));
 		}
 		
-		for (AstFunction f : astActor.getFunctions()) {
+		for (AstVariable f : astActor.getFunctions()) {
 			graphData.add(new AstDeclVertex(f));
 		}
 		
@@ -325,10 +326,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 		graphData = new Graph(graphData).sortByDependency();
 		
 		for (VertexData data : graphData) {
-			if (data.getData() instanceof AstVariable) {
-				AstVariable var = (AstVariable) data.getData();
-				Util.createVariable(scopeStack.peek(), var, false);
-			} else if (data.getData() instanceof AstFunction){
+			if (data.getData() instanceof AstFunction){
 				// Create a forward declaration
 				Declaration def = Util.createForwardFunctionDeclaration(scopeStack.peek(), (AstFunction) data.getData(), false);				                                                                                   
 				actor.getDeclarations().add(def);
@@ -336,10 +334,13 @@ public class Ast2Ir extends CalSwitch<EObject> {
 				// Create a forward declaration
 				Declaration def =  Util.createForwardProcedureDeclaration(scopeStack.peek(), (AstProcedure) data.getData());				                                                                                   
 				actor.getDeclarations().add(def);
-			}
+			} else if (data.getData() instanceof AstVariable) {
+				AstVariable var = (AstVariable) data.getData();
+				Util.createVariable(scopeStack.peek(), var, false);
+			} 
 		}
 		
-		for (AstFunction astFunction : astActor.getFunctions()) {
+		for (AstVariable astFunction : astActor.getFunctions()) {
 			Variable irFunction = (Variable) doSwitch(astFunction);
 			actor.getDeclarations().add(irFunction);
 		}
@@ -539,16 +540,16 @@ public class Ast2Ir extends CalSwitch<EObject> {
 		graphData = new Graph(graphData).sortByDependency();
 		
 		for (VertexData data : graphData) {
-			if (data.getData() instanceof AstVariable) {
-				AstVariable var = (AstVariable) data.getData();
-				Util.createVariable(scopeStack.peek(), var, false);
-			} else if (data.getData() instanceof AstFunction){
+			if (data.getData() instanceof AstFunction){
 				Declaration decl = Util.createForwardFunctionDeclaration(scopeStack.peek(), (AstFunction) data.getData(), false);				                                                                                   
 				network.getDeclarations().add(decl);
 			} else if (data.getData() instanceof AstProcedure) {
 				Declaration decl =  Util.createForwardProcedureDeclaration(scopeStack.peek(), (AstProcedure) data.getData());				                                                                                   
 				network.getDeclarations().add(decl);
-			}
+			} else if (data.getData() instanceof AstVariable) {
+				AstVariable var = (AstVariable) data.getData();
+				Util.createVariable(scopeStack.peek(), var, false);
+			} 
 		}				
 		
 		for (AstPort p : astNetwork.getInputs()) {
@@ -725,68 +726,74 @@ public class Ast2Ir extends CalSwitch<EObject> {
 			portRead.setPort(port);		
 			
 			Type type = port.getType();
+			Expression repeat = null;
 			if (inputs.getRepeat() != null) {
-				Expression repeat = CreateIrExpression.convert(scopeStack.peek(), inputs.getRepeat());
+				repeat = CreateIrExpression.convert(scopeStack.peek(), inputs.getRepeat());
 				portRead.setRepeat(repeat);
 				type = TypeSystem.createTypeList(repeat, type);
 			}
-			
+						
 			for (int j = 0; j < inputs.getTokens().size(); j++) {
-				AstVariable v = inputs.getTokens().get(j);
-				Variable varDecl = Util.createVariable(action, v, type, null);
-				portRead.getVariables().add(Util.createVariableReference(varDecl));				
-				action.getInputs().add(portRead);
-			}
-							
+				if (inputs.getTokens().get(j).getVariable() != null) {
+					AstVariable v = inputs.getTokens().get(j).getVariable();
+					Variable varDecl = Util.createVariable(action, v, type, null);
+					Util.defsput(inputs.getTokens().get(j), varDecl);
+					portRead.getVariables().add(Util.createVariableReference(varDecl));				
+					action.getInputs().add(portRead);
+				} else {
+					Variable varDecl = Util.createTmpVariable(action, type, null);
+					portRead.getVariables().add(Util.createVariableReference(varDecl));				
+					action.getInputs().add(portRead);
+					
+					Util.defsput(inputs.getTokens().get(j), varDecl);
+					
+					AstType astType = Util.getAstPort(inputs).getType();
+										
+					Util.doPatternDeclarations(action, astType, inputs.getTokens().get(j), Util.createVariableExpression(action, varDecl), repeat);
+
+					//Do the type guards	
+					final Guard guard =  IrFactory.eINSTANCE.createGuard();
+					guard.setId(Util.getDefinitionId());
+					guard.setOuter(action);
+
+					PortPeek portPeek = IrFactory.eINSTANCE.createPortPeek();
+					portPeek.setId(Util.getDefinitionId());
+					portPeek.setPort(port);	
+					portPeek.setPosition(j); 
+					varDecl = Util.createTmpVariable(action, type, null);
+					portPeek.setVariable(Util.createVariableReference(varDecl));				
+					guard.getPeeks().add(portPeek);
+					
+					guard.setExpression(Util.doPatternTypeGuards(guard, inputs.getTokens().get(j), Util.createVariableExpression(guard, varDecl), astType));
+					action.getTypeGuards().add(guard);
+				}
+			}							
 		}
 		
 		for (AstExpression e : astAction.getGuards()) {
 			final Guard guard =  IrFactory.eINSTANCE.createGuard();
 			guard.setId(Util.getDefinitionId());
-			guard.setOuter(scopeStack.peek());
-			guard.setContext(scopeStack.peek());
-						
+			guard.setOuter(action);
+			
 			final List<PortPeek> peeks = new ArrayList<PortPeek>();
-							
+			Util.stashDefs();
+			
 			new VoidSwitch() {
 				@Override
-				public Void caseAstExpressionVariable(AstExpressionVariable e)  {
-					if (e.getValue().getVariable().eContainer() instanceof AstInputPattern)  {
-						AstInputPattern inputs = (AstInputPattern) e.getValue().getVariable().eContainer();
-						Port port = Util.createInputPort(scopeStack.peek(), inputs, false);						
-						AstVariable token = e.getValue().getVariable();
-						int position = inputs.getTokens().indexOf(token);
-						
-						PortPeek portPeek = IrFactory.eINSTANCE.createPortPeek();
-						portPeek.setId(Util.getDefinitionId());		
-						
-						if (inputs.getRepeat() != null) {
-							Expression repeat = CreateIrExpression.convert(scopeStack.peek(), inputs.getRepeat());
-							portPeek.setRepeat(repeat);
-						}
-						
-						Variable varDecl = (Variable) Util.findIrDeclaration(e.getValue().getVariable());
-						portPeek.setPort(port);
-						portPeek.setPosition(position);
-						VariableReference varRef = Util.createVariableReference(varDecl);
-						for(AstExpression expr : e.getIndexes()) {
-							Expression index = CreateIrExpression.convert(scopeStack.peek(), expr);
-							varRef.getIndex().add(index);
-						}
-						portPeek.setVariable(varRef);
-						peeks.add(portPeek);
+				public Void caseAstExpressionSymbolReference(AstExpressionSymbolReference e)  {
+					AstVariable v = e.getSymbol();					
+					if (v.eContainer() instanceof AstPattern){		
+						Util.doFieldReads(guard, (AstPattern) v.eContainer(), e);
 					}
-					return null;
+					
+					return super.caseAstExpressionSymbolReference(e);
 				}
 			}.doSwitch(e);
 			
-			for (PortPeek pp : peeks) {
-				guard.getPeeks().add(pp);
-			}
-			
-			guard.setType(TypeSystem.createTypeBool());
-			guard.setBody(CreateIrExpression.convert(guard, e));
+			guard.setExpression(CreateIrExpression.convert(action, e));
 			action.getGuards().add(guard);
+
+			Util.unstashDefs();
 		}		
 				
 		List<VertexData> graphData = new ArrayList<VertexData>();
@@ -823,7 +830,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 			}
 
 			for (AstExpression e : outputs.getValues()) {
-				if(e instanceof AstExpressionVariable) {
+				if(e instanceof AstExpressionSymbolReference && !(((AstExpressionSymbolReference) e).getSymbol() instanceof AstFunction)) {
 					portWrite.getExpressions().add(CreateIrExpression.convert(scopeStack.peek(), e));
 					action.getOutputs().add(portWrite);					
 				} else {
@@ -946,7 +953,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 		
 	@Override
 	public EObject caseAstStatementAssign(AstStatementAssign astAssign) {
-		Variable varDecl = (Variable) Util.findIrDeclaration(astAssign.getTarget().getVariable()); 
+		Variable varDecl = (Variable) Util.findIrDeclaration(astAssign.getTarget()); 
 		VariableReference varRef = Util.createVariableReference(varDecl);
 		for (AstExpression e : astAssign.getIndexes()) {
 			Expression expr = CreateIrExpression.convert(scopeStack.peek(), e);
@@ -1104,8 +1111,6 @@ public class Ast2Ir extends CalSwitch<EObject> {
 	public EObject caseAstStatementWhile(AstStatementWhile stmtWhile) {
 		WhileLoop whileLoop = IrFactory.eINSTANCE.createWhileLoop();
 		
-		// Variable tmp = Util.createTmpVariable(scopeStack.peek(), TypeSystem.createTypeBool(), CreateIrExpression.convert(scopeStack.peek(), stmtWhile.getCondition()));
-		// VariableExpression condition = Util.createVariableExpression(scopeStack.peek(), tmp);
 		Expression condition = CreateIrExpression.convert(scopeStack.peek(), stmtWhile.getCondition());
 		
 		whileLoop.setCondition(condition);
@@ -1117,8 +1122,6 @@ public class Ast2Ir extends CalSwitch<EObject> {
 			Statement stmt = (Statement) doSwitch(s);
 			body.getStatements().add(stmt);
 		}
-		//Statement stmt = Util.createAssignment(body, tmp, stmtWhile.getCondition());
-		// body.getStatements().add(stmt);
 		scopeStack.pop();
 		
 		return whileLoop;
@@ -1138,6 +1141,69 @@ public class Ast2Ir extends CalSwitch<EObject> {
 		}
 		
 		return block;
+	}
+	
+	@Override
+	public EObject caseAstStatementCase(AstStatementCase stmtCase) {
+		CaseStatement caseStatement = IrFactory.eINSTANCE.createCaseStatement();
+		caseStatement.setId(Util.getDefinitionId());
+		Expression condition = CreateIrExpression.convert(scopeStack.peek(), stmtCase.getExpression());
+		caseStatement.setExpression(condition);
+		
+		try {
+			AstVariable v = stmtCase.getExpression().getSymbol();
+			AstType astType = null;
+			if (v.eContainer() instanceof AstPattern && v.eContainer().eContainer() instanceof AstInputPattern) {
+				AstInputPattern pattern = (AstInputPattern) v.eContainer().eContainer();
+				AstPort port = null;
+				if (pattern.getPort() != null) {
+					port = pattern.getPort();
+				} else {
+					AstAction action = (AstAction) pattern.eContainer();
+					List<AstInputPattern> inputs = action.getInputs();
+					AstActor actor = (AstActor) action.eContainer();
+					List<AstPort> ports = actor.getInputs();
+					for (int i = 0; i < inputs.size(); i++) {
+						if (inputs.get(i) == pattern) {
+							port = ports.get(i);
+						}
+					}
+				}
+				astType = port.getType();
+			} else {
+				astType = v.getType();
+			}
+		
+			if (astType.getCodomain() != null) 
+				astType = astType.getCodomain();
+			
+			for (AstStatementAlternative a : stmtCase.getCases()) {
+				StmtAlternative alt = IrFactory.eINSTANCE.createStmtAlternative();
+				alt.setId(Util.getDefinitionId());
+				alt.setOuter(scopeStack.peek());
+				scopeStack.push(alt);
+				
+				Util.doPatternDeclarations(alt, astType, a.getPattern(), condition, null);
+				if (a.getPattern() != null)
+					alt.getGuards().add(Util.doPatternTypeGuards(alt, a.getPattern(), condition, astType));
+				
+				for (AstExpression guard : a.getGuards()) {
+					alt.getGuards().add(CreateIrExpression.convert(alt, guard));
+				}
+				
+				for (AstStatement s : a.getStatements()) {
+					Statement stmt = (Statement) doSwitch(s);
+					alt.getStatements().add(stmt);
+				}
+				
+				caseStatement.getAlternatives().add(alt);
+				scopeStack.pop();
+			}
+		} catch (Exception e) {
+			System.err.println("Internal error in Ast2Ir");
+		}
+				
+		return caseStatement;
 	}
 	
 	private void doAnnotations(List<AstAnnotation> annotations, Node irNode) {

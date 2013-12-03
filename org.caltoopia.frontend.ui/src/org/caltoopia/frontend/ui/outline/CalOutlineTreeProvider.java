@@ -203,7 +203,7 @@ public class CalOutlineTreeProvider extends DefaultOutlineTreeProvider {
 					"actor instances", false);
 		}
 
-		if (network.getStructure()!=null && !network.getStructure().getConnections().isEmpty()) {
+		if (network.getStructure() != null && !network.getStructure().getConnections().isEmpty()) {
 			createEStructuralFeatureNode(parentNode, network,
 					CalPackage.eINSTANCE.getAstNetwork_Structure(), null,
 					"connections", false);
