@@ -219,7 +219,7 @@ public class CBuildGuard extends IrSwitch<Boolean> {
             ind.inc();
             //And together the individual boolean guard expressions
             for (Iterator<Guard> i = action.getGuards().iterator();i.hasNext();) {
-                Expression e = i.next().getBody();
+                Expression e = i.next().getExpression();
                 bodyStr += ind.ind() + new CBuildExpression(e, cenv).toStr();
                 if(i.hasNext()) {
                     bodyStr += " &&"+ ind.nl();

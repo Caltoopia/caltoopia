@@ -65,7 +65,6 @@ import org.caltoopia.ir.TypeExternal;
 import org.caltoopia.ir.TypeFloat;
 import org.caltoopia.ir.TypeInt;
 import org.caltoopia.ir.TypeList;
-import org.caltoopia.ir.TypeRecord;
 import org.caltoopia.ir.TypeString;
 import org.caltoopia.ir.TypeUint;
 import org.caltoopia.ir.TypeUndef;

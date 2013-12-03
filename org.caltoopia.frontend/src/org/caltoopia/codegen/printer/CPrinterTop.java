@@ -61,9 +61,8 @@ import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.cli.CompilationSession;
 import org.caltoopia.cli.DirectoryException;
 import org.caltoopia.codegen.CEnvironment;
-import org.caltoopia.codegen.CPrinter;
 import org.caltoopia.codegen.CodegenError;
-import org.caltoopia.codegen.IrXmlPrinter;
+import org.caltoopia.ast2ir.IrXmlPrinter;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.TransUtil;
@@ -107,7 +106,6 @@ import org.caltoopia.ir.TypeExternal;
 import org.caltoopia.ir.TypeFloat;
 import org.caltoopia.ir.TypeInt;
 import org.caltoopia.ir.TypeList;
-import org.caltoopia.ir.TypeRecord;
 import org.caltoopia.ir.TypeString;
 import org.caltoopia.ir.TypeUint;
 import org.caltoopia.ir.TypeUndef;
@@ -815,8 +813,11 @@ public class CPrinterTop extends IrSwitch<Stream> {
         for (int i = 0; i < actor.getInputPorts().size(); i++) {
             Port p = actor.getInputPorts().get(i);
             Type type=p.getType();
+            if(UtilIR.isTuple(type)) {
+                CodegenError.err("CPrintTop", "Not yet implemented tuple with multiple tags (1) ");
+            }
             //First param indicate user type or builtin type
-            s.print("{" + (UtilIR.isRecord(type)?"1":"0") + ", \"" + p.getName() + "\", ");
+            s.print("{" + (UtilIR.isSingleTagTuple(type)?"1":"0") + ", \"" + p.getName() + "\", ");
             //Last param indicate port token size in bytes
             s.print(CPrintUtil.createDeepSizeof(null, type, cenv));
 
@@ -833,8 +834,11 @@ public class CPrinterTop extends IrSwitch<Stream> {
         for (int i = 0; i < actor.getOutputPorts().size(); i++) {
             Port p = actor.getOutputPorts().get(i);         
             Type type=p.getType();
+            if(UtilIR.isTuple(type)) {
+                CodegenError.err("CPrintTop", "Not yet implemented tuple with multiple tags (2) ");
+            }
             //First param indicate user type or builtin type
-            s.print("{" + (UtilIR.isRecord(type)?"1":"0") + ", \"" + p.getName() + "\", ");
+            s.print("{" + (UtilIR.isSingleTagTuple(type)?"1":"0") + ", \"" + p.getName() + "\", ");
             //Last param indicate port token size in bytes
             s.print(CPrintUtil.createDeepSizeof(null, type, cenv));
 
@@ -1040,6 +1044,9 @@ public class CPrinterTop extends IrSwitch<Stream> {
     //--------------------------TYPES-------------------------------------
     @Override
     public Stream caseTypeDeclaration(TypeDeclaration type) {
+        if(UtilIR.isTuple(UtilIR.getType(type))) {
+            CodegenError.err("CPrintTop", "Not yet implemented tuple with multiple tags (3) ");
+        }
         if(header) {
             enter(type);
             /* 
@@ -1062,8 +1069,8 @@ public class CPrinterTop extends IrSwitch<Stream> {
             s.printlnInc("struct " + type.getName() + "_s {");
             s.println("uint32_t flags;");
             s.printlnInc("struct {");
-            TypeRecord struct = (TypeRecord) (type.getType() instanceof TypeUser ? ((TypeDeclaration)((TypeUser)type.getType()).getDeclaration()).getType(): type.getType());
-            for (Iterator<Variable> i = struct.getMembers().iterator(); i.hasNext();) {
+            Type struct = UtilIR.getType(type);
+            for (Iterator<Variable> i = UtilIR.getMembers(struct).iterator(); i.hasNext();) {
                 Variable var = i.next();
                 s.print(new CBuildVarDeclaration(var,cenv,false).toStr());
                 s.println(";");
@@ -1079,7 +1086,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
             s.println("int freeStruct" + type.getName() + "_t ("+ type.getName() + "_t * src, int top);");
         } else {
             //Printed in network c-file
-            TypeRecord struct = (TypeRecord) (type.getType() instanceof TypeUser ? ((TypeDeclaration)((TypeUser)type.getType()).getDeclaration()).getType(): type.getType());
+            Type struct = UtilIR.getType(type);
             /*
              * Declaration of freeStruct function. 
              * This function is used to deep free any user type variable.
@@ -1089,17 +1096,20 @@ public class CPrinterTop extends IrSwitch<Stream> {
              * top: if also the top level should be freed or only deeper levels
              */
             s.printlnInc("int freeStruct" + type.getName() + "_t ("+ type.getName() + "_t * src, int top) {");
-            for (Iterator<Variable> i = struct.getMembers().iterator(); i.hasNext();) {
+            for (Iterator<Variable> i = UtilIR.getMembers(struct).iterator(); i.hasNext();) {
                 Variable var = i.next();
                 if(UtilIR.isList(var.getType())) {
                     //Free any array members
                     s.print("free" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).toStr() + "(&src->members." + new CBuildVarDeclaration(var,cenv,true).toStr() + ", TRUE)");
                     s.println(";");
-                } else if(UtilIR.isRecord(var.getType())) {
+                } else if(UtilIR.isSingleTagTuple(var.getType())) {
                     //Go deep into a user typed member
                     s.print("freeStruct" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).toStr() + "(&src->members." + new CBuildVarDeclaration(var,cenv,true).toStr() + ", TRUE)");
                     s.println(";");
+                } else if(UtilIR.isTuple(var.getType())) {
+                    CodegenError.err("CPrintTop", "Not yet implemented tuple with multiple tags (4) ");
                 }
+
             }
             //If top and allocated on heap free it
             s.printlnInc("if(top && (src->flags&0x1)==0x1) {");

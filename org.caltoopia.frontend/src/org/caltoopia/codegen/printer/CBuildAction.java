@@ -283,12 +283,14 @@ public class CBuildAction extends IrSwitch<Boolean> {
                     CBuildVarReference cVarRefF = new CBuildVarReference(varRef , cenv, false, true);
                     String varStrF = cVarRefF.toStr();
                     bodyStr += ind.ind() + "free" + new CBuildTypeName(((Variable)d).getType(), new CPrintUtil.dummyCB(), false).toStr() + "(&" + varStrF + ", TRUE);" + ind.nl();
-                } else if(!retValue && (d instanceof Variable) && UtilIR.isRecord(((Variable)d).getType())) {
+                } else if(!retValue && (d instanceof Variable) && UtilIR.isSingleTagTuple(((Variable)d).getType())) {
                     VariableReference varRef = UtilIR.createVarRef((Variable) d);
                     TransUtil.copySelectedAnnotations(varRef, d, new TransUtil.AnnotationsFilter(IrTransformer.VARIABLE_ANNOTATION, new String[]{"VarPlacement","VarType"}));
                     CBuildVarReference cVarRefF = new CBuildVarReference(varRef , cenv, false, true);
                     String varStrF = cVarRefF.toStr();
                     bodyStr += ind.ind() + "freeStruct" + new CBuildTypeName(((Variable)d).getType(), new CPrintUtil.dummyCB(), false).toStr() + "(&" + varStrF + ", TRUE);" + ind.nl();
+                } else if(!retValue && (d instanceof Variable) && UtilIR.isTuple(((Variable)d).getType())) {
+                    CodegenError.err("Action builder", "Not yet implemented tuple with multiple tags");
                 }
             }
         }

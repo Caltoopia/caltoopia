@@ -78,8 +78,8 @@ import org.caltoopia.ir.TypeExternal;
 import org.caltoopia.ir.TypeFloat;
 import org.caltoopia.ir.TypeInt;
 import org.caltoopia.ir.TypeList;
-import org.caltoopia.ir.TypeRecord;
 import org.caltoopia.ir.TypeString;
+import org.caltoopia.ir.TypeTuple;
 import org.caltoopia.ir.TypeUint;
 import org.caltoopia.ir.TypeUndef;
 import org.caltoopia.ir.TypeUser;
@@ -274,18 +274,22 @@ public class CBuildSizeOf extends IrSwitch<Boolean> {
 
     
     @Override
-    public Boolean caseTypeRecord(TypeRecord struct) {
-        enter(struct);
-        if(!(topOnly && level>0)) {
-            exprStr += "(";
-            for(Variable v: struct.getMembers()) {
-                CBuildSizeOf sz = new CBuildSizeOf(v.getType(), cenv, topOnly, excludeList,level+1,justList);
-                exprStr += " + " + sz.toStr();
-                if(!sz.noDynList) noDynList = false;
+    public Boolean caseTypeTuple(TypeTuple type) {
+        if(UtilIR.isSingleTagTuple(type)) {
+            enter(type);
+            if(!(topOnly && level>0)) {
+                exprStr += "(";
+                for(Variable v: UtilIR.getMembers(type)) {
+                    CBuildSizeOf sz = new CBuildSizeOf(v.getType(), cenv, topOnly, excludeList,level+1,justList);
+                    exprStr += " + " + sz.toStr();
+                    if(!sz.noDynList) noDynList = false;
+                }
+                exprStr += ")";
             }
-            exprStr += ")";
+            leave();
+        } else if(UtilIR.isTuple(type)) {
+            CodegenError.err("Build sizeof()", "Not yet implemented tuple with multiple tags (1) ");
         }
-        leave();
         return true;
     }
 

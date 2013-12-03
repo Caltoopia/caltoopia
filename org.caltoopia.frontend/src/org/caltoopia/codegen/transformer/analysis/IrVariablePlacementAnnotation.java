@@ -174,7 +174,7 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 			type = ((TypeList)type).getType();
 		}
 		TypeDeclaration td=null;
-		if(UtilIR.isRecord(type)) {
+		if(UtilIR.isSingleTagTuple(type)) {
 			td = UtilIR.getTypeDeclaration(type);
 			Annotation typeAnnotation = TransUtil.getAnnotation(td,IrTransformer.TYPE_ANNOTATION);
 			if(!typeAnnotation.getArguments().isEmpty()) {
@@ -184,6 +184,8 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 			} else {
 				System.err.println("[IrVariablePlacementAnnotation] A variable with a user type without annotations " + td.getName() + ": " + annotations.toString());
 			}
+        } else if(UtilIR.isTuple(type)) {
+            CodegenError.err("IrVariablePlacementAnnotation", "Not yet implemented tuple with multiple tags (1) ");
 		} else {
 			//Since non-user types don't have a TypeDeclaration just put a builtin in the annotations map
 			if(UtilIR.isList(var.getType())) {

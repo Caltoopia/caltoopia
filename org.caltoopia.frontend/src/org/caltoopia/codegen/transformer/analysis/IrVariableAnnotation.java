@@ -70,18 +70,18 @@ import org.caltoopia.ir.PortWrite;
 import org.caltoopia.ir.ProcCall;
 import org.caltoopia.ir.ProcExpression;
 import org.caltoopia.ir.Statement;
+import org.caltoopia.ir.TaggedTuple;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeBool;
-import org.caltoopia.ir.TypeConstructor;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeFloat;
 import org.caltoopia.ir.TypeInt;
 import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.TypeProc;
-import org.caltoopia.ir.TypeRecord;
 import org.caltoopia.ir.TypeString;
+import org.caltoopia.ir.TypeTuple;
 import org.caltoopia.ir.TypeUint;
 import org.caltoopia.ir.TypeUser;
 import org.caltoopia.ir.Variable;
@@ -96,6 +96,7 @@ import org.caltoopia.ast2ir.IrXmlPrinter;
 import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.cli.CompilationSession;
 import org.caltoopia.cli.DirectoryException;
+import org.caltoopia.codegen.CodegenError;
 import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.IrTransformer.IrPassTypes;
@@ -625,18 +626,22 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 	private VarAccess findPortAccess(Type type, boolean isRepeat, int size) {
 		VarAccess va = VarAccess.unknown;
 		if(UtilIR.isList(type)) {
-			if(UtilIR.isRecord(((TypeList)UtilIR.getType(type)).getType())) {
+			if(UtilIR.isSingleTagTuple(((TypeList)UtilIR.getType(type)).getType())) {
 				va = VarAccess.listUserTypeSingle;
+            } else if(UtilIR.isTuple(((TypeList)UtilIR.getType(type)).getType())) {
+                CodegenError.err("Variable Annotation", "Not yet implemented tuple with multiple tags (1) ");
 			} else {
 				va = VarAccess.listSingle;
 			}
 		} else {
-			if(UtilIR.isRecord(type)) {
+			if(UtilIR.isSingleTagTuple(type)) {
 				if(isRepeat) {
 					va = VarAccess.listUserTypeSingle;
 				} else {
 					va = VarAccess.scalarUserTypeSingle;
 				}
+            } else if(UtilIR.isTuple(type)) {
+                CodegenError.err("Variable Annotation", "Not yet implemented tuple with multiple tags (2) ");
 			} else {
 				if(isRepeat) {
 					va = VarAccess.listSingle;
@@ -689,8 +694,8 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
                         }
                         type = UtilIR.getType(type);
                     }
-                    if(type instanceof TypeRecord) {
-                        for(Variable m:((TypeRecord)type).getMembers()) {
+                    if(UtilIR.isSingleTagTuple(type)) {
+                        for(Variable m:UtilIR.getMembers(type)) {
                             if(m.getName().equals(mm.getName())) {
                                 mv = m;
                                 mi = mm.getIndex();
@@ -811,7 +816,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
                         tDim++;
                         type = ((TypeList)type).getType();
                     }
-                    if(UtilIR.isRecord(type)) {
+                    if(UtilIR.isSingleTagTuple(type)) {
                         if(tDim>1) {
                             if(dim<(tDim-1)) {
                                 vla = VarLocalAccess.listMultiUserType;
@@ -827,6 +832,8 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
                                 vla = VarLocalAccess.listUserTypeSingle;
                             }
                         }
+                    } else if(UtilIR.isTuple(type)) {
+                        CodegenError.err("Variable Annotation", "Not yet implemented tuple with multiple tags (3) ");
                     } else {
                         if(tDim>1) {
                             if(dim<(tDim-1)) {
@@ -845,10 +852,12 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
                         }
                     }
                 } else {
-                    if(UtilIR.isRecord(type)) {
+                    if(UtilIR.isSingleTagTuple(type)) {
                         vla = VarLocalAccess.scalarUserType;
                     } else if(type instanceof TypeString) {
                         vla = VarLocalAccess.string;
+                    } else if(UtilIR.isTuple(type)) {
+                        CodegenError.err("Variable Annotation", "Not yet implemented tuple with multiple tags (4) ");
                     } else {
                         vla = VarLocalAccess.scalar;
                     }
@@ -992,15 +1001,19 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		super.caseTypeDeclaration(decl);
 		return decl;
 	}
-	
-    @Override
-    public Type caseTypeRecord(TypeRecord decl) {
-        for(Declaration m : decl.getMembers()) {
-            TransUtil.setAnnotation(m,IrTransformer.VARIABLE_ANNOTATION,"VarType",VarType.memberDeclType.name());
-        }
-        return decl;
-    }
 
+    @Override
+    public TypeTuple caseTypeTuple(TypeTuple type) {
+        if(UtilIR.isSingleTagTuple(type)) {
+            for(Declaration m : UtilIR.getMembers(type)) {
+                TransUtil.setAnnotation(m,IrTransformer.VARIABLE_ANNOTATION,"VarType",VarType.memberDeclType.name());
+            }
+        } else if(UtilIR.isTuple(type)) {
+            CodegenError.err("Variable Annotation", "Not yet implemented tuple with multiple tags (5) ");
+        }
+        return type;
+    }
+    
     @Override
 	public AbstractActor caseActor(Actor obj) {
 		currentActor = obj;

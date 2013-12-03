@@ -65,7 +65,6 @@ import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeList;
-import org.caltoopia.ir.TypeRecord;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExpression;
 import org.caltoopia.ir.VariableExternal;
@@ -130,8 +129,8 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
     		System.out.println("[IrTypeStructureAnnotation] Setting type structure for type declaration '" + decl.getName() + "'");
     		boolean notFull=false;
     		
-    		for(Variable m: ((TypeRecord)decl.getType()).getMembers()) {
-    			if(!UtilIR.isListOrRecord(m.getType())) {
+    		for(Variable m: UtilIR.getMembers(decl.getType())) {
+    			if(!UtilIR.isListOrSingleTagTuple(m.getType())) {
     				TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, 
     						"TypeStructure",TypeMember.scalarBuiltin.name());
     				structs.put(decl.getId() + "__" + m.getName(), TypeMember.scalarBuiltin.name());
@@ -145,7 +144,7 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
     					}
     					type = ((TypeList)type).getType();
     				}
-					if(UtilIR.isRecord(type)) {
+					if(UtilIR.isSingleTagTuple(type)) {
 						TypeDeclaration td = UtilIR.getTypeDeclaration(type);
 						TypeMember tm = TypeMember.valueOf(TransUtil.getAnnotationArg(td,IrTransformer.TYPE_ANNOTATION, "TypeStructure"));
 						switch (tm) {
@@ -174,6 +173,8 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
                         default:
                             CodegenError.err("Type struct annotation", "Not expecting a member " + decl.getName() +"."+ m.getName()+ "that is record to be " + tm.name());
 						}
+					} else if(UtilIR.isTuple(type)) {
+                        CodegenError.err("Type struct annotation", "Not yet implemented tuple with multiple tags (1) " + decl.getName() +"."+ m.getName());
 					} else {
                         if(hasSize) {
     						TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, 
@@ -185,7 +186,7 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
                             structs.put(decl.getId() + "__" + m.getName(), TypeMember.dynListBuiltin.name());
                         }
 					}
-    			} else if(UtilIR.isRecord(m.getType())) {
+    			} else if(UtilIR.isSingleTagTuple(m.getType())) {
                     TypeDeclaration td = UtilIR.getTypeDeclaration(m.getType());
                     TypeMember tm = TypeMember.valueOf(TransUtil.getAnnotationArg(td,IrTransformer.TYPE_ANNOTATION, "TypeStructure"));
                     switch (tm) {
@@ -203,6 +204,8 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
                     default:
                         CodegenError.err("Type struct annotation", "Not expecting a member " + decl.getName() +"."+ m.getName()+ "that is record to be " + tm.name());
                     }
+    			} else {
+                    CodegenError.err("Type struct annotation", "Not yet implemented tuple with multiple tags (2) " + decl.getName() +"."+ m.getName());
     			}
     		}
     		TransUtil.setAnnotation(decl,IrTransformer.TYPE_ANNOTATION, 
@@ -215,11 +218,14 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
     public VariableReference caseVariableReference(VariableReference var) {
         if(!(var.getDeclaration() instanceof Variable)) return var;
         Type t = ((Variable)var.getDeclaration()).getType();
-        if(!find && UtilIR.isListOrRecord(t)) {
+        if(UtilIR.isTuple(t) && !UtilIR.isSingleTagTuple(t)) {
+            CodegenError.err("Type struct annotation", "Not yet implemented tuple with multiple tags (3) ");
+        }
+        if(!find && UtilIR.isListOrSingleTagTuple(t)) {
             while(t instanceof TypeList) {
                 t = ((TypeList) t).getType();
             }
-            if(UtilIR.isRecord(t)) {
+            if(UtilIR.isSingleTagTuple(t)) {
                 TypeDeclaration td = UtilIR.getTypeDeclaration(t);
                 for(Member m: var.getMember()) {
                     String typeStructure = structs.get(td.getId() + "__" + m.getName());
@@ -230,12 +236,16 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
                     while(t instanceof TypeList) {
                         t = ((TypeList) t).getType();
                     }
-                    if(UtilIR.isRecord(t)) {
+                    if(UtilIR.isSingleTagTuple(t)) {
                         td = UtilIR.getTypeDeclaration(t);
+                    } else if(UtilIR.isTuple(t)) {
+                        CodegenError.err("Type struct annotation", "Not yet implemented tuple with multiple tags (4) ");
                     } else {
                         break;
                     }
                 }
+            } else if(UtilIR.isTuple(t)) {
+                CodegenError.err("Type struct annotation", "Not yet implemented tuple with multiple tags (5) ");
             }
         }
         return var;
@@ -250,11 +260,14 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
         } else if(decl instanceof VariableExternal) {
             t = ((VariableExternal) decl).getType();
         }
-        if(!find && UtilIR.isListOrRecord(t)) {
+        if(UtilIR.isTuple(t) && !UtilIR.isSingleTagTuple(t)) {
+            CodegenError.err("Type struct annotation", "Not yet implemented tuple with multiple tags (6) ");
+        }
+        if(!find && UtilIR.isListOrSingleTagTuple(t)) {
             while(t instanceof TypeList) {
                 t = ((TypeList) t).getType();
             }
-            if(UtilIR.isRecord(t)) {
+            if(UtilIR.isSingleTagTuple(t)) {
                 TypeDeclaration td = UtilIR.getTypeDeclaration(t);
                 for(Member m: var.getMember()) {
                     String typeStructure = structs.get(td.getId() + "__" + m.getName());
@@ -265,12 +278,16 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
                     while(t instanceof TypeList) {
                         t = ((TypeList) t).getType();
                     }
-                    if(UtilIR.isRecord(t)) {
+                    if(UtilIR.isSingleTagTuple(t)) {
                         td = UtilIR.getTypeDeclaration(t);
+                    } else if(UtilIR.isTuple(t)) {
+                        CodegenError.err("Type struct annotation", "Not yet implemented tuple with multiple tags (7) ");
                     } else {
                         break;
                     }
                 }
+            } else if(UtilIR.isTuple(t)) {
+                CodegenError.err("Type struct annotation", "Not yet implemented tuple with multiple tags (8) ");
             }
         }
         return var;

@@ -60,7 +60,6 @@ import org.caltoopia.ir.Namespace;
 import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeList;
-import org.caltoopia.ir.TypeRecord;
 import org.caltoopia.ir.TypeUser;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExternal;
@@ -293,11 +292,11 @@ public class CPrintUtil {
         if(expr==null)
             expr="";
         expr += "(";
-        if(UtilIR.isRecord(type)) {
-            TypeRecord struct = (TypeRecord) UtilIR.getTypeDeclaration(type).getType();
+        if(UtilIR.isSingleTagTuple(type)) {
+            List<Variable> members = UtilIR.getMembers(UtilIR.getTypeDeclaration(type).getType());
             //each member
-            for(int i=0;i<struct.getMembers().size();i++) {
-                Variable member=struct.getMembers().get(i);
+            for(int i=0;i<members.size();i++) {
+                Variable member=members.get(i);
                 TypeMember typeMember = TypeMember.valueOf(TransUtil.getAnnotationArg(member, IrTransformer.TYPE_ANNOTATION, "TypeStructure"));
                 switch(typeMember) {
                 case unknown:
@@ -322,6 +321,8 @@ public class CPrintUtil {
                 default:
                 }
             }
+        } else if(UtilIR.isTuple(type)) {
+            CodegenError.err("CPrintUtil", "Not yet implemented tuple with multiple tags (1) ");
         }
         final CEnvironment fcenv = cenv;
         expr += new CBuildTypeName(type, new dummyCB(){

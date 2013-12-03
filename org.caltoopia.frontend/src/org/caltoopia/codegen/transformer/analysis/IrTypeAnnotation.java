@@ -65,7 +65,6 @@ import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeDeclarationImport;
 import org.caltoopia.ir.TypeList;
-import org.caltoopia.ir.TypeRecord;
 import org.caltoopia.ir.TypeUser;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExpression;
@@ -140,7 +139,8 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 			while(UtilIR.isList(type)) {
 				type = ((TypeList)type).getType();
 			}
-			if(UtilIR.isRecord(type)) {
+			//FIXME check if this is enough
+			if(UtilIR.isSingleTagTuple(type)) {
 				for(Declaration d:userTypes) {
 					if(d.getId().equals(UtilIR.getTypeDeclaration(type).getId())) {
 						putTypeUsage(d,a);
@@ -167,7 +167,8 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 				while(UtilIR.isList(type)) {
 					type = ((TypeList)type).getType();
 				}
-				if(UtilIR.isRecord(type)) {
+				//FIXME check if this is enough
+				if(UtilIR.isSingleTagTuple(type)) {
 					for(Declaration d:userTypes) {
 						if(d.getId().equals(UtilIR.getTypeDeclaration(type).getId())) {
 							putTypeUsage(d,pre+"MemberOf"+a);
@@ -190,7 +191,8 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 		while(UtilIR.isList(type)) {
 			type = ((TypeList)type).getType();
 		}
-		if(UtilIR.isRecord(type)) {
+		//FIXME check if this is enough
+		if(UtilIR.isSingleTagTuple(type)) {
 			for(Declaration d:userTypes) {
 				if(d.getId().equals(UtilIR.getTypeDeclaration(type).getId())) {
 					String a = TransUtil.getAnnotationArg(decl,IrTransformer.VARIABLE_ANNOTATION,"VarType");
@@ -214,7 +216,8 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 			while(UtilIR.isList(type)) {
 				type = ((TypeList)type).getType();
 			}
-			if(UtilIR.isRecord(type)) {
+			//FIXME check if this is enough
+			if(UtilIR.isSingleTagTuple(type)) {
 				for(Declaration d:userTypes) {
 					if(d.getId().equals(UtilIR.getTypeDeclaration(type).getId())) {
 						putTypeUsage(d,a);
@@ -241,7 +244,8 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 				while(UtilIR.isList(type)) {
 					type = ((TypeList)type).getType();
 				}
-				if(UtilIR.isRecord(type)) {
+		        //FIXME check if this is enough
+				if(UtilIR.isSingleTagTuple(type)) {
 					for(Declaration d:userTypes) {
 						if(d.getId().equals(UtilIR.getTypeDeclaration(type).getId())) {
 							putTypeUsage(d,pre+"MemberOf"+a);
@@ -356,12 +360,12 @@ public class IrTypeAnnotation extends IrReplaceSwitch {
 				use = use.substring(1, use.length()-1);
 				TransUtil.setAnnotation(d,IrTransformer.TYPE_ANNOTATION, "TypeUsage",use);
 				//... and on its user typed record members (same info as on the corresponding type declaration)
-				for(Variable m: ((TypeRecord)UtilIR.getType(d)).getMembers()) {
+				for(Variable m: UtilIR.getMembers(UtilIR.getType(d))) {
 					Type type = m.getType();
 					while(type instanceof TypeList) {
 						type = ((TypeList)type).getType();
 					}
-					if(UtilIR.isRecord(type)) {
+					if(UtilIR.isSingleTagTuple(type)) {
 						TypeDeclaration td = UtilIR.getTypeDeclaration(type);
 						if(typeUsage.get(td)!=null) {
 							//A bit uncertain relies on that toString() prints the String Set as [elem1, elem2]

@@ -84,8 +84,8 @@ import org.caltoopia.ir.TypeInt;
 import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.TypeProc;
-import org.caltoopia.ir.TypeRecord;
 import org.caltoopia.ir.TypeString;
+import org.caltoopia.ir.TypeTuple;
 import org.caltoopia.ir.TypeUint;
 import org.caltoopia.ir.TypeUndef;
 import org.caltoopia.ir.TypeUser;
@@ -172,22 +172,7 @@ public class UtilIR {
 		return t;
 	}
 	
-	//TODO is this needed anymore???
-/*
-	static public List<String> findTypesNamespace(Namespace ns, Type type) {
-		if(type instanceof TypeStruct) {
-			for(Import imp : ns.getImports()) {
-				if(imp.getTypedef() != null && 
-					imp.getTypedef().getName().equals(((TypeStruct) type).getName())) {
-					return imp.getTypedef().getScopeName();
-				}
-			}
-			return null;
-		} else {
-			return null;
-		}
-	}
-*/
+
 	//Create a prototype for an external c-function like malloc
 	//TODO was createNativeFunctionDef
 	static public VariableExternal createExternalFunctionDecl(String name, Type type, List<String> params, List<Type> paramTypes) {
@@ -285,7 +270,7 @@ public class UtilIR {
 	}
 
 	static public Type createTypeUser(TypeDeclaration decl) {
-		if(decl.getType() instanceof TypeRecord) {
+		if(decl.getType() instanceof TypeTuple) {
 			TypeUser type = IrFactory.eINSTANCE.createTypeUser();
 			type.setDeclaration(decl);
 			return type;
@@ -495,13 +480,30 @@ public class UtilIR {
 		return null;
 	}
 
-	static public boolean isRecord(Type type) {
-		return getType(type) instanceof TypeRecord;
+	static public boolean isTuple(Type type) {
+		return getType(type) instanceof TypeTuple;
 	}
 	
-	static public boolean isListOrRecord(Type type) {
-		return (getType(type) instanceof TypeList) || (getType(type) instanceof TypeRecord);
+	static public List<Variable> getMembers(Type type) {
+		if(isSingleTagTuple(type)) {
+			return ((TypeTuple)type).getTaggedTuples().get(0).getFields();
+		} else {
+			return new ArrayList<Variable>();
+		}
 	}
+	
+	static public boolean isSingleTagTuple(Type type) {
+		Type t = getType(type);
+		return t instanceof TypeTuple && ((TypeTuple)t).getTaggedTuples().size()==1;
+	}
+
+    static public boolean isListOrTuple(Type type) {
+        return (getType(type) instanceof TypeList) || (getType(type) instanceof TypeTuple);
+    }
+
+    static public boolean isListOrSingleTagTuple(Type type) {
+        return (getType(type) instanceof TypeList) || isSingleTagTuple(getType(type));
+    }
 
 	static public boolean isList(Type type) {
 		return getType(type) instanceof TypeList;
@@ -635,7 +637,7 @@ public class UtilIR {
 				type instanceof TypeFloat ||
 				type instanceof TypeUint ||
 				type instanceof TypeString ||
-				type instanceof TypeRecord ||
+				type instanceof TypeTuple ||
 				type instanceof TypeUndef
 				) {
 				return true;
@@ -763,7 +765,7 @@ public class UtilIR {
 		VariableExpression expr = IrFactory.eINSTANCE.createVariableExpression();
 		expr.setVariable(var);
 		expr.setType(var.getType());
-		if(isRecord(var.getType()) && member !=null) {
+		if(isSingleTagTuple(var.getType()) && member !=null) {
 			Member elem = IrFactory.eINSTANCE.createMember();
 			elem.setName(member.getName());
 			elem.setType(member.getType());
@@ -790,7 +792,7 @@ public class UtilIR {
                 type = ((TypeList) type).getType();
             }
         }
-        if(isRecord(type) && member !=null) {
+        if(isSingleTagTuple(type) && member !=null) {
             expr.getMember().addAll(member);
         }
 		expr.setContext(scope);
@@ -1002,7 +1004,7 @@ public class UtilIR {
 	
 	/* member is a VariableDef corresponding to a member of the target structure type */
 	static public Assign createStructAssign(Scope scope, Variable target, Variable member, Expression expr) {
-		if(isRecord(target.getType()) && member !=null) {
+		if(isSingleTagTuple(target.getType()) && member !=null) {
 			VariableReference targetUse = IrFactory.eINSTANCE.createVariableReference();
 			targetUse.setDeclaration(target);
 			targetUse.setType(target.getType());
@@ -1019,9 +1021,9 @@ public class UtilIR {
 	}
 	
 	static public Assign createStructAssign(Scope scope, Variable target, String member, Expression expr) {
-		if(isRecord(target.getType())) {
+		if(isSingleTagTuple(target.getType())) {
 			Variable m=null;
-			for(Variable d : ((TypeRecord)target.getType()).getMembers()) {
+			for(Variable d : getMembers(target.getType())) {
 				if(d.getName().equals(member)) {
 					m=d;
 					break;
@@ -1036,7 +1038,7 @@ public class UtilIR {
 
 	/* member is a VariableDef corresponding to a member of the target structure type */
 	static public Assign createStructAssign(Scope scope, Variable dst, Variable dstMember, Variable src, Variable srcMember) {
-		if(isRecord(dst.getType()) && dstMember !=null) {
+		if(isSingleTagTuple(dst.getType()) && dstMember !=null) {
 			VariableReference targetUse = IrFactory.eINSTANCE.createVariableReference();
 			targetUse.setDeclaration(dst);
 			targetUse.setType(dst.getType());
@@ -1302,7 +1304,7 @@ public class UtilIR {
 	
 	/* member is a VariableDef corresponding to a member of the target structure type */
 	static public Assign createStructAssignN(Scope scope, Variable target, Variable member, Expression expr) {
-		if(isRecord(target.getType()) && member !=null) {
+		if(isSingleTagTuple(target.getType()) && member !=null) {
 			VariableReference targetUse = IrFactory.eINSTANCE.createVariableReference();
 			targetUse.setDeclaration(target);
 			targetUse.setType(target.getType());
@@ -1319,9 +1321,9 @@ public class UtilIR {
 	}
 	
 	static public Assign createStructAssignN(Scope scope, Variable target, String member, Expression expr) {
-		if(isRecord(target.getType())) {
+		if(isSingleTagTuple(target.getType())) {
 			Variable m=null;
-			for(Variable d : ((TypeRecord)target.getType()).getMembers()) {
+			for(Variable d : getMembers(target.getType())) {
 				if(d.getName().equals(member)) {
 					m=d;
 					break;
@@ -1336,7 +1338,7 @@ public class UtilIR {
 
 	/* member is a VariableDef corresponding to a member of the target structure type */
 	static public Assign createStructAssignN(Scope scope, Variable dst, Variable dstMember, Variable src, Variable srcMember) {
-		if(isRecord(dst.getType()) && dstMember !=null) {
+		if(isSingleTagTuple(dst.getType()) && dstMember !=null) {
 			VariableReference targetUse = IrFactory.eINSTANCE.createVariableReference();
 			targetUse.setDeclaration(dst);
 			targetUse.setType(dst.getType());

@@ -62,8 +62,8 @@ import org.caltoopia.ir.TypeExternal;
 import org.caltoopia.ir.TypeFloat;
 import org.caltoopia.ir.TypeInt;
 import org.caltoopia.ir.TypeList;
-import org.caltoopia.ir.TypeRecord;
 import org.caltoopia.ir.TypeString;
+import org.caltoopia.ir.TypeTuple;
 import org.caltoopia.ir.TypeUint;
 import org.caltoopia.ir.TypeUndef;
 import org.caltoopia.ir.TypeUser;
@@ -257,12 +257,11 @@ public class CBuildTypeName extends IrSwitch<Boolean> {
         return true;
     }
 
-    
     @Override
-    public Boolean caseTypeRecord(TypeRecord struct) {
-        enter(struct);
-        //We should never need to print a record directly, instead we print a string that will generate compile errors
-        typeStr += ("SOMEONE PRINTING A RECORD DIRECTLY????");
+    public Boolean caseTypeTuple(TypeTuple type) {
+        enter(type);
+        //We should never need to print a tuple type directly, instead we print a string that will generate compile errors
+        typeStr += ("SOMEONE PRINTING A TUPLE DIRECTLY????");
         leave();
         return true;
     }

@@ -120,7 +120,7 @@ public class CaltoopiaGuard implements Guard {
 	@Override
 	public UnionOfDisjointIntervals matchModeControlGuard() {
 		if (mLookAheads.size()==1 && !dependsOnState()) {
-			UnionOfDisjointIntervals result=matchModeControlGuard(mGuards.get(0).getBody());
+			UnionOfDisjointIntervals result=matchModeControlGuard(mGuards.get(0).getExpression());
 			
 			if (result==null || result.asSet().isEmpty()) {
 				return null;
@@ -128,7 +128,7 @@ public class CaltoopiaGuard implements Guard {
 			
 			// Match each sub-guard in a possible conjunction of several guards
 			for (int i=1; i<mGuards.size(); ++i) {
-				UnionOfDisjointIntervals s=matchModeControlGuard(mGuards.get(i).getBody());
+				UnionOfDisjointIntervals s=matchModeControlGuard(mGuards.get(i).getExpression());
 				if (s==null)
 					return null; // doesn't match pattern
 				result = result.intersection(s);
@@ -177,7 +177,7 @@ public class CaltoopiaGuard implements Guard {
 					}						
 				}
 				if(matches){
-					UnionOfDisjointIntervals s=matchModeControlGuard(mGuards.get(i).getBody());
+					UnionOfDisjointIntervals s=matchModeControlGuard(mGuards.get(i).getExpression());
 					if (s==null)
 						return null; // doesn't match pattern
 					if(result == null)
@@ -296,7 +296,7 @@ public class CaltoopiaGuard implements Guard {
 		ExpressionPrinter printer=new ExpressionPrinter() {
 			@Override
 			public String caseGuard(org.caltoopia.ir.Guard guard) {
-				return doSwitch(guard.getBody());
+				return doSwitch(guard.getExpression());
 			}					
 		};
 		String result="";
