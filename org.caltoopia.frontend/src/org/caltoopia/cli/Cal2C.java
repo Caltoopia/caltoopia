@@ -36,13 +36,8 @@
 
 package org.caltoopia.cli;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.URI;
 import java.text.DateFormat;
@@ -56,25 +51,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 
-import org.caltoopia.ast2ir.Instantiator;
 import org.caltoopia.ast2ir.IrDottyPrinter;
-import org.caltoopia.ast2ir.IrXmlPrinter;
-import org.caltoopia.ast2ir.Util;
 import org.caltoopia.codegen.CEnvironment;
-import org.caltoopia.codegen.CPrinter;
-import org.caltoopia.codegen.IR2CIR;
 import org.caltoopia.codegen.printer.CPrinterTop;
 import org.caltoopia.codegen.transformer.IrTransformer;
-import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation;
-import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.frontend.CalStandaloneSetup;
-import org.caltoopia.ir.AbstractActor;
-import org.caltoopia.ir.Actor;
-import org.caltoopia.ir.ActorInstance;
-import org.caltoopia.ir.Annotation;
-import org.caltoopia.ir.ExternalActor;
-import org.caltoopia.ir.Namespace;
-import org.caltoopia.ir.TypeActor;
 import org.caltoopia.types.TypeMatchDeclaration;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import com.google.inject.Inject;
@@ -86,8 +67,6 @@ import org.eclipse.cdt.core.settings.model.ICConfigurationDescription;
 import org.eclipse.cdt.core.settings.model.ICProjectDescription;
 import org.eclipse.cdt.core.settings.model.ICProjectDescriptionManager;
 import org.eclipse.cdt.core.settings.model.extension.CConfigurationData;
-import org.eclipse.cdt.internal.core.envvar.EnvironmentVariableManager;
-import org.eclipse.cdt.internal.core.envvar.UserDefinedEnvironmentSupplier;
 import org.eclipse.cdt.managedbuilder.core.IBuilder;
 import org.eclipse.cdt.managedbuilder.core.ManagedBuildManager;
 import org.eclipse.cdt.managedbuilder.internal.core.Configuration;
@@ -281,7 +260,6 @@ public class Cal2C {
 	}
 
 	public void generate(String topNetwork, CompilationSession session, SimulationSession simulationSession) {
-		boolean systemc = simulationSession != null;
 		PrintStream out = session.getOutputStream();
 		out.println("------------------------------------------------------");
 		out.println("Compiling network: '" + topNetwork + "'");
@@ -290,251 +268,41 @@ public class Cal2C {
 		try {
 			// Start the printing 
 			
-			String nsName, file;
-			List<String> sourceFiles = new ArrayList<String>();
 			CEnvironment env = new CEnvironment();
 		
-			//Create object used for converting the CAL IR into a C IR (only for legacy codegen)
-			IR2CIR cir = (IR2CIR) new IR2CIR();
-
 			//Print the elaborated network
-			boolean altCodegen=false;
-			if(System.getenv().containsKey("CALTOOPIA_CODEGEN_EXPERIMENT") && System.getenv().get("CALTOOPIA_CODEGEN_EXPERIMENT").equals("Y")) {
-				out.println("#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*##*#*#*#");
-				out.println("#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*##*#*#*#");
-				out.println("#*#*#    Using refactored code generation    #*#*#");
-				out.println("#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*##*#*#*#");
-				out.println("#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*##*#*#*#");
-				altCodegen=true;
-			}
-			if(altCodegen) {
-                out.println("#*#*#*#*#*#*#*#*#*#*# Init  #*#*#*#*#*#*#*##*#*#*#");
-				IrTransformer.IrTransformNetworkInit(session.getElaboratedNetwork());
-                out.println("#*#*#*#*#*#*#*#*#*# Transform #*#*#*#*#*#*##*#*#*#");
-                new IrTransformer(session.getElaboratedNetwork().getType(), session, 
-                        Arrays.asList(  IrTransformer.IrPassTypes.UsedDeclaration,
-                                        IrTransformer.IrPassTypes.Variable,
-                                        IrTransformer.IrPassTypes.PortTransformations,
-                                        IrTransformer.IrPassTypes.TypeUsage,
-                                        IrTransformer.IrPassTypes.Port,
-                                        IrTransformer.IrPassTypes.TypeStructure,
-                                        IrTransformer.IrPassTypes.VariablePlacement,
-                                        IrTransformer.IrPassTypes.MoveInitValueExpr,
-                                        IrTransformer.IrPassTypes.CreateForLoop,
-                                        IrTransformer.IrPassTypes.Variable, //Repeat
-                                        IrTransformer.IrPassTypes.ExprToTempVar,
-                                        //Repeat some analysis passes due to that we have moved things around
-                                        IrTransformer.IrPassTypes.Variable,
-                                        IrTransformer.IrPassTypes.VariablePlacement)
-                                        );
-				//For now run this to make sure the top network type declarations don't have type decl imports
-                out.println("#*#*#*#*#*#*#*#*#*# Type decl #*#*#*#*#*#*##*#*#*#");
-				new TypeMatchDeclaration().doSwitch(session.getElaboratedNetwork());
-                out.println("#*#*#*#*#*#*#*#*#*#   Print   #*#*#*#*#*#*##*#*#*#");
-				new CPrinterTop(session,env);
-			} else {
-				new IrXmlPrinter(session.getOutputFolder()).caseNetwork(session.getElaboratedNetwork());
-				//Transform the elaborated top network
-				cir.doSwitch(session.getElaboratedNetwork());
-			
-				//Print the network as a header file and a c-file
-				//this contains anything that is declared directly in a namespace that is not an actor as well as
-				//anything that deals with setting up the network (i.e. instantiating actors, connecting ports etc) and starting it
-	
-				nsName = Util.marshallQualifiedName(session.getElaboratedNetwork().getType().getNamespace());
-				file = session.getOutputFolder() + File.separator + nsName + "__" + session.getElaboratedNetwork().getType().getName();
-	
-				boolean debugPrint = session.debugPrint() == CompilationSession.DEBUG_TYPE_ACTIONUSER;
-				
-				out.println("Writing '" + file + ".h'");
-				new CPrinter(file + ".h", Arrays.asList(UtilIR.tag("header", true)), session.getElaboratedNetwork(), cir, systemc, env, debugPrint, session.isRangeChk()).doSwitch(session.getElaboratedNetwork());
-	
-				out.println("Writing '" + file + ".c'");
-				new CPrinter(file + ".c", Arrays.asList(UtilIR.tag("header", false)), session.getElaboratedNetwork(), cir, systemc, env, debugPrint, session.isRangeChk()).doSwitch(session.getElaboratedNetwork());
-				sourceFiles.add(nsName + "__" + session.getElaboratedNetwork().getType().getName() + ".c");
-				
-				String needSdl = "n";
-				
-				//	Print a c-file for each actor instance
-				for (ActorInstance instance : session.getElaboratedNetwork().getActors()) {
-					nsName = Util.marshallQualifiedName(((TypeActor) instance.getType()).getNamespace());
-					file = session.getOutputFolder() + File.separator + nsName + "__" + instance.getName() + ".c";
-					try {
-						AbstractActor actor = ActorDirectory.findActor((TypeActor) instance.getType());
-	
-						if (actor instanceof Actor) {
-							out.println("Writing '" + file + "'");
-							AbstractActor actorInstantiated = Instantiator.instantiate(instance, session.getElaboratedNetwork());
-							new IrXmlPrinter(session.getOutputFolder()).doSwitch(actorInstantiated);
-							new CPrinter(file, null, session.getElaboratedNetwork(), cir, systemc, env, debugPrint, session.isRangeChk()).doSwitch(instance);
-							sourceFiles.add(nsName + "__" + instance.getName() + ".c");
-							//String dotFile = session.getOutputFolder() + File.separator + nsName + "__" + instance.getName() + ".dot";
-							//((org.caltoopia.ast2ir.PriorityGraph)((Actor) actor).getSchedule().getPriorityGraph()).print(new PrintStream(dotFile));
-						} else if(actor instanceof ExternalActor) {
-							if(nsName.equals("ART") && actor.getType().getName().equals("art_Display_yuv"))
-								needSdl="y";
-							Namespace ns = null;
-							try {
-								ns = ActorDirectory.findNamespace(((TypeActor) instance.getType()).getNamespace());
-							} catch (DirectoryException ee) {}
-							List<Annotation> allAnnotations = CPrinter.collectActorAnnotations(actor, ns);
-							Map<String,String> externAnnotations = CPrinter.getExternAnnotations(allAnnotations);
-							CPrinter.toEnvEnv(externAnnotations,env);
-						}
-					} catch (DirectoryException x) {
-						out.println("error: actor '" + ((TypeActor) instance.getType()).getName() + "' not found");
-						
-						return;
-					}
-				}
-			
-				//Print the makefile
-				File dst = new File(session.getOutputFolder() + File.separator + "Makefile");
-				out.println("Copying '" + dst + "'");
-				BufferedReader reader = null;
-				if(!systemc){
-					InputStream src = this.getClass().getResourceAsStream("Makefile");
-					reader = new BufferedReader(new InputStreamReader(src));
-				} else {
-					File src = new File(simulationSession.calsimPath + "/Makefile");
-					FileInputStream srcStream = new FileInputStream(src);
-					reader = new BufferedReader(new InputStreamReader(srcStream));
-				}
-				
-				String line = null;
-				if(!dst.exists()) {
-					dst.createNewFile();
-				}
-				
-				PrintStream writer = new PrintStream(new FileOutputStream(dst));
-					 
-				while((line = reader.readLine()) != null) {
-					writer.println(line);
-				}
-				writer.close();
-				
-				//print a settings file for SystemC simulation configuration
-				if(systemc){
-					file = session.getOutputFolder() + File.separator + "settings.opt";	
-					PrintStream settings = new PrintStream(file);
-					settings.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-					settings.println("<calsim version=\"1.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
-					                + "xsi:noNamespaceSchemaLocation=\"sdf.xsd\">");
-					settings.print("\t<configuration workspace=\""+ session.getOutputFolder() +"\" ");
-					if (session.isPlugin()) {
-						IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace().getRoot(); 
-						settings.println("workspace_xml=\"" + myWorkspaceRoot.getLocation() + "\">");
-					} else{
-						settings.println("workspace_xml=\"" + session.getOutputFolder() + "\">");
-					}
-					settings.println("\t\t<schema file=\"" + simulationSession.calsimPath + "/schema/calsim.xsd\"/>");
-					settings.println("\t\t<network file=\"" + nsName+File.separator
-							        + session.getElaboratedNetwork().getType().getName() +".xml\"/>");
-					settings.println("\t\t<simulation time=\'0\'/>");
-					settings.println("\t\t<fifo type=\'blocking_write\'/>");
-					settings.println("\t\t<config file=\""+nsName.toLowerCase()+".xml\" time=\"true\" " 
-					                + "buffer_size=\"true\" port_tracing=\"true\"/>");
-					settings.println("\t\t<cal_source path=\"" + session.getPaths().get(0) + "\"/>");
-					settings.println("\t</configuration>");
-					settings.println("</calsim>");
-				}
-					
-				//Print make config file including annotation information
-				file = session.getOutputFolder() + File.separator + "config.mk";			
-				out.println("Writing '" + file + "'");
-				PrintStream config = new PrintStream(file);
-				config.print("SOURCES =");
-				if(!systemc){
-					for(String str : sourceFiles) {
-						config.print(" " + str);
-			        }
-				}
-				if(!env.sources.isEmpty()) {
-					Set<String> sources = new HashSet<String>();
-					for(String str : env.sources.split(" *, *")) {
-						if(!str.trim().isEmpty() && !sources.contains(str.trim())) {
-							config.print(" "+str.trim());
-							sources.add(str.trim());
-						}
-					}
-				}
-				config.println();
-				config.println("EXEC_NAME = " + topNetwork.substring(topNetwork.lastIndexOf(".")+1));
-				config.println("RUNTIME_ROOT = " + session.getRuntimePath());
-				if(systemc){
-					config.println("CALSIM_ROOT = " + simulationSession.calsimPath);
-					config.println("CALLIB_HOME = " + session.getOutputFolder());
-					config.println("CALLIB = " + nsName.toLowerCase());
-				}
-				config.println("SDL = " + needSdl);
-				if(session.debugPrint()==CompilationSession.DEBUG_TYPE_ACTIONUSER || session.debugPrint()==CompilationSession.DEBUG_TYPE_USER)
-					config.println("DPRINT = y");
-				else
-					config.println("DPRINT = n");
-	
-				if(!env.includePaths.isEmpty()) {
-					config.print("CINCLUDES = ");
-					Set<String> printed = new HashSet<String>();
-					for(String str : env.includePaths.split(" *, *")) {
-						if(!str.trim().isEmpty() && !printed.contains(str.trim())) {
-							config.print("-I"+str.trim() + " ");
-							printed.add(str.trim());
-						}
-					}
-					config.println();
-				}
-				if(!env.libraryPaths.isEmpty()) {
-					config.print("CLIBRARIES = ");
-					Set<String> printed = new HashSet<String>();
-					for(String str : env.libraryPaths.split(" *, *")) {
-						if(!str.trim().isEmpty() && !printed.contains(str.trim())) {
-							config.print("-L"+str.trim() + " ");
-							printed.add(str.trim());
-						}
-					}
-					config.println();
-				}
-				if(!env.libraries.isEmpty()) {
-					config.print("LDLIBS = ");
-					Set<String> printed = new HashSet<String>();
-					for(String str : env.libraries.split(" *, *")) {
-						if(!str.trim().isEmpty() && !printed.contains(str.trim())) {
-							config.print("-l"+str.trim() + " ");
-							printed.add(str.trim());
-						}
-					}
-					config.println();
-				}
-				
-				if(session.getTarget().contains("mac")) {
-					config.println("CC = gcc");
-					config.println("TARGET = mac");
-				} else if(session.getTarget().contains("linux")) {
-					config.println("TARGET = linux");
-				}
-	
-				config.close();
-				
-				if(session.isPlugin() && session.generateCdtProject()) 
-					session.setCProject(createCProject(session.getLaunchConfigName() + "-gen", new URI(session.getOutputFolder()), session));
-				
-				//TODO: change the SYSTEMC_HOME variable setting technique. 
-				if(session.isPlugin() && session.generateCdtProject() && systemc){
-					UserDefinedEnvironmentSupplier fUserSupplier = EnvironmentVariableManager.fUserSupplier;
-					StorableEnvironment vars = fUserSupplier.getWorkspaceEnvironmentCopy();
-					vars.createVariable("SYSTEMC_HOME", simulationSession.systemcPath);
-					fUserSupplier.setWorkspaceEnvironment(vars);
-				}
-				
-				
-				if(session.getTarget().contains("linux") && session.getCProject() != null) {
-					turnOnAutomaticBuild(session.getCProject());
-					session.getCProject().build(IncrementalProjectBuilder.FULL_BUILD, session.getMonitor());
-					turnOffAutomaticBuild(session.getCProject());
-				}	
-	
-			}
+			out.println("#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*##*#*#*#");
+			out.println("#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*##*#*#*#");
+			out.println("#*#*#    Using refactored code generation    #*#*#");
+			out.println("#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*##*#*#*#");
+			out.println("#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*##*#*#*#");
 
+			out.println("#*#*#*#*#*#*#*#*#*#*# Init  #*#*#*#*#*#*#*##*#*#*#");
+			IrTransformer.IrTransformNetworkInit(session.getElaboratedNetwork());
+            out.println("#*#*#*#*#*#*#*#*#*# Transform #*#*#*#*#*#*##*#*#*#");
+            new IrTransformer(session.getElaboratedNetwork().getType(), session, 
+                    Arrays.asList(  IrTransformer.IrPassTypes.UsedDeclaration,
+                                    IrTransformer.IrPassTypes.Variable,
+                                    IrTransformer.IrPassTypes.PortTransformations,
+                                    IrTransformer.IrPassTypes.TypeUsage,
+                                    IrTransformer.IrPassTypes.Port,
+                                    IrTransformer.IrPassTypes.TypeStructure,
+                                    IrTransformer.IrPassTypes.VariablePlacement,
+                                    IrTransformer.IrPassTypes.MoveInitValueExpr,
+                                    IrTransformer.IrPassTypes.CreateForLoop,
+                                    IrTransformer.IrPassTypes.Variable, //Repeat
+                                    IrTransformer.IrPassTypes.ExprToTempVar,
+                                    //Repeat some analysis passes due to that we have moved things around
+                                    IrTransformer.IrPassTypes.Variable,
+                                    IrTransformer.IrPassTypes.VariablePlacement)
+                                    );
+			//For now run this to make sure the top network type declarations don't have type decl imports
+            out.println("#*#*#*#*#*#*#*#*#*# Type decl #*#*#*#*#*#*##*#*#*#");
+			new TypeMatchDeclaration().doSwitch(session.getElaboratedNetwork());
+            out.println("#*#*#*#*#*#*#*#*#*#   Print   #*#*#*#*#*#*##*#*#*#");
+			new CPrinterTop(session,env);
+
+			
 			if(session.generateDot()) {
 				out.println("Generate top network dot-file.");
 				new IrDottyPrinter(session.getOutputFolder()).caseNetwork(session.getElaboratedNetwork());
