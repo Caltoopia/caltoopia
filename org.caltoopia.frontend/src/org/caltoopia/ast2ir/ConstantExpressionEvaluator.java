@@ -58,6 +58,7 @@ import org.caltoopia.ir.ForEach;
 import org.caltoopia.ir.ForwardDeclaration;
 import org.caltoopia.ir.FunctionCall;
 import org.caltoopia.ir.Generator;
+import org.caltoopia.ir.Guard;
 import org.caltoopia.ir.IfExpression;
 import org.caltoopia.ir.IntegerLiteral;
 import org.caltoopia.ir.LambdaExpression;
@@ -211,7 +212,16 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 		return result;
 	}	
 	
-	@Override
+    @Override
+    public Guard caseGuard(Guard guard) {
+        stack = new Stack(stack);
+        caseScope(guard);
+        Guard result = super.caseGuard(guard);       
+        stack = stack.outer;
+        return result;
+    }
+
+    @Override
 	public Block caseBlock(Block block) {
 		stack = new Stack(stack);
 		caseScope(block);

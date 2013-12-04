@@ -790,7 +790,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 				}
 			}.doSwitch(e);
 			
-			guard.setExpression(CreateIrExpression.convert(action, e));
+			guard.setExpression(CreateIrExpression.convert(guard, e));
 			action.getGuards().add(guard);
 
 			Util.unstashDefs();
