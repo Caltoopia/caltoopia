@@ -137,27 +137,34 @@ public class CBuildGuard extends IrSwitch<Boolean> {
             ind.inc();
             bodyStr += ind.ind() + "void * __tempVoidPointer;" +ind.nl();
             bodyStr += ind.ind() + "__array4void __tempArray;" +ind.nl();
-            for (Declaration d : action.getDeclarations()) {
-                //Only print the constants and peek variable declarations
-                VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
-                switch(varType) {
-                case constVar:
-                case actorConstVar:
-                    bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d, cenv,false).toStr()) + ";" + ind.nl();
-                    break;
-                case peekVar:
-                case inPortPeekVar:
-                case inOutPortPeekVar:
-                    bodyStr += ind.ind() + (new CBuildVarDeclaration((Variable) d,cenv, false).toStr()) + ";" + ind.nl();
-                    break;
-                default:
-                    VarAccess varAccess = VarAccess.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarAccess"));
-                    String typeUsage = TransUtil.getAnnotationArg(d, IrTransformer.TYPE_ANNOTATION, "TypeUsage");
-                    String varStr =(varType.name() +", " +
-                            varAccess.name() +", " +
-                            typeUsage);
-                    bodyStr += ind.ind() + ("/*TODO BGD "+d.getName() + ", " + varStr + " */") +ind.nl();
-                } 
+            Set<String> printed = new HashSet<String>();
+            for (Guard g: action.getGuards()) {
+                for (Declaration d : g.getDeclarations()) {
+                    //Only print the constants and peek variable declarations
+                    VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
+                    switch(varType) {
+                    //FIXME Are these consts needed?
+                    case constVar:
+                    case actorConstVar:
+                        bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d, cenv,false).toStr()) + ";" + ind.nl();
+                        break;
+                    case peekVar:
+                    case inPortPeekVar:
+                    case inOutPortPeekVar:
+                        if(!printed.contains(d.getName())) {
+                            printed.add(d.getName());
+                            bodyStr += ind.ind() + (new CBuildVarDeclaration((Variable) d,cenv, false).toStr()) + ";" + ind.nl();
+                        }
+                        break;
+                    default:
+                        VarAccess varAccess = VarAccess.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarAccess"));
+                        String typeUsage = TransUtil.getAnnotationArg(d, IrTransformer.TYPE_ANNOTATION, "TypeUsage");
+                        String varStr =(varType.name() +", " +
+                                varAccess.name() +", " +
+                                typeUsage);
+                        bodyStr += ind.ind() + ("/*TODO BGD "+d.getName() + ", " + varStr + " */") +ind.nl();
+                    } 
+                }
             }
             Set<String> peeked = new HashSet<String>();
             for (Guard g: action.getGuards()) {

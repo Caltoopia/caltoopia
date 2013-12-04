@@ -420,6 +420,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 				}
 			}
 			//Check if is used as a guard
+			/* TODO check if we again need to link the action's and the guard's separate decl of the same variable
 			if(!a.getGuards().isEmpty()) {
 				for(Guard g : a.getGuards()) {
 					if(!g.getPeeks().isEmpty()) {
@@ -442,6 +443,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 					}
 				}
 			}
+			*/
 		}
 		return t;
 	}
@@ -563,6 +565,9 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
                             t = VarType.outPortInitInDepVar;
                         }
 					}
+                } else if(variable.getScope() instanceof Guard) {
+                    //TODO check if we want to link with the separate decl in action of the same variable
+                    t = VarType.peekVar;
 				} else if(variable.getScope() instanceof PortWrite) {
 					t = annotatePortVar(variable, currentAction);
 					if(t == VarType.unknown) {
