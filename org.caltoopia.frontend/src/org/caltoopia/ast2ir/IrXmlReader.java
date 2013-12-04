@@ -1460,8 +1460,9 @@ public class IrXmlReader {
 			System.err.println("Empty key");
 			new Throwable().printStackTrace();
 		} else if (objectMap.containsKey(key)) { 
-			System.err.println("Multiple objects");
-			new Throwable().printStackTrace();
+		    //FIXME for elaborated network this is common, since we don't change ID on constants in actors instantiated multiple times
+			//System.err.println("Multiple objects with key " + key + " for object " + obj.toString());
+			//new Throwable().printStackTrace();
 		} else {
 			objectMap.put(key, obj);
 		}
