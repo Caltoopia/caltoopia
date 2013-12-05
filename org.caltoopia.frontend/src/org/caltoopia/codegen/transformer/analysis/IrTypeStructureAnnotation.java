@@ -218,7 +218,7 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
     public VariableReference caseVariableReference(VariableReference var) {
         if(!(var.getDeclaration() instanceof Variable)) return var;
         Type t = ((Variable)var.getDeclaration()).getType();
-        if(UtilIR.isTuple(t) && !UtilIR.isSingleTagTuple(t)) {
+        if(UtilIR.isMultiTagTuple(t)) {
             CodegenError.err("Type struct annotation", "Not yet implemented tuple with multiple tags (3) ");
         }
         if(!find && UtilIR.isListOrSingleTagTuple(t)) {
@@ -260,7 +260,7 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
         } else if(decl instanceof VariableExternal) {
             t = ((VariableExternal) decl).getType();
         }
-        if(UtilIR.isTuple(t) && !UtilIR.isSingleTagTuple(t)) {
+        if(UtilIR.isMultiTagTuple(t)) {
             CodegenError.err("Type struct annotation", "Not yet implemented tuple with multiple tags (6) ");
         }
         if(!find && UtilIR.isListOrSingleTagTuple(t)) {

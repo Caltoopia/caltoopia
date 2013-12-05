@@ -97,6 +97,7 @@ import org.caltoopia.ir.State;
 import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.StringLiteral;
 import org.caltoopia.ir.TaggedExpression;
+import org.caltoopia.ir.TaggedTuple;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeBool;
@@ -107,6 +108,7 @@ import org.caltoopia.ir.TypeFloat;
 import org.caltoopia.ir.TypeInt;
 import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.TypeString;
+import org.caltoopia.ir.TypeTuple;
 import org.caltoopia.ir.TypeUint;
 import org.caltoopia.ir.TypeUndef;
 import org.caltoopia.ir.TypeUser;
@@ -471,6 +473,8 @@ public class CPrinterTop extends IrSwitch<Stream> {
                         s.println("  int32_t sz[" + i + "];");
                         s.println("} __array"+i+t +";");
                     }
+                    s.println("int freeStruct" + t + "(" + t + " * src, int top);");
+                    s.println("int copyStruct" + t + "(" + t + " ** dst, " + t +" * src);");
                     s.println("#define TYPE " + t);
                     s.println("#include \"__arrayCopy.h\"");
                 }
@@ -813,7 +817,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
         for (int i = 0; i < actor.getInputPorts().size(); i++) {
             Port p = actor.getInputPorts().get(i);
             Type type=p.getType();
-            if(UtilIR.isTuple(type)) {
+            if(UtilIR.isMultiTagTuple(type)) {
                 CodegenError.err("CPrintTop", "Not yet implemented tuple with multiple tags (1) ");
             }
             //First param indicate user type or builtin type
@@ -834,7 +838,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
         for (int i = 0; i < actor.getOutputPorts().size(); i++) {
             Port p = actor.getOutputPorts().get(i);         
             Type type=p.getType();
-            if(UtilIR.isTuple(type)) {
+            if(UtilIR.isMultiTagTuple(type)) {
                 CodegenError.err("CPrintTop", "Not yet implemented tuple with multiple tags (2) ");
             }
             //First param indicate user type or builtin type
@@ -1044,48 +1048,90 @@ public class CPrinterTop extends IrSwitch<Stream> {
     //--------------------------TYPES-------------------------------------
     @Override
     public Stream caseTypeDeclaration(TypeDeclaration type) {
-        if(UtilIR.isTuple(UtilIR.getType(type))) {
-            CodegenError.err("CPrintTop", "Not yet implemented tuple with multiple tags (3) ");
-        }
         if(header) {
             enter(type);
+            /*
+             * Create enum of tags for a tagged tuple
+             */
+            Type t = UtilIR.getType(type);
+            s.printlnInc("enum " + type.getName() + "_tags {");
+            s.print(type.getName() + "___none=0");
+            if(UtilIR.isMultiTagTuple(t)) {
+                for(TaggedTuple tag: ((TypeTuple)t).getTaggedTuples()) {
+                    s.println(",");
+                    s.print(type.getName() + "___" + tag.getTag()); 
+                }
+            }
+            s.println("");
+            s.printlnDec("};");
             /* 
              * This is printed in the network header file
              * The user type is created as a c-struct:
              *   struct T_s {
              *     uint32_t flags;
-             *     struct {
-             *       T1 member1;
-             *       T2 member2;
+             *     enum T_tags tag;
+             *     Alternative Single tag:
+             *     union {
+             *       struct {
+             *         T1 member1;
+             *         T2 member2;
+             *       }; //No name since no tag and hence access as members.member1
              *     } members;
+             *
+             *     Alternative Multi tag:
+             *     union {
+             *       struct {
+             *         T1 member1;
+             *         T2 member2;
+             *       } firstTag;
+             *       struct {
+             *         T3 member3;
+             *         T4 member4;
+             *       } secondTag;
+             *     } members;
+             *     //each type tuple tagged type has a tag hence access as members.firstTag.member1
              *   };
              * First a flags element:
              *   Flags (true/false):
              *   0:0x01 on heap/on stack
              *   1:0x02 codegen (temporary created variable go ahead and steel the memory)/cal variable (must obey copy semantics)
-             * Second is the CAL members inside a members struct element
+             * Second is the tag as an enum type
+             * Third is the CAL members inside a members struct element
              */
             s.println("");
             s.printlnInc("struct " + type.getName() + "_s {");
             s.println("uint32_t flags;");
-            s.printlnInc("struct {");
-            Type struct = UtilIR.getType(type);
-            for (Iterator<Variable> i = UtilIR.getMembers(struct).iterator(); i.hasNext();) {
-                Variable var = i.next();
-                s.print(new CBuildVarDeclaration(var,cenv,false).toStr());
-                s.println(";");
-                if(!i.hasNext()) {
-                    s.dec(); //After next println
+            s.println("enum " + type.getName() + "_tags tag;");
+            if(UtilIR.isSingleTagTuple(t)) {
+                s.printlnInc("union {");
+                s.printlnInc("struct {");
+                Type struct = UtilIR.getType(type);
+                for (Iterator<Variable> i = UtilIR.getMembers(struct).iterator(); i.hasNext();) {
+                    Variable var = i.next();
+                    s.print(new CBuildVarDeclaration(var,cenv,false).toStr());
+                    s.println(";");
                 }
+                s.printlnDec("};"); 
+                s.printlnDec("} members;"); 
+            } else if(UtilIR.isMultiTagTuple(t)) {
+                s.printlnInc("union {");
+                for(TaggedTuple tag: ((TypeTuple)t).getTaggedTuples()) {
+                    s.printlnInc("struct {");
+                    for (Iterator<Variable> i = tag.getFields().iterator(); i.hasNext();) {
+                        Variable var = i.next();
+                        s.print(new CBuildVarDeclaration(var,cenv,false).toStr());
+                        s.println(";");
+                    }
+                    s.printlnDec("} " + tag.getTag() + ";"); 
+                }
+                s.printlnDec("} members;"); 
             }
-            s.println("} members;"); 
-            s.dec();
-            s.print("};"); 
-            s.println("");
-            //Define a freeStruct function
-            s.println("int freeStruct" + type.getName() + "_t ("+ type.getName() + "_t * src, int top);");
+            s.printlnDec("};"); 
         } else {
             //Printed in network c-file
+            if(UtilIR.isMultiTagTuple(UtilIR.getType(type))) {
+                CodegenError.err("CPrintTop", "Not yet implemented tuple with multiple tags (3) ");
+            }
             Type struct = UtilIR.getType(type);
             /*
              * Declaration of freeStruct function. 
@@ -1106,7 +1152,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
                     //Go deep into a user typed member
                     s.print("freeStruct" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).toStr() + "(&src->members." + new CBuildVarDeclaration(var,cenv,true).toStr() + ", TRUE)");
                     s.println(";");
-                } else if(UtilIR.isTuple(var.getType())) {
+                } else if(UtilIR.isMultiTagTuple(var.getType())) {
                     CodegenError.err("CPrintTop", "Not yet implemented tuple with multiple tags (4) ");
                 }
 
@@ -1116,6 +1162,65 @@ public class CPrinterTop extends IrSwitch<Stream> {
             s.println("free(src);");
             s.dec();
             s.println("}"); 
+            s.println("return TRUE;");
+            s.dec();
+            s.println("}"); 
+            s.println("");
+            /*
+             * Declaration of copyStruct function. 
+             * This function is used to deep copy any user type variable.
+             * It is also used by the array handling methods when copying
+             * arrays.
+             * src: pointer to variable to be copied
+             * dst: pointer to pointer of destination (allocate if needed)
+             */
+            s.printlnInc("int copyStruct" + type.getName() + "_t ("+ type.getName() + "_t ** dst, "+ type.getName() + "_t * src) {");
+            //if temp and on heap just steal the src
+            s.printlnInc("if((src->flags&0x3)==0x3) {");
+            //but make sure that we don't leak memory if dst already pointing to object
+            s.printlnInc(  "if(*dst!=NULL) {");
+            s.println(       "freeStruct" + type.getName() + "_t(*dst,TRUE);");
+            s.printlnDec(  "}");
+            s.println(     "*dst = src;");
+            s.println(     "return TRUE;");
+            s.printlnDec("}");
+            //OK, we need to copy - make sure dst is allocated
+            s.printlnInc("if(*dst==NULL) {");
+            s.println(      "*dst = malloc(sizeof(**dst));");
+            s.printlnDec("}");
+            //Copy anything that is part of the struct and also falsely copy metadata for arrays
+            s.println(   "memcpy(*dst,src,sizeof(**dst));");
+            
+            for (Iterator<Variable> i = UtilIR.getMembers(struct).iterator(); i.hasNext();) {
+                Variable var = i.next();
+                if(UtilIR.isList(var.getType())) {
+                    //Copy any array members - but first make sure that the metadata is reset
+                    String member = new CBuildVarDeclaration(var,cenv,true).toStr();
+                    s.println("(*dst)->members." + member + ".flags = 0x0;");
+                    s.println("copy" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).toStr() + 
+                            "(&(*dst)->members." + member + 
+                            ", &src->members." + member + 
+                            ", (__arrayArg){0,{}}" + 
+                            ", (__arrayArg){0,{}}" + 
+                            ", (__arrayArg){src->members." + member +".dim,{" +
+                                "src->members." + member + ".sz[0]," + 
+                                "src->members." + member + ".sz[1]," + 
+                                "src->members." + member + ".sz[2]," + 
+                                "src->members." + member + ".sz[3]" + 
+                            "}});");
+                } else if(UtilIR.isSingleTagTuple(var.getType())) {
+                    //Go deep into a user typed member
+                    //FIXME this is not correct
+                    String member = new CBuildVarDeclaration(var,cenv,true).toStr();
+                    s.println("copyStruct" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).toStr() + 
+                            "(&(*dst)->members." + member + 
+                            ",&src->members." + member + 
+                            ");");
+                } else if(UtilIR.isMultiTagTuple(var.getType())) {
+                    CodegenError.err("CPrintTop", "Not yet implemented tuple with multiple tags (4) ");
+                }
+
+            }
             s.println("return TRUE;");
             s.dec();
             s.println("}"); 

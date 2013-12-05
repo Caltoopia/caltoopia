@@ -776,7 +776,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         VarAccess varAccess = VarAccess.valueOf(TransUtil.getAnnotationArg(expr, IrTransformer.VARIABLE_ANNOTATION, "VarAccess"));
         String typeUsage = TransUtil.getAnnotationArg(expr, IrTransformer.TYPE_ANNOTATION, "TypeUsage");
         //A type constructor call is printed as (type){flags,member1,member2,...}, the c-compiler figures out the implicit {} to reach the members part of the structure
-        exprStr += "((" + CPrintUtil.validCName(expr.getName()) + "_t) ";
+        exprStr += "((" + CPrintUtil.validCName(expr.getTypedef().getName()) + "_t) ";
         exprStr += ("{");
         exprStr += "0x0, "; //Flag allocated on the stack
         for(Iterator<Expression> i= ((TypeConstructorCall) expr).getParameters().iterator();i.hasNext();) {

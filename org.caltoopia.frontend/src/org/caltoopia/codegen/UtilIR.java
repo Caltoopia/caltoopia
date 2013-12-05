@@ -492,7 +492,12 @@ public class UtilIR {
 		}
 	}
 	
-	static public boolean isSingleTagTuple(Type type) {
+    static public boolean isMultiTagTuple(Type type) {
+        Type t = getType(type);
+        return t instanceof TypeTuple && ((TypeTuple)t).getTaggedTuples().size()>1;
+    }
+
+    static public boolean isSingleTagTuple(Type type) {
 		Type t = getType(type);
 		return t instanceof TypeTuple && ((TypeTuple)t).getTaggedTuples().size()==1;
 	}
