@@ -414,7 +414,8 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
                 lastMember = true;
             }
             //Do we have a pointer?
-            refStr += ((direct||hasIndex)&&!pointerArray?".":"->");
+            //refStr += ((direct||hasIndex)&&!pointerArray?".":"->");
+            refStr += "->";
             hasIndex = caseMember(m);
             direct = directMember(m);
             //Check if list of user type which affect if we need to print "*" to get the actual structure
@@ -427,9 +428,11 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
             ref2Str = "&";
         }
         //user type array need extra *
+        /*Not anymore since all user type handling code use pointer to struct
         if(pointerArray && !inSep) {
             ref2Str += "*";
         }
+        */
         leave();
         return true;
     }

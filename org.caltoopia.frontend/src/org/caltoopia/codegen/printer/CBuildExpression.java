@@ -528,7 +528,8 @@ public class CBuildExpression extends IrSwitch<Boolean> {
                 sepIndex = asArrayPart?true:inSep;
             }
             //Do we have a pointer?
-            exprStr += ((direct||hasIndex)&&!pointerArray?".":"->");
+            //exprStr += ((direct||hasIndex)&&!pointerArray?".":"->");
+            exprStr += "->";
             hasIndex = caseMember(m);
             direct = directMember(m);
             //Check if list of user type which affect if we need to print "*" to get the actual structure
@@ -564,9 +565,11 @@ public class CBuildExpression extends IrSwitch<Boolean> {
             refStr = "&";
         }
         //user type array need extra *
+        /*Not anymore since all user type handling code use pointer to struct
         if(pointerArray && !inSep) {
             refStr += "*";
         }
+        */
         leave();
         return true;
     }
@@ -775,10 +778,11 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(expr, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
         VarAccess varAccess = VarAccess.valueOf(TransUtil.getAnnotationArg(expr, IrTransformer.VARIABLE_ANNOTATION, "VarAccess"));
         String typeUsage = TransUtil.getAnnotationArg(expr, IrTransformer.TYPE_ANNOTATION, "TypeUsage");
-        //A type constructor call is printed as (type){flags,member1,member2,...}, the c-compiler figures out the implicit {} to reach the members part of the structure
-        exprStr += "((" + CPrintUtil.validCName(expr.getTypedef().getName()) + "_t) ";
+        //A type constructor call is printed as &(type){flags,tag,member1,member2,...}, the c-compiler figures out the implicit {} to reach the members part of the structure
+        exprStr += "&((" + CPrintUtil.validCName(expr.getTypedef().getName()) + "_t) ";
         exprStr += ("{");
         exprStr += "0x0, "; //Flag allocated on the stack
+        exprStr += "0, "; //FIXME Tuple tag
         for(Iterator<Expression> i= ((TypeConstructorCall) expr).getParameters().iterator();i.hasNext();) {
             Expression e = i.next();
             exprStr += new CBuildExpression(e,cenv).toStr();

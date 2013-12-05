@@ -67,6 +67,7 @@ import org.caltoopia.ir.ForEach;
 import org.caltoopia.ir.ForwardDeclaration;
 import org.caltoopia.ir.FunctionCall;
 import org.caltoopia.ir.Generator;
+import org.caltoopia.ir.IfExpression;
 import org.caltoopia.ir.IfStatement;
 import org.caltoopia.ir.LambdaExpression;
 import org.caltoopia.ir.Namespace;
@@ -204,35 +205,28 @@ public class CBuildAssign extends IrSwitch<Boolean> {
         /*
          * The transformation passes have altered the IR so only a smaller set of assignment exist. 
          * Which assignment exist:
-         * 1) scalar and user type assignment of any expression - identical to c, no memory mgmt (FIXME does it handle user types with arrays?)
-         * 2) Arrays fully indexed to scalar type or user type assigned any expression - identical to c, no memory mgmt
-         * 3) Full array assigned to full array
-         * 4) Multi-dim array assigned lower dimension array
-         * 5) Function returning list (allocated inside function) replace target var allocation (since always to same dimension (temp) var).
+         * 1) scalar builtin type assignment of any expression - identical to c, no memory mgmt
+         * 2) scalar user type assignment of variable expression - must handle struct with structs or arrays
+         * 3) Arrays fully indexed to scalar builtin type assigned any expression - identical to c, no memory mgmt
+         * 4) Arrays fully indexed to scalar user type assigned variable expression - must handle struct with structs or arrays
+         * 5) Full array assigned to full array
+         * 6) Multi-dim array assigned lower dimension array
+         * 7) Function returning list (allocated inside function) replace target var allocation (since always to same dimension (temp) var).
          */
         List<Expression> indices = null; //Hold the list of index for target variable
         String selfAnn = assignAnn == null?null:assignAnn.get("Variable_VarLocalAccess");
         boolean selfAssign = (selfAnn == null)?false:VarLocalAccess.valueOf(selfAnn).equals(VarLocalAccess.self);
         switch (VarLocalAccess.valueOf(targetAnn.get("Variable_VarLocalAccess"))) {
         case scalar:
-        case scalarUserType:
         case listSingle:
         case listMultiSingle:
-        case listUserTypeSingle:
-        case listMultiUserTypeSingle:
             indices = assign.getTarget().getIndex();
         case listMemberListMultiSingle:
-        case listMemberListMultiUserTypeSingle:
         case listMemberListSingle:
-        case listMemberListUserTypeSingle:
         case listMemberScalar:
-        case listMemberScalarUserType:
         case memberListMultiSingle:
-        case memberListMultiUserTypeSingle:
         case memberListSingle:
-        case memberListUserTypeSingle:
         case memberScalar:
-        case memberScalarUserType:
             //Anything that is a normal scalar assignment CAL and c looks similar
             if((indices==null || (indices!=null && indices.isEmpty())) &&
                     (assign.getTarget().getMember()!=null && !assign.getTarget().getMember().isEmpty())) {
@@ -278,6 +272,83 @@ public class CBuildAssign extends IrSwitch<Boolean> {
             //Create string of target var with indices
             statStr += ind.ind() + new CBuildVarReference(assign.getTarget(), cenv).toStr() + " = ";
             statStr += new CBuildExpression(assign.getExpression(), cenv).toStr();
+            if(semicolon) {
+                statStr += ";" + ind.nl();
+            }
+            break;
+        case scalarUserType:
+        case listUserTypeSingle:
+        case listMultiUserTypeSingle:
+            indices = assign.getTarget().getIndex();
+        case listMemberListMultiUserTypeSingle:
+        case listMemberListUserTypeSingle:
+        case listMemberScalarUserType:
+        case memberListMultiUserTypeSingle:
+        case memberListUserTypeSingle:
+        case memberScalarUserType:
+            //Scalar assignment of user type variable use copyStruct
+            if((indices==null || (indices!=null && indices.isEmpty())) &&
+                    (assign.getTarget().getMember()!=null && !assign.getTarget().getMember().isEmpty())) {
+                indices = assign.getTarget().getMember().get(assign.getTarget().getMember().size()-1).getIndex();
+            }
+            //Create string of target var without indices and as a ref
+            cVarRefS = new CBuildVarReference(assign.getTarget(), cenv, true, true);
+            varStrS = cVarRefS.toStr();
+            /*
+             * get annotation of array size (only one dimension) 
+             *  0=already static allocated
+             *  var string or >0 insert allocation of array with the size in annotation before assignment 
+             *  -1=insert allocation of array corresponding to indices before assignment
+             */
+            sz = assignAnn == null?"0":(assignAnn.get("Variable_ListSize")==null?"0":assignAnn.get("Variable_ListSize"));
+            if(!sz.equals("0")) {
+                //reallocMoveArray takes a dst and src array and a arrayArg specifying wanted minimum size, 
+                //it never shrinks an array.
+                statStr += ind.ind() + "reallocMoveArray" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).asNameStr()+ "(";
+                int len = 1;
+                //We allow literal integer or variable name
+                try {
+                    Integer.parseInt(sz);
+                } catch(NumberFormatException e) {
+                    sz=CPrintUtil.validCName(sz);
+                }
+                if(sz.equals("-1")) {
+                    //Use indices as sizes, this expand the array to cover this element
+                    len=0;
+                    sz="";
+                    //FIXME should rather do transformations to temp variables to guarantee to be side effect free
+                    //but CAL expressions should be side effect free, even if a function is called twice instead of once
+                    for (Iterator<Expression> i = indices.iterator(); i.hasNext();) {
+                        len++;
+                        Expression e = i.next();
+                        sz += new CBuildExpression(e, cenv).toStr();
+                        if (i.hasNext()) sz += ",";
+                    }
+                }
+                //src==NULL since no elements to copy in
+                statStr += varStrS + ", NULL, (__arrayArg) {" + len + ",{" + sz + "}});" + ind.nl();
+            }
+            /*
+             * Can be type constructor, variable expression,
+             * if-expression (since only pointers), or
+             * function expression (returning pointer)
+             * all other expressions should have been converted
+             * to temp var. (e.g. case expression)
+             * 
+             * FIXME make sure to update ExprToTempVar
+             */
+            if(assign.getExpression() instanceof VariableExpression || assign.getExpression() instanceof IfExpression) {
+                //Create copyStructT_t() call
+                statStr += ind.ind() + "copyStruct" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).asNameStr()+ "(";
+                statStr += "&"+new CBuildVarReference(assign.getTarget(), cenv).toStr() + ", ";
+                statStr += new CBuildExpression(assign.getExpression(), cenv).toStr()+")";
+            } else if(assign.getExpression() instanceof TypeConstructorCall || assign.getExpression() instanceof FunctionCall) {
+                statStr += ind.ind() + new CBuildVarReference(assign.getTarget(), cenv).toStr() + " = ";
+                statStr += new CBuildExpression(assign.getExpression(), cenv).toStr();
+            } else {
+                statStr += ind.ind() + "/*NOT YET IMPLEMENTED "+ assign.getExpression().getClass().toString() + "*/" + new CBuildVarReference(assign.getTarget(), cenv).toStr() + " = ";
+                statStr += new CBuildExpression(assign.getExpression(), cenv).toStr();
+            }
             if(semicolon) {
                 statStr += ";" + ind.nl();
             }
