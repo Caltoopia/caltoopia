@@ -288,6 +288,12 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 		return portWrite;
 	}
 	
+   @Override
+    public Declaration caseTypeDeclaration(TypeDeclaration typeDecl) {
+       //FIXME Avoiding typedefs, but should try to make them constant
+       return typeDecl;
+    }
+
 	@Override
 	public Declaration caseVariable(Variable var) {
 		Variable result;
