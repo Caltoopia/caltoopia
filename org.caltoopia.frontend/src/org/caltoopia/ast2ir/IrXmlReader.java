@@ -1084,6 +1084,7 @@ public class IrXmlReader {
 		
 		String id = element.getAttribute("id");
 		alt.setId(id);
+		alt.setOuter((Scope) findIrObject(element.getAttribute("outer-scope")));
 		doAnnotations(alt, element);
 
 		this.addIrObject(id, alt);
