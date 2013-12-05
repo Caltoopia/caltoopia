@@ -82,6 +82,7 @@ public class CBuildTypeName extends IrSwitch<Boolean> {
     ITypeCallbacks cb=null;
     int dim=0;
     boolean array;
+    String pointerStr="";
 
     /*
      * Constructor for building a long string containing the 
@@ -125,16 +126,28 @@ public class CBuildTypeName extends IrSwitch<Boolean> {
          * to support fewer and more dimensions with other
          * metadata structs.
          */
-        return ((dim==0)||!array)?typeStr:"__array4"+typeStr;
+        return ((dim==0)||!array)?typeStr+pointerStr:"__array4"+typeStr;
     }
     
+    /*
+     * Do the actual generation of the type string for use as part of function names, use as:
+     * new CBuildTypeName(...).asNameStr()
+     */
+    public String asNameStr() {
+        Boolean res = doSwitch(type);
+        if(!res) {
+            CodegenError.err("Type name builder", typeStr);
+        }
+        return typeStr;
+    }
+
     /*
      * Print the final element type string, use as:
      * new CBuildTypeName(...).toFinalTypeStr()
      * NB! Must have called toStr() first.
      */
     public String toFinalTypeStr() {
-        return typeStr;
+        return typeStr + pointerStr;
     }
 
     //------------------------------------------------------
@@ -149,6 +162,8 @@ public class CBuildTypeName extends IrSwitch<Boolean> {
         TypeDeclaration decl = UtilIR.getTypeDeclaration(type);
         typeStr += cb.preTypeFn(type);
         typeStr += (decl.getName() + "_t");
+        pointerStr = "*";
+        typeStr += cb.userTypeFn(type);
         typeStr += cb.postTypeFn(type);
         leave();
         return true;

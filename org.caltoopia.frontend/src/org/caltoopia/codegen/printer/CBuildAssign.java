@@ -251,7 +251,7 @@ public class CBuildAssign extends IrSwitch<Boolean> {
             if(!sz.equals("0")) {
                 //reallocMoveArray takes a dst and src array and a arrayArg specifying wanted minimum size, 
                 //it never shrinks an array.
-                statStr += ind.ind() + "reallocMoveArray" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).toStr()+ "(";
+                statStr += ind.ind() + "reallocMoveArray" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).asNameStr()+ "(";
                 int len = 1;
                 //We allow literal integer or variable name
                 try {
@@ -299,7 +299,7 @@ public class CBuildAssign extends IrSwitch<Boolean> {
                  */
                 CBuildVarReference cVarRef = new CBuildVarReference(assign.getTarget(), cenv, true, true);
                 String varStr = cVarRef.toStr();
-                statStr += ind.ind() + "copy" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).toStr()+ "(";
+                statStr += ind.ind() + "copy" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).asNameStr()+ "(";
                 statStr += varStr + ", ";
                 CBuildExpression cVarExpr = new CBuildExpression(assign.getExpression(), cenv, true, true,false);
                 statStr += cVarExpr.toStr() + ", ";
@@ -324,7 +324,7 @@ public class CBuildAssign extends IrSwitch<Boolean> {
                      */
                     CBuildVarReference cVarRefF = new CBuildVarReference(assign.getTarget(), cenv, true, true);
                     String varStrF = cVarRefF.toStr();
-                    statStr += ind.ind() + "free" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).toStr() + "(" + varStrF + ", TRUE);" + ind.nl();
+                    statStr += ind.ind() + "free" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).asNameStr() + "(" + varStrF + ", TRUE);" + ind.nl();
                     CBuildVarReference cVarRef = new CBuildVarReference(assign.getTarget(), cenv, false, true);
                     String varStr = cVarRef.toStr();
                     statStr += ind.ind() + varStr + " = ";
@@ -389,7 +389,7 @@ public class CBuildAssign extends IrSwitch<Boolean> {
                  */
                 CBuildVarReference cVarRefF = new CBuildVarReference(assign.getTarget(), cenv, true, true);
                 String varStrF = cVarRefF.toStr();
-                statStr += ind.ind() + "free" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).toStr() + "(" + varStrF + ", TRUE);" + ind.nl();
+                statStr += ind.ind() + "free" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).asNameStr() + "(" + varStrF + ", TRUE);" + ind.nl();
                 CBuildVarReference cVarRef = new CBuildVarReference(assign.getTarget(), cenv, false, true);
                 String varStr = cVarRef.toStr();
                 statStr += ind.ind() + varStr + " = ";
@@ -492,7 +492,7 @@ public class CBuildAssign extends IrSwitch<Boolean> {
                  */
                 CBuildVarReference cVarRef = new CBuildVarReference(assign.getTarget(), cenv, true, true);
                 String varStr = cVarRef.toStr();
-                statStr += ind.ind() + "copy" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).toStr()+ "(";
+                statStr += ind.ind() + "copy" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).asNameStr()+ "(";
                 statStr += varStr + ", ";
                 CBuildExpression cVarExpr = new CBuildExpression(assign.getExpression(), cenv, true, true,false);
                 statStr += cVarExpr.toStr() + ", ";

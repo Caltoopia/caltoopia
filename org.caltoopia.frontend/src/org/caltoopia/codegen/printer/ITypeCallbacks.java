@@ -52,6 +52,6 @@ public interface ITypeCallbacks {
     //Called after postTypeFn for list type, once for each dimension starting on 1, allow adding to the string
     //It is also common to alter type callback implementation surrounding variables inside this function
     public String listTypeFn(TypeList type, int dim);
-    //FIXME actually never called, but should be called after a user type
+    //Called after a user type string, typically to add a "*"
     public String userTypeFn(TypeUser type);
 }

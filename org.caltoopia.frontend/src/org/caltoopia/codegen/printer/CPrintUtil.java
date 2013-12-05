@@ -270,20 +270,6 @@ public class CPrintUtil {
         }
     }
     
-    public static class listStarCB extends dummyCB {
-        @Override
-        public String listTypeFn(TypeList type, int dim) {
-            return "*";
-        }
-    }
-    
-    public static class listTypeBracketCB extends dummyCB {
-        @Override
-        public String listTypeFn(TypeList type, int dim) {
-            return "[]";
-        }
-    }
-    
     static public String createDeepSizeof(Scope body, Type type, CEnvironment cenv) {
         return createDeepSizeofInner(null,body, type, false, cenv);
     }

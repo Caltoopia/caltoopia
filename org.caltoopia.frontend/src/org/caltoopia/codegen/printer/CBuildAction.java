@@ -188,7 +188,7 @@ public class CBuildAction extends IrSwitch<Boolean> {
                     } else {
                         bodyStr += ind.ind();
                     }
-                    bodyStr += "pinRead_" + new CBuildTypeName(read.getPort().getType(), new CPrintUtil.dummyCB(), false).toStr();
+                    bodyStr += "pinRead_" + new CBuildTypeName(read.getPort().getType(), new CPrintUtil.dummyCB(), false).asNameStr();
                     bodyStr += "(" + portStr + ");"+ind.nl();
                 }
             } else {
@@ -213,7 +213,7 @@ public class CBuildAction extends IrSwitch<Boolean> {
                     } else {
                         bodyStr += ind.ind();
                     }
-                    bodyStr += "pinRead_" + new CBuildTypeName(read.getPort().getType(), new CPrintUtil.dummyCB(), false).toStr();
+                    bodyStr += "pinRead_" + new CBuildTypeName(read.getPort().getType(), new CPrintUtil.dummyCB(), false).asNameStr();
                     bodyStr += "(" + portStr + ");" + ind.nl();
                 }
                 ind.dec();
@@ -233,7 +233,7 @@ public class CBuildAction extends IrSwitch<Boolean> {
             String portStr = "OUT" + portNbr+ "_" + TransUtil.getAnnotationArg(write, "Port", "name");
             if(write.getRepeat()==null) {
                 for(Expression writeExpr: write.getExpressions()) {
-                    bodyStr += ind.ind() + "pinWrite_" + new CBuildTypeName(write.getPort().getType(), new CPrintUtil.dummyCB(), false).toStr();
+                    bodyStr += ind.ind() + "pinWrite_" + new CBuildTypeName(write.getPort().getType(), new CPrintUtil.dummyCB(), false).asNameStr();
                     bodyStr += "(" + portStr + ", " + new CBuildExpression(writeExpr, cenv).toStr() + ");"+ind.nl();
                 }
             } else {
@@ -251,7 +251,7 @@ public class CBuildAction extends IrSwitch<Boolean> {
                 bodyStr += ind.ind() + "for(" + repStr + "Count = 0;" + repStr + "Count<" + repStr + "; "+repStr+"Count++) {" + ind.nl(); 
                 ind.inc();
                 for(Expression writeExpr: write.getExpressions()) {
-                    bodyStr += ind.ind() + "pinWrite_" + new CBuildTypeName(write.getPort().getType(), new CPrintUtil.dummyCB(), false).toStr();
+                    bodyStr += ind.ind() + "pinWrite_" + new CBuildTypeName(write.getPort().getType(), new CPrintUtil.dummyCB(), false).asNameStr();
                     bodyStr += "(" + portStr + ", " + new CBuildExpression(writeExpr, cenv,false,true,false).toStr() + ".p["+ repStr + "Count]);"+ind.nl();
                 }
                 ind.dec();
@@ -282,13 +282,13 @@ public class CBuildAction extends IrSwitch<Boolean> {
                     TransUtil.copySelectedAnnotations(varRef, d, new TransUtil.AnnotationsFilter(IrTransformer.VARIABLE_ANNOTATION, new String[]{"VarPlacement","VarType"}));
                     CBuildVarReference cVarRefF = new CBuildVarReference(varRef , cenv, false, true);
                     String varStrF = cVarRefF.toStr();
-                    bodyStr += ind.ind() + "free" + new CBuildTypeName(((Variable)d).getType(), new CPrintUtil.dummyCB(), false).toStr() + "(&" + varStrF + ", TRUE);" + ind.nl();
+                    bodyStr += ind.ind() + "free" + new CBuildTypeName(((Variable)d).getType(), new CPrintUtil.dummyCB(), false).asNameStr() + "(&" + varStrF + ", TRUE);" + ind.nl();
                 } else if(!retValue && (d instanceof Variable) && UtilIR.isSingleTagTuple(((Variable)d).getType())) {
                     VariableReference varRef = UtilIR.createVarRef((Variable) d);
                     TransUtil.copySelectedAnnotations(varRef, d, new TransUtil.AnnotationsFilter(IrTransformer.VARIABLE_ANNOTATION, new String[]{"VarPlacement","VarType"}));
                     CBuildVarReference cVarRefF = new CBuildVarReference(varRef , cenv, false, true);
                     String varStrF = cVarRefF.toStr();
-                    bodyStr += ind.ind() + "freeStruct" + new CBuildTypeName(((Variable)d).getType(), new CPrintUtil.dummyCB(), false).toStr() + "(&" + varStrF + ", TRUE);" + ind.nl();
+                    bodyStr += ind.ind() + "freeStruct" + new CBuildTypeName(((Variable)d).getType(), new CPrintUtil.dummyCB(), false).asNameStr() + "(" + varStrF + ", TRUE);" + ind.nl();
                 } else if(!retValue && (d instanceof Variable) && UtilIR.isTuple(((Variable)d).getType())) {
                     CodegenError.err("Action builder", "Not yet implemented tuple with multiple tags");
                 }

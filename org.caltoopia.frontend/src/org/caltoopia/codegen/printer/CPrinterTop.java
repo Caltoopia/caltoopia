@@ -1146,11 +1146,11 @@ public class CPrinterTop extends IrSwitch<Stream> {
                 Variable var = i.next();
                 if(UtilIR.isList(var.getType())) {
                     //Free any array members
-                    s.print("free" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).toStr() + "(&src->members." + new CBuildVarDeclaration(var,cenv,true).toStr() + ", TRUE)");
+                    s.print("free" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr() + "(&src->members." + new CBuildVarDeclaration(var,cenv,true).toStr() + ", TRUE)");
                     s.println(";");
                 } else if(UtilIR.isSingleTagTuple(var.getType())) {
                     //Go deep into a user typed member
-                    s.print("freeStruct" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).toStr() + "(&src->members." + new CBuildVarDeclaration(var,cenv,true).toStr() + ", TRUE)");
+                    s.print("freeStruct" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr() + "(&src->members." + new CBuildVarDeclaration(var,cenv,true).toStr() + ", TRUE)");
                     s.println(";");
                 } else if(UtilIR.isMultiTagTuple(var.getType())) {
                     CodegenError.err("CPrintTop", "Not yet implemented tuple with multiple tags (4) ");
@@ -1197,7 +1197,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
                     //Copy any array members - but first make sure that the metadata is reset
                     String member = new CBuildVarDeclaration(var,cenv,true).toStr();
                     s.println("(*dst)->members." + member + ".flags = 0x0;");
-                    s.println("copy" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).toStr() + 
+                    s.println("copy" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr() + 
                             "(&(*dst)->members." + member + 
                             ", &src->members." + member + 
                             ", (__arrayArg){0,{}}" + 
@@ -1212,7 +1212,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
                     //Go deep into a user typed member
                     //FIXME this is not correct
                     String member = new CBuildVarDeclaration(var,cenv,true).toStr();
-                    s.println("copyStruct" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).toStr() + 
+                    s.println("copyStruct" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr() + 
                             "(&(*dst)->members." + member + 
                             ",&src->members." + member + 
                             ");");
