@@ -683,7 +683,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 	 * member: chain of members in user types to potentially reach into deeper types
 	 * Quality: 4, may have missed some corner cases
 	 */
-    private VarLocalAccess findLocalAccess(Declaration decl, List<Expression> index, List<Member> member) {
+    static private VarLocalAccess findLocalAccess(Declaration decl, List<Expression> index, List<Member> member) {
         VarLocalAccess vla = VarLocalAccess.unknown;
         int dim = (index != null)?index.size():0;
         if(decl instanceof Variable) {
@@ -871,6 +871,17 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
         }
         return vla;
     }
+    
+    static public void setLocalAccess(VariableReference var) {
+        TransUtil.setAnnotation(var, IrTransformer.VARIABLE_ANNOTATION,"VarLocalAccess",
+          findLocalAccess(var.getDeclaration(), var.getIndex(), var.getMember()).name());
+    }
+
+    static public void setLocalAccess(VariableExpression var) {
+        TransUtil.setAnnotation(var, IrTransformer.VARIABLE_ANNOTATION,"VarLocalAccess",
+          findLocalAccess(var.getVariable(), var.getIndex(), var.getMember()).name());
+    }
+
 
 	@Override
 	public Expression caseVariableExpression(VariableExpression var) {
