@@ -195,22 +195,31 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
         CBuildTypeName tn = new CBuildTypeName(variable.getType(),new varCB(),true);
         vtypeStr = tn.toStr();
         varStr = CPrintUtil.validCName(variable.getName())+varStr;
-        if(!dimStr.equals("") && initialize) {
-            //Type cast to allow c-compiler to recognize it
-            String tmpStr = " = (" + vtypeStr +"){";
-            if(allFixedSize) {
-                //Allocate the whole array
-                tmpStr += "malloc(sizeof(" + tn.toFinalTypeStr() +")" + sizeStr + "), ";
-                //Set flags indicating allocated, heap, and potentially temporary variable
-                tmpStr += (TransUtil.getAnnotationArg(variable, "Variable", "VarLocalAccess").equals(VarLocalAccess.temp.name()))?"0xf":"0x7";
-                tmpStr += ", ";
-            } else {
-                tmpStr += "NULL, ";
-                //Set flags indicating not allocated and potentially temporary variable
-                tmpStr += (TransUtil.getAnnotationArg(variable, "Variable", "VarLocalAccess").equals(VarLocalAccess.temp.name()))?"0x8":"0x0";
-                tmpStr += ", ";
+        if(initialize) {
+            if(!dimStr.equals("")) {
+                //Type cast to allow c-compiler to recognize it
+                String tmpStr = " = (" + vtypeStr +"){";
+                if(allFixedSize) {
+                    //Allocate the whole array
+                    tmpStr += "malloc(sizeof(" + tn.toFinalTypeStr() +")" + sizeStr + "), ";
+                    //Set flags indicating allocated, heap, and potentially temporary variable
+                    tmpStr += (TransUtil.getAnnotationArg(variable, "Variable", "VarLocalAccess").equals(VarLocalAccess.temp.name()))?"0xf":"0x7";
+                    tmpStr += ", ";
+                } else {
+                    tmpStr += "NULL, ";
+                    //Set flags indicating not allocated and potentially temporary variable
+                    tmpStr += (TransUtil.getAnnotationArg(variable, "Variable", "VarLocalAccess").equals(VarLocalAccess.temp.name()))?"0x8":"0x0";
+                    tmpStr += ", ";
+                }
+                dimStr = tmpStr + maxDim + ", {" + dimStr + "}}";
+            } else if(UtilIR.isTuple(UtilIR.getType(variable.getType()))) {
+                /*
+                 * If tuple we have a pointer to var, set it to NULL since we 
+                 * always anyway must allocate when using. Uninitialized user 
+                 * type objects must first be initialized in full, i.e. assigned.
+                 */
+                dimStr = " = NULL";
             }
-            dimStr = tmpStr + maxDim + ", {" + dimStr + "}}";
         }
     }
     

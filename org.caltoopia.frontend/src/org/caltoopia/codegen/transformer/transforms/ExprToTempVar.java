@@ -53,6 +53,7 @@ import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.IrTransformer.IrPassTypes;
 import org.caltoopia.codegen.transformer.TransUtil;
+import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarAssign;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarLocalAccess;
 import org.caltoopia.codegen.transformer.FixMovedExpr;
@@ -239,18 +240,12 @@ public class ExprToTempVar extends IrReplaceSwitch {
                 case listUserType:
                 case listMemberListUserType:
                 case memberListUserType:
-                    /*
-                    target = UtilIR.createVarDef(null, "__temp_" + assign.getExpression().getId(), assign.getTarget().getType());
-                    target.setScope(scope);
-                    declarations.add(target);
-                    newAssign = UtilIR.createAssignN(scope, target, assign.getExpression());
-                    lAssign = newAssign;
-                    TransUtil.setAnnotation(newAssign, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
-                    statements.add(pos, newAssign);
-                    assign.setExpression(UtilIR.createExpression(scope, target));
-                    TransUtil.rmAnnotation(assign, "Variable", "VarLocalAccess");
-                    inserts++;
-                    break;*/
+                    //If list to list check if the expression list should be broken up
+                    Expression e = (Expression) doSwitch(assign.getExpression());
+                    if(e != null) {
+                        assign.setExpression(e);
+                    }
+                    break;
                 //Assignment of a multi-dim list to a multi-dim list, break up into temp vars
                 case listMulti:
                 case listMemberListMulti:
@@ -273,7 +268,7 @@ public class ExprToTempVar extends IrReplaceSwitch {
                     inserts++;
                     stack.pop();
                     stack.push(lAssign);
-                    Expression e = (Expression) doSwitch(lAssign.getExpression());
+                    e = (Expression) doSwitch(lAssign.getExpression());
                     if(e != null) {
                         lAssign.setExpression(e);
                     }
@@ -441,6 +436,35 @@ public class ExprToTempVar extends IrReplaceSwitch {
         }
 
         @Override
+        public Statement caseAssign(Assign assign) {
+            /*
+             * Only go into assignments when not directly assign 
+             * a list expression without generators, since they
+             * are broken up into element assignments by moveAssign()
+             */
+            if(assign.getExpression() instanceof ListExpression &&
+               ((ListExpression)assign.getExpression()).getGenerators().isEmpty()) {
+                return assign;
+            } else {
+                return super.caseAssign(assign);
+            }
+        }
+
+        @Override
+        public Declaration caseVariable(Variable var) {
+            /*
+             * Only go into variables when not initialized with 
+             * a list expression without generators.
+             */
+            if(var.getInitValue() instanceof ListExpression &&
+               ((ListExpression)var.getInitValue()).getGenerators().isEmpty()) {
+                return var;
+            } else {
+                return super.caseVariable(var);
+            }
+        }
+
+        @Override
         public EObject caseIfExpression(IfExpression expr) {
             if(UtilIR.isList(expr.getType())) {
                 Variable target = UtilIR.createVarDef(null, "__temp_" + expr.getId(), expr.getType());
@@ -470,8 +494,35 @@ public class ExprToTempVar extends IrReplaceSwitch {
 
         @Override
         public EObject caseListExpression(ListExpression expr) {
-            //Convert generator list expressions into foreach statement and then into while statements, to reuse the same foreach transformation
-            if(!expr.getGenerators().isEmpty()) {
+            if(expr.getGenerators().isEmpty()) {
+                /*
+                 * If finds a list expression (not directly in assignment,
+                 * see caseAssign) move it to an assignment. 
+                 * moveAssign will divide it into element assignments
+                 * if needed.
+                 */
+                Expression e = (Expression) super.caseListExpression(expr);
+                if(e instanceof ListExpression) {
+                    expr = (ListExpression) e;
+                    Variable target = UtilIR.createVarDef(null, "__temp_" + expr.getId(), expr.getType());
+                    target.setScope(scope);
+                    declarations.add(target);
+                    Assign assign = UtilIR.createAssignN(scope, target, expr);
+                    TransUtil.setAnnotation(assign, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
+                    IrVariableAnnotation.setLocalAccess(assign.getTarget());
+                    FixMovedExpr.moveScope(assign.getExpression(), scope, expr.getContext(), false);
+                    statements.add(pos+inserts, assign);
+                    inserts++;
+                    return UtilIR.createExpression(scope, target);
+                } else {
+                    return expr;
+                }
+            } else {
+                /*
+                 * Convert generator list expressions into foreach statement 
+                 * and then into while statements, to reuse the same foreach
+                 * transformation
+                 */
                 if(expr.getGenerators().size()==1) {
                     Variable target = UtilIR.createVarDef(null, "__temp_" + expr.getId(), expr.getType());
                     target.setScope(scope);
@@ -524,8 +575,6 @@ public class ExprToTempVar extends IrReplaceSwitch {
                     throw new RuntimeException("[Expr to Temp Var] Not yet implemented foreach list with multiple generators.");
                 }
             }
-            super.caseListExpression(expr);
-            return expr;
         }
     }
     //Helper function to move expression into statement
@@ -694,28 +743,7 @@ public class ExprToTempVar extends IrReplaceSwitch {
         moveExprToStatement(action.getDeclarations(), action.getStatements(), action);
         moveAssign(action.getDeclarations(), action.getStatements(), action);
         moveStringExprToStatement(action.getDeclarations(), action.getStatements(), action);
-
-        List<PortRead> reads = action.getInputs();
-        for (int i = 0; i < reads.size(); i++) {
-            PortRead r = casePortRead(reads.get(i));
-            reads.set(i, r);
-        }
-        
-        //Visit the guards
-        List<Guard> guards = action.getGuards();
-        for (int i = 0; i < guards.size(); i++) {
-            Guard g = caseGuard(guards.get(i));
-            guards.set(i, g);
-        }
-        
-        //Visit the output expression
-        List<PortWrite> writes = action.getOutputs();
-        for (int i = 0; i < writes.size(); i++) {
-            PortWrite w = casePortWrite(writes.get(i));
-            writes.set(i, w);
-        }
-        
-        return action;
+        return super.caseAction(action);
     }
     
     @Override

@@ -524,8 +524,8 @@ public class CBuildExpression extends IrSwitch<Boolean> {
             nbrMembers--;
             //Only for last member in chain any sepIndex applies
             if(nbrMembers==0){
-                asArrayPart = m.getIndex().isEmpty()?false:asArrayPart; //When no index, can't be sub-array
-                sepIndex = asArrayPart?true:inSep;
+                sepIndex = asArrayPart?true:inSep; //When asking for asArray part, implies want an array output (if not scalar) hence no index or .p
+                asArrayPart = m.getIndex().isEmpty()?false:asArrayPart; //When no index, no need to build sub-array already is array
             }
             //Do we have a pointer?
             //exprStr += ((direct||hasIndex)&&!pointerArray?".":"->");
@@ -775,6 +775,9 @@ public class CBuildExpression extends IrSwitch<Boolean> {
     @Override
     public Boolean caseTypeConstructorCall(TypeConstructorCall expr) {
         enter(expr);
+        if(UtilIR.isMultiTagTuple(expr.getType())) {
+            CodegenError.err("CBuildExpression", "Not yet implemented tuple with multiple tags in type constructor ");
+        }
         VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(expr, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
         VarAccess varAccess = VarAccess.valueOf(TransUtil.getAnnotationArg(expr, IrTransformer.VARIABLE_ANNOTATION, "VarAccess"));
         String typeUsage = TransUtil.getAnnotationArg(expr, IrTransformer.TYPE_ANNOTATION, "TypeUsage");
@@ -785,7 +788,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         exprStr += "0, "; //FIXME Tuple tag
         for(Iterator<Expression> i= ((TypeConstructorCall) expr).getParameters().iterator();i.hasNext();) {
             Expression e = i.next();
-            exprStr += new CBuildExpression(e,cenv).toStr();
+            exprStr += new CBuildExpression(e,cenv,false,false,true).toStr();
             if(i.hasNext()) exprStr += ", ";
         }
         exprStr += ("})");               
