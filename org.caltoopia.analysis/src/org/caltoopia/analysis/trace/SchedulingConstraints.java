@@ -54,6 +54,7 @@ public class SchedulingConstraints implements CpuAffinity<ActorInstance,Object> 
 
 	private Map<Action,ActionEffect> mEffectMap=new HashMap<Action,ActionEffect>();
 	private Map<ActorInstance,Object> mAffinityMap=new LinkedHashMap<ActorInstance,Object>();
+	private DecorationMap<Object,Object> mDecorationMap=new DecorationMap<Object,Object>();
 	
 	/**
 	 * @return the collection of "CPU:s" used as "affinity" for some actor instance
@@ -86,6 +87,10 @@ public class SchedulingConstraints implements CpuAffinity<ActorInstance,Object> 
 	
 	public CpuAffinity<ArtTraceEvent,Object> getTraceEventAffinity(ArtNetworkDescription network) {
 		return new TraceEventAffinity(network);
+	}
+	
+	public DecorationMap<Object,Object> getDecorations() {
+		return mDecorationMap;
 	}
 	
 	/**

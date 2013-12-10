@@ -58,7 +58,7 @@ public class TestArtTraceFileReader {
 
 		for (int cpuIndex=0; cpuIndex<args.length; ++cpuIndex) {
 			File input=new File(args[cpuIndex]);
-			Collection<ArtTraceEvent> trace=reader.readTraceFile(input, cpuIndex);
+			Collection<ArtTraceEvent> trace=reader.readTraceFile(input, cpuIndex, null);
 
 			System.out.println("read "+trace.size()+" trace events from "+args[cpuIndex]);
 			System.out.println("timestamp step action exec.time");

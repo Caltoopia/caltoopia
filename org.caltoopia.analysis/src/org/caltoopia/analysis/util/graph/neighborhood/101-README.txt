@@ -64,6 +64,6 @@ which are constructed when iterating over edge sets, differ w.r.t. identity (how
 In a Neighborhood object, the orientation is specified by maintaining separate "forward" and "reverse" sets of adjacent vertices.
 For a directed graph, this readily corresponds to the set of successors and predecessors, respectively, whereas in an undirected
 graph the orientation may be arbitrary. However, the implementation is based a unique and well-defined orientation of undirected
-edges: v is in the "forward" set of u <==> u is in the "reverse" set of v <==> v is *not* in the "reverse" set of u <==> ...
+edges: v is in the "forward" set of u <==> u is in the "reverse" set of v, implying: v is *not* in the "reverse" set of u <==> ...
 As long as the NeighborhoodMapGraph is the only client that modifies the NeighborhoodMap, a consistent adjacency relation is
-guaranteed. It does so by checking for the presence of an edge with reverse orientation when adding and removing edges.
+guaranteed. This is achieved by checking for the presence of an edge with reverse orientation when adding and removing edges.

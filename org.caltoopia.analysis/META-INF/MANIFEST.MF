@@ -4,15 +4,18 @@ Bundle-Name: Analysis
 Bundle-SymbolicName: org.caltoopia.analysis
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.caltoopia.analysis.Activator
-Require-Bundle: org.eclipse.core.runtime;bundle-version="3.7.0",
- org.caltoopia.frontend;bundle-version="1.0.0",
- org.caltoopia.jars;bundle-version="1.0.0"
+Require-Bundle: org.eclipse.core.runtime,
+ org.caltoopia.frontend,
+ org.caltoopia.jars
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.caltoopia.analysis.air,
- org.caltoopia.analysis.actor,
+Export-Package: org.caltoopia.analysis.actor,
+ org.caltoopia.analysis.air,
+ org.caltoopia.analysis.iradapter,
  org.caltoopia.analysis.network,
  org.caltoopia.analysis.test,
+ org.caltoopia.analysis.trace,
  org.caltoopia.analysis.util.collections,
- org.caltoopia.analysis.iradapter
+ org.caltoopia.analysis.util.graph,
+ org.caltoopia.analysis.util.io
 Import-Package: org.eclipse.ui.console

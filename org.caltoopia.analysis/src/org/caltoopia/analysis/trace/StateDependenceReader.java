@@ -119,6 +119,10 @@ public class StateDependenceReader extends XmlReader {
 				if (isTag(child,"actor")) {
 					readActor((Element) child, network, actorMap, stateDep);
 				}
+				else if (isTag(child,"decoration")) {
+					readDecoration((Element) child, network, stateDep);
+				}
+
 			}
 			
 			return (getErrorConsole().hasErrors())? null : stateDep;
@@ -134,9 +138,18 @@ public class StateDependenceReader extends XmlReader {
 			               Map<String,Map<String,Action>> actorMap,
 			               SchedulingConstraints stateDep) {
 		String instanceName=element.getAttribute("instance-name");
-		Map<String,Action> actionMap=actorMap.get(instanceName);
 		
-		if (actionMap!=null) { 
+		ActorInstance actor=null;
+		for (ActorInstance a: network.getActors()) {
+			if (a.getInstanceName().equals(instanceName)) {
+				actor=a;
+			    break;
+			}
+		}
+		
+		if (actor!=null) {
+			Map<String,Action> actionMap=actorMap.get(instanceName);
+			assert(actionMap!=null);
 			Map<String,Variable> variableMap=new HashMap<String,Variable>();
 			
 			for (Node child=element.getFirstChild(); child!=null; child=child.getNextSibling()) {
@@ -145,12 +158,10 @@ public class StateDependenceReader extends XmlReader {
 				}
 				else if (isTag(child,"affinity")) {
 					String cpu=readAffinity((Element) child);
-					for (ActorInstance actor: network.getActors()) {
-						if (actor.getInstanceName().equals(instanceName)) {
-							stateDep.setAffinity(actor, cpu);
-						    break;
-						}
-					}
+					stateDep.setAffinity(actor, cpu);
+				}
+				else if (isTag(child,"decoration")) {
+					readDecoration((Element) child, actor, stateDep);
 				}
 			}
 		}
@@ -160,10 +171,10 @@ public class StateDependenceReader extends XmlReader {
 	}
 	
 	private void readActionEffect(Element element, 
-			                  	          Map<String,Action> actionMap,
-			                              Map<String,Variable> variableMap,
-			                              String inActor,
-			                              SchedulingConstraints stateDep) {
+			                  	  Map<String,Action> actionMap,
+			                      Map<String,Variable> variableMap,
+			                      String inActor,
+			                      SchedulingConstraints stateDep) {
 		String name=element.getAttribute("name");
 		Action action=actionMap.get(inActor+"."+name);
 		
@@ -179,10 +190,30 @@ public class StateDependenceReader extends XmlReader {
 					if (var!=null)
 						stateDep.getDefinitions(action).add(var);
 				}
+				else if (isTag(child,"decoration")) {
+					readDecoration((Element) child, action, stateDep);
+				}
 			}
 		}
 		else {
 			error("StateDependenceReader: Action \""+name+"\" not found in actor \""+inActor+"\"");
+		}
+	}
+	
+	/**
+	 * @param element  A <decoration> element
+	 * @param parent   object associated with decoration
+	 * @param stateDep container for the object-decoration association
+	 */
+	private void readDecoration(Element element, Object parent, SchedulingConstraints stateDep) {
+		String key=element.getAttribute("key");
+		String value=element.getAttribute("value");
+
+		if (key!=null && value!=null) {
+			stateDep.getDecorations().decorate(parent, key, value);
+		}
+		else {
+			error("StateDependenceReader: Decoration \"key\" and \"value\" attributes expected");
 		}
 	}
 	

@@ -54,6 +54,7 @@ public class ArtTraceBundle extends TraceBundle<ArtTraceEvent> {
 
 	private ArtNetworkDescription mNetwork;
 	private Map<ActorInstance,SimpleTrace<ArtTraceEvent>> mActorSubTraces;
+	private DecorationMap<ArtTraceEvent,String> mDecorations=new DecorationMap<ArtTraceEvent,String>();
 	
 	public ArtTraceBundle(ArtNetworkDescription network) {
 		mNetwork=network;
@@ -128,6 +129,10 @@ public class ArtTraceBundle extends TraceBundle<ArtTraceEvent> {
 		// Invalidates any actor sub-traces that have been computed
 		mActorSubTraces=null;
 		super.add(trace);
+	}
+	
+	public DecorationMap<ArtTraceEvent,String> getDecorations() {
+		return mDecorations;
 	}
 	
 	private void buildActorSubTraces() {

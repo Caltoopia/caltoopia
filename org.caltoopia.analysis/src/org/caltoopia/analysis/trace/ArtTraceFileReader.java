@@ -51,14 +51,17 @@ public class ArtTraceFileReader extends XmlReader {
 	protected int mCpuIndex;
 	protected List<ArtTraceEvent> mTrace;
 	protected ArtTraceEvent mLastEvent;
+	protected boolean mExecutionTimeSet;
+	protected DecorationMap<ArtTraceEvent,String> mDecorationMap;
 	
 	public ArtTraceFileReader(ErrorConsole errConsole) {
 		super(errConsole);
 	}
 	
-	public List<ArtTraceEvent> readTraceFile(File file, int cpuIndex) {
+	public List<ArtTraceEvent> readTraceFile(File file, int cpuIndex, DecorationMap<ArtTraceEvent,String> decorationMap) {
 		Document doc=readDocument(file);
 		
+		mDecorationMap=decorationMap;
 		for (Node node=doc.getFirstChild(); node!=null; node=node.getNextSibling()) {
 			if (isTag(node,"execution-trace")) {
 				mCpuIndex=cpuIndex;
@@ -70,7 +73,7 @@ public class ArtTraceFileReader extends XmlReader {
 		
 		return null;
 	}
-
+	
 	protected void readExecutionTrace(Element element) {
 		for (Node node=element.getFirstChild(); node!=null; node=node.getNextSibling()) {
 			ArtTraceEvent event=null;
@@ -92,38 +95,55 @@ public class ArtTraceFileReader extends XmlReader {
 	}
 	
 	protected ArtTraceEvent readTraceEvent(Element element) {
-		Long timestamp=getRequiredLongAttribute(element,"timestamp");
+		Integer action=getIntegerAttribute(element,"action");
 		
-		if (timestamp!=null) {
-			if (mLastEvent!=null) {
-				// Fill in execution time of last event...
-				String attr=element.getAttribute("attr");
-				Integer value=getIntegerAttribute(element,"value");
-				int execTime=(attr!=null && attr.equals("exectime") && value!=null)? value : // attr="exectime" value="1234" 
-					         (int) (timestamp - mLastEvent.getTimeStamp());                  // or diff between consecutive timestamps 
-				
+		if (action!=null) {
+			// <trace action="id" timestamp="t" step="s" />
+			Long timestamp=getRequiredLongAttribute(element,"timestamp");
+			Integer step=getRequiredIntegerAttribute(element,"step");
+			
+			if (mLastEvent!=null && !mExecutionTimeSet) {
+				// Fill in execution time of last event: difference of consecutive timestamps
+				int execTime=(int) (timestamp - mLastEvent.getExecutionTime());
 				if (execTime>=0) {
 					mLastEvent.setExecutionTime(execTime);
 				}
 				else {
-					String msg=(attr!=null && attr.equals("exectime") && value!=null)? 
-							("negative execution time: "+value) : 
-							("decreasing sequence of timestamps: "+mLastEvent.getTimeStamp()+" followed by "+timestamp); 
-					error(msg);
+					error("decreasing sequence of timestamps: "+mLastEvent.getTimeStamp()+" followed by "+timestamp);
 				}
-				mLastEvent=null;
 			}
-
-			Integer step=getIntegerAttribute(element,"step");
-			Integer action=getIntegerAttribute(element,"action");
-			if (step!=null && action!=null) {
-				int t=0;
-				mLastEvent=new ArtTraceEvent(timestamp,step,t,action,mCpuIndex);
-				return mLastEvent;
+			
+			int t=0;
+			mLastEvent=new ArtTraceEvent(timestamp,step,t,action,mCpuIndex);
+			mExecutionTimeSet=false;
+			return mLastEvent;
+		}
+		else {
+			String attr=element.getAttribute("attr");
+			
+			if (mLastEvent!=null && attr!=null) {
+				// Decorate last event with a (key,value) pair
+				String value=element.getAttribute("value");
+			
+				if (attr.equals("exectime")) {
+					// <trace attr="exectime" value="1234"/>
+					int execTime=Integer.valueOf(value);
+					if (execTime>=0) {
+						mLastEvent.setExecutionTime(execTime);
+						mExecutionTimeSet=true;
+					}
+					else {
+						error("negative execution time: "+value);
+					}
+				}
+				else if (mDecorationMap!=null){
+					// Put other attributes in the decoration map (if there is one)
+					mDecorationMap.decorate(mLastEvent, attr, value);
+				}
 			}
 		}
 		
-		return null;
+		return null; // Not a new trace event
 	}
 	
 	protected ArtTraceEvent readOther(Element element) {

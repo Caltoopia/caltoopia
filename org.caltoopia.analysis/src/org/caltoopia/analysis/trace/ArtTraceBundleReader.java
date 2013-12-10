@@ -72,7 +72,7 @@ public class ArtTraceBundleReader {
 	
 	public void addTraceFile(ArtTraceBundle traceBundle, File traceFile) {
 		int cpuIndex=traceBundle.numberOfCPUs();
-		List<ArtTraceEvent> traceEvents=mTFReader.readTraceFile(traceFile, cpuIndex);
+		List<ArtTraceEvent> traceEvents=mTFReader.readTraceFile(traceFile, cpuIndex, traceBundle.getDecorations());
 		
 		if (traceEvents!=null) {
 			traceBundle.add(new SimpleTrace<ArtTraceEvent>(traceEvents));
