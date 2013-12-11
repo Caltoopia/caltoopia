@@ -36,6 +36,7 @@
 
 package org.caltoopia.codegen.printer;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 import org.caltoopia.ast2ir.Stream;
@@ -123,7 +124,7 @@ public class CBuildAction extends IrSwitch<Boolean> {
     
     private void enter(EObject obj) {}
     private void leave() {}
-
+    
     @Override
     public Boolean caseAction(Action action) {
         enter(action);
@@ -265,17 +266,20 @@ public class CBuildAction extends IrSwitch<Boolean> {
          * or when the variable is assigned. Here we need to make sure to free the allocated memory before
          * leaving the action. Both arrays and user types contains metadata that keeps track of if the data
          * is allocated on heap or stack. Hence we call our free function on all of them which checks such
-         * metadata before attempting to free the memory.
+         * metadata before attempting to free the memory. 
+         *
+         * User type variables on output ports are sent as references and should not be freed until it is read (by
+         * all readers).
+         * 
+         * FIXME we free input port user type variables (that are not sent to output), that is not OK if we have fan-out
+         * FIXME make sure to allocate output variable on heap.
          * 
          * CBuildBody have similar code for freeing at end of Block. Make sure they evolve in sync.
-         * 
-         * TODO When implementing user type on ports and allowing sending references to such make sure
-         * to allocate those in heap and free functions should not free that memory until it is read (by
-         * all readers).
          */
         for(Declaration d:action.getDeclarations()) {
             VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
-            if(!varType.equals(VarType.peekVar) && !varType.equals(VarType.syncVar)) {
+            if(!Arrays.asList(VarType.peekVar,
+                             VarType.syncVar).contains(varType)) {
                 boolean retValue = TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarAssign").equals(IrVariableAnnotation.VarAssign.movedRetAssigned.name());
                 if(!retValue && (d instanceof Variable) && UtilIR.isList(((Variable)d).getType())) {
                     VariableReference varRef = UtilIR.createVarRef((Variable) d);
@@ -283,13 +287,17 @@ public class CBuildAction extends IrSwitch<Boolean> {
                     CBuildVarReference cVarRefF = new CBuildVarReference(varRef , cenv, false, true);
                     String varStrF = cVarRefF.toStr();
                     bodyStr += ind.ind() + "free" + new CBuildTypeName(((Variable)d).getType(), new CPrintUtil.dummyCB(), false).asNameStr() + "(&" + varStrF + ", TRUE);" + ind.nl();
-                } else if(!retValue && (d instanceof Variable) && UtilIR.isSingleTagTuple(((Variable)d).getType())) {
+                } else if(!retValue && (d instanceof Variable) && UtilIR.isSingleTagTuple(((Variable)d).getType()) && 
+                        !Arrays.asList(VarType.outPortInitInDepVar,
+                                VarType.outPortVar,
+                                VarType.inOutPortPeekVar,
+                                VarType.inOutPortVar).contains(varType)) {
                     VariableReference varRef = UtilIR.createVarRef((Variable) d);
                     TransUtil.copySelectedAnnotations(varRef, d, new TransUtil.AnnotationsFilter(IrTransformer.VARIABLE_ANNOTATION, new String[]{"VarPlacement","VarType"}));
                     CBuildVarReference cVarRefF = new CBuildVarReference(varRef , cenv, false, true);
                     String varStrF = cVarRefF.toStr();
                     bodyStr += ind.ind() + "freeStruct" + new CBuildTypeName(((Variable)d).getType(), new CPrintUtil.dummyCB(), false).asNameStr() + "(" + varStrF + ", TRUE);" + ind.nl();
-                } else if(!retValue && (d instanceof Variable) && UtilIR.isTuple(((Variable)d).getType())) {
+                } else if(!retValue && (d instanceof Variable) && UtilIR.isMultiTagTuple(((Variable)d).getType())) {
                     CodegenError.err("Action builder", "Not yet implemented tuple with multiple tags");
                 }
             }

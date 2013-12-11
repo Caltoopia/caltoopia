@@ -94,6 +94,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
     String exprStr="";
     String refStr ="";
     String castStr ="";
+    String flagsStr = "";
     String lastVarStr="";
     List<Expression> indexArray;
     List<Expression> sizeArray;
@@ -194,6 +195,10 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         return indexStr;
     }
 
+    public String flagsStr() {
+        return flagsStr + ".flags";
+    }
+    
     public int indexLen() {
         return indexArray.size();
     }
@@ -468,6 +473,8 @@ public class CBuildExpression extends IrSwitch<Boolean> {
             //User types arrays are stored as an array of pointers and use the .pp notation
             pointerArray = true;
             exprStr += ".pp";
+            //We want the flags of the member of array type this is why flags string contains the actual array of the first array
+            flagsStr = exprStr;
             break;
         case listUserTypeSingle:
         case listMultiUserTypeSingle:
@@ -478,6 +485,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
             asArray = false; //making sure scalar is not made into arrays (since caller might not have checked)
             asArrayPart = var.getIndex().isEmpty()?false:asArrayPart; //When no index, can't be sub-array
             sep = asArrayPart?true:sepIndex;//we also want to have the index separate when part of array
+            flagsStr = exprStr;
             if(!sepIndex && !asArrayPart && !asArray) {
                 exprStr += ".p" + (pointerArray?"p":"");
             }
@@ -492,6 +500,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         case string:
             asArrayPart = var.getIndex().isEmpty()?false:asArrayPart; //When no index, can't be sub-array
             sep = asArrayPart?true:sepIndex;//we also want to have the index separate when part of array
+            flagsStr = exprStr;
             if(!sepIndex && !asArrayPart && !asArray) {
                 exprStr += ".p" + (pointerArray?"p":"");
             }
@@ -501,6 +510,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         case memberListSingle:
         case memberListMultiSingle:
             asArrayPart = false; //making sure scalar is not made into arrays (since caller might not have checked)
+            flagsStr = exprStr;
             break;
         case memberListUserType:
         case memberListMultiUserTypeList:
@@ -509,6 +519,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         case memberListMultiList:
         case memberListMulti:
         case memberString:
+            flagsStr = exprStr;
             break;
         default:
             asArrayPart = false; //making sure scalar is not made into arrays (since caller might not have checked)
@@ -581,6 +592,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         exprStr += "members." + varStr;
         boolean userTypeList = false;
         if(UtilIR.isList(member.getType()) && !sepIndex) {
+            flagsStr = exprStr;
             userTypeList = TransUtil.getAnnotationArg(member, IrTransformer.TYPE_ANNOTATION, "TypeStructure").equals("listUserType");
             exprStr += ".p" + (userTypeList?"p":"");
         }

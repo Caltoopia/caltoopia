@@ -475,6 +475,12 @@ public class CPrinterTop extends IrSwitch<Stream> {
                     }
                     s.println("int freeStruct" + t + "(" + t + " * src, int top);");
                     s.println("int copyStruct" + t + "(" + t + " ** dst, " + t +" * src);");
+                    s.print("int construct" + t + "("+ t + " ** dst");
+                    for (Iterator<Variable> i = UtilIR.getMembers(UtilIR.getType(d)).iterator(); i.hasNext();) {
+                        Variable var = i.next();
+                        s.print(", " + new CBuildVarDeclaration(var,cenv,false).toStr());
+                    }
+                    s.println(");");
                     s.println("#define TYPE " + t);
                     s.println("#include \"__arrayCopy.h\"");
                 }
@@ -826,9 +832,9 @@ public class CPrinterTop extends IrSwitch<Stream> {
             if(UtilIR.isTuple(type)) {
                 s.print("sizeof(void*)"); //Tuples token always as pointer
             } else {
-            s.print(CPrintUtil.createDeepSizeof(null, type, cenv));
+                s.print(CPrintUtil.createDeepSizeof(null, type, cenv));
             }
-
+            
             if (i < actor.getInputPorts().size()) {
                 s.println("},");            
             } else {
@@ -851,7 +857,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
             if(UtilIR.isTuple(type)) {
                 s.print("sizeof(void*)"); //Tuples token always as pointer
             } else {
-            s.print(CPrintUtil.createDeepSizeof(null, type, cenv));
+                s.print(CPrintUtil.createDeepSizeof(null, type, cenv));
             }
 
             if (i < actor.getOutputPorts().size()) {
@@ -1193,12 +1199,17 @@ public class CPrinterTop extends IrSwitch<Stream> {
             s.println(     "return TRUE;");
             s.printlnDec("}");
             //OK, we need to copy - make sure dst is allocated
+            s.println(   "int flags;");
             s.printlnInc("if(*dst==NULL) {");
             s.println(      "*dst = malloc(sizeof(**dst));");
+            s.println(      "flags = 0x1;");
+            s.printlnDec("} else {");
+            s.inc();
+            s.println(      "flags = (*dst)->flags;");
             s.printlnDec("}");
             //Copy anything that is part of the struct and also falsely copy metadata for arrays
             s.println(   "memcpy(*dst,src,sizeof(**dst));");
-            
+            s.println(   "(*dst)->flags = flags;");
             for (Iterator<Variable> i = UtilIR.getMembers(struct).iterator(); i.hasNext();) {
                 Variable var = i.next();
                 if(UtilIR.isList(var.getType())) {
@@ -1228,6 +1239,63 @@ public class CPrinterTop extends IrSwitch<Stream> {
                     CodegenError.err("CPrintTop", "Not yet implemented tuple with multiple tags (4) ");
                 }
 
+            }
+            s.println("return TRUE;");
+            s.dec();
+            s.println("}"); 
+            s.println("");
+            /*
+             * Construct user type
+             */
+            /*
+            int constructT1_t(T1_t ** dst, int a, int b, __array4int32_t c) {
+                if(*dst==NULL) {
+                  *dst = malloc(sizeof(**dst));
+                }
+                (*dst)->flags = 0x1;
+                (*dst)->members.a = a;
+                (*dst)->members.b = b;
+                copyint32_t(&(*dst)->members.c, &c, (__arrayArg){0,{}}, (__arrayArg){0,{}}, (__arrayArg){c.dim,{c.sz[0],c.sz[1],c.sz[2],c.sz[3]}});
+                return TRUE;
+              }
+            */
+            s.print("int construct" + type.getName() + "_t ("+ type.getName() + "_t ** dst");
+            for (Iterator<Variable> i = UtilIR.getMembers(struct).iterator(); i.hasNext();) {
+                Variable var = i.next();
+                s.print(", " + new CBuildVarDeclaration(var,cenv,false).toStr());
+            }
+            s.printlnInc(") {");
+            s.printlnInc("if(*dst==NULL) {");
+            s.println(      "*dst = malloc(sizeof(**dst));");
+            s.printlnDec("}");
+            s.println(   "(*dst)->flags = 0x1;");
+            for (Iterator<Variable> i = UtilIR.getMembers(struct).iterator(); i.hasNext();) {
+                Variable var = i.next();
+                String member = new CBuildVarDeclaration(var,cenv,true).toStr();
+                if(UtilIR.isList(var.getType())) {
+                    //Copy array members
+                    s.println("copy" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr() + 
+                            "(&(*dst)->members." + member + 
+                            ", &" + member + 
+                            ", (__arrayArg){0,{}}" + 
+                            ", (__arrayArg){0,{}}" + 
+                            ", (__arrayArg){" + member +".dim,{" +
+                                member + ".sz[0]," + 
+                                member + ".sz[1]," + 
+                                member + ".sz[2]," + 
+                                member + ".sz[3]" + 
+                            "}});");
+                } else if(UtilIR.isSingleTagTuple(var.getType())) {
+                    //Go deep into a user typed member
+                    s.println("copyStruct" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr() + 
+                            "(&(*dst)->members." + member + 
+                            ",&" + member + 
+                            ");");
+                } else if(UtilIR.isMultiTagTuple(var.getType())) {
+                    CodegenError.err("CPrintTop", "Not yet implemented tuple with multiple tags (4) ");
+                } else {
+                    s.println("(*dst)->members." + member + " = " + member + ";");
+                }
             }
             s.println("return TRUE;");
             s.dec();

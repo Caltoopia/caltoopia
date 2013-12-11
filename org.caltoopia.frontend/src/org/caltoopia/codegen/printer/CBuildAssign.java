@@ -342,9 +342,28 @@ public class CBuildAssign extends IrSwitch<Boolean> {
                 statStr += ind.ind() + "copyStruct" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).asNameStr()+ "(";
                 statStr += "&"+new CBuildVarReference(assign.getTarget(), cenv).toStr() + ", ";
                 statStr += new CBuildExpression(assign.getExpression(), cenv).toStr()+")";
-            } else if(assign.getExpression() instanceof TypeConstructorCall || assign.getExpression() instanceof FunctionCall) {
+            } else if(assign.getExpression() instanceof FunctionCall) {
                 statStr += ind.ind() + new CBuildVarReference(assign.getTarget(), cenv).toStr() + " = ";
                 statStr += new CBuildExpression(assign.getExpression(), cenv).toStr();
+            } else if(assign.getExpression() instanceof TypeConstructorCall) {
+                statStr += ind.ind() + "construct" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).asNameStr()+ "(";
+                statStr += "&" + new CBuildVarReference(assign.getTarget(), cenv).toStr();
+                String tempStr = "";
+                for(Expression e: ((TypeConstructorCall)assign.getExpression()).getParameters()) {
+                    statStr += ", ";
+                    CBuildExpression tcparam = new CBuildExpression(e, cenv,false,true,true);
+                    statStr += tcparam.toStr();
+                    if(e instanceof VariableExpression && UtilIR.isList(e.getType())) {
+                        /*
+                         * When using an (temp) array make sure to flag it as unallocated
+                         * to prevent freeing the actual array memory now belonging to
+                         * the user type object.
+                         */
+                        tempStr +=";" +ind.nl() +  ind.ind() + tcparam.flagsStr() + " = 0x0";
+                    }
+                }
+                statStr += ")";
+                statStr += tempStr;
             } else {
                 statStr += ind.ind() + "/*NOT YET IMPLEMENTED "+ assign.getExpression().getClass().toString() + "*/" + new CBuildVarReference(assign.getTarget(), cenv).toStr() + " = ";
                 statStr += new CBuildExpression(assign.getExpression(), cenv).toStr();
