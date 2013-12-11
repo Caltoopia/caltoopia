@@ -203,7 +203,7 @@ public class CBuildActorActionScheduler extends IrSwitch<Boolean> {
                     if (UtilIR.isList(t)) {
                         t = ((TypeList) t).getType();
                     }
-                    schedStr += ("(pinAvailIn_" + new CBuildTypeName(t, new CPrintUtil.dummyCB(), false).asNameStr());
+                    schedStr += ("(pinAvailIn_" + CPrintUtil.portType(t));
                     String portNbr = TransUtil.getAnnotationArg(read, "Port", "index");
                     String portStr = "IN" + portNbr+ "_" + TransUtil.getAnnotationArg(read, "Port", "name");
                     schedStr += ("(" + portStr + ") >= ");
@@ -243,7 +243,7 @@ public class CBuildActorActionScheduler extends IrSwitch<Boolean> {
                     if (UtilIR.isList(t)) {
                         t = ((TypeList) t).getType();
                     } 
-                    schedStr += ("(pinAvailOut_" + new CBuildTypeName(t, new CPrintUtil.dummyCB(), false).asNameStr());
+                    schedStr += ("(pinAvailOut_" + CPrintUtil.portType(t));
                     String portNbr = TransUtil.getAnnotationArg(write, "Port", "index");
                     String portStr = "OUT" + portNbr+ "_" + TransUtil.getAnnotationArg(write, "Port", "name");
                     schedStr += ("(" + portStr + ") >= ");  

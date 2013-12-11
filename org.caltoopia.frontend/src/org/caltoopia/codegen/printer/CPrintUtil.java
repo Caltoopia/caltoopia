@@ -336,4 +336,8 @@ public class CPrintUtil {
         return expr;
     }
 
+    public static String portType(Type type) {
+        return UtilIR.isTuple(type)?"ref":new CBuildTypeName(type, new CPrintUtil.dummyCB(), false).asNameStr();
+    }
+
 }

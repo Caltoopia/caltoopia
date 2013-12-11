@@ -820,10 +820,14 @@ public class CPrinterTop extends IrSwitch<Stream> {
             if(UtilIR.isMultiTagTuple(type)) {
                 CodegenError.err("CPrintTop", "Not yet implemented tuple with multiple tags (1) ");
             }
-            //First param indicate user type or builtin type
-            s.print("{" + (UtilIR.isSingleTagTuple(type)?"1":"0") + ", \"" + p.getName() + "\", ");
+            //User types is now references and hence also have a zero in first param
+            s.print("{" + "0" + ", \"" + p.getName() + "\", ");
             //Last param indicate port token size in bytes
+            if(UtilIR.isTuple(type)) {
+                s.print("sizeof(void*)"); //Tuples token always as pointer
+            } else {
             s.print(CPrintUtil.createDeepSizeof(null, type, cenv));
+            }
 
             if (i < actor.getInputPorts().size()) {
                 s.println("},");            
@@ -841,10 +845,14 @@ public class CPrinterTop extends IrSwitch<Stream> {
             if(UtilIR.isMultiTagTuple(type)) {
                 CodegenError.err("CPrintTop", "Not yet implemented tuple with multiple tags (2) ");
             }
-            //First param indicate user type or builtin type
-            s.print("{" + (UtilIR.isSingleTagTuple(type)?"1":"0") + ", \"" + p.getName() + "\", ");
+            //User types is now references and hence also have a zero in first param
+            s.print("{" + "0" + ", \"" + p.getName() + "\", ");
             //Last param indicate port token size in bytes
+            if(UtilIR.isTuple(type)) {
+                s.print("sizeof(void*)"); //Tuples token always as pointer
+            } else {
             s.print(CPrintUtil.createDeepSizeof(null, type, cenv));
+            }
 
             if (i < actor.getOutputPorts().size()) {
                 s.println("},");            

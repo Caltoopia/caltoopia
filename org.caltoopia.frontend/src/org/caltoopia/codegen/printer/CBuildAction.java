@@ -188,7 +188,7 @@ public class CBuildAction extends IrSwitch<Boolean> {
                     } else {
                         bodyStr += ind.ind();
                     }
-                    bodyStr += "pinRead_" + new CBuildTypeName(read.getPort().getType(), new CPrintUtil.dummyCB(), false).asNameStr();
+                    bodyStr += "pinRead_" + CPrintUtil.portType(read.getPort().getType());
                     bodyStr += "(" + portStr + ");"+ind.nl();
                 }
             } else {
@@ -213,7 +213,7 @@ public class CBuildAction extends IrSwitch<Boolean> {
                     } else {
                         bodyStr += ind.ind();
                     }
-                    bodyStr += "pinRead_" + new CBuildTypeName(read.getPort().getType(), new CPrintUtil.dummyCB(), false).asNameStr();
+                    bodyStr += "pinRead_" + CPrintUtil.portType(read.getPort().getType());
                     bodyStr += "(" + portStr + ");" + ind.nl();
                 }
                 ind.dec();
@@ -233,7 +233,7 @@ public class CBuildAction extends IrSwitch<Boolean> {
             String portStr = "OUT" + portNbr+ "_" + TransUtil.getAnnotationArg(write, "Port", "name");
             if(write.getRepeat()==null) {
                 for(Expression writeExpr: write.getExpressions()) {
-                    bodyStr += ind.ind() + "pinWrite_" + new CBuildTypeName(write.getPort().getType(), new CPrintUtil.dummyCB(), false).asNameStr();
+                    bodyStr += ind.ind() + "pinWrite_" + CPrintUtil.portType(write.getPort().getType());
                     bodyStr += "(" + portStr + ", " + new CBuildExpression(writeExpr, cenv).toStr() + ");"+ind.nl();
                 }
             } else {
@@ -251,7 +251,7 @@ public class CBuildAction extends IrSwitch<Boolean> {
                 bodyStr += ind.ind() + "for(" + repStr + "Count = 0;" + repStr + "Count<" + repStr + "; "+repStr+"Count++) {" + ind.nl(); 
                 ind.inc();
                 for(Expression writeExpr: write.getExpressions()) {
-                    bodyStr += ind.ind() + "pinWrite_" + new CBuildTypeName(write.getPort().getType(), new CPrintUtil.dummyCB(), false).asNameStr();
+                    bodyStr += ind.ind() + "pinWrite_" + CPrintUtil.portType(write.getPort().getType());
                     bodyStr += "(" + portStr + ", " + new CBuildExpression(writeExpr, cenv,false,true,false).toStr() + ".p["+ repStr + "Count]);"+ind.nl();
                 }
                 ind.dec();
