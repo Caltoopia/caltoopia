@@ -1094,11 +1094,16 @@ public class IrXmlReader {
 			alt.getDeclarations().add(createDeclaration(e));
 		}
 
-		List<Element> guards = getChildren(element, "Guard");
+		List<Element> guards = getChildren(element, "Expr");
 		for (Element e : guards) {
 			alt.getGuards().add(createExpression(e));
 		}		
 		
+        List<Element> stmts = getChildren(element, "Stmt");
+        for (Element e : stmts) {
+            alt.getStatements().add(createStatement(e));
+        }
+
 		return alt;
 	}
 
