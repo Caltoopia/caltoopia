@@ -37,6 +37,7 @@
 package org.caltoopia.codegen.printer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -59,6 +60,7 @@ import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarType;
 import org.caltoopia.ir.Actor;
 import org.caltoopia.ir.Assign;
 import org.caltoopia.ir.BinaryExpression;
+import org.caltoopia.ir.CaseStatement;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Block;
 import org.caltoopia.ir.Expression;
@@ -74,6 +76,8 @@ import org.caltoopia.ir.ProcExpression;
 import org.caltoopia.ir.ReturnValue;
 import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.Statement;
+import org.caltoopia.ir.StmtAlternative;
+import org.caltoopia.ir.TagOf;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeConstructorCall;
@@ -139,7 +143,7 @@ public class CBuildStatement extends IrSwitch<Boolean> {
      */
     public String toStr() {
         Boolean res = doSwitch(statement);
-        if(!res) {
+        if(res==null || !res) {
             CodegenError.err("Statement builder", statStr);
         }
         return statStr;
@@ -167,6 +171,47 @@ public class CBuildStatement extends IrSwitch<Boolean> {
         leave();
         return true;
     }
+    
+    @Override
+    public Boolean caseCaseStatement(CaseStatement caze) {
+        //Collect all the alternatives in a map tag -> blocks
+        Map<String,String> caseStr = new HashMap<String,String>();
+        ind.inc();
+        for(StmtAlternative alt: caze.getAlternatives()) {
+            //Should only be a TagOf expression left
+            Expression guard = alt.getGuards().get(0);
+            if(guard instanceof TagOf) {
+                String tag = ((TagOf)guard).getTag();
+                String tempStr = new CBuildBody(alt,cenv,ind).toStr();
+                if(caseStr.containsKey(tag)) {
+                    caseStr.put(tag, caseStr.get(tag)+tempStr);
+                } else {
+                    caseStr.put(tag, tempStr);
+                }
+            }
+        }
+        ind.dec();
+        if(!caseStr.isEmpty()) {
+            CBuildExpression caseVar = new CBuildExpression(caze.getExpression(),cenv,false,true,true);
+            caseVar.toStr();
+            statStr += ind.ind() + "switch (" + caseVar.tagStr() +") {" + ind.nl();
+            for(String tag:caseStr.keySet()) {
+                String t = new CBuildTypeName(caze.getExpression().getType(), new CPrintUtil.dummyCB(), false).asTagNameStr(tag);
+                statStr += ind.ind() + "case " + t + ":" + ind.nl();
+                statStr += caseStr.get(tag);
+                ind.inc();
+                statStr += ind.ind() + "break;" + ind.nl();
+                ind.dec();
+            }
+            statStr += ind.ind() + "default:" + ind.nl();
+            ind.inc();
+            statStr += ind.ind() + "break;" + ind.nl();
+            ind.dec();
+            statStr += ind.ind() + "}" + ind.nl();
+        }
+        return true;
+    }
+
 
     @Override
     public Boolean caseProcCall(ProcCall call) {

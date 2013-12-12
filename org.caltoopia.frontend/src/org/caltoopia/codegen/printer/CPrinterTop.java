@@ -475,12 +475,15 @@ public class CPrinterTop extends IrSwitch<Stream> {
                     }
                     s.println("int freeStruct" + t + "(" + t + " * src, int top);");
                     s.println("int copyStruct" + t + "(" + t + " ** dst, " + t +" * src);");
-                    s.print("int construct" + t + "("+ t + " ** dst");
-                    for (Iterator<Variable> i = UtilIR.getMembers(UtilIR.getType(d)).iterator(); i.hasNext();) {
-                        Variable var = i.next();
-                        s.print(", " + new CBuildVarDeclaration(var,cenv,false).toStr());
+                    for(TaggedTuple tt: ((TypeTuple)UtilIR.getType(d)).getTaggedTuples()) {
+                        boolean single = UtilIR.isSingleTagTuple(UtilIR.getType(d));
+                        s.print("int construct" + (single?t:((TypeDeclaration)d).getName()+"___"+tt.getTag()) + "("+ t + " ** dst");
+                        for (Iterator<Variable> i = tt.getFields().iterator(); i.hasNext();) {
+                            Variable var = i.next();
+                            s.print(", " + new CBuildVarDeclaration(var,cenv,false).toStr());
+                        }
+                        s.println(");");
                     }
-                    s.println(");");
                     s.println("#define TYPE " + t);
                     s.println("#include \"__arrayCopy.h\"");
                 }
@@ -1143,9 +1146,6 @@ public class CPrinterTop extends IrSwitch<Stream> {
             s.printlnDec("};"); 
         } else {
             //Printed in network c-file
-            if(UtilIR.isMultiTagTuple(UtilIR.getType(type))) {
-                CodegenError.err("CPrintTop", "Not yet implemented tuple with multiple tags (3) ");
-            }
             Type struct = UtilIR.getType(type);
             /*
              * Declaration of freeStruct function. 
@@ -1156,20 +1156,37 @@ public class CPrinterTop extends IrSwitch<Stream> {
              * top: if also the top level should be freed or only deeper levels
              */
             s.printlnInc("int freeStruct" + type.getName() + "_t ("+ type.getName() + "_t * src, int top) {");
-            for (Iterator<Variable> i = UtilIR.getMembers(struct).iterator(); i.hasNext();) {
-                Variable var = i.next();
-                if(UtilIR.isList(var.getType())) {
-                    //Free any array members
-                    s.print("free" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr() + "(&src->members." + new CBuildVarDeclaration(var,cenv,true).toStr() + ", TRUE)");
-                    s.println(";");
-                } else if(UtilIR.isSingleTagTuple(var.getType())) {
-                    //Go deep into a user typed member
-                    s.print("freeStruct" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr() + "(&src->members." + new CBuildVarDeclaration(var,cenv,true).toStr() + ", TRUE)");
-                    s.println(";");
-                } else if(UtilIR.isMultiTagTuple(var.getType())) {
-                    CodegenError.err("CPrintTop", "Not yet implemented tuple with multiple tags (4) ");
+            boolean single = UtilIR.isSingleTagTuple(struct);
+            if(!single) {
+                s.println("switch(src->tag) {");
+            }            
+            for(TaggedTuple tt: ((TypeTuple)struct).getTaggedTuples()) {
+                String tag = single?"":tt.getTag()+".";
+                if(!single) {
+                    s.printlnInc("case " + type.getName()+"___"+tt.getTag() + ":");
                 }
-
+                for (Iterator<Variable> i = tt.getFields().iterator(); i.hasNext();) {
+                    Variable var = i.next();
+                    if(UtilIR.isList(var.getType())) {
+                        //Free any array members
+                        s.print("free" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr() + "(&src->members." + tag + new CBuildVarDeclaration(var,cenv,true).toStr() + ", TRUE)");
+                        s.println(";");
+                    } else if(UtilIR.isTuple(var.getType())) {
+                        //Go deep into a user typed member
+                        s.print("freeStruct" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr() + "(src->members." + tag + new CBuildVarDeclaration(var,cenv,true).toStr() + ", TRUE)");
+                        s.println(";");
+                    }
+                }
+                if(!single) {
+                    s.println("break;");
+                    s.dec();
+                }
+            }
+            if(!single) {
+                s.printlnInc("default:");
+                s.println("break;");
+                s.dec();
+                s.println("}");
             }
             //If top and allocated on heap free it
             s.printlnInc("if(top && (src->flags&0x1)==0x1) {");
@@ -1210,35 +1227,51 @@ public class CPrinterTop extends IrSwitch<Stream> {
             //Copy anything that is part of the struct and also falsely copy metadata for arrays
             s.println(   "memcpy(*dst,src,sizeof(**dst));");
             s.println(   "(*dst)->flags = flags;");
-            for (Iterator<Variable> i = UtilIR.getMembers(struct).iterator(); i.hasNext();) {
-                Variable var = i.next();
-                if(UtilIR.isList(var.getType())) {
-                    //Copy any array members - but first make sure that the metadata is reset
-                    String member = new CBuildVarDeclaration(var,cenv,true).toStr();
-                    s.println("(*dst)->members." + member + ".flags = 0x0;");
-                    s.println("copy" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr() + 
-                            "(&(*dst)->members." + member + 
-                            ", &src->members." + member + 
-                            ", (__arrayArg){0,{}}" + 
-                            ", (__arrayArg){0,{}}" + 
-                            ", (__arrayArg){src->members." + member +".dim,{" +
-                                "src->members." + member + ".sz[0]," + 
-                                "src->members." + member + ".sz[1]," + 
-                                "src->members." + member + ".sz[2]," + 
-                                "src->members." + member + ".sz[3]" + 
-                            "}});");
-                } else if(UtilIR.isSingleTagTuple(var.getType())) {
-                    //Go deep into a user typed member
-                    //FIXME this is not correct
-                    String member = new CBuildVarDeclaration(var,cenv,true).toStr();
-                    s.println("copyStruct" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr() + 
-                            "(&(*dst)->members." + member + 
-                            ",&src->members." + member + 
-                            ");");
-                } else if(UtilIR.isMultiTagTuple(var.getType())) {
-                    CodegenError.err("CPrintTop", "Not yet implemented tuple with multiple tags (4) ");
+            if(!single) {
+                s.println("switch(src->tag) {");
+            }            
+            for(TaggedTuple tt: ((TypeTuple)struct).getTaggedTuples()) {
+                String tag = single?"":tt.getTag()+".";
+                if(!single) {
+                    s.printlnInc("case " + type.getName()+"___"+tt.getTag() + ":");
                 }
-
+                for (Iterator<Variable> i = tt.getFields().iterator(); i.hasNext();) {
+                    Variable var = i.next();
+                    if(UtilIR.isList(var.getType())) {
+                        //Copy any array members - but first make sure that the metadata is reset
+                        String member = new CBuildVarDeclaration(var,cenv,true).toStr();
+                        s.println("(*dst)->members." + tag + member + ".flags = 0x0;");
+                        s.println("copy" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr() + 
+                                "(&(*dst)->members." + tag + member + 
+                                ", &src->members." + tag + member + 
+                                ", (__arrayArg){0,{}}" + 
+                                ", (__arrayArg){0,{}}" + 
+                                ", (__arrayArg){src->members." + tag + member +".dim,{" +
+                                    "src->members." + tag + member + ".sz[0]," + 
+                                    "src->members." + tag + member + ".sz[1]," + 
+                                    "src->members." + tag + member + ".sz[2]," + 
+                                    "src->members." + tag + member + ".sz[3]" + 
+                                "}});");
+                    } else if(UtilIR.isSingleTagTuple(var.getType())) {
+                        //Go deep into a user typed member
+                        //FIXME this is not correct
+                        String member = new CBuildVarDeclaration(var,cenv,true).toStr();
+                        s.println("copyStruct" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr() + 
+                                "(&(*dst)->members." + tag + member + 
+                                ",&src->members." + tag + member + 
+                                ");");
+                    }
+                }
+                if(!single) {
+                    s.println("break;");
+                    s.dec();
+                }
+            }
+            if(!single) {
+                s.printlnInc("default:");
+                s.println("break;");
+                s.dec();
+                s.println("}");
             }
             s.println("return TRUE;");
             s.dec();
@@ -1259,48 +1292,51 @@ public class CPrinterTop extends IrSwitch<Stream> {
                 return TRUE;
               }
             */
-            s.print("int construct" + type.getName() + "_t ("+ type.getName() + "_t ** dst");
-            for (Iterator<Variable> i = UtilIR.getMembers(struct).iterator(); i.hasNext();) {
-                Variable var = i.next();
-                s.print(", " + new CBuildVarDeclaration(var,cenv,false).toStr());
-            }
-            s.printlnInc(") {");
-            s.printlnInc("if(*dst==NULL) {");
-            s.println(      "*dst = malloc(sizeof(**dst));");
-            s.printlnDec("}");
-            s.println(   "(*dst)->flags = 0x1;");
-            for (Iterator<Variable> i = UtilIR.getMembers(struct).iterator(); i.hasNext();) {
-                Variable var = i.next();
-                String member = new CBuildVarDeclaration(var,cenv,true).toStr();
-                if(UtilIR.isList(var.getType())) {
-                    //Copy array members
-                    s.println("copy" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr() + 
-                            "(&(*dst)->members." + member + 
-                            ", &" + member + 
-                            ", (__arrayArg){0,{}}" + 
-                            ", (__arrayArg){0,{}}" + 
-                            ", (__arrayArg){" + member +".dim,{" +
-                                member + ".sz[0]," + 
-                                member + ".sz[1]," + 
-                                member + ".sz[2]," + 
-                                member + ".sz[3]" + 
-                            "}});");
-                } else if(UtilIR.isSingleTagTuple(var.getType())) {
-                    //Go deep into a user typed member
-                    s.println("copyStruct" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr() + 
-                            "(&(*dst)->members." + member + 
-                            ",&" + member + 
-                            ");");
-                } else if(UtilIR.isMultiTagTuple(var.getType())) {
-                    CodegenError.err("CPrintTop", "Not yet implemented tuple with multiple tags (4) ");
-                } else {
-                    s.println("(*dst)->members." + member + " = " + member + ";");
+            for(TaggedTuple tt: ((TypeTuple)struct).getTaggedTuples()) {
+                String tag = single?"":tt.getTag()+".";
+                s.print("int construct" + type.getName() + "_"+(single?"t":"__"+tt.getTag())+"("+ type.getName() + "_t ** dst");
+                List<Variable> members =  tt.getFields();
+                for (Iterator<Variable> i = members.iterator(); i.hasNext();) {
+                    Variable var = i.next();
+                    s.print(", " + new CBuildVarDeclaration(var,cenv,false).toStr());
                 }
+                s.printlnInc(") {");
+                s.printlnInc("if(*dst==NULL) {");
+                s.println(      "*dst = malloc(sizeof(**dst));");
+                s.printlnDec("}");
+                s.println(   "(*dst)->flags = 0x1;");
+                s.println(   "(*dst)->tag = " + (single?"0":type.getName() + "___" + tt.getTag()) + ";");
+                for (Iterator<Variable> i = members.iterator(); i.hasNext();) {
+                    Variable var = i.next();
+                    String member = new CBuildVarDeclaration(var,cenv,true).toStr();
+                    if(UtilIR.isList(var.getType())) {
+                        //Copy array members
+                        s.println("copy" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr() + 
+                                "(&(*dst)->members." + tag+member + 
+                                ", &" + member + 
+                                ", (__arrayArg){0,{}}" + 
+                                ", (__arrayArg){0,{}}" + 
+                                ", (__arrayArg){" + member +".dim,{" +
+                                    member + ".sz[0]," + 
+                                    member + ".sz[1]," + 
+                                    member + ".sz[2]," + 
+                                    member + ".sz[3]" + 
+                                "}});");
+                    } else if(UtilIR.isTuple(var.getType())) {
+                        //Go deep into a user typed member
+                        s.println("copyStruct" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr() + 
+                                "(&(*dst)->members." + tag + member + 
+                                ", " + member + 
+                                ");");
+                    } else {
+                        s.println("(*dst)->members." + tag + member + " = " + member + ";");
+                    }
+                }
+                s.println("return TRUE;");
+                s.dec();
+                s.println("}"); 
+                s.println("");
             }
-            s.println("return TRUE;");
-            s.dec();
-            s.println("}"); 
-            s.println("");
         }
         leave(type);
         return s;

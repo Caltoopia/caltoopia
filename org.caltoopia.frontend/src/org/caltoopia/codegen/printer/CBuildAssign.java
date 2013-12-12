@@ -346,7 +346,8 @@ public class CBuildAssign extends IrSwitch<Boolean> {
                 statStr += ind.ind() + new CBuildVarReference(assign.getTarget(), cenv).toStr() + " = ";
                 statStr += new CBuildExpression(assign.getExpression(), cenv).toStr();
             } else if(assign.getExpression() instanceof TypeConstructorCall) {
-                statStr += ind.ind() + "construct" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).asNameStr()+ "(";
+                String tag = ((TypeConstructorCall)assign.getExpression()).getName();
+                statStr += ind.ind() + "construct" + new CBuildTypeName(assign.getTarget().getType(), new CPrintUtil.dummyCB(), false).asTagNameStr(tag)+ "(";
                 statStr += "&" + new CBuildVarReference(assign.getTarget(), cenv).toStr();
                 String tempStr = "";
                 for(Expression e: ((TypeConstructorCall)assign.getExpression()).getParameters()) {

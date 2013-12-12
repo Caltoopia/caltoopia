@@ -82,6 +82,7 @@ public class CBuildTypeName extends IrSwitch<Boolean> {
     ITypeCallbacks cb=null;
     int dim=0;
     boolean array;
+    boolean tag = false;
     String pointerStr="";
 
     /*
@@ -142,6 +143,21 @@ public class CBuildTypeName extends IrSwitch<Boolean> {
     }
 
     /*
+     * Do the actual generation of the type string for use as part of function names, use as:
+     * new CBuildTypeName(...).asNameStr()
+     */
+    public String asTagNameStr(String tagStr) {
+        if(tagStr!=null && !tagStr.isEmpty()) {
+            tag = true;
+        }
+        Boolean res = doSwitch(type);
+        if(!res) {
+            CodegenError.err("Type name builder", typeStr);
+        }
+        return typeStr + (tag?"___" + tagStr:"");
+    }
+
+    /*
      * Print the final element type string, use as:
      * new CBuildTypeName(...).toFinalTypeStr()
      * NB! Must have called toStr() first.
@@ -161,7 +177,7 @@ public class CBuildTypeName extends IrSwitch<Boolean> {
         enter(type);
         TypeDeclaration decl = UtilIR.getTypeDeclaration(type);
         typeStr += cb.preTypeFn(type);
-        typeStr += (decl.getName() + "_t");
+        typeStr += (decl.getName() + (tag?"":"_t"));
         pointerStr = "*";
         typeStr += cb.userTypeFn(type);
         typeStr += cb.postTypeFn(type);

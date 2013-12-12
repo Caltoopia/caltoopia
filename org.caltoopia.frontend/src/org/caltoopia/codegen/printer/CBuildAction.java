@@ -287,7 +287,7 @@ public class CBuildAction extends IrSwitch<Boolean> {
                     CBuildVarReference cVarRefF = new CBuildVarReference(varRef , cenv, false, true);
                     String varStrF = cVarRefF.toStr();
                     bodyStr += ind.ind() + "free" + new CBuildTypeName(((Variable)d).getType(), new CPrintUtil.dummyCB(), false).asNameStr() + "(&" + varStrF + ", TRUE);" + ind.nl();
-                } else if(!retValue && (d instanceof Variable) && UtilIR.isSingleTagTuple(((Variable)d).getType()) && 
+                } else if(!retValue && (d instanceof Variable) && UtilIR.isTuple(((Variable)d).getType()) && 
                         !Arrays.asList(VarType.outPortInitInDepVar,
                                 VarType.outPortVar,
                                 VarType.inOutPortPeekVar,
@@ -297,8 +297,6 @@ public class CBuildAction extends IrSwitch<Boolean> {
                     CBuildVarReference cVarRefF = new CBuildVarReference(varRef , cenv, false, true);
                     String varStrF = cVarRefF.toStr();
                     bodyStr += ind.ind() + "freeStruct" + new CBuildTypeName(((Variable)d).getType(), new CPrintUtil.dummyCB(), false).asNameStr() + "(" + varStrF + ", TRUE);" + ind.nl();
-                } else if(!retValue && (d instanceof Variable) && UtilIR.isMultiTagTuple(((Variable)d).getType())) {
-                    CodegenError.err("Action builder", "Not yet implemented tuple with multiple tags");
                 }
             }
         }

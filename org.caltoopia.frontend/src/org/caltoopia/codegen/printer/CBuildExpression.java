@@ -68,6 +68,7 @@ import org.caltoopia.ir.ListExpression;
 import org.caltoopia.ir.Member;
 import org.caltoopia.ir.Namespace;
 import org.caltoopia.ir.StringLiteral;
+import org.caltoopia.ir.TaggedTupleFieldRead;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeConstructorCall;
 import org.caltoopia.ir.TypeList;
@@ -199,6 +200,10 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         return flagsStr + ".flags";
     }
     
+    public String tagStr() {
+        return exprStr + "->tag";
+    }
+
     public int indexLen() {
         return indexArray.size();
     }
@@ -819,6 +824,13 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         exprStr += new CBuildExpression(expr.getElseExpression(), cenv, asRef,false,false).toStr();
         exprStr += ("))");
         leave();
+        return true;
+    }
+
+    @Override
+    public Boolean caseTaggedTupleFieldRead(TaggedTupleFieldRead read) {
+        exprStr += new CBuildExpression(read.getValue(), cenv, asRef, sepIndex, asArrayPart).toStr();
+        exprStr += "->members." + read.getTag() + "." + read.getLabel();
         return true;
     }
 
