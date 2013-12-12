@@ -70,6 +70,7 @@ import org.caltoopia.ir.PortWrite;
 import org.caltoopia.ir.ProcCall;
 import org.caltoopia.ir.ProcExpression;
 import org.caltoopia.ir.Statement;
+import org.caltoopia.ir.StmtAlternative;
 import org.caltoopia.ir.TaggedTuple;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
@@ -575,6 +576,13 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 					}
 				} else if(variable.getScope() instanceof Generator) {
 					t = VarType.generatorVar;
+                } else if(variable.getScope() instanceof StmtAlternative) {
+                    //TODO Check if need other classification than standard block var
+                    if(variable.isConstant() && variable.getInitValue()!=null) {
+                        t = VarType.blockConstVar;
+                    } else {
+                        t = VarType.blockVar;
+                    }
 				} else if(variable.getScope() instanceof Block) {
                     if(variable.isConstant() && variable.getInitValue()!=null) {
                         t = VarType.blockConstVar;
@@ -634,6 +642,8 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 			if(UtilIR.isSingleTagTuple(((TypeList)UtilIR.getType(type)).getType())) {
 				va = VarAccess.listUserTypeSingle;
             } else if(UtilIR.isTuple(((TypeList)UtilIR.getType(type)).getType())) {
+                //FIXME do we need special annotation for multi tag?
+                va = VarAccess.listUserTypeSingle;
                 CodegenError.err("Variable Annotation", "Not yet implemented tuple with multiple tags (1) ");
 			} else {
 				va = VarAccess.listSingle;
@@ -646,6 +656,12 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 					va = VarAccess.scalarUserTypeSingle;
 				}
             } else if(UtilIR.isTuple(type)) {
+                //FIXME do we need special annotation for multi tag?
+                if(isRepeat) {
+                    va = VarAccess.listUserTypeSingle;
+                } else {
+                    va = VarAccess.scalarUserTypeSingle;
+                }
                 CodegenError.err("Variable Annotation", "Not yet implemented tuple with multiple tags (2) ");
 			} else {
 				if(isRepeat) {
@@ -699,6 +715,11 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
                         }
                         type = UtilIR.getType(type);
                     }
+                    /*
+                     * It is currently only single tag tuple that have dot notation.
+                     * Tuple field reading expression is used otherwise. Which is not
+                     * covered here.
+                     */
                     if(UtilIR.isSingleTagTuple(type)) {
                         for(Variable m:UtilIR.getMembers(type)) {
                             if(m.getName().equals(mm.getName())) {
@@ -821,7 +842,11 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
                         tDim++;
                         type = ((TypeList)type).getType();
                     }
-                    if(UtilIR.isSingleTagTuple(type)) {
+                    if(UtilIR.isTuple(type)) {
+                        if(UtilIR.isMultiTagTuple(type)) {
+                            //FIXME do we need special annotation for multi tag?
+                            CodegenError.err("Variable Annotation", "FIXME do we need special annotation for multi tag? (3) ");
+                        }
                         if(tDim>1) {
                             if(dim<(tDim-1)) {
                                 vla = VarLocalAccess.listMultiUserType;
@@ -837,8 +862,6 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
                                 vla = VarLocalAccess.listUserTypeSingle;
                             }
                         }
-                    } else if(UtilIR.isTuple(type)) {
-                        CodegenError.err("Variable Annotation", "Not yet implemented tuple with multiple tags (3) ");
                     } else {
                         if(tDim>1) {
                             if(dim<(tDim-1)) {
@@ -857,12 +880,14 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
                         }
                     }
                 } else {
-                    if(UtilIR.isSingleTagTuple(type)) {
+                    if(UtilIR.isTuple(type)) {
+                        //FIXME do we need special annotation for multi tag?
+                        if(UtilIR.isMultiTagTuple(type)) {
+                            CodegenError.err("Variable Annotation", "FIXME do we need special annotation for multi tag? (4) ");
+                        }
                         vla = VarLocalAccess.scalarUserType;
                     } else if(type instanceof TypeString) {
                         vla = VarLocalAccess.string;
-                    } else if(UtilIR.isTuple(type)) {
-                        CodegenError.err("Variable Annotation", "Not yet implemented tuple with multiple tags (4) ");
                     } else {
                         vla = VarLocalAccess.scalar;
                     }
@@ -1024,8 +1049,12 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
             for(Declaration m : UtilIR.getMembers(type)) {
                 TransUtil.setAnnotation(m,IrTransformer.VARIABLE_ANNOTATION,"VarType",VarType.memberDeclType.name());
             }
-        } else if(UtilIR.isTuple(type)) {
-            CodegenError.err("Variable Annotation", "Not yet implemented tuple with multiple tags (5) ");
+        } else if(UtilIR.isMultiTagTuple(type)) {
+            for(TaggedTuple tt : type.getTaggedTuples()) {
+                for(Declaration m : tt.getFields()) {
+                    TransUtil.setAnnotation(m,IrTransformer.VARIABLE_ANNOTATION,"VarType",VarType.memberDeclType.name());
+                }
+            }
         }
         return type;
     }

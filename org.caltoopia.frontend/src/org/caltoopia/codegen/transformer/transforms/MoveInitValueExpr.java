@@ -78,7 +78,9 @@ import org.caltoopia.ir.ProcExpression;
 import org.caltoopia.ir.ReturnValue;
 import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.Statement;
+import org.caltoopia.ir.StmtAlternative;
 import org.caltoopia.ir.TypeActor;
+import org.caltoopia.ir.TypeConstructorCall;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeDeclarationImport;
 import org.caltoopia.ir.TypeLambda;
@@ -166,15 +168,20 @@ public class MoveInitValueExpr extends IrReplaceSwitch {
                  * Now handle all other variables with an init value
                  */
                 } else if(var.getInitValue()!=null) {
-                    //When init expression depends on in port var or is placed on heap
-                    //or when the expression is a list expression with generator
-                    //move to statement. Also any declarations that depend on previous
-                    //moved statements need to be moved.
+                    /*
+                     * When init expression depends on in port var or is placed on heap
+                     * or when the expression is a list expression with generator
+                     * move to statement. User typed variables also need to be moved
+                     * to statament due to we now use a function for that. Also any 
+                     * declarations that depend on previous moved statements need to 
+                     * be moved.
+                     */
                     if((varType!=null && (varType.equals(VarType.actionInitInDepVar.name()) || 
                             varType.equals(VarType.outPortInitInDepVar.name()))) ||
                             //FIXME reference to heap placement, should be removed
                             (varPlacement!=null && varPlacement.equals(VarPlacement.heap.name())) ||
-                            (var.getInitValue() instanceof ListExpression && !((ListExpression)var.getInitValue()).getGenerators().isEmpty())) {
+                            (var.getInitValue() instanceof ListExpression && !((ListExpression)var.getInitValue()).getGenerators().isEmpty()) ||
+                            var.getInitValue() instanceof TypeConstructorCall) {
                         Assign assign = UtilIR.createAssign(pos, scope, var, var.getInitValue());
                         TransUtil.setAnnotation(assign.getTarget().getDeclaration(),IrTransformer.VARIABLE_ANNOTATION, 
                                 "VarAssign",VarAssign.movedInitAssigned.name());
@@ -310,6 +317,12 @@ public class MoveInitValueExpr extends IrReplaceSwitch {
 		initValueToStatements(block.getDeclarations(),block);
 		return super.caseBlock(block);
 	}
+
+    @Override
+    public StmtAlternative caseStmtAlternative(StmtAlternative alt) {
+        initValueToStatements(alt.getDeclarations(),alt);
+        return super.caseStmtAlternative(alt);
+    }
 
 	@Override
 	public AbstractActor caseNetwork(Network obj) {

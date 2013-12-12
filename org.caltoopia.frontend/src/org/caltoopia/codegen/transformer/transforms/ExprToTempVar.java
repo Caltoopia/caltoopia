@@ -82,6 +82,7 @@ import org.caltoopia.ir.ProcExpression;
 import org.caltoopia.ir.ReturnValue;
 import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.Statement;
+import org.caltoopia.ir.StmtAlternative;
 import org.caltoopia.ir.StringLiteral;
 import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeLambda;
@@ -803,6 +804,14 @@ public class ExprToTempVar extends IrReplaceSwitch {
         moveAssign(block.getDeclarations(), block.getStatements(), block);
         moveStringExprToStatement(block.getDeclarations(), block.getStatements(), block);
         return super.caseBlock(block);
+    }
+
+    @Override
+    public StmtAlternative caseStmtAlternative(StmtAlternative block) {
+        moveExprToStatement(block.getDeclarations(), block.getStatements(), block);
+        moveAssign(block.getDeclarations(), block.getStatements(), block);
+        moveStringExprToStatement(block.getDeclarations(), block.getStatements(), block);
+        return super.caseStmtAlternative(block);
     }
 
     @Override
