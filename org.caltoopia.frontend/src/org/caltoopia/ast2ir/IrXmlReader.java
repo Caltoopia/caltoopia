@@ -856,13 +856,20 @@ public class IrXmlReader {
 			CaseExpression expr = IrFactory.eINSTANCE.createCaseExpression();
 	
 			expr.setId(element.getAttribute("id"));
+			
+			/*
+			 * Two expressions the first is the case variable 
+			 * expression and the second is the default expression.
+			 */
+            List<Element> exprs = getChildren(element, "Expr");
+            expr.setExpression(createExpression(exprs.get(0))); 
 									
 			List<Element> alts = getChildren(element, "Alternative");
 			for (Element alt : alts) {				
 				expr.getAlternatives().add(createExprAlternative(alt));
 			}
 			
-			expr.setDefault((Expression) getChild(element, "Expr")); 
+			expr.setDefault(createExpression(exprs.get(1))); 
 
 			return expr;
 		} else if (kind.equals("TaggedTupleFieldRead")) {
@@ -894,7 +901,7 @@ public class IrXmlReader {
 		ExprAlternative alt = IrFactory.eINSTANCE.createExprAlternative();
 		
 		alt.setId(element.getAttribute("id"));
-		alt.setOuter((Scope) findIrObject(element.getAttribute("context-scope"))); 
+		alt.setOuter((Scope) findIrObject(element.getAttribute("outer-scope"))); 
 
 		doAnnotations(alt, element);
 
@@ -903,12 +910,21 @@ public class IrXmlReader {
 			alt.getDeclarations().add(createDeclaration(e));
 		}
 
-		List<Element> guards = getChildren(element, "Guard");
+		List<Element> guards = getChildren(element, "Expr");
+        /*
+         * NB! the order is important first all the guards
+         * (since guards also are expression tagged in XML), 
+         * then the final actual expression
+         */
+		int sz = guards.size();
+		if(sz>0) {
+		    Element expr = guards.get(sz-1);
+		    guards.remove(sz-1);
+	        alt.setExpression((Expression) createExpression(expr)); 
+		}
 		for (Element e : guards) {
 			alt.getGuards().add(createExpression(e));
 		}		
-		
-		alt.setExpression((Expression) getChild(element, "Expr")); 
 		
 		return alt;
 	}

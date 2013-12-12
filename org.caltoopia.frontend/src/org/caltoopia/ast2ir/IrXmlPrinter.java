@@ -719,6 +719,12 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 		s.printlnInc("<Expr kind=\"Case\" "
 					+ " id=\"" + caze.getId() + "\">");
 
+		/*
+		 * Writing 2 expressions,
+		 * the first must be the case variable expression
+		 * and the second must be the default expression
+		 * to match the reader.
+		 */
 		doSwitch(caze.getExpression());
 		
 		for (ExprAlternative alt : caze.getAlternatives()) {
@@ -743,6 +749,11 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 			doSwitch(decl);
 		}
 		
+		/*
+		 * NB! the order is important first all the guards
+		 * (since guards also are expression tagged in XML), 
+		 * then the final actual expression
+		 */
 		for (Expression guard : alt.getGuards()) {
 			doSwitch(guard);
 		} 
