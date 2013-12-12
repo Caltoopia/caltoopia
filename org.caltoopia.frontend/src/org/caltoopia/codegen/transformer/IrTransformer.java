@@ -57,6 +57,7 @@ import org.caltoopia.codegen.transformer.transforms.CreateForLoop;
 import org.caltoopia.codegen.transformer.transforms.ExprToTempVar;
 import org.caltoopia.codegen.transformer.transforms.MoveInitValueExpr;
 import org.caltoopia.codegen.transformer.transforms.PortTransformations;
+import org.caltoopia.codegen.transformer.transforms.StmtAlternativeTrans;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Actor;
 import org.caltoopia.ir.ActorInstance;
@@ -103,7 +104,8 @@ public class IrTransformer {
 		PortTransformations,
 		MoveInitValueExpr,
 		CreateForLoop,
-		ExprToTempVar
+		ExprToTempVar,
+		StmtAlternative
 	}
 	
 	/*
@@ -179,6 +181,11 @@ public class IrTransformer {
                 //Transforms the IR so that non-scalar expressions and assignments (including strings) are broken down to scalar assignments
                 printHeader("Create temp var for expressions");
                 new ExprToTempVar(node, session, true);
+                break;
+            case StmtAlternative:
+                //Transforms the IR so that stmt alternative guards becomes if statements
+                printHeader("Stmt alternative transformation");
+                new StmtAlternativeTrans(node, session, true);
                 break;
 			default:
 				System.err.println("[IrTransformer] Trying to run an annotation or transformation pass that does not exist!");
