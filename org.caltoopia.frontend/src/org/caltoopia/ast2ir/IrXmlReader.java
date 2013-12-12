@@ -698,7 +698,10 @@ public class IrXmlReader {
             if(child!=null) {
                 expr.setType(createType(child));
             }
-			expr.setName(element.getAttribute("name"));
+            String name = element.getAttribute("name");
+            if(!name.isEmpty()) {
+                expr.setName(name);
+            }
 			expr.setContext((Scope) findIrObject(element.getAttribute("context-scope"))); 
 			expr.setTypedef((Declaration) findIrObject(element.getAttribute("typedef-id")));
 			List<Element> args = getChildren(getChild(element, "Args"), "Expr");

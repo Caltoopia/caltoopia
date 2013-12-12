@@ -680,7 +680,7 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 	@Override
 	public Stream caseTypeConstructorCall(TypeConstructorCall expr) {
 		s.printlnInc("<Expr kind=\"Construction\" id=\"" + expr.getId() + "\""
-				    + " name=\"" + expr.getName() + "\""
+				    + " name=\"" + (expr.getName()==null?"":expr.getName()) + "\""
 				    + " typedef-id=\"" + expr.getTypedef().getId() + "\""
 				    + " context-scope=\"" + expr.getContext().getId() + "\">"); 
 		doAnnotations(expr);
