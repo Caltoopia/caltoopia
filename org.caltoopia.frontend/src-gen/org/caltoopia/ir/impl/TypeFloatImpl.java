@@ -18,22 +18,22 @@ import org.eclipse.emf.ecore.EClass;
  */
 public class TypeFloatImpl extends TypeImpl implements TypeFloat {
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected TypeFloatImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass() {
-		return IrPackage.Literals.TYPE_FLOAT;
-	}
+        return IrPackage.Literals.TYPE_FLOAT;
+    }
 
 } //TypeFloatImpl

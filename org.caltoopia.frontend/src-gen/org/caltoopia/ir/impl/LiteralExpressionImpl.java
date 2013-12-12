@@ -18,22 +18,22 @@ import org.eclipse.emf.ecore.EClass;
  */
 public class LiteralExpressionImpl extends ExpressionImpl implements LiteralExpression {
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected LiteralExpressionImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass() {
-		return IrPackage.Literals.LITERAL_EXPRESSION;
-	}
+        return IrPackage.Literals.LITERAL_EXPRESSION;
+    }
 
 } //LiteralExpressionImpl

@@ -39,263 +39,263 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class ScheduleImpl extends EObjectImpl implements Schedule {
 	/**
-	 * The cached value of the '{@link #getStates() <em>States</em>}' reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getStates() <em>States</em>}' reference list.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getStates()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getStates()
+     * @generated
+     * @ordered
+     */
 	protected EList<State> states;
 
 	/**
-	 * The cached value of the '{@link #getFreeRunners() <em>Free Runners</em>}' reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getFreeRunners() <em>Free Runners</em>}' reference list.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getFreeRunners()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getFreeRunners()
+     * @generated
+     * @ordered
+     */
 	protected EList<Action> freeRunners;
 
 	/**
-	 * The default value of the '{@link #getPriorityGraph() <em>Priority Graph</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getPriorityGraph() <em>Priority Graph</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPriorityGraph()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getPriorityGraph()
+     * @generated
+     * @ordered
+     */
 	protected static final Object PRIORITY_GRAPH_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getPriorityGraph() <em>Priority Graph</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getPriorityGraph() <em>Priority Graph</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPriorityGraph()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getPriorityGraph()
+     * @generated
+     * @ordered
+     */
 	protected Object priorityGraph = PRIORITY_GRAPH_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getInitialState() <em>Initial State</em>}' reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getInitialState() <em>Initial State</em>}' reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInitialState()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getInitialState()
+     * @generated
+     * @ordered
+     */
 	protected State initialState;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected ScheduleImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass() {
-		return IrPackage.Literals.SCHEDULE;
-	}
+        return IrPackage.Literals.SCHEDULE;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public EList<State> getStates() {
-		if (states == null) {
-			states = new EObjectResolvingEList<State>(State.class, this, IrPackage.SCHEDULE__STATES);
-		}
-		return states;
-	}
+        if (states == null) {
+            states = new EObjectResolvingEList<State>(State.class, this, IrPackage.SCHEDULE__STATES);
+        }
+        return states;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public EList<Action> getFreeRunners() {
-		if (freeRunners == null) {
-			freeRunners = new EObjectResolvingEList<Action>(Action.class, this, IrPackage.SCHEDULE__FREE_RUNNERS);
-		}
-		return freeRunners;
-	}
+        if (freeRunners == null) {
+            freeRunners = new EObjectResolvingEList<Action>(Action.class, this, IrPackage.SCHEDULE__FREE_RUNNERS);
+        }
+        return freeRunners;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Object getPriorityGraph() {
-		return priorityGraph;
-	}
+        return priorityGraph;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setPriorityGraph(Object newPriorityGraph) {
-		Object oldPriorityGraph = priorityGraph;
-		priorityGraph = newPriorityGraph;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.SCHEDULE__PRIORITY_GRAPH, oldPriorityGraph, priorityGraph));
-	}
+        Object oldPriorityGraph = priorityGraph;
+        priorityGraph = newPriorityGraph;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.SCHEDULE__PRIORITY_GRAPH, oldPriorityGraph, priorityGraph));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public State getInitialState() {
-		if (initialState != null && initialState.eIsProxy()) {
-			InternalEObject oldInitialState = (InternalEObject)initialState;
-			initialState = (State)eResolveProxy(oldInitialState);
-			if (initialState != oldInitialState) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.SCHEDULE__INITIAL_STATE, oldInitialState, initialState));
-			}
-		}
-		return initialState;
-	}
+        if (initialState != null && initialState.eIsProxy()) {
+            InternalEObject oldInitialState = (InternalEObject)initialState;
+            initialState = (State)eResolveProxy(oldInitialState);
+            if (initialState != oldInitialState) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.SCHEDULE__INITIAL_STATE, oldInitialState, initialState));
+            }
+        }
+        return initialState;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public State basicGetInitialState() {
-		return initialState;
-	}
+        return initialState;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setInitialState(State newInitialState) {
-		State oldInitialState = initialState;
-		initialState = newInitialState;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.SCHEDULE__INITIAL_STATE, oldInitialState, initialState));
-	}
+        State oldInitialState = initialState;
+        initialState = newInitialState;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.SCHEDULE__INITIAL_STATE, oldInitialState, initialState));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case IrPackage.SCHEDULE__STATES:
-				return getStates();
-			case IrPackage.SCHEDULE__FREE_RUNNERS:
-				return getFreeRunners();
-			case IrPackage.SCHEDULE__PRIORITY_GRAPH:
-				return getPriorityGraph();
-			case IrPackage.SCHEDULE__INITIAL_STATE:
-				if (resolve) return getInitialState();
-				return basicGetInitialState();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case IrPackage.SCHEDULE__STATES:
+                return getStates();
+            case IrPackage.SCHEDULE__FREE_RUNNERS:
+                return getFreeRunners();
+            case IrPackage.SCHEDULE__PRIORITY_GRAPH:
+                return getPriorityGraph();
+            case IrPackage.SCHEDULE__INITIAL_STATE:
+                if (resolve) return getInitialState();
+                return basicGetInitialState();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case IrPackage.SCHEDULE__STATES:
-				getStates().clear();
-				getStates().addAll((Collection<? extends State>)newValue);
-				return;
-			case IrPackage.SCHEDULE__FREE_RUNNERS:
-				getFreeRunners().clear();
-				getFreeRunners().addAll((Collection<? extends Action>)newValue);
-				return;
-			case IrPackage.SCHEDULE__PRIORITY_GRAPH:
-				setPriorityGraph(newValue);
-				return;
-			case IrPackage.SCHEDULE__INITIAL_STATE:
-				setInitialState((State)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case IrPackage.SCHEDULE__STATES:
+                getStates().clear();
+                getStates().addAll((Collection<? extends State>)newValue);
+                return;
+            case IrPackage.SCHEDULE__FREE_RUNNERS:
+                getFreeRunners().clear();
+                getFreeRunners().addAll((Collection<? extends Action>)newValue);
+                return;
+            case IrPackage.SCHEDULE__PRIORITY_GRAPH:
+                setPriorityGraph(newValue);
+                return;
+            case IrPackage.SCHEDULE__INITIAL_STATE:
+                setInitialState((State)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-			case IrPackage.SCHEDULE__STATES:
-				getStates().clear();
-				return;
-			case IrPackage.SCHEDULE__FREE_RUNNERS:
-				getFreeRunners().clear();
-				return;
-			case IrPackage.SCHEDULE__PRIORITY_GRAPH:
-				setPriorityGraph(PRIORITY_GRAPH_EDEFAULT);
-				return;
-			case IrPackage.SCHEDULE__INITIAL_STATE:
-				setInitialState((State)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.SCHEDULE__STATES:
+                getStates().clear();
+                return;
+            case IrPackage.SCHEDULE__FREE_RUNNERS:
+                getFreeRunners().clear();
+                return;
+            case IrPackage.SCHEDULE__PRIORITY_GRAPH:
+                setPriorityGraph(PRIORITY_GRAPH_EDEFAULT);
+                return;
+            case IrPackage.SCHEDULE__INITIAL_STATE:
+                setInitialState((State)null);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case IrPackage.SCHEDULE__STATES:
-				return states != null && !states.isEmpty();
-			case IrPackage.SCHEDULE__FREE_RUNNERS:
-				return freeRunners != null && !freeRunners.isEmpty();
-			case IrPackage.SCHEDULE__PRIORITY_GRAPH:
-				return PRIORITY_GRAPH_EDEFAULT == null ? priorityGraph != null : !PRIORITY_GRAPH_EDEFAULT.equals(priorityGraph);
-			case IrPackage.SCHEDULE__INITIAL_STATE:
-				return initialState != null;
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.SCHEDULE__STATES:
+                return states != null && !states.isEmpty();
+            case IrPackage.SCHEDULE__FREE_RUNNERS:
+                return freeRunners != null && !freeRunners.isEmpty();
+            case IrPackage.SCHEDULE__PRIORITY_GRAPH:
+                return PRIORITY_GRAPH_EDEFAULT == null ? priorityGraph != null : !PRIORITY_GRAPH_EDEFAULT.equals(priorityGraph);
+            case IrPackage.SCHEDULE__INITIAL_STATE:
+                return initialState != null;
+        }
+        return super.eIsSet(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+        if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (PriorityGraph: ");
-		result.append(priorityGraph);
-		result.append(')');
-		return result.toString();
-	}
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (PriorityGraph: ");
+        result.append(priorityGraph);
+        result.append(')');
+        return result.toString();
+    }
 
 } //ScheduleImpl

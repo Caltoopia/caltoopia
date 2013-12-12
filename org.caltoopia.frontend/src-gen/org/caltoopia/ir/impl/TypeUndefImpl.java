@@ -18,22 +18,22 @@ import org.eclipse.emf.ecore.EClass;
  */
 public class TypeUndefImpl extends TypeImpl implements TypeUndef {
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected TypeUndefImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass() {
-		return IrPackage.Literals.TYPE_UNDEF;
-	}
+        return IrPackage.Literals.TYPE_UNDEF;
+    }
 
 } //TypeUndefImpl

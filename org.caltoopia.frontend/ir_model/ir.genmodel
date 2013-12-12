@@ -178,7 +178,6 @@
     </genClasses>
     <genClasses ecoreClass="ir.ecore#//StmtAlternative">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//StmtAlternative/guards"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//StmtAlternative/statements"/>
     </genClasses>
     <genClasses ecoreClass="ir.ecore#//PortAccess">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//PortAccess/port"/>

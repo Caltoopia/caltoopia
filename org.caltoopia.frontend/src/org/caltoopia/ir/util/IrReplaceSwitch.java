@@ -46,6 +46,7 @@ import org.caltoopia.ir.Assign;
 import org.caltoopia.ir.BinaryExpression;
 import org.caltoopia.ir.Block;
 import org.caltoopia.ir.BooleanLiteral;
+import org.caltoopia.ir.CaseStatement;
 import org.caltoopia.ir.Connection;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
@@ -78,6 +79,7 @@ import org.caltoopia.ir.Schedule;
 import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.State;
 import org.caltoopia.ir.Statement;
+import org.caltoopia.ir.StmtAlternative;
 import org.caltoopia.ir.StringLiteral;
 import org.caltoopia.ir.TaggedExpression;
 import org.caltoopia.ir.TaggedTuple;
@@ -645,7 +647,36 @@ public class IrReplaceSwitch extends IrSwitch<EObject> {
 		return block;
 	}
 
-	@Override 
+	@Override
+	public CaseStatement caseCaseStatement(CaseStatement caze) {
+        //Visit all the Alternatives
+        List<StmtAlternative> alts = caze.getAlternatives();
+        for (int i = 0; i < alts.size(); i++) {
+            StmtAlternative alt = (StmtAlternative) doSwitch(alts.get(i));
+            alts.set(i, alt);
+        }
+
+        Expression expr = (Expression) doSwitch(caze.getExpression());
+        caze.setExpression(expr);
+
+        return caze;
+	}
+	
+    @Override
+    public StmtAlternative caseStmtAlternative(StmtAlternative alt) {
+        caseBlock(alt);
+        
+        //Visit all the guards
+        List<Expression> guards = alt.getGuards();
+        for (int i = 0; i < guards.size(); i++) {
+            Expression expr = (Expression) doSwitch(guards.get(i));
+            guards.set(i, expr);
+        }
+
+        return alt;
+    }
+
+    @Override 
 	public PortAccess casePortAccess(PortAccess portAccess) {
 		//Visit the port
 		Port port = casePort(portAccess.getPort());

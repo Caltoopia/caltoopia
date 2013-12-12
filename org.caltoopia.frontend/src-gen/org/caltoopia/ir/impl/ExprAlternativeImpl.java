@@ -35,163 +35,163 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class ExprAlternativeImpl extends ScopeImpl implements ExprAlternative {
 	/**
-	 * The cached value of the '{@link #getGuards() <em>Guards</em>}' reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getGuards() <em>Guards</em>}' reference list.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getGuards()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getGuards()
+     * @generated
+     * @ordered
+     */
 	protected EList<Expression> guards;
 
 	/**
-	 * The cached value of the '{@link #getExpression() <em>Expression</em>}' reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getExpression() <em>Expression</em>}' reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getExpression()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getExpression()
+     * @generated
+     * @ordered
+     */
 	protected Expression expression;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected ExprAlternativeImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass() {
-		return IrPackage.Literals.EXPR_ALTERNATIVE;
-	}
+        return IrPackage.Literals.EXPR_ALTERNATIVE;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public EList<Expression> getGuards() {
-		if (guards == null) {
-			guards = new EObjectResolvingEList<Expression>(Expression.class, this, IrPackage.EXPR_ALTERNATIVE__GUARDS);
-		}
-		return guards;
-	}
+        if (guards == null) {
+            guards = new EObjectResolvingEList<Expression>(Expression.class, this, IrPackage.EXPR_ALTERNATIVE__GUARDS);
+        }
+        return guards;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Expression getExpression() {
-		if (expression != null && expression.eIsProxy()) {
-			InternalEObject oldExpression = (InternalEObject)expression;
-			expression = (Expression)eResolveProxy(oldExpression);
-			if (expression != oldExpression) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.EXPR_ALTERNATIVE__EXPRESSION, oldExpression, expression));
-			}
-		}
-		return expression;
-	}
+        if (expression != null && expression.eIsProxy()) {
+            InternalEObject oldExpression = (InternalEObject)expression;
+            expression = (Expression)eResolveProxy(oldExpression);
+            if (expression != oldExpression) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.EXPR_ALTERNATIVE__EXPRESSION, oldExpression, expression));
+            }
+        }
+        return expression;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Expression basicGetExpression() {
-		return expression;
-	}
+        return expression;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setExpression(Expression newExpression) {
-		Expression oldExpression = expression;
-		expression = newExpression;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.EXPR_ALTERNATIVE__EXPRESSION, oldExpression, expression));
-	}
+        Expression oldExpression = expression;
+        expression = newExpression;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.EXPR_ALTERNATIVE__EXPRESSION, oldExpression, expression));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case IrPackage.EXPR_ALTERNATIVE__GUARDS:
-				return getGuards();
-			case IrPackage.EXPR_ALTERNATIVE__EXPRESSION:
-				if (resolve) return getExpression();
-				return basicGetExpression();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case IrPackage.EXPR_ALTERNATIVE__GUARDS:
+                return getGuards();
+            case IrPackage.EXPR_ALTERNATIVE__EXPRESSION:
+                if (resolve) return getExpression();
+                return basicGetExpression();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case IrPackage.EXPR_ALTERNATIVE__GUARDS:
-				getGuards().clear();
-				getGuards().addAll((Collection<? extends Expression>)newValue);
-				return;
-			case IrPackage.EXPR_ALTERNATIVE__EXPRESSION:
-				setExpression((Expression)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case IrPackage.EXPR_ALTERNATIVE__GUARDS:
+                getGuards().clear();
+                getGuards().addAll((Collection<? extends Expression>)newValue);
+                return;
+            case IrPackage.EXPR_ALTERNATIVE__EXPRESSION:
+                setExpression((Expression)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-			case IrPackage.EXPR_ALTERNATIVE__GUARDS:
-				getGuards().clear();
-				return;
-			case IrPackage.EXPR_ALTERNATIVE__EXPRESSION:
-				setExpression((Expression)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.EXPR_ALTERNATIVE__GUARDS:
+                getGuards().clear();
+                return;
+            case IrPackage.EXPR_ALTERNATIVE__EXPRESSION:
+                setExpression((Expression)null);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case IrPackage.EXPR_ALTERNATIVE__GUARDS:
-				return guards != null && !guards.isEmpty();
-			case IrPackage.EXPR_ALTERNATIVE__EXPRESSION:
-				return expression != null;
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.EXPR_ALTERNATIVE__GUARDS:
+                return guards != null && !guards.isEmpty();
+            case IrPackage.EXPR_ALTERNATIVE__EXPRESSION:
+                return expression != null;
+        }
+        return super.eIsSet(featureID);
+    }
 
 } //ExprAlternativeImpl

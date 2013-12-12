@@ -37,230 +37,230 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class TypeConstructorCallImpl extends ExpressionCallImpl implements TypeConstructorCall {
 	/**
-	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}' reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getParameters() <em>Parameters</em>}' reference list.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getParameters()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getParameters()
+     * @generated
+     * @ordered
+     */
 	protected EList<Expression> parameters;
 
 	/**
-	 * The cached value of the '{@link #getTypedef() <em>Typedef</em>}' reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getTypedef() <em>Typedef</em>}' reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTypedef()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getTypedef()
+     * @generated
+     * @ordered
+     */
 	protected Declaration typedef;
 
 	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getName()
+     * @generated
+     * @ordered
+     */
 	protected static final String NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getName()
+     * @generated
+     * @ordered
+     */
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected TypeConstructorCallImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass() {
-		return IrPackage.Literals.TYPE_CONSTRUCTOR_CALL;
-	}
+        return IrPackage.Literals.TYPE_CONSTRUCTOR_CALL;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public EList<Expression> getParameters() {
-		if (parameters == null) {
-			parameters = new EObjectResolvingEList<Expression>(Expression.class, this, IrPackage.TYPE_CONSTRUCTOR_CALL__PARAMETERS);
-		}
-		return parameters;
-	}
+        if (parameters == null) {
+            parameters = new EObjectResolvingEList<Expression>(Expression.class, this, IrPackage.TYPE_CONSTRUCTOR_CALL__PARAMETERS);
+        }
+        return parameters;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Declaration getTypedef() {
-		if (typedef != null && typedef.eIsProxy()) {
-			InternalEObject oldTypedef = (InternalEObject)typedef;
-			typedef = (Declaration)eResolveProxy(oldTypedef);
-			if (typedef != oldTypedef) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.TYPE_CONSTRUCTOR_CALL__TYPEDEF, oldTypedef, typedef));
-			}
-		}
-		return typedef;
-	}
+        if (typedef != null && typedef.eIsProxy()) {
+            InternalEObject oldTypedef = (InternalEObject)typedef;
+            typedef = (Declaration)eResolveProxy(oldTypedef);
+            if (typedef != oldTypedef) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.TYPE_CONSTRUCTOR_CALL__TYPEDEF, oldTypedef, typedef));
+            }
+        }
+        return typedef;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Declaration basicGetTypedef() {
-		return typedef;
-	}
+        return typedef;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setTypedef(Declaration newTypedef) {
-		Declaration oldTypedef = typedef;
-		typedef = newTypedef;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.TYPE_CONSTRUCTOR_CALL__TYPEDEF, oldTypedef, typedef));
-	}
+        Declaration oldTypedef = typedef;
+        typedef = newTypedef;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.TYPE_CONSTRUCTOR_CALL__TYPEDEF, oldTypedef, typedef));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public String getName() {
-		return name;
-	}
+        return name;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setName(String newName) {
-		String oldName = name;
-		name = newName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.TYPE_CONSTRUCTOR_CALL__NAME, oldName, name));
-	}
+        String oldName = name;
+        name = newName;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.TYPE_CONSTRUCTOR_CALL__NAME, oldName, name));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case IrPackage.TYPE_CONSTRUCTOR_CALL__PARAMETERS:
-				return getParameters();
-			case IrPackage.TYPE_CONSTRUCTOR_CALL__TYPEDEF:
-				if (resolve) return getTypedef();
-				return basicGetTypedef();
-			case IrPackage.TYPE_CONSTRUCTOR_CALL__NAME:
-				return getName();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case IrPackage.TYPE_CONSTRUCTOR_CALL__PARAMETERS:
+                return getParameters();
+            case IrPackage.TYPE_CONSTRUCTOR_CALL__TYPEDEF:
+                if (resolve) return getTypedef();
+                return basicGetTypedef();
+            case IrPackage.TYPE_CONSTRUCTOR_CALL__NAME:
+                return getName();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case IrPackage.TYPE_CONSTRUCTOR_CALL__PARAMETERS:
-				getParameters().clear();
-				getParameters().addAll((Collection<? extends Expression>)newValue);
-				return;
-			case IrPackage.TYPE_CONSTRUCTOR_CALL__TYPEDEF:
-				setTypedef((Declaration)newValue);
-				return;
-			case IrPackage.TYPE_CONSTRUCTOR_CALL__NAME:
-				setName((String)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case IrPackage.TYPE_CONSTRUCTOR_CALL__PARAMETERS:
+                getParameters().clear();
+                getParameters().addAll((Collection<? extends Expression>)newValue);
+                return;
+            case IrPackage.TYPE_CONSTRUCTOR_CALL__TYPEDEF:
+                setTypedef((Declaration)newValue);
+                return;
+            case IrPackage.TYPE_CONSTRUCTOR_CALL__NAME:
+                setName((String)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-			case IrPackage.TYPE_CONSTRUCTOR_CALL__PARAMETERS:
-				getParameters().clear();
-				return;
-			case IrPackage.TYPE_CONSTRUCTOR_CALL__TYPEDEF:
-				setTypedef((Declaration)null);
-				return;
-			case IrPackage.TYPE_CONSTRUCTOR_CALL__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.TYPE_CONSTRUCTOR_CALL__PARAMETERS:
+                getParameters().clear();
+                return;
+            case IrPackage.TYPE_CONSTRUCTOR_CALL__TYPEDEF:
+                setTypedef((Declaration)null);
+                return;
+            case IrPackage.TYPE_CONSTRUCTOR_CALL__NAME:
+                setName(NAME_EDEFAULT);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case IrPackage.TYPE_CONSTRUCTOR_CALL__PARAMETERS:
-				return parameters != null && !parameters.isEmpty();
-			case IrPackage.TYPE_CONSTRUCTOR_CALL__TYPEDEF:
-				return typedef != null;
-			case IrPackage.TYPE_CONSTRUCTOR_CALL__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.TYPE_CONSTRUCTOR_CALL__PARAMETERS:
+                return parameters != null && !parameters.isEmpty();
+            case IrPackage.TYPE_CONSTRUCTOR_CALL__TYPEDEF:
+                return typedef != null;
+            case IrPackage.TYPE_CONSTRUCTOR_CALL__NAME:
+                return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+        }
+        return super.eIsSet(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+        if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
-		result.append(name);
-		result.append(')');
-		return result.toString();
-	}
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (name: ");
+        result.append(name);
+        result.append(')');
+        return result.toString();
+    }
 
 } //TypeConstructorCallImpl

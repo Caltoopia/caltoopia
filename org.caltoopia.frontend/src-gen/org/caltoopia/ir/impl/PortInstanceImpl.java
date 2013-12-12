@@ -37,230 +37,230 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class PortInstanceImpl extends NodeImpl implements PortInstance {
 	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getName()
+     * @generated
+     * @ordered
+     */
 	protected static final String NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getName()
+     * @generated
+     * @ordered
+     */
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getConnections() <em>Connections</em>}' reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getConnections() <em>Connections</em>}' reference list.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getConnections()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getConnections()
+     * @generated
+     * @ordered
+     */
 	protected EList<Connection> connections;
 
 	/**
-	 * The cached value of the '{@link #getActor() <em>Actor</em>}' reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getActor() <em>Actor</em>}' reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getActor()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getActor()
+     * @generated
+     * @ordered
+     */
 	protected ActorInstance actor;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected PortInstanceImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass() {
-		return IrPackage.Literals.PORT_INSTANCE;
-	}
+        return IrPackage.Literals.PORT_INSTANCE;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public String getName() {
-		return name;
-	}
+        return name;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setName(String newName) {
-		String oldName = name;
-		name = newName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.PORT_INSTANCE__NAME, oldName, name));
-	}
+        String oldName = name;
+        name = newName;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.PORT_INSTANCE__NAME, oldName, name));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public EList<Connection> getConnections() {
-		if (connections == null) {
-			connections = new EObjectResolvingEList<Connection>(Connection.class, this, IrPackage.PORT_INSTANCE__CONNECTIONS);
-		}
-		return connections;
-	}
+        if (connections == null) {
+            connections = new EObjectResolvingEList<Connection>(Connection.class, this, IrPackage.PORT_INSTANCE__CONNECTIONS);
+        }
+        return connections;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ActorInstance getActor() {
-		if (actor != null && actor.eIsProxy()) {
-			InternalEObject oldActor = (InternalEObject)actor;
-			actor = (ActorInstance)eResolveProxy(oldActor);
-			if (actor != oldActor) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.PORT_INSTANCE__ACTOR, oldActor, actor));
-			}
-		}
-		return actor;
-	}
+        if (actor != null && actor.eIsProxy()) {
+            InternalEObject oldActor = (InternalEObject)actor;
+            actor = (ActorInstance)eResolveProxy(oldActor);
+            if (actor != oldActor) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.PORT_INSTANCE__ACTOR, oldActor, actor));
+            }
+        }
+        return actor;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ActorInstance basicGetActor() {
-		return actor;
-	}
+        return actor;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setActor(ActorInstance newActor) {
-		ActorInstance oldActor = actor;
-		actor = newActor;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.PORT_INSTANCE__ACTOR, oldActor, actor));
-	}
+        ActorInstance oldActor = actor;
+        actor = newActor;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.PORT_INSTANCE__ACTOR, oldActor, actor));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case IrPackage.PORT_INSTANCE__NAME:
-				return getName();
-			case IrPackage.PORT_INSTANCE__CONNECTIONS:
-				return getConnections();
-			case IrPackage.PORT_INSTANCE__ACTOR:
-				if (resolve) return getActor();
-				return basicGetActor();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case IrPackage.PORT_INSTANCE__NAME:
+                return getName();
+            case IrPackage.PORT_INSTANCE__CONNECTIONS:
+                return getConnections();
+            case IrPackage.PORT_INSTANCE__ACTOR:
+                if (resolve) return getActor();
+                return basicGetActor();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case IrPackage.PORT_INSTANCE__NAME:
-				setName((String)newValue);
-				return;
-			case IrPackage.PORT_INSTANCE__CONNECTIONS:
-				getConnections().clear();
-				getConnections().addAll((Collection<? extends Connection>)newValue);
-				return;
-			case IrPackage.PORT_INSTANCE__ACTOR:
-				setActor((ActorInstance)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case IrPackage.PORT_INSTANCE__NAME:
+                setName((String)newValue);
+                return;
+            case IrPackage.PORT_INSTANCE__CONNECTIONS:
+                getConnections().clear();
+                getConnections().addAll((Collection<? extends Connection>)newValue);
+                return;
+            case IrPackage.PORT_INSTANCE__ACTOR:
+                setActor((ActorInstance)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-			case IrPackage.PORT_INSTANCE__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case IrPackage.PORT_INSTANCE__CONNECTIONS:
-				getConnections().clear();
-				return;
-			case IrPackage.PORT_INSTANCE__ACTOR:
-				setActor((ActorInstance)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.PORT_INSTANCE__NAME:
+                setName(NAME_EDEFAULT);
+                return;
+            case IrPackage.PORT_INSTANCE__CONNECTIONS:
+                getConnections().clear();
+                return;
+            case IrPackage.PORT_INSTANCE__ACTOR:
+                setActor((ActorInstance)null);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case IrPackage.PORT_INSTANCE__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case IrPackage.PORT_INSTANCE__CONNECTIONS:
-				return connections != null && !connections.isEmpty();
-			case IrPackage.PORT_INSTANCE__ACTOR:
-				return actor != null;
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.PORT_INSTANCE__NAME:
+                return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+            case IrPackage.PORT_INSTANCE__CONNECTIONS:
+                return connections != null && !connections.isEmpty();
+            case IrPackage.PORT_INSTANCE__ACTOR:
+                return actor != null;
+        }
+        return super.eIsSet(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+        if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
-		result.append(name);
-		result.append(')');
-		return result.toString();
-	}
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (name: ");
+        result.append(name);
+        result.append(')');
+        return result.toString();
+    }
 
 } //PortInstanceImpl

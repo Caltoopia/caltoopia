@@ -22,55 +22,55 @@ package org.caltoopia.ir;
  */
 public interface WhileLoop extends Statement {
 	/**
-	 * Returns the value of the '<em><b>Body</b></em>' reference.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Body</b></em>' reference.
+     * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Body</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Body</em>' reference.
-	 * @see #setBody(Block)
-	 * @see org.caltoopia.ir.IrPackage#getWhileLoop_Body()
-	 * @model
-	 * @generated
-	 */
+     * @return the value of the '<em>Body</em>' reference.
+     * @see #setBody(Block)
+     * @see org.caltoopia.ir.IrPackage#getWhileLoop_Body()
+     * @model
+     * @generated
+     */
 	Block getBody();
 
 	/**
-	 * Sets the value of the '{@link org.caltoopia.ir.WhileLoop#getBody <em>Body</em>}' reference.
-	 * <!-- begin-user-doc -->
+     * Sets the value of the '{@link org.caltoopia.ir.WhileLoop#getBody <em>Body</em>}' reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Body</em>' reference.
-	 * @see #getBody()
-	 * @generated
-	 */
+     * @param value the new value of the '<em>Body</em>' reference.
+     * @see #getBody()
+     * @generated
+     */
 	void setBody(Block value);
 
 	/**
-	 * Returns the value of the '<em><b>Condition</b></em>' reference.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Condition</b></em>' reference.
+     * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Condition</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Condition</em>' reference.
-	 * @see #setCondition(Expression)
-	 * @see org.caltoopia.ir.IrPackage#getWhileLoop_Condition()
-	 * @model
-	 * @generated
-	 */
+     * @return the value of the '<em>Condition</em>' reference.
+     * @see #setCondition(Expression)
+     * @see org.caltoopia.ir.IrPackage#getWhileLoop_Condition()
+     * @model
+     * @generated
+     */
 	Expression getCondition();
 
 	/**
-	 * Sets the value of the '{@link org.caltoopia.ir.WhileLoop#getCondition <em>Condition</em>}' reference.
-	 * <!-- begin-user-doc -->
+     * Sets the value of the '{@link org.caltoopia.ir.WhileLoop#getCondition <em>Condition</em>}' reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Condition</em>' reference.
-	 * @see #getCondition()
-	 * @generated
-	 */
+     * @param value the new value of the '<em>Condition</em>' reference.
+     * @see #getCondition()
+     * @generated
+     */
 	void setCondition(Expression value);
 
 } // WhileLoop

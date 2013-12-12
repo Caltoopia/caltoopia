@@ -207,11 +207,9 @@
         eType="#//StmtAlternative"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//Expression"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="StmtAlternative" eSuperTypes="#//Scope">
+  <eClassifiers xsi:type="ecore:EClass" name="StmtAlternative" eSuperTypes="#//Block">
     <eStructuralFeatures xsi:type="ecore:EReference" name="guards" upperBound="-1"
         eType="#//Expression"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
-        eType="#//Statement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PortAccess" eSuperTypes="#//Node">
     <eStructuralFeatures xsi:type="ecore:EReference" name="port" eType="#//Port"/>

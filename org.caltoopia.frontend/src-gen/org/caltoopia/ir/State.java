@@ -24,81 +24,81 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface State extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Name</em>' attribute.
-	 * @see #setName(String)
-	 * @see org.caltoopia.ir.IrPackage#getState_Name()
-	 * @model
-	 * @generated
-	 */
+     * @return the value of the '<em>Name</em>' attribute.
+     * @see #setName(String)
+     * @see org.caltoopia.ir.IrPackage#getState_Name()
+     * @model
+     * @generated
+     */
 	String getName();
 
 	/**
-	 * Sets the value of the '{@link org.caltoopia.ir.State#getName <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * Sets the value of the '{@link org.caltoopia.ir.State#getName <em>Name</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Name</em>' attribute.
-	 * @see #getName()
-	 * @generated
-	 */
+     * @param value the new value of the '<em>Name</em>' attribute.
+     * @see #getName()
+     * @generated
+     */
 	void setName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Priority Graph</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Priority Graph</b></em>' attribute.
+     * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Priority Graph</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Priority Graph</em>' attribute.
-	 * @see #setPriorityGraph(Object)
-	 * @see org.caltoopia.ir.IrPackage#getState_PriorityGraph()
-	 * @model
-	 * @generated
-	 */
+     * @return the value of the '<em>Priority Graph</em>' attribute.
+     * @see #setPriorityGraph(Object)
+     * @see org.caltoopia.ir.IrPackage#getState_PriorityGraph()
+     * @model
+     * @generated
+     */
 	Object getPriorityGraph();
 
 	/**
-	 * Sets the value of the '{@link org.caltoopia.ir.State#getPriorityGraph <em>Priority Graph</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * Sets the value of the '{@link org.caltoopia.ir.State#getPriorityGraph <em>Priority Graph</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Priority Graph</em>' attribute.
-	 * @see #getPriorityGraph()
-	 * @generated
-	 */
+     * @param value the new value of the '<em>Priority Graph</em>' attribute.
+     * @see #getPriorityGraph()
+     * @generated
+     */
 	void setPriorityGraph(Object value);
 
 	/**
-	 * Returns the value of the '<em><b>Action2 Target Map</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Action2 Target Map</b></em>' attribute.
+     * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Action2 Target Map</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Action2 Target Map</em>' attribute.
-	 * @see #setAction2TargetMap(Object)
-	 * @see org.caltoopia.ir.IrPackage#getState_Action2TargetMap()
-	 * @model
-	 * @generated
-	 */
+     * @return the value of the '<em>Action2 Target Map</em>' attribute.
+     * @see #setAction2TargetMap(Object)
+     * @see org.caltoopia.ir.IrPackage#getState_Action2TargetMap()
+     * @model
+     * @generated
+     */
 	Object getAction2TargetMap();
 
 	/**
-	 * Sets the value of the '{@link org.caltoopia.ir.State#getAction2TargetMap <em>Action2 Target Map</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * Sets the value of the '{@link org.caltoopia.ir.State#getAction2TargetMap <em>Action2 Target Map</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Action2 Target Map</em>' attribute.
-	 * @see #getAction2TargetMap()
-	 * @generated
-	 */
+     * @param value the new value of the '<em>Action2 Target Map</em>' attribute.
+     * @see #getAction2TargetMap()
+     * @generated
+     */
 	void setAction2TargetMap(Object value);
 
 } // State

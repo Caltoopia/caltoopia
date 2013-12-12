@@ -18,22 +18,22 @@ import org.eclipse.emf.ecore.EClass;
  */
 public class TypeStringImpl extends TypeImpl implements TypeString {
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected TypeStringImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass() {
-		return IrPackage.Literals.TYPE_STRING;
-	}
+        return IrPackage.Literals.TYPE_STRING;
+    }
 
 } //TypeStringImpl

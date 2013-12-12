@@ -35,163 +35,163 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class FunctionCallImpl extends ExpressionCallImpl implements FunctionCall {
 	/**
-	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}' reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getParameters() <em>Parameters</em>}' reference list.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getParameters()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getParameters()
+     * @generated
+     * @ordered
+     */
 	protected EList<Expression> parameters;
 
 	/**
-	 * The cached value of the '{@link #getFunction() <em>Function</em>}' reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getFunction() <em>Function</em>}' reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getFunction()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getFunction()
+     * @generated
+     * @ordered
+     */
 	protected Expression function;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected FunctionCallImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass() {
-		return IrPackage.Literals.FUNCTION_CALL;
-	}
+        return IrPackage.Literals.FUNCTION_CALL;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public EList<Expression> getParameters() {
-		if (parameters == null) {
-			parameters = new EObjectResolvingEList<Expression>(Expression.class, this, IrPackage.FUNCTION_CALL__PARAMETERS);
-		}
-		return parameters;
-	}
+        if (parameters == null) {
+            parameters = new EObjectResolvingEList<Expression>(Expression.class, this, IrPackage.FUNCTION_CALL__PARAMETERS);
+        }
+        return parameters;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Expression getFunction() {
-		if (function != null && function.eIsProxy()) {
-			InternalEObject oldFunction = (InternalEObject)function;
-			function = (Expression)eResolveProxy(oldFunction);
-			if (function != oldFunction) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.FUNCTION_CALL__FUNCTION, oldFunction, function));
-			}
-		}
-		return function;
-	}
+        if (function != null && function.eIsProxy()) {
+            InternalEObject oldFunction = (InternalEObject)function;
+            function = (Expression)eResolveProxy(oldFunction);
+            if (function != oldFunction) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.FUNCTION_CALL__FUNCTION, oldFunction, function));
+            }
+        }
+        return function;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Expression basicGetFunction() {
-		return function;
-	}
+        return function;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setFunction(Expression newFunction) {
-		Expression oldFunction = function;
-		function = newFunction;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.FUNCTION_CALL__FUNCTION, oldFunction, function));
-	}
+        Expression oldFunction = function;
+        function = newFunction;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.FUNCTION_CALL__FUNCTION, oldFunction, function));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case IrPackage.FUNCTION_CALL__PARAMETERS:
-				return getParameters();
-			case IrPackage.FUNCTION_CALL__FUNCTION:
-				if (resolve) return getFunction();
-				return basicGetFunction();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case IrPackage.FUNCTION_CALL__PARAMETERS:
+                return getParameters();
+            case IrPackage.FUNCTION_CALL__FUNCTION:
+                if (resolve) return getFunction();
+                return basicGetFunction();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case IrPackage.FUNCTION_CALL__PARAMETERS:
-				getParameters().clear();
-				getParameters().addAll((Collection<? extends Expression>)newValue);
-				return;
-			case IrPackage.FUNCTION_CALL__FUNCTION:
-				setFunction((Expression)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case IrPackage.FUNCTION_CALL__PARAMETERS:
+                getParameters().clear();
+                getParameters().addAll((Collection<? extends Expression>)newValue);
+                return;
+            case IrPackage.FUNCTION_CALL__FUNCTION:
+                setFunction((Expression)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-			case IrPackage.FUNCTION_CALL__PARAMETERS:
-				getParameters().clear();
-				return;
-			case IrPackage.FUNCTION_CALL__FUNCTION:
-				setFunction((Expression)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.FUNCTION_CALL__PARAMETERS:
+                getParameters().clear();
+                return;
+            case IrPackage.FUNCTION_CALL__FUNCTION:
+                setFunction((Expression)null);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case IrPackage.FUNCTION_CALL__PARAMETERS:
-				return parameters != null && !parameters.isEmpty();
-			case IrPackage.FUNCTION_CALL__FUNCTION:
-				return function != null;
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.FUNCTION_CALL__PARAMETERS:
+                return parameters != null && !parameters.isEmpty();
+            case IrPackage.FUNCTION_CALL__FUNCTION:
+                return function != null;
+        }
+        return super.eIsSet(featureID);
+    }
 
 } //FunctionCallImpl

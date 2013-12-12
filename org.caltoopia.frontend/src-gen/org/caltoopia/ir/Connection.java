@@ -22,19 +22,19 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface Connection extends Node {
 	/**
-	 * Returns the value of the '<em><b>Attributes</b></em>' reference list.
-	 * The list contents are of type {@link org.caltoopia.ir.TaggedExpression}.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Attributes</b></em>' reference list.
+     * The list contents are of type {@link org.caltoopia.ir.TaggedExpression}.
+     * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Attributes</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Attributes</em>' reference list.
-	 * @see org.caltoopia.ir.IrPackage#getConnection_Attributes()
-	 * @model
-	 * @generated
-	 */
+     * @return the value of the '<em>Attributes</em>' reference list.
+     * @see org.caltoopia.ir.IrPackage#getConnection_Attributes()
+     * @model
+     * @generated
+     */
 	EList<TaggedExpression> getAttributes();
 
 } // Connection

@@ -72,6 +72,7 @@ import org.caltoopia.ir.ProcExpression;
 import org.caltoopia.ir.Schedule;
 import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.Statement;
+import org.caltoopia.ir.StmtAlternative;
 import org.caltoopia.ir.StringLiteral;
 import org.caltoopia.ir.TaggedTuple;
 import org.caltoopia.ir.Type;
@@ -237,7 +238,29 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
 		return block;
 	}	
 	
-	@Override 
+    @Override
+    public StmtAlternative caseStmtAlternative(StmtAlternative alt) {
+        stack = new Stack(stack);
+        caseScope(alt);
+        
+        //Visit all the statements
+        List<Statement> stmts = alt.getStatements();
+        for (int i = 0; i < stmts.size(); i++) {
+            doSwitch(stmts.get(i));
+        }
+        
+        //Visit all the guards
+        List<Expression> guards = alt.getGuards();
+        for (int i = 0; i < guards.size(); i++) {
+            Expression e = (Expression) doSwitch(guards.get(i));
+            guards.set(i, e);
+        }
+        stack = stack.outer;
+        return alt;
+    }
+    
+
+    @Override 
 	public ForEach caseForEach(ForEach forEach) {
 		Stack top = stack;
 		

@@ -29,188 +29,188 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class Point2PointConnectionImpl extends ConnectionImpl implements Point2PointConnection {
 	/**
-	 * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSource()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getSource()
+     * @generated
+     * @ordered
+     */
 	protected PortInstance source;
 
 	/**
-	 * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTarget()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getTarget()
+     * @generated
+     * @ordered
+     */
 	protected PortInstance target;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected Point2PointConnectionImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass() {
-		return IrPackage.Literals.POINT2_POINT_CONNECTION;
-	}
+        return IrPackage.Literals.POINT2_POINT_CONNECTION;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public PortInstance getSource() {
-		if (source != null && source.eIsProxy()) {
-			InternalEObject oldSource = (InternalEObject)source;
-			source = (PortInstance)eResolveProxy(oldSource);
-			if (source != oldSource) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.POINT2_POINT_CONNECTION__SOURCE, oldSource, source));
-			}
-		}
-		return source;
-	}
+        if (source != null && source.eIsProxy()) {
+            InternalEObject oldSource = (InternalEObject)source;
+            source = (PortInstance)eResolveProxy(oldSource);
+            if (source != oldSource) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.POINT2_POINT_CONNECTION__SOURCE, oldSource, source));
+            }
+        }
+        return source;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public PortInstance basicGetSource() {
-		return source;
-	}
+        return source;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setSource(PortInstance newSource) {
-		PortInstance oldSource = source;
-		source = newSource;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.POINT2_POINT_CONNECTION__SOURCE, oldSource, source));
-	}
+        PortInstance oldSource = source;
+        source = newSource;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.POINT2_POINT_CONNECTION__SOURCE, oldSource, source));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public PortInstance getTarget() {
-		if (target != null && target.eIsProxy()) {
-			InternalEObject oldTarget = (InternalEObject)target;
-			target = (PortInstance)eResolveProxy(oldTarget);
-			if (target != oldTarget) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.POINT2_POINT_CONNECTION__TARGET, oldTarget, target));
-			}
-		}
-		return target;
-	}
+        if (target != null && target.eIsProxy()) {
+            InternalEObject oldTarget = (InternalEObject)target;
+            target = (PortInstance)eResolveProxy(oldTarget);
+            if (target != oldTarget) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.POINT2_POINT_CONNECTION__TARGET, oldTarget, target));
+            }
+        }
+        return target;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public PortInstance basicGetTarget() {
-		return target;
-	}
+        return target;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setTarget(PortInstance newTarget) {
-		PortInstance oldTarget = target;
-		target = newTarget;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.POINT2_POINT_CONNECTION__TARGET, oldTarget, target));
-	}
+        PortInstance oldTarget = target;
+        target = newTarget;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.POINT2_POINT_CONNECTION__TARGET, oldTarget, target));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case IrPackage.POINT2_POINT_CONNECTION__SOURCE:
-				if (resolve) return getSource();
-				return basicGetSource();
-			case IrPackage.POINT2_POINT_CONNECTION__TARGET:
-				if (resolve) return getTarget();
-				return basicGetTarget();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case IrPackage.POINT2_POINT_CONNECTION__SOURCE:
+                if (resolve) return getSource();
+                return basicGetSource();
+            case IrPackage.POINT2_POINT_CONNECTION__TARGET:
+                if (resolve) return getTarget();
+                return basicGetTarget();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case IrPackage.POINT2_POINT_CONNECTION__SOURCE:
-				setSource((PortInstance)newValue);
-				return;
-			case IrPackage.POINT2_POINT_CONNECTION__TARGET:
-				setTarget((PortInstance)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case IrPackage.POINT2_POINT_CONNECTION__SOURCE:
+                setSource((PortInstance)newValue);
+                return;
+            case IrPackage.POINT2_POINT_CONNECTION__TARGET:
+                setTarget((PortInstance)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-			case IrPackage.POINT2_POINT_CONNECTION__SOURCE:
-				setSource((PortInstance)null);
-				return;
-			case IrPackage.POINT2_POINT_CONNECTION__TARGET:
-				setTarget((PortInstance)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.POINT2_POINT_CONNECTION__SOURCE:
+                setSource((PortInstance)null);
+                return;
+            case IrPackage.POINT2_POINT_CONNECTION__TARGET:
+                setTarget((PortInstance)null);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case IrPackage.POINT2_POINT_CONNECTION__SOURCE:
-				return source != null;
-			case IrPackage.POINT2_POINT_CONNECTION__TARGET:
-				return target != null;
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.POINT2_POINT_CONNECTION__SOURCE:
+                return source != null;
+            case IrPackage.POINT2_POINT_CONNECTION__TARGET:
+                return target != null;
+        }
+        return super.eIsSet(featureID);
+    }
 
 } //Point2PointConnectionImpl

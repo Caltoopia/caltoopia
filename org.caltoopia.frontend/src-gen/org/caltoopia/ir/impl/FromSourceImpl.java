@@ -30,188 +30,188 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class FromSourceImpl extends ConnectionImpl implements FromSource {
 	/**
-	 * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTarget()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getTarget()
+     * @generated
+     * @ordered
+     */
 	protected PortInstance target;
 
 	/**
-	 * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSource()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getSource()
+     * @generated
+     * @ordered
+     */
 	protected Port source;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected FromSourceImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass() {
-		return IrPackage.Literals.FROM_SOURCE;
-	}
+        return IrPackage.Literals.FROM_SOURCE;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public PortInstance getTarget() {
-		if (target != null && target.eIsProxy()) {
-			InternalEObject oldTarget = (InternalEObject)target;
-			target = (PortInstance)eResolveProxy(oldTarget);
-			if (target != oldTarget) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.FROM_SOURCE__TARGET, oldTarget, target));
-			}
-		}
-		return target;
-	}
+        if (target != null && target.eIsProxy()) {
+            InternalEObject oldTarget = (InternalEObject)target;
+            target = (PortInstance)eResolveProxy(oldTarget);
+            if (target != oldTarget) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.FROM_SOURCE__TARGET, oldTarget, target));
+            }
+        }
+        return target;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public PortInstance basicGetTarget() {
-		return target;
-	}
+        return target;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setTarget(PortInstance newTarget) {
-		PortInstance oldTarget = target;
-		target = newTarget;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.FROM_SOURCE__TARGET, oldTarget, target));
-	}
+        PortInstance oldTarget = target;
+        target = newTarget;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.FROM_SOURCE__TARGET, oldTarget, target));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Port getSource() {
-		if (source != null && source.eIsProxy()) {
-			InternalEObject oldSource = (InternalEObject)source;
-			source = (Port)eResolveProxy(oldSource);
-			if (source != oldSource) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.FROM_SOURCE__SOURCE, oldSource, source));
-			}
-		}
-		return source;
-	}
+        if (source != null && source.eIsProxy()) {
+            InternalEObject oldSource = (InternalEObject)source;
+            source = (Port)eResolveProxy(oldSource);
+            if (source != oldSource) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.FROM_SOURCE__SOURCE, oldSource, source));
+            }
+        }
+        return source;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Port basicGetSource() {
-		return source;
-	}
+        return source;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setSource(Port newSource) {
-		Port oldSource = source;
-		source = newSource;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.FROM_SOURCE__SOURCE, oldSource, source));
-	}
+        Port oldSource = source;
+        source = newSource;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.FROM_SOURCE__SOURCE, oldSource, source));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case IrPackage.FROM_SOURCE__TARGET:
-				if (resolve) return getTarget();
-				return basicGetTarget();
-			case IrPackage.FROM_SOURCE__SOURCE:
-				if (resolve) return getSource();
-				return basicGetSource();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case IrPackage.FROM_SOURCE__TARGET:
+                if (resolve) return getTarget();
+                return basicGetTarget();
+            case IrPackage.FROM_SOURCE__SOURCE:
+                if (resolve) return getSource();
+                return basicGetSource();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case IrPackage.FROM_SOURCE__TARGET:
-				setTarget((PortInstance)newValue);
-				return;
-			case IrPackage.FROM_SOURCE__SOURCE:
-				setSource((Port)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case IrPackage.FROM_SOURCE__TARGET:
+                setTarget((PortInstance)newValue);
+                return;
+            case IrPackage.FROM_SOURCE__SOURCE:
+                setSource((Port)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-			case IrPackage.FROM_SOURCE__TARGET:
-				setTarget((PortInstance)null);
-				return;
-			case IrPackage.FROM_SOURCE__SOURCE:
-				setSource((Port)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.FROM_SOURCE__TARGET:
+                setTarget((PortInstance)null);
+                return;
+            case IrPackage.FROM_SOURCE__SOURCE:
+                setSource((Port)null);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case IrPackage.FROM_SOURCE__TARGET:
-				return target != null;
-			case IrPackage.FROM_SOURCE__SOURCE:
-				return source != null;
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.FROM_SOURCE__TARGET:
+                return target != null;
+            case IrPackage.FROM_SOURCE__SOURCE:
+                return source != null;
+        }
+        return super.eIsSet(featureID);
+    }
 
 } //FromSourceImpl

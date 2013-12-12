@@ -38,196 +38,196 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class VariableExpressionImpl extends ExpressionImpl implements VariableExpression {
 	/**
-	 * The cached value of the '{@link #getVariable() <em>Variable</em>}' reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getVariable() <em>Variable</em>}' reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getVariable()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getVariable()
+     * @generated
+     * @ordered
+     */
 	protected Declaration variable;
 
 	/**
-	 * The cached value of the '{@link #getIndex() <em>Index</em>}' reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getIndex() <em>Index</em>}' reference list.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIndex()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getIndex()
+     * @generated
+     * @ordered
+     */
 	protected EList<Expression> index;
 
 	/**
-	 * The cached value of the '{@link #getMember() <em>Member</em>}' reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getMember() <em>Member</em>}' reference list.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getMember()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getMember()
+     * @generated
+     * @ordered
+     */
 	protected EList<Member> member;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected VariableExpressionImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass() {
-		return IrPackage.Literals.VARIABLE_EXPRESSION;
-	}
+        return IrPackage.Literals.VARIABLE_EXPRESSION;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Declaration getVariable() {
-		if (variable != null && variable.eIsProxy()) {
-			InternalEObject oldVariable = (InternalEObject)variable;
-			variable = (Declaration)eResolveProxy(oldVariable);
-			if (variable != oldVariable) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.VARIABLE_EXPRESSION__VARIABLE, oldVariable, variable));
-			}
-		}
-		return variable;
-	}
+        if (variable != null && variable.eIsProxy()) {
+            InternalEObject oldVariable = (InternalEObject)variable;
+            variable = (Declaration)eResolveProxy(oldVariable);
+            if (variable != oldVariable) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.VARIABLE_EXPRESSION__VARIABLE, oldVariable, variable));
+            }
+        }
+        return variable;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Declaration basicGetVariable() {
-		return variable;
-	}
+        return variable;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setVariable(Declaration newVariable) {
-		Declaration oldVariable = variable;
-		variable = newVariable;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.VARIABLE_EXPRESSION__VARIABLE, oldVariable, variable));
-	}
+        Declaration oldVariable = variable;
+        variable = newVariable;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.VARIABLE_EXPRESSION__VARIABLE, oldVariable, variable));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public EList<Expression> getIndex() {
-		if (index == null) {
-			index = new EObjectResolvingEList<Expression>(Expression.class, this, IrPackage.VARIABLE_EXPRESSION__INDEX);
-		}
-		return index;
-	}
+        if (index == null) {
+            index = new EObjectResolvingEList<Expression>(Expression.class, this, IrPackage.VARIABLE_EXPRESSION__INDEX);
+        }
+        return index;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public EList<Member> getMember() {
-		if (member == null) {
-			member = new EObjectResolvingEList<Member>(Member.class, this, IrPackage.VARIABLE_EXPRESSION__MEMBER);
-		}
-		return member;
-	}
+        if (member == null) {
+            member = new EObjectResolvingEList<Member>(Member.class, this, IrPackage.VARIABLE_EXPRESSION__MEMBER);
+        }
+        return member;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case IrPackage.VARIABLE_EXPRESSION__VARIABLE:
-				if (resolve) return getVariable();
-				return basicGetVariable();
-			case IrPackage.VARIABLE_EXPRESSION__INDEX:
-				return getIndex();
-			case IrPackage.VARIABLE_EXPRESSION__MEMBER:
-				return getMember();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case IrPackage.VARIABLE_EXPRESSION__VARIABLE:
+                if (resolve) return getVariable();
+                return basicGetVariable();
+            case IrPackage.VARIABLE_EXPRESSION__INDEX:
+                return getIndex();
+            case IrPackage.VARIABLE_EXPRESSION__MEMBER:
+                return getMember();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case IrPackage.VARIABLE_EXPRESSION__VARIABLE:
-				setVariable((Declaration)newValue);
-				return;
-			case IrPackage.VARIABLE_EXPRESSION__INDEX:
-				getIndex().clear();
-				getIndex().addAll((Collection<? extends Expression>)newValue);
-				return;
-			case IrPackage.VARIABLE_EXPRESSION__MEMBER:
-				getMember().clear();
-				getMember().addAll((Collection<? extends Member>)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case IrPackage.VARIABLE_EXPRESSION__VARIABLE:
+                setVariable((Declaration)newValue);
+                return;
+            case IrPackage.VARIABLE_EXPRESSION__INDEX:
+                getIndex().clear();
+                getIndex().addAll((Collection<? extends Expression>)newValue);
+                return;
+            case IrPackage.VARIABLE_EXPRESSION__MEMBER:
+                getMember().clear();
+                getMember().addAll((Collection<? extends Member>)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-			case IrPackage.VARIABLE_EXPRESSION__VARIABLE:
-				setVariable((Declaration)null);
-				return;
-			case IrPackage.VARIABLE_EXPRESSION__INDEX:
-				getIndex().clear();
-				return;
-			case IrPackage.VARIABLE_EXPRESSION__MEMBER:
-				getMember().clear();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.VARIABLE_EXPRESSION__VARIABLE:
+                setVariable((Declaration)null);
+                return;
+            case IrPackage.VARIABLE_EXPRESSION__INDEX:
+                getIndex().clear();
+                return;
+            case IrPackage.VARIABLE_EXPRESSION__MEMBER:
+                getMember().clear();
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case IrPackage.VARIABLE_EXPRESSION__VARIABLE:
-				return variable != null;
-			case IrPackage.VARIABLE_EXPRESSION__INDEX:
-				return index != null && !index.isEmpty();
-			case IrPackage.VARIABLE_EXPRESSION__MEMBER:
-				return member != null && !member.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.VARIABLE_EXPRESSION__VARIABLE:
+                return variable != null;
+            case IrPackage.VARIABLE_EXPRESSION__INDEX:
+                return index != null && !index.isEmpty();
+            case IrPackage.VARIABLE_EXPRESSION__MEMBER:
+                return member != null && !member.isEmpty();
+        }
+        return super.eIsSet(featureID);
+    }
 
 } //VariableExpressionImpl

@@ -29,104 +29,104 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class ConnectionImpl extends NodeImpl implements Connection {
 	/**
-	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' reference list.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAttributes()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getAttributes()
+     * @generated
+     * @ordered
+     */
 	protected EList<TaggedExpression> attributes;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected ConnectionImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass() {
-		return IrPackage.Literals.CONNECTION;
-	}
+        return IrPackage.Literals.CONNECTION;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public EList<TaggedExpression> getAttributes() {
-		if (attributes == null) {
-			attributes = new EObjectResolvingEList<TaggedExpression>(TaggedExpression.class, this, IrPackage.CONNECTION__ATTRIBUTES);
-		}
-		return attributes;
-	}
+        if (attributes == null) {
+            attributes = new EObjectResolvingEList<TaggedExpression>(TaggedExpression.class, this, IrPackage.CONNECTION__ATTRIBUTES);
+        }
+        return attributes;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case IrPackage.CONNECTION__ATTRIBUTES:
-				return getAttributes();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case IrPackage.CONNECTION__ATTRIBUTES:
+                return getAttributes();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case IrPackage.CONNECTION__ATTRIBUTES:
-				getAttributes().clear();
-				getAttributes().addAll((Collection<? extends TaggedExpression>)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case IrPackage.CONNECTION__ATTRIBUTES:
+                getAttributes().clear();
+                getAttributes().addAll((Collection<? extends TaggedExpression>)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-			case IrPackage.CONNECTION__ATTRIBUTES:
-				getAttributes().clear();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.CONNECTION__ATTRIBUTES:
+                getAttributes().clear();
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case IrPackage.CONNECTION__ATTRIBUTES:
-				return attributes != null && !attributes.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.CONNECTION__ATTRIBUTES:
+                return attributes != null && !attributes.isEmpty();
+        }
+        return super.eIsSet(featureID);
+    }
 
 } //ConnectionImpl

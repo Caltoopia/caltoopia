@@ -36,206 +36,206 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class TypeExternalImpl extends TypeImpl implements TypeExternal {
 	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getName()
+     * @generated
+     * @ordered
+     */
 	protected static final String NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getName()
+     * @generated
+     * @ordered
+     */
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getScopeName() <em>Scope Name</em>}' attribute list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getScopeName() <em>Scope Name</em>}' attribute list.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getScopeName()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getScopeName()
+     * @generated
+     * @ordered
+     */
 	protected EList<String> scopeName;
 
 	/**
-	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' reference list.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAttributes()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getAttributes()
+     * @generated
+     * @ordered
+     */
 	protected EList<TaggedExpression> attributes;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected TypeExternalImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass() {
-		return IrPackage.Literals.TYPE_EXTERNAL;
-	}
+        return IrPackage.Literals.TYPE_EXTERNAL;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public String getName() {
-		return name;
-	}
+        return name;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setName(String newName) {
-		String oldName = name;
-		name = newName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.TYPE_EXTERNAL__NAME, oldName, name));
-	}
+        String oldName = name;
+        name = newName;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.TYPE_EXTERNAL__NAME, oldName, name));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public EList<String> getScopeName() {
-		if (scopeName == null) {
-			scopeName = new EDataTypeUniqueEList<String>(String.class, this, IrPackage.TYPE_EXTERNAL__SCOPE_NAME);
-		}
-		return scopeName;
-	}
+        if (scopeName == null) {
+            scopeName = new EDataTypeUniqueEList<String>(String.class, this, IrPackage.TYPE_EXTERNAL__SCOPE_NAME);
+        }
+        return scopeName;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public EList<TaggedExpression> getAttributes() {
-		if (attributes == null) {
-			attributes = new EObjectResolvingEList<TaggedExpression>(TaggedExpression.class, this, IrPackage.TYPE_EXTERNAL__ATTRIBUTES);
-		}
-		return attributes;
-	}
+        if (attributes == null) {
+            attributes = new EObjectResolvingEList<TaggedExpression>(TaggedExpression.class, this, IrPackage.TYPE_EXTERNAL__ATTRIBUTES);
+        }
+        return attributes;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case IrPackage.TYPE_EXTERNAL__NAME:
-				return getName();
-			case IrPackage.TYPE_EXTERNAL__SCOPE_NAME:
-				return getScopeName();
-			case IrPackage.TYPE_EXTERNAL__ATTRIBUTES:
-				return getAttributes();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case IrPackage.TYPE_EXTERNAL__NAME:
+                return getName();
+            case IrPackage.TYPE_EXTERNAL__SCOPE_NAME:
+                return getScopeName();
+            case IrPackage.TYPE_EXTERNAL__ATTRIBUTES:
+                return getAttributes();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case IrPackage.TYPE_EXTERNAL__NAME:
-				setName((String)newValue);
-				return;
-			case IrPackage.TYPE_EXTERNAL__SCOPE_NAME:
-				getScopeName().clear();
-				getScopeName().addAll((Collection<? extends String>)newValue);
-				return;
-			case IrPackage.TYPE_EXTERNAL__ATTRIBUTES:
-				getAttributes().clear();
-				getAttributes().addAll((Collection<? extends TaggedExpression>)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case IrPackage.TYPE_EXTERNAL__NAME:
+                setName((String)newValue);
+                return;
+            case IrPackage.TYPE_EXTERNAL__SCOPE_NAME:
+                getScopeName().clear();
+                getScopeName().addAll((Collection<? extends String>)newValue);
+                return;
+            case IrPackage.TYPE_EXTERNAL__ATTRIBUTES:
+                getAttributes().clear();
+                getAttributes().addAll((Collection<? extends TaggedExpression>)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-			case IrPackage.TYPE_EXTERNAL__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case IrPackage.TYPE_EXTERNAL__SCOPE_NAME:
-				getScopeName().clear();
-				return;
-			case IrPackage.TYPE_EXTERNAL__ATTRIBUTES:
-				getAttributes().clear();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.TYPE_EXTERNAL__NAME:
+                setName(NAME_EDEFAULT);
+                return;
+            case IrPackage.TYPE_EXTERNAL__SCOPE_NAME:
+                getScopeName().clear();
+                return;
+            case IrPackage.TYPE_EXTERNAL__ATTRIBUTES:
+                getAttributes().clear();
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case IrPackage.TYPE_EXTERNAL__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case IrPackage.TYPE_EXTERNAL__SCOPE_NAME:
-				return scopeName != null && !scopeName.isEmpty();
-			case IrPackage.TYPE_EXTERNAL__ATTRIBUTES:
-				return attributes != null && !attributes.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.TYPE_EXTERNAL__NAME:
+                return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+            case IrPackage.TYPE_EXTERNAL__SCOPE_NAME:
+                return scopeName != null && !scopeName.isEmpty();
+            case IrPackage.TYPE_EXTERNAL__ATTRIBUTES:
+                return attributes != null && !attributes.isEmpty();
+        }
+        return super.eIsSet(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+        if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
-		result.append(name);
-		result.append(", scopeName: ");
-		result.append(scopeName);
-		result.append(')');
-		return result.toString();
-	}
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (name: ");
+        result.append(name);
+        result.append(", scopeName: ");
+        result.append(scopeName);
+        result.append(')');
+        return result.toString();
+    }
 
 } //TypeExternalImpl

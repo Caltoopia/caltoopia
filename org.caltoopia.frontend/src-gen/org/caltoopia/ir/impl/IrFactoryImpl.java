@@ -20,967 +20,967 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  */
 public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 	/**
-	 * Creates the default factory implementation.
-	 * <!-- begin-user-doc -->
+     * Creates the default factory implementation.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public static IrFactory init() {
-		try {
-			IrFactory theIrFactory = (IrFactory)EPackage.Registry.INSTANCE.getEFactory("http:///org/caltoopia/ir.ecore"); 
-			if (theIrFactory != null) {
-				return theIrFactory;
-			}
-		}
-		catch (Exception exception) {
-			EcorePlugin.INSTANCE.log(exception);
-		}
-		return new IrFactoryImpl();
-	}
+        try {
+            IrFactory theIrFactory = (IrFactory)EPackage.Registry.INSTANCE.getEFactory("http:///org/caltoopia/ir.ecore"); 
+            if (theIrFactory != null) {
+                return theIrFactory;
+            }
+        }
+        catch (Exception exception) {
+            EcorePlugin.INSTANCE.log(exception);
+        }
+        return new IrFactoryImpl();
+    }
 
 	/**
-	 * Creates an instance of the factory.
-	 * <!-- begin-user-doc -->
+     * Creates an instance of the factory.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public IrFactoryImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public EObject create(EClass eClass) {
-		switch (eClass.getClassifierID()) {
-			case IrPackage.SCOPE: return createScope();
-			case IrPackage.NODE: return createNode();
-			case IrPackage.VARIABLE_IMPORT: return createVariableImport();
-			case IrPackage.VARIABLE_EXTERNAL: return createVariableExternal();
-			case IrPackage.TYPE_DECLARATION_IMPORT: return createTypeDeclarationImport();
-			case IrPackage.NAMESPACE: return createNamespace();
-			case IrPackage.ABSTRACT_ACTOR: return createAbstractActor();
-			case IrPackage.EXTERNAL_ACTOR: return createExternalActor();
-			case IrPackage.ACTOR: return createActor();
-			case IrPackage.NETWORK: return createNetwork();
-			case IrPackage.ACTION: return createAction();
-			case IrPackage.PORT: return createPort();
-			case IrPackage.ACTOR_INSTANCE: return createActorInstance();
-			case IrPackage.PORT_INSTANCE: return createPortInstance();
-			case IrPackage.EXPRESSION: return createExpression();
-			case IrPackage.TAGGED_EXPRESSION: return createTaggedExpression();
-			case IrPackage.LITERAL_EXPRESSION: return createLiteralExpression();
-			case IrPackage.INTEGER_LITERAL: return createIntegerLiteral();
-			case IrPackage.FLOAT_LITERAL: return createFloatLiteral();
-			case IrPackage.BOOLEAN_LITERAL: return createBooleanLiteral();
-			case IrPackage.STRING_LITERAL: return createStringLiteral();
-			case IrPackage.VARIABLE_EXPRESSION: return createVariableExpression();
-			case IrPackage.LIST_EXPRESSION: return createListExpression();
-			case IrPackage.GENERATOR: return createGenerator();
-			case IrPackage.MEMBER: return createMember();
-			case IrPackage.BINARY_EXPRESSION: return createBinaryExpression();
-			case IrPackage.UNARY_EXPRESSION: return createUnaryExpression();
-			case IrPackage.EXPRESSION_CALL: return createExpressionCall();
-			case IrPackage.FUNCTION_CALL: return createFunctionCall();
-			case IrPackage.TYPE_CONSTRUCTOR_CALL: return createTypeConstructorCall();
-			case IrPackage.CONNECTION: return createConnection();
-			case IrPackage.POINT2_POINT_CONNECTION: return createPoint2PointConnection();
-			case IrPackage.FROM_SOURCE: return createFromSource();
-			case IrPackage.TO_SINK: return createToSink();
-			case IrPackage.STATEMENT: return createStatement();
-			case IrPackage.VARIABLE_REFERENCE: return createVariableReference();
-			case IrPackage.ASSIGN: return createAssign();
-			case IrPackage.RETURN_VALUE: return createReturnValue();
-			case IrPackage.PROC_CALL: return createProcCall();
-			case IrPackage.WHILE_LOOP: return createWhileLoop();
-			case IrPackage.FOR_EACH: return createForEach();
-			case IrPackage.IF_STATEMENT: return createIfStatement();
-			case IrPackage.BLOCK: return createBlock();
-			case IrPackage.CASE_STATEMENT: return createCaseStatement();
-			case IrPackage.STMT_ALTERNATIVE: return createStmtAlternative();
-			case IrPackage.PORT_ACCESS: return createPortAccess();
-			case IrPackage.PORT_WRITE: return createPortWrite();
-			case IrPackage.PORT_READ: return createPortRead();
-			case IrPackage.PORT_PEEK: return createPortPeek();
-			case IrPackage.DECLARATION: return createDeclaration();
-			case IrPackage.FORWARD_DECLARATION: return createForwardDeclaration();
-			case IrPackage.VARIABLE: return createVariable();
-			case IrPackage.LAMBDA_EXPRESSION: return createLambdaExpression();
-			case IrPackage.PROC_EXPRESSION: return createProcExpression();
-			case IrPackage.IF_EXPRESSION: return createIfExpression();
-			case IrPackage.CASE_EXPRESSION: return createCaseExpression();
-			case IrPackage.EXPR_ALTERNATIVE: return createExprAlternative();
-			case IrPackage.GUARD: return createGuard();
-			case IrPackage.TYPE: return createType();
-			case IrPackage.TYPE_BOOL: return createTypeBool();
-			case IrPackage.TYPE_EXTERNAL: return createTypeExternal();
-			case IrPackage.TYPE_INT: return createTypeInt();
-			case IrPackage.TYPE_LIST: return createTypeList();
-			case IrPackage.TYPE_FLOAT: return createTypeFloat();
-			case IrPackage.TYPE_UINT: return createTypeUint();
-			case IrPackage.TYPE_STRING: return createTypeString();
-			case IrPackage.TYPE_TUPLE: return createTypeTuple();
-			case IrPackage.TAGGED_TUPLE: return createTaggedTuple();
-			case IrPackage.TAGGED_TUPLE_FIELD_READ: return createTaggedTupleFieldRead();
-			case IrPackage.TAG_OF: return createTagOf();
-			case IrPackage.TYPE_UNDEF: return createTypeUndef();
-			case IrPackage.TYPE_ACTOR: return createTypeActor();
-			case IrPackage.TYPE_USER: return createTypeUser();
-			case IrPackage.TYPE_LAMBDA: return createTypeLambda();
-			case IrPackage.TYPE_PROC: return createTypeProc();
-			case IrPackage.TYPE_VARIABLE: return createTypeVariable();
-			case IrPackage.TYPE_DECLARATION: return createTypeDeclaration();
-			case IrPackage.TYPE_VARIABLE_DECLARATION: return createTypeVariableDeclaration();
-			case IrPackage.SCHEDULE: return createSchedule();
-			case IrPackage.STATE: return createState();
-			case IrPackage.ANNOTATION: return createAnnotation();
-			case IrPackage.ANNOTATION_ARGUMENT: return createAnnotationArgument();
-			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
-		}
-	}
+        switch (eClass.getClassifierID()) {
+            case IrPackage.SCOPE: return createScope();
+            case IrPackage.NODE: return createNode();
+            case IrPackage.VARIABLE_IMPORT: return createVariableImport();
+            case IrPackage.VARIABLE_EXTERNAL: return createVariableExternal();
+            case IrPackage.TYPE_DECLARATION_IMPORT: return createTypeDeclarationImport();
+            case IrPackage.NAMESPACE: return createNamespace();
+            case IrPackage.ABSTRACT_ACTOR: return createAbstractActor();
+            case IrPackage.EXTERNAL_ACTOR: return createExternalActor();
+            case IrPackage.ACTOR: return createActor();
+            case IrPackage.NETWORK: return createNetwork();
+            case IrPackage.ACTION: return createAction();
+            case IrPackage.PORT: return createPort();
+            case IrPackage.ACTOR_INSTANCE: return createActorInstance();
+            case IrPackage.PORT_INSTANCE: return createPortInstance();
+            case IrPackage.EXPRESSION: return createExpression();
+            case IrPackage.TAGGED_EXPRESSION: return createTaggedExpression();
+            case IrPackage.LITERAL_EXPRESSION: return createLiteralExpression();
+            case IrPackage.INTEGER_LITERAL: return createIntegerLiteral();
+            case IrPackage.FLOAT_LITERAL: return createFloatLiteral();
+            case IrPackage.BOOLEAN_LITERAL: return createBooleanLiteral();
+            case IrPackage.STRING_LITERAL: return createStringLiteral();
+            case IrPackage.VARIABLE_EXPRESSION: return createVariableExpression();
+            case IrPackage.LIST_EXPRESSION: return createListExpression();
+            case IrPackage.GENERATOR: return createGenerator();
+            case IrPackage.MEMBER: return createMember();
+            case IrPackage.BINARY_EXPRESSION: return createBinaryExpression();
+            case IrPackage.UNARY_EXPRESSION: return createUnaryExpression();
+            case IrPackage.EXPRESSION_CALL: return createExpressionCall();
+            case IrPackage.FUNCTION_CALL: return createFunctionCall();
+            case IrPackage.TYPE_CONSTRUCTOR_CALL: return createTypeConstructorCall();
+            case IrPackage.CONNECTION: return createConnection();
+            case IrPackage.POINT2_POINT_CONNECTION: return createPoint2PointConnection();
+            case IrPackage.FROM_SOURCE: return createFromSource();
+            case IrPackage.TO_SINK: return createToSink();
+            case IrPackage.STATEMENT: return createStatement();
+            case IrPackage.VARIABLE_REFERENCE: return createVariableReference();
+            case IrPackage.ASSIGN: return createAssign();
+            case IrPackage.RETURN_VALUE: return createReturnValue();
+            case IrPackage.PROC_CALL: return createProcCall();
+            case IrPackage.WHILE_LOOP: return createWhileLoop();
+            case IrPackage.FOR_EACH: return createForEach();
+            case IrPackage.IF_STATEMENT: return createIfStatement();
+            case IrPackage.BLOCK: return createBlock();
+            case IrPackage.CASE_STATEMENT: return createCaseStatement();
+            case IrPackage.STMT_ALTERNATIVE: return createStmtAlternative();
+            case IrPackage.PORT_ACCESS: return createPortAccess();
+            case IrPackage.PORT_WRITE: return createPortWrite();
+            case IrPackage.PORT_READ: return createPortRead();
+            case IrPackage.PORT_PEEK: return createPortPeek();
+            case IrPackage.DECLARATION: return createDeclaration();
+            case IrPackage.FORWARD_DECLARATION: return createForwardDeclaration();
+            case IrPackage.VARIABLE: return createVariable();
+            case IrPackage.LAMBDA_EXPRESSION: return createLambdaExpression();
+            case IrPackage.PROC_EXPRESSION: return createProcExpression();
+            case IrPackage.IF_EXPRESSION: return createIfExpression();
+            case IrPackage.CASE_EXPRESSION: return createCaseExpression();
+            case IrPackage.EXPR_ALTERNATIVE: return createExprAlternative();
+            case IrPackage.GUARD: return createGuard();
+            case IrPackage.TYPE: return createType();
+            case IrPackage.TYPE_BOOL: return createTypeBool();
+            case IrPackage.TYPE_EXTERNAL: return createTypeExternal();
+            case IrPackage.TYPE_INT: return createTypeInt();
+            case IrPackage.TYPE_LIST: return createTypeList();
+            case IrPackage.TYPE_FLOAT: return createTypeFloat();
+            case IrPackage.TYPE_UINT: return createTypeUint();
+            case IrPackage.TYPE_STRING: return createTypeString();
+            case IrPackage.TYPE_TUPLE: return createTypeTuple();
+            case IrPackage.TAGGED_TUPLE: return createTaggedTuple();
+            case IrPackage.TAGGED_TUPLE_FIELD_READ: return createTaggedTupleFieldRead();
+            case IrPackage.TAG_OF: return createTagOf();
+            case IrPackage.TYPE_UNDEF: return createTypeUndef();
+            case IrPackage.TYPE_ACTOR: return createTypeActor();
+            case IrPackage.TYPE_USER: return createTypeUser();
+            case IrPackage.TYPE_LAMBDA: return createTypeLambda();
+            case IrPackage.TYPE_PROC: return createTypeProc();
+            case IrPackage.TYPE_VARIABLE: return createTypeVariable();
+            case IrPackage.TYPE_DECLARATION: return createTypeDeclaration();
+            case IrPackage.TYPE_VARIABLE_DECLARATION: return createTypeVariableDeclaration();
+            case IrPackage.SCHEDULE: return createSchedule();
+            case IrPackage.STATE: return createState();
+            case IrPackage.ANNOTATION: return createAnnotation();
+            case IrPackage.ANNOTATION_ARGUMENT: return createAnnotationArgument();
+            default:
+                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        }
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Scope createScope() {
-		ScopeImpl scope = new ScopeImpl();
-		return scope;
-	}
+        ScopeImpl scope = new ScopeImpl();
+        return scope;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Node createNode() {
-		NodeImpl node = new NodeImpl();
-		return node;
-	}
+        NodeImpl node = new NodeImpl();
+        return node;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public VariableImport createVariableImport() {
-		VariableImportImpl variableImport = new VariableImportImpl();
-		return variableImport;
-	}
+        VariableImportImpl variableImport = new VariableImportImpl();
+        return variableImport;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public VariableExternal createVariableExternal() {
-		VariableExternalImpl variableExternal = new VariableExternalImpl();
-		return variableExternal;
-	}
+        VariableExternalImpl variableExternal = new VariableExternalImpl();
+        return variableExternal;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TypeDeclarationImport createTypeDeclarationImport() {
-		TypeDeclarationImportImpl typeDeclarationImport = new TypeDeclarationImportImpl();
-		return typeDeclarationImport;
-	}
+        TypeDeclarationImportImpl typeDeclarationImport = new TypeDeclarationImportImpl();
+        return typeDeclarationImport;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Namespace createNamespace() {
-		NamespaceImpl namespace = new NamespaceImpl();
-		return namespace;
-	}
+        NamespaceImpl namespace = new NamespaceImpl();
+        return namespace;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public AbstractActor createAbstractActor() {
-		AbstractActorImpl abstractActor = new AbstractActorImpl();
-		return abstractActor;
-	}
+        AbstractActorImpl abstractActor = new AbstractActorImpl();
+        return abstractActor;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ExternalActor createExternalActor() {
-		ExternalActorImpl externalActor = new ExternalActorImpl();
-		return externalActor;
-	}
+        ExternalActorImpl externalActor = new ExternalActorImpl();
+        return externalActor;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Actor createActor() {
-		ActorImpl actor = new ActorImpl();
-		return actor;
-	}
+        ActorImpl actor = new ActorImpl();
+        return actor;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Network createNetwork() {
-		NetworkImpl network = new NetworkImpl();
-		return network;
-	}
+        NetworkImpl network = new NetworkImpl();
+        return network;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Action createAction() {
-		ActionImpl action = new ActionImpl();
-		return action;
-	}
+        ActionImpl action = new ActionImpl();
+        return action;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Port createPort() {
-		PortImpl port = new PortImpl();
-		return port;
-	}
+        PortImpl port = new PortImpl();
+        return port;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ActorInstance createActorInstance() {
-		ActorInstanceImpl actorInstance = new ActorInstanceImpl();
-		return actorInstance;
-	}
+        ActorInstanceImpl actorInstance = new ActorInstanceImpl();
+        return actorInstance;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public PortInstance createPortInstance() {
-		PortInstanceImpl portInstance = new PortInstanceImpl();
-		return portInstance;
-	}
+        PortInstanceImpl portInstance = new PortInstanceImpl();
+        return portInstance;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Expression createExpression() {
-		ExpressionImpl expression = new ExpressionImpl();
-		return expression;
-	}
+        ExpressionImpl expression = new ExpressionImpl();
+        return expression;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TaggedExpression createTaggedExpression() {
-		TaggedExpressionImpl taggedExpression = new TaggedExpressionImpl();
-		return taggedExpression;
-	}
+        TaggedExpressionImpl taggedExpression = new TaggedExpressionImpl();
+        return taggedExpression;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public LiteralExpression createLiteralExpression() {
-		LiteralExpressionImpl literalExpression = new LiteralExpressionImpl();
-		return literalExpression;
-	}
+        LiteralExpressionImpl literalExpression = new LiteralExpressionImpl();
+        return literalExpression;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public IntegerLiteral createIntegerLiteral() {
-		IntegerLiteralImpl integerLiteral = new IntegerLiteralImpl();
-		return integerLiteral;
-	}
+        IntegerLiteralImpl integerLiteral = new IntegerLiteralImpl();
+        return integerLiteral;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public FloatLiteral createFloatLiteral() {
-		FloatLiteralImpl floatLiteral = new FloatLiteralImpl();
-		return floatLiteral;
-	}
+        FloatLiteralImpl floatLiteral = new FloatLiteralImpl();
+        return floatLiteral;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public BooleanLiteral createBooleanLiteral() {
-		BooleanLiteralImpl booleanLiteral = new BooleanLiteralImpl();
-		return booleanLiteral;
-	}
+        BooleanLiteralImpl booleanLiteral = new BooleanLiteralImpl();
+        return booleanLiteral;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public StringLiteral createStringLiteral() {
-		StringLiteralImpl stringLiteral = new StringLiteralImpl();
-		return stringLiteral;
-	}
+        StringLiteralImpl stringLiteral = new StringLiteralImpl();
+        return stringLiteral;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public VariableExpression createVariableExpression() {
-		VariableExpressionImpl variableExpression = new VariableExpressionImpl();
-		return variableExpression;
-	}
+        VariableExpressionImpl variableExpression = new VariableExpressionImpl();
+        return variableExpression;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ListExpression createListExpression() {
-		ListExpressionImpl listExpression = new ListExpressionImpl();
-		return listExpression;
-	}
+        ListExpressionImpl listExpression = new ListExpressionImpl();
+        return listExpression;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Generator createGenerator() {
-		GeneratorImpl generator = new GeneratorImpl();
-		return generator;
-	}
+        GeneratorImpl generator = new GeneratorImpl();
+        return generator;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Member createMember() {
-		MemberImpl member = new MemberImpl();
-		return member;
-	}
+        MemberImpl member = new MemberImpl();
+        return member;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public BinaryExpression createBinaryExpression() {
-		BinaryExpressionImpl binaryExpression = new BinaryExpressionImpl();
-		return binaryExpression;
-	}
+        BinaryExpressionImpl binaryExpression = new BinaryExpressionImpl();
+        return binaryExpression;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public UnaryExpression createUnaryExpression() {
-		UnaryExpressionImpl unaryExpression = new UnaryExpressionImpl();
-		return unaryExpression;
-	}
+        UnaryExpressionImpl unaryExpression = new UnaryExpressionImpl();
+        return unaryExpression;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ExpressionCall createExpressionCall() {
-		ExpressionCallImpl expressionCall = new ExpressionCallImpl();
-		return expressionCall;
-	}
+        ExpressionCallImpl expressionCall = new ExpressionCallImpl();
+        return expressionCall;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public FunctionCall createFunctionCall() {
-		FunctionCallImpl functionCall = new FunctionCallImpl();
-		return functionCall;
-	}
+        FunctionCallImpl functionCall = new FunctionCallImpl();
+        return functionCall;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TypeConstructorCall createTypeConstructorCall() {
-		TypeConstructorCallImpl typeConstructorCall = new TypeConstructorCallImpl();
-		return typeConstructorCall;
-	}
+        TypeConstructorCallImpl typeConstructorCall = new TypeConstructorCallImpl();
+        return typeConstructorCall;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Connection createConnection() {
-		ConnectionImpl connection = new ConnectionImpl();
-		return connection;
-	}
+        ConnectionImpl connection = new ConnectionImpl();
+        return connection;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Point2PointConnection createPoint2PointConnection() {
-		Point2PointConnectionImpl point2PointConnection = new Point2PointConnectionImpl();
-		return point2PointConnection;
-	}
+        Point2PointConnectionImpl point2PointConnection = new Point2PointConnectionImpl();
+        return point2PointConnection;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public FromSource createFromSource() {
-		FromSourceImpl fromSource = new FromSourceImpl();
-		return fromSource;
-	}
+        FromSourceImpl fromSource = new FromSourceImpl();
+        return fromSource;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ToSink createToSink() {
-		ToSinkImpl toSink = new ToSinkImpl();
-		return toSink;
-	}
+        ToSinkImpl toSink = new ToSinkImpl();
+        return toSink;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Statement createStatement() {
-		StatementImpl statement = new StatementImpl();
-		return statement;
-	}
+        StatementImpl statement = new StatementImpl();
+        return statement;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public VariableReference createVariableReference() {
-		VariableReferenceImpl variableReference = new VariableReferenceImpl();
-		return variableReference;
-	}
+        VariableReferenceImpl variableReference = new VariableReferenceImpl();
+        return variableReference;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Assign createAssign() {
-		AssignImpl assign = new AssignImpl();
-		return assign;
-	}
+        AssignImpl assign = new AssignImpl();
+        return assign;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ReturnValue createReturnValue() {
-		ReturnValueImpl returnValue = new ReturnValueImpl();
-		return returnValue;
-	}
+        ReturnValueImpl returnValue = new ReturnValueImpl();
+        return returnValue;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ProcCall createProcCall() {
-		ProcCallImpl procCall = new ProcCallImpl();
-		return procCall;
-	}
+        ProcCallImpl procCall = new ProcCallImpl();
+        return procCall;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public WhileLoop createWhileLoop() {
-		WhileLoopImpl whileLoop = new WhileLoopImpl();
-		return whileLoop;
-	}
+        WhileLoopImpl whileLoop = new WhileLoopImpl();
+        return whileLoop;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ForEach createForEach() {
-		ForEachImpl forEach = new ForEachImpl();
-		return forEach;
-	}
+        ForEachImpl forEach = new ForEachImpl();
+        return forEach;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public IfStatement createIfStatement() {
-		IfStatementImpl ifStatement = new IfStatementImpl();
-		return ifStatement;
-	}
+        IfStatementImpl ifStatement = new IfStatementImpl();
+        return ifStatement;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Block createBlock() {
-		BlockImpl block = new BlockImpl();
-		return block;
-	}
+        BlockImpl block = new BlockImpl();
+        return block;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public CaseStatement createCaseStatement() {
-		CaseStatementImpl caseStatement = new CaseStatementImpl();
-		return caseStatement;
-	}
+        CaseStatementImpl caseStatement = new CaseStatementImpl();
+        return caseStatement;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public StmtAlternative createStmtAlternative() {
-		StmtAlternativeImpl stmtAlternative = new StmtAlternativeImpl();
-		return stmtAlternative;
-	}
+        StmtAlternativeImpl stmtAlternative = new StmtAlternativeImpl();
+        return stmtAlternative;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public PortAccess createPortAccess() {
-		PortAccessImpl portAccess = new PortAccessImpl();
-		return portAccess;
-	}
+        PortAccessImpl portAccess = new PortAccessImpl();
+        return portAccess;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public PortWrite createPortWrite() {
-		PortWriteImpl portWrite = new PortWriteImpl();
-		return portWrite;
-	}
+        PortWriteImpl portWrite = new PortWriteImpl();
+        return portWrite;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public PortRead createPortRead() {
-		PortReadImpl portRead = new PortReadImpl();
-		return portRead;
-	}
+        PortReadImpl portRead = new PortReadImpl();
+        return portRead;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public PortPeek createPortPeek() {
-		PortPeekImpl portPeek = new PortPeekImpl();
-		return portPeek;
-	}
+        PortPeekImpl portPeek = new PortPeekImpl();
+        return portPeek;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Declaration createDeclaration() {
-		DeclarationImpl declaration = new DeclarationImpl();
-		return declaration;
-	}
+        DeclarationImpl declaration = new DeclarationImpl();
+        return declaration;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ForwardDeclaration createForwardDeclaration() {
-		ForwardDeclarationImpl forwardDeclaration = new ForwardDeclarationImpl();
-		return forwardDeclaration;
-	}
+        ForwardDeclarationImpl forwardDeclaration = new ForwardDeclarationImpl();
+        return forwardDeclaration;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Variable createVariable() {
-		VariableImpl variable = new VariableImpl();
-		return variable;
-	}
+        VariableImpl variable = new VariableImpl();
+        return variable;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public LambdaExpression createLambdaExpression() {
-		LambdaExpressionImpl lambdaExpression = new LambdaExpressionImpl();
-		return lambdaExpression;
-	}
+        LambdaExpressionImpl lambdaExpression = new LambdaExpressionImpl();
+        return lambdaExpression;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ProcExpression createProcExpression() {
-		ProcExpressionImpl procExpression = new ProcExpressionImpl();
-		return procExpression;
-	}
+        ProcExpressionImpl procExpression = new ProcExpressionImpl();
+        return procExpression;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public IfExpression createIfExpression() {
-		IfExpressionImpl ifExpression = new IfExpressionImpl();
-		return ifExpression;
-	}
+        IfExpressionImpl ifExpression = new IfExpressionImpl();
+        return ifExpression;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public CaseExpression createCaseExpression() {
-		CaseExpressionImpl caseExpression = new CaseExpressionImpl();
-		return caseExpression;
-	}
+        CaseExpressionImpl caseExpression = new CaseExpressionImpl();
+        return caseExpression;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public ExprAlternative createExprAlternative() {
-		ExprAlternativeImpl exprAlternative = new ExprAlternativeImpl();
-		return exprAlternative;
-	}
+        ExprAlternativeImpl exprAlternative = new ExprAlternativeImpl();
+        return exprAlternative;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Guard createGuard() {
-		GuardImpl guard = new GuardImpl();
-		return guard;
-	}
+        GuardImpl guard = new GuardImpl();
+        return guard;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Type createType() {
-		TypeImpl type = new TypeImpl();
-		return type;
-	}
+        TypeImpl type = new TypeImpl();
+        return type;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TypeBool createTypeBool() {
-		TypeBoolImpl typeBool = new TypeBoolImpl();
-		return typeBool;
-	}
+        TypeBoolImpl typeBool = new TypeBoolImpl();
+        return typeBool;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TypeExternal createTypeExternal() {
-		TypeExternalImpl typeExternal = new TypeExternalImpl();
-		return typeExternal;
-	}
+        TypeExternalImpl typeExternal = new TypeExternalImpl();
+        return typeExternal;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TypeInt createTypeInt() {
-		TypeIntImpl typeInt = new TypeIntImpl();
-		return typeInt;
-	}
+        TypeIntImpl typeInt = new TypeIntImpl();
+        return typeInt;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TypeList createTypeList() {
-		TypeListImpl typeList = new TypeListImpl();
-		return typeList;
-	}
+        TypeListImpl typeList = new TypeListImpl();
+        return typeList;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TypeFloat createTypeFloat() {
-		TypeFloatImpl typeFloat = new TypeFloatImpl();
-		return typeFloat;
-	}
+        TypeFloatImpl typeFloat = new TypeFloatImpl();
+        return typeFloat;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TypeUint createTypeUint() {
-		TypeUintImpl typeUint = new TypeUintImpl();
-		return typeUint;
-	}
+        TypeUintImpl typeUint = new TypeUintImpl();
+        return typeUint;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TypeString createTypeString() {
-		TypeStringImpl typeString = new TypeStringImpl();
-		return typeString;
-	}
+        TypeStringImpl typeString = new TypeStringImpl();
+        return typeString;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TypeTuple createTypeTuple() {
-		TypeTupleImpl typeTuple = new TypeTupleImpl();
-		return typeTuple;
-	}
+        TypeTupleImpl typeTuple = new TypeTupleImpl();
+        return typeTuple;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TaggedTuple createTaggedTuple() {
-		TaggedTupleImpl taggedTuple = new TaggedTupleImpl();
-		return taggedTuple;
-	}
+        TaggedTupleImpl taggedTuple = new TaggedTupleImpl();
+        return taggedTuple;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TaggedTupleFieldRead createTaggedTupleFieldRead() {
-		TaggedTupleFieldReadImpl taggedTupleFieldRead = new TaggedTupleFieldReadImpl();
-		return taggedTupleFieldRead;
-	}
+        TaggedTupleFieldReadImpl taggedTupleFieldRead = new TaggedTupleFieldReadImpl();
+        return taggedTupleFieldRead;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TagOf createTagOf() {
-		TagOfImpl tagOf = new TagOfImpl();
-		return tagOf;
-	}
+        TagOfImpl tagOf = new TagOfImpl();
+        return tagOf;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TypeUndef createTypeUndef() {
-		TypeUndefImpl typeUndef = new TypeUndefImpl();
-		return typeUndef;
-	}
+        TypeUndefImpl typeUndef = new TypeUndefImpl();
+        return typeUndef;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TypeActor createTypeActor() {
-		TypeActorImpl typeActor = new TypeActorImpl();
-		return typeActor;
-	}
+        TypeActorImpl typeActor = new TypeActorImpl();
+        return typeActor;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TypeUser createTypeUser() {
-		TypeUserImpl typeUser = new TypeUserImpl();
-		return typeUser;
-	}
+        TypeUserImpl typeUser = new TypeUserImpl();
+        return typeUser;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TypeLambda createTypeLambda() {
-		TypeLambdaImpl typeLambda = new TypeLambdaImpl();
-		return typeLambda;
-	}
+        TypeLambdaImpl typeLambda = new TypeLambdaImpl();
+        return typeLambda;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TypeProc createTypeProc() {
-		TypeProcImpl typeProc = new TypeProcImpl();
-		return typeProc;
-	}
+        TypeProcImpl typeProc = new TypeProcImpl();
+        return typeProc;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TypeVariable createTypeVariable() {
-		TypeVariableImpl typeVariable = new TypeVariableImpl();
-		return typeVariable;
-	}
+        TypeVariableImpl typeVariable = new TypeVariableImpl();
+        return typeVariable;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TypeDeclaration createTypeDeclaration() {
-		TypeDeclarationImpl typeDeclaration = new TypeDeclarationImpl();
-		return typeDeclaration;
-	}
+        TypeDeclarationImpl typeDeclaration = new TypeDeclarationImpl();
+        return typeDeclaration;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public TypeVariableDeclaration createTypeVariableDeclaration() {
-		TypeVariableDeclarationImpl typeVariableDeclaration = new TypeVariableDeclarationImpl();
-		return typeVariableDeclaration;
-	}
+        TypeVariableDeclarationImpl typeVariableDeclaration = new TypeVariableDeclarationImpl();
+        return typeVariableDeclaration;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Schedule createSchedule() {
-		ScheduleImpl schedule = new ScheduleImpl();
-		return schedule;
-	}
+        ScheduleImpl schedule = new ScheduleImpl();
+        return schedule;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public State createState() {
-		StateImpl state = new StateImpl();
-		return state;
-	}
+        StateImpl state = new StateImpl();
+        return state;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Annotation createAnnotation() {
-		AnnotationImpl annotation = new AnnotationImpl();
-		return annotation;
-	}
+        AnnotationImpl annotation = new AnnotationImpl();
+        return annotation;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public AnnotationArgument createAnnotationArgument() {
-		AnnotationArgumentImpl annotationArgument = new AnnotationArgumentImpl();
-		return annotationArgument;
-	}
+        AnnotationArgumentImpl annotationArgument = new AnnotationArgumentImpl();
+        return annotationArgument;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public IrPackage getIrPackage() {
-		return (IrPackage)getEPackage();
-	}
+        return (IrPackage)getEPackage();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @deprecated
-	 * @generated
-	 */
+     * @deprecated
+     * @generated
+     */
 	@Deprecated
 	public static IrPackage getPackage() {
-		return IrPackage.eINSTANCE;
-	}
+        return IrPackage.eINSTANCE;
+    }
 
 } //IrFactoryImpl

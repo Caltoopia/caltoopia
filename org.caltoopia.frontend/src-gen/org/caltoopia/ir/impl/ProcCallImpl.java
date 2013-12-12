@@ -38,196 +38,196 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class ProcCallImpl extends StatementImpl implements ProcCall {
 	/**
-	 * The cached value of the '{@link #getInParameters() <em>In Parameters</em>}' reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getInParameters() <em>In Parameters</em>}' reference list.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInParameters()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getInParameters()
+     * @generated
+     * @ordered
+     */
 	protected EList<Expression> inParameters;
 
 	/**
-	 * The cached value of the '{@link #getOutParameters() <em>Out Parameters</em>}' reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getOutParameters() <em>Out Parameters</em>}' reference list.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getOutParameters()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getOutParameters()
+     * @generated
+     * @ordered
+     */
 	protected EList<VariableReference> outParameters;
 
 	/**
-	 * The cached value of the '{@link #getProcedure() <em>Procedure</em>}' reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getProcedure() <em>Procedure</em>}' reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getProcedure()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getProcedure()
+     * @generated
+     * @ordered
+     */
 	protected Declaration procedure;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected ProcCallImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass() {
-		return IrPackage.Literals.PROC_CALL;
-	}
+        return IrPackage.Literals.PROC_CALL;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public EList<Expression> getInParameters() {
-		if (inParameters == null) {
-			inParameters = new EObjectResolvingEList<Expression>(Expression.class, this, IrPackage.PROC_CALL__IN_PARAMETERS);
-		}
-		return inParameters;
-	}
+        if (inParameters == null) {
+            inParameters = new EObjectResolvingEList<Expression>(Expression.class, this, IrPackage.PROC_CALL__IN_PARAMETERS);
+        }
+        return inParameters;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public EList<VariableReference> getOutParameters() {
-		if (outParameters == null) {
-			outParameters = new EObjectResolvingEList<VariableReference>(VariableReference.class, this, IrPackage.PROC_CALL__OUT_PARAMETERS);
-		}
-		return outParameters;
-	}
+        if (outParameters == null) {
+            outParameters = new EObjectResolvingEList<VariableReference>(VariableReference.class, this, IrPackage.PROC_CALL__OUT_PARAMETERS);
+        }
+        return outParameters;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Declaration getProcedure() {
-		if (procedure != null && procedure.eIsProxy()) {
-			InternalEObject oldProcedure = (InternalEObject)procedure;
-			procedure = (Declaration)eResolveProxy(oldProcedure);
-			if (procedure != oldProcedure) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.PROC_CALL__PROCEDURE, oldProcedure, procedure));
-			}
-		}
-		return procedure;
-	}
+        if (procedure != null && procedure.eIsProxy()) {
+            InternalEObject oldProcedure = (InternalEObject)procedure;
+            procedure = (Declaration)eResolveProxy(oldProcedure);
+            if (procedure != oldProcedure) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.PROC_CALL__PROCEDURE, oldProcedure, procedure));
+            }
+        }
+        return procedure;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Declaration basicGetProcedure() {
-		return procedure;
-	}
+        return procedure;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setProcedure(Declaration newProcedure) {
-		Declaration oldProcedure = procedure;
-		procedure = newProcedure;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.PROC_CALL__PROCEDURE, oldProcedure, procedure));
-	}
+        Declaration oldProcedure = procedure;
+        procedure = newProcedure;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.PROC_CALL__PROCEDURE, oldProcedure, procedure));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case IrPackage.PROC_CALL__IN_PARAMETERS:
-				return getInParameters();
-			case IrPackage.PROC_CALL__OUT_PARAMETERS:
-				return getOutParameters();
-			case IrPackage.PROC_CALL__PROCEDURE:
-				if (resolve) return getProcedure();
-				return basicGetProcedure();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case IrPackage.PROC_CALL__IN_PARAMETERS:
+                return getInParameters();
+            case IrPackage.PROC_CALL__OUT_PARAMETERS:
+                return getOutParameters();
+            case IrPackage.PROC_CALL__PROCEDURE:
+                if (resolve) return getProcedure();
+                return basicGetProcedure();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case IrPackage.PROC_CALL__IN_PARAMETERS:
-				getInParameters().clear();
-				getInParameters().addAll((Collection<? extends Expression>)newValue);
-				return;
-			case IrPackage.PROC_CALL__OUT_PARAMETERS:
-				getOutParameters().clear();
-				getOutParameters().addAll((Collection<? extends VariableReference>)newValue);
-				return;
-			case IrPackage.PROC_CALL__PROCEDURE:
-				setProcedure((Declaration)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case IrPackage.PROC_CALL__IN_PARAMETERS:
+                getInParameters().clear();
+                getInParameters().addAll((Collection<? extends Expression>)newValue);
+                return;
+            case IrPackage.PROC_CALL__OUT_PARAMETERS:
+                getOutParameters().clear();
+                getOutParameters().addAll((Collection<? extends VariableReference>)newValue);
+                return;
+            case IrPackage.PROC_CALL__PROCEDURE:
+                setProcedure((Declaration)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-			case IrPackage.PROC_CALL__IN_PARAMETERS:
-				getInParameters().clear();
-				return;
-			case IrPackage.PROC_CALL__OUT_PARAMETERS:
-				getOutParameters().clear();
-				return;
-			case IrPackage.PROC_CALL__PROCEDURE:
-				setProcedure((Declaration)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.PROC_CALL__IN_PARAMETERS:
+                getInParameters().clear();
+                return;
+            case IrPackage.PROC_CALL__OUT_PARAMETERS:
+                getOutParameters().clear();
+                return;
+            case IrPackage.PROC_CALL__PROCEDURE:
+                setProcedure((Declaration)null);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case IrPackage.PROC_CALL__IN_PARAMETERS:
-				return inParameters != null && !inParameters.isEmpty();
-			case IrPackage.PROC_CALL__OUT_PARAMETERS:
-				return outParameters != null && !outParameters.isEmpty();
-			case IrPackage.PROC_CALL__PROCEDURE:
-				return procedure != null;
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.PROC_CALL__IN_PARAMETERS:
+                return inParameters != null && !inParameters.isEmpty();
+            case IrPackage.PROC_CALL__OUT_PARAMETERS:
+                return outParameters != null && !outParameters.isEmpty();
+            case IrPackage.PROC_CALL__PROCEDURE:
+                return procedure != null;
+        }
+        return super.eIsSet(featureID);
+    }
 
 } //ProcCallImpl

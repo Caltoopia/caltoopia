@@ -18,22 +18,22 @@ import org.eclipse.emf.ecore.EClass;
  */
 public class ExpressionCallImpl extends ExpressionImpl implements ExpressionCall {
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected ExpressionCallImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass() {
-		return IrPackage.Literals.EXPRESSION_CALL;
-	}
+        return IrPackage.Literals.EXPRESSION_CALL;
+    }
 
 } //ExpressionCallImpl

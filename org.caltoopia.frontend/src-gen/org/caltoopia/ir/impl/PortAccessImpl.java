@@ -30,188 +30,188 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class PortAccessImpl extends NodeImpl implements PortAccess {
 	/**
-	 * The cached value of the '{@link #getPort() <em>Port</em>}' reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getPort() <em>Port</em>}' reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPort()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getPort()
+     * @generated
+     * @ordered
+     */
 	protected Port port;
 
 	/**
-	 * The cached value of the '{@link #getRepeat() <em>Repeat</em>}' reference.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getRepeat() <em>Repeat</em>}' reference.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRepeat()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getRepeat()
+     * @generated
+     * @ordered
+     */
 	protected Expression repeat;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected PortAccessImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass() {
-		return IrPackage.Literals.PORT_ACCESS;
-	}
+        return IrPackage.Literals.PORT_ACCESS;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Port getPort() {
-		if (port != null && port.eIsProxy()) {
-			InternalEObject oldPort = (InternalEObject)port;
-			port = (Port)eResolveProxy(oldPort);
-			if (port != oldPort) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.PORT_ACCESS__PORT, oldPort, port));
-			}
-		}
-		return port;
-	}
+        if (port != null && port.eIsProxy()) {
+            InternalEObject oldPort = (InternalEObject)port;
+            port = (Port)eResolveProxy(oldPort);
+            if (port != oldPort) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.PORT_ACCESS__PORT, oldPort, port));
+            }
+        }
+        return port;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Port basicGetPort() {
-		return port;
-	}
+        return port;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setPort(Port newPort) {
-		Port oldPort = port;
-		port = newPort;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.PORT_ACCESS__PORT, oldPort, port));
-	}
+        Port oldPort = port;
+        port = newPort;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.PORT_ACCESS__PORT, oldPort, port));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Expression getRepeat() {
-		if (repeat != null && repeat.eIsProxy()) {
-			InternalEObject oldRepeat = (InternalEObject)repeat;
-			repeat = (Expression)eResolveProxy(oldRepeat);
-			if (repeat != oldRepeat) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.PORT_ACCESS__REPEAT, oldRepeat, repeat));
-			}
-		}
-		return repeat;
-	}
+        if (repeat != null && repeat.eIsProxy()) {
+            InternalEObject oldRepeat = (InternalEObject)repeat;
+            repeat = (Expression)eResolveProxy(oldRepeat);
+            if (repeat != oldRepeat) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.PORT_ACCESS__REPEAT, oldRepeat, repeat));
+            }
+        }
+        return repeat;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public Expression basicGetRepeat() {
-		return repeat;
-	}
+        return repeat;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public void setRepeat(Expression newRepeat) {
-		Expression oldRepeat = repeat;
-		repeat = newRepeat;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.PORT_ACCESS__REPEAT, oldRepeat, repeat));
-	}
+        Expression oldRepeat = repeat;
+        repeat = newRepeat;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.PORT_ACCESS__REPEAT, oldRepeat, repeat));
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case IrPackage.PORT_ACCESS__PORT:
-				if (resolve) return getPort();
-				return basicGetPort();
-			case IrPackage.PORT_ACCESS__REPEAT:
-				if (resolve) return getRepeat();
-				return basicGetRepeat();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case IrPackage.PORT_ACCESS__PORT:
+                if (resolve) return getPort();
+                return basicGetPort();
+            case IrPackage.PORT_ACCESS__REPEAT:
+                if (resolve) return getRepeat();
+                return basicGetRepeat();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case IrPackage.PORT_ACCESS__PORT:
-				setPort((Port)newValue);
-				return;
-			case IrPackage.PORT_ACCESS__REPEAT:
-				setRepeat((Expression)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case IrPackage.PORT_ACCESS__PORT:
+                setPort((Port)newValue);
+                return;
+            case IrPackage.PORT_ACCESS__REPEAT:
+                setRepeat((Expression)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-			case IrPackage.PORT_ACCESS__PORT:
-				setPort((Port)null);
-				return;
-			case IrPackage.PORT_ACCESS__REPEAT:
-				setRepeat((Expression)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.PORT_ACCESS__PORT:
+                setPort((Port)null);
+                return;
+            case IrPackage.PORT_ACCESS__REPEAT:
+                setRepeat((Expression)null);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case IrPackage.PORT_ACCESS__PORT:
-				return port != null;
-			case IrPackage.PORT_ACCESS__REPEAT:
-				return repeat != null;
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.PORT_ACCESS__PORT:
+                return port != null;
+            case IrPackage.PORT_ACCESS__REPEAT:
+                return repeat != null;
+        }
+        return super.eIsSet(featureID);
+    }
 
 } //PortAccessImpl

@@ -31,137 +31,137 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class ListExpressionImpl extends ExpressionImpl implements ListExpression {
 	/**
-	 * The cached value of the '{@link #getGenerators() <em>Generators</em>}' reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getGenerators() <em>Generators</em>}' reference list.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getGenerators()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getGenerators()
+     * @generated
+     * @ordered
+     */
 	protected EList<Generator> generators;
 
 	/**
-	 * The cached value of the '{@link #getExpressions() <em>Expressions</em>}' reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getExpressions() <em>Expressions</em>}' reference list.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getExpressions()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getExpressions()
+     * @generated
+     * @ordered
+     */
 	protected EList<Expression> expressions;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected ListExpressionImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass() {
-		return IrPackage.Literals.LIST_EXPRESSION;
-	}
+        return IrPackage.Literals.LIST_EXPRESSION;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public EList<Generator> getGenerators() {
-		if (generators == null) {
-			generators = new EObjectResolvingEList<Generator>(Generator.class, this, IrPackage.LIST_EXPRESSION__GENERATORS);
-		}
-		return generators;
-	}
+        if (generators == null) {
+            generators = new EObjectResolvingEList<Generator>(Generator.class, this, IrPackage.LIST_EXPRESSION__GENERATORS);
+        }
+        return generators;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public EList<Expression> getExpressions() {
-		if (expressions == null) {
-			expressions = new EObjectResolvingEList<Expression>(Expression.class, this, IrPackage.LIST_EXPRESSION__EXPRESSIONS);
-		}
-		return expressions;
-	}
+        if (expressions == null) {
+            expressions = new EObjectResolvingEList<Expression>(Expression.class, this, IrPackage.LIST_EXPRESSION__EXPRESSIONS);
+        }
+        return expressions;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case IrPackage.LIST_EXPRESSION__GENERATORS:
-				return getGenerators();
-			case IrPackage.LIST_EXPRESSION__EXPRESSIONS:
-				return getExpressions();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case IrPackage.LIST_EXPRESSION__GENERATORS:
+                return getGenerators();
+            case IrPackage.LIST_EXPRESSION__EXPRESSIONS:
+                return getExpressions();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case IrPackage.LIST_EXPRESSION__GENERATORS:
-				getGenerators().clear();
-				getGenerators().addAll((Collection<? extends Generator>)newValue);
-				return;
-			case IrPackage.LIST_EXPRESSION__EXPRESSIONS:
-				getExpressions().clear();
-				getExpressions().addAll((Collection<? extends Expression>)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case IrPackage.LIST_EXPRESSION__GENERATORS:
+                getGenerators().clear();
+                getGenerators().addAll((Collection<? extends Generator>)newValue);
+                return;
+            case IrPackage.LIST_EXPRESSION__EXPRESSIONS:
+                getExpressions().clear();
+                getExpressions().addAll((Collection<? extends Expression>)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-			case IrPackage.LIST_EXPRESSION__GENERATORS:
-				getGenerators().clear();
-				return;
-			case IrPackage.LIST_EXPRESSION__EXPRESSIONS:
-				getExpressions().clear();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.LIST_EXPRESSION__GENERATORS:
+                getGenerators().clear();
+                return;
+            case IrPackage.LIST_EXPRESSION__EXPRESSIONS:
+                getExpressions().clear();
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case IrPackage.LIST_EXPRESSION__GENERATORS:
-				return generators != null && !generators.isEmpty();
-			case IrPackage.LIST_EXPRESSION__EXPRESSIONS:
-				return expressions != null && !expressions.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case IrPackage.LIST_EXPRESSION__GENERATORS:
+                return generators != null && !generators.isEmpty();
+            case IrPackage.LIST_EXPRESSION__EXPRESSIONS:
+                return expressions != null && !expressions.isEmpty();
+        }
+        return super.eIsSet(featureID);
+    }
 
 } //ListExpressionImpl

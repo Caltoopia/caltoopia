@@ -18,22 +18,22 @@ import org.eclipse.emf.ecore.EClass;
  */
 public class TypeVariableDeclarationImpl extends DeclarationImpl implements TypeVariableDeclaration {
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected TypeVariableDeclarationImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass() {
-		return IrPackage.Literals.TYPE_VARIABLE_DECLARATION;
-	}
+        return IrPackage.Literals.TYPE_VARIABLE_DECLARATION;
+    }
 
 } //TypeVariableDeclarationImpl
