@@ -717,8 +717,12 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 	@Override
 	public Stream caseCaseExpression(CaseExpression caze) {
 		s.printlnInc("<Expr kind=\"Case\" "
-					+ " id=\"" + caze.getId() + "\">");
-
+					+ " id=\"" + caze.getId() + "\""+ 
+		        " context-scope=\"" + caze.getContext().getId()+"\">");
+		doAnnotations(caze);
+        if(caze.getType()!=null) {
+            doSwitch(caze.getType());
+        }
 		/*
 		 * Writing 2 expressions,
 		 * the first must be the case variable expression
@@ -744,7 +748,7 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 					+ " id=\"" + alt.getId() + "\""
 					+ " outer-scope=\"" + alt.getOuter().getId() 
 					+ "\">"); 		
-
+        doAnnotations(alt);
 		for (Declaration decl : alt.getDeclarations()) {
 			doSwitch(decl);
 		}

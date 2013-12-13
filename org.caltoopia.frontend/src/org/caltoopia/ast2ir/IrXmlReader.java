@@ -859,6 +859,12 @@ public class IrXmlReader {
 			CaseExpression expr = IrFactory.eINSTANCE.createCaseExpression();
 	
 			expr.setId(element.getAttribute("id"));
+            expr.setContext((Scope) findIrObject(element.getAttribute("context-scope"))); 
+            doAnnotations(expr, element);
+            Element child = getChild(element,"Type");
+            if(child!=null) {
+                expr.setType(createType(child));
+            }
 			
 			/*
 			 * Two expressions the first is the case variable 
@@ -903,7 +909,10 @@ public class IrXmlReader {
 	private ExprAlternative createExprAlternative(Element element) {
 		ExprAlternative alt = IrFactory.eINSTANCE.createExprAlternative();
 		
-		alt.setId(element.getAttribute("id"));
+		String id = element.getAttribute("id");
+		alt.setId(id);
+		addIrObject(id, alt);
+
 		alt.setOuter((Scope) findIrObject(element.getAttribute("outer-scope"))); 
 
 		doAnnotations(alt, element);
