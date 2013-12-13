@@ -61,6 +61,8 @@ import org.caltoopia.ir.IrFactory;
 import org.caltoopia.ir.ListExpression;
 import org.caltoopia.ir.Member;
 
+import org.caltoopia.ir.CaseExpression;
+import org.caltoopia.ir.ExprAlternative;
 import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.StringLiteral;
 import org.caltoopia.ir.Type;
@@ -101,6 +103,65 @@ public class TypeAnnotater extends IrReplaceSwitch {
         return call;
     }
 
+    @Override
+    public Expression caseCaseExpression(CaseExpression caze) {
+        super.caseCaseExpression(caze);
+        if(caze.getType()==null) {
+            //Try the default expression type
+            Type type = caze.getDefault().getType();
+            Type typeA = null;
+            //If list need to check that all the alternatives have the same (deep) length
+            if(TypeSystem.isList(type)) {
+                boolean equal = true;
+                Stack<Expression> szAll = new Stack<Expression>();
+                for(ExprAlternative alt : caze.getAlternatives()) {
+                    typeA = alt.getExpression().getType();
+                    type = caze.getDefault().getType();
+                    Stack<Expression> sz = new Stack<Expression>();
+                    if(type != null && typeA != null) {
+                        while(type instanceof TypeList) {
+                            if(((TypeList)type).getSize() != ((TypeList)typeA).getSize()) {
+                                if(((TypeList)type).getSize() instanceof IntegerLiteral && 
+                                        ((TypeList)typeA).getSize() instanceof IntegerLiteral && 
+                                    ((IntegerLiteral)((TypeList)type).getSize()).getValue() ==
+                                    ((IntegerLiteral)((TypeList)typeA).getSize()).getValue()) {
+                                    sz.push(((TypeList)type).getSize());
+                                } else {
+                                    sz.push(null);
+                                    equal = false;
+                                }
+                            } else {
+                                sz.push(((TypeList)type).getSize());
+                            }
+                            type = ((TypeList)type).getType();
+                            typeA = ((TypeList)typeA).getType();
+                        }
+                        if(szAll.isEmpty()) {
+                            szAll.addAll(sz);
+                        } else {
+                            for(int i = 0; i < sz.size(); i++) {
+                                if(szAll.get(i) != sz.get(i)) {
+                                    szAll.set(i, null);
+                                    equal = false;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(equal) {
+                    type = caze.getDefault().getType();
+                } else {
+                    //Not equal size of lists, build new type with some null sizes
+                    while(!szAll.isEmpty()) {
+                        type = TypeSystem.createTypeList(szAll.pop(), type);
+                    }
+                }
+            }
+            caze.setType(type);
+        }
+        return caze;
+    }
+    
     @Override
     public Expression caseTypeConstructorCall(TypeConstructorCall call) {
         super.caseTypeConstructorCall(call);
