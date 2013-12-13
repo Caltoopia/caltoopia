@@ -65,6 +65,7 @@ import org.caltoopia.ir.PortWrite;
 import org.caltoopia.ir.ProcExpression;
 import org.caltoopia.ir.ReturnValue;
 import org.caltoopia.ir.Statement;
+import org.caltoopia.ir.TaggedTupleFieldRead;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
 import org.caltoopia.ir.TypeConstructorCall;
@@ -220,6 +221,25 @@ public class CBuildGuard extends IrSwitch<Boolean> {
                             bodyStr += ind.ind() + "}" + ind.nl();
                         }
                     }
+                }
+            }
+            for (Guard g: action.getGuards()) {
+                for (Declaration d : g.getDeclarations()) {
+                    //Only print the constants and peek variable declarations
+                    VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
+                    switch(varType) {
+                    case peekVar:
+                    case inPortPeekVar:
+                    case inOutPortPeekVar:
+                        if(((Variable)d).getInitValue() instanceof TaggedTupleFieldRead) {
+                            TaggedTupleFieldRead tt = (TaggedTupleFieldRead) ((Variable)d).getInitValue();
+                            bodyStr += ind.ind() + (new CBuildVarDeclaration((Variable) d,cenv, true).toStr()) + " = ";
+                            bodyStr += new CBuildExpression(tt, cenv).toStr() + ";" + ind.nl();
+                        }
+                        break;
+                    default:
+                        break;
+                    } 
                 }
             }
             bodyStr += ind.ind() + "int ret = " +ind.nl();
