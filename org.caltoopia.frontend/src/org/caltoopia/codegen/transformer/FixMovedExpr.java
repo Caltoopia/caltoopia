@@ -3,7 +3,9 @@ package org.caltoopia.codegen.transformer;
 import org.caltoopia.ir.BinaryExpression;
 import org.caltoopia.ir.Block;
 import org.caltoopia.ir.BooleanLiteral;
+import org.caltoopia.ir.CaseExpression;
 import org.caltoopia.ir.Declaration;
+import org.caltoopia.ir.ExprAlternative;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.FloatLiteral;
 import org.caltoopia.ir.ForwardDeclaration;
@@ -17,6 +19,7 @@ import org.caltoopia.ir.Member;
 import org.caltoopia.ir.Node;
 import org.caltoopia.ir.ProcExpression;
 import org.caltoopia.ir.Scope;
+import org.caltoopia.ir.StmtAlternative;
 import org.caltoopia.ir.StringLiteral;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeConstructorCall;
@@ -84,8 +87,26 @@ public class FixMovedExpr extends IrReplaceSwitch {
         return scope;
     }
     @Override
+    public StmtAlternative caseStmtAlternative(StmtAlternative scope) {
+        super.caseStmtAlternative(scope);
+        if(!(skipTop && scope.getId().equals(newScope.getId()))) {
+            if(scope.getOuter().getId().equals(oldScope.getId())) {
+                scope.setOuter(newScope);
+            }
+        }
+        return scope;
+    }
+    @Override
     public Expression caseExpression(Expression expr) {
         super.caseExpression(expr);
+        if(expr.getContext().getId().equals(oldScope.getId())) {
+            expr.setContext(newScope);
+        }
+        return expr;
+    }
+    @Override
+    public CaseExpression caseCaseExpression(CaseExpression expr) {
+        super.caseCaseExpression(expr);
         if(expr.getContext().getId().equals(oldScope.getId())) {
             expr.setContext(newScope);
         }
