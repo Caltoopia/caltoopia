@@ -760,7 +760,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 					portPeek.setId(Util.getDefinitionId());
 					portPeek.setPort(port);	
 					portPeek.setPosition(j); 
-					varDecl = Util.createTmpVariable(action, type, null);
+					varDecl = Util.createTmpVariable(guard, type, null);
 					portPeek.setVariable(Util.createVariableReference(varDecl));				
 					guard.getPeeks().add(portPeek);
 					
