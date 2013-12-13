@@ -303,6 +303,8 @@ public class CreateIrExpression extends CalSwitch<Expression> {
 				alt.setOuter(currentScope);
 			
 				Util.doPatternDeclarations(alt, astType, a.getPattern(), condition, null);				
+                if (a.getPattern() != null)
+                    alt.getGuards().add(Util.doPatternTypeGuards(currentScope, a.getPattern(), condition, astType));
 				
 				for (AstExpression guard : a.getGuards()) {
 					alt.getGuards().add(CreateIrExpression.convert(alt, guard));
