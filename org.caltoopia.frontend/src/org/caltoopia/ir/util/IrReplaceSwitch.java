@@ -83,8 +83,10 @@ import org.caltoopia.ir.State;
 import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.StmtAlternative;
 import org.caltoopia.ir.StringLiteral;
+import org.caltoopia.ir.TagOf;
 import org.caltoopia.ir.TaggedExpression;
 import org.caltoopia.ir.TaggedTuple;
+import org.caltoopia.ir.TaggedTupleFieldRead;
 import org.caltoopia.ir.ToSink;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
@@ -496,6 +498,22 @@ public class IrReplaceSwitch extends IrSwitch<EObject> {
         }
 
         return caze;
+	}
+	
+	@Override
+	public Expression caseTagOf(TagOf expr) {
+	    caseExpression(expr);
+	    Expression e = (Expression) doSwitch(expr.getExpression());
+	    expr.setExpression(e);
+	    return expr;
+	}
+	
+	@Override
+	public Expression caseTaggedTupleFieldRead(TaggedTupleFieldRead expr) {
+        caseExpression(expr);
+        Expression e = (Expression) doSwitch(expr.getValue());
+        expr.setValue(e);
+	    return expr;
 	}
 	
 	@Override
