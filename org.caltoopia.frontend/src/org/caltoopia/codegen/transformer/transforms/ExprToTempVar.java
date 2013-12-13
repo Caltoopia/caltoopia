@@ -63,13 +63,16 @@ import org.caltoopia.ir.ActorInstance;
 import org.caltoopia.ir.Assign;
 import org.caltoopia.ir.BinaryExpression;
 import org.caltoopia.ir.Block;
+import org.caltoopia.ir.CaseStatement;
 import org.caltoopia.ir.Declaration;
+import org.caltoopia.ir.ExprAlternative;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.ExternalActor;
 import org.caltoopia.ir.ForEach;
 import org.caltoopia.ir.FunctionCall;
 import org.caltoopia.ir.Guard;
 import org.caltoopia.ir.IfExpression;
+import org.caltoopia.ir.CaseExpression;
 import org.caltoopia.ir.IfStatement;
 import org.caltoopia.ir.IrFactory;
 import org.caltoopia.ir.LambdaExpression;
@@ -491,6 +494,47 @@ public class ExprToTempVar extends IrReplaceSwitch {
                 return UtilIR.createExpression(scope, target);
             }
             return expr;
+        }
+
+        @Override
+        public Expression caseCaseExpression(CaseExpression expr) {
+            //Transform a case expression into a case statement
+            //Temp variable to be assign the alternative expressions
+            Variable target = UtilIR.createVarDef(null, "__temp_" + expr.getId(), expr.getType());
+            target.setScope(scope);
+            TransUtil.setAnnotation(target, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
+            declarations.add(target);
+            //First assign the default expression before case, 
+            //since in CAL all expressions should be side effect free
+            Assign assign = UtilIR.createAssignN(scope, target, expr.getDefault());
+            TransUtil.setAnnotation(assign, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
+            statements.add(pos+inserts, assign);
+            inserts++;
+            CaseStatement caze = IrFactory.eINSTANCE.createCaseStatement();
+            caze.setId(Util.getDefinitionId());
+            caze.setExpression(expr.getExpression());
+            for(ExprAlternative e:expr.getAlternatives()) {
+                StmtAlternative alt = IrFactory.eINSTANCE.createStmtAlternative();
+                alt.setId(Util.getDefinitionId());
+                alt.setOuter(scope);
+                alt.getDeclarations().addAll(e.getDeclarations());
+                FixMovedExpr.moveDeclScope(alt, alt, e, true);
+                assign = UtilIR.createAssign(alt, target, e.getExpression());
+                TransUtil.setAnnotation(assign, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
+                alt.getGuards().addAll(e.getGuards());
+                FixMovedExpr.moveScope(alt, alt, e, true);
+                caze.getAlternatives().add(alt);
+            }
+            //Apply the transformation of guards
+            caze = new StmtAlternativeTrans(null, session, false).caseCaseStatement(caze);
+            statements.add(pos+inserts, caze);
+            inserts++;
+            
+            if(s instanceof Assign) {
+                //Since we have inserted a temp var remove any self assign
+                TransUtil.rmAnnotation(s, "Variable", "VarLocalAccess","self");
+            }
+            return UtilIR.createExpression(scope, target);
         }
 
         @Override
