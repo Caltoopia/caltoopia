@@ -51,6 +51,7 @@ import org.caltoopia.ir.Assign;
 import org.caltoopia.ir.Block;
 import org.caltoopia.ir.BooleanLiteral;
 import org.caltoopia.ir.Declaration;
+import org.caltoopia.ir.ExprAlternative;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.BinaryExpression;
 import org.caltoopia.ir.FloatLiteral;
@@ -259,6 +260,23 @@ public class ConstantExpressionEvaluator extends IrReplaceSwitch {
         return alt;
     }
     
+    @Override
+    public ExprAlternative caseExprAlternative(ExprAlternative alt) {
+        stack = new Stack(stack);
+        caseScope(alt);
+        
+        Expression expr = (Expression) doSwitch(alt.getExpression());
+        alt.setExpression(expr);
+        
+        //Visit all the guards (since they could have the scope of the expr alt)
+        List<Expression> guards = alt.getGuards();
+        for (int i = 0; i < guards.size(); i++) {
+            Expression e = (Expression) doSwitch(guards.get(i));
+            guards.set(i, e);
+        }
+        stack = stack.outer;
+        return alt;
+    }
 
     @Override 
 	public ForEach caseForEach(ForEach forEach) {
