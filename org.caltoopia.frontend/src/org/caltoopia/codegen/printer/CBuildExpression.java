@@ -68,6 +68,7 @@ import org.caltoopia.ir.ListExpression;
 import org.caltoopia.ir.Member;
 import org.caltoopia.ir.Namespace;
 import org.caltoopia.ir.StringLiteral;
+import org.caltoopia.ir.TagOf;
 import org.caltoopia.ir.TaggedTupleFieldRead;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeConstructorCall;
@@ -828,6 +829,21 @@ public class CBuildExpression extends IrSwitch<Boolean> {
         return true;
     }
 
+    @Override
+    public Boolean caseTagOf(TagOf tag) {
+        /*
+         * Should produce a boolean expression checking if the var has the correct tag.
+         * Used in action guards.
+         * When building case alternatives this should not be used.
+         */
+        String tagid = tag.getTag();
+        CBuildExpression caseVar = new CBuildExpression(tag.getExpression(),cenv,false,true,true);
+        caseVar.toStr();
+        exprStr += "(" +caseVar.tagStr() +" == ";
+        exprStr += new CBuildTypeName(tag.getExpression().getType(), new CPrintUtil.dummyCB(), false).asTagNameStr(tagid) + ")";
+        return true;
+    }
+    
     @Override
     public Boolean caseTaggedTupleFieldRead(TaggedTupleFieldRead read) {
         exprStr += new CBuildExpression(read.getValue(), cenv, asRef, sepIndex, asArrayPart).toStr();
