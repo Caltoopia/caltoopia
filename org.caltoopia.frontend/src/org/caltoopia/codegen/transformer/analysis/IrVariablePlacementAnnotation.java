@@ -207,6 +207,7 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
                          IrVariableAnnotation.VarType.actorConstVar.name(),
                          IrVariableAnnotation.VarType.importConstVar.name(),
                          IrVariableAnnotation.VarType.blockConstVar.name(),
+                         IrVariableAnnotation.VarType.exprAltConstVar.name(),
                          IrVariableAnnotation.VarType.actorConstParamVar.name()).contains(annotations.get("VarType"))) {
 			placement = VarPlacement.constant;
 		//actor constructor?

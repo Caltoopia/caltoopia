@@ -155,6 +155,7 @@ public class CBuildConstDeclaration extends CBuildVarDeclaration {
             break;
         case constVar:
         case blockConstVar:
+        case exprAltConstVar:
             buildConstDeclaration(variable, true);
             break;
         case actorConstParamVar:

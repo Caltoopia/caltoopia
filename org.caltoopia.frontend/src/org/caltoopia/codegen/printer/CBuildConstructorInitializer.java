@@ -134,6 +134,7 @@ public class CBuildConstructorInitializer extends IrSwitch<Boolean> {
                 bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d, cenv,false).toStr()) + ";" + ind.nl();
                 break;
             case blockConstVar:
+            case exprAltConstVar:
                 bodyStr += ind.ind() + (new CBuildConstDeclaration((Variable) d,cenv, false).toStr()) + ";" + ind.nl();
                 break;
             case actorVar:

@@ -52,6 +52,7 @@ import org.caltoopia.ir.AnnotationArgument;
 import org.caltoopia.ir.Assign;
 import org.caltoopia.ir.Block;
 import org.caltoopia.ir.Declaration;
+import org.caltoopia.ir.ExprAlternative;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.ExternalActor;
 import org.caltoopia.ir.ForwardDeclaration;
@@ -221,6 +222,8 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		generatorVar,
         blockVar,
         blockConstVar,
+        exprAltVar,
+        exprAltConstVar,
 		funcVar,
 		funcInParamVar,
 		procVar,
@@ -588,6 +591,12 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
                         t = VarType.blockConstVar;
                     } else {
                         t = VarType.blockVar;
+                    }
+                } else if(variable.getScope() instanceof ExprAlternative) {
+                    if(variable.isConstant() && variable.getInitValue()!=null) {
+                        t = VarType.exprAltConstVar;
+                    } else {
+                        t = VarType.exprAltVar;
                     }
 				} else {
 					serr.println("[IrAnnotate] Did not expect a normal var in scope "+variable.getScope().getClass()+ " and of name " + variable.getName());
