@@ -46,9 +46,11 @@ import org.caltoopia.ir.Assign;
 import org.caltoopia.ir.BinaryExpression;
 import org.caltoopia.ir.Block;
 import org.caltoopia.ir.BooleanLiteral;
+import org.caltoopia.ir.CaseExpression;
 import org.caltoopia.ir.CaseStatement;
 import org.caltoopia.ir.Connection;
 import org.caltoopia.ir.Declaration;
+import org.caltoopia.ir.ExprAlternative;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.FloatLiteral;
 import org.caltoopia.ir.ForEach;
@@ -458,6 +460,44 @@ public class IrReplaceSwitch extends IrSwitch<EObject> {
 		return call;
 	}
 
+    @Override
+    public ExprAlternative caseExprAlternative(ExprAlternative alt) {
+        //Visit all the guards
+        List<Expression> guards = alt.getGuards();
+        for (int i = 0; i < guards.size(); i++) {
+            Expression expr = (Expression) doSwitch(guards.get(i));
+            guards.set(i, expr);
+        }
+
+        //Visit the expression alternative
+        Expression expr = (Expression) doSwitch(alt.getExpression());
+        alt.setExpression(expr);
+        
+        return alt;
+    }
+    
+	@Override
+    public Expression caseCaseExpression(CaseExpression caze) {
+	    caseExpression(caze);
+
+        //Visit the case var expression
+        Expression expr = (Expression) doSwitch(caze.getExpression());
+        caze.setExpression(expr);
+
+	    //Visit the default expression
+        expr = (Expression) doSwitch(caze.getDefault());
+        caze.setDefault(expr);
+        
+        //Visit the expression alternatives
+        List<ExprAlternative> alts = caze.getAlternatives();
+        for (int i = 0; i < alts.size(); i++) {
+            ExprAlternative e = (ExprAlternative) doSwitch(alts.get(i));
+            alts.set(i, e);
+        }
+
+        return caze;
+	}
+	
 	@Override
 	public Expression caseTypeConstructorCall(TypeConstructorCall call) {
 		caseExpression(call);
