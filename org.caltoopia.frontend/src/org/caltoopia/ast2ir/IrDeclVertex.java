@@ -41,6 +41,7 @@ import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
+import org.caltoopia.ir.ForwardDeclaration;
 import org.caltoopia.ir.FunctionCall;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeDeclaration;
@@ -105,6 +106,9 @@ public class IrDeclVertex implements VertexData {
 			if (variable.getInitValue() != null) {
 				s.doSwitch(variable.getInitValue());
 			}
+        } else if (var instanceof ForwardDeclaration) {
+            ForwardDeclaration fwdef = (ForwardDeclaration) var;
+            s.doSwitch(fwdef.getType());
 		} else if (var instanceof TypeDeclaration) {
 			TypeDeclaration typedef = (TypeDeclaration) var;
 			s.doSwitch(typedef.getType());
