@@ -201,7 +201,7 @@ public class CBuildAction extends IrSwitch<Boolean> {
                  */
                 bodyStr += ind.ind() + "{" + ind.nl();
                 ind.inc();
-                String repStr = "__temp" + CPrintUtil.validCName(portStr);
+                String repStr = "_temp" + CPrintUtil.validCName(portStr);
                 bodyStr += ind.ind() + "int " + repStr + "Count, " + repStr + " = " + 
                         new CBuildExpression(read.getRepeat(),cenv).toStr() + ";" + ind.nl();
                 bodyStr += ind.ind() + "for(" + repStr + "Count = 0;" + repStr + "Count<" + repStr + "; "+repStr+"Count++) {" + ind.nl(); 
@@ -246,7 +246,7 @@ public class CBuildAction extends IrSwitch<Boolean> {
                  */
                 bodyStr += ind.ind() + "{" + ind.nl();
                 ind.inc();
-                String repStr = "__temp" + CPrintUtil.validCName(portStr);
+                String repStr = "_temp" + CPrintUtil.validCName(portStr);
                 bodyStr += ind.ind() + "int " + repStr + "Count, " + repStr + " = " + 
                         new CBuildExpression(write.getRepeat(),cenv).toStr() + ";" + ind.nl();
                 bodyStr += ind.ind() + "for(" + repStr + "Count = 0;" + repStr + "Count<" + repStr + "; "+repStr+"Count++) {" + ind.nl(); 

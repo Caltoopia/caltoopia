@@ -351,7 +351,7 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
             refStr += TransUtil.getNamespaceAnnotation(var) + "__";
             break;
         case actorConstParamVar:
-            refStr += "__CalActorParam____";
+            refStr += "_CalActorParam__";
             break;
         default:
         }

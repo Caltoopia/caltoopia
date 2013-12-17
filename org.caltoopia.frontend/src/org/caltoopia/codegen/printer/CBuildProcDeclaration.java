@@ -119,7 +119,7 @@ public class CBuildProcDeclaration extends IrSwitch<Boolean> {
             Actor actor = (Actor)proc.getOuter();
             thisStr = Util.marshallQualifiedName(actor.getType().getNamespace()) + "__" + TransUtil.getAnnotationArg(actor, "Instance", "name");
         }
-        procStr += "__" + CPrintUtil.validCName(variable.getName()) + "(";
+        procStr += "_c__" + CPrintUtil.validCName(variable.getName()) + "(";
 
         VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(variable, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
         if(varType == VarType.proc) {

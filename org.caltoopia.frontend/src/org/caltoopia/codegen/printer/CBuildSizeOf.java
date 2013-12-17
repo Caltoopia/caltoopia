@@ -242,7 +242,7 @@ public class CBuildSizeOf extends IrSwitch<Boolean> {
                 dimStr += " * " + new CBuildExpression(((TypeList)t).getSize(), cenv).toStr();
             } else {
                 noDynList = false;
-                dimStr += " * __" + Util.getDefinitionId() + "__";
+                dimStr += " * _c__" + Util.getDefinitionId() + "__";
                 //CodegenError.err("Build sizeof", "List of undefined length");
             }
             t = ((TypeList)t).getType();

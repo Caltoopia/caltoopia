@@ -450,7 +450,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
             exprStr += TransUtil.getNamespaceAnnotation(var) + "__";
             break;
         case actorConstParamVar:
-            exprStr += "__CalActorParam____";
+            exprStr += "_CalActorParam__";
             break;
         default:
         }
@@ -738,7 +738,7 @@ public class CBuildExpression extends IrSwitch<Boolean> {
                 extraParamStr += (", ");
             f = ((VariableExpression) expr.getFunction()).getVariable();
             Variable funcActor = (Variable) ((f instanceof ForwardDeclaration)?((ForwardDeclaration)f).getDeclaration():f);
-            thisStr ="__";
+            thisStr ="_c__";
             nameStr = CPrintUtil.validCName(funcActor.getName());
             print = true;
             break;

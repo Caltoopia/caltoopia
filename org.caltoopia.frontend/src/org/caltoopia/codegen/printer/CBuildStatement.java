@@ -224,7 +224,7 @@ public class CBuildStatement extends IrSwitch<Boolean> {
         boolean print = false;
         switch(varType) {
         case proc:
-            thisStr = "__";
+            thisStr = "_c__";
             nameStr = (CPrintUtil.validCName(p.getName()));
             //First parameter is pointer to actor instance to access actor state variables
             extraParamStr = ("thisActor");

@@ -159,8 +159,8 @@ public class CBuildConstDeclaration extends CBuildVarDeclaration {
             buildConstDeclaration(variable, true);
             break;
         case actorConstParamVar:
-            buildConstDeclaration(variable, true);
-            varStr = "__CalActorParam__" + varStr;
+            buildConstDeclaration(variable, false);
+            varStr = "_CalActorParam__" + varStr;
             vtypeStr = "static " + vtypeStr;
             break;
         //Actually declaration + initialization of non-const

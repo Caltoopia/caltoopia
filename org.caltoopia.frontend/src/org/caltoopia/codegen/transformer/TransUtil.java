@@ -163,10 +163,10 @@ public class TransUtil {
         if(a==null) {
             return "";
         } else {
-            String ns = "";
+            String ns = "_c";
             for(AnnotationArgument aa: a.getArguments()) {
                 if(aa.getValue().equals("MISSING_NAMESPACE")) {
-                    ns += "/*MISSING_NAMESPACE*/";
+                    ns = "/*MISSING_NAMESPACE*/_c";
                 } else {
                     ns += "__" + aa.getValue();
                 }

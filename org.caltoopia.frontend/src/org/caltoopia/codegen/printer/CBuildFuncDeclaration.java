@@ -120,8 +120,8 @@ public class CBuildFuncDeclaration extends IrSwitch<Boolean> {
         funcStr += new CBuildTypeName(type, new CPrintUtil.dummyCB(),true).toStr() + " ";
 
         String thisStr = TransUtil.getNamespaceAnnotation(variable);
-        
-        funcStr += thisStr + "__";
+
+        funcStr += thisStr + (thisStr.isEmpty()?"_c":"") + "__";
         funcStr += CPrintUtil.validCName(variable.getName()) + "(";
 
         if(varType == VarType.actorFunc) {

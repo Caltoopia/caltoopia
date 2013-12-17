@@ -125,7 +125,7 @@ public class CPrintUtil {
 
     
     static public String getNamespace(List<String> nsStrs) {
-        String ns = "";
+        String ns = "_c";
         for(String s:nsStrs) {
             ns += "__" + s;
         }
