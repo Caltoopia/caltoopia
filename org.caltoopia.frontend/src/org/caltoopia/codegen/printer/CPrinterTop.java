@@ -197,6 +197,13 @@ public class CPrinterTop extends IrSwitch<Stream> {
         }
 
         new CPrinterCommon(network,session,cenv);
+        try {
+            CalvinPrintTopFiles calvin = new CalvinPrintTopFiles(session, cenv, network);
+            calvin.CalvinScriptFile();
+            calvin.CalvinPythonFile();
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
         
         //Check if debug printing is set in the GUI
         debugPrint = session.debugPrint() == CompilationSession.DEBUG_TYPE_ACTIONUSER;
@@ -246,6 +253,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
                 doSwitch(actor);
                 s.close();
                 cenv.sourceFiles.add(baseName);
+                cenv.actorFiles.add(baseName);
             } else if(actor instanceof ExternalActor) {
                 if(((TypeActor) a.getType()).getNamespace().get(0).equals("ART") && actor.getType().getName().equals("art_Display_yuv"))
                     needSdl="y";
@@ -263,8 +271,8 @@ public class CPrinterTop extends IrSwitch<Stream> {
         //Print build files
         CPrintBuildFiles build = new CPrintBuildFiles(session,cenv);
         try {
-            build.MonoMakefile();
-            build.MonoConfigFile(needSdl);
+            build.CommonMakefile();
+            build.CommonConfigFile(needSdl);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -735,7 +743,12 @@ public class CPrinterTop extends IrSwitch<Stream> {
         /*
          * Declare the actor instance struct
          */
-        s.printlnInc("ActorClass ActorClass_" + thisStr + " = INIT_ActorClass(");
+        s.println("#ifdef CAL_RT_CALVIN");
+        s.println("ActorClass klass");
+        s.println("#else");
+        s.println("ActorClass ActorClass_" + thisStr);
+        s.printlnInc("#endif");
+        s.println(" = INIT_ActorClass(");
         s.println("\"" + thisStr + "\",");
         s.println(actorId + ",");
         s.println(actorId + "_constructor,");

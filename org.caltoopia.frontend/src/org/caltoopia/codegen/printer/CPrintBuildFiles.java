@@ -59,7 +59,8 @@ import org.caltoopia.codegen.CodegenError;
 
 /*
  * This class prints files needed to build the code.
- * It covers for the monolithic linux/mac runtime:
+ * It covers for both the monolithic linux/mac runtime
+ * and calvin runtime:
  *   the config makefile and copy of the general makefile
  * 
  * Quality: 4, should work but need more testing for the external linking etc
@@ -86,8 +87,10 @@ public class CPrintBuildFiles {
     /*
      * Copies the Makefile used to build the code
      * for the monolithic linux-runtime (also works for mac)
+     * and the calvin runtime. Default monolithic RT build
+     * calvin with make calvin.
      */
-    public void MonoMakefile() throws Exception {
+    public void CommonMakefile() throws Exception {
         File dst = new File(session.getOutputFolder() + File.separator + "Makefile");
         out.println("Copying '" + dst + "'");
         BufferedReader reader = null;
@@ -109,12 +112,14 @@ public class CPrintBuildFiles {
     
     /*
      * Prints the config makefile used to configure the build
-     * of the code for the monolithic linux-runtime (also works for mac).
+     * of the code for the monolithic linux-runtime (also works for mac)
+     * or the calvin runtime. Make sure the RUNTIME_ROOT is refering to
+     * the runtime that is intended to compile for.
      * Include information such as files to compile, runtime path, 
      * external headers, c-code and libraries.
      * needSdl: informs that the art display actor is used
      */
-    public void MonoConfigFile(String needSdl) throws Exception {
+    public void CommonConfigFile(String needSdl) throws Exception {
         String file = session.getOutputFolder() + File.separator + "config.mk";            
         out.println("Writing '" + file + "'");
         PrintStream config = new PrintStream(file);
@@ -131,6 +136,12 @@ public class CPrintBuildFiles {
                     sources.add(str.trim());
                 }
             }
+        }
+        config.println();
+
+        config.print("ACTORS =");
+        for(String str : cenv.actorFiles) {
+            config.print(" " + str);
         }
         config.println();
         String topNetwork = session.getElaboratedNetwork().getType().getName();

@@ -45,5 +45,6 @@ public class CEnvironment {
 	public String includePaths = "";
 	public String libraryPaths = "";
 	public String libraries = "";
-	public Set<String> sourceFiles = new HashSet<String>();
+    public Set<String> sourceFiles = new HashSet<String>();
+    public Set<String> actorFiles = new HashSet<String>();
 }

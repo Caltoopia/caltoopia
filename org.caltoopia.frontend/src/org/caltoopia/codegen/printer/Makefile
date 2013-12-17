@@ -16,16 +16,21 @@ include config.mk
 
 ifeq ($(DPRINT), y)
 CFLAGS += -DDPRINT
+CALVINCFLAGS += -DDPRINT
 endif
-ifeq ($(SDL), y)
 ifeq ($(TARGET), linux)
+ifeq ($(SDL), y)
 SOURCES += $(RUNTIME_ROOT)/share/sysactors/c/display-sdl.c
 LDLIBS += `pkg-config --libs sdl`
 CFLAGS += `pkg-config --cflags sdl`
 endif
+ACTOROBJS=$(ACTORS:.c=.so)
+endif
 ifeq ($(TARGET), mac)
+ifeq ($(SDL), y)
 SOURCES += $(RUNTIME_ROOT)/share/sysactors/c/display-file.c
 endif
+ACTOROBJS=$(ACTORS:.c=.bundle)
 endif
 
 OBJECTS=$(SOURCES:.c=.o)
@@ -36,10 +41,15 @@ endif
 CFLAGS += -g -c -DTRACE
 CINCLUDES += -I$(RUNTIME_ROOT)/include
 CLIBRARIES += -L$(RUNTIME_ROOT)/lib
+CALVINCFLAGS += -DCAL_RT_CALVIN
 
-.PHONY: all clean
+.PHONY: all clean legacy calvin
 
-all: $(SOURCES) $(EXEC_NAME)
+all: legacy
+
+calvin: clean $(ACTOROBJS)
+
+legacy: clean $(SOURCES) $(EXEC_NAME)
 
 $(EXEC_NAME): $(OBJECTS)
 	$(CC) $(OBJECTS) $(LDFLAGS) $(LDLIBS) $(CLIBRARIES) -o $@
@@ -48,5 +58,15 @@ $(OBJECTS): %.o : %.c
 	$(CC) -Wall -Wno-unused-variable -Wno-missing-braces $(CFLAGS) $(CINCLUDES) -o $@ $<
 
 clean:
-	@rm -f *.o $(EXEC_NAME) *~
+	@rm -f *.bundle *.so *.o $(EXEC_NAME) *~
+
+ifeq ($(TARGET), linux)
+$(ACTOROBJS): %.so : %.c
+	$(CC) -I$(RUNTIME_ROOT) $(CALVINCFLAGS) -Wall -Wno-unused-variable -Wno-missing-braces -fPIC -shared -Wl,-soname,$@ -o $@ $< commonSpec.c
+endif
+
+ifeq ($(TARGET), mac)
+$(ACTOROBJS): %.bundle : %.c
+	$(CC) -I$(RUNTIME_ROOT) $(CALVINCFLAGS) -std=c99 -Wall -Wno-unused-variable -Wno-missing-braces -fPIC -flat_namespace -bundle -undefined suppress -o $@ $< commonSpec.c
+endif
 
