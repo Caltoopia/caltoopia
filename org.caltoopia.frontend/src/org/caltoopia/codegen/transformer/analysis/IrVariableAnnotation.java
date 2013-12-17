@@ -610,6 +610,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 			} else if(type instanceof TypeProc) {
 				t = VarType.externProc;
 			//TODO any more types that should be classified as built in, how about lists?
+			//These might be functions returning an object of this type
 			} else if(type instanceof TypeBool || type instanceof TypeInt || type instanceof TypeUint || type instanceof TypeFloat) {
 				t = VarType.externBuiltInTypeVar;
 			} else if(type instanceof TypeList) {

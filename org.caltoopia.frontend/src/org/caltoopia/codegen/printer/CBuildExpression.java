@@ -743,6 +743,9 @@ public class CBuildExpression extends IrSwitch<Boolean> {
             print = true;
             break;
         case externFunc: //calling a c-function
+        case externBuiltInTypeVar:
+        case externBuiltInListTypeVar:
+        case externOtherTypeVar:
             Declaration decl = ((VariableExpression) expr.getFunction()).getVariable();
             VariableExternal e=null;
             List<String> namespaceStr = null;

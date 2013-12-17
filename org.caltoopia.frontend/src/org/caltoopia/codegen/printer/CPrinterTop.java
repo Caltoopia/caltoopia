@@ -309,6 +309,8 @@ public class CPrinterTop extends IrSwitch<Stream> {
             VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
             switch(varType) {
             case externFunc:
+            case externBuiltInTypeVar:
+            case externBuiltInListTypeVar:
             case externOtherTypeVar:
             case externProc:
                 Namespace ns = null;
