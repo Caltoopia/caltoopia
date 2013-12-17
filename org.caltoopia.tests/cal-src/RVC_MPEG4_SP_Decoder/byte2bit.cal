@@ -17,7 +17,7 @@ import System.bitops.lshift;
 import System.io.dprint1;
 import System.io.dprint2;
 
- actor byte2bit () int(size=8) in8 ==> bool out :
+ actor byte2bit () int(size=32) in8 ==> bool out :
 
   int(size=4) count := 0;
   int(size=9) buf;
