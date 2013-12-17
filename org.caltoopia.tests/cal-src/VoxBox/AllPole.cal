@@ -54,7 +54,7 @@ actor AllPole(int BlockSize,int NumPoles)
   ==> 
     float Out:
 
-  List(size=NumPoles,type:float) filterState:=[0: for int n in 1..NumPoles];
+  List(size=NumPoles,type:float) filterState:=[0.0: for int n in 1..NumPoles];
   
   action Coeff:[a] repeat NumPoles+1, G:[gain], In:[x] repeat BlockSize 
      ==> Out:[[y[n] : for int n in NumPoles..(NumPoles+BlockSize-1)]] repeat BlockSize
