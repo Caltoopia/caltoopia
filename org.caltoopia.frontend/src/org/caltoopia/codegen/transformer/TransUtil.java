@@ -68,6 +68,7 @@ import org.caltoopia.ir.TypeConstructorCall;
 import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExpression;
+import org.caltoopia.ir.VariableImport;
 import org.eclipse.emf.ecore.EObject;
 
 public class TransUtil {
@@ -92,7 +93,22 @@ public class TransUtil {
 	}
 
     static public void setNamespaceAnnotation(Node node, Scope scope) {
-        if(scope instanceof Namespace) {
+        if(node instanceof VariableImport && !((VariableImport)node).getNamespace().isEmpty()) {
+            Annotation a = getAnnotation(node,"NAMESPACE");
+            if(a!=null) {
+                //If already annotated with NAMESPACE just leave
+                return;
+            }
+            a = IrFactory.eINSTANCE.createAnnotation();
+            a.setName("NAMESPACE");
+            for(String s:((VariableImport)node).getNamespace()) {
+                AnnotationArgument aa = IrFactory.eINSTANCE.createAnnotationArgument();
+                aa.setId("ns");
+                aa.setValue(s);
+                a.getArguments().add(aa);
+            }
+            node.getAnnotations().add(a);
+        } else if(scope instanceof Namespace) {
             Annotation a = getAnnotation(node,"NAMESPACE");
             if(a==null) {
                 a = IrFactory.eINSTANCE.createAnnotation();
