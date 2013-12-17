@@ -55,14 +55,14 @@ $(EXEC_NAME): $(OBJECTS)
 	$(CC) $(OBJECTS) $(LDFLAGS) $(LDLIBS) $(CLIBRARIES) -o $@
 
 $(OBJECTS): %.o : %.c
-	$(CC) -Wall -Wno-unused-variable -Wno-missing-braces $(CFLAGS) $(CINCLUDES) -o $@ $<
+	$(CC) -std=c99 -Wall -Wno-unused-variable -Wno-missing-braces $(CFLAGS) $(CINCLUDES) -o $@ $<
 
 clean:
 	@rm -f *.bundle *.so *.o $(EXEC_NAME) *~
 
 ifeq ($(TARGET), linux)
 $(ACTOROBJS): %.so : %.c
-	$(CC) -I$(RUNTIME_ROOT) $(CALVINCFLAGS) -Wall -Wno-unused-variable -Wno-missing-braces -fPIC -shared -Wl,-soname,$@ -o $@ $< commonSpec.c
+	$(CC) -I$(RUNTIME_ROOT) $(CALVINCFLAGS) -std=c99 -Wall -Wno-unused-variable -Wno-missing-braces -fPIC -shared -Wl,-soname,$@ -o $@ $< commonSpec.c
 endif
 
 ifeq ($(TARGET), mac)
