@@ -1,5 +1,6 @@
 namespace System:
 
+    @extern(c_header="math.h")
 	namespace math:
 	
 	    external function round(float f) --> int;
