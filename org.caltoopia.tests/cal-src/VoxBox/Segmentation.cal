@@ -64,7 +64,7 @@ actor Segmentation(int StepSize, int WindowSize)
   int NumSteps=(WindowSize + StepSize - 1)/StepSize;
   int BufSize=NumSteps*StepSize;
   int ExtraBufSize=BufSize-WindowSize;
-  List(size=BufSize,type:float) buffer:=[0 : for int n in 1..BufSize];
+  List(size=BufSize,type:float) buffer:=[0.0 : for int n in 1..BufSize];
     
   // Tabulate at least half of the window function, aligned to a multiple of StepSize
   int NumStepsWTab=((WindowSize+1)/2 + StepSize - 1)/StepSize;

@@ -61,7 +61,7 @@ actor WarpedAllPole(int BlockSize,int NumPoles)
   ==> 
     float Out:
 
-  float[NumPoles+1] filterState:=[0: for int n in 0..NumPoles];
+  float[NumPoles+1] filterState:=[0.0: for int n in 0..NumPoles];
   float oldSum:=0;
   
   action Coeff:[a] repeat NumPoles+1, G:[gain], Warp:[lambda], In:[x] repeat BlockSize ==> Out:[y] repeat BlockSize
