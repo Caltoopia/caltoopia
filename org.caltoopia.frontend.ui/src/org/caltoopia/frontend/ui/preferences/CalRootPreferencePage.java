@@ -47,7 +47,9 @@ public class CalRootPreferencePage extends LanguageRootPreferencePage {
 
 	public static final String RUNTIME_ENVIRONMENT_VARIABLE = "CALTOOPIA_RUNTIME_HOME";
 	
-	public static final String CALSIM_ENVIRONMENT_VARIABLE = "CALSIM_HOME";
+    public static final String CALVIN_RUNTIME_ENVIRONMENT_VARIABLE = "CALTOOPIA_CALVIN_RUNTIME_HOME";
+
+    public static final String CALSIM_ENVIRONMENT_VARIABLE = "CALSIM_HOME";
 	
 	public static final String SYSTEMC_ENVIRONMENT_VARIABLE = "SYSTEMC_HOME";
 	
@@ -55,12 +57,18 @@ public class CalRootPreferencePage extends LanguageRootPreferencePage {
 	
 	@Override
 	protected void createFieldEditors() {
-		addField(new StringButtonFieldEditor("rts", "&Run-time installation:", getFieldEditorParent()) {
-			protected String changePressed() {
-				return browseFolder(this.getShell());
-			}
-		});
-		
+        addField(new StringButtonFieldEditor("rts", "&Run-time installation:", getFieldEditorParent()) {
+            protected String changePressed() {
+                return browseFolder(this.getShell());
+            }
+        });
+        
+        addField(new StringButtonFieldEditor("calvinrts", "&Calvin run-time installation:", getFieldEditorParent()) {
+            protected String changePressed() {
+                return browseFolder(this.getShell());
+            }
+        });
+        
 		addField(new StringButtonFieldEditor("calsim", "&CALSim installation:", getFieldEditorParent()) {
 			protected String changePressed() {
 				return browseFolder(this.getShell());
@@ -81,7 +89,8 @@ public class CalRootPreferencePage extends LanguageRootPreferencePage {
 	
 	@Override
 	public void init(IWorkbench workbench) {
-	    getPreferenceStore().setDefault("rts", RUNTIME_ENVIRONMENT_VARIABLE);
+        getPreferenceStore().setDefault("rts", RUNTIME_ENVIRONMENT_VARIABLE);
+        getPreferenceStore().setDefault("calvinrts", CALVIN_RUNTIME_ENVIRONMENT_VARIABLE);
 	    getPreferenceStore().setDefault("calsim", CALSIM_ENVIRONMENT_VARIABLE);
 	    getPreferenceStore().setDefault("systemc", SYSTEMC_ENVIRONMENT_VARIABLE);
 	    getPreferenceStore().setDefault("sdf3", SDF3_ENVIRONMENT_VARIABLE);

@@ -101,9 +101,12 @@ public class CompilationSession {
 	/* Location of the generated C code */
 	private String outputFolder;
 	
-	/* Location of the C-runtime library */
-	private String runtimePath;
-	
+    /* Location of the C-runtime library */
+    private String runtimePath;
+    
+    /* Location of the Calvin C-runtime library */
+    private String calvinRuntimePath;
+    
 	/* Flag to increase print outs during compilation */
 	private boolean verbose = false;
 	
@@ -140,14 +143,15 @@ public class CompilationSession {
 	private String runOptions = null;
 	
 	public CompilationSession(List<String> paths, List<String> excludedFiles, String outputFolder, PrintStream ps, 
-			                  String runtimePath, boolean isPlugin, String target, boolean generateCdtProject,
+			                  String runtimePath, String calvinRuntimePath, boolean isPlugin, String target, boolean generateCdtProject,
 			                  String workingDirectory, String runOptions, boolean generateDot, int debug) {		
 		this.paths = paths;
 		this.excludedFiles = excludedFiles;
 		this.outputFolder = outputFolder;
 		this.out = ps;
 		this.plugin = isPlugin;
-		this.runtimePath = runtimePath;
+        this.runtimePath = runtimePath;
+        this.calvinRuntimePath = calvinRuntimePath;
 		this.target = target;
 		this.generateCdtProject = generateCdtProject;
 		this.workingDirectory = workingDirectory;
@@ -157,14 +161,14 @@ public class CompilationSession {
 	}
 	
 	public CompilationSession(List<String> paths, List<String> excludedFiles, String outputFolder, PrintStream ps) {
-		this(paths, excludedFiles, outputFolder, ps, "", false, System.getProperty("os.name").toLowerCase(), false, "", "");
+		this(paths, excludedFiles, outputFolder, ps, "", "", false, System.getProperty("os.name").toLowerCase(), false, "", "");
 	}
 
 	public CompilationSession(List<String> paths, List<String> excludedFiles, String outputFolder, PrintStream ps, 
-            String runtimePath, boolean isPlugin, String target, boolean generateCdtProject,
+            String runtimePath, String calvinRuntimePath, boolean isPlugin, String target, boolean generateCdtProject,
             String workingDirectory, String runOptions) {
 		this(paths, excludedFiles, outputFolder, ps, 
-             runtimePath, isPlugin, target, generateCdtProject,
+             runtimePath, calvinRuntimePath, isPlugin, target, generateCdtProject,
              workingDirectory, runOptions, false, 2 /*DEBUG_TYPE_DEFAULT*/);
 	}
 
@@ -434,13 +438,25 @@ public class CompilationSession {
 		return paths;		
 	}
 	
-	public void setRuntimePath(String runtimePath) {
-		this.runtimePath = runtimePath;		
-	}
-	
-	public String getRuntimePath() {
-		return runtimePath;		
-	}
+    public void setRuntimePath(String runtimePath) {
+        this.runtimePath = runtimePath;     
+    }
+    
+    public String getRuntimePath() {
+        return runtimePath;     
+    }
+
+    public void setCalvinRuntimePath(String runtimePath) {
+        this.calvinRuntimePath = runtimePath;     
+    }
+    
+    public String getCalvinRuntimePath() {
+        if(calvinRuntimePath != null && !calvinRuntimePath.isEmpty()) {
+            return calvinRuntimePath;
+        } else {
+            return runtimePath;
+        }
+    }
 
 	public String getOutputFolder() {
 		return outputFolder;

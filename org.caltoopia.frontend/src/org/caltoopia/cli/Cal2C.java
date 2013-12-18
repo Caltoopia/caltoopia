@@ -112,7 +112,8 @@ public class Cal2C {
 		CmdLineParser.Option path = cmdLineParser.addStringOption('p', "path");
 		CmdLineParser.Option output = cmdLineParser.addStringOption('o', "output");
 		CmdLineParser.Option exclude = cmdLineParser.addStringOption('x', "exclude");
-		CmdLineParser.Option runtime = cmdLineParser.addStringOption('r', "runtime");
+        CmdLineParser.Option runtime = cmdLineParser.addStringOption('r', "runtime");
+        CmdLineParser.Option calvinRuntime = cmdLineParser.addStringOption('c', "calvin");
 		CmdLineParser.Option target = cmdLineParser.addStringOption('a', "arch");
 		CmdLineParser.Option debug = cmdLineParser.addIntegerOption('d', "debug");
 		CmdLineParser.Option calsim = cmdLineParser.addStringOption("calsim");	
@@ -156,7 +157,7 @@ public class Cal2C {
             Injector injector = new CalStandaloneSetup().createInjectorAndDoEMFRegistration();
     		Cal2C cal2c = injector.getInstance(Cal2C.class);
     		CompilationSession session = new CompilationSession(paths, excludedFiles, outputValue, System.out, 
-    				                                            (String) cmdLineParser.getOptionValue(runtime), false, targetStr, false, "", "", true, debugInt);
+    				                                            (String) cmdLineParser.getOptionValue(runtime), (String) cmdLineParser.getOptionValue(calvinRuntime), false, targetStr, false, "", "", true, debugInt);
     		ActorDirectory.initCompilation(session);
     		
             String calsimPath = (String) cmdLineParser.getOptionValue(calsim);

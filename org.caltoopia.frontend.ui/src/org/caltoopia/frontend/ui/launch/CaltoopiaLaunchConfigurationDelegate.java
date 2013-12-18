@@ -100,7 +100,8 @@ public class CaltoopiaLaunchConfigurationDelegate extends org.eclipse.debug.core
 		Cal2C cal2c = new Cal2C();
 		
 		//Check enviroment variables
-		String runTimePath = null;
+        String runTimePath = null;
+        String calvinRunTimePath = null;
 		String calsimPath = null;
 		String systemcPath = null;
 		String sdf3Path = null;
@@ -113,7 +114,15 @@ public class CaltoopiaLaunchConfigurationDelegate extends org.eclipse.debug.core
 			if(runTimePath == null || runTimePath.equals(""))
 				throw new Exception("C code generation failed since neither the run-time installation path nor the environemnt variable 'RUNTIME_HOME' is set.");
 						
-			calsimPath = Platform.getPreferencesService().getString("org.caltoopia.frontend.Cal", "calsim", null, null);
+            calvinRunTimePath = Platform.getPreferencesService().getString("org.caltoopia.frontend.Cal", "calvinrts", null, null);
+            if(calvinRunTimePath == null || calvinRunTimePath.equals(CalRootPreferencePage.RUNTIME_ENVIRONMENT_VARIABLE))
+                calvinRunTimePath = System.getenv(CalRootPreferencePage.CALVIN_RUNTIME_ENVIRONMENT_VARIABLE);
+            if(calvinRunTimePath == null || calvinRunTimePath.equals("")) {
+                System.out.println("Calvin runtime path is not specified!!!");
+                out.print("Error: Calvin runtime path is not specified!!!");
+            }
+
+            calsimPath = Platform.getPreferencesService().getString("org.caltoopia.frontend.Cal", "calsim", null, null);
 			if(calsimPath == null || calsimPath.equals(CalRootPreferencePage.CALSIM_ENVIRONMENT_VARIABLE))
 				calsimPath = System.getenv(CalRootPreferencePage.CALSIM_ENVIRONMENT_VARIABLE);
 
@@ -143,7 +152,7 @@ public class CaltoopiaLaunchConfigurationDelegate extends org.eclipse.debug.core
 			return;
 		}
 		
-		CompilationSession session = new CompilationSession(paths, new ArrayList<String>(), output, new PrintStream(out), runTimePath, 
+		CompilationSession session = new CompilationSession(paths, new ArrayList<String>(), output, new PrintStream(out), runTimePath, calvinRunTimePath, 
 				                                            true, System.getProperty("os.name").toLowerCase(), generateCdtProject,
 				                                            workingDirectory, runOptions, generateDot,debug);    		
 		session.setLaunchConfigName(configuration.getName());

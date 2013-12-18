@@ -62,11 +62,11 @@ clean:
 
 ifeq ($(TARGET), linux)
 $(ACTOROBJS): %.so : %.c
-	$(CC) -I$(RUNTIME_ROOT) $(CALVINCFLAGS) -std=c99 -Wall -Wno-unused-variable -Wno-missing-braces -fPIC -shared -Wl,-soname,$@ -o $@ $< commonSpec.c
+	$(CC) -I$(CALVIN_RUNTIME_ROOT) $(CALVINCFLAGS) -std=c99 -Wall -Wno-unused-variable -Wno-missing-braces -fPIC -shared -Wl,-soname,$@ -o $@ $< commonSpec.c
 endif
 
 ifeq ($(TARGET), mac)
 $(ACTOROBJS): %.bundle : %.c
-	$(CC) -I$(RUNTIME_ROOT) $(CALVINCFLAGS) -std=c99 -Wall -Wno-unused-variable -Wno-missing-braces -fPIC -flat_namespace -bundle -undefined suppress -o $@ $< commonSpec.c
+	$(CC) -I$(CALVIN_RUNTIME_ROOT) $(CALVINCFLAGS) -std=c99 -Wall -Wno-unused-variable -Wno-missing-braces -fPIC -flat_namespace -bundle -undefined suppress -o $@ $< commonSpec.c
 endif
 

@@ -71,14 +71,23 @@ public class Util {
 		return getRootDir() + "../caltoopia-output/";
 	}	
 	
-	public static String getRuntimeDir() {
-		Map<String, String> env = System.getenv();
-		if(env.containsKey("CALTOOPIA_RUNTIME_HOME")) {
-			return env.get("CALTOOPIA_RUNTIME_HOME");
-		} else {
-			return getRootDir() + "snow_actors_rts";
-		}
-	}
+    public static String getRuntimeDir() {
+        Map<String, String> env = System.getenv();
+        if(env.containsKey("CALTOOPIA_RUNTIME_HOME")) {
+            return env.get("CALTOOPIA_RUNTIME_HOME");
+        } else {
+            return getRootDir() + "snow_actors_rts";
+        }
+    }
+
+    public static String getCalvinRuntimeDir() {
+        Map<String, String> env = System.getenv();
+        if(env.containsKey("CALTOOPIA_CALVIN_RUNTIME_HOME")) {
+            return env.get("CALTOOPIA_CALVIN_RUNTIME_HOME");
+        } else {
+            return null;
+        }
+    }
 
 	public static void removeFileDir(File item) {
 		if(item!=null) {

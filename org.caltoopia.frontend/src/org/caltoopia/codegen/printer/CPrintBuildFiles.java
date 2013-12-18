@@ -147,6 +147,7 @@ public class CPrintBuildFiles {
         String topNetwork = session.getElaboratedNetwork().getType().getName();
         config.println("EXEC_NAME = " + topNetwork.substring(topNetwork.lastIndexOf(".")+1));
         config.println("RUNTIME_ROOT = " + session.getRuntimePath());
+        config.println("CALVIN_RUNTIME_ROOT = " + session.getCalvinRuntimePath());
         config.println("SDL = " + needSdl);
         if(session.debugPrint()==CompilationSession.DEBUG_TYPE_ACTIONUSER || session.debugPrint()==CompilationSession.DEBUG_TYPE_USER)
             config.println("DPRINT = y");
