@@ -184,6 +184,47 @@ public class CPrinterCommon extends IrSwitch<Stream> {
         CPrintUtil.toEnvEnv(aargs, cenv);
     }
 
+    private void printCIncludes(List<Declaration> declarations) {
+        Set<String> cHeaders = new HashSet<String>();
+        
+        for(Declaration d : declarations) {
+            VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
+            switch(varType) {
+            case externFunc:
+            case externBuiltInTypeVar:
+            case externBuiltInListTypeVar:
+            case externOtherTypeVar:
+            case externProc:
+                Namespace ns = null;
+                VariableExternal e = null;
+                d = (d instanceof ForwardDeclaration)?((ForwardDeclaration)d).getDeclaration():d;
+                if(d instanceof VariableImport) {
+                    try {
+                        e = (VariableExternal) ActorDirectory.findVariable((VariableImport) d, false);
+                        ns = ActorDirectory.findNamespace(((VariableImport)d).getNamespace());
+                    } catch (DirectoryException ee) {
+                        ee.printStackTrace();
+                    }
+                } else if(d instanceof VariableExternal) {
+                    e = (VariableExternal) d;
+                    try {
+                        ns = ActorDirectory.findNamespace(UtilIR.getAnnotatedNamespace(e));
+                    } catch (DirectoryException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+                Map<String,String> annotations = CPrintUtil.getExternAnnotations(CPrintUtil.collectAnnotations(e,ns));
+                cHeaders.addAll(CPrintUtil.externalCInclude(annotations,e));
+                break;
+            default:
+            }
+        }
+        
+        for(String str : cHeaders) {
+            s.println("#include \""+str+"\"");
+        }        
+    }
+
     /*
      * Print the common parts.
      * This function can print either header, c-code
@@ -208,6 +249,7 @@ public class CPrinterCommon extends IrSwitch<Stream> {
             s.println("#include <string.h>");
             s.println("#include \"actors-rts.h\"");
             s.println("#include \"natives.h\"");
+            printCIncludes(network.getDeclarations());
             s.println("#define TRUE 1");
             s.println("#define FALSE 0");
             s.println("#define TYPE_DIRECT");
