@@ -212,7 +212,8 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 			placement = VarPlacement.constant;
 		//actor constructor?
 		} else if(Arrays.asList(IrVariableAnnotation.VarType.actorVar.name(), 
-				 				IrVariableAnnotation.VarType.actorParamVar.name()).contains(annotations.get("VarType"))) {
+		                        IrVariableAnnotation.VarType.actorNonLitConstVar.name(),
+		                        IrVariableAnnotation.VarType.actorParamVar.name()).contains(annotations.get("VarType"))) {
 			placement = VarPlacement.actor;
 		//normal body var?
 		} else if(Arrays.asList(

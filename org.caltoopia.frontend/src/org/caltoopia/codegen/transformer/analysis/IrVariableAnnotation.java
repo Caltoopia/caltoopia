@@ -219,6 +219,7 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		importConstVar,
         constVar,
         actorConstVar,
+        actorNonLitConstVar,
 		generatorVar,
         blockVar,
         blockConstVar,
@@ -497,8 +498,12 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 						if(variable.isParameter())
 							t = VarType.actorConstParamVar;
 						else {
-							t = VarType.actorConstVar;
-	                        TransUtil.setNamespaceAnnotation(inDecl, variable.getScope());
+                            if(UtilIR.isDeepLiteralExpression(variable.getInitValue())) {
+                                t = VarType.actorConstVar;
+                            } else {
+                                t = VarType.actorNonLitConstVar;
+                            }
+                            TransUtil.setNamespaceAnnotation(inDecl, variable.getScope());
 						}
 					} else {
 						if(variable.isParameter())

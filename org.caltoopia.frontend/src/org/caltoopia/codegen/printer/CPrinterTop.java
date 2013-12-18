@@ -136,6 +136,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
     boolean debugPrint = false;
     boolean header = false;
     boolean typesHeader = false;
+    boolean inConstructor = false;
     CEnvironment cenv = null;
     String topHeaderFilename = null;
     Actor currentActor = null;
@@ -582,6 +583,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
             switch(varType) {
             case actorVar:
             case actorParamVar:
+            case actorNonLitConstVar:
                 doSwitch(d);
                 break;
             //These are known to not be printed here, makes sure that the default is only called for things that miss code (besides the type import or forward)
@@ -811,6 +813,20 @@ public class CPrinterTop extends IrSwitch<Stream> {
             s.println("thisActor->_fsmState = " + actorId + "__" + actor.getSchedule().getStates().get(0).getName() + "_ID;//First state"); 
         }
 
+        //Initialize all the constants that are not c compiler constant
+        inConstructor = true;
+        for (Declaration d : actor.getDeclarations()) {
+            VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
+            switch(varType) {
+            case actorNonLitConstVar:
+                s.print("thisActor->");
+                doSwitch(d);
+                break;
+            default:
+            }
+        }
+        inConstructor = false;
+        
         //Print the bodies of all initializer actions without out ports
         if(!actor.getInitializers().isEmpty()) {
             IndentStr ind = new IndentStr();
@@ -864,6 +880,15 @@ public class CPrinterTop extends IrSwitch<Stream> {
         case actorVar:
             s.print(new CBuildVarDeclaration(variable,cenv,false).toStr());
             s.println(";");
+            break;
+        case actorNonLitConstVar:
+            if(inConstructor) {
+                s.print(new CBuildConstDeclaration(variable,cenv,false).skipTypeStr());
+                s.println(";");
+            } else {
+                s.print(new CBuildVarDeclaration(variable,cenv,false).toStr());
+                s.println(";");
+            }
             break;
         case func:
         case actorFunc:

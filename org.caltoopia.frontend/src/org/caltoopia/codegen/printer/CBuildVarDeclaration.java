@@ -236,6 +236,7 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
         switch(varType) {
         case memberDeclType:
         case actorVar:
+        case actorNonLitConstVar:
             if(initializeVar) {
                 buildVarDeclaration(variable, true);
                 //prefix the declaration with the actor instance, since the only user is in actor constructor

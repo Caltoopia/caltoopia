@@ -114,16 +114,24 @@ public class CBuildConstDeclaration extends CBuildVarDeclaration {
         }
         return vtypeStr + " " + varStr + (header? "" : " = " + initStr);
     }
+
+    public String skipTypeStr() {
+        Boolean res = doSwitch(variable);
+        if(!res) {
+            CodegenError.err("Const declaration builder", vtypeStr + " " + varStr);
+        }
+        return varStr + (header? "" : " = " + initStr);
+    }
     
     private void enter(EObject obj) {}
     private void leave() {}
 
     //Do the actual string creation
-    private void buildConstDeclaration(Variable variable, boolean constant) {
+    private void buildConstDeclaration(Variable variable, boolean constant, boolean noNs) {
         //Type string
         vtypeStr = new CBuildTypeName(variable.getType(),new varCB(), true).toStr();
         //Variable name string including prefix of namespace
-        String nsStr = TransUtil.getNamespaceAnnotation(variable) + (constant?"__":"");
+        String nsStr = noNs?"":TransUtil.getNamespaceAnnotation(variable) + (constant?"__":"");
         varStr = nsStr + variable.getName()+varStr;
         if(header) {
             //in header then only extern declaration
@@ -150,16 +158,16 @@ public class CBuildConstDeclaration extends CBuildVarDeclaration {
         VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(variable, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
         switch(varType) {
         case actorConstVar:
-            buildConstDeclaration(variable, true);
+            buildConstDeclaration(variable, true,false);
             vtypeStr = "static " + vtypeStr;
             break;
         case constVar:
         case blockConstVar:
         case exprAltConstVar:
-            buildConstDeclaration(variable, true);
+            buildConstDeclaration(variable, true,false);
             break;
         case actorConstParamVar:
-            buildConstDeclaration(variable, false);
+            buildConstDeclaration(variable, false,false);
             varStr = "_CalActorParam__" + varStr;
             vtypeStr = "static " + vtypeStr;
             break;
@@ -170,7 +178,10 @@ public class CBuildConstDeclaration extends CBuildVarDeclaration {
         case actionVar:
         case outPortVar:
         case outPortInitInDepVar:
-            buildConstDeclaration(variable, false);
+            buildConstDeclaration(variable, false,false);
+            break;
+        case actorNonLitConstVar:
+            buildConstDeclaration(variable, false,true);
             break;
         default:
             varStr += ("/*TODO BCD "+variable.getName() + " of varType " + varType.name() + " */");
