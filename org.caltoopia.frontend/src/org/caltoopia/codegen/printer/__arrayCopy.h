@@ -58,6 +58,38 @@ __attribute__((always_inline)) static inline int FTYPE(copyEachArray)(TYPE* arra
     return TRUE;
 }
 
+__attribute__((always_inline)) static inline char* FTYPE(serializeEach)(ATYPE* src, char* array) {
+	*(int32_t*)array = src->dim;
+	array += sizeof(int32_t);
+	memcpy(array,src->sz,sizeof(int32_t)*4);
+	array += sizeof(int32_t)*4;
+    int tot = 1;
+    for(int i=0;i<src->dim;i++) {
+        tot *= src->sz[i];
+    }
+    memcpy(array,src->p,sizeof(TYPE)*tot);
+    array += sizeof(TYPE)*tot;
+    return array;
+}
+
+__attribute__((always_inline)) static inline char* FTYPE(deserializeEach)(ATYPE* dst, char* array) {
+	int32_t dim = *array;
+	array += sizeof(int32_t);
+	int32_t* sz = array;
+	array += sizeof(int32_t)*4;
+    int tot = 1;
+    for(int i=0;i<dim;i++) {
+        tot *= sz[i];
+        dst->sz[i]=sz[i];
+    }
+    dst->p=calloc(sizeof(TYPE),tot);
+    dst->flags = 0x7;
+    dst->dim = dim;
+    memcpy(dst->p,array,sizeof(TYPE)*tot);
+	array += sizeof(TYPE)*tot;
+    return array;
+}
+
 __attribute__((always_inline)) static inline int FTYPE(reallocMoveArray)(ATYPE* dst, ATYPE* src,__arrayArg size) {
     int noCopy = TRUE;
     TYPE* array;

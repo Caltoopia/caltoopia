@@ -382,6 +382,8 @@ public class CPrinterCommon extends IrSwitch<Stream> {
                         }
                         s.println(");");
                     }
+                    s.println("char* serializeStruct" + t + "(" + t + " * src, char* dstbuf);");
+                    s.println("char* deserializeStruct" + t + "(" + t + " ** dst, char* srcbuf);");
                     s.println("#define TYPE " + t);
                     s.println("#include \"__arrayCopy.h\"");
                 }
@@ -745,6 +747,117 @@ public class CPrinterCommon extends IrSwitch<Stream> {
                 s.println("}"); 
                 s.println("");
             }
+            
+            /*
+             * Serialization function of a type
+             */
+            s.printlnInc("char * serializeStruct" + type.getName() + "_t(" +type.getName() + "_t * src, char* dstbuf) {");
+            s.println("char * p = dstbuf;");
+            if(!single) {
+                s.println("*(enum " + type.getName() + "_tags*)p = src->tag;");
+                s.println("p = (char*)((enum " + type.getName() + "_tags*)p + 1);");
+                s.println("switch(src->tag) {");
+            }            
+            for(TaggedTuple tt: ((TypeTuple)struct).getTaggedTuples()) {
+                String tag = single?"":tt.getTag()+".";
+                if(!single) {
+                    s.printlnInc("case " + type.getName()+"___"+tt.getTag() + ":");
+                }
+                for (Iterator<Variable> i = tt.getFields().iterator(); i.hasNext();) {
+                    Variable var = i.next();
+                    if(UtilIR.isList(var.getType())) {
+                        if(UtilIR.isTuple(UtilIR.getElementType(var.getType()))) {
+                            CodegenError.err("[Print common]", "NOT YET IMPLEMENTED (de)serialization of types with arrays of user types so don't use such typed tokens on ports with calvin.");
+                        } else {
+                            //Go deep into a list typed member
+                            String member = new CBuildVarDeclaration(var,cenv,true).toStr();
+                            String typeStr = new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr();
+                            s.println("p = serializeEach"+typeStr+"(&src->members." + tag + member + ", p);");
+                        }
+                    } else if(UtilIR.isTuple(var.getType())) {
+                        //Go deep into a user typed member
+                        String member = new CBuildVarDeclaration(var,cenv,true).toStr();
+                        String typeStr = new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr();
+                        s.println("p = serializeStruct"+typeStr+"(src->members." + tag + member + ", p);");
+                    } else {
+                        String member = new CBuildVarDeclaration(var,cenv,true).toStr();
+                        String castStr = new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).toStr();
+                        s.println("*("+ castStr+ "*)p = src->members." + tag + member + ";");
+                        s.println("p = (char*)((" + castStr + "*)p + 1);");
+                    }
+                }
+                if(!single) {
+                    s.println("break;");
+                    s.dec();
+                }
+            }
+            if(!single) {
+                s.printlnInc("default:");
+                s.println("break;");
+                s.dec();
+                s.println("}");
+            }
+            s.println("return p;");
+            s.dec();
+            s.println("}"); 
+            s.println("");
+
+            /*
+             * Deserialization function of a type
+             */
+            s.printlnInc("char * deserializeStruct" + type.getName() + "_t(" +type.getName() + "_t ** dst, char* srcbuf) {");
+            s.println("char * p = srcbuf;");
+            s.println("*dst = malloc(sizeof(**dst));");
+            s.println("(*dst)->flags = 0x1;");
+            if(!single) {
+                s.println("(*dst)->tag = *(enum " + type.getName() + "_tags*) p;");
+                s.println("p = (char*)((enum " + type.getName() + "_tags*)p + 1);");
+                s.println("switch((*dst)->tag) {");
+            }
+            for(TaggedTuple tt: ((TypeTuple)struct).getTaggedTuples()) {
+                String tag = single?"":tt.getTag()+".";
+                if(!single) {
+                    s.printlnInc("case " + type.getName()+"___"+tt.getTag() + ":");
+                }
+                for (Iterator<Variable> i = tt.getFields().iterator(); i.hasNext();) {
+                    Variable var = i.next();
+                    if(UtilIR.isList(var.getType())) {
+                        if(UtilIR.isTuple(UtilIR.getElementType(var.getType()))) {
+                            CodegenError.err("[Print common]", "NOT YET IMPLEMENTED (de)serialization of types with arrays of user types so don't use such typed tokens on ports with calvin.");
+                        } else {
+                            //Go deep into a list typed member
+                            String member = new CBuildVarDeclaration(var,cenv,true).toStr();
+                            String typeStr = new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr();
+                            s.println("p = deserializeEach"+typeStr+"(&(*dst)->members." + tag + member + ", p);");
+                        }
+                    } else if(UtilIR.isTuple(var.getType())) {
+                        //Go deep into a user typed member
+                        String member = new CBuildVarDeclaration(var,cenv,true).toStr();
+                        String typeStr = new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr();
+                        s.println("p = deserializeStruct"+typeStr+"(&(*dst)->members." + tag + member + ", p);");
+                    } else {
+                        String member = new CBuildVarDeclaration(var,cenv,true).toStr();
+                        String castStr = new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).toStr();
+                        s.println("(*dst)->members." + tag + member + " = *("+ castStr+ "*)p;");
+                        s.println("p = (char*)((" + castStr + "*)p + 1);");
+                    }
+                }
+                if(!single) {
+                    s.println("break;");
+                    s.dec();
+                }
+            }
+            if(!single) {
+                s.printlnInc("default:");
+                s.println("break;");
+                s.dec();
+                s.println("}");
+            }
+            s.println("return p;");
+            s.dec();
+            s.println("}"); 
+            s.println("");
+
         }
         leave(type);
         return s;

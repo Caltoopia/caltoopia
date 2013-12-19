@@ -514,6 +514,13 @@ public class UtilIR {
 		return getType(type) instanceof TypeList;
 	}
 	
+	static public Type getElementType(Type type) {
+	    while(type instanceof TypeList) {
+	        type = ((TypeList)type).getType();
+	    }
+	    return type;
+	}
+	
 	static public Type getFinalType(VariableReference var) {
 		Type type = var.getType();
 		int i=0;
