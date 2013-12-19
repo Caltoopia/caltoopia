@@ -75,7 +75,7 @@ __attribute__((always_inline)) static inline char* FTYPE(serializeEach)(ATYPE* s
 __attribute__((always_inline)) static inline char* FTYPE(deserializeEach)(ATYPE* dst, char* array) {
 	int32_t dim = *array;
 	array += sizeof(int32_t);
-	int32_t* sz = array;
+	int32_t* sz = (int32_t*) array;
 	array += sizeof(int32_t)*4;
     int tot = 1;
     for(int i=0;i<dim;i++) {
