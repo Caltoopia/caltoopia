@@ -384,6 +384,7 @@ public class CPrinterCommon extends IrSwitch<Stream> {
                     }
                     s.println("char* serializeStruct" + t + "(" + t + " * src, char* dstbuf);");
                     s.println("char* deserializeStruct" + t + "(" + t + " ** dst, char* srcbuf);");
+                    s.printlnInc("long sizeStruct" + t + "(" +t + " * src);");
                     s.println("#define TYPE " + t);
                     s.println("#include \"__arrayCopy.h\"");
                 }
@@ -858,6 +859,57 @@ public class CPrinterCommon extends IrSwitch<Stream> {
             s.println("}"); 
             s.println("");
 
+            /*
+             * Size function of a type
+             */
+            s.printlnInc("long sizeStruct" + type.getName() + "_t(" +type.getName() + "_t * src) {");
+            s.println("long ret = 0;");
+            if(!single) {
+                s.println("ret += sizeof(enum " + type.getName() + "_tags);");
+                s.println("switch(src->tag) {");
+            }            
+            for(TaggedTuple tt: ((TypeTuple)struct).getTaggedTuples()) {
+                String tag = single?"":tt.getTag()+".";
+                if(!single) {
+                    s.printlnInc("case " + type.getName()+"___"+tt.getTag() + ":");
+                }
+                for (Iterator<Variable> i = tt.getFields().iterator(); i.hasNext();) {
+                    Variable var = i.next();
+                    if(UtilIR.isList(var.getType())) {
+                        if(UtilIR.isTuple(UtilIR.getElementType(var.getType()))) {
+                            CodegenError.err("[Print common]", "NOT YET IMPLEMENTED size of types with arrays of user types so don't use such typed tokens on ports with calvin.");
+                        } else {
+                            //Go deep into a list typed member
+                            String member = new CBuildVarDeclaration(var,cenv,true).toStr();
+                            String typeStr = new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr();
+                            s.println("ret += sizeEach"+typeStr+"(&src->members." + tag + member + ");");
+                        }
+                    } else if(UtilIR.isTuple(var.getType())) {
+                        //Go deep into a user typed member
+                        String member = new CBuildVarDeclaration(var,cenv,true).toStr();
+                        String typeStr = new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr();
+                        s.println("ret += sizeStruct"+typeStr+"(src->members." + tag + member + ");");
+                    } else {
+                        String member = new CBuildVarDeclaration(var,cenv,true).toStr();
+                        String castStr = new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).toStr();
+                        s.println("ret += sizeof(src->members." + tag + member + ");");
+                    }
+                }
+                if(!single) {
+                    s.println("break;");
+                    s.dec();
+                }
+            }
+            if(!single) {
+                s.printlnInc("default:");
+                s.println("break;");
+                s.dec();
+                s.println("}");
+            }
+            s.println("return ret;");
+            s.dec();
+            s.println("}"); 
+            s.println("");
         }
         leave(type);
         return s;

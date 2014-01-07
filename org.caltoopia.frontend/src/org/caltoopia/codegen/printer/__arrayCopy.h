@@ -90,6 +90,14 @@ __attribute__((always_inline)) static inline char* FTYPE(deserializeEach)(ATYPE*
     return array;
 }
 
+__attribute__((always_inline)) static inline long FTYPE(sizeEach)(ATYPE* src) {
+    long tot = 1;
+    for(int i=0;i<src->dim;i++) {
+        tot *= src->sz[i];
+    }
+	return sizeof(TYPE)*tot+sizeof(int32_t)*5;
+}
+
 __attribute__((always_inline)) static inline int FTYPE(reallocMoveArray)(ATYPE* dst, ATYPE* src,__arrayArg size) {
     int noCopy = TRUE;
     TYPE* array;
