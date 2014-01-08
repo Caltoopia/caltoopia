@@ -41,7 +41,7 @@ endif
 CFLAGS += -g -c -DTRACE
 CINCLUDES += -I$(RUNTIME_ROOT)/include
 CLIBRARIES += -L$(RUNTIME_ROOT)/lib
-CALVINCFLAGS += -DCAL_RT_CALVIN
+CALVINCFLAGS += -DCAL_RT_CALVIN -g
 
 .PHONY: all clean legacy calvin
 
