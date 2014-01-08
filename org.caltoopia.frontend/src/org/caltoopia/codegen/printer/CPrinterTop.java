@@ -650,11 +650,27 @@ public class CPrinterTop extends IrSwitch<Stream> {
             }
             //User types is now references and hence also have a zero in first param
             s.print("{" + "0" + ", \"" + p.getName() + "\", ");
-            //Last param indicate port token size in bytes
             if(UtilIR.isTuple(type)) {
-                s.print("sizeof(void*)"); //Tuples token always as pointer
+                //third param indicate port token size in bytes
+                //Tuples token always as pointer
+                s.print("sizeof(void*)"); 
+                //Calvin have a fourth param with function pointers
+                s.println("");
+                s.println("#ifdef CAL_RT_CALVIN");
+                String typeStr = new CBuildTypeName(type, new CPrintUtil.dummyCB(), false).asNameStr();
+                s.println(", &(tokenFn){(char * (*)(void *, char*))serializeStruct"+ typeStr +
+                        ", (char * (*)(void **, char*))deserializeStruct"+ typeStr +
+                        ", (long (*)(void *))sizeStruct"+ typeStr +
+                        ", (int (*)(void *, int))freeStruct"+ typeStr+"}");
+                s.println("#endif");
             } else {
+                //third param indicate port token size in bytes
                 s.print(CPrintUtil.createDeepSizeof(null, type, cenv));
+                //For Calvin no functions pointers are needed for builtin types
+                s.println("");
+                s.println("#ifdef CAL_RT_CALVIN");
+                s.println(", NULL");
+                s.println("#endif");
             }
             
             if (i < actor.getInputPorts().size()) {
@@ -675,11 +691,27 @@ public class CPrinterTop extends IrSwitch<Stream> {
             }
             //User types is now references and hence also have a zero in first param
             s.print("{" + "0" + ", \"" + p.getName() + "\", ");
-            //Last param indicate port token size in bytes
             if(UtilIR.isTuple(type)) {
-                s.print("sizeof(void*)"); //Tuples token always as pointer
+                //third param indicate port token size in bytes
+                //Tuples token always as pointer
+                s.print("sizeof(void*)");
+                //Calvin have a fourth param with function pointers
+                s.println("");
+                s.println("#ifdef CAL_RT_CALVIN");
+                String typeStr = new CBuildTypeName(type, new CPrintUtil.dummyCB(), false).asNameStr();
+                s.println(", &(tokenFn){(char * (*)(void *, char*))serializeStruct"+ typeStr +
+                        ", (char * (*)(void **, char*))deserializeStruct"+ typeStr +
+                        ", (long (*)(void *))sizeStruct"+ typeStr +
+                        ", (int (*)(void *, int))freeStruct"+ typeStr+"}");
+                s.println("#endif");
             } else {
+                //third param indicate port token size in bytes
                 s.print(CPrintUtil.createDeepSizeof(null, type, cenv));
+                //Calvin have a fourth param with function pointers
+                s.println("");
+                s.println("#ifdef CAL_RT_CALVIN");
+                s.println(", NULL");
+                s.println("#endif");
             }
 
             if (i < actor.getOutputPorts().size()) {

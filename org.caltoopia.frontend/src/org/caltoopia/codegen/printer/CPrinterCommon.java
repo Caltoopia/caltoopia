@@ -384,7 +384,7 @@ public class CPrinterCommon extends IrSwitch<Stream> {
                     }
                     s.println("char* serializeStruct" + t + "(" + t + " * src, char* dstbuf);");
                     s.println("char* deserializeStruct" + t + "(" + t + " ** dst, char* srcbuf);");
-                    s.printlnInc("long sizeStruct" + t + "(" +t + " * src);");
+                    s.println("long sizeStruct" + t + "(" +t + " * src);");
                     s.println("#define TYPE " + t);
                     s.println("#include \"__arrayCopy.h\"");
                 }
@@ -567,6 +567,7 @@ public class CPrinterCommon extends IrSwitch<Stream> {
              * top: if also the top level should be freed or only deeper levels
              */
             s.printlnInc("int freeStruct" + type.getName() + "_t ("+ type.getName() + "_t * src, int top) {");
+            s.println("if(src==NULL) return FALSE;");
             boolean single = UtilIR.isSingleTagTuple(struct);
             if(!single) {
                 s.println("switch(src->tag) {");
@@ -629,7 +630,7 @@ public class CPrinterCommon extends IrSwitch<Stream> {
             //OK, we need to copy - make sure dst is allocated
             s.println(   "int flags;");
             s.printlnInc("if(*dst==NULL) {");
-            s.println(      "*dst = malloc(sizeof(**dst));");
+            s.println(      "*dst = calloc(sizeof(**dst),1);");
             s.println(      "flags = 0x1;");
             s.printlnDec("} else {");
             s.inc();
@@ -694,7 +695,8 @@ public class CPrinterCommon extends IrSwitch<Stream> {
             /*
             int constructT1_t(T1_t ** dst, int a, int b, __array4int32_t c) {
                 if(*dst==NULL) {
-                  *dst = malloc(sizeof(**dst));
+                  //Use calloc since zeros memory
+                  *dst = calloc(sizeof(**dst),1);
                 }
                 (*dst)->flags = 0x1;
                 (*dst)->members.a = a;
@@ -713,7 +715,7 @@ public class CPrinterCommon extends IrSwitch<Stream> {
                 }
                 s.printlnInc(") {");
                 s.printlnInc("if(*dst==NULL) {");
-                s.println(      "*dst = malloc(sizeof(**dst));");
+                s.println(      "*dst = calloc(sizeof(**dst),1);");
                 s.printlnDec("}");
                 s.println(   "(*dst)->flags = 0x1;");
                 s.println(   "(*dst)->tag = " + (single?"0":type.getName() + "___" + tt.getTag()) + ";");
@@ -808,7 +810,7 @@ public class CPrinterCommon extends IrSwitch<Stream> {
              */
             s.printlnInc("char * deserializeStruct" + type.getName() + "_t(" +type.getName() + "_t ** dst, char* srcbuf) {");
             s.println("char * p = srcbuf;");
-            s.println("*dst = malloc(sizeof(**dst));");
+            s.println("*dst = calloc(sizeof(**dst),1);");
             s.println("(*dst)->flags = 0x1;");
             if(!single) {
                 s.println("(*dst)->tag = *(enum " + type.getName() + "_tags*) p;");
