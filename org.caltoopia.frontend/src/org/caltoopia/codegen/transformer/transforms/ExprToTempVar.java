@@ -550,6 +550,7 @@ public class ExprToTempVar extends IrReplaceSwitch {
                 if(e instanceof ListExpression) {
                     expr = (ListExpression) e;
                     Variable target = UtilIR.createVarDef(null, "__temp_" + expr.getId(), expr.getType());
+                    TransUtil.setAnnotation(target, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
                     target.setScope(scope);
                     declarations.add(target);
                     Assign assign = UtilIR.createAssignN(scope, target, expr);
