@@ -35,163 +35,163 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class ScopeImpl extends NodeImpl implements Scope {
 	/**
-     * The cached value of the '{@link #getDeclarations() <em>Declarations</em>}' reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getDeclarations() <em>Declarations</em>}' reference list.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getDeclarations()
-     * @generated
-     * @ordered
-     */
+	 * @see #getDeclarations()
+	 * @generated
+	 * @ordered
+	 */
 	protected EList<Declaration> declarations;
 
 	/**
-     * The cached value of the '{@link #getOuter() <em>Outer</em>}' reference.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getOuter() <em>Outer</em>}' reference.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getOuter()
-     * @generated
-     * @ordered
-     */
+	 * @see #getOuter()
+	 * @generated
+	 * @ordered
+	 */
 	protected Scope outer;
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	protected ScopeImpl() {
-        super();
-    }
+		super();
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-        return IrPackage.Literals.SCOPE;
-    }
+		return IrPackage.Literals.SCOPE;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public EList<Declaration> getDeclarations() {
-        if (declarations == null) {
-            declarations = new EObjectResolvingEList<Declaration>(Declaration.class, this, IrPackage.SCOPE__DECLARATIONS);
-        }
-        return declarations;
-    }
+		if (declarations == null) {
+			declarations = new EObjectResolvingEList<Declaration>(Declaration.class, this, IrPackage.SCOPE__DECLARATIONS);
+		}
+		return declarations;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public Scope getOuter() {
-        if (outer != null && outer.eIsProxy()) {
-            InternalEObject oldOuter = (InternalEObject)outer;
-            outer = (Scope)eResolveProxy(oldOuter);
-            if (outer != oldOuter) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.SCOPE__OUTER, oldOuter, outer));
-            }
-        }
-        return outer;
-    }
+		if (outer != null && outer.eIsProxy()) {
+			InternalEObject oldOuter = (InternalEObject)outer;
+			outer = (Scope)eResolveProxy(oldOuter);
+			if (outer != oldOuter) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.SCOPE__OUTER, oldOuter, outer));
+			}
+		}
+		return outer;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public Scope basicGetOuter() {
-        return outer;
-    }
+		return outer;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public void setOuter(Scope newOuter) {
-        Scope oldOuter = outer;
-        outer = newOuter;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.SCOPE__OUTER, oldOuter, outer));
-    }
+		Scope oldOuter = outer;
+		outer = newOuter;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.SCOPE__OUTER, oldOuter, outer));
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case IrPackage.SCOPE__DECLARATIONS:
-                return getDeclarations();
-            case IrPackage.SCOPE__OUTER:
-                if (resolve) return getOuter();
-                return basicGetOuter();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case IrPackage.SCOPE__DECLARATIONS:
+				return getDeclarations();
+			case IrPackage.SCOPE__OUTER:
+				if (resolve) return getOuter();
+				return basicGetOuter();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case IrPackage.SCOPE__DECLARATIONS:
-                getDeclarations().clear();
-                getDeclarations().addAll((Collection<? extends Declaration>)newValue);
-                return;
-            case IrPackage.SCOPE__OUTER:
-                setOuter((Scope)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case IrPackage.SCOPE__DECLARATIONS:
+				getDeclarations().clear();
+				getDeclarations().addAll((Collection<? extends Declaration>)newValue);
+				return;
+			case IrPackage.SCOPE__OUTER:
+				setOuter((Scope)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public void eUnset(int featureID) {
-        switch (featureID) {
-            case IrPackage.SCOPE__DECLARATIONS:
-                getDeclarations().clear();
-                return;
-            case IrPackage.SCOPE__OUTER:
-                setOuter((Scope)null);
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case IrPackage.SCOPE__DECLARATIONS:
+				getDeclarations().clear();
+				return;
+			case IrPackage.SCOPE__OUTER:
+				setOuter((Scope)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case IrPackage.SCOPE__DECLARATIONS:
-                return declarations != null && !declarations.isEmpty();
-            case IrPackage.SCOPE__OUTER:
-                return outer != null;
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case IrPackage.SCOPE__DECLARATIONS:
+				return declarations != null && !declarations.isEmpty();
+			case IrPackage.SCOPE__OUTER:
+				return outer != null;
+		}
+		return super.eIsSet(featureID);
+	}
 
 } //ScopeImpl

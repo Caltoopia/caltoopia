@@ -18,22 +18,22 @@ import org.eclipse.emf.ecore.EClass;
  */
 public class StatementImpl extends NodeImpl implements Statement {
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	protected StatementImpl() {
-        super();
-    }
+		super();
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-        return IrPackage.Literals.STATEMENT;
-    }
+		return IrPackage.Literals.STATEMENT;
+	}
 
 } //StatementImpl

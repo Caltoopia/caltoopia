@@ -9864,11 +9864,11 @@ public class InternalCalParser extends AbstractInternalContentAssistParser {
             if ( (LA27_0==RULE_ID) ) {
                 int LA27_1 = input.LA(2);
 
-                if ( (LA27_1==EOF||LA27_1==51||LA27_1==59||LA27_1==62||(LA27_1>=78 && LA27_1<=79)||LA27_1==82) ) {
-                    alt27=1;
-                }
-                else if ( (LA27_1==58) ) {
+                if ( (LA27_1==58) ) {
                     alt27=2;
+                }
+                else if ( (LA27_1==EOF||LA27_1==51||LA27_1==59||LA27_1==62||(LA27_1>=78 && LA27_1<=79)||LA27_1==82) ) {
+                    alt27=1;
                 }
                 else {
                     NoViableAltException nvae =
@@ -10417,11 +10417,11 @@ public class InternalCalParser extends AbstractInternalContentAssistParser {
             if ( (LA31_0==RULE_ID) ) {
                 int LA31_1 = input.LA(2);
 
-                if ( (LA31_1==19) ) {
-                    alt31=1;
-                }
-                else if ( (LA31_1==51) ) {
+                if ( (LA31_1==51) ) {
                     alt31=2;
+                }
+                else if ( (LA31_1==19) ) {
+                    alt31=1;
                 }
                 else {
                     NoViableAltException nvae =
@@ -58874,40 +58874,47 @@ public class InternalCalParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AstPattern__Group_1_2__1__Impl"
-    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:21928:1: rule__AstPattern__Group_1_2__1__Impl : ( ( rule__AstPattern__Group_1_2_1__0 )? ) ;
+    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:21928:1: rule__AstPattern__Group_1_2__1__Impl : ( ( rule__AstPattern__Group_1_2_1__0 )* ) ;
     public final void rule__AstPattern__Group_1_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:21932:1: ( ( ( rule__AstPattern__Group_1_2_1__0 )? ) )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:21933:1: ( ( rule__AstPattern__Group_1_2_1__0 )? )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:21932:1: ( ( ( rule__AstPattern__Group_1_2_1__0 )* ) )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:21933:1: ( ( rule__AstPattern__Group_1_2_1__0 )* )
             {
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:21933:1: ( ( rule__AstPattern__Group_1_2_1__0 )? )
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:21934:1: ( rule__AstPattern__Group_1_2_1__0 )?
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:21933:1: ( ( rule__AstPattern__Group_1_2_1__0 )* )
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:21934:1: ( rule__AstPattern__Group_1_2_1__0 )*
             {
              before(grammarAccess.getAstPatternAccess().getGroup_1_2_1()); 
-            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:21935:1: ( rule__AstPattern__Group_1_2_1__0 )?
-            int alt174=2;
-            int LA174_0 = input.LA(1);
+            // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:21935:1: ( rule__AstPattern__Group_1_2_1__0 )*
+            loop174:
+            do {
+                int alt174=2;
+                int LA174_0 = input.LA(1);
 
-            if ( (LA174_0==62) ) {
-                alt174=1;
-            }
-            switch (alt174) {
-                case 1 :
-                    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:21935:2: rule__AstPattern__Group_1_2_1__0
-                    {
-                    pushFollow(FOLLOW_rule__AstPattern__Group_1_2_1__0_in_rule__AstPattern__Group_1_2__1__Impl43984);
-                    rule__AstPattern__Group_1_2_1__0();
-
-                    state._fsp--;
+                if ( (LA174_0==62) ) {
+                    alt174=1;
+                }
 
 
-                    }
-                    break;
+                switch (alt174) {
+            	case 1 :
+            	    // ../org.caltoopia.frontend.ui/src-gen/org/caltoopia/frontend/ui/contentassist/antlr/internal/InternalCal.g:21935:2: rule__AstPattern__Group_1_2_1__0
+            	    {
+            	    pushFollow(FOLLOW_rule__AstPattern__Group_1_2_1__0_in_rule__AstPattern__Group_1_2__1__Impl43984);
+            	    rule__AstPattern__Group_1_2_1__0();
 
-            }
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop174;
+                }
+            } while (true);
 
              after(grammarAccess.getAstPatternAccess().getGroup_1_2_1()); 
 
@@ -78179,7 +78186,7 @@ public class InternalCalParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_rule__AstPattern__Group_1_2__1_in_rule__AstPattern__Group_1_2__043900 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AstPattern__SubpatternsAssignment_1_2_0_in_rule__AstPattern__Group_1_2__0__Impl43927 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AstPattern__Group_1_2__1__Impl_in_rule__AstPattern__Group_1_2__143957 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AstPattern__Group_1_2_1__0_in_rule__AstPattern__Group_1_2__1__Impl43984 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AstPattern__Group_1_2_1__0_in_rule__AstPattern__Group_1_2__1__Impl43984 = new BitSet(new long[]{0x4000000000000002L});
     public static final BitSet FOLLOW_rule__AstPattern__Group_1_2_1__0__Impl_in_rule__AstPattern__Group_1_2_1__044019 = new BitSet(new long[]{0x0000000000000080L,0x0000000840000000L});
     public static final BitSet FOLLOW_rule__AstPattern__Group_1_2_1__1_in_rule__AstPattern__Group_1_2_1__044022 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_62_in_rule__AstPattern__Group_1_2_1__0__Impl44050 = new BitSet(new long[]{0x0000000000000002L});

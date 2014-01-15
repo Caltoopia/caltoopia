@@ -22,19 +22,19 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface TypeTuple extends Type, Node {
 	/**
-     * Returns the value of the '<em><b>Tagged Tuples</b></em>' reference list.
-     * The list contents are of type {@link org.caltoopia.ir.TaggedTuple}.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Tagged Tuples</b></em>' reference list.
+	 * The list contents are of type {@link org.caltoopia.ir.TaggedTuple}.
+	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Tagged Tuples</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-     * @return the value of the '<em>Tagged Tuples</em>' reference list.
-     * @see org.caltoopia.ir.IrPackage#getTypeTuple_TaggedTuples()
-     * @model
-     * @generated
-     */
+	 * @return the value of the '<em>Tagged Tuples</em>' reference list.
+	 * @see org.caltoopia.ir.IrPackage#getTypeTuple_TaggedTuples()
+	 * @model
+	 * @generated
+	 */
 	EList<TaggedTuple> getTaggedTuples();
 
 } // TypeTuple

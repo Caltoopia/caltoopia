@@ -82,6 +82,8 @@ public class AstDeclVertex implements VertexData {
 
 	   @Override
 	   public Void caseAstType(AstType type) {
+		   if (inputDefs.contains(type.getName())) return null;
+		   
 		   if (TypeConverter.isUserDefined(type)) {
 			   inputDefs.add(type.getName());
 		   }		   		 

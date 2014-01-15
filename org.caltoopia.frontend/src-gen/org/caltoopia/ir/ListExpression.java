@@ -23,35 +23,35 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface ListExpression extends Expression {
 	/**
-     * Returns the value of the '<em><b>Generators</b></em>' reference list.
-     * The list contents are of type {@link org.caltoopia.ir.Generator}.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Generators</b></em>' reference list.
+	 * The list contents are of type {@link org.caltoopia.ir.Generator}.
+	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Generators</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-     * @return the value of the '<em>Generators</em>' reference list.
-     * @see org.caltoopia.ir.IrPackage#getListExpression_Generators()
-     * @model
-     * @generated
-     */
+	 * @return the value of the '<em>Generators</em>' reference list.
+	 * @see org.caltoopia.ir.IrPackage#getListExpression_Generators()
+	 * @model
+	 * @generated
+	 */
 	EList<Generator> getGenerators();
 
 	/**
-     * Returns the value of the '<em><b>Expressions</b></em>' reference list.
-     * The list contents are of type {@link org.caltoopia.ir.Expression}.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Expressions</b></em>' reference list.
+	 * The list contents are of type {@link org.caltoopia.ir.Expression}.
+	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Expressions</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-     * @return the value of the '<em>Expressions</em>' reference list.
-     * @see org.caltoopia.ir.IrPackage#getListExpression_Expressions()
-     * @model
-     * @generated
-     */
+	 * @return the value of the '<em>Expressions</em>' reference list.
+	 * @see org.caltoopia.ir.IrPackage#getListExpression_Expressions()
+	 * @model
+	 * @generated
+	 */
 	EList<Expression> getExpressions();
 
 } // ListExpression

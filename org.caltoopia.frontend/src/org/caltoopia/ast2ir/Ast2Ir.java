@@ -216,6 +216,8 @@ public class Ast2Ir extends CalSwitch<EObject> {
 			graphData.add(new AstDeclVertex(td));
 		}
 		
+		(new Graph(graphData)).print();
+		
 		graphData = new Graph(graphData).sortByDependency();
 		
 		for (VertexData data : graphData) {
@@ -765,7 +767,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 					guard.getPeeks().add(portPeek);
 					
 					guard.setExpression(Util.doPatternTypeGuards(guard, inputs.getTokens().get(j), Util.createVariableExpression(guard, varDecl), astType));
-					action.getTypeGuards().add(guard);
+					action.getGuards().add(guard);
 				}
 			}							
 		}
@@ -775,7 +777,6 @@ public class Ast2Ir extends CalSwitch<EObject> {
 			guard.setId(Util.getDefinitionId());
 			guard.setOuter(action);
 			
-			final List<PortPeek> peeks = new ArrayList<PortPeek>();
 			Util.stashDefs();
 			
 			new VoidSwitch() {
@@ -783,7 +784,34 @@ public class Ast2Ir extends CalSwitch<EObject> {
 				public Void caseAstExpressionSymbolReference(AstExpressionSymbolReference e)  {
 					AstVariable v = e.getSymbol();					
 					if (v.eContainer() instanceof AstPattern){		
-						Util.doFieldReads(guard, (AstPattern) v.eContainer(), e);
+						AstPattern topPattern = (AstPattern) v.eContainer();
+						
+						while (topPattern.eContainer().eContainer() instanceof AstPattern) {
+							topPattern = (AstPattern) topPattern.eContainer().eContainer();
+						}
+						
+						AstInputPattern inputs = (AstInputPattern) topPattern.eContainer();
+						Port port = Util.createInputPort(scopeStack.peek(), inputs, false);
+						PortPeek portPeek = IrFactory.eINSTANCE.createPortPeek();
+						portPeek.setId(Util.getDefinitionId());
+						portPeek.setPort(port);	
+						portPeek.setPosition(inputs.getTokens().indexOf(topPattern));
+						
+						guard.getPeeks().add(portPeek);
+						Type type = port.getType();
+						Expression repeat = null;
+						if (inputs.getRepeat() != null) {
+							repeat = CreateIrExpression.convert(scopeStack.peek(), inputs.getRepeat());
+							portPeek.setRepeat(repeat);
+							type = TypeSystem.createTypeList(repeat, type);
+						}
+						
+						Variable varDecl = Util.createTmpVariable(guard, type, null);
+						portPeek.setVariable(Util.createVariableReference(varDecl));
+
+						AstType astType = Util.getAstPort(inputs).getType();
+						
+						Util.doPatternDeclarations(guard, astType, topPattern, Util.createVariableExpression(guard, varDecl), repeat);
 					}
 					
 					return super.caseAstExpressionSymbolReference(e);
@@ -1152,30 +1180,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 		
 		try {
 			AstVariable v = stmtCase.getExpression().getSymbol();
-			AstType astType = null;
-			if (v.eContainer() instanceof AstPattern && v.eContainer().eContainer() instanceof AstInputPattern) {
-				AstInputPattern pattern = (AstInputPattern) v.eContainer().eContainer();
-				AstPort port = null;
-				if (pattern.getPort() != null) {
-					port = pattern.getPort();
-				} else {
-					AstAction action = (AstAction) pattern.eContainer();
-					List<AstInputPattern> inputs = action.getInputs();
-					AstActor actor = (AstActor) action.eContainer();
-					List<AstPort> ports = actor.getInputs();
-					for (int i = 0; i < inputs.size(); i++) {
-						if (inputs.get(i) == pattern) {
-							port = ports.get(i);
-						}
-					}
-				}
-				astType = port.getType();
-			} else {
-				astType = v.getType();
-			}
-		
-			if (astType.getCodomain() != null) 
-				astType = astType.getCodomain();
+			AstType astType = TypeConverter.getAstTypeOfAstVariable(v);
 			
 			for (AstStatementAlternative a : stmtCase.getCases()) {
 				StmtAlternative alt = IrFactory.eINSTANCE.createStmtAlternative();

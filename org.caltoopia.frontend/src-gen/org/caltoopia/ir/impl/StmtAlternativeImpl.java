@@ -6,7 +6,6 @@ import java.util.Collection;
 
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.IrPackage;
-import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.StmtAlternative;
 
 import org.eclipse.emf.common.util.EList;
@@ -30,104 +29,104 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class StmtAlternativeImpl extends BlockImpl implements StmtAlternative {
 	/**
-     * The cached value of the '{@link #getGuards() <em>Guards</em>}' reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getGuards() <em>Guards</em>}' reference list.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getGuards()
-     * @generated
-     * @ordered
-     */
+	 * @see #getGuards()
+	 * @generated
+	 * @ordered
+	 */
 	protected EList<Expression> guards;
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	protected StmtAlternativeImpl() {
-        super();
-    }
+		super();
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-        return IrPackage.Literals.STMT_ALTERNATIVE;
-    }
+		return IrPackage.Literals.STMT_ALTERNATIVE;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public EList<Expression> getGuards() {
-        if (guards == null) {
-            guards = new EObjectResolvingEList<Expression>(Expression.class, this, IrPackage.STMT_ALTERNATIVE__GUARDS);
-        }
-        return guards;
-    }
+		if (guards == null) {
+			guards = new EObjectResolvingEList<Expression>(Expression.class, this, IrPackage.STMT_ALTERNATIVE__GUARDS);
+		}
+		return guards;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case IrPackage.STMT_ALTERNATIVE__GUARDS:
-                return getGuards();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case IrPackage.STMT_ALTERNATIVE__GUARDS:
+				return getGuards();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case IrPackage.STMT_ALTERNATIVE__GUARDS:
-                getGuards().clear();
-                getGuards().addAll((Collection<? extends Expression>)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case IrPackage.STMT_ALTERNATIVE__GUARDS:
+				getGuards().clear();
+				getGuards().addAll((Collection<? extends Expression>)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public void eUnset(int featureID) {
-        switch (featureID) {
-            case IrPackage.STMT_ALTERNATIVE__GUARDS:
-                getGuards().clear();
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case IrPackage.STMT_ALTERNATIVE__GUARDS:
+				getGuards().clear();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case IrPackage.STMT_ALTERNATIVE__GUARDS:
-                return guards != null && !guards.isEmpty();
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case IrPackage.STMT_ALTERNATIVE__GUARDS:
+				return guards != null && !guards.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
 
 } //StmtAlternativeImpl

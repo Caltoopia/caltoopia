@@ -272,30 +272,7 @@ public class CreateIrExpression extends CalSwitch<Expression> {
 		
 		try {
 			AstVariable v = e.getExpression().getSymbol();
-			AstType astType = null;;
-			if (v.eContainer() instanceof AstInputPattern) {
-				AstInputPattern pattern = (AstInputPattern) v.eContainer();
-				AstPort port = null;
-				if (pattern.getPort() != null) {
-					port = pattern.getPort();
-				} else {
-					AstAction action = (AstAction) pattern.eContainer();
-					List<AstInputPattern> inputs = action.getInputs();
-					AstActor actor = (AstActor) action.eContainer();
-					List<AstPort> ports = actor.getInputs();
-					for (int i = 0; i < inputs.size(); i++) {
-						if (inputs.get(i) == pattern) {
-							port = ports.get(i);
-						}
-					}
-				}
-				astType = port.getType();
-			} else {
-				astType = v.getType();
-			}
-			
-			if (astType.getCodomain() != null) 
-				astType = astType.getCodomain();
+			AstType astType = TypeConverter.getAstTypeOfAstVariable(v);
 			
 			for (AstExpressionAlternative a : e.getCases()) {
 				ExprAlternative alt = IrFactory.eINSTANCE.createExprAlternative();

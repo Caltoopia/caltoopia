@@ -25,45 +25,45 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Node extends EObject {
 	/**
-     * Returns the value of the '<em><b>Annotations</b></em>' reference list.
-     * The list contents are of type {@link org.caltoopia.ir.Annotation}.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Annotations</b></em>' reference list.
+	 * The list contents are of type {@link org.caltoopia.ir.Annotation}.
+	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Annotations</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-     * @return the value of the '<em>Annotations</em>' reference list.
-     * @see org.caltoopia.ir.IrPackage#getNode_Annotations()
-     * @model
-     * @generated
-     */
+	 * @return the value of the '<em>Annotations</em>' reference list.
+	 * @see org.caltoopia.ir.IrPackage#getNode_Annotations()
+	 * @model
+	 * @generated
+	 */
 	EList<Annotation> getAnnotations();
 
 	/**
-     * Returns the value of the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Id</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-     * @return the value of the '<em>Id</em>' attribute.
-     * @see #setId(String)
-     * @see org.caltoopia.ir.IrPackage#getNode_Id()
-     * @model
-     * @generated
-     */
+	 * @return the value of the '<em>Id</em>' attribute.
+	 * @see #setId(String)
+	 * @see org.caltoopia.ir.IrPackage#getNode_Id()
+	 * @model
+	 * @generated
+	 */
 	String getId();
 
 	/**
-     * Sets the value of the '{@link org.caltoopia.ir.Node#getId <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link org.caltoopia.ir.Node#getId <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Id</em>' attribute.
-     * @see #getId()
-     * @generated
-     */
+	 * @param value the new value of the '<em>Id</em>' attribute.
+	 * @see #getId()
+	 * @generated
+	 */
 	void setId(String value);
 
 } // Node

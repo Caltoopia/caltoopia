@@ -18,22 +18,22 @@ import org.eclipse.emf.ecore.EClass;
  */
 public class TypeBoolImpl extends TypeImpl implements TypeBool {
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	protected TypeBoolImpl() {
-        super();
-    }
+		super();
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-        return IrPackage.Literals.TYPE_BOOL;
-    }
+		return IrPackage.Literals.TYPE_BOOL;
+	}
 
 } //TypeBoolImpl

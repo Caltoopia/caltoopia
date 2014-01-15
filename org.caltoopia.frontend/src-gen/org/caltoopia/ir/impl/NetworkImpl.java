@@ -31,137 +31,137 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class NetworkImpl extends AbstractActorImpl implements Network {
 	/**
-     * The cached value of the '{@link #getConnections() <em>Connections</em>}' reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getConnections() <em>Connections</em>}' reference list.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getConnections()
-     * @generated
-     * @ordered
-     */
+	 * @see #getConnections()
+	 * @generated
+	 * @ordered
+	 */
 	protected EList<Connection> connections;
 
 	/**
-     * The cached value of the '{@link #getActors() <em>Actors</em>}' reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getActors() <em>Actors</em>}' reference list.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getActors()
-     * @generated
-     * @ordered
-     */
+	 * @see #getActors()
+	 * @generated
+	 * @ordered
+	 */
 	protected EList<ActorInstance> actors;
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	protected NetworkImpl() {
-        super();
-    }
+		super();
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-        return IrPackage.Literals.NETWORK;
-    }
+		return IrPackage.Literals.NETWORK;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public EList<Connection> getConnections() {
-        if (connections == null) {
-            connections = new EObjectResolvingEList<Connection>(Connection.class, this, IrPackage.NETWORK__CONNECTIONS);
-        }
-        return connections;
-    }
+		if (connections == null) {
+			connections = new EObjectResolvingEList<Connection>(Connection.class, this, IrPackage.NETWORK__CONNECTIONS);
+		}
+		return connections;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public EList<ActorInstance> getActors() {
-        if (actors == null) {
-            actors = new EObjectResolvingEList<ActorInstance>(ActorInstance.class, this, IrPackage.NETWORK__ACTORS);
-        }
-        return actors;
-    }
+		if (actors == null) {
+			actors = new EObjectResolvingEList<ActorInstance>(ActorInstance.class, this, IrPackage.NETWORK__ACTORS);
+		}
+		return actors;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case IrPackage.NETWORK__CONNECTIONS:
-                return getConnections();
-            case IrPackage.NETWORK__ACTORS:
-                return getActors();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case IrPackage.NETWORK__CONNECTIONS:
+				return getConnections();
+			case IrPackage.NETWORK__ACTORS:
+				return getActors();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case IrPackage.NETWORK__CONNECTIONS:
-                getConnections().clear();
-                getConnections().addAll((Collection<? extends Connection>)newValue);
-                return;
-            case IrPackage.NETWORK__ACTORS:
-                getActors().clear();
-                getActors().addAll((Collection<? extends ActorInstance>)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case IrPackage.NETWORK__CONNECTIONS:
+				getConnections().clear();
+				getConnections().addAll((Collection<? extends Connection>)newValue);
+				return;
+			case IrPackage.NETWORK__ACTORS:
+				getActors().clear();
+				getActors().addAll((Collection<? extends ActorInstance>)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public void eUnset(int featureID) {
-        switch (featureID) {
-            case IrPackage.NETWORK__CONNECTIONS:
-                getConnections().clear();
-                return;
-            case IrPackage.NETWORK__ACTORS:
-                getActors().clear();
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case IrPackage.NETWORK__CONNECTIONS:
+				getConnections().clear();
+				return;
+			case IrPackage.NETWORK__ACTORS:
+				getActors().clear();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case IrPackage.NETWORK__CONNECTIONS:
-                return connections != null && !connections.isEmpty();
-            case IrPackage.NETWORK__ACTORS:
-                return actors != null && !actors.isEmpty();
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case IrPackage.NETWORK__CONNECTIONS:
+				return connections != null && !connections.isEmpty();
+			case IrPackage.NETWORK__ACTORS:
+				return actors != null && !actors.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
 
 } //NetworkImpl

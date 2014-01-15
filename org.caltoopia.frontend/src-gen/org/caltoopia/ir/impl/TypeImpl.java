@@ -20,22 +20,22 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  */
 public class TypeImpl extends EObjectImpl implements Type {
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	protected TypeImpl() {
-        super();
-    }
+		super();
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-        return IrPackage.Literals.TYPE;
-    }
+		return IrPackage.Literals.TYPE;
+	}
 
 } //TypeImpl

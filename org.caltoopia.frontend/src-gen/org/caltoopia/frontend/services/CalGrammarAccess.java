@@ -2081,31 +2081,31 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//name=ID
 		public Assignment getNameAssignment_3() { return cNameAssignment_3; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public RuleCall getNameIDTerminalRuleCall_3_0() { return cNameIDTerminalRuleCall_3_0; }
 
-		//"("
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Keyword getLeftParenthesisKeyword_4() { return cLeftParenthesisKeyword_4; }
 
-		//(parameters+=AstParameter ("," parameters+=AstParameter)*)?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Group getGroup_5() { return cGroup_5; }
 
-		//parameters+=AstParameter
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Assignment getParametersAssignment_5_0() { return cParametersAssignment_5_0; }
 
-		//AstParameter
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public RuleCall getParametersAstParameterParserRuleCall_5_0_0() { return cParametersAstParameterParserRuleCall_5_0_0; }
 
-		//("," parameters+=AstParameter)*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Group getGroup_5_1() { return cGroup_5_1; }
 
-		//","
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Keyword getCommaKeyword_5_1_0() { return cCommaKeyword_5_1_0; }
 
-		//parameters+=AstParameter
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Assignment getParametersAssignment_5_1_1() { return cParametersAssignment_5_1_1; }
 
-		//AstParameter
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public RuleCall getParametersAstParameterParserRuleCall_5_1_1_0() { return cParametersAstParameterParserRuleCall_5_1_1_0; }
 
 		//")"
@@ -2799,19 +2799,19 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//","
 		public Keyword getCommaKeyword_3_0() { return cCommaKeyword_3_0; }
 
-		//tokens+=AstPattern
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Assignment getTokensAssignment_3_1() { return cTokensAssignment_3_1; }
 
-		//AstPattern
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public RuleCall getTokensAstPatternParserRuleCall_3_1_0() { return cTokensAstPatternParserRuleCall_3_1_0; }
 
-		//"]"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Keyword getRightSquareBracketKeyword_4() { return cRightSquareBracketKeyword_4; }
 
-		//("repeat" repeat=AstExpression)?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Group getGroup_5() { return cGroup_5; }
 
-		//"repeat"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Keyword getRepeatKeyword_5_0() { return cRepeatKeyword_5_0; }
 
 		//repeat=AstExpression
@@ -3732,10 +3732,10 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//	AstExpressionRelational ({AstExpressionBinary.left=current} operator=("=" | "!=") right=AstExpressionRelational)*;
 		public ParserRule getRule() { return rule; }
 
-		//AstExpressionRelational ({AstExpressionBinary.left=current} operator=("=" | "!=") right=AstExpressionRelational)*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//AstExpressionRelational
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public RuleCall getAstExpressionRelationalParserRuleCall_0() { return cAstExpressionRelationalParserRuleCall_0; }
 
 		//({AstExpressionBinary.left=current} operator=("=" | "!=") right=AstExpressionRelational)*
@@ -4715,10 +4715,10 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//// patterns
 		/////////////////////////////////////////////////////////////////////////////////
 		//AstPattern:
-		//	variable=AstToken | tag=ID "(" (subpatterns+=AstSubPattern ("," subpatterns+=AstSubPattern)?)? ")";
+		//	variable=AstToken | tag=ID "(" (subpatterns+=AstSubPattern ("," subpatterns+=AstSubPattern)*)? ")";
 		public ParserRule getRule() { return rule; }
 
-		//variable=AstToken | tag=ID "(" (subpatterns+=AstSubPattern ("," subpatterns+=AstSubPattern)?)? ")"
+		//variable=AstToken | tag=ID "(" (subpatterns+=AstSubPattern ("," subpatterns+=AstSubPattern)*)? ")"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//variable=AstToken
@@ -4727,7 +4727,7 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//AstToken
 		public RuleCall getVariableAstTokenParserRuleCall_0_0() { return cVariableAstTokenParserRuleCall_0_0; }
 
-		//tag=ID "(" (subpatterns+=AstSubPattern ("," subpatterns+=AstSubPattern)?)? ")"
+		//tag=ID "(" (subpatterns+=AstSubPattern ("," subpatterns+=AstSubPattern)*)? ")"
 		public Group getGroup_1() { return cGroup_1; }
 
 		//tag=ID
@@ -4739,19 +4739,19 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//"("
 		public Keyword getLeftParenthesisKeyword_1_1() { return cLeftParenthesisKeyword_1_1; }
 
-		//(subpatterns+=AstSubPattern ("," subpatterns+=AstSubPattern)?)?
+		//(subpatterns+=AstSubPattern ("," subpatterns+=AstSubPattern)*)?
 		public Group getGroup_1_2() { return cGroup_1_2; }
 
-		//subpatterns+=AstSubPattern
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Assignment getSubpatternsAssignment_1_2_0() { return cSubpatternsAssignment_1_2_0; }
 
-		//AstSubPattern
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public RuleCall getSubpatternsAstSubPatternParserRuleCall_1_2_0_0() { return cSubpatternsAstSubPatternParserRuleCall_1_2_0_0; }
 
-		//("," subpatterns+=AstSubPattern)?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Group getGroup_1_2_1() { return cGroup_1_2_1; }
 
-		//","
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 		public Keyword getCommaKeyword_1_2_1_0() { return cCommaKeyword_1_2_1_0; }
 
 		//subpatterns+=AstSubPattern
@@ -4841,35 +4841,6 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		/////////////////////////////////////////////////////////////////////////////////
 		//// pattern expressions
 		/////////////////////////////////////////////////////////////////////////////////
-		////AstPatternExpression returns AstExpression:
-		////	AstPatternExpressionAnd ({AstPatternExpressionBinary.left=current} operator=('||' | 'or' | '..') right=AstExpressionAnd)*;
-		////AstPatternExpressionAnd returns AstExpression:
-		////	AstPatternExpressionBitor ({AstPatternExpressionBinary.left=current} operator=('&&' | 'and') right=AstPatternExpressionBitor)*;
-		////AstPatternExpressionBitor returns AstExpression:
-		////	AstPatternExpressionBitxor ({AstPatternExpressionBinary.left=current} operator='|' right=AstPatternExpressionBitxor)*;
-		////AstPatternExpressionBitxor returns AstExpression:
-		////	AstPatternExpressionBitand ({AstPatternExpressionBinary.left=current} operator='^' right=AstPatternExpressionBitand)*;
-		////AstPatternExpressionBitand returns AstExpression:
-		////	AstPatternExpressionEq ({AstPatternExpressionBinary.left=current} operator='&' right=AstPatternExpressionEq)*;
-		////AstPatternExpressionEq returns AstExpression:
-		////	AstPatternExpressionRelational ({AstPatternExpressionBinary.left=current} operator=('=' | '!=') right=AstPatternExpressionRelational)*;
-		////AstPatternExpressionRelational returns AstExpression:
-		////	AstPatternExpressionShift ({AstPatternExpressionBinary.left=current} operator=('<' | '<=' | '>' | '>=') right=AstPatternExpressionShift)*;
-		////AstPatternExpressionShift returns AstExpression:
-		////	AstPatternExpressionAdditive ({AstPatternExpressionBinary.left=current} operator=('<<' | '>>' | '>>>') right=AstPatternExpressionAdditive)*;
-		////AstPatternExpressionAdditive returns AstExpression:
-		////	AstPatternExpressionMultiplicative ({AstPatternExpressionBinary.left=current} operator=('+' | '-') right=AstPatternExpressionMultiplicative)*;
-		////AstPatternExpressionMultiplicative returns AstExpression:
-		////	AstPatternExpressionExp ({AstPatternExpressionBinary.left=current} operator=('*' | '/' | 'div' | 'mod' ) right=AstPatternExpressionExp)*;
-		////AstPatternExpressionExp returns AstExpression:
-		////	AstPatternExpressionUnary ({AstPatternExpressionBinary.left=current} operator='**' right=AstPatternExpressionUnary)*;	
-		////AstPatternExpressionUnary returns AstExpression:
-		////	{AstPatternExpressionUnary} unaryOperator=('~' | '-' | 'not' | '#' | 'old') expression=AstPatternExpressionPostfix
-		////	| AstPatternExpressionPostfix;
-		////AstPatternExpressionPostfix returns AstExpression:
-		////	AstPatternExpressionSymbolReference 
-		////	| AstPatternExpressionIf
-		////	| AstExpressionCase
 		//AstPatternExpression returns AstExpression:
 		//	AstExpressionBoolean | AstExpressionInteger | AstExpressionString | "!" AstExpressionSymbolReference;
 		public ParserRule getRule() { return rule; }
@@ -6124,8 +6095,7 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		return getAstInitializeAccess().getRule();
 	}
 
-	//AstInputPattern:
-	//	(port=[AstPort] ":")? "[" tokens+=AstPattern ("," tokens+=AstPattern)* "]" ("repeat" repeat=AstExpression)?;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/caltoopia/frontend/Cal.xtext'
 	public AstInputPatternElements getAstInputPatternAccess() {
 		return (pAstInputPattern != null) ? pAstInputPattern : (pAstInputPattern = new AstInputPatternElements());
 	}
@@ -6565,7 +6535,7 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	//// patterns
 	/////////////////////////////////////////////////////////////////////////////////
 	//AstPattern:
-	//	variable=AstToken | tag=ID "(" (subpatterns+=AstSubPattern ("," subpatterns+=AstSubPattern)?)? ")";
+	//	variable=AstToken | tag=ID "(" (subpatterns+=AstSubPattern ("," subpatterns+=AstSubPattern)*)? ")";
 	public AstPatternElements getAstPatternAccess() {
 		return (pAstPattern != null) ? pAstPattern : (pAstPattern = new AstPatternElements());
 	}
@@ -6587,35 +6557,6 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	/////////////////////////////////////////////////////////////////////////////////
 	//// pattern expressions
 	/////////////////////////////////////////////////////////////////////////////////
-	////AstPatternExpression returns AstExpression:
-	////	AstPatternExpressionAnd ({AstPatternExpressionBinary.left=current} operator=('||' | 'or' | '..') right=AstExpressionAnd)*;
-	////AstPatternExpressionAnd returns AstExpression:
-	////	AstPatternExpressionBitor ({AstPatternExpressionBinary.left=current} operator=('&&' | 'and') right=AstPatternExpressionBitor)*;
-	////AstPatternExpressionBitor returns AstExpression:
-	////	AstPatternExpressionBitxor ({AstPatternExpressionBinary.left=current} operator='|' right=AstPatternExpressionBitxor)*;
-	////AstPatternExpressionBitxor returns AstExpression:
-	////	AstPatternExpressionBitand ({AstPatternExpressionBinary.left=current} operator='^' right=AstPatternExpressionBitand)*;
-	////AstPatternExpressionBitand returns AstExpression:
-	////	AstPatternExpressionEq ({AstPatternExpressionBinary.left=current} operator='&' right=AstPatternExpressionEq)*;
-	////AstPatternExpressionEq returns AstExpression:
-	////	AstPatternExpressionRelational ({AstPatternExpressionBinary.left=current} operator=('=' | '!=') right=AstPatternExpressionRelational)*;
-	////AstPatternExpressionRelational returns AstExpression:
-	////	AstPatternExpressionShift ({AstPatternExpressionBinary.left=current} operator=('<' | '<=' | '>' | '>=') right=AstPatternExpressionShift)*;
-	////AstPatternExpressionShift returns AstExpression:
-	////	AstPatternExpressionAdditive ({AstPatternExpressionBinary.left=current} operator=('<<' | '>>' | '>>>') right=AstPatternExpressionAdditive)*;
-	////AstPatternExpressionAdditive returns AstExpression:
-	////	AstPatternExpressionMultiplicative ({AstPatternExpressionBinary.left=current} operator=('+' | '-') right=AstPatternExpressionMultiplicative)*;
-	////AstPatternExpressionMultiplicative returns AstExpression:
-	////	AstPatternExpressionExp ({AstPatternExpressionBinary.left=current} operator=('*' | '/' | 'div' | 'mod' ) right=AstPatternExpressionExp)*;
-	////AstPatternExpressionExp returns AstExpression:
-	////	AstPatternExpressionUnary ({AstPatternExpressionBinary.left=current} operator='**' right=AstPatternExpressionUnary)*;	
-	////AstPatternExpressionUnary returns AstExpression:
-	////	{AstPatternExpressionUnary} unaryOperator=('~' | '-' | 'not' | '#' | 'old') expression=AstPatternExpressionPostfix
-	////	| AstPatternExpressionPostfix;
-	////AstPatternExpressionPostfix returns AstExpression:
-	////	AstPatternExpressionSymbolReference 
-	////	| AstPatternExpressionIf
-	////	| AstExpressionCase
 	//AstPatternExpression returns AstExpression:
 	//	AstExpressionBoolean | AstExpressionInteger | AstExpressionString | "!" AstExpressionSymbolReference;
 	public AstPatternExpressionElements getAstPatternExpressionAccess() {

@@ -37,222 +37,222 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class CaseExpressionImpl extends ExpressionImpl implements CaseExpression {
 	/**
-     * The cached value of the '{@link #getAlternatives() <em>Alternatives</em>}' reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getAlternatives() <em>Alternatives</em>}' reference list.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getAlternatives()
-     * @generated
-     * @ordered
-     */
+	 * @see #getAlternatives()
+	 * @generated
+	 * @ordered
+	 */
 	protected EList<ExprAlternative> alternatives;
 
 	/**
-     * The cached value of the '{@link #getDefault() <em>Default</em>}' reference.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getDefault() <em>Default</em>}' reference.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getDefault()
-     * @generated
-     * @ordered
-     */
+	 * @see #getDefault()
+	 * @generated
+	 * @ordered
+	 */
 	protected Expression default_;
 
 	/**
-     * The cached value of the '{@link #getExpression() <em>Expression</em>}' reference.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getExpression() <em>Expression</em>}' reference.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getExpression()
-     * @generated
-     * @ordered
-     */
+	 * @see #getExpression()
+	 * @generated
+	 * @ordered
+	 */
 	protected Expression expression;
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	protected CaseExpressionImpl() {
-        super();
-    }
+		super();
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-        return IrPackage.Literals.CASE_EXPRESSION;
-    }
+		return IrPackage.Literals.CASE_EXPRESSION;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public EList<ExprAlternative> getAlternatives() {
-        if (alternatives == null) {
-            alternatives = new EObjectResolvingEList<ExprAlternative>(ExprAlternative.class, this, IrPackage.CASE_EXPRESSION__ALTERNATIVES);
-        }
-        return alternatives;
-    }
+		if (alternatives == null) {
+			alternatives = new EObjectResolvingEList<ExprAlternative>(ExprAlternative.class, this, IrPackage.CASE_EXPRESSION__ALTERNATIVES);
+		}
+		return alternatives;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public Expression getDefault() {
-        if (default_ != null && default_.eIsProxy()) {
-            InternalEObject oldDefault = (InternalEObject)default_;
-            default_ = (Expression)eResolveProxy(oldDefault);
-            if (default_ != oldDefault) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.CASE_EXPRESSION__DEFAULT, oldDefault, default_));
-            }
-        }
-        return default_;
-    }
+		if (default_ != null && default_.eIsProxy()) {
+			InternalEObject oldDefault = (InternalEObject)default_;
+			default_ = (Expression)eResolveProxy(oldDefault);
+			if (default_ != oldDefault) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.CASE_EXPRESSION__DEFAULT, oldDefault, default_));
+			}
+		}
+		return default_;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public Expression basicGetDefault() {
-        return default_;
-    }
+		return default_;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public void setDefault(Expression newDefault) {
-        Expression oldDefault = default_;
-        default_ = newDefault;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.CASE_EXPRESSION__DEFAULT, oldDefault, default_));
-    }
+		Expression oldDefault = default_;
+		default_ = newDefault;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.CASE_EXPRESSION__DEFAULT, oldDefault, default_));
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public Expression getExpression() {
-        if (expression != null && expression.eIsProxy()) {
-            InternalEObject oldExpression = (InternalEObject)expression;
-            expression = (Expression)eResolveProxy(oldExpression);
-            if (expression != oldExpression) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.CASE_EXPRESSION__EXPRESSION, oldExpression, expression));
-            }
-        }
-        return expression;
-    }
+		if (expression != null && expression.eIsProxy()) {
+			InternalEObject oldExpression = (InternalEObject)expression;
+			expression = (Expression)eResolveProxy(oldExpression);
+			if (expression != oldExpression) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.CASE_EXPRESSION__EXPRESSION, oldExpression, expression));
+			}
+		}
+		return expression;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public Expression basicGetExpression() {
-        return expression;
-    }
+		return expression;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public void setExpression(Expression newExpression) {
-        Expression oldExpression = expression;
-        expression = newExpression;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.CASE_EXPRESSION__EXPRESSION, oldExpression, expression));
-    }
+		Expression oldExpression = expression;
+		expression = newExpression;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.CASE_EXPRESSION__EXPRESSION, oldExpression, expression));
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case IrPackage.CASE_EXPRESSION__ALTERNATIVES:
-                return getAlternatives();
-            case IrPackage.CASE_EXPRESSION__DEFAULT:
-                if (resolve) return getDefault();
-                return basicGetDefault();
-            case IrPackage.CASE_EXPRESSION__EXPRESSION:
-                if (resolve) return getExpression();
-                return basicGetExpression();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case IrPackage.CASE_EXPRESSION__ALTERNATIVES:
+				return getAlternatives();
+			case IrPackage.CASE_EXPRESSION__DEFAULT:
+				if (resolve) return getDefault();
+				return basicGetDefault();
+			case IrPackage.CASE_EXPRESSION__EXPRESSION:
+				if (resolve) return getExpression();
+				return basicGetExpression();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case IrPackage.CASE_EXPRESSION__ALTERNATIVES:
-                getAlternatives().clear();
-                getAlternatives().addAll((Collection<? extends ExprAlternative>)newValue);
-                return;
-            case IrPackage.CASE_EXPRESSION__DEFAULT:
-                setDefault((Expression)newValue);
-                return;
-            case IrPackage.CASE_EXPRESSION__EXPRESSION:
-                setExpression((Expression)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case IrPackage.CASE_EXPRESSION__ALTERNATIVES:
+				getAlternatives().clear();
+				getAlternatives().addAll((Collection<? extends ExprAlternative>)newValue);
+				return;
+			case IrPackage.CASE_EXPRESSION__DEFAULT:
+				setDefault((Expression)newValue);
+				return;
+			case IrPackage.CASE_EXPRESSION__EXPRESSION:
+				setExpression((Expression)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public void eUnset(int featureID) {
-        switch (featureID) {
-            case IrPackage.CASE_EXPRESSION__ALTERNATIVES:
-                getAlternatives().clear();
-                return;
-            case IrPackage.CASE_EXPRESSION__DEFAULT:
-                setDefault((Expression)null);
-                return;
-            case IrPackage.CASE_EXPRESSION__EXPRESSION:
-                setExpression((Expression)null);
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case IrPackage.CASE_EXPRESSION__ALTERNATIVES:
+				getAlternatives().clear();
+				return;
+			case IrPackage.CASE_EXPRESSION__DEFAULT:
+				setDefault((Expression)null);
+				return;
+			case IrPackage.CASE_EXPRESSION__EXPRESSION:
+				setExpression((Expression)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case IrPackage.CASE_EXPRESSION__ALTERNATIVES:
-                return alternatives != null && !alternatives.isEmpty();
-            case IrPackage.CASE_EXPRESSION__DEFAULT:
-                return default_ != null;
-            case IrPackage.CASE_EXPRESSION__EXPRESSION:
-                return expression != null;
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case IrPackage.CASE_EXPRESSION__ALTERNATIVES:
+				return alternatives != null && !alternatives.isEmpty();
+			case IrPackage.CASE_EXPRESSION__DEFAULT:
+				return default_ != null;
+			case IrPackage.CASE_EXPRESSION__EXPRESSION:
+				return expression != null;
+		}
+		return super.eIsSet(featureID);
+	}
 
 } //CaseExpressionImpl

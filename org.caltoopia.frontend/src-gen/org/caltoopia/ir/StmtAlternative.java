@@ -22,19 +22,19 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface StmtAlternative extends Block {
 	/**
-     * Returns the value of the '<em><b>Guards</b></em>' reference list.
-     * The list contents are of type {@link org.caltoopia.ir.Expression}.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Guards</b></em>' reference list.
+	 * The list contents are of type {@link org.caltoopia.ir.Expression}.
+	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Guards</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-     * @return the value of the '<em>Guards</em>' reference list.
-     * @see org.caltoopia.ir.IrPackage#getStmtAlternative_Guards()
-     * @model
-     * @generated
-     */
+	 * @return the value of the '<em>Guards</em>' reference list.
+	 * @see org.caltoopia.ir.IrPackage#getStmtAlternative_Guards()
+	 * @model
+	 * @generated
+	 */
 	EList<Expression> getGuards();
 
 } // StmtAlternative

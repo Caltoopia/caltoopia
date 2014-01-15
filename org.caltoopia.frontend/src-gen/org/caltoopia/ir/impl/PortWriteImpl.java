@@ -38,256 +38,256 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class PortWriteImpl extends BlockImpl implements PortWrite {
 	/**
-     * The cached value of the '{@link #getPort() <em>Port</em>}' reference.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getPort() <em>Port</em>}' reference.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getPort()
-     * @generated
-     * @ordered
-     */
+	 * @see #getPort()
+	 * @generated
+	 * @ordered
+	 */
 	protected Port port;
 
 	/**
-     * The cached value of the '{@link #getRepeat() <em>Repeat</em>}' reference.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getRepeat() <em>Repeat</em>}' reference.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getRepeat()
-     * @generated
-     * @ordered
-     */
+	 * @see #getRepeat()
+	 * @generated
+	 * @ordered
+	 */
 	protected Expression repeat;
 
 	/**
-     * The cached value of the '{@link #getExpressions() <em>Expressions</em>}' reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getExpressions() <em>Expressions</em>}' reference list.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getExpressions()
-     * @generated
-     * @ordered
-     */
+	 * @see #getExpressions()
+	 * @generated
+	 * @ordered
+	 */
 	protected EList<Expression> expressions;
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	protected PortWriteImpl() {
-        super();
-    }
+		super();
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-        return IrPackage.Literals.PORT_WRITE;
-    }
+		return IrPackage.Literals.PORT_WRITE;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public Port getPort() {
-        if (port != null && port.eIsProxy()) {
-            InternalEObject oldPort = (InternalEObject)port;
-            port = (Port)eResolveProxy(oldPort);
-            if (port != oldPort) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.PORT_WRITE__PORT, oldPort, port));
-            }
-        }
-        return port;
-    }
+		if (port != null && port.eIsProxy()) {
+			InternalEObject oldPort = (InternalEObject)port;
+			port = (Port)eResolveProxy(oldPort);
+			if (port != oldPort) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.PORT_WRITE__PORT, oldPort, port));
+			}
+		}
+		return port;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public Port basicGetPort() {
-        return port;
-    }
+		return port;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public void setPort(Port newPort) {
-        Port oldPort = port;
-        port = newPort;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.PORT_WRITE__PORT, oldPort, port));
-    }
+		Port oldPort = port;
+		port = newPort;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.PORT_WRITE__PORT, oldPort, port));
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public Expression getRepeat() {
-        if (repeat != null && repeat.eIsProxy()) {
-            InternalEObject oldRepeat = (InternalEObject)repeat;
-            repeat = (Expression)eResolveProxy(oldRepeat);
-            if (repeat != oldRepeat) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.PORT_WRITE__REPEAT, oldRepeat, repeat));
-            }
-        }
-        return repeat;
-    }
+		if (repeat != null && repeat.eIsProxy()) {
+			InternalEObject oldRepeat = (InternalEObject)repeat;
+			repeat = (Expression)eResolveProxy(oldRepeat);
+			if (repeat != oldRepeat) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.PORT_WRITE__REPEAT, oldRepeat, repeat));
+			}
+		}
+		return repeat;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public Expression basicGetRepeat() {
-        return repeat;
-    }
+		return repeat;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public void setRepeat(Expression newRepeat) {
-        Expression oldRepeat = repeat;
-        repeat = newRepeat;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.PORT_WRITE__REPEAT, oldRepeat, repeat));
-    }
+		Expression oldRepeat = repeat;
+		repeat = newRepeat;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.PORT_WRITE__REPEAT, oldRepeat, repeat));
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public EList<Expression> getExpressions() {
-        if (expressions == null) {
-            expressions = new EObjectResolvingEList<Expression>(Expression.class, this, IrPackage.PORT_WRITE__EXPRESSIONS);
-        }
-        return expressions;
-    }
+		if (expressions == null) {
+			expressions = new EObjectResolvingEList<Expression>(Expression.class, this, IrPackage.PORT_WRITE__EXPRESSIONS);
+		}
+		return expressions;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case IrPackage.PORT_WRITE__PORT:
-                if (resolve) return getPort();
-                return basicGetPort();
-            case IrPackage.PORT_WRITE__REPEAT:
-                if (resolve) return getRepeat();
-                return basicGetRepeat();
-            case IrPackage.PORT_WRITE__EXPRESSIONS:
-                return getExpressions();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case IrPackage.PORT_WRITE__PORT:
+				if (resolve) return getPort();
+				return basicGetPort();
+			case IrPackage.PORT_WRITE__REPEAT:
+				if (resolve) return getRepeat();
+				return basicGetRepeat();
+			case IrPackage.PORT_WRITE__EXPRESSIONS:
+				return getExpressions();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case IrPackage.PORT_WRITE__PORT:
-                setPort((Port)newValue);
-                return;
-            case IrPackage.PORT_WRITE__REPEAT:
-                setRepeat((Expression)newValue);
-                return;
-            case IrPackage.PORT_WRITE__EXPRESSIONS:
-                getExpressions().clear();
-                getExpressions().addAll((Collection<? extends Expression>)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case IrPackage.PORT_WRITE__PORT:
+				setPort((Port)newValue);
+				return;
+			case IrPackage.PORT_WRITE__REPEAT:
+				setRepeat((Expression)newValue);
+				return;
+			case IrPackage.PORT_WRITE__EXPRESSIONS:
+				getExpressions().clear();
+				getExpressions().addAll((Collection<? extends Expression>)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public void eUnset(int featureID) {
-        switch (featureID) {
-            case IrPackage.PORT_WRITE__PORT:
-                setPort((Port)null);
-                return;
-            case IrPackage.PORT_WRITE__REPEAT:
-                setRepeat((Expression)null);
-                return;
-            case IrPackage.PORT_WRITE__EXPRESSIONS:
-                getExpressions().clear();
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case IrPackage.PORT_WRITE__PORT:
+				setPort((Port)null);
+				return;
+			case IrPackage.PORT_WRITE__REPEAT:
+				setRepeat((Expression)null);
+				return;
+			case IrPackage.PORT_WRITE__EXPRESSIONS:
+				getExpressions().clear();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case IrPackage.PORT_WRITE__PORT:
-                return port != null;
-            case IrPackage.PORT_WRITE__REPEAT:
-                return repeat != null;
-            case IrPackage.PORT_WRITE__EXPRESSIONS:
-                return expressions != null && !expressions.isEmpty();
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case IrPackage.PORT_WRITE__PORT:
+				return port != null;
+			case IrPackage.PORT_WRITE__REPEAT:
+				return repeat != null;
+			case IrPackage.PORT_WRITE__EXPRESSIONS:
+				return expressions != null && !expressions.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-        if (baseClass == PortAccess.class) {
-            switch (derivedFeatureID) {
-                case IrPackage.PORT_WRITE__PORT: return IrPackage.PORT_ACCESS__PORT;
-                case IrPackage.PORT_WRITE__REPEAT: return IrPackage.PORT_ACCESS__REPEAT;
-                default: return -1;
-            }
-        }
-        return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-    }
+		if (baseClass == PortAccess.class) {
+			switch (derivedFeatureID) {
+				case IrPackage.PORT_WRITE__PORT: return IrPackage.PORT_ACCESS__PORT;
+				case IrPackage.PORT_WRITE__REPEAT: return IrPackage.PORT_ACCESS__REPEAT;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-        if (baseClass == PortAccess.class) {
-            switch (baseFeatureID) {
-                case IrPackage.PORT_ACCESS__PORT: return IrPackage.PORT_WRITE__PORT;
-                case IrPackage.PORT_ACCESS__REPEAT: return IrPackage.PORT_WRITE__REPEAT;
-                default: return -1;
-            }
-        }
-        return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-    }
+		if (baseClass == PortAccess.class) {
+			switch (baseFeatureID) {
+				case IrPackage.PORT_ACCESS__PORT: return IrPackage.PORT_WRITE__PORT;
+				case IrPackage.PORT_ACCESS__REPEAT: return IrPackage.PORT_WRITE__REPEAT;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+	}
 
 } //PortWriteImpl

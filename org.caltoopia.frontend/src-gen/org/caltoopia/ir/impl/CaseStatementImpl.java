@@ -36,163 +36,163 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class CaseStatementImpl extends StatementImpl implements CaseStatement {
 	/**
-     * The cached value of the '{@link #getAlternatives() <em>Alternatives</em>}' reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getAlternatives() <em>Alternatives</em>}' reference list.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getAlternatives()
-     * @generated
-     * @ordered
-     */
+	 * @see #getAlternatives()
+	 * @generated
+	 * @ordered
+	 */
 	protected EList<StmtAlternative> alternatives;
 
 	/**
-     * The cached value of the '{@link #getExpression() <em>Expression</em>}' reference.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getExpression() <em>Expression</em>}' reference.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getExpression()
-     * @generated
-     * @ordered
-     */
+	 * @see #getExpression()
+	 * @generated
+	 * @ordered
+	 */
 	protected Expression expression;
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	protected CaseStatementImpl() {
-        super();
-    }
+		super();
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-        return IrPackage.Literals.CASE_STATEMENT;
-    }
+		return IrPackage.Literals.CASE_STATEMENT;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public EList<StmtAlternative> getAlternatives() {
-        if (alternatives == null) {
-            alternatives = new EObjectResolvingEList<StmtAlternative>(StmtAlternative.class, this, IrPackage.CASE_STATEMENT__ALTERNATIVES);
-        }
-        return alternatives;
-    }
+		if (alternatives == null) {
+			alternatives = new EObjectResolvingEList<StmtAlternative>(StmtAlternative.class, this, IrPackage.CASE_STATEMENT__ALTERNATIVES);
+		}
+		return alternatives;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public Expression getExpression() {
-        if (expression != null && expression.eIsProxy()) {
-            InternalEObject oldExpression = (InternalEObject)expression;
-            expression = (Expression)eResolveProxy(oldExpression);
-            if (expression != oldExpression) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.CASE_STATEMENT__EXPRESSION, oldExpression, expression));
-            }
-        }
-        return expression;
-    }
+		if (expression != null && expression.eIsProxy()) {
+			InternalEObject oldExpression = (InternalEObject)expression;
+			expression = (Expression)eResolveProxy(oldExpression);
+			if (expression != oldExpression) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.CASE_STATEMENT__EXPRESSION, oldExpression, expression));
+			}
+		}
+		return expression;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public Expression basicGetExpression() {
-        return expression;
-    }
+		return expression;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public void setExpression(Expression newExpression) {
-        Expression oldExpression = expression;
-        expression = newExpression;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.CASE_STATEMENT__EXPRESSION, oldExpression, expression));
-    }
+		Expression oldExpression = expression;
+		expression = newExpression;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.CASE_STATEMENT__EXPRESSION, oldExpression, expression));
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case IrPackage.CASE_STATEMENT__ALTERNATIVES:
-                return getAlternatives();
-            case IrPackage.CASE_STATEMENT__EXPRESSION:
-                if (resolve) return getExpression();
-                return basicGetExpression();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case IrPackage.CASE_STATEMENT__ALTERNATIVES:
+				return getAlternatives();
+			case IrPackage.CASE_STATEMENT__EXPRESSION:
+				if (resolve) return getExpression();
+				return basicGetExpression();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case IrPackage.CASE_STATEMENT__ALTERNATIVES:
-                getAlternatives().clear();
-                getAlternatives().addAll((Collection<? extends StmtAlternative>)newValue);
-                return;
-            case IrPackage.CASE_STATEMENT__EXPRESSION:
-                setExpression((Expression)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case IrPackage.CASE_STATEMENT__ALTERNATIVES:
+				getAlternatives().clear();
+				getAlternatives().addAll((Collection<? extends StmtAlternative>)newValue);
+				return;
+			case IrPackage.CASE_STATEMENT__EXPRESSION:
+				setExpression((Expression)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public void eUnset(int featureID) {
-        switch (featureID) {
-            case IrPackage.CASE_STATEMENT__ALTERNATIVES:
-                getAlternatives().clear();
-                return;
-            case IrPackage.CASE_STATEMENT__EXPRESSION:
-                setExpression((Expression)null);
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case IrPackage.CASE_STATEMENT__ALTERNATIVES:
+				getAlternatives().clear();
+				return;
+			case IrPackage.CASE_STATEMENT__EXPRESSION:
+				setExpression((Expression)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case IrPackage.CASE_STATEMENT__ALTERNATIVES:
-                return alternatives != null && !alternatives.isEmpty();
-            case IrPackage.CASE_STATEMENT__EXPRESSION:
-                return expression != null;
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case IrPackage.CASE_STATEMENT__ALTERNATIVES:
+				return alternatives != null && !alternatives.isEmpty();
+			case IrPackage.CASE_STATEMENT__EXPRESSION:
+				return expression != null;
+		}
+		return super.eIsSet(featureID);
+	}
 
 } //CaseStatementImpl

@@ -29,104 +29,104 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class PortReadImpl extends PortAccessImpl implements PortRead {
 	/**
-     * The cached value of the '{@link #getVariables() <em>Variables</em>}' reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getVariables() <em>Variables</em>}' reference list.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getVariables()
-     * @generated
-     * @ordered
-     */
+	 * @see #getVariables()
+	 * @generated
+	 * @ordered
+	 */
 	protected EList<VariableReference> variables;
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	protected PortReadImpl() {
-        super();
-    }
+		super();
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-        return IrPackage.Literals.PORT_READ;
-    }
+		return IrPackage.Literals.PORT_READ;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public EList<VariableReference> getVariables() {
-        if (variables == null) {
-            variables = new EObjectResolvingEList<VariableReference>(VariableReference.class, this, IrPackage.PORT_READ__VARIABLES);
-        }
-        return variables;
-    }
+		if (variables == null) {
+			variables = new EObjectResolvingEList<VariableReference>(VariableReference.class, this, IrPackage.PORT_READ__VARIABLES);
+		}
+		return variables;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case IrPackage.PORT_READ__VARIABLES:
-                return getVariables();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case IrPackage.PORT_READ__VARIABLES:
+				return getVariables();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case IrPackage.PORT_READ__VARIABLES:
-                getVariables().clear();
-                getVariables().addAll((Collection<? extends VariableReference>)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case IrPackage.PORT_READ__VARIABLES:
+				getVariables().clear();
+				getVariables().addAll((Collection<? extends VariableReference>)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public void eUnset(int featureID) {
-        switch (featureID) {
-            case IrPackage.PORT_READ__VARIABLES:
-                getVariables().clear();
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case IrPackage.PORT_READ__VARIABLES:
+				getVariables().clear();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case IrPackage.PORT_READ__VARIABLES:
-                return variables != null && !variables.isEmpty();
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case IrPackage.PORT_READ__VARIABLES:
+				return variables != null && !variables.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
 
 } //PortReadImpl

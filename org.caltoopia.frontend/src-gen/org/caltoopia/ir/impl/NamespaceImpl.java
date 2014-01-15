@@ -31,153 +31,153 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class NamespaceImpl extends ScopeImpl implements Namespace {
 	/**
-     * The cached value of the '{@link #getName() <em>Name</em>}' attribute list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute list.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getName()
-     * @generated
-     * @ordered
-     */
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
 	protected EList<String> name;
 
 	/**
-     * The cached value of the '{@link #getActors() <em>Actors</em>}' reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getActors() <em>Actors</em>}' reference list.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getActors()
-     * @generated
-     * @ordered
-     */
+	 * @see #getActors()
+	 * @generated
+	 * @ordered
+	 */
 	protected EList<AbstractActor> actors;
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	protected NamespaceImpl() {
-        super();
-    }
+		super();
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-        return IrPackage.Literals.NAMESPACE;
-    }
+		return IrPackage.Literals.NAMESPACE;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public EList<String> getName() {
-        if (name == null) {
-            name = new EDataTypeUniqueEList<String>(String.class, this, IrPackage.NAMESPACE__NAME);
-        }
-        return name;
-    }
+		if (name == null) {
+			name = new EDataTypeUniqueEList<String>(String.class, this, IrPackage.NAMESPACE__NAME);
+		}
+		return name;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public EList<AbstractActor> getActors() {
-        if (actors == null) {
-            actors = new EObjectResolvingEList<AbstractActor>(AbstractActor.class, this, IrPackage.NAMESPACE__ACTORS);
-        }
-        return actors;
-    }
+		if (actors == null) {
+			actors = new EObjectResolvingEList<AbstractActor>(AbstractActor.class, this, IrPackage.NAMESPACE__ACTORS);
+		}
+		return actors;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case IrPackage.NAMESPACE__NAME:
-                return getName();
-            case IrPackage.NAMESPACE__ACTORS:
-                return getActors();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case IrPackage.NAMESPACE__NAME:
+				return getName();
+			case IrPackage.NAMESPACE__ACTORS:
+				return getActors();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case IrPackage.NAMESPACE__NAME:
-                getName().clear();
-                getName().addAll((Collection<? extends String>)newValue);
-                return;
-            case IrPackage.NAMESPACE__ACTORS:
-                getActors().clear();
-                getActors().addAll((Collection<? extends AbstractActor>)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case IrPackage.NAMESPACE__NAME:
+				getName().clear();
+				getName().addAll((Collection<? extends String>)newValue);
+				return;
+			case IrPackage.NAMESPACE__ACTORS:
+				getActors().clear();
+				getActors().addAll((Collection<? extends AbstractActor>)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public void eUnset(int featureID) {
-        switch (featureID) {
-            case IrPackage.NAMESPACE__NAME:
-                getName().clear();
-                return;
-            case IrPackage.NAMESPACE__ACTORS:
-                getActors().clear();
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case IrPackage.NAMESPACE__NAME:
+				getName().clear();
+				return;
+			case IrPackage.NAMESPACE__ACTORS:
+				getActors().clear();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case IrPackage.NAMESPACE__NAME:
-                return name != null && !name.isEmpty();
-            case IrPackage.NAMESPACE__ACTORS:
-                return actors != null && !actors.isEmpty();
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case IrPackage.NAMESPACE__NAME:
+				return name != null && !name.isEmpty();
+			case IrPackage.NAMESPACE__ACTORS:
+				return actors != null && !actors.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public String toString() {
-        if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (name: ");
-        result.append(name);
-        result.append(')');
-        return result.toString();
-    }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (name: ");
+		result.append(name);
+		result.append(')');
+		return result.toString();
+	}
 
 } //NamespaceImpl

@@ -29,196 +29,196 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class PortPeekImpl extends PortAccessImpl implements PortPeek {
 	/**
-     * The cached value of the '{@link #getVariable() <em>Variable</em>}' reference.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getVariable() <em>Variable</em>}' reference.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getVariable()
-     * @generated
-     * @ordered
-     */
+	 * @see #getVariable()
+	 * @generated
+	 * @ordered
+	 */
 	protected VariableReference variable;
 
 	/**
-     * The default value of the '{@link #getPosition() <em>Position</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getPosition() <em>Position</em>}' attribute.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getPosition()
-     * @generated
-     * @ordered
-     */
+	 * @see #getPosition()
+	 * @generated
+	 * @ordered
+	 */
 	protected static final int POSITION_EDEFAULT = 0;
 
 	/**
-     * The cached value of the '{@link #getPosition() <em>Position</em>}' attribute.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getPosition() <em>Position</em>}' attribute.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getPosition()
-     * @generated
-     * @ordered
-     */
+	 * @see #getPosition()
+	 * @generated
+	 * @ordered
+	 */
 	protected int position = POSITION_EDEFAULT;
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	protected PortPeekImpl() {
-        super();
-    }
+		super();
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-        return IrPackage.Literals.PORT_PEEK;
-    }
+		return IrPackage.Literals.PORT_PEEK;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public VariableReference getVariable() {
-        if (variable != null && variable.eIsProxy()) {
-            InternalEObject oldVariable = (InternalEObject)variable;
-            variable = (VariableReference)eResolveProxy(oldVariable);
-            if (variable != oldVariable) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.PORT_PEEK__VARIABLE, oldVariable, variable));
-            }
-        }
-        return variable;
-    }
+		if (variable != null && variable.eIsProxy()) {
+			InternalEObject oldVariable = (InternalEObject)variable;
+			variable = (VariableReference)eResolveProxy(oldVariable);
+			if (variable != oldVariable) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.PORT_PEEK__VARIABLE, oldVariable, variable));
+			}
+		}
+		return variable;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public VariableReference basicGetVariable() {
-        return variable;
-    }
+		return variable;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public void setVariable(VariableReference newVariable) {
-        VariableReference oldVariable = variable;
-        variable = newVariable;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.PORT_PEEK__VARIABLE, oldVariable, variable));
-    }
+		VariableReference oldVariable = variable;
+		variable = newVariable;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.PORT_PEEK__VARIABLE, oldVariable, variable));
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public int getPosition() {
-        return position;
-    }
+		return position;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public void setPosition(int newPosition) {
-        int oldPosition = position;
-        position = newPosition;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.PORT_PEEK__POSITION, oldPosition, position));
-    }
+		int oldPosition = position;
+		position = newPosition;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.PORT_PEEK__POSITION, oldPosition, position));
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case IrPackage.PORT_PEEK__VARIABLE:
-                if (resolve) return getVariable();
-                return basicGetVariable();
-            case IrPackage.PORT_PEEK__POSITION:
-                return getPosition();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case IrPackage.PORT_PEEK__VARIABLE:
+				if (resolve) return getVariable();
+				return basicGetVariable();
+			case IrPackage.PORT_PEEK__POSITION:
+				return getPosition();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case IrPackage.PORT_PEEK__VARIABLE:
-                setVariable((VariableReference)newValue);
-                return;
-            case IrPackage.PORT_PEEK__POSITION:
-                setPosition((Integer)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case IrPackage.PORT_PEEK__VARIABLE:
+				setVariable((VariableReference)newValue);
+				return;
+			case IrPackage.PORT_PEEK__POSITION:
+				setPosition((Integer)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public void eUnset(int featureID) {
-        switch (featureID) {
-            case IrPackage.PORT_PEEK__VARIABLE:
-                setVariable((VariableReference)null);
-                return;
-            case IrPackage.PORT_PEEK__POSITION:
-                setPosition(POSITION_EDEFAULT);
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case IrPackage.PORT_PEEK__VARIABLE:
+				setVariable((VariableReference)null);
+				return;
+			case IrPackage.PORT_PEEK__POSITION:
+				setPosition(POSITION_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case IrPackage.PORT_PEEK__VARIABLE:
-                return variable != null;
-            case IrPackage.PORT_PEEK__POSITION:
-                return position != POSITION_EDEFAULT;
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case IrPackage.PORT_PEEK__VARIABLE:
+				return variable != null;
+			case IrPackage.PORT_PEEK__POSITION:
+				return position != POSITION_EDEFAULT;
+		}
+		return super.eIsSet(featureID);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public String toString() {
-        if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (position: ");
-        result.append(position);
-        result.append(')');
-        return result.toString();
-    }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (position: ");
+		result.append(position);
+		result.append(')');
+		return result.toString();
+	}
 
 } //PortPeekImpl

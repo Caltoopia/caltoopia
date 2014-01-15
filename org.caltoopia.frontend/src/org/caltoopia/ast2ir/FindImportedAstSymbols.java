@@ -181,9 +181,10 @@ class FindImportedAstSymbols extends VoidSwitch {
 		if (TypeConverter.isUserDefined(astType)) {
 			AstNamespace exportingNamespace;
 			
-			// If already imported, just leave
-			if (imported.contains(astType.getName())) return null;
-
+			// If already visited, just leave
+			if (imported.contains(astType.getName()) || visited.contains(astType.getName())) return null;
+			visited.add(astType.getName());
+			
 			exportingNamespace = checkDefinitionContainer(astType.getName().eContainer(), topAstContainer); 
 				
 			if (exportingNamespace != null) {

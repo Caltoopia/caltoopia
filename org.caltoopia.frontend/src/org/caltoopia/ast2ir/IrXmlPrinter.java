@@ -436,11 +436,7 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 		}
 		s.printlnDec("</QID>");	
 		doAnnotations(action);
-		
-		for (Guard guard : action.getTypeGuards()) {
-			doSwitch(guard);
-		}
-		
+				
 		for (Guard guard : action.getGuards()) {
 			doSwitch(guard);
 		}

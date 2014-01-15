@@ -23,35 +23,35 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface TypeProc extends Type {
 	/**
-     * Returns the value of the '<em><b>Input Types</b></em>' reference list.
-     * The list contents are of type {@link org.caltoopia.ir.Type}.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Input Types</b></em>' reference list.
+	 * The list contents are of type {@link org.caltoopia.ir.Type}.
+	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Input Types</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-     * @return the value of the '<em>Input Types</em>' reference list.
-     * @see org.caltoopia.ir.IrPackage#getTypeProc_InputTypes()
-     * @model
-     * @generated
-     */
+	 * @return the value of the '<em>Input Types</em>' reference list.
+	 * @see org.caltoopia.ir.IrPackage#getTypeProc_InputTypes()
+	 * @model
+	 * @generated
+	 */
 	EList<Type> getInputTypes();
 
 	/**
-     * Returns the value of the '<em><b>Output Types</b></em>' reference list.
-     * The list contents are of type {@link org.caltoopia.ir.Type}.
-     * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Output Types</b></em>' reference list.
+	 * The list contents are of type {@link org.caltoopia.ir.Type}.
+	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Output Types</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-     * @return the value of the '<em>Output Types</em>' reference list.
-     * @see org.caltoopia.ir.IrPackage#getTypeProc_OutputTypes()
-     * @model
-     * @generated
-     */
+	 * @return the value of the '<em>Output Types</em>' reference list.
+	 * @see org.caltoopia.ir.IrPackage#getTypeProc_OutputTypes()
+	 * @model
+	 * @generated
+	 */
 	EList<Type> getOutputTypes();
 
 } // TypeProc

@@ -60,8 +60,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tag" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
         eType="#//Statement"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="typeGuards" upperBound="-1"
-        eType="#//Guard"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Port" eSuperTypes="#//Node">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//Type"/>

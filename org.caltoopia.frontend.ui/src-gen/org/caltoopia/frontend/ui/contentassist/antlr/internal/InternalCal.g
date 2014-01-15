@@ -21932,7 +21932,7 @@ rule__AstPattern__Group_1_2__1__Impl
 :
 (
 { before(grammarAccess.getAstPatternAccess().getGroup_1_2_1()); }
-(rule__AstPattern__Group_1_2_1__0)?
+(rule__AstPattern__Group_1_2_1__0)*
 { after(grammarAccess.getAstPatternAccess().getGroup_1_2_1()); }
 )
 

@@ -18,22 +18,22 @@ import org.eclipse.emf.ecore.EClass;
  */
 public class ExternalActorImpl extends AbstractActorImpl implements ExternalActor {
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	protected ExternalActorImpl() {
-        super();
-    }
+		super();
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-        return IrPackage.Literals.EXTERNAL_ACTOR;
-    }
+		return IrPackage.Literals.EXTERNAL_ACTOR;
+	}
 
 } //ExternalActorImpl

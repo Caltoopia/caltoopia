@@ -71,6 +71,7 @@ import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstTypeParam;
 import org.caltoopia.frontend.cal.AstTypeParameterList;
 import org.caltoopia.frontend.cal.AstVariable;
+import org.caltoopia.frontend.cal.CalFactory;
 import org.caltoopia.frontend.cal.CalPackage;
 import org.caltoopia.frontend.cal.util.CalSwitch;
 import org.caltoopia.frontend.validation.CalJavaValidator;
@@ -95,6 +96,20 @@ import org.caltoopia.ir.TypeVariableDeclaration;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ast2ir.CreateIrExpression;
 import org.caltoopia.ast2ir.Util;
+
+/* 
+ * This class converts types on AST form to type on IR form. This done twice:
+ * First by the editor dynamically for checking if the program is correct and if
+ * not showing error markers. The second time it is invoked is when generating the
+ * IR code on file via the IRBuilder class. A headache here is that type might be 
+ * dependent on expression and not all expression must be available at the point 
+ * in time when the editor tries to determine if the types in an expression or 
+ * statement are correct. To solve this we can run the TypeConverter in two modes: 
+ * "approximate" and "normal". In the "approximate"-mode we simple allow the type 
+ * checker to fail when trying to figure the length of a list type.
+ * 
+ * */
+
 
 public class TypeConverter extends CalSwitch<Type> {
 	
@@ -497,9 +512,169 @@ public class TypeConverter extends CalSwitch<Type> {
 			}	
 		}
 	}
+		
+//	public static Type getTypeOfAstVariable(AstVariable v, List<AstExpression> indexes, List<AstMemberAccess> member, Scope context, boolean approximate) throws TypeException {
+//		Type type = null;
+//		
+//		try {
+//			if (v.eContainer() instanceof AstPattern && v.eContainer().eContainer() instanceof AstInputPattern) {
+//				AstInputPattern pattern = (AstInputPattern) v.eContainer().eContainer();
+//				AstPort port = null;
+//				if (pattern.getPort() != null) {
+//					port = pattern.getPort();
+//				} else {
+//					AstAction action = (AstAction) pattern.eContainer();
+//					List<AstInputPattern> inputs = action.getInputs();
+//					AstActor actor = (AstActor) action.eContainer();
+//					List<AstPort> ports = actor.getInputs();
+//					for (int i = 0; i < inputs.size(); i++) {
+//						if (inputs.get(i) == pattern) {
+//							port = ports.get(i);
+//						}
+//					}
+//				}
+//				if (port == null || port.getType() == null) 
+//					throw new TypeException("Unknown type of port");
+//								
+//				if (pattern.getRepeat() != null) {
+//					Expression sz = null; 
+//					try {
+//						sz = CreateIrExpression.convert(context, pattern.getRepeat());
+//					} catch (Exception x) {
+//						sz = CreateIrExpression.NotEvaluatedExpression;
+//					}
+//					Type elementType = TypeConverter.convert(context, port.getType(), approximate);
+//					type = TypeSystem.createTypeList(sz, elementType); 
+//				} else {
+//					type = TypeConverter.convert(context, port.getType(), approximate);
+//				}
+//			} else if (v.eContainer() instanceof AstPattern) {
+//				AstPattern pattern = (AstPattern) v.eContainer();
+//				EObject o = pattern.eContainer();
+//				List<PatternBreadcrumb> breadcrumbs = new ArrayList<PatternBreadcrumb>();
+//				while (o != null) {
+//					if (o instanceof AstStatementCase) {
+//						type = getTypeOfAstVariable(((AstStatementCase) o).getExpression().getSymbol(), indexes, member, context, approximate);
+//						o = null;
+//					} else if (o instanceof AstExpressionCase) {
+//						type = getTypeOfAstVariable(((AstExpressionCase) o).getExpression().getSymbol(), indexes, member, context, approximate);
+//						o = null;
+//					} else if (o instanceof AstInputPattern) {	
+//						AstInputPattern inputPattern = (AstInputPattern) o;
+//						AstPort port = null;
+//						if (inputPattern.getPort() != null) {
+//							port = inputPattern.getPort();
+//						} else {
+//							AstAction action = (AstAction) inputPattern.eContainer();
+//							List<AstInputPattern> inputs = action.getInputs();
+//							AstActor actor = (AstActor) action.eContainer();
+//							List<AstPort> ports = actor.getInputs();
+//							for (int i = 0; i < inputs.size(); i++) {
+//								if (inputs.get(i) == inputPattern) {
+//									port = ports.get(i);
+//								}
+//							}
+//						}
+//						if (port == null || port.getType() == null) 
+//							throw new TypeException("Unknown type of port");
+//										
+//						if (inputPattern.getRepeat() != null) {
+//							Expression sz = null; 
+//							try {
+//								sz = CreateIrExpression.convert(context, inputPattern.getRepeat());
+//							} catch (Exception x) {
+//								sz = CreateIrExpression.NotEvaluatedExpression;
+//							}
+//							Type elementType = TypeConverter.convert(context, port.getType(), approximate);
+//							type = TypeSystem.createTypeList(sz, elementType); 
+//						} else {
+//							type = TypeConverter.convert(context, port.getType(), approximate);
+//						}
+//						o = null;
+//					} else {
+//						if (o instanceof AstSubPattern) 
+//							breadcrumbs.add(0, new PatternBreadcrumb((AstSubPattern) o));
+//						o = o.eContainer();
+//					}
+//				}
+//								
+//				for (PatternBreadcrumb bc  : breadcrumbs) {				
+//					TaggedTuple tuple = null;					
+//					TypeDeclaration typeDeclaration = ((TypeDeclaration) ((TypeUser) type).getDeclaration());
+//					type = typeDeclaration.getType();
+//					
+//					for (TaggedTuple tt : ((TypeTuple) type).getTaggedTuples()) {
+//						if (tt.getTag().equals(bc.tag))
+//							tuple = tt;	
+//					}
+//
+//					if (tuple == null) 
+//						throw new TypeException("Unknown tag for type '" + typeDeclaration.getName() + "'");					
+//					
+//					if (bc.label != null) {
+//						for (Variable field : tuple.getFields()) {
+//							if (bc.label.equals(field.getName()))
+//								type = field.getType();
+//						}
+//					} else {					
+//						type = tuple.getFields().get(bc.pos).getType();
+//					}					
+//				}
+//
+//		    } else {
+//				type = TypeConverter.convert(context, v.getType(), approximate);
+//			}
+//		
+//			if (type == null) 
+//				throw new TypeException("Type not found");
+//			
+//			if (indexes != null && !indexes.isEmpty()) {
+//				for (int i = 0; i < indexes.size(); i++) {
+//					if (TypeSystem.isList(type)) {
+//						type = ((TypeList) type).getType(); 
+//					} else {
+//						throw new TypeException("Illegal indexing for type.");
+//					}
+//				}
+//			}
+//			
+//			if (member != null && !member.isEmpty()) {
+//				type =  getTypeOfMember(member, type);
+//			}
+//		} catch (Exception e) {
+//			throw new TypeException("Type not found:" + e.getMessage() + "\n");
+//		}
+//		
+//		if (type != null) {
+//			return type;
+//		} else {
+//			throw new TypeException("Type not found");
+//		}
+//	}
+
 	
 	public static Type getTypeOfAstVariable(AstVariable v, List<AstExpression> indexes, List<AstMemberAccess> member, Scope context, boolean approximate) throws TypeException {
-		Type type = null;
+		AstType astType = getAstTypeOfAstVariable(v);
+		Type type = convert(context, astType,approximate);
+			
+		if (indexes != null && !indexes.isEmpty()) {
+			for (int i = 0; i < indexes.size(); i++) {
+				if (TypeSystem.isList(type)) {
+					type = ((TypeList) type).getType(); 
+				} else {
+					throw new TypeException("Illegal indexing for type.");
+				}
+			}
+		}
+			
+		if (member != null && !member.isEmpty()) {
+			type =  getTypeOfMember(member, type);
+		}
+		return type;
+	}
+	
+	public static AstType getAstTypeOfAstVariable(AstVariable v) throws TypeException {
+		AstType type = null;
 		
 		try {
 			if (v.eContainer() instanceof AstPattern && v.eContainer().eContainer() instanceof AstInputPattern) {
@@ -522,16 +697,23 @@ public class TypeConverter extends CalSwitch<Type> {
 					throw new TypeException("Unknown type of port");
 								
 				if (pattern.getRepeat() != null) {
-					Expression sz = null; 
-					try {
-						sz = CreateIrExpression.convert(context, pattern.getRepeat());
-					} catch (Exception x) {
-						sz = CreateIrExpression.NotEvaluatedExpression;
-					}
-					Type elementType = TypeConverter.convert(context, port.getType(), approximate);
-					type = TypeSystem.createTypeList(sz, elementType); 
+					type = CalFactory.eINSTANCE.createAstType();
+					type.setBuiltin(BUILTIN_TYPE_LIST);
+					AstTypeParam size = CalFactory.eINSTANCE.createAstTypeParam();
+					size.setName("size");
+					size.setValue(EcoreUtil.copy(pattern.getRepeat()));
+
+					AstTypeParam elementType = CalFactory.eINSTANCE.createAstTypeParam();
+					elementType.setName("type");
+					elementType.setType(EcoreUtil.copy(port.getType()));
+
+					AstTypeParameterList params = CalFactory.eINSTANCE.createAstTypeParameterList();							
+					params.getParams().add(size);
+					params.getParams().add(elementType);
+					
+					type.setTypeParams(params);
 				} else {
-					type = TypeConverter.convert(context, port.getType(), approximate);
+					type = port.getType();
 				}
 			} else if (v.eContainer() instanceof AstPattern) {
 				AstPattern pattern = (AstPattern) v.eContainer();
@@ -539,10 +721,10 @@ public class TypeConverter extends CalSwitch<Type> {
 				List<PatternBreadcrumb> breadcrumbs = new ArrayList<PatternBreadcrumb>();
 				while (o != null) {
 					if (o instanceof AstStatementCase) {
-						type = getTypeOfAstVariable(((AstStatementCase) o).getExpression().getSymbol(), indexes, member, context, approximate);
+						type = getAstTypeOfAstVariable(((AstStatementCase) o).getExpression().getSymbol());
 						o = null;
 					} else if (o instanceof AstExpressionCase) {
-						type = getTypeOfAstVariable(((AstExpressionCase) o).getExpression().getSymbol(), indexes, member, context, approximate);
+						type = getAstTypeOfAstVariable(((AstExpressionCase) o).getExpression().getSymbol());
 						o = null;
 					} else if (o instanceof AstInputPattern) {	
 						AstInputPattern inputPattern = (AstInputPattern) o;
@@ -564,16 +746,20 @@ public class TypeConverter extends CalSwitch<Type> {
 							throw new TypeException("Unknown type of port");
 										
 						if (inputPattern.getRepeat() != null) {
-							Expression sz = null; 
-							try {
-								sz = CreateIrExpression.convert(context, inputPattern.getRepeat());
-							} catch (Exception x) {
-								sz = CreateIrExpression.NotEvaluatedExpression;
-							}
-							Type elementType = TypeConverter.convert(context, port.getType(), approximate);
-							type = TypeSystem.createTypeList(sz, elementType); 
+							type = CalFactory.eINSTANCE.createAstType();
+							type.setBuiltin(BUILTIN_TYPE_LIST);
+							AstTypeParam size = CalFactory.eINSTANCE.createAstTypeParam();
+							size.setName("size");
+							size.setValue(inputPattern.getRepeat());
+
+							AstTypeParam elementType = CalFactory.eINSTANCE.createAstTypeParam();
+							elementType.setName("type");
+							elementType.setType(EcoreUtil.copy(port.getType()));
+
+							type.getTypeParams().getParams().add(size);
+							type.getTypeParams().getParams().add(elementType);
 						} else {
-							type = TypeConverter.convert(context, port.getType(), approximate);
+							type = port.getType();
 						}
 						o = null;
 					} else {
@@ -584,20 +770,18 @@ public class TypeConverter extends CalSwitch<Type> {
 				}
 								
 				for (PatternBreadcrumb bc  : breadcrumbs) {				
-					TaggedTuple tuple = null;					
-					TypeDeclaration typeDeclaration = ((TypeDeclaration) ((TypeUser) type).getDeclaration());
-					type = typeDeclaration.getType();
-					
-					for (TaggedTuple tt : ((TypeTuple) type).getTaggedTuples()) {
-						if (tt.getTag().equals(bc.tag))
+					AstTaggedTuple tuple = null;					
+
+					for (AstTaggedTuple tt : type.getName().getTuples()) {
+						if (tt.getName().equals(bc.tag))
 							tuple = tt;	
 					}
 
 					if (tuple == null) 
-						throw new TypeException("Unknown tag for type '" + typeDeclaration.getName() + "'");					
+						throw new TypeException("Unknown tag for type '" + type.getName() + "'");					
 					
 					if (bc.label != null) {
-						for (Variable field : tuple.getFields()) {
+						for (AstVariable field : tuple.getFields()) {
 							if (bc.label.equals(field.getName()))
 								type = field.getType();
 						}
@@ -607,25 +791,9 @@ public class TypeConverter extends CalSwitch<Type> {
 				}
 
 		    } else {
-				type = TypeConverter.convert(context, v.getType(), approximate);
+				type = v.getType();
 			}
 		
-			if (type == null) 
-				throw new TypeException("Type not found");
-			
-			if (indexes != null && !indexes.isEmpty()) {
-				for (int i = 0; i < indexes.size(); i++) {
-					if (TypeSystem.isList(type)) {
-						type = ((TypeList) type).getType(); 
-					} else {
-						throw new TypeException("Illegal indexing for type.");
-					}
-				}
-			}
-			
-			if (member != null && !member.isEmpty()) {
-				type =  getTypeOfMember(member, type);
-			}
 		} catch (Exception e) {
 			throw new TypeException("Type not found:" + e.getMessage() + "\n");
 		}
@@ -637,6 +805,8 @@ public class TypeConverter extends CalSwitch<Type> {
 		}
 	}
 
+	
+	
 	public static Type getTypeOfMember(List<AstMemberAccess> member, Type type) throws TypeException { 
 
 		if (type instanceof TypeUser) {
@@ -695,8 +865,15 @@ public class TypeConverter extends CalSwitch<Type> {
 			TypeUser type = IrFactory.eINSTANCE.createTypeUser();
 			
 			if (approximate) {
-				TypeDeclaration typedef = createTypeDeclaration(scope, astTypeUser, approximate);
-				type.setDeclaration(typedef);
+				try {
+					// See if we already converted this type. To save
+					// time and handle recursion.
+					Declaration typedef = (Declaration) Util.findIrDeclaration(astTypeUser);
+					type.setDeclaration(typedef);					  
+				} catch (RuntimeException x) {
+					TypeDeclaration typedef = createTypeDeclaration(scope, astTypeUser, approximate);
+					type.setDeclaration(typedef);
+				}
 			} else {
 			  try {	
 				  Declaration typedef = (Declaration) Util.findIrDeclaration(astTypeUser);
@@ -721,6 +898,8 @@ public class TypeConverter extends CalSwitch<Type> {
 		
 		TypeTuple tupleType = IrFactory.eINSTANCE.createTypeTuple();
 		tupleType.setId(Util.getDefinitionId());
+		
+		Util.defsput(astTypeUser, typeDecl);
 		
 		for (AstTypeDefinitionParameter param : astTypeUser.getParameters()) {
 			if (param.getType() != null) {
@@ -759,8 +938,6 @@ public class TypeConverter extends CalSwitch<Type> {
 		
 		typeDecl.setType(tupleType);
 		typeDecl.setName(astTypeUser.getName());								
-
-		Util.defsput(astTypeUser, typeDecl);
 		
 		return typeDecl;
 	}

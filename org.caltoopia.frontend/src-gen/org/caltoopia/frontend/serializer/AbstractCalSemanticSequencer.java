@@ -1311,7 +1311,7 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (variable=AstToken | (tag=ID (subpatterns+=AstSubPattern subpatterns+=AstSubPattern?)?))
+	 *     (variable=AstToken | (tag=ID (subpatterns+=AstSubPattern subpatterns+=AstSubPattern*)?))
 	 */
 	protected void sequence_AstPattern(EObject context, AstPattern semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

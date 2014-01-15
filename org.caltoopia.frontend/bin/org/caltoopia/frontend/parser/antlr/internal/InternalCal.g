@@ -7641,7 +7641,7 @@ ruleAstPattern returns [EObject current=null]
 	    }
 
 )
-))?)?	otherlv_6=')' 
+))*)?	otherlv_6=')' 
     {
     	newLeafNode(otherlv_6, grammarAccess.getAstPatternAccess().getRightParenthesisKeyword_1_3());
     }

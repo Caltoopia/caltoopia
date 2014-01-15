@@ -77,10 +77,13 @@ import org.caltoopia.ir.IfExpression;
 import org.caltoopia.ir.Node;
 import org.caltoopia.ir.PortPeek;
 import org.caltoopia.ir.TagOf;
+import org.caltoopia.ir.TaggedTuple;
 import org.caltoopia.ir.TaggedTupleFieldRead;
+import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeDeclarationImport;
 import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeProc;
+import org.caltoopia.ir.TypeUser;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Actor;
@@ -120,11 +123,13 @@ public class Util {
 	// This is a map from AstVariable & function definitions to corresponding IR declaration
 	static private Map<EObject, Declaration> defs = new HashMap<EObject, Declaration>();
 	static private Map<EObject, Declaration> stashedDefs;
+	static private Map<EObject, List<Declaration>> declarationCache = new HashMap<EObject, List<Declaration>>();
 	
 	static private int definitionID = 0;	
 
 	public static void clearDefs() {
 		defs.clear();
+		declarationCache.clear();
 	}
 
 	public static void defsput(EObject astObject, Declaration irObject) {
@@ -138,7 +143,7 @@ public class Util {
 		}
 		System.out.println("---------------------------------------------");
 	}
-	
+	 	
 	public static void stashDefs() {
 		stashedDefs = defs;
 		defs = new HashMap<EObject, Declaration>(defs);
@@ -608,7 +613,7 @@ public class Util {
 			} else if (astObject instanceof AstProcedure) {
 				name = ((AstProcedure) astObject).getName() + " (procedure)";
 			}
-//			defsprint();
+			defsprint();
 			throw new RuntimeException("Internal error in findIrDeclaration for '" + name + "'");
 		}
 
@@ -718,14 +723,14 @@ public class Util {
 	 * that guards the body are true.
 	 */
 	
-	public static void doPatternDeclarations(Scope scope, AstType astType, AstPattern astPattern, Expression expr, Expression repeat) { 
+	public static void doPatternDeclarations(Scope scope, AstType astType, AstPattern astPattern, Expression expr, Expression repeat) {
 		
 		if (astPattern.getVariable() != null) {
 			Type type = TypeConverter.convert(scope, astType, false);
 			if (repeat != null) 
 				type = TypeSystem.createTypeList(repeat, type);
 			
-			Util.createVariable(scope, astPattern.getVariable(), type, expr);
+			Util.createVariable(scope, astPattern.getVariable(), type, expr);			
 		} else {		
 			String tag = astPattern.getTag();
 									
@@ -760,11 +765,9 @@ public class Util {
 					} else { 
 						var = Util.createTmpVariable(scope, fieldType, Util.createTaggedTupleFieldRead(scope, expr, tag, label));
 					}					
-					defsput(astSubPattern.getPattern(), var);
-					
 					if (astSubPattern.getPattern().getVariable() == null) {
 						doPatternDeclarations(scope, tt.getFields().get(pos).getType(), astSubPattern.getPattern(), Util.createVariableExpression(scope, var), repeat);
-					}					
+					} 
 				}					
 			}			
 		}
@@ -825,65 +828,6 @@ public class Util {
 		}
 	}	
 		
-	public static Variable doFieldReads(Guard guard, AstPattern astPattern, AstExpressionSymbolReference e) { 
-		Variable target;
-		if (astPattern.eContainer() instanceof AstInputPattern) {
-			AstInputPattern inputs = (AstInputPattern) astPattern.eContainer();
-			
-			PortPeek portPeek = IrFactory.eINSTANCE.createPortPeek();
-			portPeek.setId(Util.getDefinitionId());		
-			
-			if (inputs.getRepeat() != null) {
-				Expression repeat = CreateIrExpression.convert(guard, inputs.getRepeat());
-				portPeek.setRepeat(repeat);
-			}
-			
-			Variable tmp = (Variable) Util.findIrDeclaration(astPattern);
-			
-			target = IrFactory.eINSTANCE.createVariable();
-			target.setName(tmp.getName() + "__guard");
-			target.setId(getDefinitionId());	
-			target.setType(tmp.getType());
-			target.setScope(guard);
-			guard.getDeclarations().add(target);			
-			
-			Port port = Util.createInputPort(guard, inputs, false);
-			portPeek.setPort(port);
-			
-			int position = inputs.getTokens().indexOf(astPattern);
-			portPeek.setPosition(position);
-			VariableReference varRef = Util.createVariableReference(target);
-			for(AstExpression expr : e.getIndexes()) {
-				Expression index = CreateIrExpression.convert(guard, expr);
-				varRef.getIndex().add(index);
-			}
-			portPeek.setVariable(varRef);
-			guard.getPeeks().add(portPeek);									
-		} else {									
-			Variable source =  doFieldReads(guard, (AstPattern) astPattern.eContainer().eContainer(), e);
-
-			// Lookup at the action level version of the same variable 
-			// and use the same type
-			Variable tmp = (Variable) Util.findIrDeclaration(astPattern);
-			String tag = astPattern.getTag();
-			String label = ((AstSubPattern) astPattern.eContainer()).getLabel();
-			
-			target = IrFactory.eINSTANCE.createVariable();
-			target.setName(tmp.getName() + "__guard");
-			target.setId(getDefinitionId());	
-			target.setType(tmp.getType());
-			target.setScope(guard);
-			target.setInitValue(Util.createTaggedTupleFieldRead(guard, Util.createVariableExpression(guard, source), tag, label));			
-			guard.getDeclarations().add(target);			
-		} 
-		
-		if (astPattern.getVariable() != null) {
-			Util.defsput(astPattern.getVariable(), target); //This will override the previous declaration
-		}
-		return target;
-	}			
-
-
 	private static Expression createAndExpression(Scope scope, List<Expression> expressions) {
 		if (expressions.size() == 1) {
 			return expressions.get(0);

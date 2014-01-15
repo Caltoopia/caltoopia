@@ -36,163 +36,163 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class ForEachImpl extends StatementImpl implements ForEach {
 	/**
-     * The cached value of the '{@link #getBody() <em>Body</em>}' reference.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getBody() <em>Body</em>}' reference.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getBody()
-     * @generated
-     * @ordered
-     */
+	 * @see #getBody()
+	 * @generated
+	 * @ordered
+	 */
 	protected Block body;
 
 	/**
-     * The cached value of the '{@link #getGenerators() <em>Generators</em>}' reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getGenerators() <em>Generators</em>}' reference list.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getGenerators()
-     * @generated
-     * @ordered
-     */
+	 * @see #getGenerators()
+	 * @generated
+	 * @ordered
+	 */
 	protected EList<Generator> generators;
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	protected ForEachImpl() {
-        super();
-    }
+		super();
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-        return IrPackage.Literals.FOR_EACH;
-    }
+		return IrPackage.Literals.FOR_EACH;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public Block getBody() {
-        if (body != null && body.eIsProxy()) {
-            InternalEObject oldBody = (InternalEObject)body;
-            body = (Block)eResolveProxy(oldBody);
-            if (body != oldBody) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.FOR_EACH__BODY, oldBody, body));
-            }
-        }
-        return body;
-    }
+		if (body != null && body.eIsProxy()) {
+			InternalEObject oldBody = (InternalEObject)body;
+			body = (Block)eResolveProxy(oldBody);
+			if (body != oldBody) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.FOR_EACH__BODY, oldBody, body));
+			}
+		}
+		return body;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public Block basicGetBody() {
-        return body;
-    }
+		return body;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public void setBody(Block newBody) {
-        Block oldBody = body;
-        body = newBody;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.FOR_EACH__BODY, oldBody, body));
-    }
+		Block oldBody = body;
+		body = newBody;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.FOR_EACH__BODY, oldBody, body));
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public EList<Generator> getGenerators() {
-        if (generators == null) {
-            generators = new EObjectResolvingEList<Generator>(Generator.class, this, IrPackage.FOR_EACH__GENERATORS);
-        }
-        return generators;
-    }
+		if (generators == null) {
+			generators = new EObjectResolvingEList<Generator>(Generator.class, this, IrPackage.FOR_EACH__GENERATORS);
+		}
+		return generators;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case IrPackage.FOR_EACH__BODY:
-                if (resolve) return getBody();
-                return basicGetBody();
-            case IrPackage.FOR_EACH__GENERATORS:
-                return getGenerators();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case IrPackage.FOR_EACH__BODY:
+				if (resolve) return getBody();
+				return basicGetBody();
+			case IrPackage.FOR_EACH__GENERATORS:
+				return getGenerators();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case IrPackage.FOR_EACH__BODY:
-                setBody((Block)newValue);
-                return;
-            case IrPackage.FOR_EACH__GENERATORS:
-                getGenerators().clear();
-                getGenerators().addAll((Collection<? extends Generator>)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case IrPackage.FOR_EACH__BODY:
+				setBody((Block)newValue);
+				return;
+			case IrPackage.FOR_EACH__GENERATORS:
+				getGenerators().clear();
+				getGenerators().addAll((Collection<? extends Generator>)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public void eUnset(int featureID) {
-        switch (featureID) {
-            case IrPackage.FOR_EACH__BODY:
-                setBody((Block)null);
-                return;
-            case IrPackage.FOR_EACH__GENERATORS:
-                getGenerators().clear();
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case IrPackage.FOR_EACH__BODY:
+				setBody((Block)null);
+				return;
+			case IrPackage.FOR_EACH__GENERATORS:
+				getGenerators().clear();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case IrPackage.FOR_EACH__BODY:
-                return body != null;
-            case IrPackage.FOR_EACH__GENERATORS:
-                return generators != null && !generators.isEmpty();
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case IrPackage.FOR_EACH__BODY:
+				return body != null;
+			case IrPackage.FOR_EACH__GENERATORS:
+				return generators != null && !generators.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
 
 } //ForEachImpl

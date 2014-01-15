@@ -40,255 +40,255 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class VariableReferenceImpl extends NodeImpl implements VariableReference {
 	/**
-     * The cached value of the '{@link #getDeclaration() <em>Declaration</em>}' reference.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getDeclaration() <em>Declaration</em>}' reference.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getDeclaration()
-     * @generated
-     * @ordered
-     */
+	 * @see #getDeclaration()
+	 * @generated
+	 * @ordered
+	 */
 	protected Variable declaration;
 
 	/**
-     * The cached value of the '{@link #getIndex() <em>Index</em>}' reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getIndex() <em>Index</em>}' reference list.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getIndex()
-     * @generated
-     * @ordered
-     */
+	 * @see #getIndex()
+	 * @generated
+	 * @ordered
+	 */
 	protected EList<Expression> index;
 
 	/**
-     * The cached value of the '{@link #getMember() <em>Member</em>}' reference list.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getMember() <em>Member</em>}' reference list.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getMember()
-     * @generated
-     * @ordered
-     */
+	 * @see #getMember()
+	 * @generated
+	 * @ordered
+	 */
 	protected EList<Member> member;
 
 	/**
-     * The cached value of the '{@link #getType() <em>Type</em>}' reference.
-     * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getType() <em>Type</em>}' reference.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @see #getType()
-     * @generated
-     * @ordered
-     */
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
 	protected Type type;
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	protected VariableReferenceImpl() {
-        super();
-    }
+		super();
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-        return IrPackage.Literals.VARIABLE_REFERENCE;
-    }
+		return IrPackage.Literals.VARIABLE_REFERENCE;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public Variable getDeclaration() {
-        if (declaration != null && declaration.eIsProxy()) {
-            InternalEObject oldDeclaration = (InternalEObject)declaration;
-            declaration = (Variable)eResolveProxy(oldDeclaration);
-            if (declaration != oldDeclaration) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.VARIABLE_REFERENCE__DECLARATION, oldDeclaration, declaration));
-            }
-        }
-        return declaration;
-    }
+		if (declaration != null && declaration.eIsProxy()) {
+			InternalEObject oldDeclaration = (InternalEObject)declaration;
+			declaration = (Variable)eResolveProxy(oldDeclaration);
+			if (declaration != oldDeclaration) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.VARIABLE_REFERENCE__DECLARATION, oldDeclaration, declaration));
+			}
+		}
+		return declaration;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public Variable basicGetDeclaration() {
-        return declaration;
-    }
+		return declaration;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public void setDeclaration(Variable newDeclaration) {
-        Variable oldDeclaration = declaration;
-        declaration = newDeclaration;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.VARIABLE_REFERENCE__DECLARATION, oldDeclaration, declaration));
-    }
+		Variable oldDeclaration = declaration;
+		declaration = newDeclaration;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.VARIABLE_REFERENCE__DECLARATION, oldDeclaration, declaration));
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public EList<Expression> getIndex() {
-        if (index == null) {
-            index = new EObjectResolvingEList<Expression>(Expression.class, this, IrPackage.VARIABLE_REFERENCE__INDEX);
-        }
-        return index;
-    }
+		if (index == null) {
+			index = new EObjectResolvingEList<Expression>(Expression.class, this, IrPackage.VARIABLE_REFERENCE__INDEX);
+		}
+		return index;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public EList<Member> getMember() {
-        if (member == null) {
-            member = new EObjectResolvingEList<Member>(Member.class, this, IrPackage.VARIABLE_REFERENCE__MEMBER);
-        }
-        return member;
-    }
+		if (member == null) {
+			member = new EObjectResolvingEList<Member>(Member.class, this, IrPackage.VARIABLE_REFERENCE__MEMBER);
+		}
+		return member;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public Type getType() {
-        if (type != null && type.eIsProxy()) {
-            InternalEObject oldType = (InternalEObject)type;
-            type = (Type)eResolveProxy(oldType);
-            if (type != oldType) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.VARIABLE_REFERENCE__TYPE, oldType, type));
-            }
-        }
-        return type;
-    }
+		if (type != null && type.eIsProxy()) {
+			InternalEObject oldType = (InternalEObject)type;
+			type = (Type)eResolveProxy(oldType);
+			if (type != oldType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.VARIABLE_REFERENCE__TYPE, oldType, type));
+			}
+		}
+		return type;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public Type basicGetType() {
-        return type;
-    }
+		return type;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public void setType(Type newType) {
-        Type oldType = type;
-        type = newType;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.VARIABLE_REFERENCE__TYPE, oldType, type));
-    }
+		Type oldType = type;
+		type = newType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.VARIABLE_REFERENCE__TYPE, oldType, type));
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case IrPackage.VARIABLE_REFERENCE__DECLARATION:
-                if (resolve) return getDeclaration();
-                return basicGetDeclaration();
-            case IrPackage.VARIABLE_REFERENCE__INDEX:
-                return getIndex();
-            case IrPackage.VARIABLE_REFERENCE__MEMBER:
-                return getMember();
-            case IrPackage.VARIABLE_REFERENCE__TYPE:
-                if (resolve) return getType();
-                return basicGetType();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+		switch (featureID) {
+			case IrPackage.VARIABLE_REFERENCE__DECLARATION:
+				if (resolve) return getDeclaration();
+				return basicGetDeclaration();
+			case IrPackage.VARIABLE_REFERENCE__INDEX:
+				return getIndex();
+			case IrPackage.VARIABLE_REFERENCE__MEMBER:
+				return getMember();
+			case IrPackage.VARIABLE_REFERENCE__TYPE:
+				if (resolve) return getType();
+				return basicGetType();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case IrPackage.VARIABLE_REFERENCE__DECLARATION:
-                setDeclaration((Variable)newValue);
-                return;
-            case IrPackage.VARIABLE_REFERENCE__INDEX:
-                getIndex().clear();
-                getIndex().addAll((Collection<? extends Expression>)newValue);
-                return;
-            case IrPackage.VARIABLE_REFERENCE__MEMBER:
-                getMember().clear();
-                getMember().addAll((Collection<? extends Member>)newValue);
-                return;
-            case IrPackage.VARIABLE_REFERENCE__TYPE:
-                setType((Type)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
-    }
+		switch (featureID) {
+			case IrPackage.VARIABLE_REFERENCE__DECLARATION:
+				setDeclaration((Variable)newValue);
+				return;
+			case IrPackage.VARIABLE_REFERENCE__INDEX:
+				getIndex().clear();
+				getIndex().addAll((Collection<? extends Expression>)newValue);
+				return;
+			case IrPackage.VARIABLE_REFERENCE__MEMBER:
+				getMember().clear();
+				getMember().addAll((Collection<? extends Member>)newValue);
+				return;
+			case IrPackage.VARIABLE_REFERENCE__TYPE:
+				setType((Type)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public void eUnset(int featureID) {
-        switch (featureID) {
-            case IrPackage.VARIABLE_REFERENCE__DECLARATION:
-                setDeclaration((Variable)null);
-                return;
-            case IrPackage.VARIABLE_REFERENCE__INDEX:
-                getIndex().clear();
-                return;
-            case IrPackage.VARIABLE_REFERENCE__MEMBER:
-                getMember().clear();
-                return;
-            case IrPackage.VARIABLE_REFERENCE__TYPE:
-                setType((Type)null);
-                return;
-        }
-        super.eUnset(featureID);
-    }
+		switch (featureID) {
+			case IrPackage.VARIABLE_REFERENCE__DECLARATION:
+				setDeclaration((Variable)null);
+				return;
+			case IrPackage.VARIABLE_REFERENCE__INDEX:
+				getIndex().clear();
+				return;
+			case IrPackage.VARIABLE_REFERENCE__MEMBER:
+				getMember().clear();
+				return;
+			case IrPackage.VARIABLE_REFERENCE__TYPE:
+				setType((Type)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case IrPackage.VARIABLE_REFERENCE__DECLARATION:
-                return declaration != null;
-            case IrPackage.VARIABLE_REFERENCE__INDEX:
-                return index != null && !index.isEmpty();
-            case IrPackage.VARIABLE_REFERENCE__MEMBER:
-                return member != null && !member.isEmpty();
-            case IrPackage.VARIABLE_REFERENCE__TYPE:
-                return type != null;
-        }
-        return super.eIsSet(featureID);
-    }
+		switch (featureID) {
+			case IrPackage.VARIABLE_REFERENCE__DECLARATION:
+				return declaration != null;
+			case IrPackage.VARIABLE_REFERENCE__INDEX:
+				return index != null && !index.isEmpty();
+			case IrPackage.VARIABLE_REFERENCE__MEMBER:
+				return member != null && !member.isEmpty();
+			case IrPackage.VARIABLE_REFERENCE__TYPE:
+				return type != null;
+		}
+		return super.eIsSet(featureID);
+	}
 
 } //VariableReferenceImpl
