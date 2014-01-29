@@ -269,6 +269,7 @@ public class CreateIrExpression extends CalSwitch<Expression> {
 		result.setId(Util.getDefinitionId());
 		Expression condition = CreateIrExpression.convert(currentScope, e.getExpression());
 		result.setExpression(condition);
+		result.setContext(currentScope);
 		
 		try {
 			AstVariable v = e.getExpression().getSymbol();

@@ -60,7 +60,6 @@ import org.caltoopia.frontend.cal.AstPattern;
 import org.caltoopia.frontend.cal.AstStatementAlternative;
 import org.caltoopia.frontend.cal.AstStatementBlock;
 import org.caltoopia.frontend.cal.AstStatementCase;
-import org.caltoopia.frontend.cal.AstSubPattern;
 import org.caltoopia.frontend.cal.AstTag;
 import org.caltoopia.frontend.cal.AstTransition;
 import org.caltoopia.frontend.cal.AstAction;
@@ -218,6 +217,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 		
 		(new Graph(graphData)).print();
 		
+		// TODO Illegal recursion is not detected 
 		graphData = new Graph(graphData).sortByDependency();
 		
 		for (VertexData data : graphData) {
@@ -229,14 +229,12 @@ public class Ast2Ir extends CalSwitch<EObject> {
 				Declaration def =  Util.createForwardProcedureDeclaration(scopeStack.peek(), (AstProcedure) data.getData());				                                                                                   
 				ns.getDeclarations().add(def);
 			} else if (data.getData() instanceof AstTypeUser) {
-				TypeDeclaration typeDecl  = TypeConverter.createTypeDeclaration(scopeStack.peek(), (AstTypeUser) data.getData(), false);
-				ns.getDeclarations().add(typeDecl);						
+				Declaration def  = Util.createForwardTypeDeclaration(scopeStack.peek(), (AstTypeUser) data.getData());
+				ns.getDeclarations().add(def);						
 			} else if (data.getData() instanceof AstVariable) {
 				AstVariable var = (AstVariable) data.getData();
 				Util.createVariable(scopeStack.peek(), var, false);
-			}
-			
-			else {
+			} else {
 				throw new RuntimeException("Internal meltdown. Fire the developer.");
 			}
 		}
@@ -246,6 +244,11 @@ public class Ast2Ir extends CalSwitch<EObject> {
 			ns.getDeclarations().add(irFunction);
 		}
 		
+		for (AstTypeUser td : astNamespace.getTypedefs()) {
+			TypeDeclaration typeDecl  = TypeConverter.createTypeDeclaration(scopeStack.peek(), td, false);
+			ns.getDeclarations().add(typeDecl);		
+		}
+			
 		ActorDirectory.addNamespace(ns, projectPath);
 		
 		for (AstEntity astEntity : astNamespace.getEntities()) {

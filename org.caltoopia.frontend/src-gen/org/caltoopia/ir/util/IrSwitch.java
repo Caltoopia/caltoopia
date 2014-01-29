@@ -677,6 +677,15 @@ public class IrSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case IrPackage.FORWARD_TYPE_DECLARATION: {
+				ForwardTypeDeclaration forwardTypeDeclaration = (ForwardTypeDeclaration)theEObject;
+				T result = caseForwardTypeDeclaration(forwardTypeDeclaration);
+				if (result == null) result = caseDeclaration(forwardTypeDeclaration);
+				if (result == null) result = caseScope(forwardTypeDeclaration);
+				if (result == null) result = caseNode(forwardTypeDeclaration);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case IrPackage.TYPE_VARIABLE_DECLARATION: {
 				TypeVariableDeclaration typeVariableDeclaration = (TypeVariableDeclaration)theEObject;
 				T result = caseTypeVariableDeclaration(typeVariableDeclaration);
@@ -1866,6 +1875,21 @@ public class IrSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseTypeDeclaration(TypeDeclaration object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Forward Type Declaration</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Forward Type Declaration</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseForwardTypeDeclaration(ForwardTypeDeclaration object) {
 		return null;
 	}
 

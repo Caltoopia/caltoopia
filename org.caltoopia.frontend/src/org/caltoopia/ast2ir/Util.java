@@ -112,6 +112,7 @@ import org.caltoopia.ir.VariableExternal;
 import org.caltoopia.ir.VariableImport;
 import org.caltoopia.ir.VariableReference;
 import org.caltoopia.ir.VariableExpression;
+import org.caltoopia.ir.ForwardTypeDeclaration;
 import org.caltoopia.types.TypeException;
 import org.caltoopia.types.TypeSystem;
 import org.caltoopia.types.TypeConverter;
@@ -251,12 +252,12 @@ public class Util {
 	}
 	
 	// This method only declares the procedure, the definition comes later in order to allow recursion etc.
-	public static Declaration createForwardProcedureDeclaration(Scope peek, AstProcedure p) {
+	public static Declaration createForwardProcedureDeclaration(Scope scope, AstProcedure p) {
 		ForwardDeclaration proc = IrFactory.eINSTANCE.createForwardDeclaration();
 		proc.setName(p.getName());
 		proc.setId(getDefinitionId());		
 		proc.setType(TypeSystem.createTypeUndef());//FIXME
-		proc.setScope(peek); 
+		proc.setScope(scope); 
 		
 		defsput(p, proc);
 		
@@ -271,6 +272,19 @@ public class Util {
 		defsput(p, proc);
 		
 		return proc;
+	}
+	
+	
+	public static ForwardTypeDeclaration createForwardTypeDeclaration(Scope scope, AstTypeUser t) {
+		ForwardTypeDeclaration type = IrFactory.eINSTANCE.createForwardTypeDeclaration();
+		type.setName(t.getName());
+		type.setId(getDefinitionId());		
+
+		type.setScope(scope); 
+		
+		defsput(t, type);
+		
+		return type;
 	}
 	
 	public static VariableExternal createExternalDeclaration(Scope scope, EObject d, boolean approximate)  {

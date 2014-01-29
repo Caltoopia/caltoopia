@@ -63,6 +63,7 @@ import org.caltoopia.ir.ExternalActor;
 import org.caltoopia.ir.FloatLiteral;
 import org.caltoopia.ir.ForEach;
 import org.caltoopia.ir.ForwardDeclaration;
+import org.caltoopia.ir.ForwardTypeDeclaration;
 import org.caltoopia.ir.FromSource;
 import org.caltoopia.ir.FunctionCall;
 import org.caltoopia.ir.Generator;
@@ -126,7 +127,7 @@ public class IrXmlReader {
 
 	private Map<String, EObject> objectMap = new HashMap<String, EObject>();
 	
-	private Map<ForwardDeclaration, String> forwardDeclarationMap = new HashMap<ForwardDeclaration, String>();
+	private Map<Declaration, String> forwardDeclarationMap = new HashMap<Declaration, String>();
 	
 	public AbstractActor readActor(String path) {
 		try {		  
@@ -150,8 +151,12 @@ public class IrXmlReader {
 			}
 			
 			// As a last step, patch the forward declarations
-			for (ForwardDeclaration decl : forwardDeclarationMap.keySet()) {
-				decl.setDeclaration((Declaration)findIrObject(forwardDeclarationMap.get(decl)));
+			for (Declaration decl : forwardDeclarationMap.keySet()) {
+				if (decl instanceof ForwardDeclaration) {
+				  ((ForwardDeclaration )decl).setDeclaration((Declaration)findIrObject(forwardDeclarationMap.get(decl)));
+				} else {
+				  ((ForwardTypeDeclaration )decl).setDeclaration((TypeDeclaration)findIrObject(forwardDeclarationMap.get(decl)));	
+				}
 			}
 			
 			return result;			
@@ -174,8 +179,12 @@ public class IrXmlReader {
 
 			if (topTag.equals("Namespace")) {
 				Namespace result = createNamespace(doc.getDocumentElement());
-				for (ForwardDeclaration decl : forwardDeclarationMap.keySet()) {
-					decl.setDeclaration((Declaration)findIrObject(forwardDeclarationMap.get(decl)));
+				for (Declaration decl : forwardDeclarationMap.keySet()) {
+					if (decl instanceof ForwardDeclaration) {
+						((ForwardDeclaration) decl).setDeclaration((Declaration)findIrObject(forwardDeclarationMap.get(decl)));
+					} else {
+						((ForwardTypeDeclaration) decl).setDeclaration((TypeDeclaration) findIrObject(forwardDeclarationMap.get(decl)));
+					}
 				}
 				return result;
 			} else {
@@ -605,8 +614,8 @@ public class IrXmlReader {
 			// Since the declaration that the ForwardDeclaration 
 			// is pointing at does not yet exists. That value must 
 			// be set in a second pass after the whole actor/namespace
-			// is evaluted. The id of the actual declaration is stored 
-			// temprary map.
+			// is evaluated. The id of the actual declaration is stored 
+			// temporary map.
 			
 			forwardDeclarationMap.put(forwardDeclaration, element.getAttribute("forward-id"));
 			
@@ -634,6 +643,26 @@ public class IrXmlReader {
 
 			
 			return typeDeclaration;			
+		} else if (kind.equals("ForwardType")) {
+			ForwardTypeDeclaration forwardTypeDeclaration = IrFactory.eINSTANCE.createForwardTypeDeclaration();
+			forwardTypeDeclaration.setName(element.getAttribute("name"));
+			String id = element.getAttribute("id");
+			forwardTypeDeclaration.setId(id);	
+			doAnnotations(forwardTypeDeclaration, element);
+
+			addIrObject(id, forwardTypeDeclaration);
+						
+			forwardTypeDeclaration.setScope((Scope) findIrObject(element.getAttribute("scope")));
+					
+			// Since the declaration that the ForwardDeclaration 
+			// is pointing at does not yet exists. That value must 
+			// be set in a second pass after the whole actor/namespace
+			// is evaluated. The id of the actual declaration is stored 
+			// temoprary map.
+			
+			forwardDeclarationMap.put(forwardTypeDeclaration, element.getAttribute("forward-id"));
+			
+			return forwardTypeDeclaration;
 		}
 		
 		assert(false);

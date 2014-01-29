@@ -5011,6 +5011,97 @@ public interface IrPackage extends EPackage {
 	int TYPE_DECLARATION_FEATURE_COUNT = DECLARATION_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.caltoopia.ir.impl.ForwardTypeDeclarationImpl <em>Forward Type Declaration</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.caltoopia.ir.impl.ForwardTypeDeclarationImpl
+	 * @see org.caltoopia.ir.impl.IrPackageImpl#getForwardTypeDeclaration()
+	 * @generated
+	 */
+	int FORWARD_TYPE_DECLARATION = 77;
+
+	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FORWARD_TYPE_DECLARATION__ANNOTATIONS = DECLARATION__ANNOTATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FORWARD_TYPE_DECLARATION__ID = DECLARATION__ID;
+
+	/**
+	 * The feature id for the '<em><b>Declarations</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FORWARD_TYPE_DECLARATION__DECLARATIONS = DECLARATION__DECLARATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Outer</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FORWARD_TYPE_DECLARATION__OUTER = DECLARATION__OUTER;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FORWARD_TYPE_DECLARATION__NAME = DECLARATION__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Scope</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FORWARD_TYPE_DECLARATION__SCOPE = DECLARATION__SCOPE;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FORWARD_TYPE_DECLARATION__ATTRIBUTES = DECLARATION__ATTRIBUTES;
+
+	/**
+	 * The feature id for the '<em><b>Declaration</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FORWARD_TYPE_DECLARATION__DECLARATION = DECLARATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Forward Type Declaration</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FORWARD_TYPE_DECLARATION_FEATURE_COUNT = DECLARATION_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link org.caltoopia.ir.impl.TypeVariableDeclarationImpl <em>Type Variable Declaration</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5018,7 +5109,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getTypeVariableDeclaration()
 	 * @generated
 	 */
-	int TYPE_VARIABLE_DECLARATION = 77;
+	int TYPE_VARIABLE_DECLARATION = 78;
 
 	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' reference list.
@@ -5100,7 +5191,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getSchedule()
 	 * @generated
 	 */
-	int SCHEDULE = 78;
+	int SCHEDULE = 79;
 
 	/**
 	 * The feature id for the '<em><b>States</b></em>' reference list.
@@ -5155,7 +5246,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getState()
 	 * @generated
 	 */
-	int STATE = 79;
+	int STATE = 80;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5201,7 +5292,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getAnnotation()
 	 * @generated
 	 */
-	int ANNOTATION = 80;
+	int ANNOTATION = 81;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5238,7 +5329,7 @@ public interface IrPackage extends EPackage {
 	 * @see org.caltoopia.ir.impl.IrPackageImpl#getAnnotationArgument()
 	 * @generated
 	 */
-	int ANNOTATION_ARGUMENT = 81;
+	int ANNOTATION_ARGUMENT = 82;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -7579,6 +7670,27 @@ public interface IrPackage extends EPackage {
 	EReference getTypeDeclaration_Type();
 
 	/**
+	 * Returns the meta object for class '{@link org.caltoopia.ir.ForwardTypeDeclaration <em>Forward Type Declaration</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Forward Type Declaration</em>'.
+	 * @see org.caltoopia.ir.ForwardTypeDeclaration
+	 * @generated
+	 */
+	EClass getForwardTypeDeclaration();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.caltoopia.ir.ForwardTypeDeclaration#getDeclaration <em>Declaration</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Declaration</em>'.
+	 * @see org.caltoopia.ir.ForwardTypeDeclaration#getDeclaration()
+	 * @see #getForwardTypeDeclaration()
+	 * @generated
+	 */
+	EReference getForwardTypeDeclaration_Declaration();
+
+	/**
 	 * Returns the meta object for class '{@link org.caltoopia.ir.TypeVariableDeclaration <em>Type Variable Declaration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9660,6 +9772,24 @@ public interface IrPackage extends EPackage {
 		 * @generated
 		 */
 		EReference TYPE_DECLARATION__TYPE = eINSTANCE.getTypeDeclaration_Type();
+
+		/**
+		 * The meta object literal for the '{@link org.caltoopia.ir.impl.ForwardTypeDeclarationImpl <em>Forward Type Declaration</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.caltoopia.ir.impl.ForwardTypeDeclarationImpl
+		 * @see org.caltoopia.ir.impl.IrPackageImpl#getForwardTypeDeclaration()
+		 * @generated
+		 */
+		EClass FORWARD_TYPE_DECLARATION = eINSTANCE.getForwardTypeDeclaration();
+
+		/**
+		 * The meta object literal for the '<em><b>Declaration</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FORWARD_TYPE_DECLARATION__DECLARATION = eINSTANCE.getForwardTypeDeclaration_Declaration();
 
 		/**
 		 * The meta object literal for the '{@link org.caltoopia.ir.impl.TypeVariableDeclarationImpl <em>Type Variable Declaration</em>}' class.

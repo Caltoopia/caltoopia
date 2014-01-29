@@ -715,6 +715,15 @@ public interface IrFactory extends EFactory {
 	TypeDeclaration createTypeDeclaration();
 
 	/**
+	 * Returns a new object of class '<em>Forward Type Declaration</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Forward Type Declaration</em>'.
+	 * @generated
+	 */
+	ForwardTypeDeclaration createForwardTypeDeclaration();
+
+	/**
 	 * Returns a new object of class '<em>Type Variable Declaration</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

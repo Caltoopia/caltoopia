@@ -133,6 +133,7 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 			case IrPackage.TYPE_PROC: return createTypeProc();
 			case IrPackage.TYPE_VARIABLE: return createTypeVariable();
 			case IrPackage.TYPE_DECLARATION: return createTypeDeclaration();
+			case IrPackage.FORWARD_TYPE_DECLARATION: return createForwardTypeDeclaration();
 			case IrPackage.TYPE_VARIABLE_DECLARATION: return createTypeVariableDeclaration();
 			case IrPackage.SCHEDULE: return createSchedule();
 			case IrPackage.STATE: return createState();
@@ -911,6 +912,16 @@ public class IrFactoryImpl extends EFactoryImpl implements IrFactory {
 	public TypeDeclaration createTypeDeclaration() {
 		TypeDeclarationImpl typeDeclaration = new TypeDeclarationImpl();
 		return typeDeclaration;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ForwardTypeDeclaration createForwardTypeDeclaration() {
+		ForwardTypeDeclarationImpl forwardTypeDeclaration = new ForwardTypeDeclarationImpl();
+		return forwardTypeDeclaration;
 	}
 
 	/**

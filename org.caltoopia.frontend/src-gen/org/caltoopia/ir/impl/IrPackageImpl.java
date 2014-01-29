@@ -23,6 +23,7 @@ import org.caltoopia.ir.ExternalActor;
 import org.caltoopia.ir.FloatLiteral;
 import org.caltoopia.ir.ForEach;
 import org.caltoopia.ir.ForwardDeclaration;
+import org.caltoopia.ir.ForwardTypeDeclaration;
 import org.caltoopia.ir.FromSource;
 import org.caltoopia.ir.FunctionCall;
 import org.caltoopia.ir.Generator;
@@ -639,6 +640,13 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * @generated
 	 */
 	private EClass typeDeclarationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass forwardTypeDeclarationEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2694,6 +2702,24 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getForwardTypeDeclaration() {
+		return forwardTypeDeclarationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getForwardTypeDeclaration_Declaration() {
+		return (EReference)forwardTypeDeclarationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getTypeVariableDeclaration() {
 		return typeVariableDeclarationEClass;
 	}
@@ -3155,6 +3181,9 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		typeDeclarationEClass = createEClass(TYPE_DECLARATION);
 		createEReference(typeDeclarationEClass, TYPE_DECLARATION__TYPE);
 
+		forwardTypeDeclarationEClass = createEClass(FORWARD_TYPE_DECLARATION);
+		createEReference(forwardTypeDeclarationEClass, FORWARD_TYPE_DECLARATION__DECLARATION);
+
 		typeVariableDeclarationEClass = createEClass(TYPE_VARIABLE_DECLARATION);
 
 		scheduleEClass = createEClass(SCHEDULE);
@@ -3283,6 +3312,7 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		typeProcEClass.getESuperTypes().add(this.getType());
 		typeVariableEClass.getESuperTypes().add(this.getType());
 		typeDeclarationEClass.getESuperTypes().add(this.getDeclaration());
+		forwardTypeDeclarationEClass.getESuperTypes().add(this.getDeclaration());
 		typeVariableDeclarationEClass.getESuperTypes().add(this.getDeclaration());
 
 		// Initialize classes and features; add operations and parameters
@@ -3579,6 +3609,9 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 
 		initEClass(typeDeclarationEClass, TypeDeclaration.class, "TypeDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTypeDeclaration_Type(), this.getType(), null, "type", null, 0, 1, TypeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(forwardTypeDeclarationEClass, ForwardTypeDeclaration.class, "ForwardTypeDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getForwardTypeDeclaration_Declaration(), this.getTypeDeclaration(), null, "Declaration", null, 0, 1, ForwardTypeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typeVariableDeclarationEClass, TypeVariableDeclaration.class, "TypeVariableDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

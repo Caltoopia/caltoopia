@@ -62,6 +62,7 @@ import org.caltoopia.ir.ExternalActor;
 import org.caltoopia.ir.FloatLiteral;
 import org.caltoopia.ir.ForEach;
 import org.caltoopia.ir.ForwardDeclaration;
+import org.caltoopia.ir.ForwardTypeDeclaration;
 import org.caltoopia.ir.FunctionCall;
 import org.caltoopia.ir.Generator;
 import org.caltoopia.ir.Guard;
@@ -623,6 +624,18 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 		return s;
 	}	
 
+	@Override
+	public Stream caseForwardTypeDeclaration(ForwardTypeDeclaration typeDecl) {
+		s.printlnInc("<Decl kind=\"ForwardType\" name=\"" + typeDecl.getName() + "\"" 
+				    + " id=\"" + typeDecl.getId() + "\""
+				    + " scope=\"" + typeDecl.getScope().getId() + "\""
+					+ " forward-id=\"" + typeDecl.getDeclaration().getId() + "\">");
+		doAnnotations(typeDecl);	
+		s.printlnDec("</Decl>");
+
+		return s;
+	}	
+	
 	@Override
 	public Stream caseUnaryExpression(UnaryExpression expr) {
 		s.printlnInc("<Expr kind=\"Unary\" id=\"" + expr.getId() + "\""

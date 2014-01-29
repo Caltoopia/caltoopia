@@ -77,6 +77,8 @@ import org.caltoopia.frontend.cal.util.CalSwitch;
 import org.caltoopia.frontend.validation.CalJavaValidator;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
+import org.caltoopia.ir.ForwardDeclaration;
+import org.caltoopia.ir.ForwardTypeDeclaration;
 import org.caltoopia.ir.IrFactory;
 import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.TaggedTuple;
@@ -892,9 +894,16 @@ public class TypeConverter extends CalSwitch<Type> {
 	}
 	
 	public static TypeDeclaration createTypeDeclaration(Scope scope, AstTypeUser astTypeUser, boolean approximate) {
+		
 		TypeDeclaration typeDecl = IrFactory.eINSTANCE.createTypeDeclaration();			
 		typeDecl.setId(Util.getDefinitionId());
 		typeDecl.setScope(scope);
+		
+		// Look up the forward declaration and link it to the real declaration
+		if (!approximate) {
+			ForwardTypeDeclaration forwardTypeDeclaration = (ForwardTypeDeclaration) Util.findIrDeclaration(astTypeUser);
+			forwardTypeDeclaration.setDeclaration(typeDecl);
+		}
 		
 		TypeTuple tupleType = IrFactory.eINSTANCE.createTypeTuple();
 		tupleType.setId(Util.getDefinitionId());

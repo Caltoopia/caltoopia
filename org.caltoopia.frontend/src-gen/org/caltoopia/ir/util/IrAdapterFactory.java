@@ -376,6 +376,10 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 				return createTypeDeclarationAdapter();
 			}
 			@Override
+			public Adapter caseForwardTypeDeclaration(ForwardTypeDeclaration object) {
+				return createForwardTypeDeclarationAdapter();
+			}
+			@Override
 			public Adapter caseTypeVariableDeclaration(TypeVariableDeclaration object) {
 				return createTypeVariableDeclarationAdapter();
 			}
@@ -1490,6 +1494,20 @@ public class IrAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTypeDeclarationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.caltoopia.ir.ForwardTypeDeclaration <em>Forward Type Declaration</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.caltoopia.ir.ForwardTypeDeclaration
+	 * @generated
+	 */
+	public Adapter createForwardTypeDeclarationAdapter() {
 		return null;
 	}
 

@@ -291,6 +291,9 @@
     <genClasses ecoreClass="ir.ecore#//TypeDeclaration">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//TypeDeclaration/type"/>
     </genClasses>
+    <genClasses ecoreClass="ir.ecore#//ForwardTypeDeclaration">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//ForwardTypeDeclaration/Declaration"/>
+    </genClasses>
     <genClasses ecoreClass="ir.ecore#//TypeVariableDeclaration"/>
     <genClasses ecoreClass="ir.ecore#//Schedule">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ir.ecore#//Schedule/states"/>

@@ -43,7 +43,6 @@ import org.caltoopia.frontend.cal.AstTaggedTuple;
 import org.caltoopia.frontend.cal.AstExpressionSymbolReference;
 import org.caltoopia.frontend.cal.AstFunction;
 import org.caltoopia.frontend.cal.AstProcedure;
-import org.caltoopia.frontend.cal.AstTaggedTuple;
 import org.caltoopia.frontend.cal.AstType;
 import org.caltoopia.frontend.cal.AstTypeUser;
 import org.caltoopia.frontend.cal.AstVariable;
@@ -86,7 +85,8 @@ public class AstDeclVertex implements VertexData {
 		   
 		   if (TypeConverter.isUserDefined(type)) {
 			   inputDefs.add(type.getName());
-		   }		   		 
+		   }	
+		   		   
 		   return super.caseAstType(type);		   
 	   }
 		
@@ -135,13 +135,13 @@ public class AstDeclVertex implements VertexData {
 			for (AstVariable parameter : procedure.getParameters()) {
 				s.doSwitch(parameter);
 			}
-		} else if (var instanceof AstTypeUser) {
-			AstTypeUser typedef = (AstTypeUser) var;
-			for (AstTaggedTuple tuple : typedef.getTuples()) {
-				for (AstVariable m : tuple.getFields()) {
-					s.doSwitch(m);
-				}			
-			}
+//		} else if (var instanceof AstTypeUser) {
+//			AstTypeUser typedef = (AstTypeUser) var;
+//			for (AstTaggedTuple tuple : typedef.getTuples()) {
+//				for (AstVariable m : tuple.getFields()) {
+//					s.doSwitch(m);
+//				}			
+//			}
 		} else if (var instanceof AstVariable) {
 			AstVariable variable = (AstVariable) var;
 			s.doSwitch(variable.getType());
