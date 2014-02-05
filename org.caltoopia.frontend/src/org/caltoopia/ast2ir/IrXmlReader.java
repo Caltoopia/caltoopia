@@ -907,7 +907,9 @@ public class IrXmlReader {
 				expr.getAlternatives().add(createExprAlternative(alt));
 			}
 			
-			expr.setDefault(createExpression(exprs.get(1))); 
+			if (exprs.size() > 1) {
+				expr.setDefault(createExpression(exprs.get(1)));
+			}
 
 			return expr;
 		} else if (kind.equals("TaggedTupleFieldRead")) {
@@ -1127,6 +1129,11 @@ public class IrXmlReader {
 			List<Element> alts = getChildren(element, "Alternative");
 			for (Element alt : alts) {				
 				stmt.getAlternatives().add(createStmtAlternative(alt));
+			}
+
+			Element defaultElement = getChild(element, "Stmt");
+			if (defaultElement != null) {
+				stmt.setDefault(createStatement(defaultElement));
 			}
 			
 			return stmt;

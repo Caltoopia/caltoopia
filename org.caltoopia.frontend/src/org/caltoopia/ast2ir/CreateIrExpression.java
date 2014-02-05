@@ -293,8 +293,9 @@ public class CreateIrExpression extends CalSwitch<Expression> {
 				result.getAlternatives().add(alt);
 			}
 			
-			result.setDefault(CreateIrExpression.convert(currentScope, e.getDefault()));
-			
+			if (e.getDefault() != null) {
+				result.setDefault(CreateIrExpression.convert(currentScope, e.getDefault()));
+			}
 		} catch (Exception x) {
 			System.err.println("Internal error in Ast2Ir");
 		}

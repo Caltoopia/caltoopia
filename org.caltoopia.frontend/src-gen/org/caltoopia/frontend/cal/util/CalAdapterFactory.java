@@ -360,11 +360,6 @@ public class CalAdapterFactory extends AdapterFactoryImpl
         return createAstSubPatternAdapter();
       }
       @Override
-      public Adapter caseAstPatternExpressionIf(AstPatternExpressionIf object)
-      {
-        return createAstPatternExpressionIfAdapter();
-      }
-      @Override
       public Adapter caseAstType(AstType object)
       {
         return createAstTypeAdapter();
@@ -1292,21 +1287,6 @@ public class CalAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAstSubPatternAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.caltoopia.frontend.cal.AstPatternExpressionIf <em>Ast Pattern Expression If</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.caltoopia.frontend.cal.AstPatternExpressionIf
-   * @generated
-   */
-  public Adapter createAstPatternExpressionIfAdapter()
   {
     return null;
   }

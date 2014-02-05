@@ -744,7 +744,9 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 			doSwitch(alt);
 		}		
 		
-		doSwitch(caze.getDefault());
+		if (caze.getDefault() != null) {
+			doSwitch(caze.getDefault());
+		}
 		
 		s.printlnDec("</Expr>");
 		
@@ -1095,6 +1097,10 @@ public class IrXmlPrinter extends IrSwitch<Stream> {
 		for (StmtAlternative alt : caze.getAlternatives()) {
 			doSwitch(alt);
 		}		
+		
+		if (caze.getDefault() != null) {
+			doSwitch(caze.getDefault());
+		}
 		
 		s.printlnDec("</Stmt>");
 		

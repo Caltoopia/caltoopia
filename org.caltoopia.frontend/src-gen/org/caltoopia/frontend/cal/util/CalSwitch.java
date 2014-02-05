@@ -500,13 +500,6 @@ public class CalSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CalPackage.AST_PATTERN_EXPRESSION_IF:
-      {
-        AstPatternExpressionIf astPatternExpressionIf = (AstPatternExpressionIf)theEObject;
-        T result = caseAstPatternExpressionIf(astPatternExpressionIf);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case CalPackage.AST_TYPE:
       {
         AstType astType = (AstType)theEObject;
@@ -1502,22 +1495,6 @@ public class CalSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAstSubPattern(AstSubPattern object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Ast Pattern Expression If</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Ast Pattern Expression If</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseAstPatternExpressionIf(AstPatternExpressionIf object)
   {
     return null;
   }

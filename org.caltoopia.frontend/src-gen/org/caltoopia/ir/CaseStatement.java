@@ -14,6 +14,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.caltoopia.ir.CaseStatement#getAlternatives <em>Alternatives</em>}</li>
  *   <li>{@link org.caltoopia.ir.CaseStatement#getExpression <em>Expression</em>}</li>
+ *   <li>{@link org.caltoopia.ir.CaseStatement#getDefault <em>Default</em>}</li>
  * </ul>
  * </p>
  *
@@ -63,5 +64,31 @@ public interface CaseStatement extends Statement {
 	 * @generated
 	 */
 	void setExpression(Expression value);
+
+	/**
+	 * Returns the value of the '<em><b>Default</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Default</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Default</em>' reference.
+	 * @see #setDefault(Statement)
+	 * @see org.caltoopia.ir.IrPackage#getCaseStatement_Default()
+	 * @model
+	 * @generated
+	 */
+	Statement getDefault();
+
+	/**
+	 * Sets the value of the '{@link org.caltoopia.ir.CaseStatement#getDefault <em>Default</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Default</em>' reference.
+	 * @see #getDefault()
+	 * @generated
+	 */
+	void setDefault(Statement value);
 
 } // CaseStatement

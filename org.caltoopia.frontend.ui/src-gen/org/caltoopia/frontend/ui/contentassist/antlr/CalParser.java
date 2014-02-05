@@ -202,6 +202,7 @@ public class CalParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAstStatementIfAccess().getGroup_4(), "rule__AstStatementIf__Group_4__0");
 					put(grammarAccess.getAstStatementWhileAccess().getGroup(), "rule__AstStatementWhile__Group__0");
 					put(grammarAccess.getAstStatementCaseAccess().getGroup(), "rule__AstStatementCase__Group__0");
+					put(grammarAccess.getAstStatementCaseAccess().getGroup_4(), "rule__AstStatementCase__Group_4__0");
 					put(grammarAccess.getAstStatementAlternativeAccess().getGroup(), "rule__AstStatementAlternative__Group__0");
 					put(grammarAccess.getAstStatementAlternativeAccess().getGroup_1(), "rule__AstStatementAlternative__Group_1__0");
 					put(grammarAccess.getAstStatementAlternativeAccess().getGroup_1_2(), "rule__AstStatementAlternative__Group_1_2__0");
@@ -242,6 +243,7 @@ public class CalParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAstExpressionListAccess().getGroup_3_2(), "rule__AstExpressionList__Group_3_2__0");
 					put(grammarAccess.getAstGeneratorAccess().getGroup(), "rule__AstGenerator__Group__0");
 					put(grammarAccess.getAstExpressionCaseAccess().getGroup(), "rule__AstExpressionCase__Group__0");
+					put(grammarAccess.getAstExpressionCaseAccess().getGroup_4(), "rule__AstExpressionCase__Group_4__0");
 					put(grammarAccess.getAstExpressionAlternativeAccess().getGroup(), "rule__AstExpressionAlternative__Group__0");
 					put(grammarAccess.getAstExpressionAlternativeAccess().getGroup_1(), "rule__AstExpressionAlternative__Group_1__0");
 					put(grammarAccess.getAstExpressionAlternativeAccess().getGroup_1_2(), "rule__AstExpressionAlternative__Group_1_2__0");
@@ -252,9 +254,7 @@ public class CalParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAstPatternAccess().getGroup_1_2_1(), "rule__AstPattern__Group_1_2_1__0");
 					put(grammarAccess.getAstSubPatternAccess().getGroup(), "rule__AstSubPattern__Group__0");
 					put(grammarAccess.getAstSubPatternAccess().getGroup_0(), "rule__AstSubPattern__Group_0__0");
-					put(grammarAccess.getAstSubPatternAccess().getGroup_1_1(), "rule__AstSubPattern__Group_1_1__0");
 					put(grammarAccess.getAstPatternExpressionAccess().getGroup_3(), "rule__AstPatternExpression__Group_3__0");
-					put(grammarAccess.getAstPatternExpressionIfAccess().getGroup(), "rule__AstPatternExpressionIf__Group__0");
 					put(grammarAccess.getAstTypeUserAccess().getGroup(), "rule__AstTypeUser__Group__0");
 					put(grammarAccess.getAstTypeAccess().getGroup(), "rule__AstType__Group__0");
 					put(grammarAccess.getAstTypeAccess().getGroup_1_0(), "rule__AstType__Group_1_0__0");
@@ -456,6 +456,7 @@ public class CalParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAstStatementWhileAccess().getStatementsAssignment_3(), "rule__AstStatementWhile__StatementsAssignment_3");
 					put(grammarAccess.getAstStatementCaseAccess().getExpressionAssignment_1(), "rule__AstStatementCase__ExpressionAssignment_1");
 					put(grammarAccess.getAstStatementCaseAccess().getCasesAssignment_3(), "rule__AstStatementCase__CasesAssignment_3");
+					put(grammarAccess.getAstStatementCaseAccess().getDefaultAssignment_4_1(), "rule__AstStatementCase__DefaultAssignment_4_1");
 					put(grammarAccess.getAstStatementAlternativeAccess().getPatternAssignment_0(), "rule__AstStatementAlternative__PatternAssignment_0");
 					put(grammarAccess.getAstStatementAlternativeAccess().getGuardsAssignment_1_1(), "rule__AstStatementAlternative__GuardsAssignment_1_1");
 					put(grammarAccess.getAstStatementAlternativeAccess().getGuardsAssignment_1_2_1(), "rule__AstStatementAlternative__GuardsAssignment_1_2_1");
@@ -502,7 +503,7 @@ public class CalParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAstGeneratorAccess().getExpressionAssignment_3(), "rule__AstGenerator__ExpressionAssignment_3");
 					put(grammarAccess.getAstExpressionCaseAccess().getExpressionAssignment_1(), "rule__AstExpressionCase__ExpressionAssignment_1");
 					put(grammarAccess.getAstExpressionCaseAccess().getCasesAssignment_3(), "rule__AstExpressionCase__CasesAssignment_3");
-					put(grammarAccess.getAstExpressionCaseAccess().getDefaultAssignment_5(), "rule__AstExpressionCase__DefaultAssignment_5");
+					put(grammarAccess.getAstExpressionCaseAccess().getDefaultAssignment_4_1(), "rule__AstExpressionCase__DefaultAssignment_4_1");
 					put(grammarAccess.getAstExpressionAlternativeAccess().getPatternAssignment_0(), "rule__AstExpressionAlternative__PatternAssignment_0");
 					put(grammarAccess.getAstExpressionAlternativeAccess().getGuardsAssignment_1_1(), "rule__AstExpressionAlternative__GuardsAssignment_1_1");
 					put(grammarAccess.getAstExpressionAlternativeAccess().getGuardsAssignment_1_2_1(), "rule__AstExpressionAlternative__GuardsAssignment_1_2_1");
@@ -517,11 +518,8 @@ public class CalParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAstPatternAccess().getSubpatternsAssignment_1_2_1_1(), "rule__AstPattern__SubpatternsAssignment_1_2_1_1");
 					put(grammarAccess.getAstSubPatternAccess().getLabelAssignment_0_0(), "rule__AstSubPattern__LabelAssignment_0_0");
 					put(grammarAccess.getAstSubPatternAccess().getDontcareAssignment_1_0(), "rule__AstSubPattern__DontcareAssignment_1_0");
-					put(grammarAccess.getAstSubPatternAccess().getConditionAssignment_1_1_1(), "rule__AstSubPattern__ConditionAssignment_1_1_1");
+					put(grammarAccess.getAstSubPatternAccess().getConditionAssignment_1_1(), "rule__AstSubPattern__ConditionAssignment_1_1");
 					put(grammarAccess.getAstSubPatternAccess().getPatternAssignment_1_2(), "rule__AstSubPattern__PatternAssignment_1_2");
-					put(grammarAccess.getAstPatternExpressionIfAccess().getConditionAssignment_1(), "rule__AstPatternExpressionIf__ConditionAssignment_1");
-					put(grammarAccess.getAstPatternExpressionIfAccess().getThenAssignment_3(), "rule__AstPatternExpressionIf__ThenAssignment_3");
-					put(grammarAccess.getAstPatternExpressionIfAccess().getElseAssignment_5(), "rule__AstPatternExpressionIf__ElseAssignment_5");
 					put(grammarAccess.getAstTypeAccess().getBuiltinAssignment_1_0_0(), "rule__AstType__BuiltinAssignment_1_0_0");
 					put(grammarAccess.getAstTypeAccess().getTypeParamsAssignment_1_0_1(), "rule__AstType__TypeParamsAssignment_1_0_1");
 					put(grammarAccess.getAstTypeAccess().getDimensionsAssignment_1_0_2_1(), "rule__AstType__DimensionsAssignment_1_0_2_1");

@@ -3315,13 +3315,22 @@ public interface IrPackage extends EPackage {
 	int CASE_STATEMENT__EXPRESSION = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Default</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CASE_STATEMENT__DEFAULT = STATEMENT_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Case Statement</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CASE_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 2;
+	int CASE_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.caltoopia.ir.impl.StmtAlternativeImpl <em>Stmt Alternative</em>}' class.
@@ -6735,6 +6744,17 @@ public interface IrPackage extends EPackage {
 	EReference getCaseStatement_Expression();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.caltoopia.ir.CaseStatement#getDefault <em>Default</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Default</em>'.
+	 * @see org.caltoopia.ir.CaseStatement#getDefault()
+	 * @see #getCaseStatement()
+	 * @generated
+	 */
+	EReference getCaseStatement_Default();
+
+	/**
 	 * Returns the meta object for class '{@link org.caltoopia.ir.StmtAlternative <em>Stmt Alternative</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9002,6 +9022,14 @@ public interface IrPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CASE_STATEMENT__EXPRESSION = eINSTANCE.getCaseStatement_Expression();
+
+		/**
+		 * The meta object literal for the '<em><b>Default</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CASE_STATEMENT__DEFAULT = eINSTANCE.getCaseStatement_Default();
 
 		/**
 		 * The meta object literal for the '{@link org.caltoopia.ir.impl.StmtAlternativeImpl <em>Stmt Alternative</em>}' class.

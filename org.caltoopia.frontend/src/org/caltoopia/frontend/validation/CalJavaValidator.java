@@ -42,6 +42,7 @@ import org.caltoopia.frontend.cal.AstAction;
 import org.caltoopia.frontend.cal.AstActor;
 import org.caltoopia.frontend.cal.AstActorVariable;
 import org.caltoopia.frontend.cal.AstAssignParameter;
+import org.caltoopia.frontend.cal.AstExpressionCase;
 import org.caltoopia.frontend.cal.AstPattern;
 import org.caltoopia.frontend.cal.AstTaggedTuple;
 import org.caltoopia.frontend.cal.AstMemberAccess;
@@ -234,7 +235,6 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 		}
 		*/
 	}
-	
 
 	@Check(CheckType.NORMAL)	
 	public void CheckTypeDef(AstTypeUser typeUser) {
@@ -328,9 +328,9 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 		} catch (Exception e) {
 			String s1 = LHS != null ? typePrinter.doSwitch(LHS) : "<type fail>";
 			String s2 = RHS != null ? typePrinter.doSwitch(RHS) : "<type fail>";
-//			error("Type error in assignment: LHS=" + s1 + " & RHS=" + s2 + " -- " + e.getMessage(),
-//					assign,
-//					CalPackage.eINSTANCE.getAstStatementAssign_Target(), -1);
+			error("Type error in assignment: LHS=" + s1 + " & RHS=" + s2 + " -- " + e.getMessage(),
+					assign,
+					CalPackage.eINSTANCE.getAstStatementAssign_Target(), -1);
 			return;
 		} 	
 	}
@@ -753,6 +753,13 @@ public class CalJavaValidator extends AbstractCalJavaValidator {
 						return;
 			}
 		}				
+	}
+
+	@Check(CheckType.NORMAL) 
+	public void checkAstExpressionCase(AstExpressionCase caze) {
+		// Check that either all Tags are included or there is an else clause.
+		
+		
 	}
 	
 	@Check(CheckType.FAST)

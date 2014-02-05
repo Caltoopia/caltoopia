@@ -3351,13 +3351,18 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cOfKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cCasesAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cCasesAstStatementAlternativeParserRuleCall_3_0 = (RuleCall)cCasesAssignment_3.eContents().get(0);
-		private final Keyword cEndKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cElseKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cDefaultAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cDefaultAstStatementParserRuleCall_4_1_0 = (RuleCall)cDefaultAssignment_4_1.eContents().get(0);
+		private final Keyword cEndKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//AstStatementCase:
-		//	"case" expression=AstExpressionSymbolReference "of" cases+=AstStatementAlternative+ "end";
+		//	"case" expression=AstExpressionSymbolReference "of" cases+=AstStatementAlternative+ ("else" default=AstStatement)?
+		//	"end";
 		public ParserRule getRule() { return rule; }
 
-		//"case" expression=AstExpressionSymbolReference "of" cases+=AstStatementAlternative+ "end"
+		//"case" expression=AstExpressionSymbolReference "of" cases+=AstStatementAlternative+ ("else" default=AstStatement)? "end"
 		public Group getGroup() { return cGroup; }
 
 		//"case"
@@ -3378,8 +3383,20 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//AstStatementAlternative
 		public RuleCall getCasesAstStatementAlternativeParserRuleCall_3_0() { return cCasesAstStatementAlternativeParserRuleCall_3_0; }
 
+		//("else" default=AstStatement)?
+		public Group getGroup_4() { return cGroup_4; }
+
+		//"else"
+		public Keyword getElseKeyword_4_0() { return cElseKeyword_4_0; }
+
+		//default=AstStatement
+		public Assignment getDefaultAssignment_4_1() { return cDefaultAssignment_4_1; }
+
+		//AstStatement
+		public RuleCall getDefaultAstStatementParserRuleCall_4_1_0() { return cDefaultAstStatementParserRuleCall_4_1_0; }
+
 		//"end"
-		public Keyword getEndKeyword_4() { return cEndKeyword_4; }
+		public Keyword getEndKeyword_5() { return cEndKeyword_5; }
 	}
 
 	public class AstStatementAlternativeElements extends AbstractParserRuleElementFinder {
@@ -4418,17 +4435,19 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cOfKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cCasesAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cCasesAstExpressionAlternativeParserRuleCall_3_0 = (RuleCall)cCasesAssignment_3.eContents().get(0);
-		private final Keyword cElseKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cDefaultAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cDefaultAstExpressionParserRuleCall_5_0 = (RuleCall)cDefaultAssignment_5.eContents().get(0);
-		private final Keyword cEndKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cElseKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cDefaultAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cDefaultAstExpressionParserRuleCall_4_1_0 = (RuleCall)cDefaultAssignment_4_1.eContents().get(0);
+		private final Keyword cEndKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//AstExpressionCase:
-		//	"case" expression=AstExpressionSymbolReference "of" cases+=AstExpressionAlternative+ "else" default=AstExpression
+		//	"case" expression=AstExpressionSymbolReference "of" cases+=AstExpressionAlternative+ ("else" default=AstExpression)?
 		//	"end";
 		public ParserRule getRule() { return rule; }
 
-		//"case" expression=AstExpressionSymbolReference "of" cases+=AstExpressionAlternative+ "else" default=AstExpression "end"
+		//"case" expression=AstExpressionSymbolReference "of" cases+=AstExpressionAlternative+ ("else" default=AstExpression)?
+		//"end"
 		public Group getGroup() { return cGroup; }
 
 		//"case"
@@ -4449,17 +4468,20 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//AstExpressionAlternative
 		public RuleCall getCasesAstExpressionAlternativeParserRuleCall_3_0() { return cCasesAstExpressionAlternativeParserRuleCall_3_0; }
 
+		//("else" default=AstExpression)?
+		public Group getGroup_4() { return cGroup_4; }
+
 		//"else"
-		public Keyword getElseKeyword_4() { return cElseKeyword_4; }
+		public Keyword getElseKeyword_4_0() { return cElseKeyword_4_0; }
 
 		//default=AstExpression
-		public Assignment getDefaultAssignment_5() { return cDefaultAssignment_5; }
+		public Assignment getDefaultAssignment_4_1() { return cDefaultAssignment_4_1; }
 
 		//AstExpression
-		public RuleCall getDefaultAstExpressionParserRuleCall_5_0() { return cDefaultAstExpressionParserRuleCall_5_0; }
+		public RuleCall getDefaultAstExpressionParserRuleCall_4_1_0() { return cDefaultAstExpressionParserRuleCall_4_1_0; }
 
 		//"end"
-		public Keyword getEndKeyword_6() { return cEndKeyword_6; }
+		public Keyword getEndKeyword_5() { return cEndKeyword_5; }
 	}
 
 	public class AstExpressionAlternativeElements extends AbstractParserRuleElementFinder {
@@ -4774,18 +4796,16 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
 		private final Assignment cDontcareAssignment_1_0 = (Assignment)cAlternatives_1.eContents().get(0);
 		private final Keyword cDontcare_Keyword_1_0_0 = (Keyword)cDontcareAssignment_1_0.eContents().get(0);
-		private final Group cGroup_1_1 = (Group)cAlternatives_1.eContents().get(1);
-		private final Keyword cExclamationMarkKeyword_1_1_0 = (Keyword)cGroup_1_1.eContents().get(0);
-		private final Assignment cConditionAssignment_1_1_1 = (Assignment)cGroup_1_1.eContents().get(1);
-		private final RuleCall cConditionAstExpressionParserRuleCall_1_1_1_0 = (RuleCall)cConditionAssignment_1_1_1.eContents().get(0);
+		private final Assignment cConditionAssignment_1_1 = (Assignment)cAlternatives_1.eContents().get(1);
+		private final RuleCall cConditionAstPatternExpressionParserRuleCall_1_1_0 = (RuleCall)cConditionAssignment_1_1.eContents().get(0);
 		private final Assignment cPatternAssignment_1_2 = (Assignment)cAlternatives_1.eContents().get(2);
 		private final RuleCall cPatternAstPatternParserRuleCall_1_2_0 = (RuleCall)cPatternAssignment_1_2.eContents().get(0);
 		
 		//AstSubPattern:
-		//	(label=ID ":")? (dontcare?="_" | "!" condition=AstExpression | pattern=AstPattern);
+		//	(label=ID ":")? (dontcare?="_" | condition=AstPatternExpression | pattern=AstPattern);
 		public ParserRule getRule() { return rule; }
 
-		//(label=ID ":")? (dontcare?="_" | "!" condition=AstExpression | pattern=AstPattern)
+		//(label=ID ":")? (dontcare?="_" | condition=AstPatternExpression | pattern=AstPattern)
 		public Group getGroup() { return cGroup; }
 
 		//(label=ID ":")?
@@ -4800,7 +4820,7 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//":"
 		public Keyword getColonKeyword_0_1() { return cColonKeyword_0_1; }
 
-		//dontcare?="_" | "!" condition=AstExpression | pattern=AstPattern
+		//dontcare?="_" | condition=AstPatternExpression | pattern=AstPattern
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
 		//dontcare?="_"
@@ -4809,17 +4829,11 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//"_"
 		public Keyword getDontcare_Keyword_1_0_0() { return cDontcare_Keyword_1_0_0; }
 
-		//"!" condition=AstExpression
-		public Group getGroup_1_1() { return cGroup_1_1; }
+		//condition=AstPatternExpression
+		public Assignment getConditionAssignment_1_1() { return cConditionAssignment_1_1; }
 
-		//"!"
-		public Keyword getExclamationMarkKeyword_1_1_0() { return cExclamationMarkKeyword_1_1_0; }
-
-		//condition=AstExpression
-		public Assignment getConditionAssignment_1_1_1() { return cConditionAssignment_1_1_1; }
-
-		//AstExpression
-		public RuleCall getConditionAstExpressionParserRuleCall_1_1_1_0() { return cConditionAstExpressionParserRuleCall_1_1_1_0; }
+		//AstPatternExpression
+		public RuleCall getConditionAstPatternExpressionParserRuleCall_1_1_0() { return cConditionAstPatternExpressionParserRuleCall_1_1_0; }
 
 		//pattern=AstPattern
 		public Assignment getPatternAssignment_1_2() { return cPatternAssignment_1_2; }
@@ -4835,17 +4849,18 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cAstExpressionIntegerParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cAstExpressionStringParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		private final Group cGroup_3 = (Group)cAlternatives.eContents().get(3);
-		private final Keyword cExclamationMarkKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final RuleCall cAstExpressionSymbolReferenceParserRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final RuleCall cAstExpressionParserRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_3_2 = (Keyword)cGroup_3.eContents().get(2);
 		
 		/////////////////////////////////////////////////////////////////////////////////
 		//// pattern expressions
 		/////////////////////////////////////////////////////////////////////////////////
 		//AstPatternExpression returns AstExpression:
-		//	AstExpressionBoolean | AstExpressionInteger | AstExpressionString | "!" AstExpressionSymbolReference;
+		//	AstExpressionBoolean | AstExpressionInteger | AstExpressionString | "(" AstExpression ")";
 		public ParserRule getRule() { return rule; }
 
-		//AstExpressionBoolean | AstExpressionInteger | AstExpressionString | "!" AstExpressionSymbolReference
+		//AstExpressionBoolean | AstExpressionInteger | AstExpressionString | "(" AstExpression ")"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//AstExpressionBoolean
@@ -4857,66 +4872,17 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 		//AstExpressionString
 		public RuleCall getAstExpressionStringParserRuleCall_2() { return cAstExpressionStringParserRuleCall_2; }
 
-		//"!" AstExpressionSymbolReference
+		//"(" AstExpression ")"
 		public Group getGroup_3() { return cGroup_3; }
 
-		//"!"
-		public Keyword getExclamationMarkKeyword_3_0() { return cExclamationMarkKeyword_3_0; }
-
-		//AstExpressionSymbolReference
-		public RuleCall getAstExpressionSymbolReferenceParserRuleCall_3_1() { return cAstExpressionSymbolReferenceParserRuleCall_3_1; }
-	}
-
-	public class AstPatternExpressionIfElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AstPatternExpressionIf");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cIfKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cConditionAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cConditionAstExpressionParserRuleCall_1_0 = (RuleCall)cConditionAssignment_1.eContents().get(0);
-		private final Keyword cThenKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cThenAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cThenAstExpressionParserRuleCall_3_0 = (RuleCall)cThenAssignment_3.eContents().get(0);
-		private final Keyword cElseKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cElseAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cElseAstExpressionParserRuleCall_5_0 = (RuleCall)cElseAssignment_5.eContents().get(0);
-		private final Keyword cEndKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		
-		//AstPatternExpressionIf:
-		//	"if" condition=AstExpression "then" then=AstExpression "else" else=AstExpression "end";
-		public ParserRule getRule() { return rule; }
-
-		//"if" condition=AstExpression "then" then=AstExpression "else" else=AstExpression "end"
-		public Group getGroup() { return cGroup; }
-
-		//"if"
-		public Keyword getIfKeyword_0() { return cIfKeyword_0; }
-
-		//condition=AstExpression
-		public Assignment getConditionAssignment_1() { return cConditionAssignment_1; }
+		//"("
+		public Keyword getLeftParenthesisKeyword_3_0() { return cLeftParenthesisKeyword_3_0; }
 
 		//AstExpression
-		public RuleCall getConditionAstExpressionParserRuleCall_1_0() { return cConditionAstExpressionParserRuleCall_1_0; }
+		public RuleCall getAstExpressionParserRuleCall_3_1() { return cAstExpressionParserRuleCall_3_1; }
 
-		//"then"
-		public Keyword getThenKeyword_2() { return cThenKeyword_2; }
-
-		//then=AstExpression
-		public Assignment getThenAssignment_3() { return cThenAssignment_3; }
-
-		//AstExpression
-		public RuleCall getThenAstExpressionParserRuleCall_3_0() { return cThenAstExpressionParserRuleCall_3_0; }
-
-		//"else"
-		public Keyword getElseKeyword_4() { return cElseKeyword_4; }
-
-		//else=AstExpression
-		public Assignment getElseAssignment_5() { return cElseAssignment_5; }
-
-		//AstExpression
-		public RuleCall getElseAstExpressionParserRuleCall_5_0() { return cElseAstExpressionParserRuleCall_5_0; }
-
-		//"end"
-		public Keyword getEndKeyword_6() { return cEndKeyword_6; }
+		//")"
+		public Keyword getRightParenthesisKeyword_3_2() { return cRightParenthesisKeyword_3_2; }
 	}
 
 	public class AstTypeUserElements extends AbstractParserRuleElementFinder {
@@ -5587,7 +5553,6 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	private AstPatternElements pAstPattern;
 	private AstSubPatternElements pAstSubPattern;
 	private AstPatternExpressionElements pAstPatternExpression;
-	private AstPatternExpressionIfElements pAstPatternExpressionIf;
 	private AstTypeUserElements pAstTypeUser;
 	private AstTypeBuiltInElements pAstTypeBuiltIn;
 	private AstTypeElements pAstType;
@@ -6194,7 +6159,8 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AstStatementCase:
-	//	"case" expression=AstExpressionSymbolReference "of" cases+=AstStatementAlternative+ "end";
+	//	"case" expression=AstExpressionSymbolReference "of" cases+=AstStatementAlternative+ ("else" default=AstStatement)?
+	//	"end";
 	public AstStatementCaseElements getAstStatementCaseAccess() {
 		return (pAstStatementCase != null) ? pAstStatementCase : (pAstStatementCase = new AstStatementCaseElements());
 	}
@@ -6404,7 +6370,7 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AstExpressionCase:
-	//	"case" expression=AstExpressionSymbolReference "of" cases+=AstExpressionAlternative+ "else" default=AstExpression
+	//	"case" expression=AstExpressionSymbolReference "of" cases+=AstExpressionAlternative+ ("else" default=AstExpression)?
 	//	"end";
 	public AstExpressionCaseElements getAstExpressionCaseAccess() {
 		return (pAstExpressionCase != null) ? pAstExpressionCase : (pAstExpressionCase = new AstExpressionCaseElements());
@@ -6538,7 +6504,7 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AstSubPattern:
-	//	(label=ID ":")? (dontcare?="_" | "!" condition=AstExpression | pattern=AstPattern);
+	//	(label=ID ":")? (dontcare?="_" | condition=AstPatternExpression | pattern=AstPattern);
 	public AstSubPatternElements getAstSubPatternAccess() {
 		return (pAstSubPattern != null) ? pAstSubPattern : (pAstSubPattern = new AstSubPatternElements());
 	}
@@ -6551,23 +6517,13 @@ public class CalGrammarAccess extends AbstractGrammarElementFinder {
 	//// pattern expressions
 	/////////////////////////////////////////////////////////////////////////////////
 	//AstPatternExpression returns AstExpression:
-	//	AstExpressionBoolean | AstExpressionInteger | AstExpressionString | "!" AstExpressionSymbolReference;
+	//	AstExpressionBoolean | AstExpressionInteger | AstExpressionString | "(" AstExpression ")";
 	public AstPatternExpressionElements getAstPatternExpressionAccess() {
 		return (pAstPatternExpression != null) ? pAstPatternExpression : (pAstPatternExpression = new AstPatternExpressionElements());
 	}
 	
 	public ParserRule getAstPatternExpressionRule() {
 		return getAstPatternExpressionAccess().getRule();
-	}
-
-	//AstPatternExpressionIf:
-	//	"if" condition=AstExpression "then" then=AstExpression "else" else=AstExpression "end";
-	public AstPatternExpressionIfElements getAstPatternExpressionIfAccess() {
-		return (pAstPatternExpressionIf != null) ? pAstPatternExpressionIf : (pAstPatternExpressionIf = new AstPatternExpressionIfElements());
-	}
-	
-	public ParserRule getAstPatternExpressionIfRule() {
-		return getAstPatternExpressionIfAccess().getRule();
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////

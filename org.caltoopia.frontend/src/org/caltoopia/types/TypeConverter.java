@@ -357,7 +357,12 @@ public class TypeConverter extends CalSwitch<Type> {
 	
 	@Override 
 	public Type caseAstExpressionCase(AstExpressionCase e) {
-		Type t1 = doSwitch(e.getDefault());
+		Type t1 = null;
+		if (e.getDefault() != null) {
+			t1 = doSwitch(e.getDefault());			
+		} else {
+			t1 = doSwitch(e.getCases().get(0).getExpression());
+		}
 		
 		for (AstExpressionAlternative t : e.getCases()) {
 			Type t2 = doSwitch(t.getExpression());

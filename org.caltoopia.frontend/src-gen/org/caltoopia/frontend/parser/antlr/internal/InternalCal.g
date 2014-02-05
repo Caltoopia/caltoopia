@@ -5233,9 +5233,31 @@ ruleAstStatementCase returns [EObject current=null]
 	    }
 
 )
-)+	otherlv_4='end' 
+)+(	otherlv_4='else' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getAstStatementCaseAccess().getEndKeyword_4());
+    	newLeafNode(otherlv_4, grammarAccess.getAstStatementCaseAccess().getElseKeyword_4_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getAstStatementCaseAccess().getDefaultAstStatementParserRuleCall_4_1_0()); 
+	    }
+		lv_default_5_0=ruleAstStatement		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getAstStatementCaseRule());
+	        }
+       		set(
+       			$current, 
+       			"default",
+        		lv_default_5_0, 
+        		"AstStatement");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))?	otherlv_6='end' 
+    {
+    	newLeafNode(otherlv_6, grammarAccess.getAstStatementCaseAccess().getEndKeyword_5());
     }
 )
 ;
@@ -7074,14 +7096,14 @@ ruleAstExpressionCase returns [EObject current=null]
 	    }
 
 )
-)+	otherlv_4='else' 
+)+(	otherlv_4='else' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getAstExpressionCaseAccess().getElseKeyword_4());
+    	newLeafNode(otherlv_4, grammarAccess.getAstExpressionCaseAccess().getElseKeyword_4_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstExpressionCaseAccess().getDefaultAstExpressionParserRuleCall_5_0()); 
+	        newCompositeNode(grammarAccess.getAstExpressionCaseAccess().getDefaultAstExpressionParserRuleCall_4_1_0()); 
 	    }
 		lv_default_5_0=ruleAstExpression		{
 	        if ($current==null) {
@@ -7096,9 +7118,9 @@ ruleAstExpressionCase returns [EObject current=null]
 	    }
 
 )
-)	otherlv_6='end' 
+))?	otherlv_6='end' 
     {
-    	newLeafNode(otherlv_6, grammarAccess.getAstExpressionCaseAccess().getEndKeyword_6());
+    	newLeafNode(otherlv_6, grammarAccess.getAstExpressionCaseAccess().getEndKeyword_5());
     }
 )
 ;
@@ -7704,42 +7726,38 @@ ruleAstSubPattern returns [EObject current=null]
 
 )
 )
-    |(	otherlv_3='!' 
-    {
-    	newLeafNode(otherlv_3, grammarAccess.getAstSubPatternAccess().getExclamationMarkKeyword_1_1_0());
-    }
-(
+    |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAstSubPatternAccess().getConditionAstExpressionParserRuleCall_1_1_1_0()); 
+	        newCompositeNode(grammarAccess.getAstSubPatternAccess().getConditionAstPatternExpressionParserRuleCall_1_1_0()); 
 	    }
-		lv_condition_4_0=ruleAstExpression		{
+		lv_condition_3_0=ruleAstPatternExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstSubPatternRule());
 	        }
        		set(
        			$current, 
        			"condition",
-        		lv_condition_4_0, 
-        		"AstExpression");
+        		lv_condition_3_0, 
+        		"AstPatternExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))
+)
     |(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getAstSubPatternAccess().getPatternAstPatternParserRuleCall_1_2_0()); 
 	    }
-		lv_pattern_5_0=ruleAstPattern		{
+		lv_pattern_4_0=ruleAstPattern		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAstSubPatternRule());
 	        }
        		set(
        			$current, 
        			"pattern",
-        		lv_pattern_5_0, 
+        		lv_pattern_4_0, 
         		"AstPattern");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -7751,6 +7769,70 @@ ruleAstSubPattern returns [EObject current=null]
 
 
 
+
+// Entry rule entryRuleAstPatternExpression
+entryRuleAstPatternExpression returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getAstPatternExpressionRule()); }
+	 iv_ruleAstPatternExpression=ruleAstPatternExpression 
+	 { $current=$iv_ruleAstPatternExpression.current; } 
+	 EOF 
+;
+
+// Rule AstPatternExpression
+ruleAstPatternExpression returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+    { 
+        newCompositeNode(grammarAccess.getAstPatternExpressionAccess().getAstExpressionBooleanParserRuleCall_0()); 
+    }
+    this_AstExpressionBoolean_0=ruleAstExpressionBoolean
+    { 
+        $current = $this_AstExpressionBoolean_0.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getAstPatternExpressionAccess().getAstExpressionIntegerParserRuleCall_1()); 
+    }
+    this_AstExpressionInteger_1=ruleAstExpressionInteger
+    { 
+        $current = $this_AstExpressionInteger_1.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getAstPatternExpressionAccess().getAstExpressionStringParserRuleCall_2()); 
+    }
+    this_AstExpressionString_2=ruleAstExpressionString
+    { 
+        $current = $this_AstExpressionString_2.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |(	otherlv_3='(' 
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getAstPatternExpressionAccess().getLeftParenthesisKeyword_3_0());
+    }
+
+    { 
+        newCompositeNode(grammarAccess.getAstPatternExpressionAccess().getAstExpressionParserRuleCall_3_1()); 
+    }
+    this_AstExpression_4=ruleAstExpression
+    { 
+        $current = $this_AstExpression_4.current; 
+        afterParserOrEnumRuleCall();
+    }
+	otherlv_5=')' 
+    {
+    	newLeafNode(otherlv_5, grammarAccess.getAstPatternExpressionAccess().getRightParenthesisKeyword_3_2());
+    }
+))
+;
 
 
 

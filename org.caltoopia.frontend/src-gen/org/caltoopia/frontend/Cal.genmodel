@@ -187,6 +187,7 @@
     <genClasses ecoreClass="Cal.ecore#//AstStatementCase">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstStatementCase/expression"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstStatementCase/cases"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstStatementCase/default"/>
     </genClasses>
     <genClasses ecoreClass="Cal.ecore#//AstStatementAlternative">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstStatementAlternative/pattern"/>
@@ -249,11 +250,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Cal.ecore#//AstSubPattern/dontcare"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstSubPattern/condition"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstSubPattern/pattern"/>
-    </genClasses>
-    <genClasses ecoreClass="Cal.ecore#//AstPatternExpressionIf">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstPatternExpressionIf/condition"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstPatternExpressionIf/then"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Cal.ecore#//AstPatternExpressionIf/else"/>
     </genClasses>
     <genClasses ecoreClass="Cal.ecore#//AstType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Cal.ecore#//AstType/builtin"/>

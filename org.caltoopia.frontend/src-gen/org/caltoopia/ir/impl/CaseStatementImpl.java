@@ -7,6 +7,7 @@ import java.util.Collection;
 import org.caltoopia.ir.CaseStatement;
 import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.IrPackage;
+import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.StmtAlternative;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -29,6 +30,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <ul>
  *   <li>{@link org.caltoopia.ir.impl.CaseStatementImpl#getAlternatives <em>Alternatives</em>}</li>
  *   <li>{@link org.caltoopia.ir.impl.CaseStatementImpl#getExpression <em>Expression</em>}</li>
+ *   <li>{@link org.caltoopia.ir.impl.CaseStatementImpl#getDefault <em>Default</em>}</li>
  * </ul>
  * </p>
  *
@@ -54,6 +56,16 @@ public class CaseStatementImpl extends StatementImpl implements CaseStatement {
 	 * @ordered
 	 */
 	protected Expression expression;
+
+	/**
+	 * The cached value of the '{@link #getDefault() <em>Default</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDefault()
+	 * @generated
+	 * @ordered
+	 */
+	protected Statement default_;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -129,6 +141,44 @@ public class CaseStatementImpl extends StatementImpl implements CaseStatement {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Statement getDefault() {
+		if (default_ != null && default_.eIsProxy()) {
+			InternalEObject oldDefault = (InternalEObject)default_;
+			default_ = (Statement)eResolveProxy(oldDefault);
+			if (default_ != oldDefault) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IrPackage.CASE_STATEMENT__DEFAULT, oldDefault, default_));
+			}
+		}
+		return default_;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Statement basicGetDefault() {
+		return default_;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDefault(Statement newDefault) {
+		Statement oldDefault = default_;
+		default_ = newDefault;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, IrPackage.CASE_STATEMENT__DEFAULT, oldDefault, default_));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -137,6 +187,9 @@ public class CaseStatementImpl extends StatementImpl implements CaseStatement {
 			case IrPackage.CASE_STATEMENT__EXPRESSION:
 				if (resolve) return getExpression();
 				return basicGetExpression();
+			case IrPackage.CASE_STATEMENT__DEFAULT:
+				if (resolve) return getDefault();
+				return basicGetDefault();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -157,6 +210,9 @@ public class CaseStatementImpl extends StatementImpl implements CaseStatement {
 			case IrPackage.CASE_STATEMENT__EXPRESSION:
 				setExpression((Expression)newValue);
 				return;
+			case IrPackage.CASE_STATEMENT__DEFAULT:
+				setDefault((Statement)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -175,6 +231,9 @@ public class CaseStatementImpl extends StatementImpl implements CaseStatement {
 			case IrPackage.CASE_STATEMENT__EXPRESSION:
 				setExpression((Expression)null);
 				return;
+			case IrPackage.CASE_STATEMENT__DEFAULT:
+				setDefault((Statement)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -191,6 +250,8 @@ public class CaseStatementImpl extends StatementImpl implements CaseStatement {
 				return alternatives != null && !alternatives.isEmpty();
 			case IrPackage.CASE_STATEMENT__EXPRESSION:
 				return expression != null;
+			case IrPackage.CASE_STATEMENT__DEFAULT:
+				return default_ != null;
 		}
 		return super.eIsSet(featureID);
 	}

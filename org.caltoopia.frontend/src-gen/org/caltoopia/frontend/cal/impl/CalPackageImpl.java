@@ -41,7 +41,6 @@ import org.caltoopia.frontend.cal.AstNetwork;
 import org.caltoopia.frontend.cal.AstOutputPattern;
 import org.caltoopia.frontend.cal.AstPackage;
 import org.caltoopia.frontend.cal.AstPattern;
-import org.caltoopia.frontend.cal.AstPatternExpressionIf;
 import org.caltoopia.frontend.cal.AstPort;
 import org.caltoopia.frontend.cal.AstPriority;
 import org.caltoopia.frontend.cal.AstProcedure;
@@ -487,13 +486,6 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * @generated
    */
   private EClass astSubPatternEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass astPatternExpressionIfEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -2100,6 +2092,16 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getAstStatementCase_Default()
+  {
+    return (EReference)astStatementCaseEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getAstStatementAlternative()
   {
     return astStatementAlternativeEClass;
@@ -2583,46 +2585,6 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
   public EReference getAstSubPattern_Pattern()
   {
     return (EReference)astSubPatternEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getAstPatternExpressionIf()
-  {
-    return astPatternExpressionIfEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAstPatternExpressionIf_Condition()
-  {
-    return (EReference)astPatternExpressionIfEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAstPatternExpressionIf_Then()
-  {
-    return (EReference)astPatternExpressionIfEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAstPatternExpressionIf_Else()
-  {
-    return (EReference)astPatternExpressionIfEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -3191,6 +3153,7 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     astStatementCaseEClass = createEClass(AST_STATEMENT_CASE);
     createEReference(astStatementCaseEClass, AST_STATEMENT_CASE__EXPRESSION);
     createEReference(astStatementCaseEClass, AST_STATEMENT_CASE__CASES);
+    createEReference(astStatementCaseEClass, AST_STATEMENT_CASE__DEFAULT);
 
     astStatementAlternativeEClass = createEClass(AST_STATEMENT_ALTERNATIVE);
     createEReference(astStatementAlternativeEClass, AST_STATEMENT_ALTERNATIVE__PATTERN);
@@ -3256,11 +3219,6 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     createEAttribute(astSubPatternEClass, AST_SUB_PATTERN__DONTCARE);
     createEReference(astSubPatternEClass, AST_SUB_PATTERN__CONDITION);
     createEReference(astSubPatternEClass, AST_SUB_PATTERN__PATTERN);
-
-    astPatternExpressionIfEClass = createEClass(AST_PATTERN_EXPRESSION_IF);
-    createEReference(astPatternExpressionIfEClass, AST_PATTERN_EXPRESSION_IF__CONDITION);
-    createEReference(astPatternExpressionIfEClass, AST_PATTERN_EXPRESSION_IF__THEN);
-    createEReference(astPatternExpressionIfEClass, AST_PATTERN_EXPRESSION_IF__ELSE);
 
     astTypeEClass = createEClass(AST_TYPE);
     createEAttribute(astTypeEClass, AST_TYPE__BUILTIN);
@@ -3557,6 +3515,7 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     initEClass(astStatementCaseEClass, AstStatementCase.class, "AstStatementCase", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAstStatementCase_Expression(), this.getAstExpressionSymbolReference(), null, "expression", null, 0, 1, AstStatementCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstStatementCase_Cases(), this.getAstStatementAlternative(), null, "cases", null, 0, -1, AstStatementCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAstStatementCase_Default(), this.getAstStatement(), null, "default", null, 0, 1, AstStatementCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(astStatementAlternativeEClass, AstStatementAlternative.class, "AstStatementAlternative", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAstStatementAlternative_Pattern(), this.getAstPattern(), null, "pattern", null, 0, 1, AstStatementAlternative.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3622,11 +3581,6 @@ public class CalPackageImpl extends EPackageImpl implements CalPackage
     initEAttribute(getAstSubPattern_Dontcare(), ecorePackage.getEBoolean(), "dontcare", null, 0, 1, AstSubPattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstSubPattern_Condition(), this.getAstExpression(), null, "condition", null, 0, 1, AstSubPattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAstSubPattern_Pattern(), this.getAstPattern(), null, "pattern", null, 0, 1, AstSubPattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(astPatternExpressionIfEClass, AstPatternExpressionIf.class, "AstPatternExpressionIf", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAstPatternExpressionIf_Condition(), this.getAstExpression(), null, "condition", null, 0, 1, AstPatternExpressionIf.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAstPatternExpressionIf_Then(), this.getAstExpression(), null, "then", null, 0, 1, AstPatternExpressionIf.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAstPatternExpressionIf_Else(), this.getAstExpression(), null, "else", null, 0, 1, AstPatternExpressionIf.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(astTypeEClass, AstType.class, "AstType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getAstType_Builtin(), ecorePackage.getEString(), "builtin", null, 0, 1, AstType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

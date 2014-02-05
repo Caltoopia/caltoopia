@@ -356,14 +356,13 @@ AstStatementWhile:
 AstStatementCase:
 	'case' expression = AstExpressionSymbolReference 'of'
 		(cases += AstStatementAlternative)+
-	'end'	
-;
+		('else' default = AstStatement)? 
+	'end';
 
 AstStatementAlternative:
 	(pattern = AstPattern 
 	('guard' guards += AstExpression (',' guards += AstExpression)*)?
-	'do' (statements += AstStatement)* 'end')	
-;
+	'do' (statements += AstStatement)* 'end');
 
 AstStatement:
 	AstStatementAssign
@@ -432,7 +431,7 @@ AstGenerator:
 AstExpressionCase:
 	'case' expression = AstExpressionSymbolReference 'of'
 		(cases += AstExpressionAlternative)+
-		'else' default = AstExpression 
+		('else' default = AstExpression)? 
 	'end';
 
 AstExpressionAlternative:
@@ -485,7 +484,7 @@ AstPattern:
 AstSubPattern returns AstSubPattern:
 	 (label = ID ':')?
 	 ( dontcare ?= '_' 
-	 | '!' condition = AstExpression
+     | condition = AstPatternExpression
 	 | pattern = AstPattern
 	 )
 ;
@@ -498,15 +497,9 @@ AstPatternExpression returns AstExpression:
 	  AstExpressionBoolean
 	| AstExpressionInteger
 	| AstExpressionString
-	| '!' AstExpressionSymbolReference
+	| "(" AstExpression ")"
 	;
 			
-AstPatternExpressionIf:
-	'if' condition=AstExpression
-	'then' then=AstExpression
-	'else' else=AstExpression
-	'end';
-
 ///////////////////////////////////////////////////////////////////////////////
 // type and variable declarations
 ///////////////////////////////////////////////////////////////////////////////

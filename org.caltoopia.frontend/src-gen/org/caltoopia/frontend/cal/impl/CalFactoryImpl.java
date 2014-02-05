@@ -121,7 +121,6 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
       case CalPackage.AST_EXPRESSION_STRING: return createAstExpressionString();
       case CalPackage.AST_PATTERN: return createAstPattern();
       case CalPackage.AST_SUB_PATTERN: return createAstSubPattern();
-      case CalPackage.AST_PATTERN_EXPRESSION_IF: return createAstPatternExpressionIf();
       case CalPackage.AST_TYPE: return createAstType();
       case CalPackage.AST_TYPE_PARAMETER_LIST: return createAstTypeParameterList();
       case CalPackage.AST_TYPE_PARAM: return createAstTypeParam();
@@ -763,17 +762,6 @@ public class CalFactoryImpl extends EFactoryImpl implements CalFactory
   {
     AstSubPatternImpl astSubPattern = new AstSubPatternImpl();
     return astSubPattern;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public AstPatternExpressionIf createAstPatternExpressionIf()
-  {
-    AstPatternExpressionIfImpl astPatternExpressionIf = new AstPatternExpressionIfImpl();
-    return astPatternExpressionIf;
   }
 
   /**

@@ -35,7 +35,6 @@ import org.caltoopia.frontend.cal.AstNamespace;
 import org.caltoopia.frontend.cal.AstNetwork;
 import org.caltoopia.frontend.cal.AstOutputPattern;
 import org.caltoopia.frontend.cal.AstPattern;
-import org.caltoopia.frontend.cal.AstPatternExpressionIf;
 import org.caltoopia.frontend.cal.AstPort;
 import org.caltoopia.frontend.cal.AstPriority;
 import org.caltoopia.frontend.cal.AstProcedure;
@@ -175,7 +174,8 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 				   context == grammarAccess.getAstExpressionShiftRule() ||
 				   context == grammarAccess.getAstExpressionShiftAccess().getAstExpressionBinaryLeftAction_1_0() ||
 				   context == grammarAccess.getAstExpressionUnaryRule() ||
-				   context == grammarAccess.getAstExpressionAccess().getAstExpressionBinaryLeftAction_1_0()) {
+				   context == grammarAccess.getAstExpressionAccess().getAstExpressionBinaryLeftAction_1_0() ||
+				   context == grammarAccess.getAstPatternExpressionRule()) {
 					sequence_AstExpression_AstExpressionAdditive_AstExpressionAnd_AstExpressionBitand_AstExpressionBitor_AstExpressionBitxor_AstExpressionEq_AstExpressionExp_AstExpressionMultiplicative_AstExpressionRelational_AstExpressionShift(context, (AstExpressionBinary) semanticObject); 
 					return; 
 				}
@@ -237,7 +237,8 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 				   context == grammarAccess.getAstExpressionShiftRule() ||
 				   context == grammarAccess.getAstExpressionShiftAccess().getAstExpressionBinaryLeftAction_1_0() ||
 				   context == grammarAccess.getAstExpressionUnaryRule() ||
-				   context == grammarAccess.getAstExpressionAccess().getAstExpressionBinaryLeftAction_1_0()) {
+				   context == grammarAccess.getAstExpressionAccess().getAstExpressionBinaryLeftAction_1_0() ||
+				   context == grammarAccess.getAstPatternExpressionRule()) {
 					sequence_AstExpressionCase(context, (AstExpressionCase) semanticObject); 
 					return; 
 				}
@@ -268,7 +269,8 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 				   context == grammarAccess.getAstExpressionShiftRule() ||
 				   context == grammarAccess.getAstExpressionShiftAccess().getAstExpressionBinaryLeftAction_1_0() ||
 				   context == grammarAccess.getAstExpressionUnaryRule() ||
-				   context == grammarAccess.getAstExpressionAccess().getAstExpressionBinaryLeftAction_1_0()) {
+				   context == grammarAccess.getAstExpressionAccess().getAstExpressionBinaryLeftAction_1_0() ||
+				   context == grammarAccess.getAstPatternExpressionRule()) {
 					sequence_AstExpressionFloat(context, (AstExpressionFloat) semanticObject); 
 					return; 
 				}
@@ -298,7 +300,8 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 				   context == grammarAccess.getAstExpressionShiftRule() ||
 				   context == grammarAccess.getAstExpressionShiftAccess().getAstExpressionBinaryLeftAction_1_0() ||
 				   context == grammarAccess.getAstExpressionUnaryRule() ||
-				   context == grammarAccess.getAstExpressionAccess().getAstExpressionBinaryLeftAction_1_0()) {
+				   context == grammarAccess.getAstExpressionAccess().getAstExpressionBinaryLeftAction_1_0() ||
+				   context == grammarAccess.getAstPatternExpressionRule()) {
 					sequence_AstExpressionIf(context, (AstExpressionIf) semanticObject); 
 					return; 
 				}
@@ -360,7 +363,8 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 				   context == grammarAccess.getAstExpressionShiftRule() ||
 				   context == grammarAccess.getAstExpressionShiftAccess().getAstExpressionBinaryLeftAction_1_0() ||
 				   context == grammarAccess.getAstExpressionUnaryRule() ||
-				   context == grammarAccess.getAstExpressionAccess().getAstExpressionBinaryLeftAction_1_0()) {
+				   context == grammarAccess.getAstExpressionAccess().getAstExpressionBinaryLeftAction_1_0() ||
+				   context == grammarAccess.getAstPatternExpressionRule()) {
 					sequence_AstExpressionList(context, (AstExpressionList) semanticObject); 
 					return; 
 				}
@@ -452,7 +456,8 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 				   context == grammarAccess.getAstExpressionShiftRule() ||
 				   context == grammarAccess.getAstExpressionShiftAccess().getAstExpressionBinaryLeftAction_1_0() ||
 				   context == grammarAccess.getAstExpressionUnaryRule() ||
-				   context == grammarAccess.getAstExpressionAccess().getAstExpressionBinaryLeftAction_1_0()) {
+				   context == grammarAccess.getAstExpressionAccess().getAstExpressionBinaryLeftAction_1_0() ||
+				   context == grammarAccess.getAstPatternExpressionRule()) {
 					sequence_AstExpressionUnary(context, (AstExpressionUnary) semanticObject); 
 					return; 
 				}
@@ -544,12 +549,6 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 			case CalPackage.AST_PATTERN:
 				if(context == grammarAccess.getAstPatternRule()) {
 					sequence_AstPattern(context, (AstPattern) semanticObject); 
-					return; 
-				}
-				else break;
-			case CalPackage.AST_PATTERN_EXPRESSION_IF:
-				if(context == grammarAccess.getAstPatternExpressionIfRule()) {
-					sequence_AstPatternExpressionIf(context, (AstPatternExpressionIf) semanticObject); 
 					return; 
 				}
 				else break;
@@ -942,7 +941,7 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (expression=AstExpressionSymbolReference cases+=AstExpressionAlternative+ default=AstExpression)
+	 *     (expression=AstExpressionSymbolReference cases+=AstExpressionAlternative+ default=AstExpression?)
 	 */
 	protected void sequence_AstExpressionCase(EObject context, AstExpressionCase semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1289,28 +1288,6 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (condition=AstExpression then=AstExpression else=AstExpression)
-	 */
-	protected void sequence_AstPatternExpressionIf(EObject context, AstPatternExpressionIf semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, CalPackage.Literals.AST_PATTERN_EXPRESSION_IF__CONDITION) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CalPackage.Literals.AST_PATTERN_EXPRESSION_IF__CONDITION));
-			if(transientValues.isValueTransient(semanticObject, CalPackage.Literals.AST_PATTERN_EXPRESSION_IF__THEN) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CalPackage.Literals.AST_PATTERN_EXPRESSION_IF__THEN));
-			if(transientValues.isValueTransient(semanticObject, CalPackage.Literals.AST_PATTERN_EXPRESSION_IF__ELSE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CalPackage.Literals.AST_PATTERN_EXPRESSION_IF__ELSE));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getAstPatternExpressionIfAccess().getConditionAstExpressionParserRuleCall_1_0(), semanticObject.getCondition());
-		feeder.accept(grammarAccess.getAstPatternExpressionIfAccess().getThenAstExpressionParserRuleCall_3_0(), semanticObject.getThen());
-		feeder.accept(grammarAccess.getAstPatternExpressionIfAccess().getElseAstExpressionParserRuleCall_5_0(), semanticObject.getElse());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (variable=AstToken | (tag=ID (subpatterns+=AstSubPattern subpatterns+=AstSubPattern*)?))
 	 */
 	protected void sequence_AstPattern(EObject context, AstPattern semanticObject) {
@@ -1414,7 +1391,7 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (expression=AstExpressionSymbolReference cases+=AstStatementAlternative+)
+	 *     (expression=AstExpressionSymbolReference cases+=AstStatementAlternative+ default=AstStatement?)
 	 */
 	protected void sequence_AstStatementCase(EObject context, AstStatementCase semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1464,7 +1441,7 @@ public abstract class AbstractCalSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (label=ID? (dontcare?='_' | condition=AstExpression | pattern=AstPattern))
+	 *     (label=ID? (dontcare?='_' | condition=AstPatternExpression | pattern=AstPattern))
 	 */
 	protected void sequence_AstSubPattern(EObject context, AstSubPattern semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

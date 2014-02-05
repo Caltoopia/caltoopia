@@ -14,6 +14,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.caltoopia.frontend.cal.AstStatementCase#getExpression <em>Expression</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.AstStatementCase#getCases <em>Cases</em>}</li>
+ *   <li>{@link org.caltoopia.frontend.cal.AstStatementCase#getDefault <em>Default</em>}</li>
  * </ul>
  * </p>
  *
@@ -64,5 +65,31 @@ public interface AstStatementCase extends AstStatement
    * @generated
    */
   EList<AstStatementAlternative> getCases();
+
+  /**
+   * Returns the value of the '<em><b>Default</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Default</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Default</em>' containment reference.
+   * @see #setDefault(AstStatement)
+   * @see org.caltoopia.frontend.cal.CalPackage#getAstStatementCase_Default()
+   * @model containment="true"
+   * @generated
+   */
+  AstStatement getDefault();
+
+  /**
+   * Sets the value of the '{@link org.caltoopia.frontend.cal.AstStatementCase#getDefault <em>Default</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Default</em>' containment reference.
+   * @see #getDefault()
+   * @generated
+   */
+  void setDefault(AstStatement value);
 
 } // AstStatementCase

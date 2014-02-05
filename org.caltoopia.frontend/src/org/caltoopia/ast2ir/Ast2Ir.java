@@ -215,7 +215,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 			graphData.add(new AstDeclVertex(td));
 		}
 		
-		(new Graph(graphData)).print();
+		// (new Graph(graphData)).print();
 		
 		// TODO Illegal recursion is not detected 
 		graphData = new Graph(graphData).sortByDependency();
@@ -384,8 +384,6 @@ public class Ast2Ir extends CalSwitch<EObject> {
 		
 		return actor;
 	}
-
-
 	
 	private Schedule createSchedule(AstActor astActor, ActionList actionList) {
 
@@ -757,24 +755,45 @@ public class Ast2Ir extends CalSwitch<EObject> {
 					Util.doPatternDeclarations(action, astType, inputs.getTokens().get(j), Util.createVariableExpression(action, varDecl), repeat);
 
 					//Do the type guards	
-					final Guard guard =  IrFactory.eINSTANCE.createGuard();
-					guard.setId(Util.getDefinitionId());
-					guard.setOuter(action);
+					final Guard typeGuard =  IrFactory.eINSTANCE.createGuard();
+					typeGuard.setId(Util.getDefinitionId());
+					typeGuard.setOuter(action);
 
 					PortPeek portPeek = IrFactory.eINSTANCE.createPortPeek();
 					portPeek.setId(Util.getDefinitionId());
 					portPeek.setPort(port);	
 					portPeek.setPosition(j); 
-					varDecl = Util.createTmpVariable(guard, type, null);
+					varDecl = Util.createTmpVariable(typeGuard, type, null);
 					portPeek.setVariable(Util.createVariableReference(varDecl));				
-					guard.getPeeks().add(portPeek);
+					typeGuard.getPeeks().add(portPeek);
 					
-					guard.setExpression(Util.doPatternTypeGuards(guard, inputs.getTokens().get(j), Util.createVariableExpression(guard, varDecl), astType));
-					action.getGuards().add(guard);
+					typeGuard.setExpression(Util.doPatternTypeGuards(typeGuard, inputs.getTokens().get(j), Util.createVariableExpression(typeGuard, varDecl), astType));
+					action.getGuards().add(typeGuard);
+					
+					//Do implicit guards															
+					final Guard implicitGuard =  IrFactory.eINSTANCE.createGuard();
+					implicitGuard.setId(Util.getDefinitionId());
+					implicitGuard.setOuter(action);
+
+					portPeek = IrFactory.eINSTANCE.createPortPeek();
+					portPeek.setId(Util.getDefinitionId());
+					portPeek.setPort(port);	
+					portPeek.setPosition(j); 
+					varDecl = Util.createTmpVariable(implicitGuard, type, null);
+					portPeek.setVariable(Util.createVariableReference(varDecl));				
+					implicitGuard.getPeeks().add(portPeek);
+
+					List<Expression> implicitGuardExpressions = new ArrayList<Expression>();
+					Util.doPatternImplicitGuards(action, inputs.getTokens().get(j), Util.createVariableExpression(action, varDecl), astType, repeat, implicitGuardExpressions);
+					if (implicitGuardExpressions.size() > 0 ) {
+						implicitGuard.setExpression(Util.createAndExpression(implicitGuard, implicitGuardExpressions));
+						action.getGuards().add(implicitGuard);
+					}
 				}
 			}							
 		}
 		
+		//Do explicit guards 
 		for (AstExpression e : astAction.getGuards()) {
 			final Guard guard =  IrFactory.eINSTANCE.createGuard();
 			guard.setId(Util.getDefinitionId());
@@ -873,19 +892,13 @@ public class Ast2Ir extends CalSwitch<EObject> {
 					action.getOutputs().add(portWrite);
 				}
 			}
-						
-			// if (outputs.getRepeat() != null) {
-			// 	 Expression repeat = CreateIrExpression.convert(scopeStack.peek(), outputs.getRepeat());				
-			// 	 portWrite.setRepeat(repeat);
-			// }
-			
+									
 			scopeStack.pop();
 		}
 		
 		scopeStack.pop();
 		return action;
 	}
-
 	
 	@Override
 	public Variable caseAstFunction(AstFunction f) {
@@ -1054,57 +1067,7 @@ public class Ast2Ir extends CalSwitch<EObject> {
 		for (AstForeachGenerator g : astForeach.getGenerators()) 
 			scopeStack.pop();
 
-		return foreach;
-		
-		/*
-		Block block = Util.createBlock(scopeStack.peek());
-		scopeStack.push(block);
-		
-		for (AstForeachGenerator g : astForeach.getGenerators()) {			
-			Variable loopCounter = Util.createTmpVariable(scopeStack.peek(), TypeSystem.createTypeInt(), Util.createIntegerLiteral(0));
-			Variable listExpr    = Util.createTmpVariable(scopeStack.peek(), TypeSystem.createTypeInt(), CreateIrExpression.convert(scopeStack.peek(), g.getExpression()));						
-			Expression loopCondition = Util.createBinaryExpression(scopeStack.peek(), Util.createVariableExpression(scopeStack.peek(), loopCounter), "<", 
-																   TypeSystem.sizeOfList(TypeEvaluator.typeOf(null, scopeStack.peek() ,g.getExpression())),
-																   TypeSystem.createTypeInt());
-			
-			Expression value = Util.createIndexedVariableReference(scopeStack.peek(), listExpr, loopCounter);
-			Util.createVariable(scopeStack.peek(), g.getVariable(), value);
-			
-			Block body = Util.createBlock(scopeStack.peek());
-			Statement increment = Util.createIncrementStatement(scopeStack.peek(), loopCounter);
-			scopeStack.push(block);
-			
-			WhileLoop whileLoop = IrFactory.eINSTANCE.createWhileLoop();	
-			whileLoop.setCondition(loopCondition);
-			whileLoop.setBody(body);
-		}
-		
-		List<GraphData> graphData = new ArrayList<GraphData>();
-		for (AstVariable local : astForeach.getVariables()) {
-			graphData.add(new DefinitionGraphData(local));
-		}
-		
-		graphData = new Graph(graphData).sortByDependency();
-		
-		for (GraphData data : graphData) {
-			AstVariable local = (AstVariable) ((DefinitionGraphData) data).getData();
-			Variable var = Util.createVariable(scopeStack.peek(), local);
-			scopeStack.peek().getDeclarations().add(var);
-		}
-		
-		for (AstStatement s : astForeach.getStatements()) {
-			Statement stmt = (Statement) doSwitch(s);
-			((Block) scopeStack.peek()).getStatements().add(stmt);
-		}
-		
-		for (AstForeachGenerator g : astForeach.getGenerators()) {			
-			scopeStack.pop();
-		}
-
-		scopeStack.pop();
-		
-		return block;
-		*/
+		return foreach;		
 	}
 	
 	
@@ -1192,9 +1155,13 @@ public class Ast2Ir extends CalSwitch<EObject> {
 				scopeStack.push(alt);
 				
 				Util.doPatternDeclarations(alt, astType, a.getPattern(), condition, null);
-				if (a.getPattern() != null)
+				if (a.getPattern() != null) {
 					alt.getGuards().add(Util.doPatternTypeGuards(alt, a.getPattern(), condition, astType));
-				
+					
+					List<Expression> implicitGuards = new ArrayList<Expression>();
+					Util.doPatternImplicitGuards(alt, a.getPattern(), condition, astType, null, implicitGuards);
+					alt.getGuards().addAll(implicitGuards);
+				}	
 				for (AstExpression guard : a.getGuards()) {
 					alt.getGuards().add(CreateIrExpression.convert(alt, guard));
 				}
@@ -1207,6 +1174,12 @@ public class Ast2Ir extends CalSwitch<EObject> {
 				caseStatement.getAlternatives().add(alt);
 				scopeStack.pop();
 			}
+			
+			if (stmtCase.getDefault() != null) {
+				Statement stmt = (Statement) doSwitch(stmtCase.getDefault());
+				caseStatement.setDefault(stmt);
+			}
+			
 		} catch (Exception e) {
 			System.err.println("Internal error in Ast2Ir");
 		}

@@ -1910,6 +1910,15 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getCaseStatement_Default() {
+		return (EReference)caseStatementEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getStmtAlternative() {
 		return stmtAlternativeEClass;
 	}
@@ -3059,6 +3068,7 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		caseStatementEClass = createEClass(CASE_STATEMENT);
 		createEReference(caseStatementEClass, CASE_STATEMENT__ALTERNATIVES);
 		createEReference(caseStatementEClass, CASE_STATEMENT__EXPRESSION);
+		createEReference(caseStatementEClass, CASE_STATEMENT__DEFAULT);
 
 		stmtAlternativeEClass = createEClass(STMT_ALTERNATIVE);
 		createEReference(stmtAlternativeEClass, STMT_ALTERNATIVE__GUARDS);
@@ -3488,6 +3498,7 @@ public class IrPackageImpl extends EPackageImpl implements IrPackage {
 		initEClass(caseStatementEClass, CaseStatement.class, "CaseStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCaseStatement_Alternatives(), this.getStmtAlternative(), null, "alternatives", null, 0, -1, CaseStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCaseStatement_Expression(), this.getExpression(), null, "expression", null, 0, 1, CaseStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCaseStatement_Default(), this.getStatement(), null, "default", null, 0, 1, CaseStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(stmtAlternativeEClass, StmtAlternative.class, "StmtAlternative", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getStmtAlternative_Guards(), this.getExpression(), null, "guards", null, 0, -1, StmtAlternative.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

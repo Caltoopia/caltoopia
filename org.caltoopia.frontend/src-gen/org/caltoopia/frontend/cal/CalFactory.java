@@ -536,15 +536,6 @@ public interface CalFactory extends EFactory
   AstSubPattern createAstSubPattern();
 
   /**
-   * Returns a new object of class '<em>Ast Pattern Expression If</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Ast Pattern Expression If</em>'.
-   * @generated
-   */
-  AstPatternExpressionIf createAstPatternExpressionIf();
-
-  /**
    * Returns a new object of class '<em>Ast Type</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

@@ -261,6 +261,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cases" upperBound="-1"
         eType="#//AstStatementAlternative" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="default" eType="#//AstStatement"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AstStatementAlternative">
     <eStructuralFeatures xsi:type="ecore:EReference" name="pattern" eType="#//AstPattern"
@@ -345,14 +347,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//AstExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="pattern" eType="#//AstPattern"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AstPatternExpressionIf">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//AstExpression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="then" eType="#//AstExpression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="else" eType="#//AstExpression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AstType">

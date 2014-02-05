@@ -5,6 +5,7 @@ package org.caltoopia.frontend.cal.impl;
 import java.util.Collection;
 
 import org.caltoopia.frontend.cal.AstExpressionSymbolReference;
+import org.caltoopia.frontend.cal.AstStatement;
 import org.caltoopia.frontend.cal.AstStatementAlternative;
 import org.caltoopia.frontend.cal.AstStatementCase;
 import org.caltoopia.frontend.cal.CalPackage;
@@ -31,6 +32,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstStatementCaseImpl#getExpression <em>Expression</em>}</li>
  *   <li>{@link org.caltoopia.frontend.cal.impl.AstStatementCaseImpl#getCases <em>Cases</em>}</li>
+ *   <li>{@link org.caltoopia.frontend.cal.impl.AstStatementCaseImpl#getDefault <em>Default</em>}</li>
  * </ul>
  * </p>
  *
@@ -57,6 +59,16 @@ public class AstStatementCaseImpl extends AstStatementImpl implements AstStateme
    * @ordered
    */
   protected EList<AstStatementAlternative> cases;
+
+  /**
+   * The cached value of the '{@link #getDefault() <em>Default</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDefault()
+   * @generated
+   * @ordered
+   */
+  protected AstStatement default_;
 
   /**
    * <!-- begin-user-doc -->
@@ -146,6 +158,54 @@ public class AstStatementCaseImpl extends AstStatementImpl implements AstStateme
    * <!-- end-user-doc -->
    * @generated
    */
+  public AstStatement getDefault()
+  {
+    return default_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetDefault(AstStatement newDefault, NotificationChain msgs)
+  {
+    AstStatement oldDefault = default_;
+    default_ = newDefault;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CalPackage.AST_STATEMENT_CASE__DEFAULT, oldDefault, newDefault);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDefault(AstStatement newDefault)
+  {
+    if (newDefault != default_)
+    {
+      NotificationChain msgs = null;
+      if (default_ != null)
+        msgs = ((InternalEObject)default_).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CalPackage.AST_STATEMENT_CASE__DEFAULT, null, msgs);
+      if (newDefault != null)
+        msgs = ((InternalEObject)newDefault).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CalPackage.AST_STATEMENT_CASE__DEFAULT, null, msgs);
+      msgs = basicSetDefault(newDefault, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CalPackage.AST_STATEMENT_CASE__DEFAULT, newDefault, newDefault));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -155,6 +215,8 @@ public class AstStatementCaseImpl extends AstStatementImpl implements AstStateme
         return basicSetExpression(null, msgs);
       case CalPackage.AST_STATEMENT_CASE__CASES:
         return ((InternalEList<?>)getCases()).basicRemove(otherEnd, msgs);
+      case CalPackage.AST_STATEMENT_CASE__DEFAULT:
+        return basicSetDefault(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -173,6 +235,8 @@ public class AstStatementCaseImpl extends AstStatementImpl implements AstStateme
         return getExpression();
       case CalPackage.AST_STATEMENT_CASE__CASES:
         return getCases();
+      case CalPackage.AST_STATEMENT_CASE__DEFAULT:
+        return getDefault();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -195,6 +259,9 @@ public class AstStatementCaseImpl extends AstStatementImpl implements AstStateme
         getCases().clear();
         getCases().addAll((Collection<? extends AstStatementAlternative>)newValue);
         return;
+      case CalPackage.AST_STATEMENT_CASE__DEFAULT:
+        setDefault((AstStatement)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -215,6 +282,9 @@ public class AstStatementCaseImpl extends AstStatementImpl implements AstStateme
       case CalPackage.AST_STATEMENT_CASE__CASES:
         getCases().clear();
         return;
+      case CalPackage.AST_STATEMENT_CASE__DEFAULT:
+        setDefault((AstStatement)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -233,6 +303,8 @@ public class AstStatementCaseImpl extends AstStatementImpl implements AstStateme
         return expression != null;
       case CalPackage.AST_STATEMENT_CASE__CASES:
         return cases != null && !cases.isEmpty();
+      case CalPackage.AST_STATEMENT_CASE__DEFAULT:
+        return default_ != null;
     }
     return super.eIsSet(featureID);
   }

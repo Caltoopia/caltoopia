@@ -204,6 +204,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="alternatives" upperBound="-1"
         eType="#//StmtAlternative"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//Expression"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="default" eType="#//Statement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StmtAlternative" eSuperTypes="#//Block">
     <eStructuralFeatures xsi:type="ecore:EReference" name="guards" upperBound="-1"

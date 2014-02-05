@@ -627,7 +627,7 @@ public class Util {
 			} else if (astObject instanceof AstProcedure) {
 				name = ((AstProcedure) astObject).getName() + " (procedure)";
 			}
-			defsprint();
+			// defsprint();
 			throw new RuntimeException("Internal error in findIrDeclaration for '" + name + "'");
 		}
 
@@ -787,6 +787,11 @@ public class Util {
 		}
 	}			
 	
+	/**
+	 *  Creates a guard function that will test on the Tags of the type of the expression
+	 *  and its subexpression and return true if all the tags match.  
+	 */
+	
 	public static Expression doPatternTypeGuards(Scope scope, AstPattern astPattern, Expression expr, AstType astType) {
 		
 		TagOf tagOf = IrFactory.eINSTANCE.createTagOf();
@@ -841,8 +846,55 @@ public class Util {
 			return tagOf;
 		}
 	}	
-		
-	private static Expression createAndExpression(Scope scope, List<Expression> expressions) {
+
+	/**
+	 *  Creates a guard function that will test on the implicit guard condition of 
+	 *  the expression and its subexpression and return true if all the tags match.  
+	 */
+	
+	public static void doPatternImplicitGuards(Scope scope, AstPattern astPattern, Expression expr, AstType astType, Expression repeat, List<Expression> result) {
+
+		for (AstSubPattern astSubPattern : astPattern.getSubpatterns()) {
+			String tag = astPattern.getTag();
+			
+			AstTypeUser astTypeUser = astType.getName();
+			AstTaggedTuple tt = null;
+			
+			for (AstTaggedTuple tmp :  astTypeUser.getTuples()) {
+				if (tmp.getName().equals(astPattern.getTag())) {
+					tt = tmp;
+				}
+			}
+			
+			int pos = astPattern.getSubpatterns().indexOf(astSubPattern);
+			String label;
+			if (astSubPattern.getLabel() != null) {
+				label = astSubPattern.getLabel();
+			} else {
+				label = tt.getFields().get(pos).getName();
+			}
+				
+			AstType astFieldType = tt.getFields().get(pos).getType();
+			Type fieldType = TypeConverter.convert(scope, astFieldType, false);
+			if (repeat != null) 
+				fieldType = TypeSystem.createTypeList(repeat, fieldType);
+					
+			TaggedTupleFieldRead fieldRead = Util.createTaggedTupleFieldRead(scope, expr, tag, label);
+			
+			if (astSubPattern.getCondition() != null) {
+				// Create condition 				
+				Expression value = CreateIrExpression.convert(scope, astSubPattern.getCondition());
+				Expression condition = Util.createBinaryExpression(scope, fieldRead, "=", value, TypeSystem.createTypeBool());
+				result.add(condition);
+				
+			} else if (astSubPattern.getPattern() != null) {
+				// Extract the value expression for the subpattern
+				doPatternImplicitGuards(scope, astSubPattern.getPattern(), fieldRead, astFieldType, repeat, result);
+			}						
+		}		
+	}
+	
+	static Expression createAndExpression(Scope scope, List<Expression> expressions) {
 		if (expressions.size() == 1) {
 			return expressions.get(0);
 		} else {
