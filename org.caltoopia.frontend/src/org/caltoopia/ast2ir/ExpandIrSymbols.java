@@ -60,6 +60,7 @@ import org.caltoopia.ir.Node;
 import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.TaggedTuple;
 import org.caltoopia.ir.Type;
+import org.caltoopia.ir.ForwardTypeDeclaration;
 import org.caltoopia.ir.TypeConstructorCall;
 import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeDeclarationImport;
@@ -111,6 +112,14 @@ public class ExpandIrSymbols {
 	    		decl.setScope(theNetwork);
 	    		return decl;
 	    	}
+
+            @Override
+            public Declaration caseForwardTypeDeclaration(ForwardTypeDeclaration type) {
+                ForwardTypeDeclaration decl = (ForwardTypeDeclaration) super.caseForwardTypeDeclaration(type);
+                setNamespace(decl,decl.getScope());
+                decl.setScope(theNetwork);
+                return decl;
+            }
 
 	    	@Override
 			public TaggedTuple caseTaggedTuple(TaggedTuple tuple) {

@@ -55,6 +55,7 @@ import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.FloatLiteral;
 import org.caltoopia.ir.ForEach;
 import org.caltoopia.ir.ForwardDeclaration;
+import org.caltoopia.ir.ForwardTypeDeclaration;
 import org.caltoopia.ir.FromSource;
 import org.caltoopia.ir.FunctionCall;
 import org.caltoopia.ir.Generator;
@@ -949,6 +950,12 @@ public class IrReplaceSwitch extends IrSwitch<EObject> {
 		
 		return typeDecl;
 	}
+
+    @Override
+    public Declaration caseForwardTypeDeclaration(ForwardTypeDeclaration decl) {
+        //TODO anyone every need to go deep in this?
+        return decl;
+    }
 
 	@Override
 	public Schedule caseSchedule(Schedule schedule) {
