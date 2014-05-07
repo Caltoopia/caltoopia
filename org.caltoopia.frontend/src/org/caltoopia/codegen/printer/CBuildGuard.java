@@ -152,6 +152,7 @@ public class CBuildGuard extends IrSwitch<Boolean> {
                     case peekVar:
                     case inPortPeekVar:
                     case inOutPortPeekVar:
+                    case guardInitPeekDepVar:
                         if(!printed.contains(d.getName())) {
                             printed.add(d.getName());
                             bodyStr += ind.ind() + (new CBuildVarDeclaration((Variable) d,cenv, false).toStr()) + ";" + ind.nl();
@@ -236,6 +237,10 @@ public class CBuildGuard extends IrSwitch<Boolean> {
                             bodyStr += ind.ind() + (new CBuildVarDeclaration((Variable) d,cenv, true).toStr()) + " = ";
                             bodyStr += new CBuildExpression(tt, cenv).toStr() + ";" + ind.nl();
                         }
+                        break;
+                    case guardInitPeekDepVar:
+                        bodyStr += ind.ind() + (new CBuildVarDeclaration((Variable) d,cenv, true).toStr()) + " = ";
+                        bodyStr += new CBuildExpression(((Variable)d).getInitValue(), cenv).toStr() + ";" + ind.nl();
                         break;
                     default:
                         break;

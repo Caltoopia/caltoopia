@@ -236,7 +236,8 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 		actionVar,
 		actionInitInDepVar,
 		syncVar, //The value of this input token is never used in the action
-		peekVar,
+        peekVar,
+        guardInitPeekDepVar,
 		inPortPeekVar, //Both read and peek
 		inPortVar,
 		inOutPortVar, //input var used on output directly
@@ -576,7 +577,12 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 					}
                 } else if(variable.getScope() instanceof Guard) {
                     //TODO check if we want to link with the separate decl in action of the same variable
-                    t = VarType.peekVar;
+                    //Guards can have peek variables or variables that are initialized to peek variables
+                    if(variable.getInitValue()==null) {
+                        t = VarType.peekVar;
+                    } else {
+                        t = VarType.guardInitPeekDepVar;
+                    }
 				} else if(variable.getScope() instanceof PortWrite) {
 					t = annotatePortVar(variable, currentAction);
 					if(t == VarType.unknown) {
