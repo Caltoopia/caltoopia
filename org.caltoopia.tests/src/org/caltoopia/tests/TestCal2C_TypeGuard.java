@@ -45,7 +45,7 @@ public class TestCal2C_TypeGuard {
 
 	@Test
 	public void test() {
-		String args[] = {"--top", "a.Top", 
+		String args[] = {"--top", "a.top", 
 				         "--path", Util.getCalAppsDir() + "TypeGuard" + ":" + Util.getCalAppsDir() + "System",
 				         "--output", Util.getOutputDir() + "TypeGuard",
 				         "--runtime", Util.getRuntimeDir()};
