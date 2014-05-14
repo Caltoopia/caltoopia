@@ -76,7 +76,7 @@ public class Util {
         if(env.containsKey("CALTOOPIA_RUNTIME_HOME")) {
             return env.get("CALTOOPIA_RUNTIME_HOME");
         } else {
-            return getRootDir() + "snow_actors_rts";
+            return getRootDir() + "../caltoopia-linux-runtime";
         }
     }
 
