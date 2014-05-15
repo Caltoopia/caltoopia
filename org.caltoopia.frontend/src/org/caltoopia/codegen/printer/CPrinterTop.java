@@ -578,6 +578,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
         s.println("AbstractActorInstance base;");
         
         s.println("int _fsmState;"); 
+        /***** Make sure struct definition, serialize and deserialize is kept in sync ******/
         for (Declaration d : actor.getDeclarations()) {
             VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
             switch(varType) {
@@ -601,6 +602,14 @@ public class CPrinterTop extends IrSwitch<Stream> {
 
         s.printlnDec("} " + actorId + ";");
         s.println();
+        
+        /* 
+         * Print serialize and deserialize of actor state functions.
+         */
+        s.println("#ifdef CAL_RT_CALVIN");
+        s.println(new CBuildActorStateSerialize(actor, true, cenv, null, thisStr).toStr());
+        s.println(new CBuildActorStateSerialize(actor, false, cenv, null, thisStr).toStr());
+        s.println("#endif");
         
         /*
          * Print actor local function declarations
@@ -789,6 +798,10 @@ public class CPrinterTop extends IrSwitch<Stream> {
         s.println(actorId + ",");
         s.println(actorId + "_constructor,");
         s.println("0, //setParam not needed anymore (we instantiate with params)");
+        s.println("#ifdef CAL_RT_CALVIN");
+        s.println(actorId + "_serialize,");
+        s.println(actorId + "_deserialize,");
+        s.println("#endif");
         s.println(thisStr + "_action_scheduler,");
         s.println("0, // no destructor");
         s.println(actor.getInputPorts().size() + ", inputPortDescriptions,");
