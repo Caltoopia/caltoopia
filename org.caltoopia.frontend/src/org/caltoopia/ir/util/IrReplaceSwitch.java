@@ -488,8 +488,10 @@ public class IrReplaceSwitch extends IrSwitch<EObject> {
         caze.setExpression(expr);
 
 	    //Visit the default expression
-        expr = (Expression) doSwitch(caze.getDefault());
-        caze.setDefault(expr);
+        if (caze.getDefault() != null) {
+        	expr = (Expression) doSwitch(caze.getDefault());
+        	caze.setDefault(expr);
+        }
         
         //Visit the expression alternatives
         List<ExprAlternative> alts = caze.getAlternatives();
