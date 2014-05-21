@@ -107,8 +107,8 @@ public class TypeAnnotater extends IrReplaceSwitch {
     public Expression caseCaseExpression(CaseExpression caze) {
         super.caseCaseExpression(caze);
         if(caze.getType()==null) {
-            //Try the default expression type
-            Type type = caze.getDefault().getType();
+            //Take the type of the first alternative expression
+            Type type = caze.getAlternatives().get(0).getExpression().getType();
             Type typeA = null;
             //If list need to check that all the alternatives have the same (deep) length
             if(TypeSystem.isList(type)) {
@@ -116,7 +116,7 @@ public class TypeAnnotater extends IrReplaceSwitch {
                 Stack<Expression> szAll = new Stack<Expression>();
                 for(ExprAlternative alt : caze.getAlternatives()) {
                     typeA = alt.getExpression().getType();
-                    type = caze.getDefault().getType();
+                    type = caze.getAlternatives().get(0).getExpression().getType();
                     Stack<Expression> sz = new Stack<Expression>();
                     if(type != null && typeA != null) {
                         while(type instanceof TypeList) {
@@ -149,7 +149,7 @@ public class TypeAnnotater extends IrReplaceSwitch {
                     }
                 }
                 if(equal) {
-                    type = caze.getDefault().getType();
+                    type = caze.getAlternatives().get(0).getExpression().getType();
                 } else {
                     //Not equal size of lists, build new type with some null sizes
                     while(!szAll.isEmpty()) {
