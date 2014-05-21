@@ -504,12 +504,15 @@ public class ExprToTempVar extends IrReplaceSwitch {
             target.setScope(scope);
             TransUtil.setAnnotation(target, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
             declarations.add(target);
-            //First assign the default expression before case, 
+            //First assign the default expression before case if exist, 
             //since in CAL all expressions should be side effect free
-            Assign assign = UtilIR.createAssignN(scope, target, expr.getDefault());
-            TransUtil.setAnnotation(assign, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
-            statements.add(pos+inserts, assign);
-            inserts++;
+            Assign assign = null;
+            if(expr.getDefault()!=null) {
+                assign = UtilIR.createAssignN(scope, target, expr.getDefault());
+                TransUtil.setAnnotation(assign, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
+                statements.add(pos+inserts, assign);
+                inserts++;
+            }
             CaseStatement caze = IrFactory.eINSTANCE.createCaseStatement();
             caze.setId(Util.getDefinitionId());
             caze.setExpression(expr.getExpression());
