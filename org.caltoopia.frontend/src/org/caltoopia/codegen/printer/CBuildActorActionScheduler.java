@@ -141,8 +141,6 @@ public class CBuildActorActionScheduler extends IrSwitch<Boolean> {
             }
         }
     
-        if(initialToken)
-            schedStr += ind.ind() + ("static int initializers_have_run=0;") + ind.nl();
         //TODO This should be one per port and we should point to the correct one when blocking instead of this Any
         schedStr += ind.ind() + ("static const int exitcode_block_Any[3]={1,0,1};") + ind.nl();
         schedStr += ind.ind() + ("ART_ACTION_SCHEDULER(" + thisStr + "_action_scheduler) {") + ind.nl();
@@ -151,9 +149,9 @@ public class CBuildActorActionScheduler extends IrSwitch<Boolean> {
         schedStr += ind.ind() + ("ActorInstance_" + thisStr + " *thisActor=(ActorInstance_" + thisStr + "*) pBase;") + ind.nl();
         schedStr += ind.ind() + ("ART_ACTION_SCHEDULER_ENTER(" + actor.getInputPorts().size() + ", " + actor.getOutputPorts().size() + ")") + ind.nl();
         if(initialToken) {
-            schedStr += ind.ind() + ("if(!initializers_have_run) {") + ind.nl();
+            schedStr += ind.ind() + ("if(!thisActor->_initializers_have_run) {") + ind.nl();
             ind.inc();
-            schedStr += ind.ind() + ("initializers_have_run=1;") + ind.nl();
+            schedStr += ind.ind() + ("thisActor->_initializers_have_run=1;") + ind.nl();
             for(Action a : actor.getInitializers()) {
                 if(!a.getOutputs().isEmpty())
                     schedStr += ind.ind() + ("ART_FIRE_ACTION(" + a.getId() + ");") + ind.nl();

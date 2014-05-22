@@ -577,7 +577,8 @@ public class CPrinterTop extends IrSwitch<Stream> {
         s.printlnInc("typedef struct {");
         s.println("AbstractActorInstance base;");
         
-        s.println("int _fsmState;"); 
+        s.println("int _fsmState;");
+        s.println("int _initializers_have_run;");
         /***** Make sure struct definition, serialize and deserialize is kept in sync ******/
         for (Declaration d : actor.getDeclarations()) {
             VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
@@ -857,7 +858,9 @@ public class CPrinterTop extends IrSwitch<Stream> {
         } else if(!actor.getSchedule().getStates().isEmpty()){
             s.println("thisActor->_fsmState = " + actorId + "__" + actor.getSchedule().getStates().get(0).getName() + "_ID;//First state"); 
         }
-
+        
+        s.println("thisActor->_initializers_have_run = 0;");
+        
         //Initialize all the constants that are not c compiler constant
         inConstructor = true;
         for (Declaration d : actor.getDeclarations()) {
