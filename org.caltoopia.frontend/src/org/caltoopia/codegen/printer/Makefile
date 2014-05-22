@@ -25,6 +25,7 @@ LDLIBS += `pkg-config --libs sdl`
 CFLAGS += `pkg-config --cflags sdl`
 endif
 ACTOROBJS=$(ACTORS:.c=.so)
+CALVINCFLAGS +=  -D_XOPEN_SOURCE
 endif
 ifeq ($(TARGET), mac)
 ifeq ($(SDL), y)

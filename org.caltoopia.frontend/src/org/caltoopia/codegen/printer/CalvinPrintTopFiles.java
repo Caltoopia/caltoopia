@@ -209,7 +209,16 @@ public class CalvinPrintTopFiles {
 
         s.println("# " + baseName);
         s.println("import calvin");
+        s.println("import sys");
+        s.println("run_test = 0");
+        s.println("if len(sys.argv) > 1:");
+        s.println("  try:");
+        s.println("    run_test = int(sys.argv[1])");
+        s.println("  except ValueError:");
+        s.println("    run_test = 0");
         s.println("l = calvin.Node(\"localhost\", 9000, True)");
+        //s.println("if run_test == 2:");
+        //s.println("  k = calvin.Node(\"localhost\", 9001, True)");
         /*
          *  LOAD the actors
          */
@@ -225,6 +234,8 @@ public class CalvinPrintTopFiles {
                 //Only new ones are defined
                 if(!artClasses.contains(actorClassName)) {
                     s.println("l.load(\"./" + actorClassName+"\")");
+                    //s.println("if run_test == 2:");
+                    //s.println("  k.load(\"./" + actorClassName+"\")");
                     artClasses.add(actorClassName);
                 }
             }
@@ -248,6 +259,7 @@ public class CalvinPrintTopFiles {
                 actorClassName = actorInstanceName; 
             }
             s.print(actorInstanceName + " = l.new(\"" + actorClassName + "\", \"" + actorInstanceName + "\"");
+            String test2Str=("  " +actorInstanceName + "_k = k.new(\"" + actorClassName + "\", \"" + actorInstanceName + "_k\"");
             actorInstanceStr += actorInstanceName +",";
             AbstractActor aactor = null;
             try {
@@ -258,12 +270,17 @@ public class CalvinPrintTopFiles {
             if(type.getName().startsWith("art_") || aactor instanceof ExternalActor) {
                 for(TaggedExpression param : actor.getActualParameters()) {
                     s.print(", " + param.getTag() + "=");
+                    test2Str += (", " + param.getTag() + "=");
                     //FIXME now we only support strings as parameter input and hence must be literal, so this goes wrong if it is a function call or variable
                     //Usually the constant expression evaluator have reduced it to a literal, but it is not possible for external declared functions etc.
                     s.print(new CBuildExpression(param.getExpression(), cenv).toStr());
+                    test2Str += (new CBuildExpression(param.getExpression(), cenv).toStr());
                 }
             }
             s.println(")");
+            test2Str += ")";
+            //s.println("if run_test == 2:");
+            //s.println(test2Str);
         }
 
         //CONNECT all the ports
@@ -285,6 +302,14 @@ public class CalvinPrintTopFiles {
         s.println("actors = ("+actorInstanceStr + ")");
         s.println("for actor in actors:");
         s.println("  actor.enable()");
+        s.println("if run_test in (1,2):");
+        s.println("  for actor in actors:");
+        s.println("    actor.disable()");
+        s.println("    state = actor.serialize()");
+        //s.println("    if run_test == 2:");
+        //s.println("      actor.destroy()");
+        s.println("    actor.deserialize(state)");
+        s.println("    actor.enable()");
         s.close();
 
     }

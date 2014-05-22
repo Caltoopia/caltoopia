@@ -162,6 +162,7 @@ public class CBuildActorStateSerialize extends IrSwitch<Boolean> {
             stateStr += ind.ind() + "CoderState *state = coder->init(coder);" + ind.nl();
             stateStr += ind.ind() + "coder->encode(coder, state, \"class\", (void *)&actorClass->name, \"s\");" + ind.nl();
             stateStr += ind.ind() + "coder->encode(coder, state, \"_fsmState\", &this->_fsmState, \"i\");" + ind.nl();
+            stateStr += ind.ind() + "coder->encode(coder, state, \"_initializers_have_run\", &this->_initializers_have_run, \"i\");" + ind.nl();
             /***** Make sure struct definition, serialize and deserialize is kept in sync ******/
             for (Declaration d : actor.getDeclarations()) {
                 VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
@@ -199,7 +200,7 @@ public class CBuildActorStateSerialize extends IrSwitch<Boolean> {
                     stateStr += ind.ind() + "buffer = coder->encode_struct(coder, port, \"buffer\");" + ind.nl();
                     stateStr += ind.ind() + "output = output_port_array_get(actor->outputPort, "+i+");" + ind.nl();
                     stateStr += ind.ind() + "consumer = output_port_first_consumer(output);" + ind.nl();
-                    stateStr += ind.ind() + "if (!consumer) fail(\"No consumer connected\");" + ind.nl();
+                    stateStr += ind.ind() + "if (!consumer) m_critical(\"No consumer connected\");" + ind.nl();
                     String typeStr = new CBuildTypeName(port.getType(),new CPrintUtil.dummyCB(),false).toStr();
                     stateStr += ind.ind() + typeStr + "* " + port.getName() + "_end = (" + typeStr + "*)output_port_buffer_end(output);" + ind.nl();
                     stateStr += ind.ind() + typeStr + "* " + port.getName() + "_write = (" + typeStr + "*)output_port_write_ptr(output);" + ind.nl();
@@ -233,6 +234,7 @@ public class CBuildActorStateSerialize extends IrSwitch<Boolean> {
             //stateStr += ind.ind() + "const ActorClass *actorClass = actor->actorClass;" + ind.nl();
             stateStr += ind.ind() + "CoderState *state = coder->init(coder);" + ind.nl();
             stateStr += ind.ind() + "coder->decode(coder, state, \"_fsmState\", (void*)&this->_fsmState, \"i\");" + ind.nl();
+            stateStr += ind.ind() + "coder->decode(coder, state, \"_initializers_have_run\", (void*)&this->_initializers_have_run, \"i\");" + ind.nl();
             /***** Make sure struct definition, serialize and deserialize is kept in sync ******/
             for (Declaration d : actor.getDeclarations()) {
                 VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
@@ -262,7 +264,6 @@ public class CBuildActorStateSerialize extends IrSwitch<Boolean> {
                 stateStr += ind.ind() + "CoderState *port;" + ind.nl();
                 stateStr += ind.ind() + "CoderState *buffer;" + ind.nl();
                 stateStr += ind.ind() + "OutputPort *output;" + ind.nl();
-                stateStr += ind.ind() + "InputPort *consumer;" + ind.nl();
                 stateStr += ind.ind() + "int count,len;" + ind.nl();
                 int i=0;
                 for(Port port: actor.getOutputPorts()) {
@@ -287,14 +288,6 @@ public class CBuildActorStateSerialize extends IrSwitch<Boolean> {
                     ind.dec();
                     stateStr += ind.ind() + "}" + ind.nl();
                     stateStr += ind.ind() + "output_port_set_write_ptr(output, "+ port.getName() + "_write);" + ind.nl();
-                    i++;
-                }
-                i=0;
-                for(Port port: actor.getInputPorts()) {
-                    stateStr += ind.ind() + "consumer = input_port_array_get(actor->inputPort, "+i+");"+ ind.nl();
-                    stateStr += ind.ind() + "output = input_port_as_consumer(consumer);"+ ind.nl();
-                    //FIXME this must be wrong!!! Why would the read ptr be one behind write? What happens when FIFO empty?
-                    stateStr += ind.ind() + "input_port_set_read_ptr(consumer, output_port_write_ptr(output)-1);"+ ind.nl();
                     i++;
                 }
             }
