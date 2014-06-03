@@ -197,7 +197,7 @@ public class CBuildActorStateSerialize extends IrSwitch<Boolean> {
                 int i=0;
                 for(Port port: actor.getOutputPorts()) {
                     stateStr += ind.ind() + "port = coder->encode_struct(coder, ports, \""+port.getName() + "\");" + ind.nl();
-                    stateStr += ind.ind() + "buffer = coder->encode_struct(coder, port, \"buffer\");" + ind.nl();
+                    stateStr += ind.ind() + "buffer = coder->encode_array(coder, port, \"buffer\");" + ind.nl();
                     stateStr += ind.ind() + "output = output_port_array_get(actor->outputPort, "+i+");" + ind.nl();
                     stateStr += ind.ind() + "consumer = output_port_first_consumer(output);" + ind.nl();
                     stateStr += ind.ind() + "if (!consumer) m_critical(\"No consumer connected\");" + ind.nl();
@@ -268,7 +268,7 @@ public class CBuildActorStateSerialize extends IrSwitch<Boolean> {
                 int i=0;
                 for(Port port: actor.getOutputPorts()) {
                     stateStr += ind.ind() + "port = coder->decode_struct(coder, ports, \""+port.getName() + "\");" + ind.nl();
-                    stateStr += ind.ind() + "buffer = coder->decode_struct(coder, port, \"buffer\");" + ind.nl();
+                    stateStr += ind.ind() + "buffer = coder->decode_array(coder, port, \"buffer\");" + ind.nl();
                     stateStr += ind.ind() + "coder->decode(coder, port, \"length\", &len, \"i\");" + ind.nl();
                     stateStr += ind.ind() + "output = output_port_array_get(actor->outputPort, "+i+");" + ind.nl();
                     String typeStr = new CBuildTypeName(port.getType(),new CPrintUtil.dummyCB(),false).toStr();
