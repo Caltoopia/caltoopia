@@ -44,6 +44,7 @@ import java.util.Map;
 import java.util.Set;
 import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.cli.DirectoryException;
+import org.caltoopia.ir.ActorInstance;
 import org.caltoopia.ir.Annotation;
 import org.caltoopia.ir.AnnotationArgument;
 import org.caltoopia.ir.Declaration;
@@ -58,6 +59,7 @@ import org.caltoopia.ir.Namespace;
 import org.caltoopia.ir.Network;
 import org.caltoopia.ir.Node;
 import org.caltoopia.ir.Scope;
+import org.caltoopia.ir.TaggedExpression;
 import org.caltoopia.ir.TaggedTuple;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.ForwardTypeDeclaration;
@@ -249,6 +251,57 @@ public class ExpandIrSymbols {
 			}
 		}
 
+	    class actorParamTypeDeclarationImportReplace extends IrReplaceSwitch {
+	        Set<IrDeclVertex> subset = new HashSet<IrDeclVertex>();
+
+            @Override
+	        public Network caseNetwork(Network network) {
+	            subset.clear();
+	            for(ActorInstance a: network.getActors()) {
+	                caseActorInstance(a);
+	            }
+                return network;
+	        }
+	        
+            @Override
+	        public ActorInstance caseActorInstance(ActorInstance actor) {
+	            for(TaggedExpression e: actor.getActualParameters()) {
+	                e.setExpression((Expression) doSwitch(e.getExpression()));
+	            }
+	            return actor;
+	        }
+
+	        @Override
+	        public Type caseTypeUser(TypeUser type) {
+                type.setDeclaration((Declaration) doSwitch(type.getDeclaration()));
+	            return type;
+	        }
+
+            @Override
+            public Declaration caseTypeDeclarationImport(TypeDeclarationImport decl) {
+                try {
+                        Declaration newDecl = ActorDirectory.findTypeDeclaration(decl, true);
+                        //Change scope to network due to this is the new home of the declaration
+                        new scopeReplace().doSwitch(newDecl);
+                        //imported.put(decl, newDecl);
+                        new innerTypeDeclarationImportReplace().doSwitch(newDecl);
+                        //subset.add(new IrDeclVertex(newDecl));
+                        return newDecl;
+                } catch (DirectoryException x) {
+                        System.err.println("[ExpandIrSymbols] Internal error #0");
+                        return decl;
+                }
+            }
+            
+            public Set<IrDeclVertex> getSubset() {
+                return subset;
+            }
+	    }
+	    
+	    actorParamTypeDeclarationImportReplace paramReplace = new actorParamTypeDeclarationImportReplace();
+	    paramReplace.doSwitch(network);
+	    added.addAll(paramReplace.getSubset());
+	    
 	    for (Declaration decl : network.getDeclarations()) {
 			
 			try {

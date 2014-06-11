@@ -191,4 +191,59 @@ public class TypeMatchDeclaration extends IrReplaceSwitch {
 		}
 		return super.caseTypeUser(type);
 	}
+	
+    @Override
+    public Declaration caseTypeDeclarationImport(TypeDeclarationImport decl) {
+        Declaration real = decl;
+        if(topnetwork) {
+            if(decl instanceof TypeDeclarationImport) {
+                try {
+                    real = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) decl,false);
+                } catch (DirectoryException e) {
+                    System.err.println("[TypeMatchDeclaration] Internal Error #3 - could not find type declaration import " + decl.getName());
+                }
+            }
+        }
+        return real;
+    }
+
+    @Override
+    public Declaration caseTypeDeclaration(TypeDeclaration decl) {
+        Declaration imported = decl;
+        if(!topnetwork) {
+            //Replace any direct declarations with import declarations
+            String id = decl.getId();
+            Declaration typeImport = null;
+            for(Declaration d: imports.keySet()) {
+                if(d.getId().equals(id)) {
+                    typeImport = imports.get(d);
+                    break;
+                }
+            }
+            if(typeImport!=null) {
+                imported = typeImport;
+                if(debugPrint) {
+                    System.out.println("[TypeMatchDeclaration] Replace direct " +
+                            imported.getId()+ " " +
+                            imported.getName());
+                }
+            }
+            if(imported instanceof TypeDeclarationImport
+                    && !imports.containsValue(imported)) {
+                for(TypeDeclarationImport d: imports.values()) {
+                    if(imported.getName().equals(d.getName())) {
+                        imported = d;
+                        if(debugPrint) {
+                            System.out.println("[TypeMatchDeclaration] Replace import " + 
+                                    imported.getId()+ " " +
+                                    imported.getName());
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        return imported;
+    }
+
 }

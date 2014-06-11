@@ -49,14 +49,15 @@ import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.util.IrReplaceSwitch;
 import org.caltoopia.types.TypeAnnotater;
 import org.caltoopia.types.TypeMatchDeclaration;
+import org.caltoopia.codegen.transformer.FixMovedExpr;
 
 public class Instantiator {
 
 	static List<TaggedExpression> parameters;  
 	
-	static public AbstractActor instantiate(ActorInstance actorInstance, Scope environment) {
+	static public AbstractActor instantiate(ActorInstance actorInstance, final Scope environment) {
 
-		AbstractActor actor;
+		final AbstractActor actor;
 		try {
 			actor = (AbstractActor) ActorDirectory.findActor((TypeActor) actorInstance.getType());
 		} catch (DirectoryException x) {
@@ -73,6 +74,7 @@ public class Instantiator {
 					for (TaggedExpression param : parameters) {
 						if (param.getTag().equals(variable.getName())) {
 							variable.setInitValue(param.getExpression());
+							FixMovedExpr.moveScope(variable.getInitValue(), actor, environment, false);
 							return variable;
 						}
 					}

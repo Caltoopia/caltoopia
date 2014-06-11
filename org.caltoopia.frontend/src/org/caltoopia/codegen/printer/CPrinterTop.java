@@ -910,6 +910,7 @@ public class CPrinterTop extends IrSwitch<Stream> {
             s.println(";");
             break;
         case actorVar:
+        case actorParamVar:
             s.print(new CBuildVarDeclaration(variable,cenv,false).toStr());
             s.println(";");
             break;
