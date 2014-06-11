@@ -451,6 +451,7 @@ public class CPrinterCommon extends IrSwitch<Stream> {
             s.println(";");
             break;
         case actorVar:
+        case actorParamVar:
             s.print(new CBuildVarDeclaration(variable,cenv,false).toStr());
             s.println(";");
             break;

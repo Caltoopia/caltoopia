@@ -341,6 +341,7 @@ public class CBuildVarReference extends IrSwitch<Boolean> {
         //create prefix string to variable dependent on classification
         switch(varType) {
         case actorVar:
+        case actorParamVar:
         case actorNonLitConstVar:
             refStr += ("thisActor->");
             break;

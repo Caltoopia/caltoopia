@@ -121,6 +121,7 @@ public class StmtAlternativeTrans extends IrReplaceSwitch {
         if(condition!=null) {
             Block block = UtilIR.createBlock(alt);
             block.getStatements().addAll(alt.getStatements());
+            TransUtil.setAnnotation(block, "caseAlternative", "finished", "true");
             alt.getStatements().clear();
             UtilIR.createIf(alt, condition, block, null);
         }

@@ -42,6 +42,8 @@ import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.cli.DirectoryException;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.Expression;
+import org.caltoopia.ir.ForwardDeclaration;
+import org.caltoopia.ir.ForwardTypeDeclaration;
 import org.caltoopia.ir.IrFactory;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
@@ -188,6 +190,9 @@ public class TypeSystem {
 			return (TypeTuple) t;
 		} else if (t instanceof TypeUser) {
 			Declaration typeDecl = ((TypeUser) t).getDeclaration();
+            if (typeDecl instanceof ForwardTypeDeclaration) {
+                typeDecl = ((ForwardTypeDeclaration) typeDecl).getDeclaration();
+            }
 			if (typeDecl instanceof TypeDeclarationImport) {
 				try {
 					typeDecl = ActorDirectory.findTypeDeclaration((TypeDeclarationImport) typeDecl, true);

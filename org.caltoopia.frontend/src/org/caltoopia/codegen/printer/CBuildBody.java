@@ -205,6 +205,9 @@ public class CBuildBody extends IrSwitch<Boolean> {
         if(ret!=null) {
             bodyStr += new CBuildStatement(ret, cenv, ind,true,block).toStr();
         }
+        if(TransUtil.getAnnotationArg(block, "caseAlternative", "finished").equals("true")) {
+            bodyStr += ind.ind() + ("break;") + ind.nl();
+        }
         ind.dec();
         bodyStr += ind.ind() + ("}") + ind.nl();
         leave();

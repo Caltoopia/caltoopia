@@ -39,13 +39,13 @@ import ART.art_Sink_txt;
 
     type T1 : A(int x, float y) | B end
 
-    actor b() T1 i ==> T1 o, int p:
+    actor b(T1 init) T1 i ==> T1 o, int p:
     
         initialize ==> o:[oo]
         var
             T1 oo
         do
-            oo:=T1::A(0,0.0);
+            oo:=init;
         end
 
         bool done := false;
@@ -78,7 +78,7 @@ import ART.art_Sink_txt;
     
     network top() ==>:
     entities
-        f = b();
+        f = b(init = T1::A(0,0.0));
         print=art_Sink_txt(fileName = "./output/caseTest.txt");
         
     structure
