@@ -56,6 +56,7 @@ import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.FloatLiteral;
 import org.caltoopia.ir.ForEach;
 import org.caltoopia.ir.ForwardDeclaration;
+import org.caltoopia.ir.ForwardTypeDeclaration;
 import org.caltoopia.ir.FunctionCall;
 import org.caltoopia.ir.Generator;
 import org.caltoopia.ir.IfStatement;
@@ -567,16 +568,20 @@ public class UtilIR {
 	
 	static public TypeDeclaration getTypeDeclaration(Type type) {
 		if(type instanceof TypeUser) {
-			if( ((TypeUser) type).getDeclaration() instanceof TypeDeclarationImport) {
-				TypeDeclarationImport imp = (TypeDeclarationImport)((TypeUser) type).getDeclaration();
+		    Declaration typeDecl = ((TypeUser) type).getDeclaration();
+            if (typeDecl instanceof ForwardTypeDeclaration) {
+                typeDecl = ((ForwardTypeDeclaration) typeDecl).getDeclaration();
+            }
+			if( typeDecl instanceof TypeDeclarationImport) {
+				TypeDeclarationImport imp = (TypeDeclarationImport)typeDecl;
 				try {
 					TypeDeclaration decl = ActorDirectory.findTypeDeclaration(imp,false);
 					return decl;
 				} catch (DirectoryException x) {
 					System.err.println("[UtilIR] Internal Error - getDeclaration");
 				}
-			} else if( ((TypeUser) type).getDeclaration() instanceof TypeDeclaration) {
-				return (TypeDeclaration) ((TypeUser) type).getDeclaration();
+			} else if( typeDecl instanceof TypeDeclaration) {
+				return (TypeDeclaration) typeDecl;
 			}
 		}
 		System.err.println("This was not a TypeUser type! " + type.toString());
