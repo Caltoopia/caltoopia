@@ -908,12 +908,13 @@ public class TypeConverter extends CalSwitch<Type> {
 		if (!approximate) {
 			ForwardTypeDeclaration forwardTypeDeclaration = (ForwardTypeDeclaration) Util.findIrDeclaration(astTypeUser);
 			forwardTypeDeclaration.setDeclaration(typeDecl);
-		}
+			Util.defsput(astTypeUser, forwardTypeDeclaration);
+        } else {
+            Util.defsput(astTypeUser, typeDecl);
+        }
 		
 		TypeTuple tupleType = IrFactory.eINSTANCE.createTypeTuple();
 		tupleType.setId(Util.getDefinitionId());
-		
-		Util.defsput(astTypeUser, typeDecl);
 		
 		for (AstTypeDefinitionParameter param : astTypeUser.getParameters()) {
 			if (param.getType() != null) {
