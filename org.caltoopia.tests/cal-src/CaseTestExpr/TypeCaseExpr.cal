@@ -41,11 +41,7 @@ import ART.art_Sink_txt;
 
     actor b() T1 i ==> T1 o, int p:
     
-        initialize ==> o:[oo]
-        var
-            T1 oo
-        do
-            oo:=T1::A(0,0.0);
+        initialize ==> o:[T1::A(0,0.0)]
         end
 
         bool done := false;

@@ -51,9 +51,11 @@ import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.codegen.transformer.FixMovedExpr;
 import org.caltoopia.codegen.transformer.IrTransformer;
 import org.caltoopia.codegen.transformer.IrTransformer.IrPassTypes;
+import org.caltoopia.codegen.transformer.TransUtil.HowLiteral;
 import org.caltoopia.codegen.transformer.TransUtil;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarAssign;
+import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarLocalAccess;
 import org.caltoopia.codegen.transformer.analysis.IrVariableAnnotation.VarType;
 import org.caltoopia.codegen.transformer.analysis.IrVariablePlacementAnnotation.VarPlacement;
 import org.caltoopia.ir.AbstractActor;
@@ -65,6 +67,7 @@ import org.caltoopia.ir.AnnotationArgument;
 import org.caltoopia.ir.Assign;
 import org.caltoopia.ir.Block;
 import org.caltoopia.ir.Declaration;
+import org.caltoopia.ir.Expression;
 import org.caltoopia.ir.ExternalActor;
 import org.caltoopia.ir.IrFactory;
 import org.caltoopia.ir.LambdaExpression;
@@ -128,6 +131,23 @@ public class PortTransformations extends IrReplaceSwitch {
             for(Statement s:write.getStatements()) {
                 FixMovedExpr.moveScope(s, action, write, false);
                 action.getStatements().add(s);
+            }
+
+            for(int i=0;i<write.getExpressions().size();i++) {
+                Expression e = write.getExpressions().get(i);
+                HowLiteral h = TransUtil.isLiteralExpression(e);
+                if(!(e instanceof VariableExpression) && !h.builtin) {
+                    Variable target = UtilIR.createVarDef(null, "__temp_" + e.getId(), e.getType());
+                    target.setScope(action);
+                    TransUtil.setAnnotation(target, "Variable", "VarType", VarType.outPortVar.name());
+                    action.getDeclarations().add(target);
+                    Scope scope = e.getContext();
+                    FixMovedExpr.moveScope(e, action, e.getContext(), false);
+                    Assign newAssign = UtilIR.createAssignN(action, target, e);
+                    TransUtil.setAnnotation(newAssign, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
+                    action.getStatements().add(newAssign);
+                    write.getExpressions().set(i,UtilIR.createExpression(scope, target));
+                }
             }
         }
         return action;
