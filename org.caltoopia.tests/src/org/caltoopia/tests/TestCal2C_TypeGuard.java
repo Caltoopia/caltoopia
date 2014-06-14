@@ -48,7 +48,7 @@ public class TestCal2C_TypeGuard {
 		String args[] = {"--top", "a.top", 
 				         "--path", Util.getCalAppsDir() + "TypeGuard" + ":" + Util.getCalAppsDir() + "System",
 				         "--output", Util.getOutputDir() + "TypeGuard",
-				         "--runtime", Util.getRuntimeDir()};
+				         "--runtime", Util.getRuntimeDir(), "--clean"};
 		CompilationSession session = null;
 		try {
 			session = Cal2C.compile(args);

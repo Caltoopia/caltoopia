@@ -48,7 +48,7 @@ public class TestCal2C_TypeTester1 {
 		String args[] = {"--top", "TypeTester.Test1", 
 				         "--path", Util.getCalAppsDir() + "TypeTester" + ":" + Util.getCalAppsDir() + "System",
 				         "--output", Util.getOutputDir() + "TypeTester",
-				         "--runtime", Util.getRuntimeDir()};
+				         "--runtime", Util.getRuntimeDir(), "--clean"};
 		CompilationSession session = null;
 		try {
 			session = Cal2C.compile(args);

@@ -48,7 +48,7 @@ public class TestCal2C_RVC {
 		String args[] = {"--top", "RVC.decoderTest", 
 				         "--path", Util.getCalAppsDir() + "RVC_MPEG4_SP_Decoder" + ":" + Util.getCalAppsDir() + "System",
 				         "--output", Util.getOutputDir() + "RVC_MPEG4_SP_Decoder",
-				         "--runtime", Util.getRuntimeDir()};
+				         "--runtime", Util.getRuntimeDir(), "--clean"};
 		CompilationSession session = null;
 		try {
 			session = Cal2C.compile(args);

@@ -48,7 +48,7 @@ public class TestCal2C_CaseTestExpr {
 		String args[] = {"--top", "a.top", 
 				         "--path", Util.getCalAppsDir() + "CaseTestExpr" + ":" + Util.getCalAppsDir() + "System",
 				         "--output", Util.getOutputDir() + "CaseTestExpr",
-				         "--runtime", Util.getRuntimeDir()};
+				         "--runtime", Util.getRuntimeDir(), "--clean"};
 		CompilationSession session = null;
 		try {
 			session = Cal2C.compile(args);
