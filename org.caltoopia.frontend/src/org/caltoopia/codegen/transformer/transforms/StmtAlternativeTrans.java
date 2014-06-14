@@ -126,7 +126,7 @@ public class StmtAlternativeTrans extends IrReplaceSwitch {
             UtilIR.createIf(alt, condition, block, null);
         }
         
-        return alt;
+        return super.caseStmtAlternative(alt);
     }
         
     @Override
