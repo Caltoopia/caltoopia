@@ -665,13 +665,13 @@ public class CPrinterCommon extends IrSwitch<Stream> {
                                     "src->members." + tag + member + ".sz[2]," + 
                                     "src->members." + tag + member + ".sz[3]" + 
                                 "}});");
-                    } else if(UtilIR.isSingleTagTuple(var.getType())) {
+                    } else if(UtilIR.isTuple(var.getType())) {
                         //Go deep into a user typed member
-                        //FIXME this is not correct
                         String member = new CBuildVarDeclaration(var,cenv,true).toStr();
+                        s.println("(*dst)->members." + tag + member + " = NULL;");
                         s.println("copyStruct" + new CBuildTypeName(var.getType(), new CPrintUtil.dummyCB(), false).asNameStr() + 
                                 "(&(*dst)->members." + tag + member + 
-                                ",&src->members." + tag + member + 
+                                ",src->members." + tag + member + 
                                 ");");
                     }
                 }
