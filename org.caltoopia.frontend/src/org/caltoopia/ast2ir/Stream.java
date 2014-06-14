@@ -47,7 +47,9 @@ public class Stream {
 	
 	//PrintStream printStream = new PrintStream(outputStream);
 	
-	PrintStream printStream = System.out;
+    PrintStream printStream = System.out;
+    PrintStream so = System.out;
+    boolean debug = false;
 	
 	private Indent indent = new Indent();
 
@@ -94,6 +96,14 @@ public class Stream {
 		}
 		
 	}
+    public Stream(String outputFile,boolean debug) {
+        this(outputFile);
+        if(debug) {
+            this.debug = true;
+            so.println(">>>||| " + outputFile + " |||<<<");
+            so.print(">>>");
+        }
+    }
 	public Stream() {
 		printStream = System.out;
 	}
@@ -118,25 +128,30 @@ public class Stream {
 	
 	public void print(String s) {
 		if (newline) {
-			printStream.println();
+            printStream.println();
+            if(debug) so.println();
 			printIndent();
 			newline = false;
 		}		
 		printStream.print(s);
+        if(debug) so.print(s);
 	}
 
 	public void println(String s) {
 		if (newline) {
 			printStream.println();
+            if(debug) so.println();
 			printIndent();
 		}		
 		printStream.print(s);
+        if(debug) so.print(s);
 		newline = true;
 	}
 	
 	public void println() {
 		if (newline) {
 			printStream.println();
+            if(debug) so.println();
 			printIndent();
 		}		
 		newline = true;
@@ -145,6 +160,7 @@ public class Stream {
 	
 	public void printlnLast(String s) {
 		printStream.print(s + "\n");
+        if(debug) so.print(s + "\n");
 		inc();
 		printIndent();
 	}
@@ -160,35 +176,43 @@ public class Stream {
 	}
 	
 	public void printLeft() {
-		printStream.print("(");
+        printStream.print("(");
+        if(debug) so.print("(");
 	}
 
 	public void printRight() {
 		printStream.print(")");
+        if(debug) so.print(")");
 	}
 	
 	public void printSpace() {
 		printStream.print(" ");
+        if(debug) so.print(" ");
 	}
 
 	public void printIndent() {
 		printStream.print(indent.blanks());
+        if(debug) so.print(">>>"+indent.blanks());
 	}
 
 	public void printComma() {
 		printStream.print(", ");
+        if(debug) so.print(", ");
 	}
 
 	public void printSemiColonEnd() {
 		printStream.print(";\n");
+        if(debug) so.print(";\n");
 	}
 	
 	public void printColon() {
 		printStream.print(" : ");
+        if(debug) so.print(" : ");
 	}
 	
 	public void close() {
 		printStream.close();
+        if(debug) so.println();
 	}
 
 }
