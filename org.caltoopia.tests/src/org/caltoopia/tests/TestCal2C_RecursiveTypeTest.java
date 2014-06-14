@@ -1,5 +1,5 @@
 /* 
- * Copyright (c) Ericsson AB, 2014
+ * Copyright (c) Ericsson AB, 2013
  * All rights reserved.
  *
  * License terms:
@@ -34,76 +34,37 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace a:
-import ART.art_Sink_txt;
+package org.caltoopia.tests;
 
-    type T1 : A(int x, T1 y) | B end
+import static org.junit.Assert.*;
+import org.caltoopia.cli.Cal2C;
+import org.caltoopia.cli.CompilationSession;
+import org.junit.Test;
 
-    actor b() T1 i ==> T1 o, int p:
-    
-        initialize ==> o:[oo]
-        var
-            T1 oo
-        do
-            oo := T1::A(0, T1::B());
-        end
+public class TestCal2C_RecursiveTypeTest {
 
-        bool done := false;
+	@Test
+	public void test() {
+		String args[] = {"--top", "a.top", 
+				         "--path", Util.getCalAppsDir() + "RecursiveTypeTest" + ":" + Util.getCalAppsDir() + "System",
+				         "--output", Util.getOutputDir() + "RecursiveTypeTest",
+				         "--runtime", Util.getRuntimeDir(), "--clean"};
+		CompilationSession session = null;
+		try {
+			session = Cal2C.compile(args);
+			session.setWorkingDirectory(Util.getCalAppsDir() + "RecursiveTypeTest");
+			Util.build(session);
+			Util.run(session);
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+		if(!Util.goldCheck(session,
+				Util.getCalAppsDir() + "RecursiveTypeTest/" + 
+					"gold/recursiveTest.txt", 
+				Util.getCalAppsDir() + "RecursiveTypeTest/" +
+					"output/recursiveTest.txt")) {
+			fail("Output differs from gold vector!!!");
+		}
 
-        loop: action i:[a] ==> o:[oo], p:[pp]
-        guard not done
-        var
-            T1 oo,
-            int pp
-        do
-          case a of          
-            A(iix, iiy) guard iix < 10 
-              do 
-                oo := T1::A(iix+1, a);
-                pp := iix+1;
-              end    
-            A(iix, iiy) guard iix >= 10 
-              do 
-                oo := T1::A(11, a);
-                pp := -1;
-                done := true;
-              end
-          end
-        end                
-
-        final: action i:[a] ==> p:[pp]
-        guard done
-        var
-            T1 oo,
-            int pp
-        do
-          case a of          
-            A(iix, iiy)
-              do 
-                  case iiy of
-                    A(iix2, iiy2) guard iix2 = 10
-                      do 
-                        pp := -2;
-                      end    
-                    A(iix2, iiy2)
-                      do 
-                        pp := -10;
-                      end    
-                  end
-              end    
-          end
-        end
-
-    end
-
-    network top() ==>:
-    entities
-        f = b();
-        print = art_Sink_txt(fileName = "./output/recursiveTest.txt");
-        
-    structure
-        f.o --> f.i;
-        f.p --> print.In;
-    end
-
-end
+	}
+}
