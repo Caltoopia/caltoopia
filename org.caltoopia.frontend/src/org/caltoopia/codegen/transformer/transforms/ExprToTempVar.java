@@ -87,7 +87,9 @@ import org.caltoopia.ir.Scope;
 import org.caltoopia.ir.Statement;
 import org.caltoopia.ir.StmtAlternative;
 import org.caltoopia.ir.StringLiteral;
+import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeActor;
+import org.caltoopia.ir.TypeConstructorCall;
 import org.caltoopia.ir.TypeLambda;
 import org.caltoopia.ir.TypeList;
 import org.caltoopia.ir.TypeString;
@@ -418,6 +420,7 @@ public class ExprToTempVar extends IrReplaceSwitch {
         int pos;
         int inserts = 0;
         boolean multi = false;
+        boolean inAssignment = false;
         
         moveExpr(Statement s, int pos, List<Declaration> declarations, List<Statement> statements, Scope scope) {
             this.s=s;
@@ -450,7 +453,10 @@ public class ExprToTempVar extends IrReplaceSwitch {
                ((ListExpression)assign.getExpression()).getGenerators().isEmpty()) {
                 return assign;
             } else {
-                return super.caseAssign(assign);
+                inAssignment = true;
+                Statement a = super.caseAssign(assign);;
+                inAssignment = false;
+                return a;
             }
         }
 
@@ -494,6 +500,40 @@ public class ExprToTempVar extends IrReplaceSwitch {
                 return UtilIR.createExpression(scope, target);
             }
             return expr;
+        }
+
+        @Override 
+        public Expression caseExpression(Expression expression) {
+            /*
+             *  Only state in assigment for the top expression in an assignment. 
+             *  All the expressions calls this in IrReplaceSwitch first, hence
+             *  this class will see true in case of individual expressions 
+             *  before calling their super method.
+             */
+            inAssignment = false;
+            return super.caseExpression(expression);
+        }
+
+        @Override
+        public Expression caseTypeConstructorCall(TypeConstructorCall expr) {
+            Expression e = expr;
+            if(!inAssignment) {
+                e = super.caseTypeConstructorCall(expr);
+
+                Variable target = UtilIR.createVarDef(null, "__temp_" + e.getId(), e.getType());
+                target.setScope(scope);
+                TransUtil.setAnnotation(target, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
+                declarations.add(target);
+                Assign assign = UtilIR.createAssignN(scope, target, e);
+                TransUtil.setAnnotation(assign, "Variable", "VarLocalAccess", VarLocalAccess.temp.name());
+                FixMovedExpr.moveScope(e, scope, e.getContext(), false);
+
+                statements.add(pos+inserts, assign);
+                inserts++;
+
+                return UtilIR.createExpression(scope, target);
+            }
+            return super.caseTypeConstructorCall(expr);
         }
 
         @Override
