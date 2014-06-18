@@ -308,6 +308,7 @@ public class CPrintUtil {
                 }
             }
         } else if(UtilIR.isTuple(type)) {
+            //Only user only want sizeof scalar builtin types.
             CodegenError.err("CPrintUtil", "Not yet implemented tuple with multiple tags (1) ");
         }
         final CEnvironment fcenv = cenv;

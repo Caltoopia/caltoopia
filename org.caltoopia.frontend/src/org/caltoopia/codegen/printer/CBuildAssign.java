@@ -334,8 +334,6 @@ public class CBuildAssign extends IrSwitch<Boolean> {
              * function expression (returning pointer)
              * all other expressions should have been converted
              * to temp var. (e.g. case expression)
-             * 
-             * FIXME make sure to update ExprToTempVar
              */
             if(assign.getExpression() instanceof VariableExpression || assign.getExpression() instanceof IfExpression) {
                 //Create copyStructT_t() call

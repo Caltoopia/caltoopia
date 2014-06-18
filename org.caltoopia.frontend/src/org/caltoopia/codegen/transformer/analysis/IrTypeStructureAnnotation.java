@@ -174,7 +174,7 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
                             CodegenError.err("Type struct annotation", "Not expecting a member " + decl.getName() +"."+ m.getName()+ "that is record to be " + tm.name());
 						}
 					} else if(UtilIR.isTuple(type)) {
-                        CodegenError.err("Type struct annotation", "Not yet implemented tuple with multiple tags (1) " + decl.getName() +"."+ m.getName());
+                        CodegenError.warn("Type struct annotation", "Not yet implemented tuple with multiple tags (1) " + decl.getName() +"."+ m.getName());
 					} else {
                         if(hasSize) {
     						TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, 
@@ -205,7 +205,7 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
                         CodegenError.err("Type struct annotation", "Not expecting a member " + decl.getName() +"."+ m.getName()+ "that is record to be " + tm.name());
                     }
     			} else {
-                    CodegenError.err("Type struct annotation", "Not yet implemented tuple with multiple tags (2) " + decl.getName() +"."+ m.getName());
+                    CodegenError.warn("Type struct annotation", "Not yet implemented tuple with multiple tags (2) " + decl.getName() +"."+ m.getName());
     			}
     		}
     		TransUtil.setAnnotation(decl,IrTransformer.TYPE_ANNOTATION, 
@@ -219,7 +219,7 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
         if(!(var.getDeclaration() instanceof Variable)) return var;
         Type t = ((Variable)var.getDeclaration()).getType();
         if(UtilIR.isMultiTagTuple(t)) {
-            CodegenError.err("Type struct annotation", "Not yet implemented tuple with multiple tags (3) ");
+            CodegenError.warn("Type struct annotation", "Not yet implemented tuple with multiple tags (3) ");
         }
         if(!find && UtilIR.isListOrSingleTagTuple(t)) {
             while(t instanceof TypeList) {
@@ -239,13 +239,13 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
                     if(UtilIR.isSingleTagTuple(t)) {
                         td = UtilIR.getTypeDeclaration(t);
                     } else if(UtilIR.isTuple(t)) {
-                        CodegenError.err("Type struct annotation", "Not yet implemented tuple with multiple tags (4) ");
+                        CodegenError.warn("Type struct annotation", "Not yet implemented tuple with multiple tags (4) ");
                     } else {
                         break;
                     }
                 }
             } else if(UtilIR.isTuple(t)) {
-                CodegenError.err("Type struct annotation", "Not yet implemented tuple with multiple tags (5) ");
+                CodegenError.warn("Type struct annotation", "Not yet implemented tuple with multiple tags (5) ");
             }
         }
         return var;
@@ -261,7 +261,7 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
             t = ((VariableExternal) decl).getType();
         }
         if(UtilIR.isMultiTagTuple(t)) {
-            CodegenError.err("Type struct annotation", "Not yet implemented tuple with multiple tags (6) ");
+            CodegenError.warn("Type struct annotation", "Not yet implemented tuple with multiple tags (6) ");
         }
         if(!find && UtilIR.isListOrSingleTagTuple(t)) {
             while(t instanceof TypeList) {
@@ -281,13 +281,13 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
                     if(UtilIR.isSingleTagTuple(t)) {
                         td = UtilIR.getTypeDeclaration(t);
                     } else if(UtilIR.isTuple(t)) {
-                        CodegenError.err("Type struct annotation", "Not yet implemented tuple with multiple tags (7) ");
+                        CodegenError.warn("Type struct annotation", "Not yet implemented tuple with multiple tags (7) ");
                     } else {
                         break;
                     }
                 }
             } else if(UtilIR.isTuple(t)) {
-                CodegenError.err("Type struct annotation", "Not yet implemented tuple with multiple tags (8) ");
+                CodegenError.warn("Type struct annotation", "Not yet implemented tuple with multiple tags (8) ");
             }
         }
         return var;

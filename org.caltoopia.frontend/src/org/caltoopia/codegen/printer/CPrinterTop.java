@@ -645,9 +645,6 @@ public class CPrinterTop extends IrSwitch<Stream> {
         for (int i = 0; i < actor.getInputPorts().size(); i++) {
             Port p = actor.getInputPorts().get(i);
             Type type=p.getType();
-            if(UtilIR.isMultiTagTuple(type)) {
-                CodegenError.err("CPrintTop", "Not yet implemented tuple with multiple tags (1) ");
-            }
             //User types is now references and hence also have a zero in first param
             s.print("{" + "0" + ", \"" + p.getName() + "\", ");
             if(UtilIR.isTuple(type)) {
@@ -686,9 +683,6 @@ public class CPrinterTop extends IrSwitch<Stream> {
         for (int i = 0; i < actor.getOutputPorts().size(); i++) {
             Port p = actor.getOutputPorts().get(i);         
             Type type=p.getType();
-            if(UtilIR.isMultiTagTuple(type)) {
-                CodegenError.err("CPrintTop", "Not yet implemented tuple with multiple tags (2) ");
-            }
             //User types is now references and hence also have a zero in first param
             s.print("{" + "0" + ", \"" + p.getName() + "\", ");
             if(UtilIR.isTuple(type)) {

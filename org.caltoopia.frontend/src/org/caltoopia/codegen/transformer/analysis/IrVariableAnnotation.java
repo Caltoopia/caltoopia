@@ -660,30 +660,18 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
 	private VarAccess findPortAccess(Type type, boolean isRepeat, int size) {
 		VarAccess va = VarAccess.unknown;
 		if(UtilIR.isList(type)) {
-			if(UtilIR.isSingleTagTuple(((TypeList)UtilIR.getType(type)).getType())) {
+			if(UtilIR.isTuple(((TypeList)UtilIR.getType(type)).getType())) {
 				va = VarAccess.listUserTypeSingle;
-            } else if(UtilIR.isTuple(((TypeList)UtilIR.getType(type)).getType())) {
-                //FIXME do we need special annotation for multi tag?
-                va = VarAccess.listUserTypeSingle;
-                CodegenError.err("Variable Annotation", "Not yet implemented tuple with multiple tags (1) ");
 			} else {
 				va = VarAccess.listSingle;
 			}
 		} else {
-			if(UtilIR.isSingleTagTuple(type)) {
+			if(UtilIR.isTuple(type)) {
 				if(isRepeat) {
 					va = VarAccess.listUserTypeSingle;
 				} else {
 					va = VarAccess.scalarUserTypeSingle;
 				}
-            } else if(UtilIR.isTuple(type)) {
-                //FIXME do we need special annotation for multi tag?
-                if(isRepeat) {
-                    va = VarAccess.listUserTypeSingle;
-                } else {
-                    va = VarAccess.scalarUserTypeSingle;
-                }
-                CodegenError.err("Variable Annotation", "Not yet implemented tuple with multiple tags (2) ");
 			} else {
 				if(isRepeat) {
 					va = VarAccess.listSingle;
@@ -864,10 +852,6 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
                         type = ((TypeList)type).getType();
                     }
                     if(UtilIR.isTuple(type)) {
-                        if(UtilIR.isMultiTagTuple(type)) {
-                            //FIXME do we need special annotation for multi tag?
-                            CodegenError.err("Variable Annotation", "FIXME do we need special annotation for multi tag? (3) ");
-                        }
                         if(tDim>1) {
                             if(dim<(tDim-1)) {
                                 vla = VarLocalAccess.listMultiUserType;
@@ -902,10 +886,6 @@ public class IrVariableAnnotation extends IrReplaceSwitch {
                     }
                 } else {
                     if(UtilIR.isTuple(type)) {
-                        //FIXME do we need special annotation for multi tag?
-                        if(UtilIR.isMultiTagTuple(type)) {
-                            CodegenError.err("Variable Annotation", "FIXME do we need special annotation for multi tag? (4) ");
-                        }
                         vla = VarLocalAccess.scalarUserType;
                     } else if(type instanceof TypeString) {
                         vla = VarLocalAccess.string;

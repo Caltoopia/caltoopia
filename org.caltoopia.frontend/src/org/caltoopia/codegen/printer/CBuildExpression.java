@@ -799,23 +799,21 @@ public class CBuildExpression extends IrSwitch<Boolean> {
     @Override
     public Boolean caseTypeConstructorCall(TypeConstructorCall expr) {
         enter(expr);
-        if(UtilIR.isMultiTagTuple(expr.getType())) {
-            CodegenError.err("CBuildExpression", "Not yet implemented tuple with multiple tags in type constructor ");
-        }
+        CodegenError.err("CBuildExpression", "All type constructor calls should have been converted!!!");
         VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(expr, IrTransformer.VARIABLE_ANNOTATION, "VarType"));
         VarAccess varAccess = VarAccess.valueOf(TransUtil.getAnnotationArg(expr, IrTransformer.VARIABLE_ANNOTATION, "VarAccess"));
         String typeUsage = TransUtil.getAnnotationArg(expr, IrTransformer.TYPE_ANNOTATION, "TypeUsage");
         //A type constructor call is printed as &(type){flags,tag,member1,member2,...}, the c-compiler figures out the implicit {} to reach the members part of the structure
-        exprStr += "&((" + CPrintUtil.validCName(expr.getTypedef().getName()) + "_t) ";
+        exprStr += "/*FIXME code transformation missed this one*/&((" + CPrintUtil.validCName(expr.getTypedef().getName()) + "_t) ";
         exprStr += ("{");
         exprStr += "0x0, "; //Flag allocated on the stack
-        exprStr += "0, "; //FIXME Tuple tag
+        exprStr += new CBuildTypeName(expr.getType(), new CPrintUtil.dummyCB(), false).asTagNameStr(expr.getName()==null?"0":expr.getName()) +", ";
         for(Iterator<Expression> i= ((TypeConstructorCall) expr).getParameters().iterator();i.hasNext();) {
             Expression e = i.next();
             exprStr += new CBuildExpression(e,cenv,false,false,true).toStr();
             if(i.hasNext()) exprStr += ", ";
         }
-        exprStr += ("})");               
+        exprStr += ("})");
         leave();
         return true;
     }

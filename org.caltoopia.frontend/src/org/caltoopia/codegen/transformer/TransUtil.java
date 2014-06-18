@@ -63,9 +63,12 @@ import org.caltoopia.ir.LiteralExpression;
 import org.caltoopia.ir.Namespace;
 import org.caltoopia.ir.Node;
 import org.caltoopia.ir.Scope;
+import org.caltoopia.ir.TaggedTuple;
 import org.caltoopia.ir.Type;
 import org.caltoopia.ir.TypeConstructorCall;
+import org.caltoopia.ir.TypeDeclaration;
 import org.caltoopia.ir.TypeList;
+import org.caltoopia.ir.TypeTuple;
 import org.caltoopia.ir.Variable;
 import org.caltoopia.ir.VariableExpression;
 import org.caltoopia.ir.VariableImport;
@@ -496,17 +499,19 @@ public class TransUtil {
            }
            t = ((TypeList)t).getType();
        }
-       if(ret && UtilIR.isSingleTagTuple(t)) {
-           t = UtilIR.getType(t);
-           for(Variable v: UtilIR.getMembers(t)) {
-               if(!allFixedLength(v.getType())) {
-                   ret = false;
+       if(ret && UtilIR.isTuple(t)) {
+           TypeTuple tt = (TypeTuple) UtilIR.getType(t);
+           for(TaggedTuple tag:tt.getTaggedTuples()) {
+               for(Variable v:tag.getFields()) {
+                   if(!allFixedLength(v.getType())) {
+                       ret = false;
+                       break;
+                   }
+               }
+               if(!ret) {
                    break;
                }
            }
-       } else if(ret && UtilIR.isTuple(t)) {
-           //TODO handle tuples that don't look like legacy records
-           CodegenError.err("TransUtil", "allFixedLength run into a tuple with more than one tag - not yet implemented");
        }
        return ret;
    }

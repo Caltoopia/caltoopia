@@ -175,10 +175,6 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
 		}
 		TypeDeclaration td=null;
 		if(UtilIR.isTuple(type)) {
-		    //FIXME check if we need seperate code for multi tag
-            if(UtilIR.isMultiTagTuple(type)) {
-                CodegenError.err("IrVariablePlacementAnnotation", "FIXME check if we need seperate code for multi tag (1) ");
-            }
             td = UtilIR.getTypeDeclaration(type);
 			Annotation typeAnnotation = TransUtil.getAnnotation(td,IrTransformer.TYPE_ANNOTATION);
 			if(!typeAnnotation.getArguments().isEmpty()) {
