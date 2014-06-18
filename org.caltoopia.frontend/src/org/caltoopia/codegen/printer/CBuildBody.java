@@ -183,21 +183,19 @@ public class CBuildBody extends IrSwitch<Boolean> {
              */
             boolean retValue = TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarAssign").equals(IrVariableAnnotation.VarAssign.movedRetAssigned.name());
             VarType varType = VarType.valueOf(TransUtil.getAnnotationArg(d, IrTransformer.VARIABLE_ANNOTATION, "VarType"));            
-            if(!retValue && !Arrays.asList(VarType.funcInParamVar, VarType.procInParamVar, VarType.procOutParamVar).contains(varType)) {
+            if(!retValue && !Arrays.asList(VarType.funcInParamVar, VarType.procInParamVar, VarType.procOutParamVar, VarType.exprAltConstVar, VarType.blockConstVar).contains(varType)) {
                 if((d instanceof Variable) && UtilIR.isList(((Variable)d).getType())) {
                     VariableReference varRef = UtilIR.createVarRef((Variable) d);
                     TransUtil.copySelectedAnnotations(varRef, d, new TransUtil.AnnotationsFilter(IrTransformer.VARIABLE_ANNOTATION, new String[]{"VarPlacement","VarType"}));
                     CBuildVarReference cVarRefF = new CBuildVarReference(varRef , cenv, false, true);
                     String varStrF = cVarRefF.toStr();
                     bodyStr += ind.ind() + "free" + new CBuildTypeName(((Variable)d).getType(), new CPrintUtil.dummyCB(), false).asNameStr() + "(&" + varStrF + ", TRUE);" + ind.nl();
-                } else if((d instanceof Variable) && UtilIR.isSingleTagTuple(((Variable)d).getType())) {
+                } else if((d instanceof Variable) && UtilIR.isTuple(((Variable)d).getType())) {
                     VariableReference varRef = UtilIR.createVarRef((Variable) d);
                     TransUtil.copySelectedAnnotations(varRef, d, new TransUtil.AnnotationsFilter(IrTransformer.VARIABLE_ANNOTATION, new String[]{"VarPlacement","VarType"}));
                     CBuildVarReference cVarRefF = new CBuildVarReference(varRef , cenv, false, true);
                     String varStrF = cVarRefF.toStr();
                     bodyStr += ind.ind() + "freeStruct" + new CBuildTypeName(((Variable)d).getType(), new CPrintUtil.dummyCB(), false).asNameStr() + "(" + varStrF + ", TRUE);" + ind.nl();
-                } else if((d instanceof Variable) && UtilIR.isTuple(((Variable)d).getType())) {
-                    CodegenError.err("Body builder", "Not yet implemented tuple with multiple tags");
                 }
             }
         }
