@@ -43,4 +43,7 @@ public class CodegenError {
     static public void info(String id, String msg) {
         System.out.println("I["+ id + "] " + msg);
     }
+    static public void warn(String id, String msg) {
+        System.out.println("W["+ id + "] " + msg);
+    }
 }
