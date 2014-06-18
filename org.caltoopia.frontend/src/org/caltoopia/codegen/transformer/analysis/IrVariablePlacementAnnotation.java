@@ -156,7 +156,23 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
         fifoDeepFifo,
 	}
 	
-	@Override
+    @Override
+    public EObject caseVariableImport(VariableImport var) {
+        //Get annotations
+        Annotation varAnnotation = TransUtil.getAnnotation(var,IrTransformer.VARIABLE_ANNOTATION);
+        Map<String,String> annotations = new HashMap<String,String>();
+        for(AnnotationArgument aa:varAnnotation.getArguments()) {
+            annotations.put(aa.getId(), aa.getValue());
+        }
+        VarPlacement placement = VarPlacement.unknown;
+        if(IrVariableAnnotation.VarType.importConstVar.name().equals(annotations.get("VarType"))) {
+            placement = VarPlacement.constant;
+        }
+        TransUtil.setAnnotation(varAnnotation,"VarPlacement",placement.name());
+
+        return super.caseVariableImport(var);
+    }
+        @Override
 	public Declaration caseVariable(Variable var) {
 		//Get annotations
 		Annotation varAnnotation = TransUtil.getAnnotation(var,IrTransformer.VARIABLE_ANNOTATION);
@@ -218,6 +234,7 @@ public class IrVariablePlacementAnnotation extends IrReplaceSwitch {
                 IrVariableAnnotation.VarType.blockVar.name(), 
 				IrVariableAnnotation.VarType.procVar.name(), 
 				IrVariableAnnotation.VarType.actionVar.name(),
+				IrVariableAnnotation.VarType.guardInitPeekDepVar.name(),
 				IrVariableAnnotation.VarType.actionInitInDepVar.name()).contains(annotations.get("VarType"))) {
 		    switch (TypeMember.valueOf(annotations.get("TypeStructure"))) {
 		    case scalarBuiltin:
