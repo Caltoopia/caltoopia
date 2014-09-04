@@ -41,10 +41,12 @@ import java.util.Map;
 
 import org.caltoopia.cli.ActorDirectory;
 import org.caltoopia.cli.DirectoryException;
+import org.caltoopia.codegen.UtilIR;
 import org.caltoopia.ir.AbstractActor;
 import org.caltoopia.ir.Actor;
 import org.caltoopia.ir.Declaration;
 import org.caltoopia.ir.ForwardDeclaration;
+import org.caltoopia.ir.ForwardTypeDeclaration;
 import org.caltoopia.ir.Member;
 import org.caltoopia.ir.Network;
 import org.caltoopia.ir.ProcExpression;
@@ -131,24 +133,29 @@ public class TypeMatchDeclaration extends IrReplaceSwitch {
 	
     private Type replaceDirectTypeWithLocalImport(Type type) {
         if(type instanceof TypeUser) {
-            found.put(((TypeUser) type).getDeclaration().getId(),(((TypeUser) type).getDeclaration() instanceof TypeDeclarationImport?"I_":"R_") +((TypeUser) type).getDeclaration().getName());
-        }
-        //Replace any direct declarations with import declarations
-        if(type instanceof TypeUser && ((TypeUser) type).getDeclaration() instanceof TypeDeclaration) {
-            String id = ((TypeUser) type).getDeclaration().getId();
-            Declaration typeImport = null;
-            for(Declaration d: imports.keySet()) {
-                if(d.getId().equals(id)) {
-                    typeImport = imports.get(d);
-                    break;
-                }
+            Declaration typeDecl = ((TypeUser) type).getDeclaration();
+            if (typeDecl instanceof ForwardTypeDeclaration) {
+                typeDecl = ((ForwardTypeDeclaration) typeDecl).getDeclaration();
+                ((TypeUser) type).setDeclaration(typeDecl);
             }
-            if(typeImport!=null) {
-                ((TypeUser) type).setDeclaration(typeImport);
-                if(debugPrint) {
-                    System.out.println("[TypeMatchDeclaration] Replace direct " +
-                            ((TypeUser) type).getDeclaration().getId()+ " " +
-                            ((TypeUser) type).getDeclaration().getName());
+            found.put(typeDecl.getId(),(typeDecl instanceof TypeDeclarationImport?"I_":"R_") +typeDecl.getName());
+            //Replace any direct declarations with import declarations
+            if(typeDecl instanceof TypeDeclaration) {
+                String id = ((TypeUser) type).getDeclaration().getId();
+                Declaration typeImport = null;
+                for(Declaration d: imports.keySet()) {
+                    if(d.getId().equals(id)) {
+                        typeImport = imports.get(d);
+                        break;
+                    }
+                }
+                if(typeImport!=null) {
+                    ((TypeUser) type).setDeclaration(typeImport);
+                    if(debugPrint) {
+                        System.out.println("[TypeMatchDeclaration] Replace direct " +
+                                ((TypeUser) type).getDeclaration().getId()+ " " +
+                                ((TypeUser) type).getDeclaration().getName());
+                    }
                 }
             }
         }
@@ -156,6 +163,10 @@ public class TypeMatchDeclaration extends IrReplaceSwitch {
     }
 	
 	private Type replaceNonLocalImport(Type type) {
+        if (type instanceof TypeUser && ((TypeUser) type).getDeclaration() instanceof ForwardTypeDeclaration) {
+            Declaration typeDecl = ((ForwardTypeDeclaration) ((TypeUser) type).getDeclaration()).getDeclaration();
+            ((TypeUser) type).setDeclaration(typeDecl);
+        }
 		//Replace any import declaration that does not refer to imports in this file
 		if(type instanceof TypeUser && ((TypeUser) type).getDeclaration() instanceof TypeDeclarationImport
 				&& !imports.containsValue(((TypeUser) type).getDeclaration())) {

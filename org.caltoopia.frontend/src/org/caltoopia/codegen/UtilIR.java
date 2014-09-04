@@ -487,6 +487,7 @@ public class UtilIR {
 	
 	static public List<Variable> getMembers(Type type) {
 		if(isSingleTagTuple(type)) {
+		    type = getType(type);
 			return ((TypeTuple)type).getTaggedTuples().get(0).getFields();
 		} else {
 			return new ArrayList<Variable>();
