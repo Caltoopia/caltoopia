@@ -229,7 +229,7 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
                 TypeDeclaration td = UtilIR.getTypeDeclaration(t);
                 for(Member m: var.getMember()) {
                     String typeStructure = structs.get(td.getId() + "__" + m.getName());
-                    if(!typeStructure.isEmpty()) {
+                    if(!(typeStructure==null) && !typeStructure.isEmpty()) {
                         TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, "TypeStructure", typeStructure);
                     }
                     t = m.getType();
@@ -271,7 +271,7 @@ public class IrTypeStructureAnnotation extends IrReplaceSwitch {
                 TypeDeclaration td = UtilIR.getTypeDeclaration(t);
                 for(Member m: var.getMember()) {
                     String typeStructure = structs.get(td.getId() + "__" + m.getName());
-                    if(!typeStructure.isEmpty()) {
+                    if(!(typeStructure==null) && !typeStructure.isEmpty()) {
                         TransUtil.setAnnotation(m,IrTransformer.TYPE_ANNOTATION, "TypeStructure", typeStructure);
                     }
                     t = m.getType();
