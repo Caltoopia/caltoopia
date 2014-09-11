@@ -125,7 +125,7 @@ public class CBuildVarDeclaration extends IrSwitch<Boolean> {
         if(!res) {
             CodegenError.err("Var declaration builder", vtypeStr + " " + varStr);
         }
-        return (onlyVar?"":vtypeStr + " ") + varStr + dimStr;
+        return (onlyVar?"":vtypeStr + " ") + varStr + (onlyVar?"":dimStr);
     }
     
     /*
