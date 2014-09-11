@@ -36,25 +36,35 @@
 
 package org.caltoopia.tests;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import static org.junit.Assert.*;
+import org.caltoopia.cli.Cal2C;
+import org.caltoopia.cli.CompilationSession;
+import org.junit.Test;
 
-@RunWith(Suite.class)
-@SuiteClasses({ 
-	TestCal2C_VoxBox1.class, 
-	TestCal2C_VoxBox2a.class, 
-	TestCal2C_VoxBox2b.class, 
-	TestCal2C_VoxBox3a.class, 
-	//TestCal2C_VoxBox3b.class, 
-	TestCal2C_VoxBox3c.class, 
-	TestCal2C_VoxBox3d.class, 
-	TestCal2C_VoxBox4a.class, 
-	TestCal2C_VoxBox4b.class, 
-	TestCal2C_RVC.class,
-	TestCal2C_CaseTest.class,
-	TestCal2C_CaseTestExpr.class,
-	TestCal2C_RecursiveTypeTest.class})
-public class AllTests {
+public class TestCal2C_StructTest {
 
+	//@Test
+	public void test() {
+		String args[] = {"--top", "a.top", 
+				         "--path", Util.getCalAppsDir() + "StructTest" + ":" + Util.getCalAppsDir() + "System",
+				         "--output", Util.getOutputDir() + "StructTest",
+				         "--runtime", Util.getRuntimeDir(), "--clean"};
+		CompilationSession session = null;
+		try {
+			session = Cal2C.compile(args);
+			session.setWorkingDirectory(Util.getCalAppsDir() + "StructTest");
+			Util.build(session);
+			Util.run(session);
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+		if(!Util.goldCheck(session,
+				Util.getCalAppsDir() + "CaseTest/" + 
+					"gold/caseTest.txt", 
+				Util.getCalAppsDir() + "CaseTest/" +
+					"output/caseTest.txt")) {
+			fail("Output differs from gold vector!!!");
+		}
+
+	}
 }

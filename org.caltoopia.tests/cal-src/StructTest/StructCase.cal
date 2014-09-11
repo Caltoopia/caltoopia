@@ -1,5 +1,5 @@
 /* 
- * Copyright (c) Ericsson AB, 2013
+ * Copyright (c) Ericsson AB, 2014
  * All rights reserved.
  *
  * License terms:
@@ -34,27 +34,57 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.caltoopia.tests;
+namespace a:
+import ART.art_Sink_txt;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+    type T1 : (int x, float y) end
+    type T2 : (T1 z, int z2) end
+  
+    actor b(T2 init) T2 i ==> T2 o, int p:
+    
+        initialize ==> o:[oo]
+        var
+            T2 oo
+        do
+            oo := init;
+        end
 
-@RunWith(Suite.class)
-@SuiteClasses({ 
-	TestCal2C_VoxBox1.class, 
-	TestCal2C_VoxBox2a.class, 
-	TestCal2C_VoxBox2b.class, 
-	TestCal2C_VoxBox3a.class, 
-	//TestCal2C_VoxBox3b.class, 
-	TestCal2C_VoxBox3c.class, 
-	TestCal2C_VoxBox3d.class, 
-	TestCal2C_VoxBox4a.class, 
-	TestCal2C_VoxBox4b.class, 
-	TestCal2C_RVC.class,
-	TestCal2C_CaseTest.class,
-	TestCal2C_CaseTestExpr.class,
-	TestCal2C_RecursiveTypeTest.class})
-public class AllTests {
+        bool done := false;
 
-}
+        loop: action i:[a] ==> o:[oo], p:[oo.z.x]
+        guard not done
+        var
+            T2 oo
+        do
+          if (a.z.x < 10) then 
+            oo := a;
+            oo.z.x := oo.z.x + 1;
+          else 
+            oo := T2(T1(a.z.x + 1, -1), 0); 
+            done := true;
+          end
+        end                
+  
+//        stop: action i:[a] ==> 
+//        guard a.z.y < 0 do
+//        end
+
+ /*
+        priority 
+          stop > loop;
+        end  
+*/
+    end
+    
+    
+    network top() ==>:
+    entities
+        f = b(init = T2(T1(0, 0.0), 1));
+        print = art_Sink_txt(fileName = "./output/caseTest.txt");
+        
+    structure
+        f.o --> f.i;
+        f.p --> print.In;
+    end
+
+end
