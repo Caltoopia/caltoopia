@@ -43,7 +43,7 @@ import org.junit.Test;
 
 public class TestCal2C_StructTest {
 
-	//@Test
+	@Test
 	public void test() {
 		String args[] = {"--top", "a.top", 
 				         "--path", Util.getCalAppsDir() + "StructTest" + ":" + Util.getCalAppsDir() + "System",
