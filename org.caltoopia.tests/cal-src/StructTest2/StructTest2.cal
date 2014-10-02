@@ -37,41 +37,45 @@
 namespace a:
 import ART.art_Sink_txt;
 
-    type T1 : A(int x, int y) | B() end
-    type T2 : C(T1 z, int z2) | D() end
+    type T1 : A(int x, int y) | B(int z, bool w) end
 
-    actor b(T2 init) T2 i ==> T2 o, int p:
+    actor b(T1 init) T1 i ==> T1 o, int p:
     
       initialize ==> o:[oo]
       var
-          T2 oo
+          T1 oo
       do
           oo := init;
       end
 
-      loop: action i:[a] ==> o:[oo], p:[oo.z.x]
+      loop: action i:[A(x, y)] ==> o:[oo], p:[i]
       var
-        T2 oo
+        T1 oo, 
+        int i
       do
-        if (a.z.x < 10) then 
-          oo := a;
-          oo.z.x := oo.z.x + 1;
+        i := x + 1;
+        if x < 9 then 
+          oo := T1::A(x + 1, 0);
         else 
-          oo := T2::C(T1::A(-1, -1), 0); 
+          oo := T1::B(1, false);
         end
       end                
   
-      stop: action i:[T2(T1(_, (-1)), _)] ==> p:[-2]       
+      stop: action i:[B(1, _)] ==> o:[oo], p:[-1]  
+      var 
+        T1 oo
+      do
+        oo := T1::B(2, true);     
       end
 
-      priority 
-        stop > loop;
-      end  
+      the_end : action i:[B(_, true)] ==> p:[-2]  
+      end
+
     end
     
     network top() ==>:
     entities
-      f = b(init = T2::C(T1::A(0, 0.0), 1));
+      f = b(init = T1::A(0, 0));
       print = art_Sink_txt(fileName = "./output/structTest2.txt");
         
     structure
