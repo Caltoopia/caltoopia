@@ -59,10 +59,10 @@ public class TestCal2C_StructTest {
 			fail(e.getMessage());
 		}
 		if(!Util.goldCheck(session,
-				Util.getCalAppsDir() + "CaseTest/" + 
-					"gold/caseTest.txt", 
-				Util.getCalAppsDir() + "CaseTest/" +
-					"output/caseTest.txt")) {
+				Util.getCalAppsDir() + "structTest/" + 
+					"gold/structTest.txt", 
+				Util.getCalAppsDir() + "structTest/" +
+					"output/structTest.txt")) {
 			fail("Output differs from gold vector!!!");
 		}
 

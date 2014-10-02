@@ -37,7 +37,7 @@
 namespace a:
 import ART.art_Sink_txt;
 
-    type T1 : (int x, float y) end
+    type T1 : (int x, int y) end
     type T2 : (T1 z, int z2) end
   
     actor b(T2 init) T2 i ==> T2 o, int p:
@@ -49,10 +49,7 @@ import ART.art_Sink_txt;
             oo := init;
         end
 
-        bool done := false;
-
         loop: action i:[a] ==> o:[oo], p:[oo.z.x]
-        guard not done
         var
             T2 oo
         do
@@ -60,27 +57,23 @@ import ART.art_Sink_txt;
             oo := a;
             oo.z.x := oo.z.x + 1;
           else 
-            oo := T2(T1(a.z.x + 1, -1), 0); 
-            done := true;
+            oo := T2(T1(-1, -1), 0); 
           end
         end                
   
-//        stop: action i:[a] ==> 
-//        guard a.z.y < 0 do
-//        end
+        stop: action i:[a] ==> p:[-2]
+        guard a.z.y = -1 do
+        end
 
- /*
         priority 
           stop > loop;
         end  
-*/
     end
-    
     
     network top() ==>:
     entities
         f = b(init = T2(T1(0, 0.0), 1));
-        print = art_Sink_txt(fileName = "./output/caseTest.txt");
+        print = art_Sink_txt(fileName = "./output/structTest.txt");
         
     structure
         f.o --> f.i;
